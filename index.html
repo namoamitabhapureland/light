@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
@@ -10,29 +9,33 @@
 <meta name="description" content="一個純粹給予溫度的空間。把心裡的雨下在這裡吧。">
 <style>
 :root {
-  --cream:#FDF8F3; --warm:#FAF4EE;
+  --cream:#FDF8F3; --warm:#FAF4EE; --parchment:#F2E8DA;
   --gold:#C8956A; --gold-s:#D4AA82; --gold-p:#EDD9BF;
-  --rose:#C9968E; --sage:#8A9E94; --sky:#8AACBD;
+  --rose:#C9968E; --rose-p:#EDD5D1;
+  --sage:#8A9E94; --sage-p:#D3E0DA;
+  --sky:#8AACBD; --sky-p:#D1E4EE;
+  --amber:#C4A46A;
   --text:#5C4E44; --ts:#9E8E84; --tm:#BFB0A8;
-  --glass:rgba(255,255,255,.65); --glassb:rgba(255,255,255,.9);
+  --glass:rgba(255,255,255,.62); --glassb:rgba(255,255,255,.88);
   --sh:0 8px 32px rgba(160,130,110,.12);
-  /* 字體基準放大 */
-  font-size: 17px;
+  --sh-lg:0 16px 48px rgba(160,130,110,.18);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 html,body{margin:0;padding:0;width:100%;min-height:100dvh;
   background:var(--warm);color:var(--text);
   font-family:-apple-system,"PingFang TC","Helvetica Neue",sans-serif;
-  overflow-x:hidden;-webkit-user-select:none;user-select:none;}
+  overflow-x:hidden;-webkit-user-select:none;user-select:none;
+  font-size: 18px; /* 全站字體微調放大 */
+}
 
-body::before{content:’’;position:fixed;inset:0;
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
 background:
 radial-gradient(ellipse 70% 50% at 18% 8%,rgba(212,170,130,.18) 0%,transparent 60%),
 radial-gradient(ellipse 50% 40% at 85% 22%,rgba(201,150,142,.12) 0%,transparent 55%),
 radial-gradient(ellipse 55% 45% at 50% 88%,rgba(138,172,189,.1) 0%,transparent 55%);
 pointer-events:none;z-index:0;}
 
-/* 光粒子 */
+/* 浮動光粒子 */
 .pt{position:fixed;border-radius:50%;pointer-events:none;z-index:1;
 background:radial-gradient(circle,rgba(200,149,106,.55),transparent);}
 .p1{width:4px;height:4px;top:14%;left:10%;animation:fl1 8s infinite ease-in-out;}
@@ -40,7 +43,7 @@ background:radial-gradient(circle,rgba(200,149,106,.55),transparent);}
 .p3{width:5px;height:5px;top:62%;left:18%;animation:fl1 9s 2s infinite ease-in-out;background:radial-gradient(circle,rgba(201,150,142,.5),transparent);}
 .p4{width:3px;height:3px;top:78%;left:74%;animation:fl2 7s 1s infinite ease-in-out;background:radial-gradient(circle,rgba(138,172,189,.5),transparent);}
 .p5{width:4px;height:4px;top:48%;left:4%;animation:fl1 12s 3s infinite ease-in-out;}
-.p6{width:3px;height:3px;top:22%;left:54%;animation:fl2 10s 4s infinite ease-in-out;}
+.p6{width:3px;height:3px;top:22%;left:54%;animation:fl2 10s 4s infinite ease-in-out;background:radial-gradient(circle,rgba(201,150,142,.4),transparent);}
 @keyframes fl1{0%,100%{transform:translateY(0) scale(1);opacity:.6;}50%{transform:translateY(-18px) scale(1.2);opacity:1;}}
 @keyframes fl2{0%,100%{transform:translateY(0) scale(1);opacity:.4;}50%{transform:translateY(-12px) scale(1.3);opacity:.8;}}
 
@@ -51,227 +54,262 @@ display:flex;flex-direction:column;align-items:center;min-height:100dvh;}
 /* 頂部 */
 .top{width:100%;padding:max(18px,env(safe-area-inset-top)) 0 14px;
 display:flex;justify-content:space-between;align-items:center;}
-.top-logo{font-size:.75rem;letter-spacing:4px;color:var(–tm);font-weight:300;}
-.top-btn{width:40px;height:40px;border-radius:50%;background:var(–glass);
+.top-logo{font-size:.7rem;letter-spacing:4px;color:var(--tm);font-weight:300;}
+.top-btn{width:38px;height:38px;border-radius:50%;background:var(--glass);
 backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-border:1px solid var(–glassb);display:flex;align-items:center;justify-content:center;
-cursor:pointer;transition:.2s;box-shadow:var(–sh);}
+border:1px solid var(--glassb);display:flex;align-items:center;justify-content:center;
+cursor:pointer;transition:.2s;box-shadow:var(--sh);}
 .top-btn:active{transform:scale(.9);}
-.top-btn svg{width:18px;height:18px;stroke:var(–ts);fill:none;stroke-width:1.8;}
+.top-btn svg{width:17px;height:17px;stroke:var(--ts);fill:none;stroke-width:1.8;}
 
 /* 英雄區 */
 .hero{width:100%;display:flex;flex-direction:column;align-items:center;
-padding:12px 0 22px;animation:fadeUp .9s ease-out;}
+padding:16px 0 24px;animation:fadeUp .9s ease-out;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
 
 .embrace-wrap{width:200px;height:200px;display:flex;align-items:center;justify-content:center;
 position:relative;margin-bottom:18px;}
-.embrace-wrap::before{content:’’;position:absolute;width:190px;height:190px;border-radius:50%;
+.embrace-wrap::before{content:'';position:absolute;width:188px;height:188px;border-radius:50%;
 background:radial-gradient(circle,rgba(212,170,130,.14) 0%,transparent 70%);
 animation:bRing 4s infinite ease-in-out;}
 @keyframes bRing{0%,100%{transform:scale(1);opacity:.6;}50%{transform:scale(1.08);opacity:1;}}
 
-/* 精靈動畫 */
-.sprite-blue{animation:leanR 3.5s infinite alternate ease-in-out;transform-origin:50% 80%;}
-.sprite-pink{animation:leanL 3.5s infinite alternate ease-in-out;transform-origin:50% 80%;}
-@keyframes leanR{0%{transform:translateX(-8px) rotate(-3deg);}100%{transform:translateX(8px) rotate(4deg);}}
-@keyframes leanL{0%{transform:translateX(8px) rotate(3deg);}100%{transform:translateX(-8px) rotate(-4deg);}}
+/* 雙精靈動畫設定 */
+.sprite-blue { transform-origin: 100px 150px; animation: leanRight 3.5s infinite alternate ease-in-out; }
+.sprite-pink { transform-origin: 100px 150px; animation: leanLeft 3.5s infinite alternate ease-in-out; }
+@keyframes leanRight { 0% { transform: translate(10px, 0) rotate(0deg) scale(1); } 100% { transform: translate(30px, 0) rotate(6deg) scale(1.02); } }
+@keyframes leanLeft { 0% { transform: translate(70px, 0) rotate(0deg) scale(1); } 100% { transform: translate(50px, 0) rotate(-6deg) scale(1.02); } }
 
-.hero-svg{width:190px;height:190px;filter:drop-shadow(0 8px 22px rgba(200,149,106,.22));}
-
-.h-title{font-size:2rem;font-weight:300;letter-spacing:8px;color:var(–text);
+.h-title{font-size:1.8rem;font-weight:300;letter-spacing:8px;color:var(--text);
 margin-bottom:6px;text-align:center;}
-.h-sub{font-size:.95rem;color:var(–ts);letter-spacing:3px;font-weight:300;
+.h-sub{font-size:.88rem;color:var(--ts);letter-spacing:3px;font-weight:300;
 text-align:center;line-height:1.7;margin-bottom:4px;}
-.h-quote{font-size:.8rem;color:var(–tm);letter-spacing:1px;text-align:center;
-line-height:1.9;margin-bottom:18px;padding:0 10px;font-style:italic;}
+.h-quote{font-size:.72rem;color:var(--tm);letter-spacing:1px;text-align:center;
+line-height:1.8;margin-bottom:18px;padding:0 10px;font-style:italic;}
 
 /* 統計 */
 .stats{display:flex;gap:16px;margin-bottom:26px;}
-.spi{display:flex;align-items:center;gap:8px;padding:8px 18px;
-background:var(–glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-border:1px solid rgba(255,255,255,.8);border-radius:22px;box-shadow:var(–sh);}
+.spi{display:flex;align-items:center;gap:8px;padding:7px 16px;
+background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,.8);border-radius:20px;box-shadow:var(--sh);}
 .sd{width:7px;height:7px;border-radius:50%;animation:pulse 2.5s infinite ease-in-out;}
-.sd-g{background:var(–gold);} .sd-r{background:var(–rose);animation-delay:.8s;}
+.sd-g{background:var(--gold);} .sd-r{background:var(--rose);animation-delay:.8s;}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:.7;}50%{transform:scale(1.4);opacity:1;}}
-.st{font-size:.75rem;color:var(–ts);letter-spacing:1px;}
-.sn{font-size:.95rem;font-weight:500;color:var(–text);}
+.st{font-size:.7rem;color:var(--ts);letter-spacing:1px;}
+.sn{font-size:.88rem;font-weight:500;color:var(--text);}
 
-/* 四需求 */
+/* 四個需求入口 */
 .need-sec{width:100%;margin-bottom:22px;}
-.sec-lbl{font-size:.7rem;letter-spacing:4px;color:var(–tm);text-align:center;margin-bottom:12px;}
+.sec-lbl{font-size:.63rem;letter-spacing:4px;color:var(--tm);text-align:center;margin-bottom:12px;}
 .need-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.nc{background:var(–glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-border:1.5px solid rgba(255,255,255,.88);border-radius:20px;
+.nc{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+border:1.5px solid rgba(255,255,255,.85);border-radius:20px;
 padding:18px 10px;display:flex;flex-direction:column;align-items:center;gap:9px;
-cursor:pointer;transition:.3s;box-shadow:var(–sh);}
+cursor:pointer;transition:.3s;box-shadow:var(--sh);position:relative;overflow:hidden;}
 .nc:active{transform:scale(.95);}
-.nc.sel{border-color:var(–gold-s);background:rgba(255,255,255,.92);
+.nc.sel{border-color:var(--gold-s);background:rgba(255,255,255,.9);
 box-shadow:0 8px 25px rgba(200,149,106,.22);}
-.ni{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
-.ni svg{width:25px;height:25px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
-.nl{font-size:.88rem;letter-spacing:2px;color:var(–text);text-align:center;}
-.nsb{font-size:.68rem;color:var(–tm);letter-spacing:1px;text-align:center;line-height:1.4;}
-.nc-hug .ni{background:rgba(201,150,142,.13);} .nc-hug .ni svg{stroke:var(–rose);}
-.nc-listen .ni{background:rgba(200,149,106,.11);} .nc-listen .ni svg{stroke:var(–gold);}
-.nc-care .ni{background:rgba(138,172,189,.13);} .nc-care .ni svg{stroke:var(–sky);}
-.nc-echo .ni{background:rgba(138,158,148,.11);} .nc-echo .ni svg{stroke:var(–sage);}
+.ni{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.ni svg{width:24px;height:24px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.nl{font-size:.82rem;letter-spacing:2px;color:var(--text);text-align:center;}
+.nsb{font-size:.63rem;color:var(--tm);letter-spacing:1px;text-align:center;line-height:1.4;}
+.nc-hug .ni{background:rgba(201,150,142,.13);} .nc-hug .ni svg{stroke:var(--rose);}
+.nc-listen .ni{background:rgba(200,149,106,.11);} .nc-listen .ni svg{stroke:var(--gold);}
+.nc-care .ni{background:rgba(138,172,189,.13);} .nc-care .ni svg{stroke:var(--sky);}
+.nc-echo .ni{background:rgba(138,158,148,.11);} .nc-echo .ni svg{stroke:var(--sage);}
 
-/* CTA */
+/* CTA 按鈕 */
 .cta{width:100%;padding:17px;
-background:linear-gradient(135deg,var(–gold),var(–rose));
-color:#fff;border:none;border-radius:28px;font-size:1rem;font-weight:400;letter-spacing:4px;
+background:linear-gradient(135deg,var(--gold),var(--rose));
+color:#fff;border:none;border-radius:28px;font-size:.98rem;font-weight:400;letter-spacing:4px;
 cursor:pointer;box-shadow:0 8px 28px rgba(200,149,106,.35);
 transition:.25s;position:relative;overflow:hidden;margin-bottom:12px;}
-.cta::after{content:’’;position:absolute;top:0;left:-150%;width:60%;height:100%;
+.cta::after{content:'';position:absolute;top:0;left:-150%;width:60%;height:100%;
 background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
 transform:skewX(-25deg);animation:sw 5s infinite ease-in-out;}
 @keyframes sw{0%{left:-150%;}22%{left:160%;}100%{left:160%;}}
-.cta:active{transform:translateY(2px);}
+.cta:active{transform:translateY(2px);box-shadow:0 4px 14px rgba(200,149,106,.3);}
+.cta-ghost{width:100%;padding:14px;
+background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+color:var(--ts);border:1px solid rgba(255,255,255,.85);
+border-radius:28px;font-size:.9rem;letter-spacing:3px;
+cursor:pointer;box-shadow:var(--sh);transition:.25s;margin-bottom:26px;}
+.cta-ghost:active{transform:translateY(2px);background:rgba(255,255,255,.85);}
 
-.cta-ghost{width:100%;padding:15px;
-background:var(–glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-color:var(–ts);border:1px solid rgba(255,255,255,.88);
-border-radius:28px;font-size:.95rem;letter-spacing:3px;
-cursor:pointer;box-shadow:var(–sh);transition:.25s;margin-bottom:26px;}
-.cta-ghost:active{transform:translateY(2px);background:rgba(255,255,255,.88);}
-
-/* 預覽燈火牆 */
+/* 燈火牆 */
 .lights-sec{width:100%;margin-bottom:26px;}
 .lh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
-.lt{font-size:.7rem;letter-spacing:4px;color:var(–tm);}
-.lm{font-size:.7rem;letter-spacing:2px;color:var(–gold);cursor:pointer;
-padding:4px 12px;border-radius:12px;background:rgba(200,149,106,.1);
-border:1px solid rgba(200,149,106,.2);transition:.2s;}
+.lt{font-size:.63rem;letter-spacing:4px;color:var(--tm);}
+.lm{font-size:.63rem;letter-spacing:2px;color:var(--gold);cursor:pointer;padding:4px 12px;border-radius:12px;background:rgba(200,149,106,.1);border:1px solid rgba(200,149,106,.2);transition:.2s;}
 .lm:active{background:rgba(200,149,106,.2);}
 
-/* 預覽卡（點擊跳 forum） */
-.lc{background:var(–glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-border:1px solid rgba(255,255,255,.88);border-radius:20px;
-padding:16px;margin-bottom:9px;box-shadow:var(–sh);
+.lc{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,.85);border-radius:20px;
+padding:16px;margin-bottom:9px;box-shadow:var(--sh);
 display:flex;gap:12px;align-items:flex-start;
-cursor:pointer;transition:.25s;position:relative;}
+cursor:pointer;transition:.25s;position:relative;overflow:hidden;}
 .lc:active{transform:scale(.98);}
-/* 點擊提示箭頭 */
-.lc::after{content:’›’;position:absolute;right:14px;top:50%;transform:translateY(-50%);
-color:rgba(200,149,106,.4);font-size:1.2rem;pointer-events:none;}
 
-.lb{width:3px;min-height:55px;border-radius:3px;flex-shrink:0;align-self:stretch;}
-.lb-hug{background:linear-gradient(180deg,var(–rose),rgba(201,150,142,.1));}
-.lb-listen{background:linear-gradient(180deg,var(–gold),rgba(200,149,106,.1));}
-.lb-care{background:linear-gradient(180deg,var(–sky),rgba(138,172,189,.1));}
-.lb-echo{background:linear-gradient(180deg,var(–sage),rgba(138,158,148,.1));}
+/* 光柱（隨點燈數變粗） */
+.lb{width:3px;min-height:60px;border-radius:3px;flex-shrink:0;align-self:stretch;
+transition:width .4s ease,box-shadow .4s ease;}
+.lb-hug{background:linear-gradient(180deg,var(--rose),rgba(201,150,142,.15));}
+.lb-listen{background:linear-gradient(180deg,var(--gold),rgba(200,149,106,.15));}
+.lb-care{background:linear-gradient(180deg,var(--sky),rgba(138,172,189,.15));}
+.lb-echo{background:linear-gradient(180deg,var(--sage),rgba(138,158,148,.15));}
+.lb.glow{width:5px;box-shadow:0 0 8px rgba(200,149,106,.5);}
 
-.lbody{flex:1;min-width:0;padding-right:16px;}
+.lbody{flex:1;}
 .ltype{display:inline-flex;align-items:center;gap:5px;
-font-size:.65rem;letter-spacing:2px;padding:3px 10px;border-radius:10px;margin-bottom:7px;}
-.ty-hug{color:var(–rose);background:rgba(201,150,142,.1);}
-.ty-listen{color:var(–gold);background:rgba(200,149,106,.1);}
-.ty-care{color:var(–sky);background:rgba(138,172,189,.12);}
-.ty-echo{color:var(–sage);background:rgba(138,158,148,.1);}
-.ltext{font-size:.92rem;color:var(–text);line-height:1.65;margin-bottom:6px;letter-spacing:.3px;
-overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
-.ltime{font-size:.65rem;color:var(–tm);letter-spacing:1px;}
-.lcount{font-size:.65rem;color:var(–gold);letter-spacing:1px;}
+font-size:.6rem;letter-spacing:2px;padding:3px 10px;border-radius:10px;margin-bottom:7px;}
+.ty-hug{color:var(--rose);background:rgba(201,150,142,.1);}
+.ty-listen{color:var(--gold);background:rgba(200,149,106,.1);}
+.ty-care{color:var(--sky);background:rgba(138,172,189,.12);}
+.ty-echo{color:var(--sage);background:rgba(138,158,148,.1);}
+.ltext{font-size:.86rem;color:var(--text);line-height:1.65;margin-bottom:9px;letter-spacing:.3px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.lfooter{display:flex;justify-content:space-between;align-items:center;}
+.ltime{font-size:.6rem;color:var(--tm);letter-spacing:1px;}
 
-/* 安心專線 */
-.hotline{width:100%;text-align:center;padding:14px 16px;
-background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.82);
-border-radius:16px;margin-bottom:20px;box-shadow:var(–sh);}
-.hl-text{font-size:.75rem;color:var(–ts);letter-spacing:1.5px;line-height:1.9;}
-.hl-num{color:var(–gold);font-weight:500;letter-spacing:2px;}
+/* 回應按鈕 */
+.rrow{display:flex;gap:6px;}
+.rb{display:flex;align-items:center;gap:4px;padding:5px 9px;border-radius:12px;
+border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.5);
+cursor:pointer;transition:.2s;font-size:.63rem;color:var(--ts);}
+.rb:active{transform:scale(.92);}
+.rb svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;}
+.rb.lit{background:rgba(200,149,106,.12);border-color:rgba(200,149,106,.3);color:var(--gold);}
+.rb.lit svg{stroke:var(--gold);}
 
-.bot-pad{height:90px;flex-shrink:0;}
+/* 常駐安心專線 */
+.hotline{
+width:100%;text-align:center;padding:14px 16px;
+background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.8);
+border-radius:16px;margin-bottom:20px;box-shadow:var(--sh);
+}
+.hl-text{font-size:.7rem;color:var(--ts);letter-spacing:1.5px;line-height:1.8;}
+.hl-num{color:var(--gold);font-weight:500;letter-spacing:2px;}
 
-/* 固定底部：只有「前往燈火牆」 */
+.bot-pad{height:86px;flex-shrink:0;}
+
+/* 固定底部 */
 .fixed-bot{position:fixed;bottom:0;left:50%;transform:translateX(-50%);
 width:100%;max-width:480px;
 padding:12px 18px max(16px,env(safe-area-inset-bottom));
-background:linear-gradient(180deg,transparent,rgba(250,244,238,.96) 30%);
+background:linear-gradient(180deg,transparent,rgba(250,244,238,.95) 28%);
 z-index:100;display:flex;gap:10px;}
 
-/* 發文彈窗 */
-.ov{position:fixed;inset:0;
+/* 彈窗 */
+.ov{position:fixed;top:0;left:0;width:100%;height:100%;
 background:rgba(92,78,68,.42);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 z-index:500;display:none;opacity:0;transition:opacity .3s;
 justify-content:flex-end;align-items:flex-end;}
 .ov.show{display:flex;opacity:1;}
-.sheet{width:100%;background:linear-gradient(180deg,var(–cream),#FFF9F5);
+
+.sheet{width:100%;
+background:linear-gradient(180deg,var(--cream),#FFF9F5);
 border-radius:28px 28px 0 0;
 padding:0 20px max(24px,env(safe-area-inset-bottom));
 box-shadow:0 -12px 48px rgba(160,130,110,.18);
 transform:translateY(100%);transition:transform .35s cubic-bezier(.25,.8,.25,1);
 max-height:90dvh;overflow-y:auto;}
 .ov.show .sheet{transform:translateY(0);}
-.handle{width:36px;height:4px;border-radius:2px;background:var(–gold-p);margin:13px auto 18px;}
-.s-title{font-size:1.05rem;font-weight:400;letter-spacing:4px;color:var(–text);text-align:center;margin-bottom:5px;}
-.s-sub{font-size:.75rem;color:var(–tm);letter-spacing:2px;text-align:center;margin-bottom:20px;}
+.handle{width:36px;height:4px;border-radius:2px;background:var(--gold-p);margin:13px auto 18px;}
+.s-title{font-size:.98rem;font-weight:400;letter-spacing:4px;color:var(--text);text-align:center;margin-bottom:5px;}
+.s-sub{font-size:.7rem;color:var(--tm);letter-spacing:2px;text-align:center;margin-bottom:20px;}
 
-/* 類型選擇 */
-.cl{font-size:.68rem;letter-spacing:3px;color:var(–tm);margin-bottom:9px;}
+/* 發文 */
+.cl{font-size:.63rem;letter-spacing:3px;color:var(--tm);margin-bottom:9px;}
 .cg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;}
-.cb{padding:14px 8px;border-radius:16px;background:rgba(255,255,255,.72);
-border:1.5px solid rgba(255,255,255,.92);
+.cb{padding:13px 8px;border-radius:16px;background:rgba(255,255,255,.7);
+border:1.5px solid rgba(255,255,255,.9);
 display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:.2s;}
 .cb:active{transform:scale(.95);}
-.cb.act{border-color:var(–gold-s);background:rgba(212,170,130,.1);}
+.cb.act{border-color:var(--gold-s);background:rgba(212,170,130,.1);}
 .cb svg{width:22px;height:22px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
-.cb span{font-size:.8rem;letter-spacing:1.5px;color:var(–text);}
+.cb span{font-size:.73rem;letter-spacing:1.5px;color:var(--text);}
 
-.pta{width:100%;height:120px;
-background:rgba(255,255,255,.72);border:1.5px solid rgba(255,255,255,.92);
-border-radius:18px;padding:14px 16px;font-size:.95rem;color:var(–text);
-line-height:1.7;outline:none;resize:none;font-family:inherit;
+.pta{width:100%;height:108px;
+background:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.9);
+border-radius:18px;padding:13px 15px;font-size:.9rem;color:var(--text);
+line-height:1.65;outline:none;resize:none;font-family:inherit;
 -webkit-user-select:text;user-select:text;transition:.2s;}
-.pta:focus{border-color:rgba(200,149,106,.4);background:rgba(255,255,255,.92);}
-.pta::placeholder{color:var(–tm);}
-.ch{text-align:right;font-size:.68rem;color:var(–tm);margin-top:5px;margin-bottom:16px;}
+.pta:focus{border-color:rgba(200,149,106,.4);background:rgba(255,255,255,.9);}
+.pta::placeholder{color:var(--tm);}
+.ch{text-align:right;font-size:.62rem;color:var(--tm);margin-top:4px;margin-bottom:16px;}
 
-.anon{display:flex;align-items:flex-start;gap:8px;padding:11px 14px;
-border-radius:14px;background:rgba(255,255,255,.62);
-border:1px solid rgba(255,255,255,.88);margin-bottom:14px;}
-.anon svg{width:15px;height:15px;stroke:var(–sage);fill:none;stroke-width:1.8;flex-shrink:0;margin-top:3px;}
-.anon span{font-size:.72rem;color:var(–ts);letter-spacing:1px;line-height:1.6;}
+.anon{display:flex;align-items:flex-start;gap:8px;padding:10px 13px;
+border-radius:14px;background:rgba(255,255,255,.6);
+border:1px solid rgba(255,255,255,.85);margin-bottom:16px;}
+.anon svg{width:15px;height:15px;stroke:var(--sage);fill:none;stroke-width:1.8;flex-shrink:0;margin-top:2px;}
+.anon span{font-size:.68rem;color:var(--ts);letter-spacing:1px;line-height:1.5;}
 
+/* 緊急專線（發文彈窗內常駐） */
 .hotline-inner{text-align:center;padding:10px;
-background:rgba(255,255,255,.52);border-radius:12px;
-border:1px solid rgba(255,255,255,.82);margin-bottom:14px;}
-.hi-text{font-size:.68rem;color:var(–ts);letter-spacing:1.5px;line-height:1.9;}
-.hi-num{color:var(–gold);font-weight:500;}
+background:rgba(255,255,255,.5);border-radius:12px;
+border:1px solid rgba(255,255,255,.8);margin-bottom:14px;}
+.hi-text{font-size:.65rem;color:var(--ts);letter-spacing:1.5px;line-height:1.8;}
+.hi-num{color:var(--gold);font-weight:500;}
 
-.send{width:100%;padding:16px;
-background:linear-gradient(135deg,var(–gold),var(–rose));
-color:#fff;border:none;border-radius:22px;font-size:.95rem;letter-spacing:4px;
+.send{width:100%;padding:15px;
+background:linear-gradient(135deg,var(--gold),var(--rose));
+color:#fff;border:none;border-radius:22px;font-size:.93rem;letter-spacing:4px;
 cursor:pointer;box-shadow:0 6px 22px rgba(200,149,106,.3);transition:.2s;}
 .send:active{transform:translateY(2px);}
-.send:disabled{opacity:.45;cursor:not-allowed;}
+.send:disabled{opacity:.5;cursor:not-allowed;}
 
-/* about */
-.ab-block{background:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.88);
-border-radius:17px;padding:16px;margin-bottom:10px;}
-.ab-t{font-size:.8rem;font-weight:500;color:var(–gold);letter-spacing:2px;margin-bottom:6px;}
-.ab-tx{font-size:.85rem;color:var(–ts);line-height:1.75;letter-spacing:.3px;}
+/* 回應彈窗 */
+.wg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.wb{padding:15px 8px;border-radius:18px;background:rgba(255,255,255,.7);
+border:1.5px solid rgba(255,255,255,.9);
+display:flex;flex-direction:column;align-items:center;gap:9px;
+cursor:pointer;transition:.25s;}
+.wb:active{transform:scale(.95);}
+.wb.sel{border-color:var(--gold-s);background:rgba(212,170,130,.1);}
+.wi{width:48px;height:48px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;}
+.wi svg{width:26px;height:26px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.wi-hug{background:rgba(201,150,142,.12);} .wi-hug svg{stroke:var(--rose);}
+.wi-light{background:rgba(200,149,106,.1);} .wi-light svg{stroke:var(--gold);}
+.wi-listen{background:rgba(138,172,189,.12);} .wi-listen svg{stroke:var(--sky);}
+.wi-together{background:rgba(138,158,148,.1);} .wi-together svg{stroke:var(--sage);}
+.wn{font-size:.76rem;letter-spacing:2px;color:var(--text);text-align:center;}
+.wsb{font-size:.6rem;color:var(--tm);letter-spacing:.5px;text-align:center;line-height:1.3;}
+
+.fi-wrap{margin-bottom:16px;}
+.fi-lbl{font-size:.63rem;letter-spacing:3px;color:var(--tm);margin-bottom:7px;}
+.fi{width:100%;padding:11px 13px;background:rgba(255,255,255,.7);
+border:1.5px solid rgba(255,255,255,.9);border-radius:13px;
+font-size:.88rem;color:var(--text);outline:none;font-family:inherit;
+-webkit-user-select:text;user-select:text;transition:.2s;}
+.fi:focus{border-color:rgba(200,149,106,.4);background:rgba(255,255,255,.9);}
+.fi::placeholder{color:var(--tm);}
+.fc{text-align:right;font-size:.6rem;color:var(--tm);margin-top:3px;}
 
 /* toast */
 .toast{position:fixed;top:max(60px,env(safe-area-inset-top));left:50%;
 transform:translateX(-50%) translateY(-18px);
-background:rgba(92,78,68,.9);color:#fff;
-padding:11px 22px;border-radius:22px;font-size:.8rem;letter-spacing:2px;
+background:rgba(92,78,68,.88);color:#fff;
+padding:10px 20px;border-radius:20px;font-size:.76rem;letter-spacing:2px;
 opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;
 backdrop-filter:blur(8px);pointer-events:none;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* 跳轉提示遮罩 */
+/* about */
+.ab-block{background:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.88);
+border-radius:17px;padding:15px;margin-bottom:10px;}
+.ab-t{font-size:.76rem;font-weight:500;color:var(--gold);letter-spacing:2px;margin-bottom:5px;}
+.ab-tx{font-size:.8rem;color:var(--ts);line-height:1.7;letter-spacing:.3px;}
+
+/* 跳轉提示遮罩 (從舊版補回) */
 .redirect-mask{position:fixed;inset:0;background:rgba(253,248,243,.9);
 display:none;justify-content:center;align-items:center;z-index:800;
 flex-direction:column;gap:16px;}
-.rm-text{font-size:1rem;color:var(–ts);letter-spacing:3px;text-align:center;}
-.rm-sub{font-size:.75rem;color:var(–tm);letter-spacing:2px;}
-.rm-spinner{width:36px;height:36px;border:2px solid var(–gold-p);
-border-top-color:var(–gold);border-radius:50%;animation:spin .8s linear infinite;}
+.rm-text{font-size:1rem;color:var(--ts);letter-spacing:3px;text-align:center;}
+.rm-sub{font-size:.75rem;color:var(--tm);letter-spacing:2px;}
+.rm-spinner{width:36px;height:36px;border:2px solid var(--gold-p);
+border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 </style>
-
 </head>
 <body>
 
@@ -286,176 +324,109 @@ border-top-color:var(–gold);border-radius:50%;animation:spin .8s linear infini
     </div>
   </div>
 
-  <!-- 英雄精靈 -->
-
   <div class="hero">
+    
     <div class="embrace-wrap">
-      <svg class="hero-svg" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="blueTones" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#D1E4EE" stop-opacity="0.9"/>
-            <stop offset="100%" stop-color="#8AACBD" stop-opacity="0.8"/>
-          </linearGradient>
-          <linearGradient id="warmTones" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#E2CDBA" stop-opacity="0.9"/>
-            <stop offset="100%" stop-color="#D1A299" stop-opacity="0.8"/>
-          </linearGradient>
-          <radialGradient id="heartG" cx="50%" cy="40%" r="60%">
-            <stop offset="0%" stop-color="#F5D5C0"/>
-            <stop offset="100%" stop-color="#C8956A"/>
-          </radialGradient>
-          <filter id="sg" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="5" result="b"/>
-            <feComposite in="SourceGraphic" in2="b" operator="over"/>
-          </filter>
-          <filter id="hg" x="-40%" y="-40%" width="180%" height="180%">
-            <feGaussianBlur stdDeviation="2.5" result="b"/>
-            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
+      <svg class="hero-svg-wrap" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width: 280px;">
+          <defs>
+              <linearGradient id="blueTones" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#D1E4EE" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="#8AACBD" stop-opacity="0.8"/>
+              </linearGradient>
+              <linearGradient id="warmTones" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#E2CDBA" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#D1A299" stop-opacity="0.4"/>
+              </linearGradient>
+              <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="8" result="blur"/>
+                  <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+              </filter>
+          </defs>
 
-```
-    <!-- 左精靈（藍色調） -->
-    <g class="sprite-blue">
-      <!-- 身體 -->
-      <ellipse cx="90" cy="130" rx="34" ry="40" fill="url(#blueTones)" filter="url(#sg)"/>
-      <!-- 大圓頭 -->
-      <circle cx="90" cy="82" r="30" fill="url(#blueTones)" filter="url(#sg)"/>
-      <!-- 耳朵 -->
-      <circle cx="63" cy="80" r="9" fill="url(#blueTones)"/>
-      <circle cx="63" cy="80" r="5" fill="rgba(220,240,255,.5)"/>
-      <circle cx="117" cy="78" r="9" fill="url(#blueTones)"/>
-      <circle cx="117" cy="78" r="5" fill="rgba(220,240,255,.5)"/>
-      <!-- 右臂（擁抱） -->
-      <path d="M118 118 Q148 110, 158 125 Q150 136, 140 130 Q130 122, 116 128" fill="url(#blueTones)" opacity=".85"/>
-      <!-- 左臂 -->
-      <path d="M60 118 Q44 128, 46 142 Q52 148, 58 142 Q56 132, 64 126" fill="url(#blueTones)" opacity=".8"/>
-      <!-- 眼睛（彎月笑眼） -->
-      <path d="M80 80 Q86 74, 92 80" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <path d="M96 79 Q102 73, 108 79" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <!-- 臉頰 -->
-      <ellipse cx="76" cy="91" rx="9" ry="6" fill="rgba(180,210,240,.35)"/>
-      <ellipse cx="106" cy="89" rx="9" ry="6" fill="rgba(180,210,240,.3)"/>
-      <!-- 嘴巴 -->
-      <path d="M85 96 Q90 101, 95 96" stroke="rgba(100,150,180,.6)" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <!-- 肚子裝飾 -->
-      <circle cx="90" cy="124" r="4" fill="rgba(255,255,255,.45)"/>
-      <circle cx="82" cy="137" r="2.5" fill="rgba(255,255,255,.35)"/>
-      <circle cx="98" cy="140" r="3" fill="rgba(255,255,255,.35)"/>
-    </g>
+          <g class="sprite-blue">
+              <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="url(#blueTones)" filter="url(#softGlow)"/>
+              <circle cx="85" cy="85" r="4" fill="#8C7A6B" opacity="0.8"/>
+              <circle cx="115" cy="85" r="4" fill="#8C7A6B" opacity="0.8"/>
+              <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.5" filter="url(#softGlow)"/>
+              <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.5" filter="url(#softGlow)"/>
+          </g>
 
-    <!-- 右精靈（暖色調） -->
-    <g class="sprite-pink">
-      <!-- 身體 -->
-      <ellipse cx="185" cy="130" rx="34" ry="40" fill="url(#warmTones)" filter="url(#sg)"/>
-      <!-- 大圓頭 -->
-      <circle cx="185" cy="82" r="30" fill="url(#warmTones)" filter="url(#sg)"/>
-      <!-- 耳朵 -->
-      <circle cx="158" cy="78" r="9" fill="url(#warmTones)"/>
-      <circle cx="158" cy="78" r="5" fill="rgba(255,235,225,.5)"/>
-      <circle cx="212" cy="80" r="9" fill="url(#warmTones)"/>
-      <circle cx="212" cy="80" r="5" fill="rgba(255,235,225,.5)"/>
-      <!-- 左臂（擁抱） -->
-      <path d="M157 118 Q127 110, 117 125 Q125 136, 135 130 Q145 122, 159 128" fill="url(#warmTones)" opacity=".85"/>
-      <!-- 右臂 -->
-      <path d="M215 118 Q231 128, 229 142 Q223 148, 217 142 Q219 132, 211 126" fill="url(#warmTones)" opacity=".8"/>
-      <!-- 眼睛 -->
-      <path d="M173 79 Q179 73, 185 79" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <path d="M189 80 Q195 74, 201 80" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <!-- 臉頰 -->
-      <ellipse cx="170" cy="91" rx="9" ry="6" fill="rgba(240,190,180,.35)"/>
-      <ellipse cx="201" cy="89" rx="9" ry="6" fill="rgba(240,190,180,.3)"/>
-      <!-- 嘴巴 -->
-      <path d="M180 96 Q185 101, 190 96" stroke="rgba(180,100,90,.5)" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <!-- 肚子裝飾 -->
-      <circle cx="185" cy="124" r="4" fill="rgba(255,255,255,.45)"/>
-      <circle cx="177" cy="137" r="2.5" fill="rgba(255,255,255,.35)"/>
-      <circle cx="193" cy="140" r="3" fill="rgba(255,255,255,.35)"/>
-    </g>
+          <g class="sprite-pink">
+              <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="url(#warmTones)" filter="url(#softGlow)"/>
+              <circle cx="85" cy="85" r="4" fill="#8C7A6B" opacity="0.8"/>
+              <circle cx="115" cy="85" r="4" fill="#8C7A6B" opacity="0.8"/>
+              <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.5" filter="url(#softGlow)"/>
+              <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.5" filter="url(#softGlow)"/>
+          </g>
+      </svg>
+    </div>
 
-    <!-- 中央跳動心形 -->
-    <g filter="url(#hg)" transform="translate(138,108)">
-      <path d="M0 -8 C-1.5 -13,-11 -13,-11 -5 C-11 0,-5 5,0 11 C5 5,11 0,11 -5 C11 -13,1.5 -13,0 -8Z"
-            fill="url(#heartG)" opacity=".9">
-        <animate attributeName="opacity" values=".55;1;.55" dur="2.8s" repeatCount="indefinite"/>
-        <animateTransform attributeName="transform" type="scale" values="1;1.18;1" dur="2.8s" repeatCount="indefinite"/>
-      </path>
-    </g>
+    <h1 class="h-title">無量的光</h1>
+    <p class="h-sub">你不孤單</p>
+    <p class="h-quote">把心裡的雨下在這裡吧<br>這世界上總有一個人<br>願意靜靜為你撐傘</p>
 
-    <!-- 散落光點 -->
-    <circle cx="38" cy="50" r="2.5" fill="rgba(212,170,130,.6)"><animate attributeName="opacity" values=".25;.9;.25" dur="3.2s" repeatCount="indefinite"/></circle>
-    <circle cx="242" cy="56" r="2" fill="rgba(201,150,142,.5)"><animate attributeName="opacity" values=".2;.85;.2" dur="4.1s" repeatCount="indefinite"/></circle>
-    <circle cx="20" cy="115" r="3" fill="rgba(138,172,189,.4)"><animate attributeName="opacity" values=".3;1;.3" dur="3.8s" repeatCount="indefinite"/></circle>
-    <circle cx="260" cy="108" r="2.5" fill="rgba(200,149,106,.45)"><animate attributeName="opacity" values=".2;.9;.2" dur="2.8s" repeatCount="indefinite"/></circle>
-  </svg>
-</div>
-
-<h1 class="h-title">無量的光</h1>
-<p class="h-sub">你不孤單</p>
-<p class="h-quote">把心裡的雨下在這裡吧<br>這世界上總有一個人<br>願意靜靜為你撐傘</p>
-
-<div class="stats">
-  <div class="spi">
-    <div class="sd sd-g"></div>
-    <span class="st">今日點燈</span>
-    <span class="sn" id="sn1">—</span>
+    <div class="stats">
+      <div class="spi">
+        <div class="sd sd-g"></div>
+        <span class="st">今日點燈</span>
+        <span class="sn" id="sn1">—</span>
+      </div>
+      <div class="spi">
+        <div class="sd sd-r"></div>
+        <span class="st">溫暖回應</span>
+        <span class="sn" id="sn2">—</span>
+      </div>
+    </div>
   </div>
-  <div class="spi">
-    <div class="sd sd-r"></div>
-    <span class="st">溫暖回應</span>
-    <span class="sn" id="sn2">—</span>
-  </div>
-</div>
-```
-
-  </div>
-
-  <!-- 需求分類 -->
 
   <div class="need-sec">
     <div class="sec-lbl">── 你今天需要什麼 ──</div>
     <div class="need-grid">
       <div class="nc nc-hug" onclick="pickNeed('hug',this)">
-        <div class="ni"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="ni">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
         <div class="nl">我需要抱抱</div>
         <div class="nsb">無條件的接納</div>
       </div>
       <div class="nc nc-listen" onclick="pickNeed('listen',this)">
-        <div class="ni"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
+        <div class="ni">
+          <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        </div>
         <div class="nl">我需要傾聽</div>
         <div class="nsb">有人靜靜陪著</div>
       </div>
       <div class="nc nc-care" onclick="pickNeed('care',this)">
-        <div class="ni"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="ni">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
         <div class="nl">我需要關懷</div>
         <div class="nsb">有人在乎我</div>
       </div>
       <div class="nc nc-echo" onclick="pickNeed('echo',this)">
-        <div class="ni"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+        <div class="ni">
+          <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </div>
         <div class="nl">我需要共鳴</div>
         <div class="nsb">找同路的靈魂</div>
       </div>
     </div>
   </div>
 
-  <!-- 主 CTA（只有一個發文按鈕） -->
-
 <button class="cta" onclick="openPost()">點亮一盞燈 · 說出你的需要</button>
 
-  <!-- 最新燈火預覽（點擊任何卡片直接跳 forum） -->
+<button class="cta-ghost" style="display:none;" onclick="goForum()">看看其他人的光</button>
 
   <div class="lights-sec">
     <div class="lh">
       <div class="lt">── 最新的光 ──</div>
       <div class="lm" onclick="goForum()">進入燈火牆 ›</div>
     </div>
+
     <div id="preview-board">
-      <!-- 由 Firebase 動態填入 -->
       <div style="text-align:center;padding:20px;color:var(--tm);font-size:.8rem;letter-spacing:2px;">讀取中...</div>
     </div>
   </div>
-
-  <!-- 常駐安心專線 -->
 
   <div class="hotline">
     <div class="hl-text">黑夜若太長，隨時為你亮著的燈<br>
@@ -466,28 +437,24 @@ border-top-color:var(–gold);border-radius:50%;animation:spin .8s linear infini
   <div class="bot-pad"></div>
 </div>
 
-<!-- 固定底部：前往燈火牆 -->
-
 <div class="fixed-bot">
   <button class="cta-ghost" style="flex:1;margin:0;padding:14px;" onclick="goForum()">前往燈火牆 · 看看大家的光</button>
 </div>
 
-<!-- toast & redirect mask -->
-
 <div class="toast" id="toast"></div>
+
 <div class="redirect-mask" id="redirect-mask">
   <div class="rm-spinner"></div>
   <div class="rm-text">你的光已點亮</div>
   <div class="rm-sub">前往燈火牆...</div>
 </div>
 
-<!-- 發文彈窗 -->
-
 <div class="ov" id="ov-post" onclick="closeOv('ov-post')">
   <div class="sheet" onclick="event.stopPropagation()">
     <div class="handle"></div>
     <div class="s-title">點亮一盞燈</div>
     <div class="s-sub">說出你此刻的需要</div>
+
     <div class="cl">我現在需要</div>
     <div class="cg">
       <div class="cb" data-t="hug" onclick="pickType(this)">
@@ -507,30 +474,87 @@ border-top-color:var(–gold);border-radius:50%;animation:spin .8s linear infini
         <span>共鳴</span>
       </div>
     </div>
+
     <textarea class="pta" id="post-txt"
       placeholder="說說此刻的感受吧，不需要解釋，不需要理由，只是讓人知道你在這裡..."
-      maxlength="150" oninput="updPC(this)"></textarea>
+      maxlength="150" oninput="updPostChar(this)"></textarea>
     <div class="ch"><span id="post-ch">0</span> / 150</div>
+
     <div class="anon">
       <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       <span>完全匿名 · 無帳號 · 無個資<br>你的文字將在世界上溫柔消散（最多保留 50 則）</span>
     </div>
+
     <div class="hotline-inner">
       <div class="hi-text">黑夜若太長，隨時為你亮著的燈<br>
         <span class="hi-num">1925 安心專線</span> · <span class="hi-num">1995 生命線</span>
       </div>
     </div>
+
     <button class="send" id="send-btn" onclick="submitPost()" disabled>發出這道光</button>
   </div>
 </div>
 
-<!-- About 彈窗 -->
+<div class="ov" id="ov-resp" onclick="closeOv('ov-resp')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="handle"></div>
+    <div class="s-title">給他一點溫暖</div>
+    <div class="s-sub">選一個你想給的回應</div>
+
+    <div class="wg">
+      <div class="wb" onclick="pickWarm(this)">
+        <div class="wi wi-hug">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="wn">給予擁抱</div>
+        <div class="wsb">我抱抱你</div>
+      </div>
+      <div class="wb" onclick="pickWarm(this)">
+        <div class="wi wi-light">
+          <svg viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z"/></svg>
+        </div>
+        <div class="wn">點亮微光</div>
+        <div class="wsb">為你點燈</div>
+      </div>
+      <div class="wb" onclick="pickWarm(this)">
+        <div class="wi wi-listen">
+          <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        </div>
+        <div class="wn">靜靜傾聽</div>
+        <div class="wsb">我在聽喔</div>
+      </div>
+      <div class="wb" onclick="pickWarm(this)">
+        <div class="wi wi-together">
+          <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </div>
+        <div class="wn">願光引路</div>
+        <div class="wsb">有我在</div>
+      </div>
+    </div>
+
+    <div class="fi-wrap">
+      <div class="fi-lbl">或留下一句話（最多 20 字）</div>
+      <input class="fi" type="text" id="fi-txt" maxlength="20"
+        placeholder="你辛苦了，有我在"
+        oninput="updFiChar(this)">
+      <div class="fc"><span id="fi-ch">0</span> / 20</div>
+    </div>
+
+    <div class="anon">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>回應完全匿名 · 禁止醫療建議 · 禁止留聯絡方式</span>
+    </div>
+
+    <button class="send" onclick="submitResp()">送出這份溫暖</button>
+  </div>
+</div>
 
 <div class="ov" id="ov-about" onclick="closeOv('ov-about')">
   <div class="sheet" onclick="event.stopPropagation()">
     <div class="handle"></div>
     <div class="s-title">關於這個空間</div>
     <div class="s-sub" style="margin-bottom:18px;">無量的光 · 妙依居士共建</div>
+
     <div class="ab-block">
       <div class="ab-t">這裡是什麼</div>
       <div class="ab-tx">一個純粹給予溫度的空間。你可以說出此刻的需要，世界上某個陌生人會靜靜地為你點一盞燈。</div>
@@ -555,12 +579,8 @@ border-top-color:var(–gold);border-radius:50%;animation:spin .8s linear infini
   </div>
 </div>
 
-<!-- Firebase -->
-
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
 <script>
@@ -581,10 +601,10 @@ const lightsRef = db.ref('lights_v1');
 // ── 匿名登入 ──────────────────────────────────
 firebase.auth().signInAnonymously();
 
-// ── 狀態 ──────────────────────────────────────
-let selNeed = null, chosenT = null;
+// ── 狀態 ─────────────────────────────────────
+let selNeed = null, chosenT = null, selWarm = null;
 
-// ── 統計（從 Firebase 讀取） ───────────────────
+// ── 統計動畫 (重新接回資料庫動態數據) ───────────
 lightsRef.limitToLast(50).on('value', snap => {
   const data = snap.val() || {};
   const posts = Object.values(data);
@@ -596,17 +616,17 @@ lightsRef.limitToLast(50).on('value', snap => {
   renderPreview(data);
 });
 
-function animN(id, from, to, dur) {
+function animN(id,from,to,dur) {
   const el = document.getElementById(id);
   if (!el || to === 0) { if(el) el.textContent = '0'; return; }
-  const step = (to - from) / (dur / 16); let cur = from;
+  const step = (to-from)/(dur/16); let cur = from;
   const t = setInterval(() => {
-    cur = Math.min(cur + step, to); el.textContent = Math.round(cur);
-    if (cur >= to) clearInterval(t);
-  }, 16);
+    cur = Math.min(cur+step,to); el.textContent = Math.round(cur);
+    if(cur>=to) clearInterval(t);
+  },16);
 }
 
-// ── 首頁預覽（最新3筆，點擊跳 forum） ──────────
+// ── 動態渲染卡片 (結合你新設計的版面) ─────────
 function renderPreview(data) {
   const board = document.getElementById('preview-board');
   const keys = Object.keys(data).reverse().slice(0, 3);
@@ -620,46 +640,60 @@ function renderPreview(data) {
     care: {lbl:'我需要關懷', lc:'ty-care', lb:'lb-care'},
     echo: {lbl:'我需要共鳴', lc:'ty-echo', lb:'lb-echo'},
   };
+  
   board.innerHTML = keys.map(id => {
     const p = data[id];
     const tm = typeMap[p.type] || typeMap.hug;
     const lc = p.lights || 0;
     const rc = p.resps ? Object.keys(p.resps).length : 0;
-    return `<div class="lc" onclick="goForum()">
-      <div class="lb ${tm.lb}"></div>
+    
+    // 結合你的新卡片樣式
+    return `
+    <div class="lc" onclick="goForum()">
+      <div class="lb ${tm.lb} ${lc > 0 ? 'glow' : ''}" style="${lc > 0 ? 'width:5px;box-shadow:0 0 8px rgba(200,149,106,.5);' : ''}"></div>
       <div class="lbody">
         <div class="ltype ${tm.lc}">${tm.lbl}</div>
         <div class="ltext">${escHtml(p.text)}</div>
-        <div style="display:flex;gap:12px;align-items:center;">
-          <span class="ltime">${formatTime(p.ts)}</span>
-          ${lc > 0 ? `<span class="lcount">· ${lc} 盞燈</span>` : ''}
-          ${rc > 0 ? `<span class="lcount">· ${rc} 個回應</span>` : ''}
+        <div class="lfooter">
+          <div class="ltime">${formatTime(p.ts)}</div>
+          <div class="rrow">
+            <div class="rb ${lc > 0 ? 'lit' : ''}" onclick="event.stopPropagation(); goForum();">
+              <svg viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z"/></svg>
+              <span>${lc > 0 ? lc : '點燈'}</span>
+            </div>
+            <div class="rb" onclick="event.stopPropagation(); goForum();">
+              <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>回應 ${rc > 0 ? rc : ''}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>`;
   }).join('');
 }
 
-// ── 需求選擇 ──────────────────────────────────
+// ── 需求選擇 ─────────────────────────────────
 function pickNeed(type, el) {
-  document.querySelectorAll('.nc').forEach(c => c.classList.remove('sel'));
+  document.querySelectorAll('.nc').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel'); selNeed = type;
 }
 
-// ── 發文流程 ──────────────────────────────────
+// ── 發文 (接回真實發送) ───────────────────────
 function openPost() {
   showOv('ov-post');
-  // 如果首頁已選了分類，自動帶入
-  if (selNeed) {
-    const btn = document.querySelector(`.cb[data-t="${selNeed}"]`);
-    if (btn) pickType(btn);
+  if(selNeed) {
+    const m = {hug:'[data-t="hug"]',listen:'[data-t="listen"]',care:'[data-t="care"]',echo:'[data-t="echo"]'};
+    const b = document.querySelector('.cb'+m[selNeed]);
+    if(b) pickType(b);
   }
 }
+
 function pickType(el) {
-  document.querySelectorAll('.cb').forEach(b => b.classList.remove('act'));
+  document.querySelectorAll('.cb').forEach(b=>b.classList.remove('act'));
   el.classList.add('act'); chosenT = el.dataset.t; chkSend();
 }
-function updPC(el) {
+
+function updPostChar(el) {
   document.getElementById('post-ch').textContent = el.value.length; chkSend();
 }
 function chkSend() {
@@ -667,16 +701,22 @@ function chkSend() {
   document.getElementById('send-btn').disabled = !(chosenT && txt.length >= 5);
 }
 
+// 點亮一盞燈（傳送至 Firebase）
 function submitPost() {
   const txt = document.getElementById('post-txt').value.trim();
   if (!txt || !chosenT) return;
+  
   const btn = document.getElementById('send-btn');
   btn.disabled = true; btn.textContent = '傳送中...';
 
   lightsRef.push({ type: chosenT, text: txt, ts: Date.now(), lights: 0 })
     .then(() => {
       closeOv('ov-post');
-      // 顯示過渡遮罩，1.5秒後跳轉
+      document.getElementById('post-txt').value = '';
+      document.getElementById('post-ch').textContent = '0';
+      chosenT = null;
+      btn.disabled = false; btn.textContent = '發出這道光';
+      
       const mask = document.getElementById('redirect-mask');
       mask.style.display = 'flex';
       setTimeout(() => { window.location.href = 'forum.html'; }, 1500);
@@ -687,28 +727,51 @@ function submitPost() {
     });
 }
 
+// ── 回應 ─────────────────────────────────────
+function openResp(e) { e&&e.stopPropagation(); showOv('ov-resp'); }
+function pickWarm(el) {
+  document.querySelectorAll('.wb').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel'); selWarm = el.querySelector('.wn').textContent;
+}
+function updFiChar(el) {
+  document.getElementById('fi-ch').textContent = el.value.length;
+}
+// （此處回應按鈕保留你的 Toast，因為首頁主要是預覽，真實互動可以引導到論壇內，這裡先保留你的視覺測試功能）
+function submitResp() {
+  const warm = selWarm || '為你點燈';
+  showToast(warm.includes('抱') ? '我抱抱你' :
+            warm.includes('微') ? '為你點燈' :
+            warm.includes('聽') ? '我在聽喔' : '有我在');
+  closeOv('ov-resp');
+  document.getElementById('fi-txt').value = '';
+  document.getElementById('fi-ch').textContent = '0';
+  document.querySelectorAll('.wb').forEach(b=>b.classList.remove('sel'));
+  selWarm = null;
+}
+
+// ── 跳轉論壇 ─────────────────────────────────
 function goForum() { window.location.href = 'forum.html'; }
 
-// ── 彈窗 ──────────────────────────────────────
+// ── 彈窗 ─────────────────────────────────────
 function showOv(id) {
   const o = document.getElementById(id);
-  o.style.display = 'flex';
-  setTimeout(() => o.classList.add('show'), 10);
-  document.body.style.overflow = 'hidden';
+  o.style.display='flex';
+  setTimeout(()=>o.classList.add('show'),10);
+  document.body.style.overflow='hidden';
 }
 function closeOv(id) {
   const o = document.getElementById(id);
   o.classList.remove('show');
-  setTimeout(() => { o.style.display = 'none'; }, 320);
-  document.body.style.overflow = '';
+  setTimeout(()=>{o.style.display='none';},320);
+  document.body.style.overflow='';
 }
 function showAbout() { showOv('ov-about'); }
 
-// ── Toast ──────────────────────────────────────
+// ── Toast ─────────────────────────────────────
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+  setTimeout(()=>t.classList.remove('show'),2200);
 }
 
 // ── 工具 ──────────────────────────────────────
