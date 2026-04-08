@@ -679,7 +679,7 @@ function submitPost() {
       // 顯示過渡遮罩，1.5秒後跳轉
       const mask = document.getElementById('redirect-mask');
       mask.style.display = 'flex';
-      setTimeout(() => { window.location.href = 'forum_light.html'; }, 1500);
+      setTimeout(() => { window.location.href = 'forum.html'; }, 1500);
     })
     .catch(err => {
       btn.disabled = false; btn.textContent = '發出這道光';
@@ -687,7 +687,7 @@ function submitPost() {
     });
 }
 
-function goForum() { window.location.href = 'forum_light.html'; }
+function goForum() { window.location.href = 'forum.html'; }
 
 // ── 彈窗 ──────────────────────────────────────
 function showOv(id) {
