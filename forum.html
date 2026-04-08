@@ -59,24 +59,17 @@ pointer-events:none;z-index:0;}
 .nav-care svg { stroke:var(--sky); }
 .nav-echo svg { stroke:var(--sage); }
 
-/* 共建版權區 (固定在側邊欄底部) */
-.footer-text {
-  margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(200,149,106,.2);
-  font-size: .65rem; color: var(--tm); line-height: 1.8; letter-spacing: 1px;
-}
-.footer-text span { cursor:pointer; transition:.2s; }
-.footer-text span:hover { color:var(--gold); }
-
 /* 右側主內容區 */
-.main-content { flex:1; min-width:0; display:flex; flex-direction:column; gap:20px; }
+.main-content { flex:1; min-width:0; display:flex; flex-direction:column; gap:16px; }
 
-/* 菩提客棧理念引言 */
-.zen-intro {
-  padding:20px; background:var(--glass); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-  border:1px solid var(--glassb); border-radius:20px; box-shadow:var(--sh); text-align:center;
+/* 恢復原本的引言 */
+.intro {
+  width:100%; text-align:center; padding:18px 16px;
+  background:var(--glass); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--glassb); border-radius:20px; box-shadow:var(--sh);
 }
-.zen-title { font-size:.9rem; color:var(--gold); letter-spacing:3px; margin-bottom:10px; font-weight:500;}
-.zen-text { font-size:.78rem; color:var(--ts); line-height:1.9; letter-spacing:1px;}
+.intro-q { font-size:.82rem; color:var(--ts); line-height:1.9; letter-spacing:1px; font-style:italic;}
+.intro-q strong { color:var(--gold); font-style:normal;}
 
 /* 發文區 */
 .post-box {
@@ -113,7 +106,7 @@ pointer-events:none;z-index:0;}
 .btn-primary:disabled { opacity:.5; cursor:not-allowed; }
 
 /* 貼文列表區 */
-#feed { display:flex; flex-direction:column; gap:16px; }
+#feed { display:flex; flex-direction:column; gap:16px; margin-top:8px; }
 
 /* 貼文卡片 (Dcard 風格) */
 .card {
@@ -138,7 +131,6 @@ pointer-events:none;z-index:0;}
 .ct-echo { color:var(--sage); background:rgba(138,158,148,.15); }
 
 .c-text { font-size:.9rem; color:var(--text); line-height:1.6; margin-bottom:12px; word-break:break-word; }
-/* 列表摘要限制行數 */
 .c-summary { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
 
 .c-foot { display:flex; justify-content:space-between; align-items:center; }
@@ -152,6 +144,15 @@ pointer-events:none;z-index:0;}
 .action-btn:hover { background:rgba(255,255,255,.9); }
 .action-btn svg { width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.8; }
 .action-btn.lit { color:var(--gold); border-color:rgba(200,149,106,.4); background:rgba(200,149,106,.1); }
+
+/* 共建版權區 (移到底部) */
+.footer-text {
+  margin-top: 30px; padding-top: 24px; border-top: 1px solid rgba(200,149,106,.15);
+  font-size: .65rem; color: var(--tm); line-height: 1.8; letter-spacing: 1px;
+  text-align: center; padding-bottom: 40px;
+}
+.footer-text span { cursor:pointer; transition:.2s; }
+.footer-text span:hover { color:var(--gold); }
 
 /* --- Dcard 風格彈出詳細視窗 --- */
 .modal-overlay {
@@ -229,7 +230,6 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
   .sidebar { flex:none; width:100%; position:relative; top:0; gap:12px; }
   .nav-menu { flex-direction:row; overflow-x:auto; padding-bottom:4px; scrollbar-width:none; }
   .nav-item { white-space:nowrap; padding:10px 14px; }
-  .footer-text { text-align:center; padding-top:12px; margin-top:10px; }
   .m-head { padding:12px 16px; }
   .m-body { padding:16px; }
   .m-reply-box { padding:12px 16px; }
@@ -267,24 +267,16 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
         <span>需要共鳴</span>
       </div>
     </nav>
-
-    <div class="footer-text">
-      <span onclick="window.location.href='https://namoamitabhapureland.github.io/bodhicitta/index.html'" style="display: flex; align-items: center; gap: 6px; justify-content:flex-start;">
-          <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg> 彌陀淨土系統 衍生共建
-      </span>
-      <div style="margin-top:8px;">無量的光 © 版權與開源</div>
-    </div>
   </aside>
 
   <main class="main-content">
     
-    <div class="zen-intro">
-      <div class="zen-title">菩提客棧 · 方寸之間</div>
-      <div class="zen-text">
-        本客棧法度高度自由，然萬法皆不出「成、住、壞、空」。<br>
-        為順應因緣，特設「七日一循環」之制。<br>
-        凡結緣法語，七日後皆自動化為虛無，與天地同歸寂靜。<br>
-        為保清淨，至多僅留存最新五十篇法喜心得。
+    <div class="intro">
+      <div class="intro-q">
+        把心裡的雨下在這裡吧<br>
+        這世界上總有一個人，願意靜靜為你撐傘<br>
+        <strong>這裡沒有名字，只有溫暖</strong><br>
+        你的文字將隨時間溫柔消散
       </div>
     </div>
 
@@ -318,52 +310,16 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
     <div id="feed">
       <div style="text-align:center; padding:40px; color:var(--tm); letter-spacing:2px;">讀取中...</div>
     </div>
+
+    <div class="footer-text">
+      <span onclick="window.location.href='https://namoamitabhapureland.github.io/bodhicitta/index.html'" style="display: inline-flex; align-items: center; gap: 6px; justify-content:center;">
+          <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg> 彌陀淨土系統 衍生共建
+      </span>
+      <div style="margin-top:8px;">無量的光 © 版權與開源</div>
+    </div>
+
   </main>
 </div>
-
-<div class="modal-overlay" id="post-modal" onclick="closeModal(event)">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    
-    <div class="m-head">
-      <div class="m-close" onclick="closeModal(event)">
-        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </div>
-      <div class="c-type" id="m-type-badge" style="margin:0;">我需要抱抱</div>
-      <div class="m-share" onclick="shareCurrentPost()">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        分享
-      </div>
-    </div>
-
-    <div class="m-body">
-      <div class="m-post-text" id="m-post-text">貼文內容載入中...</div>
-      <div class="c-time" id="m-post-time" style="margin-bottom:24px;"></div>
-
-      <div class="m-comments">
-        <div style="font-size:.75rem; color:var(--tm); letter-spacing:2px; margin-bottom:16px;">── 溫暖回應 ──</div>
-        <div class="m-clist" id="m-comment-list">
-          </div>
-      </div>
-    </div>
-
-    <div class="m-reply-box">
-      <div class="reply-rule">
-        <span>禁止提供醫療建議與聯絡方式</span>
-        <span id="reply-count" style="font-weight:bold;">0 / 20</span>
-      </div>
-      <div class="reply-input-row">
-        <input type="text" class="reply-input" id="reply-input" maxlength="20" placeholder="留下一句溫暖 (限20字內)" oninput="checkReplyInput(this)">
-        <button class="reply-btn" id="btn-submit-reply" onclick="submitReply()" disabled>
-          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        </button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
