@@ -10,7 +10,12 @@
   --cream:#FDF8F3; --warm:#FAF4EE; --parchment:#F2E8DA;
   --gold:#C8956A; --gold-s:#D4AA82; --gold-p:#EDD9BF;
   --rose:#C9968E; --sage:#8A9E94; --sky:#8AACBD;
-  --text:#5C4E44; --ts:#9E8E84; --tm:#BFB0A8;
+  
+  /* 已將文字顏色加深，提升閱讀舒適度 */
+  --text:#2C241E; 
+  --ts:#6E5F54;   
+  --tm:#8C7B6E;   
+  
   --glass:rgba(255,255,255,.65); --glassb:rgba(255,255,255,.9);
   --sh:0 8px 32px rgba(160,130,110,.12);
   --sh-hov:0 12px 40px rgba(160,130,110,.18);
@@ -320,6 +325,43 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
 
   </main>
 </div>
+
+<div id="post-modal" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-content">
+    <div class="m-head">
+      <div id="m-type-badge" class="c-type ct-hug">我需要抱抱</div>
+      <div class="m-share" onclick="shareCurrentPost()">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        分享
+      </div>
+      <div class="m-close" onclick="closeModal(event)">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+    </div>
+    <div class="m-body">
+      <div class="m-post-text" id="m-post-text"></div>
+      <div style="font-size:0.75rem; color:var(--tm); margin-bottom:20px; letter-spacing:1px;" id="m-post-time"></div>
+      <div class="m-comments">
+        <div class="m-clist" id="m-comment-list"></div>
+      </div>
+    </div>
+    <div class="m-reply-box">
+      <div class="reply-rule">
+        <span>輕聲回應 (上限 20 字)</span>
+        <span id="reply-count">0 / 20</span>
+      </div>
+      <div class="reply-input-row">
+        <input type="text" id="reply-input" class="reply-input" placeholder="寫下你的溫暖..." oninput="checkReplyInput(this)">
+        <button id="btn-submit-reply" class="reply-btn" onclick="submitReply()" disabled>
+          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
@@ -327,7 +369,7 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
 <script>
 // ── Firebase 初始化設定 ──────────────────────────────
 const fbCfg = {
-  apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", // 沿用你原本的設定
+  apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", 
   authDomain: "pure-land-light.firebaseapp.com",
   databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com",
   projectId: "pure-land-light",
