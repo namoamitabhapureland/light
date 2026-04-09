@@ -47,23 +47,59 @@ display:flex;flex-direction:column;align-items:center; min-height:100dvh;}
 /* 頂部 */
 .top{width:100%;padding:max(15px,env(safe-area-inset-top)) 0 10px;
 display:flex;justify-content:space-between;align-items:center;}
-.top-btn{width:42px;height:42px;border-radius:50%;background:var(--glass-bg);
-backdrop-filter:blur(12px); border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;
-cursor:pointer;transition:.2s;box-shadow:var(--shadow-soft);}
+
+/* 1. 【修改】橢圓形膠囊「說明」按鈕 */
+.top-btn{
+  width:auto; /* 改為自動寬度以適應文字 */
+  height:42px;
+  border-radius:21px; /* 高度的一半，形成膠囊型 */
+  padding: 0 18px; /* 增加左右間距包覆文字 */
+  background:var(--glass-bg);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--glass-border);
+  display:flex;align-items:center;justify-content:center;
+  gap:8px; /* 圖示與文字的間距 */
+  cursor:pointer;transition:.2s;box-shadow:var(--shadow-soft);
+}
 .top-btn:active{transform:scale(.92);background:rgba(255,255,255,0.9);}
 .top-btn svg{width:18px;height:18px;stroke:var(--text-light);fill:none;stroke-width:2;}
+.top-btn-txt {font-size:.8rem;color:var(--text-main);letter-spacing:2px;} /* 按鈕文字樣式 */
 
 /* 核心英雄區 (精緻化) */
 .hero{width:100%;display:flex;flex-direction:column;align-items:center;
-padding:5px 0 15px;animation:fadeUp .8s ease-out;}
+/* 2. 【修改】移除了頂部的 5px padding，讓整體往上移 */
+padding:0 0 15px;animation:fadeUp .8s ease-out;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
-.embrace-wrap{width:150px;height:150px;display:flex;align-items:center;justify-content:center;
-position:relative;margin-bottom:12px;}
-.embrace-wrap::before{content:'';position:absolute;width:140px;height:140px;border-radius:50%;
-background:radial-gradient(circle,rgba(203,163,122,.15) 0%,transparent 70%);
-animation:bRing 4s infinite ease-in-out;}
-@keyframes bRing{0%,100%{transform:scale(1);opacity:.6;}50%{transform:scale(1.08);opacity:1;}}
+/* 3. 【修改】小精靈放大與上移 */
+.embrace-wrap{
+  width:220px; /* 從 150px 大幅放大到 220px */
+  height:220px; /* 從 150px 大幅放大到 220px */
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  /* 精細調整 margin：增加頂部距離從上方區塊推下來，縮短底部距離拉近 title */
+  margin-top: 30px; 
+  margin-bottom:5px;
+  
+  /* 4. 【增加】超級療癒動畫：緩慢呼吸與跳動 */
+  animation: dynamicBounce 4s infinite ease-in-out;
+}
+.embrace-wrap:active { transform: scale(0.95); } /* 點擊時的彈跳動畫 */
+
+/* 呼吸跳動動畫 */
+@keyframes dynamicBounce {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.08) translateY(-10px); } /* 微微放大並往上跳動 */
+}
+
+/* 發光發亮的光暈 */
+.embrace-wrap::before{content:'';position:absolute;width:220px;height:220px;border-radius:50%;
+background:radial-gradient(circle,rgba(203,163,122,.3) 0%,transparent 70%); /* 增加光暈亮度與範圍 */
+/* 5. 【增加】呼吸燈光暈動畫 */
+animation:breathGlow 4s infinite ease-in-out;}
+
+/* 呼吸燈光暈動畫 */
+@keyframes breathGlow{0%,100%{transform:scale(1);opacity:.4;}50%{transform:scale(1.15);opacity:1;}}
 
 .sprite-blue { transform-origin: 100px 150px; animation: leanRight 3.5s infinite alternate ease-in-out; }
 .sprite-pink { transform-origin: 100px 150px; animation: leanLeft 3.5s infinite alternate ease-in-out; }
@@ -171,19 +207,14 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
 .pta::placeholder{color:var(--text-muted);}
 .ch{text-align:right;font-size:.65rem;color:var(--text-muted);margin-top:6px;margin-bottom:16px;}
 
-.anon{display:flex;align-items:flex-start;gap:8px;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.6);border:1px solid var(--glass-border);margin-bottom:16px;}
+.anon{display:flex;align-items:flex-start;gap:8px;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.6);border:1px solid var(--glass-border);margin-bottom:166px;}
 .anon svg{width:16px;height:16px;stroke:var(--accent-hole);fill:none;stroke-width:1.8;flex-shrink:0;margin-top:2px;}
 .anon span{font-size:.7rem;color:var(--text-light);letter-spacing:1px;line-height:1.5;}
-
-.hotline-inner{text-align:center;padding:12px;background:rgba(255,255,255,.6);border-radius:14px;border:1px solid var(--glass-border);margin-bottom:16px;}
-.hi-text{font-size:.7rem;color:var(--text-light);letter-spacing:1.5px;line-height:1.8;}
-.hi-num{color:var(--accent-cheer);font-weight:500;}
 
 .send{width:100%;padding:16px;background:var(--accent-cheer);color:#fff;border:none;border-radius:20px;font-size:.95rem;letter-spacing:4px;cursor:pointer;box-shadow:0 6px 20px rgba(203,163,122,.25);transition:.2s;}
 .send:active{transform:translateY(2px);}
 .send:disabled{opacity:.5;cursor:not-allowed;}
 
-/* 回應彈窗 */
 .wg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
 .wb{padding:16px 8px;border-radius:20px;background:white;border:1.5px solid var(--glass-border);display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;transition:.25s;}
 .wb:active{transform:scale(.95);}
@@ -218,6 +249,7 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
   <div class="top">
     <div></div> <div class="top-btn" onclick="showAbout()">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <span class="top-btn-txt">說明</span>
     </div>
   </div>
 
@@ -249,7 +281,7 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
     </div>
 
     <h1 class="h-title">無量的光</h1>
-    <p class="h-sub" style="margin-top: 8px; font-size: 0.95rem;">你不孤單，把心裡的雨下在這裡吧。</p>
+    <p class="h-sub">你不孤單，把心裡的雨下在這裡吧。</p>
 
     <div class="stats">
       <div class="spi"><div class="sd sd-g"></div><span class="st">今日點燈</span><span class="sn" id="sn1">—</span></div>
@@ -266,7 +298,7 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
         <div class="nsb">放心說，沒有人批判</div>
       </div>
       <div class="nc nc-cheer" onclick="pickNeed('cheer',this)">
-        <div class="ni"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6H22l-6.1 4.7 2.3 7.7L12 17.5l-6.2 4.5 2.3-7.7L2 9.6h7.6L12 2z" fill="rgba(200,149,106,.2)" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.5" fill="currentColor" opacity="0.5" stroke="none"/></svg></div>
+        <div class="ni"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6H22l-6.1 4.7 2.3 7.7L12 17.5l-6.2 4.5 2.3-7.7L2 9.6h7.6L12 2z" fill="rgba(203,163,122,.2)" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.5" fill="currentColor" opacity="0.5" stroke="none"/></svg></div>
         <div class="nl">求個鼓勵</div>
         <div class="nsb">你已經做得很好了</div>
       </div>
@@ -415,7 +447,7 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
 
 <script>
 const fbCfg = {
-  apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", 
+  apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMf245", 
   authDomain: "pure-land-light.firebaseapp.com",
   databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com",
   projectId: "pure-land-light"
