@@ -18,11 +18,11 @@
   --shadow-soft: 0 10px 40px rgba(160, 155, 150, 0.12);
   --shadow-hov: 0 15px 45px rgba(160, 155, 150, 0.18);
 
-  /* 四大主題專屬色 (微調以配合淨息流) */
-  --accent-hole: #82968C;  /* 樹洞 (Jade) */
-  --accent-cheer: #CBA37A; /* 鼓勵 (Gold) */
-  --accent-echo: #8AACBD;  /* 共鳴 (Sky) */
-  --accent-night: #CFA4A4; /* 呢喃 (Rose) */
+  /* 四大主題專屬色 */
+  --accent-hole: #82968C;  /* 樹洞 */
+  --accent-cheer: #CBA37A; /* 鼓勵 */
+  --accent-echo: #8AACBD;  /* 共鳴 */
+  --accent-night: #CFA4A4; /* 呢喃 */
 
   font-size: 17px;
 }
@@ -34,7 +34,7 @@ html, body {
   overflow-x: hidden; display: flex; flex-direction: column; align-items: center;
 }
 
-/* 頂部導航 (與淨息流一致) */
+/* 頂部導航 */
 .top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: center; z-index: 10; position: sticky; top: 0; background: linear-gradient(180deg, #FDFDFD 40%, rgba(253,253,253,0));}
 .nav-content { width: 100%; max-width: 720px; display: flex; justify-content: space-between; align-items: center; }
 .nav-btn { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: var(--shadow-soft); cursor: pointer; transition: all 0.2s; }
@@ -48,7 +48,7 @@ html, body {
 /* 簡潔引言 */
 .intro-text { text-align: center; font-size: 0.85rem; color: var(--text-light); letter-spacing: 2px; margin-bottom: 24px; font-weight: 300; }
 
-/* 發文區卡片 (套用淨息流玻璃質感) */
+/* 發文區卡片 */
 .post-box {
   background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
   border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft);
@@ -170,7 +170,7 @@ html, body {
 .footer-text { margin-top: 20px; font-size: 0.75rem; color: var(--text-light); letter-spacing: 2px; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: color 0.3s; justify-content: center; width: 100%;}
 .footer-text:active { color: var(--accent-cheer); }
 
-/* --- 彈出視窗 (淨息流風格) --- */
+/* --- 彈出視窗 --- */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 999; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s; padding: 20px 15px; }
 .modal-overlay.show { display: flex; opacity: 1; }
 .glass-modal { 
@@ -212,13 +212,19 @@ padding:12px 24px;border-radius:24px;font-size:0.85rem;letter-spacing:2px;
 opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* 檢舉與確認框 (淨息流風格) */
+/* 檢舉與確認框 */
 .glass-confirm { background: rgba(253, 252, 252, 0.96); width: 88%; max-width: 340px; border-radius: 25px; padding: 30px 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); border: 1px solid var(--glass-border); text-align: center; transform: translateY(20px); transition: transform 0.3s ease; }
 .modal-overlay.show .glass-confirm { transform: translateY(0); }
 .glass-text { color: var(--text-main); font-size: 1.05rem; margin-bottom: 25px; line-height: 1.6; letter-spacing: 1px; }
 .glass-btn { background: var(--accent-cheer); color: white; border: none; padding: 12px 0; border-radius: 16px; font-size: 0.95rem; cursor: pointer; letter-spacing: 2px; box-shadow: 0 4px 15px rgba(203, 163, 122, 0.2); transition: 0.2s; flex: 1; }
 .glass-btn:active { transform: scale(0.95); }
 .glass-btn-cancel { background: white; color: var(--text-light); border: 1px solid var(--glass-border); box-shadow: none; }
+
+/* 新增：阻斷牆專屬樣式 */
+#legal-wall { position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); z-index:2000; display:none; opacity:0; transition:opacity .3s; justify-content:center; align-items:center; padding: 20px;}
+#legal-wall.show { display:flex; opacity:1; }
+#legal-wall .glass-confirm { background:rgba(253,252,252,0.96); width:100%; max-width:380px; border-radius:25px; padding:30px 25px; border:1px solid var(--glass-border); box-shadow:0 20px 60px rgba(0,0,0,.15); transform:translateY(20px); transition:transform .3s; text-align: left; }
+#legal-wall.show .glass-confirm { transform:translateY(0); }
 </style>
 </head>
 <body>
@@ -231,8 +237,7 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
           </div>
       </div>
       <div class="nav-title">無量的光</div>
-      <div style="width: 42px;">
-          </div>
+      <div style="width: 42px;"></div>
   </div>
 </div>
 
@@ -276,7 +281,7 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
         <span>呢喃</span>
       </div>
     </div>
-    <textarea class="pta" id="new-post-txt" placeholder="請先選擇分類，再說說此刻的感受..." maxlength="150" oninput="checkPostInput()"></textarea>
+    <textarea class="pta" id="new-post-txt" placeholder="請先選擇分類，再說說此刻的感受..." maxlength="150" onclick="checkLegalBeforeAction()" oninput="checkPostInput(); filterEmoji(this)"></textarea>
     <div class="pb-foot">
       <span class="pb-count" id="new-post-count">0 / 150</span>
       <button class="btn-primary" id="btn-submit-post" onclick="submitPost()" disabled>發出光</button>
@@ -352,6 +357,18 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
 
 </div>
 
+<div id="legal-wall">
+  <div class="glass-confirm">
+    <div style="font-size: 1.1rem; color: var(--text-main); font-weight: 500; letter-spacing: 3px; margin-bottom: 15px; text-align: center;">光域的約定</div>
+    <div style="font-size: 0.85rem; color: var(--text-main); line-height: 1.8; letter-spacing: 1px; margin-bottom: 25px;">
+      這是一個給予溫度的純粹空間，依賴社群的善意共治。偏離溫暖或引起不適的文字，將透過群眾檢舉自動隱去。<br><br>
+      本系統不預先審核內容，僅暫存最新 50 則動態，隨後物理消散。<span style="color: var(--text-light);">送出文字即代表您承諾內容符合法律規範，並願為自己的言論承擔全責。</span><br><br>
+      若您正處於危急時刻，請立即撥打 <strong style="color: var(--accent-cheer);">1925</strong> 安心專線。受限於匿名架構，本系統無法提供救援或調查追溯，但我們期盼您平安。
+    </div>
+    <button class="glass-btn" style="width: 100%; box-shadow: 0 4px 15px rgba(203, 163, 122, 0.2);" onclick="acceptLegal()">我理解並願意承擔</button>
+  </div>
+</div>
+
 <div id="pure-confirm" class="modal-overlay" style="z-index: 1000;" onclick="closeConfirm(false)">
   <div class="glass-confirm" onclick="event.stopPropagation()">
       <div class="glass-text" id="pure-confirm-msg"></div>
@@ -388,7 +405,7 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
         <span id="reply-count">0 / 20</span>
       </div>
       <div class="reply-input-row">
-        <input type="text" id="reply-input" class="reply-input" placeholder="寫下你的溫暖..." oninput="checkReplyInput(this)">
+        <input type="text" id="reply-input" class="reply-input" placeholder="寫下你的溫暖..." oninput="checkReplyInput(this); filterEmoji(this)">
         <button id="btn-submit-reply" class="reply-btn" onclick="submitReply()" disabled>
           <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
@@ -404,6 +421,34 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
 <script>
+// 新增：檢查是否同意免責聲明
+function checkLegalBeforeAction() {
+  if (!localStorage.getItem('pure_land_agreed')) {
+    const wall = document.getElementById('legal-wall');
+    wall.style.display = 'flex';
+    setTimeout(() => wall.classList.add('show'), 10);
+    return false;
+  }
+  return true;
+}
+
+// 新增：同意免責聲明
+function acceptLegal() {
+  localStorage.setItem('pure_land_agreed', 'true');
+  const wall = document.getElementById('legal-wall');
+  wall.classList.remove('show');
+  setTimeout(() => wall.style.display = 'none', 300);
+}
+
+// 新增：靜默過濾 Emoji，守護純粹美學
+function filterEmoji(el) {
+  const regex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
+  if (regex.test(el.value)) {
+    el.value = el.value.replace(regex, '');
+    showToast('為保持空間的純粹，符號已化為光');
+  }
+}
+
 const fbCfg = {
   apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", 
   authDomain: "pure-land-light.firebaseapp.com",
@@ -533,7 +578,9 @@ function renderFeed() {
   });
 }
 
+// 修改：觸發免責牆攔截
 function pickPostType(el) {
+  if (!checkLegalBeforeAction()) return; // 新增攔截
   document.querySelectorAll('.tp-btn').forEach(b => b.classList.remove('act'));
   el.classList.add('act'); 
   postType = el.dataset.t; 
@@ -549,7 +596,9 @@ function checkPostInput() {
   btn.disabled = !(postType && len >= 5);
 }
 
+// 修改：觸發免責牆攔截
 function submitPost() {
+  if (!checkLegalBeforeAction()) return; // 新增攔截
   const txt = document.getElementById('new-post-txt').value.trim();
   if (!txt || !postType) return;
   const btn = document.getElementById('btn-submit-post');
@@ -602,7 +651,10 @@ window.reportPost = (id, e) => {
     });
 };
 
+// 修改：觸發免責牆攔截
 function openPostModal(id) {
+  if (!checkLegalBeforeAction()) return; // 新增攔截：沒同意就不給開回覆框
+  
   const p = allPosts[id];
   if (!p) return;
   currentModalPostId = id;
