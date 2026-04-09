@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>燈火牆 · 無量的光</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0a0a0a;
+      color: #f5e8c7;
+      font-family: 'Noto Serif TC', serif;
+      overflow-x: hidden;
+    }
+
+    .header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: linear-gradient(to bottom, rgba(20,10,0,0.9), transparent);
+    }
+
+    .header h1 {
+      font-size: 2.8rem;
+      margin: 0;
+      color: #ffcc77;
+      text-shadow: 0 0 30px rgba(255, 180, 80, 0.6);
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.8;
+      margin-top: 8px;
+    }
+
+    .lamp-wall {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      padding: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .lamp-card {
+      background: rgba(30, 20, 10, 0.85);
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid rgba(255, 180, 80, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lamp-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 50px rgba(255, 140, 60, 0.25);
+      border-color: rgba(255, 180, 80, 0.5);
+    }
+
+    .lamp-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(255,220,120,0.25) 0%, transparent 70%);
+      opacity: 0;
+      transition: all 0.6s;
+    }
+
+    .lamp-card:hover::before {
+      opacity: 1;
+      top: -20%;
+      left: -20%;
+    }
+
+    .category {
+      font-size: 0.85rem;
+      color: #ffaa55;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .content {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      min-height: 120px;
+    }
+
+    .footer-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      opacity: 0.75;
+    }
+
+    .lights {
+      color: #ffdd88;
+    }
+
+    .back-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: rgba(255, 140, 60, 0.9);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-size: 1rem;
+      box-shadow: 0 8px 25px rgba(255, 100, 30, 0.4);
+      cursor: pointer;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>🌟 燈火牆</h1>
+    <p>此時此刻，全世界有這些燈正在微微發亮</p>
+  </div>
+
+  <div class="lamp-wall" id="lampContainer">
+    <!-- 這裡會由 JS 動態插入卡片 -->
+  </div>
+
+  <button class="back-btn" onclick="history.back()">← 回到點燈處</button>
+
+  <script>
+    // 範例資料（之後換成從 Firebase 抓真實資料）
+    const sampleLamps = [
+      {
+        category: "心事樹洞",
+        content: "今天又夢到以前的自己了… 好想告訴那個小孩，沒事的，你會走過來的。",
+        lights: 27,
+        time: "12 分鐘前"
+      },
+      {
+        category: "求個鼓勵",
+        content: "面試又被刷掉了，心好累。好像怎麼努力都不夠。",
+        lights: 42,
+        time: "47 分鐘前"
+      },
+      {
+        category: "深夜呢喃",
+        content: "凌晨三點的台北，下著雨。我在陽台抽煙，突然覺得自己好渺小，但又莫名安心。",
+        lights: 19,
+        time: "2 小時前"
+      },
+      {
+        category: "尋找共鳴",
+        content: "有人也曾經一邊哭一邊笑嗎？今天在捷運上突然就哭了出來。",
+        lights: 35,
+        time: "剛剛"
+      }
+    ];
+
+    function renderLamps() {
+      const container = document.getElementById('lampContainer');
+      container.innerHTML = '';
+
+      sampleLamps.forEach(lamp => {
+        const card = document.createElement('div');
+        card.className = 'lamp-card';
+        card.innerHTML = `
+          <div class="category">「${lamp.category}」</div>
+          <div class="content">${lamp.content}</div>
+          <div class="footer-info">
+            <span>${lamp.time}</span>
+            <span class="lights">🔥 被點亮 ${lamp.lights} 次</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    window.onload = renderLamps;
+  </script>
+</body>
+</html>
