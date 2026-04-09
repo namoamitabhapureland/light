@@ -4,462 +4,358 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>無量的光 · 燈火牆</title>
 <style>
 :root {
-  --cream:#FDF8F3; --warm:#FAF4EE; --parchment:#F2E8DA;
-  --gold:#C8956A; --gold-s:#D4AA82; --gold-p:#EDD9BF;
-  --rose:#C9968E; --sage:#8A9E94; --sky:#8AACBD;
-  
-  --text:#2C241E; 
-  --ts:#6E5F54;   
-  --tm:#8C7B6E;   
-  
-  --glass:rgba(255,255,255,.65); --glassb:rgba(255,255,255,.9);
-  --sh:0 8px 32px rgba(160,130,110,.12);
-  --sh-hov:0 12px 40px rgba(160,130,110,.18);
+  /* 淨息流主色系基因 */
+  --bg-gradient: linear-gradient(135deg, #FDFDFD, #F5F2EF);
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --text-main: #58504A; 
+  --text-light: #968E86;
+  --text-muted: #BFB0A8;
+  --shadow-soft: 0 10px 40px rgba(160, 155, 150, 0.12);
+  --shadow-hov: 0 15px 45px rgba(160, 155, 150, 0.18);
+
+  /* 四大主題專屬色 (微調以配合淨息流) */
+  --accent-hole: #82968C;  /* 樹洞 (Jade) */
+  --accent-cheer: #CBA37A; /* 鼓勵 (Gold) */
+  --accent-echo: #8AACBD;  /* 共鳴 (Sky) */
+  --accent-night: #CFA4A4; /* 呢喃 (Rose) */
+
   font-size: 17px;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
-html,body{margin:0;padding:0;width:100%;min-height:100dvh;
-  background:var(--warm);color:var(--text);
-  font-family:-apple-system,"PingFang TC","Helvetica Neue",sans-serif;
-  overflow-x:hidden;}
-
-/* 背景光暈 */
-body::before{content:'';position:fixed;inset:0;
-background:
-radial-gradient(ellipse 70% 50% at 18% 8%,rgba(212,170,130,.15) 0%,transparent 60%),
-radial-gradient(ellipse 50% 40% at 85% 22%,rgba(201,150,142,.1) 0%,transparent 55%);
-pointer-events:none;z-index:0;}
-
-.layout {
-  position:relative; z-index:2; width:100%; max-width:960px; margin:0 auto;
-  display:flex; align-items:flex-start; gap:24px; padding:24px 16px;
+* { box-sizing: border-box; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+html, body { 
+  margin: 0; padding: 0; width: 100%; min-height: 100dvh; 
+  background: var(--bg-gradient); color: var(--text-main); 
+  font-family: -apple-system, "PingFang TC", sans-serif; 
+  overflow-x: hidden; display: flex; flex-direction: column; align-items: center;
 }
 
-.sidebar {
-  flex: 0 0 220px; position:sticky; top:24px; display:flex; flex-direction:column; gap:20px;
-}
-.logo-area { cursor:pointer; margin-bottom:10px; display:flex; align-items:center; gap:8px;}
-.logo-area svg { width:20px; height:20px; stroke:var(--ts); fill:none; }
-.logo-area span { font-size:.9rem; letter-spacing:4px; color:var(--text); font-weight:500;}
+/* 頂部導航 (與淨息流一致) */
+.top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: center; z-index: 10; position: sticky; top: 0; background: linear-gradient(180deg, #FDFDFD 40%, rgba(253,253,253,0));}
+.nav-content { width: 100%; max-width: 720px; display: flex; justify-content: space-between; align-items: center; }
+.nav-btn { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: var(--shadow-soft); cursor: pointer; transition: all 0.2s; }
+.nav-btn:active { transform: scale(0.92); background: rgba(255,255,255,0.9); }
+.nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;}
+.nav-title { flex: 1; text-align: center; font-size: 1.05rem; letter-spacing: 5px; font-weight: 300; color: var(--text-main); }
 
-/* 分類導覽 */
-.nav-menu { display:flex; flex-direction:column; gap:8px; }
-.nav-item {
-  display:flex; align-items:center; gap:10px; padding:12px 16px; border-radius:16px;
-  background:transparent; cursor:pointer; transition:.2s; border:1px solid transparent;
-}
-.nav-item:hover { background:var(--glass); border-color:var(--glassb); }
-.nav-item.act { background:var(--glass); border-color:var(--gold-s); box-shadow:var(--sh); }
-.nav-item svg { width:18px; height:18px; fill:none; stroke-width:1.8; stroke-linecap:round; }
-.nav-item span { font-size:.85rem; letter-spacing:2px; color:var(--text); }
+/* 主容器 */
+.main-container { width: 100%; max-width: 720px; padding: 10px 20px 40px; display: flex; flex-direction: column; }
 
-/* 四大主題色彩對應 */
-.nav-all svg { stroke:var(--ts); }
-.nav-hole svg { stroke:var(--sage); }
-.nav-cheer svg { stroke:var(--gold); }
-.nav-echo svg { stroke:var(--sky); }
-.nav-night svg { stroke:var(--rose); }
+/* 簡潔引言 */
+.intro-text { text-align: center; font-size: 0.85rem; color: var(--text-light); letter-spacing: 2px; margin-bottom: 24px; font-weight: 300; }
 
-/* 右側主內容區 */
-.main-content { flex:1; min-width:0; display:flex; flex-direction:column; gap:16px; }
-
-/* 發文區 */
+/* 發文區卡片 (套用淨息流玻璃質感) */
 .post-box {
-  padding:20px; background:var(--glass); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-  border:1px solid var(--glassb); border-radius:20px; box-shadow:var(--sh);
+  background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft);
+  border-radius: 24px; padding: 25px 20px; margin-bottom: 30px;
 }
-.pb-head { font-size:.75rem; letter-spacing:3px; color:var(--tm); margin-bottom:12px; }
-.type-picker { display:flex; gap:8px; margin-bottom:12px; overflow-x:auto; padding-bottom:4px; scrollbar-width:none;}
-.type-picker::-webkit-scrollbar { display:none; }
+.pb-head { font-size: 0.8rem; letter-spacing: 3px; color: var(--text-light); margin-bottom: 16px; text-align: center;}
+
+/* 發文類型選擇 */
+.type-picker { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
 .tp-btn {
-  padding:8px 14px; border-radius:14px; background:rgba(255,255,255,.5); border:1.5px solid var(--glassb);
-  display:flex; align-items:center; gap:6px; cursor:pointer; transition:.2s; white-space:nowrap;
+  padding: 10px 0; border-radius: 16px; background: rgba(255,255,255,0.5); border: 1px solid var(--glass-border);
+  display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; transition: all 0.2s;
 }
-.tp-btn.act { border-color:var(--gold-s); background:rgba(212,170,130,.15); }
-.tp-btn svg { width:15px; height:15px; fill:none; stroke-width:1.8; }
-.tp-hole svg{stroke:var(--sage);} .tp-cheer svg{stroke:var(--gold);}
-.tp-echo svg{stroke:var(--sky);} .tp-night svg{stroke:var(--rose);}
-.tp-btn span { font-size:.75rem; color:var(--text); letter-spacing:1px; }
+.tp-btn.act { background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.tp-btn svg { width: 20px; height: 20px; fill: none; stroke-width: 1.5; }
+.tp-hole svg{stroke:var(--accent-hole);} .tp-hole.act{border-color:var(--accent-hole);}
+.tp-cheer svg{stroke:var(--accent-cheer);} .tp-cheer.act{border-color:var(--accent-cheer);}
+.tp-echo svg{stroke:var(--accent-echo);} .tp-echo.act{border-color:var(--accent-echo);}
+.tp-night svg{stroke:var(--accent-night);} .tp-night.act{border-color:var(--accent-night);}
+.tp-btn span { font-size: 0.7rem; color: var(--text-main); letter-spacing: 1px; }
 
+/* 輸入框 */
 .pta {
-  width:100%; height:90px; background:rgba(255,255,255,.6); border:1.5px solid var(--glassb);
-  border-radius:14px; padding:12px; font-size:.9rem; color:var(--text); line-height:1.6;
-  outline:none; resize:none; font-family:inherit; transition:.2s;
+  width: 100%; height: 90px; background: rgba(255,255,255,0.7); border: 1px solid var(--glass-border);
+  border-radius: 16px; padding: 15px; font-size: 0.9rem; color: var(--text-main); line-height: 1.6;
+  outline: none; resize: none; font-family: inherit; transition: 0.3s;
 }
-.pta:focus { border-color:rgba(200,149,106,.4); background:rgba(255,255,255,.9); }
-.pb-foot { display:flex; justify-content:space-between; align-items:center; margin-top:10px; }
-.pb-count { font-size:.65rem; color:var(--tm); }
+.pta:focus { background: white; border-color: var(--accent-cheer); box-shadow: inset 0 0 10px rgba(203,163,122,0.05); }
+.pb-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+.pb-count { font-size: 0.7rem; color: var(--text-muted); }
 .btn-primary {
-  padding:10px 24px; background:linear-gradient(135deg,var(--gold),var(--rose)); color:#fff;
-  border:none; border-radius:18px; font-size:.85rem; letter-spacing:2px; cursor:pointer;
-  box-shadow:0 4px 16px rgba(200,149,106,.3); transition:.2s;
+  padding: 12px 28px; background: var(--accent-cheer); color: white;
+  border: none; border-radius: 20px; font-size: 0.9rem; letter-spacing: 2px; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(203, 163, 122, 0.25); transition: 0.2s; font-weight: 500;
 }
-.btn-primary:active { transform:translateY(2px); }
-.btn-primary:disabled { opacity:.5; cursor:not-allowed; }
+.btn-primary:active { transform: scale(0.95); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
 
-/* 貼文列表區 */
-#feed { display:flex; flex-direction:column; gap:16px; margin-top:8px; }
+/* 分類橫向滑動標籤 */
+.filter-tabs { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 10px; scrollbar-width: none; }
+.filter-tabs::-webkit-scrollbar { display: none; }
+.ft-btn {
+  padding: 10px 18px; border-radius: 20px; background: var(--glass-bg); border: 1px solid var(--glass-border);
+  white-space: nowrap; font-size: 0.85rem; color: var(--text-light); transition: all 0.3s; cursor: pointer;
+  display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow-soft);
+}
+.ft-btn svg { width: 16px; height: 16px; fill: none; stroke-width: 1.8; }
+.ft-all svg { stroke: var(--text-light); }
+.ft-hole svg { stroke: var(--accent-hole); }
+.ft-cheer svg { stroke: var(--accent-cheer); }
+.ft-echo svg { stroke: var(--accent-echo); }
+.ft-night svg { stroke: var(--accent-night); }
+.ft-btn.act { background: white; color: var(--text-main); font-weight: 500; }
+.ft-all.act { border-color: var(--text-light); }
+.ft-hole.act { border-color: var(--accent-hole); }
+.ft-cheer.act { border-color: var(--accent-cheer); }
+.ft-echo.act { border-color: var(--accent-echo); }
+.ft-night.act { border-color: var(--accent-night); }
 
+/* 瀑布流卡片區 */
+#feed { display: flex; flex-direction: column; gap: 16px; }
 .card {
-  padding:20px; background:var(--glass); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-  border:1px solid var(--glassb); border-radius:20px; box-shadow:var(--sh);
-  cursor:pointer; transition:.2s; display:flex; gap:12px;
+  background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft);
+  border-radius: 24px; padding: 22px 20px; cursor: pointer; transition: all 0.3s;
 }
-.card:hover { transform:translateY(-2px); box-shadow:var(--sh-hov); }
+.card:active { transform: scale(0.98); }
 
-.c-bar { width:4px; border-radius:2px; flex-shrink:0; align-self:stretch; transition:.4s; }
-.cb-hole { background:linear-gradient(180deg,var(--sage),transparent); }
-.cb-cheer { background:linear-gradient(180deg,var(--gold),transparent); }
-.cb-echo { background:linear-gradient(180deg,var(--sky),transparent); }
-.cb-night { background:linear-gradient(180deg,var(--rose),transparent); }
+.c-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.c-type { font-size: 0.7rem; letter-spacing: 2px; padding: 4px 12px; border-radius: 12px; }
+.ct-hole { color: var(--accent-hole); background: rgba(130, 150, 140, 0.1); }
+.ct-cheer { color: var(--accent-cheer); background: rgba(203, 163, 122, 0.1); }
+.ct-echo { color: var(--accent-echo); background: rgba(138, 172, 189, 0.1); }
+.ct-night { color: var(--accent-night); background: rgba(207, 164, 164, 0.1); }
 
-.c-body { flex:1; min-width:0; }
-.c-type { display:inline-block; font-size:.65rem; letter-spacing:2px; padding:3px 10px; border-radius:10px; margin-bottom:8px; }
-.ct-hole { color:var(--sage); background:rgba(138,158,148,.15); }
-.ct-cheer { color:var(--gold); background:rgba(200,149,106,.15); }
-.ct-echo { color:var(--sky); background:rgba(138,172,189,.15); }
-.ct-night { color:var(--rose); background:rgba(201,150,142,.15); }
-
-.c-text { font-size:.9rem; color:var(--text); line-height:1.6; margin-bottom:12px; word-break:break-word; }
-.c-summary { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
-
-.c-foot { display:flex; justify-content:space-between; align-items:center; }
-.c-time { font-size:.65rem; color:var(--tm); letter-spacing:1px; }
-.c-actions { display:flex; gap:8px; }
+.c-text { font-size: 0.95rem; color: var(--text-main); line-height: 1.7; margin-bottom: 16px; word-break: break-word; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;}
+.c-foot { display: flex; justify-content: space-between; align-items: center; }
+.c-time { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 1px; }
+.c-actions { display: flex; gap: 8px; }
 .action-btn {
-  display:flex; align-items:center; gap:4px; padding:6px 12px; border-radius:12px;
-  background:rgba(255,255,255,.5); border:1px solid rgba(255,255,255,.7);
-  font-size:.68rem; color:var(--ts); transition:.2s; cursor:pointer;
+  display: flex; align-items: center; gap: 4px; padding: 8px 14px; border-radius: 14px;
+  background: rgba(255,255,255,0.7); border: 1px solid var(--glass-border);
+  font-size: 0.75rem; color: var(--text-light); transition: 0.2s; cursor: pointer;
 }
-.action-btn:hover { background:rgba(255,255,255,.9); }
-.action-btn svg { width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.8; }
-.action-btn.lit { color:var(--gold); border-color:rgba(200,149,106,.4); background:rgba(200,149,106,.1); }
+.action-btn:active { background: white; }
+.action-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+.action-btn.lit { color: var(--accent-cheer); border-color: rgba(203, 163, 122, 0.3); background: rgba(203, 163, 122, 0.08); }
+.btn-report:active { color: var(--accent-night); }
 
-/* 新增：檢舉按鈕樣式 */
-.btn-report { color: var(--ts); }
-.btn-report:hover { color: var(--rose); border-color: rgba(201,150,142,.3); background: rgba(201,150,142,.1); }
-
-/* 共建版權區 */
-.footer-text {
-  margin-top: 30px; padding-top: 24px; border-top: 1px solid rgba(200,149,106,.15);
-  font-size: .65rem; color: var(--tm); line-height: 1.8; letter-spacing: 1px;
-  text-align: center; padding-bottom: 40px;
-}
-.footer-text span { cursor:pointer; transition:.2s; }
-.footer-text span:hover { color:var(--gold); }
-
-/* --- 彈出視窗系列 --- */
-.modal-overlay {
-  position:fixed; inset:0; background:rgba(92,78,68,.6); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
-  z-index:999; display:none; opacity:0; transition:opacity .3s;
-  justify-content:center; align-items:center; padding:20px 10px;
-}
-.modal-overlay.show { display:flex; opacity:1; }
-.modal-content {
-  width:100%; max-width:600px; max-height:90dvh; background:var(--cream);
-  border-radius:24px; box-shadow:0 12px 48px rgba(0,0,0,.15);
-  display:flex; flex-direction:column; overflow:hidden;
-  transform:translateY(20px); transition:transform .3s cubic-bezier(.25,.8,.25,1);
-}
-.modal-overlay.show .modal-content { transform:translateY(0); }
-
-.m-head {
-  padding:16px 20px; border-bottom:1px solid rgba(200,149,106,.15);
-  display:flex; justify-content:space-between; align-items:center; background:var(--warm);
-}
-.m-close {
-  width:32px; height:32px; border-radius:50%; background:var(--glass); border:1px solid var(--glassb);
-  display:flex; align-items:center; justify-content:center; cursor:pointer;
-}
-.m-close svg { width:16px; height:16px; stroke:var(--text); fill:none; stroke-width:2;}
-.m-share {
-  display:flex; align-items:center; gap:6px; font-size:.75rem; color:var(--gold); cursor:pointer;
-  padding:6px 12px; background:rgba(200,149,106,.1); border-radius:14px; transition:.2s;
-}
-.m-share:active { transform:scale(.95); }
-
-.m-body { flex:1; overflow-y:auto; padding:24px 20px; }
-.m-post-text { font-size:1rem; line-height:1.8; color:var(--text); margin-bottom:20px; word-break:break-word; }
-
-.m-comments { border-top:1px dashed rgba(200,149,106,.3); padding-top:20px; margin-bottom:20px; }
-.m-clist { display:flex; flex-direction:column; gap:16px; }
-.comment-item { display:flex; gap:12px; align-items:flex-start; }
-.ci-icon { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; background:rgba(200,149,106,.15); }
-.ci-icon svg { width:18px; height:18px; fill:none; stroke-width:1.8; stroke:var(--gold); }
-.ci-content { flex:1; background:rgba(255,255,255,.6); border:1px solid var(--glassb); border-radius:0 16px 16px 16px; padding:12px 14px; }
-.ci-warm { font-size:.7rem; color:var(--gold); letter-spacing:1px; margin-bottom:4px; font-weight:500;}
-.ci-text { font-size:.85rem; color:var(--text); line-height:1.6; }
-
-.m-reply-box {
-  background:var(--warm); border-top:1px solid rgba(200,149,106,.15); padding:16px 20px;
-}
-.reply-rule { font-size:.65rem; color:var(--rose); letter-spacing:1px; margin-bottom:8px; display:flex; justify-content:space-between; }
-.reply-input-row { display:flex; gap:10px; align-items:center; }
-.reply-input {
-  flex:1; padding:12px 16px; border-radius:18px; border:1.5px solid var(--glassb); background:#fff;
-  font-size:.85rem; outline:none; transition:.2s;
-}
-.reply-input:focus { border-color:var(--gold-s); }
-.reply-btn {
-  width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,var(--gold),var(--rose));
-  border:none; color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;
-}
-.reply-btn:disabled { opacity:.5; cursor:not-allowed; }
-.reply-btn svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2;}
-
-/* 系統提示 Toast */
-.toast{position:fixed;top:max(60px,env(safe-area-inset-top));left:50%;
-transform:translateX(-50%) translateY(-18px);background:rgba(92,78,68,.9);color:#fff;
-padding:11px 22px;border-radius:22px;font-size:.8rem;letter-spacing:2px;
-opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none;}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-
-/* 美學確認框 (Glass Confirm) */
-.glass-box {
-  background: rgba(253, 248, 243, 0.95); border: 1px solid var(--glassb);
-  padding: 30px 25px; border-radius: 20px; text-align: center;
-  box-shadow: 0 15px 35px rgba(160,130,110,.25); max-width: 80%; width: 320px;
-  transform: translateY(20px); transition: transform 0.3s ease;
-}
-.modal-overlay.show .glass-box { transform: translateY(0); }
-.glass-text { color: var(--text); font-size: 1.05rem; margin-bottom: 25px; line-height: 1.6; font-weight: 400; letter-spacing: 1px; }
-.glass-btn {
-  background: linear-gradient(135deg, var(--gold), var(--rose));
-  color: #fff; border: none; padding: 10px 30px; border-radius: 12px;
-  font-size: 0.9rem; cursor: pointer; letter-spacing: 2px;
-  box-shadow: 0 4px 15px rgba(200,149,106,.3); transition: 0.2s; min-width: 100px;
-}
-.glass-btn:active { transform: translateY(2px); }
-.glass-btn-cancel {
-  background: transparent; color: var(--ts); border: 1px solid var(--tm); box-shadow: none;
-}
-
-/* 手機版：選單分兩行置中 */
-@media (max-width: 768px) {
-  .layout { flex-direction:column; padding:12px; gap:16px; }
-  .sidebar { flex:none; width:100%; position:relative; top:0; gap:12px; }
-  
-  .nav-menu { flex-direction:row; flex-wrap:wrap; justify-content:center; gap:8px; }
-  .nav-item { flex: 0 0 calc(33.33% - 6px); white-space:nowrap; padding:10px 8px; justify-content:center;}
-  .nav-item span { font-size: 0.8rem; }
-  
-  .m-head { padding:12px 16px; }
-  .m-body { padding:16px; }
-  .m-reply-box { padding:12px 16px; }
-}
-/* 溫暖雙精靈動畫設定 (尺寸變大、位置上移) */
+/* 底部精靈動畫 */
 .embrace-wrap {
-  width: 220px;  /* 從 160px 放大到 220px */
-  height: 220px; /* 從 160px 放大到 220px */
-  margin: 10px auto 30px; /* 第一個數字 10px 控制與上方的距離(變小就往上移) */
+  width: 220px; height: 220px; margin: 20px auto 30px;
   display: flex; align-items: center; justify-content: center; position: relative;
-  cursor: pointer; 
-  transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); 
+  cursor: pointer; transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); 
 }
-.embrace-wrap:active {
-  transform: scale(0.95); 
-}
+.embrace-wrap:active { transform: scale(0.95); }
 .embrace-wrap::before {
-  content: ''; position: absolute; 
-  width: 200px; height: 200px; /* 配合精靈變大，背後的光暈也變大 */
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(212,170,130,.1) 0%, transparent 70%);
+  content: ''; position: absolute; width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(203,163,122,.12) 0%, transparent 70%);
   animation: bRing 4s infinite ease-in-out;
 }
-
 @keyframes bRing { 0%, 100% { transform: scale(1); opacity: .6; } 50% { transform: scale(1.08); opacity: 1; } }
 .sprite-blue { transform-origin: 100px 150px; animation: leanRight 3.5s infinite alternate ease-in-out; }
 .sprite-pink { transform-origin: 100px 150px; animation: leanLeft 3.5s infinite alternate ease-in-out; }
 @keyframes leanRight { 0% { transform: translate(10px, 0) rotate(0deg) scale(1); } 100% { transform: translate(30px, 0) rotate(6deg) scale(1.02); } }
 @keyframes leanLeft { 0% { transform: translate(70px, 0) rotate(0deg) scale(1); } 100% { transform: translate(50px, 0) rotate(-6deg) scale(1.02); } }
-/* 小精靈療癒對話框 */
-.embrace-wrap {
-  cursor: pointer; /* 讓鼠標變成手指，提示可以點擊 */
-  transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); /* 點擊時的彈跳動畫 */
-}
-.embrace-wrap:active {
-  transform: scale(0.95); /* 按下去微縮 */
-}
-.healing-msg {
-  position: absolute;
-  top: -15px; /* 浮在精靈頭上 */
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-  color: var(--gold);
-  border: 1px solid var(--glassb);
-  padding: 6px 14px;
-  border-radius: 16px;
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  box-shadow: 0 8px 20px rgba(160,130,110,.15);
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.4s ease;
-  pointer-events: none; /* 避免擋住點擊 */
-  white-space: nowrap;
-}
-.healing-msg.show {
-  opacity: 1;
-  transform: translateY(0);
-}
 
+/* 療癒對話框 */
+.healing-msg {
+  position: absolute; top: -15px; background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--accent-cheer);
+  border: 1px solid var(--glass-border); padding: 8px 16px; border-radius: 16px;
+  font-size: 0.8rem; letter-spacing: 2px; box-shadow: var(--shadow-soft);
+  opacity: 0; transform: translateY(10px); transition: all 0.4s ease; pointer-events: none; white-space: nowrap;
+}
+.healing-msg.show { opacity: 1; transform: translateY(0); }
+
+/* 共建版權區 */
+.footer-text { margin-top: 20px; font-size: 0.75rem; color: var(--text-light); letter-spacing: 2px; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: color 0.3s; justify-content: center; width: 100%;}
+.footer-text:active { color: var(--accent-cheer); }
+
+/* --- 彈出視窗 (淨息流風格) --- */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 999; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s; padding: 20px 15px; }
+.modal-overlay.show { display: flex; opacity: 1; }
+.glass-modal { 
+  background: rgba(253, 252, 252, 0.96); width: 100%; max-width: 500px; max-height: 85dvh; 
+  border-radius: 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); border: 1px solid var(--glass-border); 
+  display: flex; flex-direction: column; overflow: hidden; transform: translateY(20px); transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+}
+.modal-overlay.show .glass-modal { transform: translateY(0); }
+
+.m-head { padding: 20px 24px 15px; border-bottom: 1px solid rgba(203, 163, 122, 0.15); display: flex; justify-content: space-between; align-items: center; }
+.m-close { width: 36px; height: 36px; border-radius: 50%; background: white; border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow-soft); }
+.m-close svg { width: 18px; height: 18px; stroke: var(--text-main); fill: none; stroke-width: 2; }
+
+.m-body { flex: 1; overflow-y: auto; padding: 24px; }
+.m-post-text { font-size: 1.05rem; line-height: 1.8; color: var(--text-main); margin-bottom: 20px; word-break: break-word; }
+
+.m-comments { border-top: 1px dashed rgba(203, 163, 122, 0.3); padding-top: 24px; }
+.m-clist { display: flex; flex-direction: column; gap: 16px; }
+.comment-item { display: flex; gap: 12px; align-items: flex-start; }
+.ci-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: rgba(203, 163, 122, 0.15); }
+.ci-icon svg { width: 20px; height: 20px; fill: none; stroke-width: 1.8; stroke: var(--accent-cheer); }
+.ci-content { flex: 1; background: white; border: 1px solid var(--glass-border); border-radius: 0 16px 16px 16px; padding: 14px 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+.ci-warm { font-size: 0.75rem; color: var(--accent-cheer); letter-spacing: 1px; margin-bottom: 6px; font-weight: 500;}
+.ci-text { font-size: 0.9rem; color: var(--text-main); line-height: 1.6; }
+
+.m-reply-box { background: rgba(253,253,253,0.9); border-top: 1px solid rgba(203, 163, 122, 0.15); padding: 16px 24px max(16px, env(safe-area-inset-bottom)); }
+.reply-rule { font-size: 0.7rem; color: var(--accent-night); letter-spacing: 1px; margin-bottom: 10px; display: flex; justify-content: space-between; }
+.reply-input-row { display: flex; gap: 12px; align-items: center; }
+.reply-input { flex: 1; padding: 14px 18px; border-radius: 20px; border: 1px solid var(--glass-border); background: white; font-size: 0.9rem; outline: none; transition: 0.2s; box-shadow: inset 0 2px 5px rgba(0,0,0,0.02); }
+.reply-input:focus { border-color: var(--accent-cheer); }
+.reply-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--accent-cheer); border: none; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; box-shadow: 0 4px 12px rgba(203, 163, 122, 0.3); }
+.reply-btn:disabled { opacity: 0.5; box-shadow: none; }
+.reply-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2;}
+
+/* 系統提示 Toast */
+.toast{position:fixed;top:max(60px,env(safe-area-inset-top));left:50%;
+transform:translateX(-50%) translateY(-18px);background:rgba(88,80,74,.9);color:#fff;
+padding:12px 24px;border-radius:24px;font-size:0.85rem;letter-spacing:2px;
+opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* 檢舉與確認框 (淨息流風格) */
+.glass-confirm { background: rgba(253, 252, 252, 0.96); width: 88%; max-width: 340px; border-radius: 25px; padding: 30px 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); border: 1px solid var(--glass-border); text-align: center; transform: translateY(20px); transition: transform 0.3s ease; }
+.modal-overlay.show .glass-confirm { transform: translateY(0); }
+.glass-text { color: var(--text-main); font-size: 1.05rem; margin-bottom: 25px; line-height: 1.6; letter-spacing: 1px; }
+.glass-btn { background: var(--accent-cheer); color: white; border: none; padding: 12px 0; border-radius: 16px; font-size: 0.95rem; cursor: pointer; letter-spacing: 2px; box-shadow: 0 4px 15px rgba(203, 163, 122, 0.2); transition: 0.2s; flex: 1; }
+.glass-btn:active { transform: scale(0.95); }
+.glass-btn-cancel { background: white; color: var(--text-light); border: 1px solid var(--glass-border); box-shadow: none; }
 </style>
 </head>
 <body>
 
-<div class="layout">
-  <aside class="sidebar">
-    <div class="logo-area" onclick="window.location.href='index.html'">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      <span>返回首頁</span>
-    </div>
-    
-    <nav class="nav-menu">
-      <div class="nav-item nav-all act" data-f="all" onclick="setFilter(this)">
-        <svg viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z"/></svg>
-        <span>綜合牆</span>
+<div class="top-nav">
+  <div class="nav-content">
+      <div style="width: 42px;">
+          <div class="nav-btn" onclick="window.location.href='index.html'">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+          </div>
       </div>
-      <div class="nav-item nav-hole" data-f="hole" onclick="setFilter(this)">
-        <svg viewBox="0 0 24 24">
-          <path d="M12 22C6.477 22 2 17.523 2 12 2 6.477 6.477 2 12 2c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10z" fill="rgba(138,158,148,.15)" stroke="currentColor" stroke-width="1.2"/>
-          <path d="M12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="currentColor" opacity="0.4" stroke="none"/>
-          <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
-        </svg>
-        <span>心事樹洞</span>
-      </div>
-      <div class="nav-item nav-cheer" data-f="cheer" onclick="setFilter(this)">
-        <svg viewBox="0 0 24 24">
-          <path d="M12 2l2.4 7.6H22l-6.1 4.7 2.3 7.7L12 17.5l-6.2 4.5 2.3-7.7L2 9.6h7.6L12 2z" fill="rgba(200,149,106,.2)" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
-          <circle cx="12" cy="12" r="2.5" fill="currentColor" opacity="0.5" stroke="none"/>
-        </svg>
-        <span>求個鼓勵</span>
-      </div>
-      <div class="nav-item nav-echo" data-f="echo" onclick="setFilter(this)">
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.2" fill="none"/>
-          <circle cx="12" cy="12" r="6" stroke="currentColor" stroke-width="1.2" fill="rgba(138,172,189,.2)"/>
-          <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
-          <path d="M4.93 4.93l2.83 2.83M19.07 19.07l-2.83-2.83M19.07 4.93l-2.83 2.83M4.93 19.07l2.83-2.83" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
-        </svg>
-        <span>尋找共鳴</span>
-      </div>
-      <div class="nav-item nav-night" data-f="night" onclick="setFilter(this)">
-        <svg viewBox="0 0 24 24">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="rgba(201,150,142,.2)" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
-          <circle cx="16" cy="6" r="1.5" fill="currentColor" opacity="0.7" stroke="none"/>
-          <circle cx="19" cy="4" r="1" fill="currentColor" opacity="0.5" stroke="none"/>
-        </svg>
-        <span>深夜呢喃</span>
-      </div>
-    </nav>
-  </aside>
-
-  <main class="main-content">
-
-    <div class="post-box">
-      <div class="pb-head">── 點亮一盞燈 ──</div>
-      <div class="type-picker">
-        <div class="tp-btn tp-hole" data-t="hole" onclick="pickPostType(this)">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 22C6.477 22 2 17.523 2 12 2 6.477 6.477 2 12 2c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10z" fill="rgba(138,158,148,.15)" stroke-width="1.2"/>
-            <path d="M12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="currentColor" opacity="0.4" stroke="none"/>
-            <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
-          </svg>
-          <span>樹洞</span>
-        </div>
-        <div class="tp-btn tp-cheer" data-t="cheer" onclick="pickPostType(this)">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 2l2.4 7.6H22l-6.1 4.7 2.3 7.7L12 17.5l-6.2 4.5 2.3-7.7L2 9.6h7.6L12 2z" fill="rgba(200,149,106,.2)" stroke-width="1.2" stroke-linejoin="round"/>
-            <circle cx="12" cy="12" r="2.5" fill="currentColor" opacity="0.5" stroke="none"/>
-          </svg>
-          <span>鼓勵</span>
-        </div>
-        <div class="tp-btn tp-echo" data-t="echo" onclick="pickPostType(this)">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" stroke-width="1.2" fill="none"/>
-            <circle cx="12" cy="12" r="6" stroke-width="1.2" fill="rgba(138,172,189,.2)"/>
-            <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
-            <path d="M4.93 4.93l2.83 2.83M19.07 19.07l-2.83-2.83M19.07 4.93l-2.83 2.83M4.93 19.07l2.83-2.83" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
-          </svg>
-          <span>共鳴</span>
-        </div>
-        <div class="tp-btn tp-night" data-t="night" onclick="pickPostType(this)">
-          <svg viewBox="0 0 24 24">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="rgba(201,150,142,.2)" stroke-width="1.2" stroke-linejoin="round"/>
-            <circle cx="16" cy="6" r="1.5" fill="currentColor" opacity="0.7" stroke="none"/>
-            <circle cx="19" cy="4" r="1" fill="currentColor" opacity="0.5" stroke="none"/>
-          </svg>
-          <span>呢喃</span>
-        </div>
-      </div>
-      <textarea class="pta" id="new-post-txt" placeholder="請先選擇分類，再說說此刻的感受..." maxlength="150" oninput="checkPostInput()"></textarea>
-      <div class="pb-foot">
-        <span class="pb-count" id="new-post-count">0 / 150</span>
-        <button class="btn-primary" id="btn-submit-post" onclick="submitPost()" disabled>發出光</button>
-      </div>
-    </div>
-
-    <div id="feed">
-      <div style="text-align:center; padding:40px; color:var(--tm); letter-spacing:2px;">讀取中...</div>
-    </div>
-
-
-        <div class="embrace-wrap" onclick="triggerHealing()">
-      <div id="healing-msg" class="healing-msg"></div>
-      
-      <svg class="hero-svg-wrap" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
-          <defs>
-              <linearGradient id="blueTones" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#D1E4EE" stop-opacity="0.9"/>
-                  <stop offset="100%" stop-color="#8AACBD" stop-opacity="0.8"/>
-              </linearGradient>
-              <linearGradient id="warmTones" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#E2CDBA" stop-opacity="0.8"/>
-                  <stop offset="100%" stop-color="#D1A299" stop-opacity="0.4"/>
-              </linearGradient>
-              <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
-                  <feGaussianBlur stdDeviation="8" result="blur"/>
-                  <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-              </filter>
-          </defs>
-
-          <g class="sprite-blue">
-              <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="url(#blueTones)" filter="url(#softGlow)"/>
-              <circle cx="85" cy="85" r="4" fill="#8C7A6B" opacity="0.8"/>
-              <circle cx="115" cy="85" r="4" fill="#8C7A6B" opacity="0.8"/>
-              <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.5" filter="url(#softGlow)"/>
-              <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.5" filter="url(#softGlow)"/>
-          </g>
-
-          <g class="sprite-pink">
-              <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="url(#warmTones)" filter="url(#softGlow)"/>
-              <circle cx="85" cy="85" r="4" fill="#8C7A6B" opacity="0.8"/>
-              <circle cx="115" cy="85" r="4" fill="#8C7A6B" opacity="0.8"/>
-              <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.5" filter="url(#softGlow)"/>
-              <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.5" filter="url(#softGlow)"/>
-          </g>
-      </svg>
-    </div>
-
-    <div class="footer-text">
-
-    <div class="footer-text">
-      <span onclick="window.location.href='https://namoamitabhapureland.github.io/bodhicitta/index.html'" style="display: inline-flex; align-items: center; gap: 6px; justify-content:center;">
-          <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg> 彌陀淨土系統 衍生共建
-      </span>
-      <div style="margin-top:8px;">無量的光 © 版權與開源</div>
-    </div>
-
-  </main>
+      <div class="nav-title">無量的光</div>
+      <div style="width: 42px;">
+          </div>
+  </div>
 </div>
 
-<div id="pure-confirm" class="modal-overlay" style="z-index: 1000;">
-  <div class="glass-box" onclick="event.stopPropagation()">
+<div class="main-container">
+  
+  <div class="intro-text">你不孤單，把心裡的雨下在這裡吧。</div>
+
+  <div class="post-box">
+    <div class="pb-head">── 點亮一盞燈 ──</div>
+    <div class="type-picker">
+      <div class="tp-btn tp-hole" data-t="hole" onclick="pickPostType(this)">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 22C6.477 22 2 17.523 2 12 2 6.477 6.477 2 12 2c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10z" fill="currentColor" fill-opacity="0.1" />
+          <path d="M12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="currentColor" opacity="0.3" stroke="none"/>
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+        </svg>
+        <span>樹洞</span>
+      </div>
+      <div class="tp-btn tp-cheer" data-t="cheer" onclick="pickPostType(this)">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2l2.4 7.6H22l-6.1 4.7 2.3 7.7L12 17.5l-6.2 4.5 2.3-7.7L2 9.6h7.6L12 2z" fill="currentColor" fill-opacity="0.1" stroke-linejoin="round"/>
+          <circle cx="12" cy="12" r="2.5" fill="currentColor" opacity="0.3" stroke="none"/>
+        </svg>
+        <span>鼓勵</span>
+      </div>
+      <div class="tp-btn tp-echo" data-t="echo" onclick="pickPostType(this)">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" fill="none"/>
+          <circle cx="12" cy="12" r="6" fill="currentColor" fill-opacity="0.1"/>
+          <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
+          <path d="M4.93 4.93l2.83 2.83M19.07 19.07l-2.83-2.83M19.07 4.93l-2.83 2.83M4.93 19.07l2.83-2.83" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+        <span>共鳴</span>
+      </div>
+      <div class="tp-btn tp-night" data-t="night" onclick="pickPostType(this)">
+        <svg viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor" fill-opacity="0.1" stroke-linejoin="round"/>
+          <circle cx="16" cy="6" r="1.5" fill="currentColor" opacity="0.5" stroke="none"/>
+          <circle cx="19" cy="4" r="1" fill="currentColor" opacity="0.3" stroke="none"/>
+        </svg>
+        <span>呢喃</span>
+      </div>
+    </div>
+    <textarea class="pta" id="new-post-txt" placeholder="請先選擇分類，再說說此刻的感受..." maxlength="150" oninput="checkPostInput()"></textarea>
+    <div class="pb-foot">
+      <span class="pb-count" id="new-post-count">0 / 150</span>
+      <button class="btn-primary" id="btn-submit-post" onclick="submitPost()" disabled>發出光</button>
+    </div>
+  </div>
+
+  <div class="filter-tabs">
+    <div class="ft-btn ft-all act" data-f="all" onclick="setFilter(this)">
+      <svg viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z"/></svg>
+      綜合牆
+    </div>
+    <div class="ft-btn ft-hole" data-f="hole" onclick="setFilter(this)">
+      <svg viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12 2 6.477 6.477 2 12 2c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10z"/></svg>
+      心事樹洞
+    </div>
+    <div class="ft-btn ft-cheer" data-f="cheer" onclick="setFilter(this)">
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6H22l-6.1 4.7 2.3 7.7L12 17.5l-6.2 4.5 2.3-7.7L2 9.6h7.6L12 2z"/></svg>
+      求個鼓勵
+    </div>
+    <div class="ft-btn ft-echo" data-f="echo" onclick="setFilter(this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/></svg>
+      尋找共鳴
+    </div>
+    <div class="ft-btn ft-night" data-f="night" onclick="setFilter(this)">
+      <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      深夜呢喃
+    </div>
+  </div>
+
+  <div id="feed">
+    <div style="text-align:center; padding:40px; color:var(--text-muted); letter-spacing:2px; font-size: 0.85rem;">讀取中...</div>
+  </div>
+
+  <div class="embrace-wrap" onclick="triggerHealing()">
+    <div id="healing-msg" class="healing-msg"></div>
+    <svg class="hero-svg-wrap" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+        <defs>
+            <linearGradient id="blueTones" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#D1E4EE" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#8AACBD" stop-opacity="0.8"/>
+            </linearGradient>
+            <linearGradient id="warmTones" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#E2CDBA" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="#D1A299" stop-opacity="0.4"/>
+            </linearGradient>
+            <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="8" result="blur"/>
+                <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+            </filter>
+        </defs>
+        <g class="sprite-blue">
+            <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="url(#blueTones)" filter="url(#softGlow)"/>
+            <circle cx="85" cy="85" r="4" fill="#8C7A6B" opacity="0.8"/>
+            <circle cx="115" cy="85" r="4" fill="#8C7A6B" opacity="0.8"/>
+            <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.5" filter="url(#softGlow)"/>
+            <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.5" filter="url(#softGlow)"/>
+        </g>
+        <g class="sprite-pink">
+            <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="url(#warmTones)" filter="url(#softGlow)"/>
+            <circle cx="85" cy="85" r="4" fill="#8C7A6B" opacity="0.8"/>
+            <circle cx="115" cy="85" r="4" fill="#8C7A6B" opacity="0.8"/>
+            <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.5" filter="url(#softGlow)"/>
+            <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.5" filter="url(#softGlow)"/>
+        </g>
+    </svg>
+  </div>
+
+  <div class="footer-text">
+    <span onclick="window.location.href='https://namoamitabhapureland.github.io/bodhicitta/index.html'" style="display: flex; align-items: center; gap: 6px;">
+        <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg> 彌陀淨土系統 衍生共建
+    </span>
+  </div>
+
+</div>
+
+<div id="pure-confirm" class="modal-overlay" style="z-index: 1000;" onclick="closeConfirm(false)">
+  <div class="glass-confirm" onclick="event.stopPropagation()">
       <div class="glass-text" id="pure-confirm-msg"></div>
-      <div style="display:flex; justify-content:center; gap:15px;">
+      <div style="display:flex; justify-content:center; gap:12px;">
           <button class="glass-btn glass-btn-cancel" onclick="closeConfirm(false)">取 消</button>
           <button class="glass-btn" onclick="closeConfirm(true)">確 定</button>
       </div>
@@ -467,20 +363,21 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
 </div>
 
 <div id="post-modal" class="modal-overlay" onclick="closeModal(event)">
-  <div class="modal-content">
+  <div class="glass-modal" onclick="event.stopPropagation()">
     <div class="m-head">
-      <div id="m-type-badge" class="c-type ct-hole">心事樹洞</div>
-      <div class="m-share" onclick="shareCurrentPost()">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        分享
-      </div>
-      <div class="m-close" onclick="closeModal(event)">
-        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      <div id="m-type-badge" class="c-type ct-hole" style="margin:0; font-size: 0.8rem;">心事樹洞</div>
+      <div style="display:flex; gap:12px;">
+        <div class="m-close" onclick="shareCurrentPost()">
+          <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </div>
+        <div class="m-close" onclick="closeModal()">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
       </div>
     </div>
     <div class="m-body">
       <div class="m-post-text" id="m-post-text"></div>
-      <div style="font-size:0.75rem; color:var(--tm); margin-bottom:20px; letter-spacing:1px;" id="m-post-time"></div>
+      <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:20px; letter-spacing:1px;" id="m-post-time"></div>
       <div class="m-comments">
         <div class="m-clist" id="m-comment-list"></div>
       </div>
@@ -520,7 +417,6 @@ if (!firebase.apps.length) firebase.initializeApp(fbCfg);
 const db = firebase.database();
 const lightsRef = db.ref('lights_v1');
 
-// 【檢舉防護】鎖定 localStorage 假身分
 let currentUserUid = localStorage.getItem('limitless_guest_uid');
 if (!currentUserUid) {
     currentUserUid = "guest_" + Math.random().toString(36).substr(2, 9);
@@ -528,11 +424,8 @@ if (!currentUserUid) {
 }
 
 firebase.auth().signInAnonymously().catch(e => console.warn(e));
-
 firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        currentUserUid = user.uid; // 若連線成功，使用真實 UID 覆蓋
-    }
+    if (user) currentUserUid = user.uid; 
 });
 
 let curFilter = 'all';     
@@ -548,14 +441,12 @@ let isInitialLoad = true;
 lightsRef.limitToLast(50).on('value', snap => {
   allPosts = snap.val() || {};
   renderFeed(); 
-
   if (isInitialLoad && sharedPostId && allPosts[sharedPostId]) {
     openPostModal(sharedPostId);
     isInitialLoad = false;
   }
 });
 
-// 美學 Confirm 彈窗邏輯
 let pendingConfirmCallback = null;
 function showConfirm(msg, callback) {
     document.getElementById('pure-confirm-msg').innerHTML = msg.replace(/\n/g, '<br>');
@@ -580,23 +471,21 @@ function renderFeed() {
   const filtered = curFilter === 'all' ? keys : keys.filter(k => allPosts[k].type === curFilter);
 
   if (!filtered.length) {
-    feed.innerHTML = '<div style="text-align:center; padding:40px; color:var(--tm); letter-spacing:2px; font-size:.85rem;">這裡目前空空的<br>成為第一個點亮光的人吧</div>';
+    feed.innerHTML = '<div style="text-align:center; padding:40px; color:var(--text-muted); letter-spacing:2px; font-size:.85rem;">這裡目前空空的<br>成為第一個點亮光的人吧</div>';
     return;
   }
 
   feed.innerHTML = ''; 
 
   const typeMap = {
-    hole:  {lbl:'心事樹洞', ctCls:'ct-hole', cbCls:'cb-hole'},
-    cheer: {lbl:'求個鼓勵', ctCls:'ct-cheer', cbCls:'cb-cheer'},
-    echo:  {lbl:'尋找共鳴', ctCls:'ct-echo', cbCls:'cb-echo'},
-    night: {lbl:'深夜呢喃', ctCls:'ct-night', cbCls:'cb-night'},
+    hole:  {lbl:'心事樹洞', ctCls:'ct-hole'},
+    cheer: {lbl:'求個鼓勵', ctCls:'ct-cheer'},
+    echo:  {lbl:'尋找共鳴', ctCls:'ct-echo'},
+    night: {lbl:'深夜呢喃', ctCls:'ct-night'},
   };
 
   filtered.forEach(id => {
     const p = allPosts[id];
-    
-    // 【檢舉邏輯】超過3人檢舉自動隱藏
     const reportCount = p.reports ? Object.keys(p.reports).length : 0;
     if (reportCount >= 3) return; 
 
@@ -604,47 +493,39 @@ function renderFeed() {
     const lightsCount = p.lights || 0;
     const respsCount = p.resps ? Object.keys(p.resps).length : 0;
     const isLit = litSet.has(id);
-    
-    // 檢查本人是否已檢舉
     const hasReported = p.reports && p.reports[currentUserUid];
     
-    let reportBtnHTML = '';
-    if (hasReported) {
-        reportBtnHTML = `
-            <div class="action-btn" style="color:#aaa; border-color:transparent; background:transparent; cursor:default;" onclick="event.stopPropagation()">
-                <svg viewBox="0 0 24 24" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>已檢舉</span>
-            </div>`;
-    } else {
-        reportBtnHTML = `
-            <div class="action-btn btn-report" onclick="reportPost('${id}', event)">
-                <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
-                <span>檢舉</span>
-            </div>`;
-    }
+    let reportBtnHTML = hasReported ? 
+      `<div class="action-btn" style="color:var(--text-muted); border-color:transparent; background:transparent; cursor:default;" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>已檢舉</span>
+       </div>` : 
+      `<div class="action-btn btn-report" onclick="reportPost('${id}', event)">
+          <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+          <span>檢舉</span>
+       </div>`;
 
     const card = document.createElement('div');
     card.className = 'card';
     card.onclick = () => openPostModal(id);
 
     card.innerHTML = `
-      <div class="c-bar ${tm.cbCls}" style="${lightsCount > 0 ? 'box-shadow:0 0 8px currentColor;' : ''}"></div>
-      <div class="c-body">
+      <div class="c-head">
         <div class="c-type ${tm.ctCls}">${tm.lbl}</div>
-        <div class="c-text c-summary">${escHtml(p.text)}</div>
-        <div class="c-foot">
-          <div class="c-time">${formatTime(p.ts)}</div>
-          <div class="c-actions">
-            <div class="action-btn ${isLit ? 'lit' : ''}" onclick="toggleLight('${id}', event)">
-              <svg viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z"/></svg>
-              <span>${lightsCount > 0 ? lightsCount : '點燈'}</span>
-            </div>
-            <div class="action-btn">
-              <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              <span>回應 ${respsCount > 0 ? respsCount : ''}</span>
-            </div>
-            ${reportBtnHTML}
+      </div>
+      <div class="c-text">${escHtml(p.text)}</div>
+      <div class="c-foot">
+        <div class="c-time">${formatTime(p.ts)}</div>
+        <div class="c-actions">
+          <div class="action-btn ${isLit ? 'lit' : ''}" onclick="toggleLight('${id}', event)">
+            <svg viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z"/></svg>
+            <span>${lightsCount > 0 ? lightsCount : '點燈'}</span>
           </div>
+          <div class="action-btn">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>回覆 ${respsCount > 0 ? respsCount : ''}</span>
+          </div>
+          ${reportBtnHTML}
         </div>
       </div>
     `;
@@ -663,7 +544,6 @@ function checkPostInput() {
   const txtInput = document.getElementById('new-post-txt');
   const countDisplay = document.getElementById('new-post-count');
   const btn = document.getElementById('btn-submit-post');
-  
   const len = txtInput.value.trim().length;
   countDisplay.textContent = `${len} / 150`;
   btn.disabled = !(postType && len >= 5);
@@ -672,7 +552,6 @@ function checkPostInput() {
 function submitPost() {
   const txt = document.getElementById('new-post-txt').value.trim();
   if (!txt || !postType) return;
-
   const btn = document.getElementById('btn-submit-post');
   btn.disabled = true; btn.textContent = '傳送中...';
 
@@ -692,17 +571,15 @@ function submitPost() {
 }
 
 function setFilter(el) {
-  document.querySelectorAll('.nav-item').forEach(f => f.classList.remove('act'));
+  document.querySelectorAll('.ft-btn').forEach(f => f.classList.remove('act'));
   el.classList.add('act'); 
   curFilter = el.dataset.f; 
   renderFeed();
-  window.scrollTo({ top: 0, behavior: 'smooth' }); 
 }
 
 function toggleLight(id, e) {
   if(e) e.stopPropagation(); 
   const isLit = litSet.has(id);
-  
   if (isLit) {
     litSet.delete(id);
     lightsRef.child(id).child('lights').transaction(n => Math.max(0, (n || 0) - 1));
@@ -714,18 +591,13 @@ function toggleLight(id, e) {
   localStorage.setItem('lit_v1', JSON.stringify([...litSet]));
 }
 
-// 執行檢舉
 window.reportPost = (id, e) => {
     if(e) e.stopPropagation();
     showConfirm("確認檢舉此篇內容？\n若達一定人數將自動隱藏。", (result) => {
         if (result) {
             lightsRef.child(id).child('reports').child(currentUserUid).set(true)
-            .then(() => {
-                showToast("檢舉成功，感謝你的協助");
-            })
-            .catch(err => {
-                showToast("檢舉失敗，請稍後再試");
-            });
+            .then(() => showToast("檢舉成功，感謝你的協助"))
+            .catch(() => showToast("檢舉失敗，請稍後再試"));
         }
     });
 };
@@ -734,13 +606,7 @@ function openPostModal(id) {
   const p = allPosts[id];
   if (!p) return;
   currentModalPostId = id;
-
-  const typeMap = {
-    hole:  {lbl:'心事樹洞', ctCls:'ct-hole'},
-    cheer: {lbl:'求個鼓勵', ctCls:'ct-cheer'},
-    echo:  {lbl:'尋找共鳴', ctCls:'ct-echo'},
-    night: {lbl:'深夜呢喃', ctCls:'ct-night'},
-  };
+  const typeMap = { hole: {lbl:'心事樹洞', ctCls:'ct-hole'}, cheer: {lbl:'求個鼓勵', ctCls:'ct-cheer'}, echo: {lbl:'尋找共鳴', ctCls:'ct-echo'}, night: {lbl:'深夜呢喃', ctCls:'ct-night'} };
   const tm = typeMap[p.type] || typeMap.hole;
 
   const badge = document.getElementById('m-type-badge');
@@ -750,7 +616,6 @@ function openPostModal(id) {
   document.getElementById('m-post-time').textContent = formatTime(p.ts);
 
   renderModalComments(p.resps);
-
   document.getElementById('reply-input').value = '';
   document.getElementById('reply-count').textContent = '0 / 20';
   document.getElementById('btn-submit-reply').disabled = true;
@@ -764,16 +629,13 @@ function openPostModal(id) {
 function renderModalComments(respsObj) {
   const clist = document.getElementById('m-comment-list');
   if (!respsObj) {
-    clist.innerHTML = '<div style="color:var(--tm); font-size:.8rem; text-align:center;">目前還沒有回應，給他一點溫暖吧</div>';
+    clist.innerHTML = '<div style="color:var(--text-muted); font-size:.85rem; text-align:center;">目前還沒有回應，給他一點溫暖吧</div>';
     return;
   }
-
   const items = Object.values(respsObj); 
   clist.innerHTML = items.map(r => `
     <div class="comment-item">
-      <div class="ci-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z"/></svg>
-      </div>
+      <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z"/></svg></div>
       <div class="ci-content">
         <div class="ci-warm">善意微光</div>
         <div class="ci-text">${escHtml(r.text)}</div>
@@ -783,31 +645,25 @@ function renderModalComments(respsObj) {
 }
 
 function closeModal(e) {
-  if (e && e.target !== e.currentTarget && !e.target.closest('.m-close')) return;
   const modal = document.getElementById('post-modal');
   modal.classList.remove('show');
   setTimeout(() => { modal.style.display = 'none'; }, 300);
   document.body.style.overflow = '';
   currentModalPostId = null;
-
-  if(window.history.replaceState) {
-    window.history.replaceState({}, document.title, window.location.pathname);
-  }
+  if(window.history.replaceState) window.history.replaceState({}, document.title, window.location.pathname);
 }
 
 function checkReplyInput(el) {
   const len = el.value.trim().length;
   const countDisplay = document.getElementById('reply-count');
-  
   countDisplay.textContent = `${len} / 20`;
-  
   if (len > 20) {
-    countDisplay.style.color = "red";
+    countDisplay.style.color = "var(--accent-night)";
     document.getElementById('btn-submit-reply').disabled = true;
     el.value = el.value.substring(0, 20); 
     showToast('回覆不能超過 20 個字喔');
   } else {
-    countDisplay.style.color = "var(--rose)";
+    countDisplay.style.color = "var(--text-light)";
     document.getElementById('btn-submit-reply').disabled = (len === 0);
   }
 }
@@ -816,94 +672,48 @@ function submitReply() {
   if (!currentModalPostId) return;
   const txt = document.getElementById('reply-input').value.trim();
   if (!txt || txt.length > 20) return; 
-
   const btn = document.getElementById('btn-submit-reply');
   btn.disabled = true;
 
-  lightsRef.child(currentModalPostId).child('resps').push({
-    text: txt,
-    ts: Date.now()
-  }).then(() => {
-    showToast('已送出你的溫暖');
-    openPostModal(currentModalPostId);
-  }).catch(() => {
-    btn.disabled = false;
-    showToast('傳送失敗，請確認網路');
-  });
+  lightsRef.child(currentModalPostId).child('resps').push({ text: txt, ts: Date.now() })
+  .then(() => { showToast('已送出你的溫暖'); openPostModal(currentModalPostId); })
+  .catch(() => { btn.disabled = false; showToast('傳送失敗，請確認網路'); });
 }
 
 function shareCurrentPost() {
   if (!currentModalPostId) return;
-  
   const shareUrl = window.location.origin + window.location.pathname + "?post=" + currentModalPostId;
-  const shareTitle = "無量的光 · 有人在這裡點了一盞燈";
-  
   if (navigator.share) {
-    navigator.share({
-      title: shareTitle,
-      text: "把心裡的雨下在這裡吧，世界上總有人為你撐傘：",
-      url: shareUrl
-    }).catch(err => {
-      console.log('分享取消或失敗', err);
-    });
+    navigator.share({ title: "無量的光", text: "把心裡的雨下在這裡吧：", url: shareUrl }).catch(err => console.log('分享取消', err));
   } else {
-    navigator.clipboard.writeText(shareUrl).then(() => {
-      showToast('專屬連結已複製！快去分享吧');
-    }).catch(() => {
-      showToast('複製失敗，請手動複製網址');
-    });
+    navigator.clipboard.writeText(shareUrl).then(() => showToast('專屬連結已複製！')).catch(() => showToast('複製失敗'));
   }
 }
 
-function escHtml(s) {
-  return (s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const healingWords = ["今天辛苦了", "慢慢來，沒關係", "深呼吸，放輕鬆", "我們都在這裡", "你已經做得很好了", "讓心休息一下吧", "一切都會好起來的"];
+let isHealing = false;
+function triggerHealing() {
+  if (isHealing) return;
+  isHealing = true;
+  const msgEl = document.getElementById('healing-msg');
+  msgEl.textContent = healingWords[Math.floor(Math.random() * healingWords.length)];
+  msgEl.classList.add('show');
+  setTimeout(() => { msgEl.classList.remove('show'); isHealing = false; }, 2500);
 }
 
+function escHtml(s) { return (s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 function formatTime(ts) {
-  if (!ts) return '';
-  const d = Date.now() - ts;
+  if (!ts) return ''; const d = Date.now() - ts;
   if (d < 60000) return '剛剛';
   if (d < 3600000) return Math.floor(d / 60000) + ' 分鐘前';
   if (d < 86400000) return Math.floor(d / 3600000) + ' 小時前';
   return Math.floor(d / 86400000) + ' 天前';
 }
-
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg; 
-  t.classList.add('show');
+  t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
-// ── 小精靈療癒互動功能 ──
-const healingWords = [
-  "今天辛苦了", 
-  "慢慢來，沒關係", 
-  "深呼吸，放輕鬆", 
-  "我們都在這裡", 
-  "你已經做得很好了", 
-  "讓心休息一下吧",
-  "一切都會好起來的"
-];
-let isHealing = false; // 防止狂點重複觸發
-
-function triggerHealing() {
-  if (isHealing) return;
-  isHealing = true;
-  
-  const msgEl = document.getElementById('healing-msg');
-  // 隨機抽一句話
-  const randomWord = healingWords[Math.floor(Math.random() * healingWords.length)];
-  
-  msgEl.textContent = randomWord;
-  msgEl.classList.add('show');
-  
-  // 2.5 秒後自動淡出
-  setTimeout(() => {
-    msgEl.classList.remove('show');
-    isHealing = false;
-  }, 2500);
-}
-
 </script>
 
 </body>
