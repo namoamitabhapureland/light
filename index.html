@@ -50,55 +50,38 @@ display:flex;justify-content:space-between;align-items:center;}
 
 /* 1. 【修改】橢圓形膠囊「說明」按鈕 */
 .top-btn{
-  width:auto; /* 改為自動寬度以適應文字 */
-  height:42px;
-  border-radius:21px; /* 高度的一半，形成膠囊型 */
-  padding: 0 18px; /* 增加左右間距包覆文字 */
-  background:var(--glass-bg);
-  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-  border:1px solid var(--glass-border);
-  display:flex;align-items:center;justify-content:center;
-  gap:8px; /* 圖示與文字的間距 */
-  cursor:pointer;transition:.2s;box-shadow:var(--shadow-soft);
+  width:auto; height:42px; border-radius:21px; padding: 0 18px; 
+  background:var(--glass-bg); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--glass-border); display:flex;align-items:center;justify-content:center;
+  gap:8px; cursor:pointer;transition:.2s;box-shadow:var(--shadow-soft);
 }
 .top-btn:active{transform:scale(.92);background:rgba(255,255,255,0.9);}
 .top-btn svg{width:18px;height:18px;stroke:var(--text-light);fill:none;stroke-width:2;}
-.top-btn-txt {font-size:.8rem;color:var(--text-main);letter-spacing:2px;} /* 按鈕文字樣式 */
+.top-btn-txt {font-size:.8rem;color:var(--text-main);letter-spacing:2px;} 
 
 /* 核心英雄區 (精緻化) */
 .hero{width:100%;display:flex;flex-direction:column;align-items:center;
-/* 2. 【修改】移除了頂部的 5px padding，讓整體往上移 */
 padding:0 0 15px;animation:fadeUp .8s ease-out;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
 /* 3. 【修改】小精靈放大與上移 */
 .embrace-wrap{
-  width:220px; /* 從 150px 大幅放大到 220px */
-  height:220px; /* 從 150px 大幅放大到 220px */
-  display:flex;align-items:center;justify-content:center;
-  position:relative;
-  /* 精細調整 margin：增加頂部距離從上方區塊推下來，縮短底部距離拉近 title */
-  margin-top: 30px; 
-  margin-bottom:5px;
-  
-  /* 4. 【增加】超級療癒動畫：緩慢呼吸與跳動 */
+  width:220px; height:220px; display:flex;align-items:center;justify-content:center;
+  position:relative; margin-top: 30px; margin-bottom:5px;
   animation: dynamicBounce 4s infinite ease-in-out;
 }
-.embrace-wrap:active { transform: scale(0.95); } /* 點擊時的彈跳動畫 */
+.embrace-wrap:active { transform: scale(0.95); } 
 
-/* 呼吸跳動動畫 */
 @keyframes dynamicBounce {
   0%, 100% { transform: scale(1) translateY(0); }
-  50% { transform: scale(1.08) translateY(-10px); } /* 微微放大並往上跳動 */
+  50% { transform: scale(1.08) translateY(-10px); } 
 }
 
 /* 發光發亮的光暈 */
 .embrace-wrap::before{content:'';position:absolute;width:220px;height:220px;border-radius:50%;
-background:radial-gradient(circle,rgba(203,163,122,.3) 0%,transparent 70%); /* 增加光暈亮度與範圍 */
-/* 5. 【增加】呼吸燈光暈動畫 */
+background:radial-gradient(circle,rgba(203,163,122,.3) 0%,transparent 70%); 
 animation:breathGlow 4s infinite ease-in-out;}
 
-/* 呼吸燈光暈動畫 */
 @keyframes breathGlow{0%,100%{transform:scale(1);opacity:.4;}50%{transform:scale(1.15);opacity:1;}}
 
 .sprite-blue { transform-origin: 100px 150px; animation: leanRight 3.5s infinite alternate ease-in-out; }
@@ -241,6 +224,12 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
 .ab-block{background:rgba(255,255,255,.8);border:1px solid var(--glass-border);border-radius:18px;padding:16px;margin-bottom:12px;}
 .ab-t{font-size:.8rem;font-weight:500;color:var(--accent-cheer);letter-spacing:2px;margin-bottom:6px;}
 .ab-tx{font-size:.8rem;color:var(--text-light);line-height:1.7;letter-spacing:.5px;}
+
+/* 新增：阻斷牆專屬樣式 */
+#legal-wall { position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px); z-index:2000; display:none; opacity:0; transition:opacity .3s; justify-content:center; align-items:center; padding: 20px;}
+#legal-wall.show { display:flex; opacity:1; }
+#legal-wall .glass-confirm { background:rgba(253,252,252,0.96); width:100%; max-width:380px; border-radius:25px; padding:30px 25px; border:1px solid var(--glass-border); box-shadow:0 20px 60px rgba(0,0,0,.15); transform:translateY(20px); transition:transform .3s; text-align: left; }
+#legal-wall.show .glass-confirm { transform:translateY(0); }
 </style>
 </head>
 <body>
@@ -336,6 +325,18 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
 
 <div class="toast" id="toast"></div>
 
+<div id="legal-wall">
+  <div class="glass-confirm">
+    <div style="font-size: 1.1rem; color: var(--text-main); font-weight: 500; letter-spacing: 3px; margin-bottom: 15px; text-align: center;">光域的約定</div>
+    <div style="font-size: 0.85rem; color: var(--text-main); line-height: 1.8; letter-spacing: 1px; margin-bottom: 25px;">
+      這是一個給予溫度的純粹空間，依賴社群的善意共治。偏離溫暖或引起不適的文字，將透過群眾檢舉自動隱去。<br><br>
+      本系統不預先審核內容，僅暫存最新 50 則動態，隨後物理消散。<span style="color: var(--text-light);">送出文字即代表您承諾內容符合法律規範，並願為自己的言論承擔全責。</span><br><br>
+      若您正處於危急時刻，請立即撥打 <strong style="color: var(--accent-cheer);">1925</strong> 安心專線。受限於匿名架構，本系統無法提供救援或調查追溯，但我們期盼您平安。
+    </div>
+    <button class="send" style="width: 100%; box-shadow: 0 4px 15px rgba(203, 163, 122, 0.2);" onclick="acceptLegal()">我理解並願意承擔</button>
+  </div>
+</div>
+
 <div class="ov" id="ov-post" onclick="closeOv('ov-post')">
   <div class="sheet" onclick="event.stopPropagation()">
     <div class="handle"></div>
@@ -370,7 +371,7 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
       </div>
     </div>
 
-    <textarea class="pta" id="post-txt" placeholder="說說此刻的感受吧，不需要解釋，不需要理由..." maxlength="150" oninput="updPostChar(this)"></textarea>
+    <textarea class="pta" id="post-txt" placeholder="說說此刻的感受吧，不需要解釋，不需要理由..." maxlength="150" oninput="updPostChar(this); filterEmoji(this)"></textarea>
     <div class="ch"><span id="post-ch">0</span> / 150</div>
 
     <div class="anon">
@@ -409,7 +410,7 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
 
     <div class="fi-wrap">
       <div class="fi-lbl">或留下一句話（最多 20 字）</div>
-      <input class="fi" type="text" id="fi-txt" maxlength="20" placeholder="你辛苦了，有我在" oninput="updFiChar(this)">
+      <input class="fi" type="text" id="fi-txt" maxlength="20" placeholder="你辛苦了，有我在" oninput="updFiChar(this); filterEmoji(this)">
       <div class="fc"><span id="fi-ch">0</span> / 20</div>
     </div>
     <button class="send" onclick="submitResp()">送出這份溫暖</button>
@@ -446,6 +447,34 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
 <script>
+// 新增：檢查是否同意免責聲明
+function checkLegalBeforeAction() {
+  if (!localStorage.getItem('pure_land_agreed')) {
+    const wall = document.getElementById('legal-wall');
+    wall.style.display = 'flex';
+    setTimeout(() => wall.classList.add('show'), 10);
+    return false;
+  }
+  return true;
+}
+
+// 新增：同意免責聲明
+function acceptLegal() {
+  localStorage.setItem('pure_land_agreed', 'true');
+  const wall = document.getElementById('legal-wall');
+  wall.classList.remove('show');
+  setTimeout(() => wall.style.display = 'none', 300);
+}
+
+// 新增：靜默過濾 Emoji，守護純粹美學
+function filterEmoji(el) {
+  const regex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
+  if (regex.test(el.value)) {
+    el.value = el.value.replace(regex, '');
+    showToast('為保持空間的純粹，符號已化為光');
+  }
+}
+
 const fbCfg = {
   apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMf245", 
   authDomain: "pure-land-light.firebaseapp.com",
@@ -531,7 +560,10 @@ function pickNeed(type, el) {
   el.classList.add('sel'); selNeed = type;
 }
 
+// 修改：觸發免責牆攔截
 function openPost() {
+  if (!checkLegalBeforeAction()) return; // 沒同意就擋下
+  
   showOv('ov-post');
   if(selNeed) {
     const m = {hole:'[data-t="hole"]',cheer:'[data-t="cheer"]',echo:'[data-t="echo"]',night:'[data-t="night"]'};
@@ -574,7 +606,13 @@ function submitPost() {
     });
 }
 
-function openResp(e) { e&&e.stopPropagation(); showOv('ov-resp'); }
+// 修改：觸發免責牆攔截 (若需要在此處攔截回應)
+function openResp(e) { 
+  if(e) e.stopPropagation(); 
+  if (!checkLegalBeforeAction()) return; // 沒同意就擋下
+  showOv('ov-resp'); 
+}
+
 function pickWarm(el) {
   document.querySelectorAll('.wb').forEach(b=>b.classList.remove('sel'));
   el.classList.add('sel'); selWarm = el.querySelector('.wn').textContent;
