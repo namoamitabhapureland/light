@@ -25,7 +25,7 @@ html,body{margin:0;padding:0;width:100%;min-height:100dvh;
   background:var(--warm);color:var(--text);
   font-family:-apple-system,"PingFang TC","Helvetica Neue",sans-serif;
   overflow-x:hidden;-webkit-user-select:none;user-select:none;
-  font-size: 18px; /* 全站字體微調放大 */
+  font-size: 18px; 
 }
 
 body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
@@ -35,7 +35,6 @@ radial-gradient(ellipse 50% 40% at 85% 22%,rgba(201,150,142,.12) 0%,transparent 
 radial-gradient(ellipse 55% 45% at 50% 88%,rgba(138,172,189,.1) 0%,transparent 55%);
 pointer-events:none;z-index:0;}
 
-/* 浮動光粒子 */
 .pt{position:fixed;border-radius:50%;pointer-events:none;z-index:1;
 background:radial-gradient(circle,rgba(200,149,106,.55),transparent);}
 .p1{width:4px;height:4px;top:14%;left:10%;animation:fl1 8s infinite ease-in-out;}
@@ -51,7 +50,6 @@ background:radial-gradient(circle,rgba(200,149,106,.55),transparent);}
 padding:0 18px env(safe-area-inset-bottom);
 display:flex;flex-direction:column;align-items:center;min-height:100dvh;}
 
-/* 頂部 */
 .top{width:100%;padding:max(18px,env(safe-area-inset-top)) 0 14px;
 display:flex;justify-content:space-between;align-items:center;}
 .top-logo{font-size:.7rem;letter-spacing:4px;color:var(--tm);font-weight:300;}
@@ -62,7 +60,6 @@ cursor:pointer;transition:.2s;box-shadow:var(--sh);}
 .top-btn:active{transform:scale(.9);}
 .top-btn svg{width:17px;height:17px;stroke:var(--ts);fill:none;stroke-width:1.8;}
 
-/* 英雄區 */
 .hero{width:100%;display:flex;flex-direction:column;align-items:center;
 padding:16px 0 24px;animation:fadeUp .9s ease-out;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
@@ -74,7 +71,6 @@ background:radial-gradient(circle,rgba(212,170,130,.14) 0%,transparent 70%);
 animation:bRing 4s infinite ease-in-out;}
 @keyframes bRing{0%,100%{transform:scale(1);opacity:.6;}50%{transform:scale(1.08);opacity:1;}}
 
-/* 雙精靈動畫設定 */
 .sprite-blue { transform-origin: 100px 150px; animation: leanRight 3.5s infinite alternate ease-in-out; }
 .sprite-pink { transform-origin: 100px 150px; animation: leanLeft 3.5s infinite alternate ease-in-out; }
 @keyframes leanRight { 0% { transform: translate(10px, 0) rotate(0deg) scale(1); } 100% { transform: translate(30px, 0) rotate(6deg) scale(1.02); } }
@@ -87,7 +83,6 @@ text-align:center;line-height:1.7;margin-bottom:4px;}
 .h-quote{font-size:.72rem;color:var(--tm);letter-spacing:1px;text-align:center;
 line-height:1.8;margin-bottom:18px;padding:0 10px;font-style:italic;}
 
-/* 統計 */
 .stats{display:flex;gap:16px;margin-bottom:26px;}
 .spi{display:flex;align-items:center;gap:8px;padding:7px 16px;
 background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
@@ -98,7 +93,7 @@ border:1px solid rgba(255,255,255,.8);border-radius:20px;box-shadow:var(--sh);}
 .st{font-size:.7rem;color:var(--ts);letter-spacing:1px;}
 .sn{font-size:.88rem;font-weight:500;color:var(--text);}
 
-/* 四個需求入口 */
+/* 四個需求入口 (已更新顏色與主題) */
 .need-sec{width:100%;margin-bottom:22px;}
 .sec-lbl{font-size:.63rem;letter-spacing:4px;color:var(--tm);text-align:center;margin-bottom:12px;}
 .need-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -113,12 +108,13 @@ box-shadow:0 8px 25px rgba(200,149,106,.22);}
 .ni svg{width:24px;height:24px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .nl{font-size:.82rem;letter-spacing:2px;color:var(--text);text-align:center;}
 .nsb{font-size:.63rem;color:var(--tm);letter-spacing:1px;text-align:center;line-height:1.4;}
-.nc-hug .ni{background:rgba(201,150,142,.13);} .nc-hug .ni svg{stroke:var(--rose);}
-.nc-listen .ni{background:rgba(200,149,106,.11);} .nc-listen .ni svg{stroke:var(--gold);}
-.nc-care .ni{background:rgba(138,172,189,.13);} .nc-care .ni svg{stroke:var(--sky);}
-.nc-echo .ni{background:rgba(138,158,148,.11);} .nc-echo .ni svg{stroke:var(--sage);}
 
-/* CTA 按鈕 */
+/* 色彩對應 */
+.nc-hole .ni{background:rgba(138,158,148,.13);} .nc-hole .ni svg{stroke:var(--sage);}
+.nc-cheer .ni{background:rgba(200,149,106,.11);} .nc-cheer .ni svg{stroke:var(--gold);}
+.nc-echo .ni{background:rgba(138,172,189,.13);} .nc-echo .ni svg{stroke:var(--sky);}
+.nc-night .ni{background:rgba(201,150,142,.13);} .nc-night .ni svg{stroke:var(--rose);}
+
 .cta{width:100%;padding:17px;
 background:linear-gradient(135deg,var(--gold),var(--rose));
 color:#fff;border:none;border-radius:28px;font-size:.98rem;font-weight:400;letter-spacing:4px;
@@ -136,7 +132,6 @@ border-radius:28px;font-size:.9rem;letter-spacing:3px;
 cursor:pointer;box-shadow:var(--sh);transition:.25s;margin-bottom:26px;}
 .cta-ghost:active{transform:translateY(2px);background:rgba(255,255,255,.85);}
 
-/* 燈火牆 */
 .lights-sec{width:100%;margin-bottom:26px;}
 .lh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
 .lt{font-size:.63rem;letter-spacing:4px;color:var(--tm);}
@@ -150,27 +145,27 @@ display:flex;gap:12px;align-items:flex-start;
 cursor:pointer;transition:.25s;position:relative;overflow:hidden;}
 .lc:active{transform:scale(.98);}
 
-/* 光柱（隨點燈數變粗） */
+/* 光柱顏色更新 */
 .lb{width:3px;min-height:60px;border-radius:3px;flex-shrink:0;align-self:stretch;
 transition:width .4s ease,box-shadow .4s ease;}
-.lb-hug{background:linear-gradient(180deg,var(--rose),rgba(201,150,142,.15));}
-.lb-listen{background:linear-gradient(180deg,var(--gold),rgba(200,149,106,.15));}
-.lb-care{background:linear-gradient(180deg,var(--sky),rgba(138,172,189,.15));}
-.lb-echo{background:linear-gradient(180deg,var(--sage),rgba(138,158,148,.15));}
+.lb-hole{background:linear-gradient(180deg,var(--sage),rgba(138,158,148,.15));}
+.lb-cheer{background:linear-gradient(180deg,var(--gold),rgba(200,149,106,.15));}
+.lb-echo{background:linear-gradient(180deg,var(--sky),rgba(138,172,189,.15));}
+.lb-night{background:linear-gradient(180deg,var(--rose),rgba(201,150,142,.15));}
 .lb.glow{width:5px;box-shadow:0 0 8px rgba(200,149,106,.5);}
 
 .lbody{flex:1;}
 .ltype{display:inline-flex;align-items:center;gap:5px;
 font-size:.6rem;letter-spacing:2px;padding:3px 10px;border-radius:10px;margin-bottom:7px;}
-.ty-hug{color:var(--rose);background:rgba(201,150,142,.1);}
-.ty-listen{color:var(--gold);background:rgba(200,149,106,.1);}
-.ty-care{color:var(--sky);background:rgba(138,172,189,.12);}
-.ty-echo{color:var(--sage);background:rgba(138,158,148,.1);}
+.ty-hole{color:var(--sage);background:rgba(138,158,148,.1);}
+.ty-cheer{color:var(--gold);background:rgba(200,149,106,.1);}
+.ty-echo{color:var(--sky);background:rgba(138,172,189,.12);}
+.ty-night{color:var(--rose);background:rgba(201,150,142,.1);}
+
 .ltext{font-size:.86rem;color:var(--text);line-height:1.65;margin-bottom:9px;letter-spacing:.3px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
 .lfooter{display:flex;justify-content:space-between;align-items:center;}
 .ltime{font-size:.6rem;color:var(--tm);letter-spacing:1px;}
 
-/* 回應按鈕 */
 .rrow{display:flex;gap:6px;}
 .rb{display:flex;align-items:center;gap:4px;padding:5px 9px;border-radius:12px;
 border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.5);
@@ -180,7 +175,6 @@ cursor:pointer;transition:.2s;font-size:.63rem;color:var(--ts);}
 .rb.lit{background:rgba(200,149,106,.12);border-color:rgba(200,149,106,.3);color:var(--gold);}
 .rb.lit svg{stroke:var(--gold);}
 
-/* 常駐安心專線 */
 .hotline{
 width:100%;text-align:center;padding:14px 16px;
 background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.8);
@@ -191,14 +185,12 @@ border-radius:16px;margin-bottom:20px;box-shadow:var(--sh);
 
 .bot-pad{height:86px;flex-shrink:0;}
 
-/* 固定底部 */
 .fixed-bot{position:fixed;bottom:0;left:50%;transform:translateX(-50%);
 width:100%;max-width:480px;
 padding:12px 18px max(16px,env(safe-area-inset-bottom));
 background:linear-gradient(180deg,transparent,rgba(250,244,238,.95) 28%);
 z-index:100;display:flex;gap:10px;}
 
-/* 彈窗 */
 .ov{position:fixed;top:0;left:0;width:100%;height:100%;
 background:rgba(92,78,68,.42);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 z-index:500;display:none;opacity:0;transition:opacity .3s;
@@ -217,7 +209,6 @@ max-height:90dvh;overflow-y:auto;}
 .s-title{font-size:.98rem;font-weight:400;letter-spacing:4px;color:var(--text);text-align:center;margin-bottom:5px;}
 .s-sub{font-size:.7rem;color:var(--tm);letter-spacing:2px;text-align:center;margin-bottom:20px;}
 
-/* 發文 */
 .cl{font-size:.63rem;letter-spacing:3px;color:var(--tm);margin-bottom:9px;}
 .cg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;}
 .cb{padding:13px 8px;border-radius:16px;background:rgba(255,255,255,.7);
@@ -243,7 +234,6 @@ border:1px solid rgba(255,255,255,.85);margin-bottom:16px;}
 .anon svg{width:15px;height:15px;stroke:var(--sage);fill:none;stroke-width:1.8;flex-shrink:0;margin-top:2px;}
 .anon span{font-size:.68rem;color:var(--ts);letter-spacing:1px;line-height:1.5;}
 
-/* 緊急專線（發文彈窗內常駐） */
 .hotline-inner{text-align:center;padding:10px;
 background:rgba(255,255,255,.5);border-radius:12px;
 border:1px solid rgba(255,255,255,.8);margin-bottom:14px;}
@@ -257,7 +247,6 @@ cursor:pointer;box-shadow:0 6px 22px rgba(200,149,106,.3);transition:.2s;}
 .send:active{transform:translateY(2px);}
 .send:disabled{opacity:.5;cursor:not-allowed;}
 
-/* 回應彈窗 */
 .wg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
 .wb{padding:15px 8px;border-radius:18px;background:rgba(255,255,255,.7);
 border:1.5px solid rgba(255,255,255,.9);
@@ -268,7 +257,7 @@ cursor:pointer;transition:.25s;}
 .wi{width:48px;height:48px;border-radius:50%;
 display:flex;align-items:center;justify-content:center;}
 .wi svg{width:26px;height:26px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
-.wi-hug{background:rgba(201,150,142,.12);} .wi-hug svg{stroke:var(--rose);}
+.wi-hole{background:rgba(201,150,142,.12);} .wi-hole svg{stroke:var(--rose);}
 .wi-light{background:rgba(200,149,106,.1);} .wi-light svg{stroke:var(--gold);}
 .wi-listen{background:rgba(138,172,189,.12);} .wi-listen svg{stroke:var(--sky);}
 .wi-together{background:rgba(138,158,148,.1);} .wi-together svg{stroke:var(--sage);}
@@ -285,7 +274,6 @@ font-size:.88rem;color:var(--text);outline:none;font-family:inherit;
 .fi::placeholder{color:var(--tm);}
 .fc{text-align:right;font-size:.6rem;color:var(--tm);margin-top:3px;}
 
-/* toast */
 .toast{position:fixed;top:max(60px,env(safe-area-inset-top));left:50%;
 transform:translateX(-50%) translateY(-18px);
 background:rgba(92,78,68,.88);color:#fff;
@@ -294,13 +282,11 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;
 backdrop-filter:blur(8px);pointer-events:none;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* about */
 .ab-block{background:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.88);
 border-radius:17px;padding:15px;margin-bottom:10px;}
 .ab-t{font-size:.76rem;font-weight:500;color:var(--gold);letter-spacing:2px;margin-bottom:5px;}
 .ab-tx{font-size:.8rem;color:var(--ts);line-height:1.7;letter-spacing:.3px;}
 
-/* 跳轉提示遮罩 (從舊版補回) */
 .redirect-mask{position:fixed;inset:0;background:rgba(253,248,243,.9);
 display:none;justify-content:center;align-items:center;z-index:800;
 flex-direction:column;gap:16px;}
@@ -325,7 +311,6 @@ border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinit
   </div>
 
   <div class="hero">
-    
     <div class="embrace-wrap">
       <svg class="hero-svg-wrap" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width: 280px;">
           <defs>
@@ -382,39 +367,54 @@ border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinit
   <div class="need-sec">
     <div class="sec-lbl">── 你今天需要什麼 ──</div>
     <div class="need-grid">
-      <div class="nc nc-hug" onclick="pickNeed('hug',this)">
+      <div class="nc nc-hole" onclick="pickNeed('hole',this)">
         <div class="ni">
-          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <svg viewBox="0 0 24 24">
+            <path d="M12 22C6.477 22 2 17.523 2 12 2 6.477 6.477 2 12 2c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10z" fill="rgba(138,158,148,.15)" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="currentColor" opacity="0.4" stroke="none"/>
+            <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+          </svg>
         </div>
-        <div class="nl">我需要抱抱</div>
-        <div class="nsb">無條件的接納</div>
+        <div class="nl">心事樹洞</div>
+        <div class="nsb">放心說，沒有人會批判</div>
       </div>
-      <div class="nc nc-listen" onclick="pickNeed('listen',this)">
+      <div class="nc nc-cheer" onclick="pickNeed('cheer',this)">
         <div class="ni">
-          <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2l2.4 7.6H22l-6.1 4.7 2.3 7.7L12 17.5l-6.2 4.5 2.3-7.7L2 9.6h7.6L12 2z" fill="rgba(200,149,106,.2)" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="2.5" fill="currentColor" opacity="0.5" stroke="none"/>
+          </svg>
         </div>
-        <div class="nl">我需要傾聽</div>
-        <div class="nsb">有人靜靜陪著</div>
-      </div>
-      <div class="nc nc-care" onclick="pickNeed('care',this)">
-        <div class="ni">
-          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <div class="nl">我需要關懷</div>
-        <div class="nsb">有人在乎我</div>
+        <div class="nl">求個鼓勵</div>
+        <div class="nsb">你今天已經做得很好了</div>
       </div>
       <div class="nc nc-echo" onclick="pickNeed('echo',this)">
         <div class="ni">
-          <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.2" fill="none"/>
+            <circle cx="12" cy="12" r="6" stroke="currentColor" stroke-width="1.2" fill="rgba(138,172,189,.2)"/>
+            <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
+            <path d="M4.93 4.93l2.83 2.83M19.07 19.07l-2.83-2.83M19.07 4.93l-2.83 2.83M4.93 19.07l2.83-2.83" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+          </svg>
         </div>
-        <div class="nl">我需要共鳴</div>
-        <div class="nsb">找同路的靈魂</div>
+        <div class="nl">尋找共鳴</div>
+        <div class="nsb">原來我不孤單</div>
+      </div>
+      <div class="nc nc-night" onclick="pickNeed('night',this)">
+        <div class="ni">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="rgba(201,150,142,.2)" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+            <circle cx="16" cy="6" r="1.5" fill="currentColor" opacity="0.7" stroke="none"/>
+            <circle cx="19" cy="4" r="1" fill="currentColor" opacity="0.5" stroke="none"/>
+          </svg>
+        </div>
+        <div class="nl">深夜呢喃</div>
+        <div class="nsb">隨便說說，隨風消散</div>
       </div>
     </div>
   </div>
 
 <button class="cta" onclick="openPost()">點亮一盞燈 · 說出你的需要</button>
-
 <button class="cta-ghost" style="display:none;" onclick="goForum()">看看其他人的光</button>
 
   <div class="lights-sec">
@@ -457,21 +457,37 @@ border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinit
 
     <div class="cl">我現在需要</div>
     <div class="cg">
-      <div class="cb" data-t="hug" onclick="pickType(this)">
-        <svg viewBox="0 0 24 24" style="stroke:var(--rose)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        <span>抱抱</span>
+      <div class="cb" data-t="hole" onclick="pickType(this)">
+        <svg viewBox="0 0 24 24" style="stroke:var(--sage)">
+          <path d="M12 22C6.477 22 2 17.523 2 12 2 6.477 6.477 2 12 2c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10z" fill="rgba(138,158,148,.15)" stroke-width="1.2"/>
+          <path d="M12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="currentColor" opacity="0.4" stroke="none"/>
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+        </svg>
+        <span>心事樹洞</span>
       </div>
-      <div class="cb" data-t="listen" onclick="pickType(this)">
-        <svg viewBox="0 0 24 24" style="stroke:var(--gold)"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-        <span>傾聽</span>
-      </div>
-      <div class="cb" data-t="care" onclick="pickType(this)">
-        <svg viewBox="0 0 24 24" style="stroke:var(--sky)"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <span>關懷</span>
+      <div class="cb" data-t="cheer" onclick="pickType(this)">
+        <svg viewBox="0 0 24 24" style="stroke:var(--gold)">
+          <path d="M12 2l2.4 7.6H22l-6.1 4.7 2.3 7.7L12 17.5l-6.2 4.5 2.3-7.7L2 9.6h7.6L12 2z" fill="rgba(200,149,106,.2)" stroke-width="1.2" stroke-linejoin="round"/>
+          <circle cx="12" cy="12" r="2.5" fill="currentColor" opacity="0.5" stroke="none"/>
+        </svg>
+        <span>求個鼓勵</span>
       </div>
       <div class="cb" data-t="echo" onclick="pickType(this)">
-        <svg viewBox="0 0 24 24" style="stroke:var(--sage)"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        <span>共鳴</span>
+        <svg viewBox="0 0 24 24" style="stroke:var(--sky)">
+          <circle cx="12" cy="12" r="10" stroke-width="1.2" fill="none"/>
+          <circle cx="12" cy="12" r="6" stroke-width="1.2" fill="rgba(138,172,189,.2)"/>
+          <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
+          <path d="M4.93 4.93l2.83 2.83M19.07 19.07l-2.83-2.83M19.07 4.93l-2.83 2.83M4.93 19.07l2.83-2.83" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+        </svg>
+        <span>尋找共鳴</span>
+      </div>
+      <div class="cb" data-t="night" onclick="pickType(this)">
+        <svg viewBox="0 0 24 24" style="stroke:var(--rose)">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="rgba(201,150,142,.2)" stroke-width="1.2" stroke-linejoin="round"/>
+          <circle cx="16" cy="6" r="1.5" fill="currentColor" opacity="0.7" stroke="none"/>
+          <circle cx="19" cy="4" r="1" fill="currentColor" opacity="0.5" stroke="none"/>
+        </svg>
+        <span>深夜呢喃</span>
       </div>
     </div>
 
@@ -503,7 +519,7 @@ border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinit
 
     <div class="wg">
       <div class="wb" onclick="pickWarm(this)">
-        <div class="wi wi-hug">
+        <div class="wi wi-hole">
           <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </div>
         <div class="wn">給予擁抱</div>
@@ -584,7 +600,6 @@ border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinit
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
 <script>
-// ── Firebase 設定 ──────────────────────────────
 const fbCfg = {
   apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMf245",
   authDomain: "pure-land-light.firebaseapp.com",
@@ -598,13 +613,10 @@ if (!firebase.apps.length) firebase.initializeApp(fbCfg);
 const db = firebase.database();
 const lightsRef = db.ref('lights_v1');
 
-// ── 匿名登入 ──────────────────────────────────
 firebase.auth().signInAnonymously();
 
-// ── 狀態 ─────────────────────────────────────
 let selNeed = null, chosenT = null, selWarm = null;
 
-// ── 統計動畫 (重新接回資料庫動態數據) ───────────
 lightsRef.limitToLast(50).on('value', snap => {
   const data = snap.val() || {};
   const posts = Object.values(data);
@@ -626,7 +638,6 @@ function animN(id,from,to,dur) {
   },16);
 }
 
-// ── 動態渲染卡片 (結合你新設計的版面) ─────────
 function renderPreview(data) {
   const board = document.getElementById('preview-board');
   const keys = Object.keys(data).reverse().slice(0, 3);
@@ -634,20 +645,20 @@ function renderPreview(data) {
     board.innerHTML = '<div style="text-align:center;padding:20px;color:var(--tm);font-size:.85rem;letter-spacing:2px;">還沒有人點燈<br>成為第一個吧</div>';
     return;
   }
+  // 更新這對應了我們新的四種主題
   const typeMap = {
-    hug:  {lbl:'我需要抱抱', lc:'ty-hug', lb:'lb-hug'},
-    listen:{lbl:'我需要傾聽', lc:'ty-listen', lb:'lb-listen'},
-    care: {lbl:'我需要關懷', lc:'ty-care', lb:'lb-care'},
-    echo: {lbl:'我需要共鳴', lc:'ty-echo', lb:'lb-echo'},
+    hole:  {lbl:'心事樹洞', lc:'ty-hole', lb:'lb-hole'},
+    cheer: {lbl:'求個鼓勵', lc:'ty-cheer', lb:'lb-cheer'},
+    echo:  {lbl:'尋找共鳴', lc:'ty-echo', lb:'lb-echo'},
+    night: {lbl:'深夜呢喃', lc:'ty-night', lb:'lb-night'},
   };
   
   board.innerHTML = keys.map(id => {
     const p = data[id];
-    const tm = typeMap[p.type] || typeMap.hug;
+    const tm = typeMap[p.type] || typeMap.hole; // 找不到預設為樹洞
     const lc = p.lights || 0;
     const rc = p.resps ? Object.keys(p.resps).length : 0;
     
-    // 結合你的新卡片樣式
     return `
     <div class="lc" onclick="goForum()">
       <div class="lb ${tm.lb} ${lc > 0 ? 'glow' : ''}" style="${lc > 0 ? 'width:5px;box-shadow:0 0 8px rgba(200,149,106,.5);' : ''}"></div>
@@ -672,17 +683,15 @@ function renderPreview(data) {
   }).join('');
 }
 
-// ── 需求選擇 ─────────────────────────────────
 function pickNeed(type, el) {
   document.querySelectorAll('.nc').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel'); selNeed = type;
 }
 
-// ── 發文 (接回真實發送) ───────────────────────
 function openPost() {
   showOv('ov-post');
   if(selNeed) {
-    const m = {hug:'[data-t="hug"]',listen:'[data-t="listen"]',care:'[data-t="care"]',echo:'[data-t="echo"]'};
+    const m = {hole:'[data-t="hole"]',cheer:'[data-t="cheer"]',echo:'[data-t="echo"]',night:'[data-t="night"]'};
     const b = document.querySelector('.cb'+m[selNeed]);
     if(b) pickType(b);
   }
@@ -701,7 +710,6 @@ function chkSend() {
   document.getElementById('send-btn').disabled = !(chosenT && txt.length >= 5);
 }
 
-// 點亮一盞燈（傳送至 Firebase）
 function submitPost() {
   const txt = document.getElementById('post-txt').value.trim();
   if (!txt || !chosenT) return;
@@ -727,7 +735,6 @@ function submitPost() {
     });
 }
 
-// ── 回應 ─────────────────────────────────────
 function openResp(e) { e&&e.stopPropagation(); showOv('ov-resp'); }
 function pickWarm(el) {
   document.querySelectorAll('.wb').forEach(b=>b.classList.remove('sel'));
@@ -736,7 +743,7 @@ function pickWarm(el) {
 function updFiChar(el) {
   document.getElementById('fi-ch').textContent = el.value.length;
 }
-// （此處回應按鈕保留你的 Toast，因為首頁主要是預覽，真實互動可以引導到論壇內，這裡先保留你的視覺測試功能）
+
 function submitResp() {
   const warm = selWarm || '為你點燈';
   showToast(warm.includes('抱') ? '我抱抱你' :
@@ -749,10 +756,8 @@ function submitResp() {
   selWarm = null;
 }
 
-// ── 跳轉論壇 ─────────────────────────────────
 function goForum() { window.location.href = 'forum.html'; }
 
-// ── 彈窗 ─────────────────────────────────────
 function showOv(id) {
   const o = document.getElementById(id);
   o.style.display='flex';
@@ -767,14 +772,12 @@ function closeOv(id) {
 }
 function showAbout() { showOv('ov-about'); }
 
-// ── Toast ─────────────────────────────────────
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2200);
 }
 
-// ── 工具 ──────────────────────────────────────
 function escHtml(s) {
   return (s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
