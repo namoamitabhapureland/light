@@ -250,16 +250,26 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
   .m-body { padding:16px; }
   .m-reply-box { padding:12px 16px; }
 }
-/* 溫暖雙精靈動畫設定 (放在底部) */
+/* 溫暖雙精靈動畫設定 (尺寸變大、位置上移) */
 .embrace-wrap {
-  width: 160px; height: 160px; margin: 40px auto 10px;
+  width: 220px;  /* 從 160px 放大到 220px */
+  height: 220px; /* 從 160px 放大到 220px */
+  margin: 10px auto 30px; /* 第一個數字 10px 控制與上方的距離(變小就往上移) */
   display: flex; align-items: center; justify-content: center; position: relative;
+  cursor: pointer; 
+  transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); 
+}
+.embrace-wrap:active {
+  transform: scale(0.95); 
 }
 .embrace-wrap::before {
-  content: ''; position: absolute; width: 150px; height: 150px; border-radius: 50%;
+  content: ''; position: absolute; 
+  width: 200px; height: 200px; /* 配合精靈變大，背後的光暈也變大 */
+  border-radius: 50%;
   background: radial-gradient(circle, rgba(212,170,130,.1) 0%, transparent 70%);
   animation: bRing 4s infinite ease-in-out;
 }
+
 @keyframes bRing { 0%, 100% { transform: scale(1); opacity: .6; } 50% { transform: scale(1.08); opacity: 1; } }
 .sprite-blue { transform-origin: 100px 150px; animation: leanRight 3.5s infinite alternate ease-in-out; }
 .sprite-pink { transform-origin: 100px 150px; animation: leanLeft 3.5s infinite alternate ease-in-out; }
@@ -395,9 +405,7 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
     <div id="feed">
       <div style="text-align:center; padding:40px; color:var(--tm); letter-spacing:2px;">讀取中...</div>
     </div>
-    <div id="feed">
-      <div style="text-align:center; padding:40px; color:var(--tm); letter-spacing:2px;">讀取中...</div>
-    </div>
+
 
         <div class="embrace-wrap" onclick="triggerHealing()">
       <div id="healing-msg" class="healing-msg"></div>
