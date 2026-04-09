@@ -11,7 +11,6 @@
   --gold:#C8956A; --gold-s:#D4AA82; --gold-p:#EDD9BF;
   --rose:#C9968E; --sage:#8A9E94; --sky:#8AACBD;
   
-  /* 已將文字顏色加深，提升閱讀舒適度 */
   --text:#2C241E; 
   --ts:#6E5F54;   
   --tm:#8C7B6E;   
@@ -34,13 +33,11 @@ radial-gradient(ellipse 70% 50% at 18% 8%,rgba(212,170,130,.15) 0%,transparent 6
 radial-gradient(ellipse 50% 40% at 85% 22%,rgba(201,150,142,.1) 0%,transparent 55%);
 pointer-events:none;z-index:0;}
 
-/* 響應式佈局 (Dcard 風格) */
 .layout {
   position:relative; z-index:2; width:100%; max-width:960px; margin:0 auto;
   display:flex; align-items:flex-start; gap:24px; padding:24px 16px;
 }
 
-/* 左側邊欄 (電腦版) / 頂部滑動列 (手機版) */
 .sidebar {
   flex: 0 0 220px; position:sticky; top:24px; display:flex; flex-direction:column; gap:20px;
 }
@@ -58,23 +55,16 @@ pointer-events:none;z-index:0;}
 .nav-item.act { background:var(--glass); border-color:var(--gold-s); box-shadow:var(--sh); }
 .nav-item svg { width:18px; height:18px; fill:none; stroke-width:1.8; stroke-linecap:round; }
 .nav-item span { font-size:.85rem; letter-spacing:2px; color:var(--text); }
+
+/* 四大主題色彩對應 */
 .nav-all svg { stroke:var(--ts); }
-.nav-hug svg { stroke:var(--rose); }
-.nav-listen svg { stroke:var(--gold); }
-.nav-care svg { stroke:var(--sky); }
-.nav-echo svg { stroke:var(--sage); }
+.nav-hole svg { stroke:var(--sage); }
+.nav-cheer svg { stroke:var(--gold); }
+.nav-echo svg { stroke:var(--sky); }
+.nav-night svg { stroke:var(--rose); }
 
 /* 右側主內容區 */
 .main-content { flex:1; min-width:0; display:flex; flex-direction:column; gap:16px; }
-
-/* 恢復原本的引言 */
-.intro {
-  width:100%; text-align:center; padding:18px 16px;
-  background:var(--glass); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-  border:1px solid var(--glassb); border-radius:20px; box-shadow:var(--sh);
-}
-.intro-q { font-size:.82rem; color:var(--ts); line-height:1.9; letter-spacing:1px; font-style:italic;}
-.intro-q strong { color:var(--gold); font-style:normal;}
 
 /* 發文區 */
 .post-box {
@@ -90,8 +80,8 @@ pointer-events:none;z-index:0;}
 }
 .tp-btn.act { border-color:var(--gold-s); background:rgba(212,170,130,.15); }
 .tp-btn svg { width:15px; height:15px; fill:none; stroke-width:1.8; }
-.tp-hug svg{stroke:var(--rose);} .tp-listen svg{stroke:var(--gold);}
-.tp-care svg{stroke:var(--sky);} .tp-echo svg{stroke:var(--sage);}
+.tp-hole svg{stroke:var(--sage);} .tp-cheer svg{stroke:var(--gold);}
+.tp-echo svg{stroke:var(--sky);} .tp-night svg{stroke:var(--rose);}
 .tp-btn span { font-size:.75rem; color:var(--text); letter-spacing:1px; }
 
 .pta {
@@ -113,27 +103,25 @@ pointer-events:none;z-index:0;}
 /* 貼文列表區 */
 #feed { display:flex; flex-direction:column; gap:16px; margin-top:8px; }
 
-/* 貼文卡片 (Dcard 風格) */
 .card {
   padding:20px; background:var(--glass); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
   border:1px solid var(--glassb); border-radius:20px; box-shadow:var(--sh);
   cursor:pointer; transition:.2s; display:flex; gap:12px;
 }
 .card:hover { transform:translateY(-2px); box-shadow:var(--sh-hov); }
-.card.fading { opacity:.3; transform:scale(.98); pointer-events:none; }
 
 .c-bar { width:4px; border-radius:2px; flex-shrink:0; align-self:stretch; transition:.4s; }
-.cb-hug { background:linear-gradient(180deg,var(--rose),transparent); }
-.cb-listen { background:linear-gradient(180deg,var(--gold),transparent); }
-.cb-care { background:linear-gradient(180deg,var(--sky),transparent); }
-.cb-echo { background:linear-gradient(180deg,var(--sage),transparent); }
+.cb-hole { background:linear-gradient(180deg,var(--sage),transparent); }
+.cb-cheer { background:linear-gradient(180deg,var(--gold),transparent); }
+.cb-echo { background:linear-gradient(180deg,var(--sky),transparent); }
+.cb-night { background:linear-gradient(180deg,var(--rose),transparent); }
 
 .c-body { flex:1; min-width:0; }
 .c-type { display:inline-block; font-size:.65rem; letter-spacing:2px; padding:3px 10px; border-radius:10px; margin-bottom:8px; }
-.ct-hug { color:var(--rose); background:rgba(201,150,142,.15); }
-.ct-listen { color:var(--gold); background:rgba(200,149,106,.15); }
-.ct-care { color:var(--sky); background:rgba(138,172,189,.15); }
-.ct-echo { color:var(--sage); background:rgba(138,158,148,.15); }
+.ct-hole { color:var(--sage); background:rgba(138,158,148,.15); }
+.ct-cheer { color:var(--gold); background:rgba(200,149,106,.15); }
+.ct-echo { color:var(--sky); background:rgba(138,172,189,.15); }
+.ct-night { color:var(--rose); background:rgba(201,150,142,.15); }
 
 .c-text { font-size:.9rem; color:var(--text); line-height:1.6; margin-bottom:12px; word-break:break-word; }
 .c-summary { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
@@ -150,7 +138,11 @@ pointer-events:none;z-index:0;}
 .action-btn svg { width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.8; }
 .action-btn.lit { color:var(--gold); border-color:rgba(200,149,106,.4); background:rgba(200,149,106,.1); }
 
-/* 共建版權區 (移到底部) */
+/* 新增：檢舉按鈕樣式 */
+.btn-report { color: var(--ts); }
+.btn-report:hover { color: var(--rose); border-color: rgba(201,150,142,.3); background: rgba(201,150,142,.1); }
+
+/* 共建版權區 */
 .footer-text {
   margin-top: 30px; padding-top: 24px; border-top: 1px solid rgba(200,149,106,.15);
   font-size: .65rem; color: var(--tm); line-height: 1.8; letter-spacing: 1px;
@@ -159,7 +151,7 @@ pointer-events:none;z-index:0;}
 .footer-text span { cursor:pointer; transition:.2s; }
 .footer-text span:hover { color:var(--gold); }
 
-/* --- Dcard 風格彈出詳細視窗 --- */
+/* --- 彈出視窗系列 --- */
 .modal-overlay {
   position:fixed; inset:0; background:rgba(92,78,68,.6); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
   z-index:999; display:none; opacity:0; transition:opacity .3s;
@@ -174,7 +166,6 @@ pointer-events:none;z-index:0;}
 }
 .modal-overlay.show .modal-content { transform:translateY(0); }
 
-/* 彈窗頂部 */
 .m-head {
   padding:16px 20px; border-bottom:1px solid rgba(200,149,106,.15);
   display:flex; justify-content:space-between; align-items:center; background:var(--warm);
@@ -190,21 +181,18 @@ pointer-events:none;z-index:0;}
 }
 .m-share:active { transform:scale(.95); }
 
-/* 彈窗內容滾動區 */
 .m-body { flex:1; overflow-y:auto; padding:24px 20px; }
 .m-post-text { font-size:1rem; line-height:1.8; color:var(--text); margin-bottom:20px; word-break:break-word; }
 
-/* 留言區塊 */
 .m-comments { border-top:1px dashed rgba(200,149,106,.3); padding-top:20px; margin-bottom:20px; }
 .m-clist { display:flex; flex-direction:column; gap:16px; }
 .comment-item { display:flex; gap:12px; align-items:flex-start; }
-.ci-icon { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.ci-icon svg { width:18px; height:18px; fill:none; stroke-width:1.8; }
+.ci-icon { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; background:rgba(200,149,106,.15); }
+.ci-icon svg { width:18px; height:18px; fill:none; stroke-width:1.8; stroke:var(--gold); }
 .ci-content { flex:1; background:rgba(255,255,255,.6); border:1px solid var(--glassb); border-radius:0 16px 16px 16px; padding:12px 14px; }
 .ci-warm { font-size:.7rem; color:var(--gold); letter-spacing:1px; margin-bottom:4px; font-weight:500;}
 .ci-text { font-size:.85rem; color:var(--text); line-height:1.6; }
 
-/* 嚴格20字輸入區 */
 .m-reply-box {
   background:var(--warm); border-top:1px solid rgba(200,149,106,.15); padding:16px 20px;
 }
@@ -222,19 +210,42 @@ pointer-events:none;z-index:0;}
 .reply-btn:disabled { opacity:.5; cursor:not-allowed; }
 .reply-btn svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2;}
 
-/* Toast 提示 */
+/* 系統提示 Toast */
 .toast{position:fixed;top:max(60px,env(safe-area-inset-top));left:50%;
 transform:translateX(-50%) translateY(-18px);background:rgba(92,78,68,.9);color:#fff;
 padding:11px 22px;border-radius:22px;font-size:.8rem;letter-spacing:2px;
 opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* 響應式：手機版調整 */
+/* 美學確認框 (Glass Confirm) */
+.glass-box {
+  background: rgba(253, 248, 243, 0.95); border: 1px solid var(--glassb);
+  padding: 30px 25px; border-radius: 20px; text-align: center;
+  box-shadow: 0 15px 35px rgba(160,130,110,.25); max-width: 80%; width: 320px;
+  transform: translateY(20px); transition: transform 0.3s ease;
+}
+.modal-overlay.show .glass-box { transform: translateY(0); }
+.glass-text { color: var(--text); font-size: 1.05rem; margin-bottom: 25px; line-height: 1.6; font-weight: 400; letter-spacing: 1px; }
+.glass-btn {
+  background: linear-gradient(135deg, var(--gold), var(--rose));
+  color: #fff; border: none; padding: 10px 30px; border-radius: 12px;
+  font-size: 0.9rem; cursor: pointer; letter-spacing: 2px;
+  box-shadow: 0 4px 15px rgba(200,149,106,.3); transition: 0.2s; min-width: 100px;
+}
+.glass-btn:active { transform: translateY(2px); }
+.glass-btn-cancel {
+  background: transparent; color: var(--ts); border: 1px solid var(--tm); box-shadow: none;
+}
+
+/* 手機版：選單分兩行置中 */
 @media (max-width: 768px) {
   .layout { flex-direction:column; padding:12px; gap:16px; }
   .sidebar { flex:none; width:100%; position:relative; top:0; gap:12px; }
-  .nav-menu { flex-direction:row; overflow-x:auto; padding-bottom:4px; scrollbar-width:none; }
-  .nav-item { white-space:nowrap; padding:10px 14px; }
+  
+  .nav-menu { flex-direction:row; flex-wrap:wrap; justify-content:center; gap:8px; }
+  .nav-item { flex: 0 0 calc(33.33% - 6px); white-space:nowrap; padding:10px 8px; justify-content:center;}
+  .nav-item span { font-size: 0.8rem; }
+  
   .m-head { padding:12px 16px; }
   .m-body { padding:16px; }
   .m-reply-box { padding:12px 16px; }
@@ -255,54 +266,77 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
         <svg viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z"/></svg>
         <span>綜合牆</span>
       </div>
-      <div class="nav-item nav-hug" data-f="hug" onclick="setFilter(this)">
-        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        <span>需要抱抱</span>
+      <div class="nav-item nav-hole" data-f="hole" onclick="setFilter(this)">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 22C6.477 22 2 17.523 2 12 2 6.477 6.477 2 12 2c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10z" fill="rgba(138,158,148,.15)" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="currentColor" opacity="0.4" stroke="none"/>
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+        </svg>
+        <span>心事樹洞</span>
       </div>
-      <div class="nav-item nav-listen" data-f="listen" onclick="setFilter(this)">
-        <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-        <span>需要傾聽</span>
-      </div>
-      <div class="nav-item nav-care" data-f="care" onclick="setFilter(this)">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-        <span>需要關懷</span>
+      <div class="nav-item nav-cheer" data-f="cheer" onclick="setFilter(this)">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2l2.4 7.6H22l-6.1 4.7 2.3 7.7L12 17.5l-6.2 4.5 2.3-7.7L2 9.6h7.6L12 2z" fill="rgba(200,149,106,.2)" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+          <circle cx="12" cy="12" r="2.5" fill="currentColor" opacity="0.5" stroke="none"/>
+        </svg>
+        <span>求個鼓勵</span>
       </div>
       <div class="nav-item nav-echo" data-f="echo" onclick="setFilter(this)">
-        <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/></svg>
-        <span>需要共鳴</span>
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.2" fill="none"/>
+          <circle cx="12" cy="12" r="6" stroke="currentColor" stroke-width="1.2" fill="rgba(138,172,189,.2)"/>
+          <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
+          <path d="M4.93 4.93l2.83 2.83M19.07 19.07l-2.83-2.83M19.07 4.93l-2.83 2.83M4.93 19.07l2.83-2.83" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+        </svg>
+        <span>尋找共鳴</span>
+      </div>
+      <div class="nav-item nav-night" data-f="night" onclick="setFilter(this)">
+        <svg viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="rgba(201,150,142,.2)" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+          <circle cx="16" cy="6" r="1.5" fill="currentColor" opacity="0.7" stroke="none"/>
+          <circle cx="19" cy="4" r="1" fill="currentColor" opacity="0.5" stroke="none"/>
+        </svg>
+        <span>深夜呢喃</span>
       </div>
     </nav>
   </aside>
 
   <main class="main-content">
-    
-    <div class="intro">
-      <div class="intro-q">
-        把心裡的雨下在這裡吧<br>
-        這世界上總有一個人，願意靜靜為你撐傘<br>
-        <strong>這裡沒有名字，只有溫暖</strong><br>
-        你的文字將隨時間溫柔消散
-      </div>
-    </div>
 
     <div class="post-box">
       <div class="pb-head">── 點亮一盞燈 ──</div>
       <div class="type-picker">
-        <div class="tp-btn tp-hug" data-t="hug" onclick="pickPostType(this)">
-          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          <span>抱抱</span>
+        <div class="tp-btn tp-hole" data-t="hole" onclick="pickPostType(this)">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 22C6.477 22 2 17.523 2 12 2 6.477 6.477 2 12 2c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10z" fill="rgba(138,158,148,.15)" stroke-width="1.2"/>
+            <path d="M12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="currentColor" opacity="0.4" stroke="none"/>
+            <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+          </svg>
+          <span>樹洞</span>
         </div>
-        <div class="tp-btn tp-listen" data-t="listen" onclick="pickPostType(this)">
-          <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-          <span>傾聽</span>
-        </div>
-        <div class="tp-btn tp-care" data-t="care" onclick="pickPostType(this)">
-          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-          <span>關懷</span>
+        <div class="tp-btn tp-cheer" data-t="cheer" onclick="pickPostType(this)">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2l2.4 7.6H22l-6.1 4.7 2.3 7.7L12 17.5l-6.2 4.5 2.3-7.7L2 9.6h7.6L12 2z" fill="rgba(200,149,106,.2)" stroke-width="1.2" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="2.5" fill="currentColor" opacity="0.5" stroke="none"/>
+          </svg>
+          <span>鼓勵</span>
         </div>
         <div class="tp-btn tp-echo" data-t="echo" onclick="pickPostType(this)">
-          <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/></svg>
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" stroke-width="1.2" fill="none"/>
+            <circle cx="12" cy="12" r="6" stroke-width="1.2" fill="rgba(138,172,189,.2)"/>
+            <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
+            <path d="M4.93 4.93l2.83 2.83M19.07 19.07l-2.83-2.83M19.07 4.93l-2.83 2.83M4.93 19.07l2.83-2.83" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+          </svg>
           <span>共鳴</span>
+        </div>
+        <div class="tp-btn tp-night" data-t="night" onclick="pickPostType(this)">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="rgba(201,150,142,.2)" stroke-width="1.2" stroke-linejoin="round"/>
+            <circle cx="16" cy="6" r="1.5" fill="currentColor" opacity="0.7" stroke="none"/>
+            <circle cx="19" cy="4" r="1" fill="currentColor" opacity="0.5" stroke="none"/>
+          </svg>
+          <span>呢喃</span>
         </div>
       </div>
       <textarea class="pta" id="new-post-txt" placeholder="請先選擇分類，再說說此刻的感受..." maxlength="150" oninput="checkPostInput()"></textarea>
@@ -326,10 +360,20 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
   </main>
 </div>
 
+<div id="pure-confirm" class="modal-overlay" style="z-index: 1000;">
+  <div class="glass-box" onclick="event.stopPropagation()">
+      <div class="glass-text" id="pure-confirm-msg"></div>
+      <div style="display:flex; justify-content:center; gap:15px;">
+          <button class="glass-btn glass-btn-cancel" onclick="closeConfirm(false)">取 消</button>
+          <button class="glass-btn" onclick="closeConfirm(true)">確 定</button>
+      </div>
+  </div>
+</div>
+
 <div id="post-modal" class="modal-overlay" onclick="closeModal(event)">
   <div class="modal-content">
     <div class="m-head">
-      <div id="m-type-badge" class="c-type ct-hug">我需要抱抱</div>
+      <div id="m-type-badge" class="c-type ct-hole">心事樹洞</div>
       <div class="m-share" onclick="shareCurrentPost()">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
         分享
@@ -367,7 +411,6 @@ opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;pointer-events:none
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
 <script>
-// ── Firebase 初始化設定 ──────────────────────────────
 const fbCfg = {
   apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", 
   authDomain: "pure-land-light.firebaseapp.com",
@@ -381,39 +424,63 @@ if (!firebase.apps.length) firebase.initializeApp(fbCfg);
 const db = firebase.database();
 const lightsRef = db.ref('lights_v1');
 
-// 匿名登入 (不留個資)
-firebase.auth().signInAnonymously();
+// 【檢舉防護】鎖定 localStorage 假身分
+let currentUserUid = localStorage.getItem('limitless_guest_uid');
+if (!currentUserUid) {
+    currentUserUid = "guest_" + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('limitless_guest_uid', currentUserUid);
+}
 
-// ── 全域狀態變數 ──────────────────────────────────────
-let curFilter = 'all';     // 目前左側選單的分類
-let allPosts = {};         // 儲存從資料庫抓下來的所有貼文
-let postType = null;       // 發文區目前選擇的分類
-let currentModalPostId = null; // 目前彈窗正在看的貼文 ID
-const litSet = new Set(JSON.parse(localStorage.getItem('lit_v1') || '[]')); // 紀錄點過燈的文章
+firebase.auth().signInAnonymously().catch(e => console.warn(e));
 
-// ── 1. 檢查網址是否有「分享 ID」 ─────────────────────────
-// 如果有人透過你的專屬連結進來 (例如: forum.html?post=-O_xyz123)
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        currentUserUid = user.uid; // 若連線成功，使用真實 UID 覆蓋
+    }
+});
+
+let curFilter = 'all';     
+let allPosts = {};         
+let postType = null;       
+let currentModalPostId = null; 
+const litSet = new Set(JSON.parse(localStorage.getItem('lit_v1') || '[]')); 
+
 const urlParams = new URLSearchParams(window.location.search);
 const sharedPostId = urlParams.get('post');
-let isInitialLoad = true; // 判斷是否為第一次載入
+let isInitialLoad = true; 
 
-// ── 2. 即時監聽資料庫 (七日循環、最多 50 篇精神) ──────────
 lightsRef.limitToLast(50).on('value', snap => {
   allPosts = snap.val() || {};
-  renderFeed(); // 每次資料庫有更新，就重新渲染列表
+  renderFeed(); 
 
-  // 如果有帶分享 ID，而且是第一次載入，就自動幫他打開那篇貼文的彈窗！
   if (isInitialLoad && sharedPostId && allPosts[sharedPostId]) {
     openPostModal(sharedPostId);
     isInitialLoad = false;
   }
 });
 
-// ── 3. 渲染右側動態貼文列表 (Dcard 列表風格) ──────────────
+// 美學 Confirm 彈窗邏輯
+let pendingConfirmCallback = null;
+function showConfirm(msg, callback) {
+    document.getElementById('pure-confirm-msg').innerHTML = msg.replace(/\n/g, '<br>');
+    const overlay = document.getElementById('pure-confirm');
+    overlay.style.display = 'flex';
+    setTimeout(() => overlay.classList.add('show'), 10);
+    pendingConfirmCallback = callback;
+}
+function closeConfirm(result) {
+    const overlay = document.getElementById('pure-confirm');
+    overlay.classList.remove('show');
+    setTimeout(() => {
+        overlay.style.display = 'none';
+        if (pendingConfirmCallback) pendingConfirmCallback(result);
+        pendingConfirmCallback = null;
+    }, 300);
+}
+
 function renderFeed() {
   const feed = document.getElementById('feed');
-  const keys = Object.keys(allPosts).reverse(); // 最新的在最上面
-  // 根據左側選單進行篩選
+  const keys = Object.keys(allPosts).reverse(); 
   const filtered = curFilter === 'all' ? keys : keys.filter(k => allPosts[k].type === curFilter);
 
   if (!filtered.length) {
@@ -421,26 +488,47 @@ function renderFeed() {
     return;
   }
 
-  feed.innerHTML = ''; // 清空準備重新渲染
+  feed.innerHTML = ''; 
 
-  // 分類視覺對照表
   const typeMap = {
-    hug:   {lbl:'我需要抱抱', ctCls:'ct-hug', cbCls:'cb-hug'},
-    listen:{lbl:'我需要傾聽', ctCls:'ct-listen', cbCls:'cb-listen'},
-    care:  {lbl:'我需要關懷', ctCls:'ct-care', cbCls:'cb-care'},
-    echo:  {lbl:'我需要共鳴', ctCls:'ct-echo', cbCls:'cb-echo'},
+    hole:  {lbl:'心事樹洞', ctCls:'ct-hole', cbCls:'cb-hole'},
+    cheer: {lbl:'求個鼓勵', ctCls:'ct-cheer', cbCls:'cb-cheer'},
+    echo:  {lbl:'尋找共鳴', ctCls:'ct-echo', cbCls:'cb-echo'},
+    night: {lbl:'深夜呢喃', ctCls:'ct-night', cbCls:'cb-night'},
   };
 
   filtered.forEach(id => {
     const p = allPosts[id];
-    const tm = typeMap[p.type] || typeMap.hug;
+    
+    // 【檢舉邏輯】超過3人檢舉自動隱藏
+    const reportCount = p.reports ? Object.keys(p.reports).length : 0;
+    if (reportCount >= 3) return; 
+
+    const tm = typeMap[p.type] || typeMap.hole;
     const lightsCount = p.lights || 0;
     const respsCount = p.resps ? Object.keys(p.resps).length : 0;
     const isLit = litSet.has(id);
+    
+    // 檢查本人是否已檢舉
+    const hasReported = p.reports && p.reports[currentUserUid];
+    
+    let reportBtnHTML = '';
+    if (hasReported) {
+        reportBtnHTML = `
+            <div class="action-btn" style="color:#aaa; border-color:transparent; background:transparent; cursor:default;" onclick="event.stopPropagation()">
+                <svg viewBox="0 0 24 24" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>已檢舉</span>
+            </div>`;
+    } else {
+        reportBtnHTML = `
+            <div class="action-btn btn-report" onclick="reportPost('${id}', event)">
+                <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+                <span>檢舉</span>
+            </div>`;
+    }
 
     const card = document.createElement('div');
     card.className = 'card';
-    // 點擊卡片任何地方，都會開啟詳細彈窗 (UX 優化)
     card.onclick = () => openPostModal(id);
 
     card.innerHTML = `
@@ -459,6 +547,7 @@ function renderFeed() {
               <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
               <span>回應 ${respsCount > 0 ? respsCount : ''}</span>
             </div>
+            ${reportBtnHTML}
           </div>
         </div>
       </div>
@@ -467,7 +556,6 @@ function renderFeed() {
   });
 }
 
-// ── 4. 發文區功能 ──────────────────────────────────────
 function pickPostType(el) {
   document.querySelectorAll('.tp-btn').forEach(b => b.classList.remove('act'));
   el.classList.add('act'); 
@@ -482,7 +570,6 @@ function checkPostInput() {
   
   const len = txtInput.value.trim().length;
   countDisplay.textContent = `${len} / 150`;
-  // 必須選分類且大於5個字才能發文
   btn.disabled = !(postType && len >= 5);
 }
 
@@ -493,10 +580,8 @@ function submitPost() {
   const btn = document.getElementById('btn-submit-post');
   btn.disabled = true; btn.textContent = '傳送中...';
 
-  // 送出到 Firebase
   lightsRef.push({ type: postType, text: txt, ts: Date.now(), lights: 0 })
     .then(() => {
-      // 重置發文區
       document.getElementById('new-post-txt').value = '';
       checkPostInput();
       document.querySelectorAll('.tp-btn').forEach(b => b.classList.remove('act'));
@@ -510,18 +595,16 @@ function submitPost() {
     });
 }
 
-// ── 5. 左側導覽列篩選功能 ──────────────────────────────
 function setFilter(el) {
   document.querySelectorAll('.nav-item').forEach(f => f.classList.remove('act'));
   el.classList.add('act'); 
   curFilter = el.dataset.f; 
   renderFeed();
-  window.scrollTo({ top: 0, behavior: 'smooth' }); // 切換分類時滾動到最上方
+  window.scrollTo({ top: 0, behavior: 'smooth' }); 
 }
 
-// ── 6. 點亮微光功能 ────────────────────────────────────
 function toggleLight(id, e) {
-  if(e) e.stopPropagation(); // 阻止卡片點擊事件
+  if(e) e.stopPropagation(); 
   const isLit = litSet.has(id);
   
   if (isLit) {
@@ -535,40 +618,51 @@ function toggleLight(id, e) {
   localStorage.setItem('lit_v1', JSON.stringify([...litSet]));
 }
 
-// ── 7. 打開 Dcard 風格詳細彈窗 ─────────────────────────
+// 執行檢舉
+window.reportPost = (id, e) => {
+    if(e) e.stopPropagation();
+    showConfirm("確認檢舉此篇內容？\n若達一定人數將自動隱藏。", (result) => {
+        if (result) {
+            lightsRef.child(id).child('reports').child(currentUserUid).set(true)
+            .then(() => {
+                showToast("檢舉成功，感謝你的協助");
+            })
+            .catch(err => {
+                showToast("檢舉失敗，請稍後再試");
+            });
+        }
+    });
+};
+
 function openPostModal(id) {
   const p = allPosts[id];
   if (!p) return;
   currentModalPostId = id;
 
   const typeMap = {
-    hug:   {lbl:'我需要抱抱', ctCls:'ct-hug'},
-    listen:{lbl:'我需要傾聽', ctCls:'ct-listen'},
-    care:  {lbl:'我需要關懷', ctCls:'ct-care'},
-    echo:  {lbl:'我需要共鳴', ctCls:'ct-echo'},
+    hole:  {lbl:'心事樹洞', ctCls:'ct-hole'},
+    cheer: {lbl:'求個鼓勵', ctCls:'ct-cheer'},
+    echo:  {lbl:'尋找共鳴', ctCls:'ct-echo'},
+    night: {lbl:'深夜呢喃', ctCls:'ct-night'},
   };
-  const tm = typeMap[p.type] || typeMap.hug;
+  const tm = typeMap[p.type] || typeMap.hole;
 
-  // 替換彈窗內的資料
   const badge = document.getElementById('m-type-badge');
   badge.className = `c-type ${tm.ctCls}`;
   badge.textContent = tm.lbl;
-  document.getElementById('m-post-text').textContent = p.text; // 使用 textContent 防 XSS
+  document.getElementById('m-post-text').textContent = p.text; 
   document.getElementById('m-post-time').textContent = formatTime(p.ts);
 
-  // 渲染歷史留言
   renderModalComments(p.resps);
 
-  // 重置回覆輸入框
   document.getElementById('reply-input').value = '';
   document.getElementById('reply-count').textContent = '0 / 20';
   document.getElementById('btn-submit-reply').disabled = true;
 
-  // 顯示彈窗
   const modal = document.getElementById('post-modal');
   modal.style.display = 'flex';
   setTimeout(() => modal.classList.add('show'), 10);
-  document.body.style.overflow = 'hidden'; // 鎖定背景滾動
+  document.body.style.overflow = 'hidden'; 
 }
 
 function renderModalComments(respsObj) {
@@ -578,11 +672,11 @@ function renderModalComments(respsObj) {
     return;
   }
 
-  const items = Object.values(respsObj); // 依照時間順序顯示
+  const items = Object.values(respsObj); 
   clist.innerHTML = items.map(r => `
     <div class="comment-item">
-      <div class="ci-icon" style="background:rgba(200,149,106,.15);">
-        <svg viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z" stroke="var(--gold)"/></svg>
+      <div class="ci-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z"/></svg>
       </div>
       <div class="ci-content">
         <div class="ci-warm">善意微光</div>
@@ -600,24 +694,21 @@ function closeModal(e) {
   document.body.style.overflow = '';
   currentModalPostId = null;
 
-  // 如果一開始是透過分享連結進來的，關閉視窗後把網址清乾淨，體驗更好
   if(window.history.replaceState) {
     window.history.replaceState({}, document.title, window.location.pathname);
   }
 }
 
-// ── 8. 嚴格 20 字回覆功能 ──────────────────────────────
 function checkReplyInput(el) {
   const len = el.value.trim().length;
   const countDisplay = document.getElementById('reply-count');
   
   countDisplay.textContent = `${len} / 20`;
   
-  // 嚴格攔截！超過20字鎖死
   if (len > 20) {
     countDisplay.style.color = "red";
     document.getElementById('btn-submit-reply').disabled = true;
-    el.value = el.value.substring(0, 20); // 強制截斷
+    el.value = el.value.substring(0, 20); 
     showToast('回覆不能超過 20 個字喔');
   } else {
     countDisplay.style.color = "var(--rose)";
@@ -628,18 +719,16 @@ function checkReplyInput(el) {
 function submitReply() {
   if (!currentModalPostId) return;
   const txt = document.getElementById('reply-input').value.trim();
-  if (!txt || txt.length > 20) return; // 雙重保險防護
+  if (!txt || txt.length > 20) return; 
 
   const btn = document.getElementById('btn-submit-reply');
   btn.disabled = true;
 
-  // 寫入特定貼文的 resps 節點
   lightsRef.child(currentModalPostId).child('resps').push({
     text: txt,
     ts: Date.now()
   }).then(() => {
     showToast('已送出你的溫暖');
-    // 成功後不用關閉視窗，重新打開目前的貼文以刷新留言列表
     openPostModal(currentModalPostId);
   }).catch(() => {
     btn.disabled = false;
@@ -647,15 +736,12 @@ function submitReply() {
   });
 }
 
-// ── 9. 分享專屬網址功能 (Web Share API) ──────────────────
 function shareCurrentPost() {
   if (!currentModalPostId) return;
   
-  // 建立當前這篇文章的專屬身份證網址
   const shareUrl = window.location.origin + window.location.pathname + "?post=" + currentModalPostId;
   const shareTitle = "無量的光 · 有人在這裡點了一盞燈";
   
-  // 判斷手機瀏覽器是否支援原生分享功能 (跳出 IG / Line / FB 選單)
   if (navigator.share) {
     navigator.share({
       title: shareTitle,
@@ -665,7 +751,6 @@ function shareCurrentPost() {
       console.log('分享取消或失敗', err);
     });
   } else {
-    // 電腦版或不支援的瀏覽器，則幫他複製網址
     navigator.clipboard.writeText(shareUrl).then(() => {
       showToast('專屬連結已複製！快去分享吧');
     }).catch(() => {
@@ -674,7 +759,6 @@ function shareCurrentPost() {
   }
 }
 
-// ── 10. 工具函式庫 ────────────────────────────────────
 function escHtml(s) {
   return (s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
