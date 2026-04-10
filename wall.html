@@ -26,17 +26,18 @@ html, body {
 }
 
 .top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: space-between; z-index: 5000; position: absolute; top: 0;}
-.nav-btn { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: var(--shadow-soft); cursor: pointer; }
+.nav-btn { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: var(--shadow-soft); cursor: pointer; transition: 0.2s; }
+.nav-btn:active { transform: scale(0.92); }
 
 /* 底部看板：透明玻璃與強制單行 */
 .bottom-text {
   position: absolute; bottom: max(40px, env(safe-area-inset-bottom)); text-align: center; z-index: 5000; 
-  background: rgba(255, 255, 255, 0.4); /* 透明玻璃感 */
+  background: rgba(255, 255, 255, 0.4); 
   padding: 18px 35px; border-radius: 40px; 
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
   border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft); 
   animation: fadeUp 1.2s ease-out;
-  width: max-content; max-width: 90%; white-space: nowrap; /* 強制單行不折行 */
+  width: max-content; max-width: 90%; white-space: nowrap; 
 }
 .bt-title { font-size: 0.85rem; letter-spacing: 5px; color: var(--text-light); margin-bottom: 6px; font-weight: 300;}
 .bt-count { font-size: 1.3rem; font-weight: 300; letter-spacing: 1px; color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 8px;}
@@ -118,7 +119,7 @@ html, body {
 <script>
 const spriteColors = ["#D1E4EE", "#E8F0E1", "#E1D5E7", "#FDF5D3"];
 let currentDisplayNum = 0;
-let isRendered = false; // ✨ 加入渲染鎖，確保絕對不會白畫面
+let isRendered = false; 
 
 function generateSpriteSVG(fillColor) {
     return `
@@ -144,7 +145,7 @@ function spawnSprites(count) {
 }
 
 function spawnKing(total) {
-    if (total < 500) return; // 小於 500 不顯示大王，這是正常的！
+    if (total < 500) return;
     
     let kingColor = "#FDF5D3"; 
     if (total >= 100000) kingColor = "url(#king-rainbow)"; 
@@ -162,7 +163,8 @@ function spawnKing(total) {
 function animN(id, from, to, dur) {
     const el = document.getElementById(id);
     if (!el) return;
-    if (to === 0) { el.textContent = '0'; return; }
+    if (from === to) { el.textContent = to.toLocaleString(); return; } 
+    
     const step = (to - from) / (dur / 16); 
     let cur = from;
     const t = setInterval(() => {
@@ -184,13 +186,12 @@ function hideLoader() {
 }
 
 function updateVisuals(total) {
-    if (isRendered && currentDisplayNum === total) return; // 避免重複渲染
+    if (isRendered && currentDisplayNum === total) return; 
     isRendered = true;
     
     animN('total-warmth', currentDisplayNum, total, 1500);
     currentDisplayNum = total;
     
-    // ✨ 確保至少會畫出 8 隻基本精靈，畫面絕不空白
     spawnSprites(Math.max(8, Math.min(8 + total/20, 15)));
     spawnKing(total);
     
@@ -203,47 +204,52 @@ function updateVisuals(total) {
     }
 }
 
-// ✨ 最強防護：3 秒內若 Firebase 沒反應，強制畫出基本的 0 狀態與小精靈
-setTimeout(() => {
-    if (!isRendered) {
-        updateVisuals(0);
-        hideLoader();
-    }
-}, 3000);
-
-const fbCfg = {
-  apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", 
-  authDomain: "pure-land-light.firebaseapp.com",
-  databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com",
-  projectId: "pure-land-light"
-};
-
 function startFetch() {
     try {
-        if (!firebase.apps.length) firebase.initializeApp(fbCfg);
+        if (!firebase.apps.length) {
+            firebase.initializeApp({ 
+                apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", 
+                authDomain: "pure-land-light.firebaseapp.com", 
+                databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com", 
+                projectId: "pure-land-light" 
+            });
+        }
         
-        // ✨ 不再手動切斷連線，交由系統自然讀取
-        firebase.database().ref('lights_v1_stats/total_warmth').once('value')
-        .then(snap => {
-            const total = snap.val() || 0; 
+        const db = firebase.database();
+        // 絕對安全的單次讀取
+        db.ref('lights_v1_stats/total_warmth').get().then((snap) => {
+            const total = snap.exists() ? snap.val() : 0;
             updateVisuals(total);
             hideLoader();
-        })
-        .catch(err => {
-            if(!isRendered) updateVisuals(0);
+        }).catch((error) => {
+            console.error(error);
+            if (!isRendered) updateVisuals(0);
             hideLoader();
         });
     } catch(e) { 
-        if(!isRendered) updateVisuals(0);
+        console.error(e);
+        if (!isRendered) updateVisuals(0);
         hideLoader(); 
     }
 }
 
+// 啟動連線：匿名登入與抓取資料
 if (firebase.auth) {
-    firebase.auth().signInAnonymously().then(startFetch).catch(startFetch);
+    firebase.auth().signInAnonymously()
+    .then(() => startFetch())
+    .catch(() => startFetch());
 } else {
     startFetch();
 }
+
+// 終極防護：若 4 秒內網路依然沒回應，確保畫面不會白板卡死
+setTimeout(() => {
+    if (document.getElementById('loading').style.display !== 'none') {
+        hideLoader();
+        if (!isRendered) updateVisuals(0); 
+    }
+}, 4000);
+
 </script>
 </body>
 </html>
