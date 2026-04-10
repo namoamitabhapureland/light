@@ -10,7 +10,6 @@
 :root {
   /* 極致淨白清透背景 */
   --bg-gradient: linear-gradient(135deg, #FFFFFF 0%, #FDFCFB 100%);
-  --glass-bg: rgba(255, 255, 255, 0.5);
   --glass-border: rgba(255, 255, 255, 0.7);
   --text-main: #58504A; 
   --text-light: #968E86;
@@ -29,18 +28,18 @@ html, body {
 .top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: space-between; z-index: 5000; position: absolute; top: 0;}
 .nav-btn { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: var(--shadow-soft); cursor: pointer; }
 
-/* 底部看板：透明玻璃與單行強制 */
+/* ✨ 底部看板：透明玻璃與強制單行 */
 .bottom-text {
   position: absolute; bottom: max(40px, env(safe-area-inset-bottom)); text-align: center; z-index: 5000; 
   background: rgba(255, 255, 255, 0.4); /* 透明玻璃感 */
-  padding: 18px 30px; border-radius: 40px; 
+  padding: 18px 35px; border-radius: 40px; 
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
   border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft); 
   animation: fadeUp 1.2s ease-out;
-  width: max-content; max-width: 95%; white-space: nowrap; /* 強制單行不折行 */
+  width: max-content; max-width: 90%; white-space: nowrap; /* 強制單行不折行 */
 }
 .bt-title { font-size: 0.85rem; letter-spacing: 5px; color: var(--text-light); margin-bottom: 6px; font-weight: 300;}
-.bt-count { font-size: 1.25rem; font-weight: 300; letter-spacing: 1px; color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 8px;}
+.bt-count { font-size: 1.3rem; font-weight: 300; letter-spacing: 1px; color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 8px;}
 .bt-count span { font-weight: 400; color: var(--accent-gold); font-size: 2.2rem; text-shadow: 0 0 20px rgba(212,175,55,0.25);}
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -71,7 +70,7 @@ html, body {
 
 /* ✨ 鎮守中央的精靈大王 */
 .king-node {
-  left: 50% !important; top: 42% !important; 
+  left: 50% !important; top: 40% !important; 
   transform: translate(-50%, -50%) !important;
   animation: kPulse 12s ease-in-out infinite alternate;
   filter: drop-shadow(0 15px 35px rgba(212,175,55,0.15));
@@ -117,7 +116,6 @@ html, body {
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
-// 一般小精靈淡色系
 const spriteColors = ["#D1E4EE", "#E8F0E1", "#E1D5E7", "#FDF5D3"];
 let currentDisplayNum = 0;
 
@@ -126,8 +124,8 @@ function generateSpriteSVG(fillColor) {
     return `
     <svg viewBox="35 15 130 140" width="100%" height="100%" overflow="visible">
         <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="${fillColor}" opacity="0.95" />
-        <path d="M 85 85 Q 90 88 95 85" fill="none" stroke="#8C7A6B" stroke-width="2.8" stroke-linecap="round"/>
-        <path d="M 105 85 Q 110 88 115 85" fill="none" stroke="#8C7A6B" stroke-width="2.8" stroke-linecap="round"/>
+        <path d="M 85 85 Q 90 88 95 85" fill="none" stroke="#8C7A6B" stroke-width="3" stroke-linecap="round"/>
+        <path d="M 105 85 Q 110 88 115 85" fill="none" stroke="#8C7A6B" stroke-width="3" stroke-linecap="round"/>
         <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.7"/>
         <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.7"/>
     </svg>`;
@@ -157,22 +155,31 @@ function spawnKing(total) {
     const sea = document.getElementById('sprite-sea');
     const king = document.createElement('div');
     king.className = 'sprite-node king-node';
+    // 基礎體型 360px，搭配動畫最大會撐滿畫面
     king.style.cssText = `width:360px; height:360px; z-index:100;`;
     king.innerHTML = generateSpriteSVG(kingColor);
     sea.appendChild(king);
 }
 
-function hideLoader() {
-    const loader = document.getElementById('loading');
-    if (loader && loader.style.opacity !== '0') { 
-        loader.style.opacity = '0'; 
-        setTimeout(() => { loader.style.display = 'none'; }, 600); 
-    }
+// 數字滾動動畫
+function animN(id, from, to, dur) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (to === 0) { el.textContent = '0'; return; }
+    const step = (to - from) / (dur / 16); 
+    let cur = from;
+    const t = setInterval(() => {
+        cur += step;
+        if ((step > 0 && cur >= to) || (step < 0 && cur <= to)) {
+            cur = to;
+            clearInterval(t);
+        }
+        el.textContent = Math.round(cur).toLocaleString();
+    }, 16);
 }
 
 function updateVisuals(total) {
-    const el = document.getElementById('total-warmth');
-    if (el) el.textContent = total.toLocaleString();
+    animN('total-warmth', currentDisplayNum, total, 1500);
     currentDisplayNum = total;
     
     spawnSprites(Math.min(8 + total/20, 15));
@@ -187,37 +194,47 @@ function updateVisuals(total) {
     }
 }
 
-// ✨ 防卡死
-const safetyTimer = setTimeout(() => { 
-    if (document.getElementById('loading').style.display !== 'none') { 
-        updateVisuals(0); 
-        hideLoader(); 
-    } 
-}, 2500);
+// ✨ 保護機制：5秒內一定關閉 Loader，不再干涉數據
+setTimeout(() => {
+    const loader = document.getElementById('loading');
+    if (loader && loader.style.display !== 'none') {
+        loader.style.opacity = '0';
+        setTimeout(() => { loader.style.display = 'none'; }, 600);
+    }
+}, 5000);
 
-// ✨ 恢復正常連線，讀取真實數據
 function startFetch() {
     try {
-        if (!firebase.apps.length) firebase.initializeApp({ apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", authDomain: "pure-land-light.firebaseapp.com", databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com", projectId: "pure-land-light" });
+        if (!firebase.apps.length) {
+            firebase.initializeApp({ apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", authDomain: "pure-land-light.firebaseapp.com", databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com", projectId: "pure-land-light" });
+        }
         
-        firebase.database().goOnline();
-        firebase.database().ref('lights_v1_stats/total_warmth').once('value').then(snap => {
-            clearTimeout(safetyTimer);
-            
+        const db = firebase.database();
+        db.goOnline();
+        
+        db.ref('lights_v1_stats/total_warmth').once('value').then(snap => {
             // ✨ 讀取真實數據
             const total = snap.val() || 0; 
+            updateVisuals(total);
             
-            updateVisuals(total); 
-            hideLoader();
-            setTimeout(() => firebase.database().goOffline(), 1000);
-        }).catch(() => {
-            hideLoader();
-            firebase.database().goOffline();
+            const loader = document.getElementById('loading');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 600);
+            }
+            setTimeout(() => db.goOffline(), 1000);
+        }).catch(err => {
+            console.error(err);
+            db.goOffline();
         });
-    } catch(e) { hideLoader(); }
+    } catch(e) { console.error(e); }
 }
 
-firebase.auth().signInAnonymously().finally(() => startFetch());
+if (firebase.auth) {
+    firebase.auth().signInAnonymously().then(() => startFetch()).catch(() => startFetch());
+} else {
+    startFetch();
+}
 </script>
 </body>
 </html>
