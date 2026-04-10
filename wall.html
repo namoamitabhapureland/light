@@ -229,7 +229,7 @@ function startFetch() {
         
         firebase.database().goOnline();
         statsRef.once('value').then(snap => {
-            const total = snap.val() || 0;
+            const total = 10000;
             updateVisuals(total);
             hideLoader();
             setTimeout(() => firebase.database().goOffline(), 1000);
