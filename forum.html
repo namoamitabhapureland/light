@@ -21,7 +21,7 @@
             --shadow-hov: 0 15px 45px rgba(160, 155, 150, 0.18);
             
             --accent-hole: #82968C;  
-            --accent-cheer: #CBA37A; 
+            --accent-cheer: #CBA37A;
             --accent-echo: #8AACBD;  
             --accent-night: #CFA4A4; 
             
@@ -172,15 +172,24 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
-        .tp-btn svg { width: 20px; height: 20px; fill: none; stroke-width: 1.5; }
-        .tp-hole svg { stroke: var(--accent-hole); } 
-        .tp-hole.act { border-color: var(--accent-hole); }
-        .tp-cheer svg { stroke: var(--accent-cheer); } 
-        .tp-cheer.act { border-color: var(--accent-cheer); }
-        .tp-echo svg { stroke: var(--accent-echo); } 
-        .tp-echo.act { border-color: var(--accent-echo); }
-        .tp-night svg { stroke: var(--accent-night); } 
-        .tp-night.act { border-color: var(--accent-night); }
+        .tp-btn svg { width: 20px; height: 20px;
+            fill: none; stroke-width: 1.5; }
+        .tp-hole svg { stroke: var(--accent-hole);
+        } 
+        .tp-hole.act { border-color: var(--accent-hole);
+        }
+        .tp-cheer svg { stroke: var(--accent-cheer);
+        } 
+        .tp-cheer.act { border-color: var(--accent-cheer);
+        }
+        .tp-echo svg { stroke: var(--accent-echo);
+        } 
+        .tp-echo.act { border-color: var(--accent-echo);
+        }
+        .tp-night svg { stroke: var(--accent-night);
+        } 
+        .tp-night.act { border-color: var(--accent-night);
+        }
         
         .tp-btn span {
             font-size: 0.7rem;
@@ -217,7 +226,8 @@
             margin-top: 12px;
         }
 
-        .pb-count { font-size: 0.7rem; color: var(--text-muted); }
+        .pb-count { font-size: 0.7rem; color: var(--text-muted);
+        }
 
         .btn-primary {
             padding: 12px 28px;
@@ -233,8 +243,10 @@
             font-weight: 500;
         }
 
-        .btn-primary:active { transform: scale(0.95); }
-        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+        .btn-primary:active { transform: scale(0.95);
+        }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none;
+        }
 
         /* 分類標籤 */
         .filter-tabs {
@@ -245,7 +257,8 @@
             margin-bottom: 10px;
             scrollbar-width: none;
         }
-        .filter-tabs::-webkit-scrollbar { display: none; }
+        .filter-tabs::-webkit-scrollbar { display: none;
+        }
 
         .ft-btn {
             padding: 10px 18px;
@@ -263,22 +276,35 @@
             box-shadow: var(--shadow-soft);
         }
 
-        .ft-btn svg { width: 16px; height: 16px; fill: none; stroke-width: 1.8; }
-        .ft-all svg { stroke: var(--text-light); } 
-        .ft-hole svg { stroke: var(--accent-hole); } 
-        .ft-cheer svg { stroke: var(--accent-cheer); } 
-        .ft-echo svg { stroke: var(--accent-echo); } 
-        .ft-night svg { stroke: var(--accent-night); }
+        .ft-btn svg { width: 16px;
+            height: 16px; fill: none; stroke-width: 1.8; }
+        .ft-all svg { stroke: var(--text-light);
+        } 
+        .ft-hole svg { stroke: var(--accent-hole);
+        } 
+        .ft-cheer svg { stroke: var(--accent-cheer);
+        } 
+        .ft-echo svg { stroke: var(--accent-echo);
+        } 
+        .ft-night svg { stroke: var(--accent-night);
+        }
 
-        .ft-btn.act { background: white; color: var(--text-main); font-weight: 500; }
-        .ft-all.act { border-color: var(--text-light); } 
-        .ft-hole.act { border-color: var(--accent-hole); } 
-        .ft-cheer.act { border-color: var(--accent-cheer); } 
-        .ft-echo.act { border-color: var(--accent-echo); } 
-        .ft-night.act { border-color: var(--accent-night); }
+        .ft-btn.act { background: white; color: var(--text-main); font-weight: 500;
+        }
+        .ft-all.act { border-color: var(--text-light);
+        } 
+        .ft-hole.act { border-color: var(--accent-hole);
+        } 
+        .ft-cheer.act { border-color: var(--accent-cheer);
+        } 
+        .ft-echo.act { border-color: var(--accent-echo);
+        } 
+        .ft-night.act { border-color: var(--accent-night);
+        }
 
         /* 留言卡片區 */
-        #feed { display: flex; flex-direction: column; gap: 16px; }
+        #feed { display: flex;
+            flex-direction: column; gap: 16px; }
 
         .card {
             background: var(--glass-bg);
@@ -291,15 +317,22 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        .card:active { transform: scale(0.98); }
+        .card:active { transform: scale(0.98);
+        }
 
-        .c-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .c-type { font-size: 0.7rem; letter-spacing: 2px; padding: 4px 12px; border-radius: 12px; }
+        .c-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+        }
+        .c-type { font-size: 0.7rem; letter-spacing: 2px; padding: 4px 12px; border-radius: 12px;
+        }
         
-        .ct-hole { color: var(--accent-hole); background: rgba(130, 150, 140, 0.1); } 
-        .ct-cheer { color: var(--accent-cheer); background: rgba(203, 163, 122, 0.1); } 
-        .ct-echo { color: var(--accent-echo); background: rgba(138, 172, 189, 0.1); } 
-        .ct-night { color: var(--accent-night); background: rgba(207, 164, 164, 0.1); }
+        .ct-hole { color: var(--accent-hole);
+            background: rgba(130, 150, 140, 0.1); } 
+        .ct-cheer { color: var(--accent-cheer);
+            background: rgba(203, 163, 122, 0.1); } 
+        .ct-echo { color: var(--accent-echo);
+            background: rgba(138, 172, 189, 0.1); } 
+        .ct-night { color: var(--accent-night);
+            background: rgba(207, 164, 164, 0.1); }
 
         .c-text {
             font-size: 0.95rem;
@@ -313,9 +346,12 @@
             overflow: hidden;
         }
 
-        .c-foot { display: flex; justify-content: space-between; align-items: center; }
-        .c-time { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 1px; }
-        .c-actions { display: flex; gap: 8px; }
+        .c-foot { display: flex; justify-content: space-between; align-items: center;
+        }
+        .c-time { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 1px;
+        }
+        .c-actions { display: flex; gap: 8px;
+        }
 
         .action-btn {
             display: flex;
@@ -331,14 +367,17 @@
             cursor: pointer;
         }
 
-        .action-btn:active { background: white; }
-        .action-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+        .action-btn:active { background: white;
+        }
+        .action-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor;
+            stroke-width: 1.8; }
         .action-btn.lit {
             color: var(--accent-cheer);
             border-color: rgba(203, 163, 122, 0.3);
             background: rgba(203, 163, 122, 0.08);
         }
-        .btn-report:active { color: var(--accent-night); }
+        .btn-report:active { color: var(--accent-night);
+        }
 
         /* 底部精靈動畫 */
         .embrace-wrap {
@@ -353,7 +392,8 @@
             transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); 
         }
 
-        .embrace-wrap:active { transform: scale(0.95); }
+        .embrace-wrap:active { transform: scale(0.95);
+        }
         
         .embrace-wrap::before {
             content: '';
@@ -366,20 +406,28 @@
         }
 
         @keyframes bRing {
-            0%, 100% { transform: scale(1); opacity: .6; }
-            50% { transform: scale(1.08); opacity: 1; }
+            0%, 100% { transform: scale(1);
+            opacity: .6; }
+            50% { transform: scale(1.08); opacity: 1;
+            }
         }
 
-        .sprite-blue { transform-origin: 100px 150px; animation: leanRight 3.5s infinite alternate ease-in-out; }
-        .sprite-pink { transform-origin: 100px 150px; animation: leanLeft 3.5s infinite alternate ease-in-out; }
+        .sprite-blue { transform-origin: 100px 150px;
+            animation: leanRight 3.5s infinite alternate ease-in-out; }
+        .sprite-pink { transform-origin: 100px 150px;
+            animation: leanLeft 3.5s infinite alternate ease-in-out; }
 
         @keyframes leanRight {
-            0% { transform: translate(10px, 0) rotate(0deg) scale(1); }
-            100% { transform: translate(30px, 0) rotate(6deg) scale(1.02); }
+            0% { transform: translate(10px, 0) rotate(0deg) scale(1);
+            }
+            100% { transform: translate(30px, 0) rotate(6deg) scale(1.02);
+            }
         }
         @keyframes leanLeft {
-            0% { transform: translate(70px, 0) rotate(0deg) scale(1); }
-            100% { transform: translate(50px, 0) rotate(-6deg) scale(1.02); }
+            0% { transform: translate(70px, 0) rotate(0deg) scale(1);
+            }
+            100% { transform: translate(50px, 0) rotate(-6deg) scale(1.02);
+            }
         }
 
         .healing-msg {
@@ -401,7 +449,8 @@
             pointer-events: none;
             white-space: nowrap;
         }
-        .healing-msg.show { opacity: 1; transform: translateY(0); }
+        .healing-msg.show { opacity: 1; transform: translateY(0);
+        }
 
         .footer-text {
             margin-top: 20px;
@@ -416,7 +465,8 @@
             justify-content: center;
             width: 100%;
         }
-        .footer-text:active { color: var(--accent-cheer); }
+        .footer-text:active { color: var(--accent-cheer);
+        }
 
         /* 彈窗背景與結構 */
         .modal-overlay {
@@ -433,7 +483,8 @@
             transition: opacity 0.3s;
             padding: 20px 15px;
         }
-        .modal-overlay.show { display: flex; opacity: 1; }
+        .modal-overlay.show { display: flex; opacity: 1;
+        }
 
         .glass-modal {
             background: rgba(253, 252, 252, 0.96);
@@ -449,7 +500,8 @@
             transform: translateY(20px);
             transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        .modal-overlay.show .glass-modal { transform: translateY(0); }
+        .modal-overlay.show .glass-modal { transform: translateY(0);
+        }
 
         .m-head {
             padding: 20px 24px 15px;
@@ -471,15 +523,21 @@
             cursor: pointer;
             box-shadow: var(--shadow-soft);
         }
-        .m-close svg { width: 18px; height: 18px; stroke: var(--text-main); fill: none; stroke-width: 2; }
+        .m-close svg { width: 18px; height: 18px; stroke: var(--text-main); fill: none;
+            stroke-width: 2; }
 
-        .m-body { flex: 1; overflow-y: auto; padding: 24px; }
-        .m-post-text { font-size: 1.05rem; line-height: 1.8; color: var(--text-main); margin-bottom: 20px; word-break: break-word; }
+        .m-body { flex: 1; overflow-y: auto; padding: 24px;
+        }
+        .m-post-text { font-size: 1.05rem; line-height: 1.8; color: var(--text-main); margin-bottom: 20px; word-break: break-word;
+        }
 
-        .m-comments { border-top: 1px dashed rgba(203, 163, 122, 0.3); padding-top: 24px; }
-        .m-clist { display: flex; flex-direction: column; gap: 16px; }
+        .m-comments { border-top: 1px dashed rgba(203, 163, 122, 0.3); padding-top: 24px;
+        }
+        .m-clist { display: flex; flex-direction: column; gap: 16px;
+        }
         
-        .comment-item { display: flex; gap: 12px; align-items: flex-start; }
+        .comment-item { display: flex;
+            gap: 12px; align-items: flex-start; }
         .ci-icon {
             width: 38px;
             height: 38px;
@@ -499,8 +557,10 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
 
-        .ci-warm { font-size: 0.75rem; color: var(--accent-cheer); letter-spacing: 1px; margin-bottom: 6px; font-weight: 500;}
-        .ci-text { font-size: 0.9rem; color: var(--text-main); line-height: 1.6; }
+        .ci-warm { font-size: 0.75rem; color: var(--accent-cheer); letter-spacing: 1px; margin-bottom: 6px;
+            font-weight: 500;}
+        .ci-text { font-size: 0.9rem; color: var(--text-main); line-height: 1.6;
+        }
 
         .m-reply-box {
             background: rgba(253,253,253,0.9);
@@ -508,8 +568,10 @@
             padding: 16px 24px max(16px, env(safe-area-inset-bottom));
         }
 
-        .reply-rule { font-size: 0.7rem; color: var(--accent-night); letter-spacing: 1px; margin-bottom: 10px; display: flex; justify-content: space-between; }
-        .reply-input-row { display: flex; gap: 12px; align-items: center; }
+        .reply-rule { font-size: 0.7rem; color: var(--accent-night); letter-spacing: 1px; margin-bottom: 10px; display: flex;
+            justify-content: space-between; }
+        .reply-input-row { display: flex; gap: 12px; align-items: center;
+        }
         
         .reply-input {
             flex: 1;
@@ -522,7 +584,8 @@
             transition: 0.2s;
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
         }
-        .reply-input:focus { border-color: var(--accent-cheer); }
+        .reply-input:focus { border-color: var(--accent-cheer);
+        }
         
         .reply-btn {
             width: 44px;
@@ -538,8 +601,10 @@
             flex-shrink: 0;
             box-shadow: 0 4px 12px rgba(203, 163, 122, 0.3);
         }
-        .reply-btn:disabled { opacity: 0.5; box-shadow: none; }
-        .reply-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2;}
+        .reply-btn:disabled { opacity: 0.5;
+            box-shadow: none; }
+        .reply-btn svg { width: 20px; height: 20px; fill: none;
+            stroke: currentColor; stroke-width: 2;}
 
         /* 系統提示 Toast */
         .toast {
@@ -560,7 +625,8 @@
             pointer-events: none;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
-        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0);
+        }
 
         /* 確認視窗 (檢舉/阻斷) */
         .glass-confirm {
@@ -575,8 +641,10 @@
             transform: translateY(20px);
             transition: transform 0.3s ease;
         }
-        .modal-overlay.show .glass-confirm { transform: translateY(0); }
-        .glass-text { color: var(--text-main); font-size: 1.05rem; margin-bottom: 25px; line-height: 1.6; letter-spacing: 1px; }
+        .modal-overlay.show .glass-confirm { transform: translateY(0);
+        }
+        .glass-text { color: var(--text-main); font-size: 1.05rem; margin-bottom: 25px; line-height: 1.6; letter-spacing: 1px;
+        }
         
         .glass-btn {
             background: var(--accent-cheer);
@@ -591,8 +659,10 @@
             transition: 0.2s;
             flex: 1;
         }
-        .glass-btn:active { transform: scale(0.95); }
-        .glass-btn-cancel { background: white; color: var(--text-light); border: 1px solid var(--glass-border); box-shadow: none; }
+        .glass-btn:active { transform: scale(0.95);
+        }
+        .glass-btn-cancel { background: white; color: var(--text-light); border: 1px solid var(--glass-border); box-shadow: none;
+        }
 
         /* 境界昇華彈窗 */
         .glass-levelup {
@@ -607,8 +677,10 @@
             transform: translateY(20px);
             transition: transform .35s cubic-bezier(.25,.8,.25,1);
         }
-        .modal-overlay.show .glass-levelup { transform: translateY(0); }
-        .lvl-icon { display: flex; flex-direction: column; align-items: center; margin: 15px 0 20px; }
+        .modal-overlay.show .glass-levelup { transform: translateY(0);
+        }
+        .lvl-icon { display: flex; flex-direction: column; align-items: center; margin: 15px 0 20px;
+        }
 
         /* 阻斷牆 */
         #legal-wall {
@@ -625,7 +697,8 @@
             align-items: center;
             padding: 20px;
         }
-        #legal-wall.show { display: flex; opacity: 1; }
+        #legal-wall.show { display: flex; opacity: 1;
+        }
         
         #legal-wall .glass-confirm {
             background: rgba(253,252,252,0.96);
@@ -639,11 +712,14 @@
             transition: transform .3s;
             text-align: left;
         }
-        #legal-wall.show .glass-confirm { transform: translateY(0); }
+        #legal-wall.show .glass-confirm { transform: translateY(0);
+        }
 
         @keyframes floatLvl {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            0%, 100% { transform: translateY(0);
+            }
+            50% { transform: translateY(-8px);
+            }
         }
     </style>
 </head>
@@ -872,76 +948,75 @@
             2: { body: "#E8F0E1", crown: `<path d="M 85 55 L 90 40 L 100 48 L 110 40 L 115 55 Z" fill="none" stroke="#8AACBD" stroke-width="2.5" stroke-linejoin="round"/><circle cx="90" cy="40" r="2" fill="#8AACBD"/><circle cx="100" cy="48" r="2" fill="#8AACBD"/><circle cx="110" cy="40" r="2" fill="#8AACBD"/>` }, 
             3: { body: "#E1D5E7", crown: `<path d="M 80 55 L 85 35 L 100 45 L 115 35 L 120 55 Z" fill="rgba(179,157,219,0.3)" stroke="#B39DDB" stroke-width="2.5" stroke-linejoin="round"/><circle cx="85" cy="35" r="2.5" fill="#B39DDB"/><circle cx="100" cy="45" r="2.5" fill="#B39DDB"/><circle cx="115" cy="35" r="2.5" fill="#B39DDB"/>` }, 
             4: { body: "#FDF5D3", crown: `<path d="M 75 55 L 80 25 L 90 40 L 100 20 L 110 40 L 120 25 L 125 55 Z" fill="rgba(212,175,55,0.4)" stroke="#D4AF37" stroke-width="2.5" stroke-linejoin="round"/><circle cx="80" cy="25" r="3" fill="#D4AF37"/><circle cx="100" cy="20" r="3.5" fill="#D4AF37"/><circle cx="120" cy="25" r="3" fill="#D4AF37"/><circle cx="100" cy="38" r="2" fill="#D4AF37"/>` } 
-        }; 
+        };
         const c = config[tier] || config[1];
         
         return `<svg viewBox="35 15 130 140" style="${sizeStyle}" overflow="visible">${c.crown}<path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="${c.body}" /><circle cx="85" cy="85" r="4.5" fill="#8C7A6B" opacity="0.8"/><circle cx="115" cy="85" r="4.5" fill="#8C7A6B" opacity="0.8"/><ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/><ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/></svg>`;
     }
 
     function getAvatarHtml(tier) { 
-        return `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center;">${getSpriteSVG(tier, "width:45px; height:45px; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.05)); margin-top:-2px;")}</div>`; 
+        return `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center;">${getSpriteSVG(tier, "width:45px; height:45px; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.05)); margin-top:-2px;")}</div>`;
     }
 
     // --- 2. 安全過濾與阻斷牆 ---
     function checkLegalBeforeAction() { 
         if (!localStorage.getItem('pure_land_agreed')) { 
-            const wall = document.getElementById('legal-wall'); 
+            const wall = document.getElementById('legal-wall');
             wall.style.display = 'flex'; 
             setTimeout(() => wall.classList.add('show'), 10); 
             return false; 
         } 
-        return true; 
+        return true;
     }
 
     function acceptLegal() { 
-        localStorage.setItem('pure_land_agreed', 'true'); 
+        localStorage.setItem('pure_land_agreed', 'true');
         const wall = document.getElementById('legal-wall'); 
         wall.classList.remove('show'); 
-        setTimeout(() => wall.style.display = 'none', 300); 
+        setTimeout(() => wall.style.display = 'none', 300);
     }
 
     function filterEmoji(el) { 
-        const regex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu; 
+        const regex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
         if (regex.test(el.value)) { 
             el.value = el.value.replace(regex, ''); 
-            showToast('為保持空間的純粹，符號已化為光'); 
+            showToast('為保持空間的純粹，符號已化為光');
         } 
     }
 
     // --- 3. 皇冠與階級邏輯 ---
     let warmthCount = parseInt(localStorage.getItem('pure_land_warmth') || '0');
-    
     function getTier(count) { 
-        if (count >= 100) return 4; 
+        if (count >= 100) return 4;
         if (count >= 15) return 3; 
         if (count >= 5) return 2; 
         if (count >= 1) return 1; 
-        return 1; 
+        return 1;
     }
 
     function checkLevelUp() { 
-        const oldTier = parseInt(localStorage.getItem('pure_land_tier') || '0'); 
+        const oldTier = parseInt(localStorage.getItem('pure_land_tier') || '0');
         const newTier = getTier(warmthCount); 
         if (newTier > oldTier) { 
-            localStorage.setItem('pure_land_tier', newTier); 
+            localStorage.setItem('pure_land_tier', newTier);
             showLevelUpModal(newTier); 
         } 
     }
 
     function showLevelUpModal(tier) { 
-        const titles = ["", "初心之光", "微光漸明", "琉璃清透", "無量之光"]; 
+        const titles = ["", "初心之光", "微光漸明", "琉璃清透", "無量之光"];
         const descs = ["", "這是你點亮的第一盞燈，歡迎來到無量的光。", "你的善意已泛起微光，青銀色的冠冕為你加冕。", "溫暖已然成形，紫晶的冠冕映射著你的清澈。", "光芒萬丈，耀金的法冠是你無量願力的見證。"]; 
         document.getElementById('lvl-title').textContent = titles[tier]; 
-        document.getElementById('lvl-desc').textContent = descs[tier]; 
+        document.getElementById('lvl-desc').textContent = descs[tier];
         document.getElementById('lvl-icon').innerHTML = getSpriteSVG(tier, "width:85px; height:85px; filter:drop-shadow(0 10px 20px rgba(203,163,122,0.2)); animation:floatLvl 3s infinite ease-in-out;"); 
         
         const m = document.getElementById('modal-levelup'); 
-        m.style.display = 'flex'; 
+        m.style.display = 'flex';
         setTimeout(() => m.classList.add('show'), 10); 
     }
 
     function closeLevelUpModal() { 
-        const m = document.getElementById('modal-levelup'); 
+        const m = document.getElementById('modal-levelup');
         m.classList.remove('show'); 
         setTimeout(() => m.style.display = 'none', 300); 
     }
@@ -953,7 +1028,6 @@
         databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com", 
         projectId: "pure-land-light" 
     };
-    
     if (!firebase.apps.length) firebase.initializeApp(fbCfg); 
     const db = firebase.database(); 
     const lightsRef = db.ref('lights_v1');
@@ -961,22 +1035,25 @@
     let currentUserUid = localStorage.getItem('limitless_guest_uid');
     if (!currentUserUid) { 
         currentUserUid = "guest_" + Math.random().toString(36).substr(2, 9); 
-        localStorage.setItem('limitless_guest_uid', currentUserUid); 
+        localStorage.setItem('limitless_guest_uid', currentUserUid);
     }
     
     firebase.auth().signInAnonymously().catch(e => console.warn(e));
-
+    
     function runAutoCleanup() { 
-        const lastCleanup = localStorage.getItem('pure_land_cleanup') || '0'; 
+        const lastCleanup = localStorage.getItem('pure_land_cleanup') || '0';
         const now = Date.now(); 
         if (now - parseInt(lastCleanup) > 604800000) { 
-            const limitTime = now - 604800000; 
-            lightsRef.orderByChild('ts').endAt(limitTime).once('value', snap => { 
+            const limitTime = now - 604800000;
+            
+            firebase.database().goOnline();
+            lightsRef.orderByChild('ts').endAt(limitTime).once('value').then(snap => { 
                 if (snap.exists()) { 
                     snap.forEach(child => child.ref.remove().catch(e => {})); 
                 } 
-            }); 
-            localStorage.setItem('pure_land_cleanup', now.toString()); 
+                localStorage.setItem('pure_land_cleanup', now.toString());
+                setTimeout(() => firebase.database().goOffline(), 1000);
+            }).catch(() => firebase.database().goOffline()); 
         } 
     }
     
@@ -987,56 +1064,74 @@
         } 
     });
 
-    // --- 5. 抓取文章與渲染 ---
+    // --- 5. 抓取文章與渲染 (修改重點：封裝成 fetchAndRenderPosts) ---
     let curFilter = 'all'; 
     let allPosts = {}; 
-    let postType = null; 
+    let postType = null;
     let currentModalPostId = null; 
     const litSet = new Set(JSON.parse(localStorage.getItem('lit_v1') || '[]')); 
     
     const urlParams = new URLSearchParams(window.location.search); 
-    const sharedPostId = urlParams.get('post'); 
+    const sharedPostId = urlParams.get('post');
     let isInitialLoad = true; 
 
-    lightsRef.limitToLast(50).on('value', snap => { 
-        allPosts = snap.val() || {}; 
-        renderFeed(); 
-        if (isInitialLoad && sharedPostId && allPosts[sharedPostId]) { 
-            openPostModal(sharedPostId); 
-            isInitialLoad = false; 
-        } 
-    });
+    function fetchAndRenderPosts() {
+        firebase.database().goOnline();
+        lightsRef.limitToLast(50).once('value').then(snap => {
+            allPosts = snap.val() || {}; 
+            renderFeed(); 
+            
+            // 處理首次載入的分享連結
+            if (isInitialLoad && sharedPostId && allPosts[sharedPostId]) { 
+                openPostModal(sharedPostId); 
+                isInitialLoad = false; 
+            } 
+            // 處理當下有打開 modal 時，刷新裡面的留言
+            else if (currentModalPostId && allPosts[currentModalPostId]) {
+                renderModalComments(allPosts[currentModalPostId].resps);
+            }
+
+            // 確保畫面更新後斷開連線
+            setTimeout(() => firebase.database().goOffline(), 1000);
+        }).catch(err => {
+            console.warn(err);
+            firebase.database().goOffline();
+        });
+    }
+
+    // 初始載入
+    fetchAndRenderPosts();
 
     let pendingConfirmCallback = null;
     function showConfirm(msg, callback) { 
-        document.getElementById('pure-confirm-msg').innerHTML = msg.replace(/\n/g, '<br>'); 
+        document.getElementById('pure-confirm-msg').innerHTML = msg.replace(/\n/g, '<br>');
         const overlay = document.getElementById('pure-confirm'); 
         overlay.style.display = 'flex'; 
         setTimeout(() => overlay.classList.add('show'), 10); 
-        pendingConfirmCallback = callback; 
+        pendingConfirmCallback = callback;
     }
     
     function closeConfirm(result) { 
-        const overlay = document.getElementById('pure-confirm'); 
+        const overlay = document.getElementById('pure-confirm');
         overlay.classList.remove('show'); 
         setTimeout(() => { 
             overlay.style.display = 'none'; 
             if (pendingConfirmCallback) pendingConfirmCallback(result); 
             pendingConfirmCallback = null; 
-        }, 300); 
+        }, 300);
     }
 
     function renderFeed() {
-        const feed = document.getElementById('feed'); 
+        const feed = document.getElementById('feed');
         const keys = Object.keys(allPosts).reverse(); 
         const filtered = curFilter === 'all' ? keys : keys.filter(k => allPosts[k].type === curFilter);
         
         if (!filtered.length) { 
-            feed.innerHTML = '<div style="text-align:center; padding:40px; color:var(--text-muted); letter-spacing:2px; font-size:.85rem;">這裡目前空空的<br>成為第一個點亮光的人吧</div>'; 
+            feed.innerHTML = '<div style="text-align:center; padding:40px; color:var(--text-muted); letter-spacing:2px; font-size:.85rem;">這裡目前空空的<br>成為第一個點亮光的人吧</div>';
             return; 
         }
         
-        feed.innerHTML = ''; 
+        feed.innerHTML = '';
         const typeMap = { 
             hole: {lbl:'心事樹洞', ctCls:'ct-hole'}, 
             cheer: {lbl:'求個鼓勵', ctCls:'ct-cheer'}, 
@@ -1058,7 +1153,7 @@
             let reportBtnHTML = hasReported 
                 ? `<div class="action-btn" style="color:var(--text-muted); border-color:transparent; background:transparent; cursor:default;" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg><span>已檢舉</span></div>` 
                 : `<div class="action-btn btn-report" onclick="reportPost('${id}', event)"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg><span>檢舉</span></div>`;
-            
+                
             const card = document.createElement('div'); 
             card.className = 'card'; 
             card.onclick = () => openPostModal(id);
@@ -1088,7 +1183,7 @@
 
     // --- 6. 發文與互動操作 ---
     function pickPostType(el) { 
-        if (!checkLegalBeforeAction()) return; 
+        if (!checkLegalBeforeAction()) return;
         document.querySelectorAll('.tp-btn').forEach(b => b.classList.remove('act')); 
         el.classList.add('act'); 
         postType = el.dataset.t; 
@@ -1096,87 +1191,115 @@
     }
     
     function checkPostInput() { 
-        const txtInput = document.getElementById('new-post-txt'); 
+        const txtInput = document.getElementById('new-post-txt');
         const countDisplay = document.getElementById('new-post-count'); 
         const btn = document.getElementById('btn-submit-post'); 
         const len = txtInput.value.trim().length; 
-        countDisplay.textContent = `${len} / 1000`; 
+        countDisplay.textContent = `${len} / 1000`;
         btn.disabled = !(postType && len >= 5); 
     }
 
     function submitPost() {
-        if (!checkLegalBeforeAction()) return; 
+        if (!checkLegalBeforeAction()) return;
         const txt = document.getElementById('new-post-txt').value.trim(); 
         if (!txt || !postType) return;
         
         const btn = document.getElementById('btn-submit-post'); 
         btn.disabled = true; 
         btn.textContent = '傳送中...';
-        
         const currentTier = getTier(warmthCount);
-        
-        lightsRef.push({ type: postType, text: txt, ts: Date.now(), lights: 0, tier: currentTier })
-            .then(() => {
-                // 💡 路線B：永恆計數器 +1
-                db.ref('lights_v1_stats/total_warmth').transaction(n => (n || 0) + 1);
 
+        // 發文前開啟連線
+        firebase.database().goOnline();
+
+        // 確保雙重交易成功
+        const postPromise = lightsRef.push({ type: postType, text: txt, ts: Date.now(), lights: 0, tier: currentTier });
+        const statsPromise = db.ref('lights_v1_stats/total_warmth').transaction(n => (n || 0) + 1);
+
+        Promise.all([postPromise, statsPromise])
+            .then(() => {
                 document.getElementById('new-post-txt').value = ''; 
                 checkPostInput(); 
                 document.querySelectorAll('.tp-btn').forEach(b => b.classList.remove('act')); 
                 postType = null; 
                 btn.textContent = '發出光'; 
                 showToast('你的光已點亮，與天地同在');
+                
+                warmthCount++;
+                localStorage.setItem('pure_land_warmth', warmthCount);
+                checkLevelUp();
+
+                // 呼叫 fetchAndRenderPosts 來抓取最新文章並負責斷線
+                fetchAndRenderPosts();
             })
             .catch(() => { 
                 btn.disabled = false; 
                 btn.textContent = '發出光'; 
                 showToast('傳送失敗，請確認網路'); 
+                firebase.database().goOffline();
             });
     }
 
     function setFilter(el) { 
         document.querySelectorAll('.ft-btn').forEach(f => f.classList.remove('act')); 
-        el.classList.add('act'); 
+        el.classList.add('act');
         curFilter = el.dataset.f; 
         renderFeed(); 
     }
 
     function toggleLight(id, e) {
-        if(e) e.stopPropagation(); 
+        if(e) e.stopPropagation();
         const isLit = litSet.has(id);
         
+        firebase.database().goOnline();
+        
         if (isLit) {
-            litSet.delete(id); 
-            lightsRef.child(id).child('lights').transaction(n => Math.max(0, (n || 0) - 1));
+            litSet.delete(id);
+            lightsRef.child(id).child('lights').transaction(n => Math.max(0, (n || 0) - 1))
+                .then(() => {
+                    fetchAndRenderPosts(); // 重新整理畫面並斷線
+                })
+                .catch(() => firebase.database().goOffline());
         } else {
-            litSet.add(id); 
-            lightsRef.child(id).child('lights').transaction(n => (n || 0) + 1); 
-            showToast('你為他點了一盞燈');
-            
-            // 💡 路線B：永恆計數器 +1
-            db.ref('lights_v1_stats/total_warmth').transaction(n => (n || 0) + 1);
-
-            warmthCount++; 
-            localStorage.setItem('pure_land_warmth', warmthCount); 
-            checkLevelUp();
+            litSet.add(id);
+            Promise.all([
+                lightsRef.child(id).child('lights').transaction(n => (n || 0) + 1),
+                db.ref('lights_v1_stats/total_warmth').transaction(n => (n || 0) + 1)
+            ]).then(() => {
+                showToast('你為他點了一盞燈');
+                warmthCount++; 
+                localStorage.setItem('pure_land_warmth', warmthCount); 
+                checkLevelUp();
+                
+                fetchAndRenderPosts(); // 重新整理畫面並斷線
+            }).catch(() => {
+                firebase.database().goOffline();
+            });
         }
         localStorage.setItem('lit_v1', JSON.stringify([...litSet]));
     }
 
     window.reportPost = (id, e) => { 
-        if(e) e.stopPropagation(); 
+        if(e) e.stopPropagation();
         showConfirm("確認檢舉此篇內容？\n若達一定人數將自動隱藏。", (result) => { 
             if (result) { 
+                firebase.database().goOnline();
                 lightsRef.child(id).child('reports').child(currentUserUid).set(true)
-                .then(() => showToast("檢舉成功，感謝你的協助"))
-                .catch(() => showToast("檢舉失敗，請稍後再試")); 
+                .then(() => {
+                    showToast("檢舉成功，感謝你的協助");
+                    fetchAndRenderPosts();
+                })
+                .catch(() => {
+                    showToast("檢舉失敗，請稍後再試");
+                    firebase.database().goOffline();
+                }); 
             } 
-        }); 
+        });
     };
 
     // --- 7. 文章詳細對話框與留言 ---
     function openPostModal(id) {
-        if (!checkLegalBeforeAction()) return; 
+        if (!checkLegalBeforeAction()) return;
         const p = allPosts[id]; 
         if (!p) return; 
         currentModalPostId = id;
@@ -1186,13 +1309,13 @@
             cheer: {lbl:'求個鼓勵', ctCls:'ct-cheer'}, 
             echo: {lbl:'尋找共鳴', ctCls:'ct-echo'}, 
             night: {lbl:'深夜呢喃', ctCls:'ct-night'} 
-        }; 
+        };
         const tm = typeMap[p.type] || typeMap.hole;
         
         const badge = document.getElementById('m-type-badge'); 
         badge.className = `c-type ${tm.ctCls}`; 
         badge.textContent = tm.lbl; 
-        document.getElementById('m-post-text').textContent = p.text; 
+        document.getElementById('m-post-text').textContent = p.text;
         document.getElementById('m-post-time').textContent = formatTime(p.ts);
         
         renderModalComments(p.resps); 
@@ -1200,16 +1323,16 @@
         document.getElementById('reply-count').textContent = '0 / 20'; 
         document.getElementById('btn-submit-reply').disabled = true;
         
-        const modal = document.getElementById('post-modal'); 
+        const modal = document.getElementById('post-modal');
         modal.style.display = 'flex'; 
         setTimeout(() => modal.classList.add('show'), 10); 
-        document.body.style.overflow = 'hidden'; 
+        document.body.style.overflow = 'hidden';
     }
 
     function renderModalComments(respsObj) {
         const clist = document.getElementById('m-comment-list');
         if (!respsObj) { 
-            clist.innerHTML = '<div style="text-align:center; padding:15px; color:var(--text-muted); font-size:0.85rem;">目前還沒有回應，給他一點溫暖吧</div>'; 
+            clist.innerHTML = '<div style="text-align:center; padding:15px; color:var(--text-muted); font-size:0.85rem;">目前還沒有回應，給他一點溫暖吧</div>';
             return; 
         }
         clist.innerHTML = Object.values(respsObj).map(r => `
@@ -1224,95 +1347,101 @@
 
     function closeModal(e) { 
         const modal = document.getElementById('post-modal'); 
-        modal.classList.remove('show'); 
+        modal.classList.remove('show');
         setTimeout(() => { modal.style.display = 'none'; }, 300); 
         document.body.style.overflow = ''; 
         currentModalPostId = null; 
-        if(window.history.replaceState) window.history.replaceState({}, document.title, window.location.pathname); 
+        if(window.history.replaceState) window.history.replaceState({}, document.title, window.location.pathname);
     }
 
     function checkReplyInput(el) { 
-        const len = el.value.trim().length; 
+        const len = el.value.trim().length;
         const countDisplay = document.getElementById('reply-count'); 
         countDisplay.textContent = `${len} / 20`; 
         
         if (len > 20) { 
-            countDisplay.style.color = "var(--accent-night)"; 
+            countDisplay.style.color = "var(--accent-night)";
             document.getElementById('btn-submit-reply').disabled = true; 
             el.value = el.value.substring(0, 20); 
-            showToast('回覆不能超過 20 個字喔'); 
+            showToast('回覆不能超過 20 個字喔');
         } else { 
-            countDisplay.style.color = "var(--text-light)"; 
+            countDisplay.style.color = "var(--text-light)";
             document.getElementById('btn-submit-reply').disabled = (len === 0); 
         } 
     }
 
     function submitReply() {
-        if (!currentModalPostId) return; 
+        if (!currentModalPostId) return;
         const txt = document.getElementById('reply-input').value.trim(); 
         if (!txt || txt.length > 20) return; 
         
         const btn = document.getElementById('btn-submit-reply'); 
         btn.disabled = true;
-        
         const currentTier = getTier(warmthCount);
 
-        lightsRef.child(currentModalPostId).child('resps').push({ text: txt, ts: Date.now(), tier: currentTier })
-        .then(() => { 
-            // 💡 路線B：永恆計數器 +1
-            db.ref('lights_v1_stats/total_warmth').transaction(n => (n || 0) + 1);
+        firebase.database().goOnline();
 
+        const replyPromise = lightsRef.child(currentModalPostId).child('resps').push({ text: txt, ts: Date.now(), tier: currentTier });
+        const statsPromise = db.ref('lights_v1_stats/total_warmth').transaction(n => (n || 0) + 1);
+
+        Promise.all([replyPromise, statsPromise])
+        .then(() => { 
             showToast('已送出你的溫暖'); 
             warmthCount++; 
             localStorage.setItem('pure_land_warmth', warmthCount); 
             checkLevelUp(); 
-            openPostModal(currentModalPostId); 
+            
+            document.getElementById('reply-input').value = '';
+            document.getElementById('reply-count').textContent = '0 / 20';
+            btn.disabled = false;
+            
+            fetchAndRenderPosts(); // 重新抓取資料，這會順便更新 modal 內的留言
         })
         .catch(() => { 
             btn.disabled = false; 
             showToast('傳送失敗，請確認網路'); 
+            firebase.database().goOffline();
         });
     }
 
     function shareCurrentPost() { 
-        if (!currentModalPostId) return; 
-        const shareUrl = window.location.origin + window.location.pathname + "?post=" + currentModalPostId; 
-        
+        if (!currentModalPostId) return;
+        const shareUrl = window.location.origin + window.location.pathname + "?post=" + currentModalPostId;
         if (navigator.share) { 
-            navigator.share({ title: "無量的光", text: "把心裡的雨下在這裡吧：", url: shareUrl }).catch(err => console.log('分享取消', err)); 
+            navigator.share({ title: "無量的光", text: "把心裡的雨下在這裡吧：", url: shareUrl }).catch(err => console.log('分享取消', err));
         } else { 
-            navigator.clipboard.writeText(shareUrl).then(() => showToast('專屬連結已複製！')).catch(() => showToast('複製失敗')); 
+            navigator.clipboard.writeText(shareUrl).then(() => showToast('專屬連結已複製！')).catch(() => showToast('複製失敗'));
         } 
     }
 
     // --- 8. 輔助小工具 ---
-    const healingWords = ["今天辛苦了", "慢慢來，沒關係", "深呼吸，放輕鬆", "我們都在這裡", "你已經做得很好了", "讓心休息一下吧", "一切都會好起來的"]; 
+    const healingWords = ["今天辛苦了", "慢慢來，沒關係", "深呼吸，放輕鬆", "我們都在這裡", "你已經做得很好了", "讓心休息一下吧", "一切都會好起來的"];
     let isHealing = false;
     
     function triggerHealing() { 
-        if (isHealing) return; 
+        if (isHealing) return;
         isHealing = true; 
         const msgEl = document.getElementById('healing-msg'); 
         msgEl.textContent = healingWords[Math.floor(Math.random() * healingWords.length)]; 
-        msgEl.classList.add('show'); 
+        msgEl.classList.add('show');
         setTimeout(() => { msgEl.classList.remove('show'); isHealing = false; }, 2500); 
     }
 
     function escHtml(s) { 
-        return (s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); 
+        return (s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
     }
 
     function formatTime(ts) { 
-        if (!ts) return ''; 
+        if (!ts) return '';
         const d = Date.now() - ts; 
-        if (d < 60000) return '剛剛'; 
-        if (d < 3600000) return Math.floor(d / 60000) + ' 分鐘前'; 
+        if (d < 60000) return '剛剛';
+        if (d < 3600000) return Math.floor(d / 60000) + ' 分鐘前';
         if (d < 86400000) return Math.floor(d / 3600000) + ' 小時前'; 
-        return Math.floor(d / 86400000) + ' 天前'; 
+        return Math.floor(d / 86400000) + ' 天前';
     }
 
     function showToast(msg) { 
-        const t = document.getElementById('toast'); 
+        const t = document.getElementById('toast');
         t.textContent = msg; 
         t.classList.add('show'); 
         setTimeout(() => t.classList.remove('show'), 2500); 
