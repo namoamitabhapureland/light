@@ -21,19 +21,13 @@ html, body {
   overflow: hidden; display: flex; flex-direction: column; align-items: center;
 }
 
-/* 頂部返回導航 */
 .top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: space-between; z-index: 100; position: absolute; top: 0;}
 .nav-btn { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: var(--shadow-soft); cursor: pointer; transition: 0.2s; }
 .nav-btn:active { transform: scale(0.92); }
 .nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;}
 
-/* 底部靜謐文字 */
 .bottom-text {
-  position: absolute; bottom: max(40px, env(safe-area-inset-bottom));
-  text-align: center; z-index: 100;
-  animation: fadeUp 1.5s ease-out;
-  background: rgba(253,253,253,0.5); padding: 15px 30px; border-radius: 30px; backdrop-filter: blur(5px);
-  border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft);
+  position: absolute; bottom: max(40px, env(safe-area-inset-bottom)); text-align: center; z-index: 100; animation: fadeUp 1.5s ease-out; background: rgba(253,253,253,0.5); padding: 15px 30px; border-radius: 30px; backdrop-filter: blur(5px); border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft);
 }
 .bt-title { font-size: 0.8rem; letter-spacing: 4px; color: var(--text-light); margin-bottom: 8px; font-weight: 300;}
 .bt-count { font-size: 1.2rem; font-weight: 300; letter-spacing: 2px; color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 8px;}
@@ -41,34 +35,21 @@ html, body {
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* 精靈容器 */
-#sprite-sea {
-  position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1;
-}
-
-/* 個別精靈的動畫層 */
+#sprite-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
 .sprite-node {
-  position: absolute;
-  /* 不規則上下左右漂浮與呼吸縮放 */
-  animation-name: floatY, floatX, breatheScale;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-timing-function: ease-in-out;
-  filter: drop-shadow(0 10px 20px rgba(203,163,122,0.1));
+  position: absolute; animation-name: floatY, floatX, breatheScale; animation-iteration-count: infinite; animation-direction: alternate; animation-timing-function: ease-in-out; filter: drop-shadow(0 10px 20px rgba(203,163,122,0.1));
 }
 
-/* 讓不同精靈有不同的運動軌跡 */
 @keyframes floatY { 0% { transform: translateY(-30px); } 100% { transform: translateY(30px); } }
 @keyframes floatX { 0% { margin-left: -20px; } 100% { margin-left: 20px; } }
 @keyframes breatheScale { 0% { transform: scale(0.85); opacity: 0.6; } 100% { transform: scale(1.1); opacity: 0.95; } }
 
-/* 讀取中的遮罩 */
 #loading { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; font-size: 0.85rem; letter-spacing: 3px; color: var(--text-light); z-index: 200; background: var(--bg-gradient); transition: opacity 0.8s; }
 </style>
 </head>
 <body>
 
-<div id="loading">感受光芒中...</div>
+<div id="loading">感受無量光芒中...</div>
 
 <div class="top-nav">
   <div class="nav-btn" onclick="history.back() || (window.location.href='index.html')">
@@ -80,22 +61,15 @@ html, body {
 
 <div class="bottom-text">
   <div class="bt-title">一燈即無量</div>
-  <div class="bt-count">此刻，有 <span id="total-warmth">0</span> 份善意發光</div>
+  <div class="bt-count">累計有 <span id="total-warmth">0</span> 份善意發光</div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
-// --- 四色精靈身體代碼 ---
-const spriteColors = [
-    "#D1E4EE", // 初心藍
-    "#E8F0E1", // 微光青
-    "#E1D5E7", // 琉璃紫
-    "#FDF5D3"  // 無量金
-];
+const spriteColors = ["#D1E4EE", "#E8F0E1", "#E1D5E7", "#FDF5D3"];
 
-// 產生單一隻祈禱精靈的 SVG (無皇冠)
 function generateSpriteSVG(color) {
     return `
     <svg viewBox="35 15 130 140" width="100%" height="100%" overflow="visible">
@@ -107,48 +81,28 @@ function generateSpriteSVG(color) {
     </svg>`;
 }
 
-// 隨機數生成器
 function randomRange(min, max) { return Math.random() * (max - min) + min; }
 
-// 動態在畫面上生成精靈
 function spawnSprites(count) {
     const sea = document.getElementById('sprite-sea');
-    sea.innerHTML = ''; // 清空重新生成
-    
+    sea.innerHTML = ''; 
     for (let i = 0; i < count; i++) {
         const node = document.createElement('div');
         node.className = 'sprite-node';
-        
-        // 隨機抽取顏色
         const color = spriteColors[Math.floor(Math.random() * spriteColors.length)];
         node.innerHTML = generateSpriteSVG(color);
-        
-        // 隨機大小 (50px 到 160px 之間)
         const size = randomRange(50, 160);
-        node.style.width = size + 'px';
-        node.style.height = size + 'px';
-        
-        // 隨機位置 (避開邊緣與底部文字)
+        node.style.width = size + 'px'; node.style.height = size + 'px';
         node.style.left = randomRange(-10, 80) + 'vw';
         node.style.top = randomRange(10, 75) + 'vh';
-        
-        // 隨機不規則動畫時間，讓每一隻看起來都是獨立的生命體
-        const durY = randomRange(4, 10) + 's';
-        const durX = randomRange(5, 12) + 's';
-        const durS = randomRange(3, 8) + 's';
-        const delay = randomRange(0, -10) + 's'; // 負延遲讓它們一開始就在不同狀態
-        
+        const durY = randomRange(4, 10) + 's'; const durX = randomRange(5, 12) + 's'; const durS = randomRange(3, 8) + 's'; const delay = randomRange(0, -10) + 's';
         node.style.animationDuration = `${durY}, ${durX}, ${durS}`;
         node.style.animationDelay = `${delay}, ${delay}, ${delay}`;
-        
-        // 讓層級交錯
         node.style.zIndex = Math.floor(randomRange(1, 10));
-        
         sea.appendChild(node);
     }
 }
 
-// --- Firebase 連線 ---
 const fbCfg = {
   apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", 
   authDomain: "pure-land-light.firebaseapp.com",
@@ -157,30 +111,21 @@ const fbCfg = {
 };
 if (!firebase.apps.length) firebase.initializeApp(fbCfg);
 const db = firebase.database();
-const lightsRef = db.ref('lights_v1');
 
-// 讀取全站溫暖總數
-lightsRef.on('value', snap => {
-  const data = snap.val() || {};
-  let total = 0;
-  
-  Object.values(data).forEach(p => {
-    total += 1; 
-    total += (p.lights || 0); 
-    if (p.resps) {
-      total += Object.keys(p.resps).length; 
-    }
-  });
+// 💡 路線B：改為監聽「永恆計數器」
+const statsRef = db.ref('lights_v1_stats/total_warmth');
 
+statsRef.on('value', snap => {
+  const total = snap.val() || 0;
   updateVisuals(total);
   
-  // 隱藏讀取畫面
   const loader = document.getElementById('loading');
-  loader.style.opacity = '0';
-  setTimeout(() => loader.style.display = 'none', 800);
+  if (loader && loader.style.display !== 'none') {
+      loader.style.opacity = '0';
+      setTimeout(() => loader.style.display = 'none', 800);
+  }
 });
 
-// 數字跳動動畫
 let currentDisplayNum = 0;
 function animN(id, from, to, dur) {
   const el = document.getElementById(id);
@@ -194,17 +139,14 @@ function animN(id, from, to, dur) {
   }, 16);
 }
 
-// 根據溫暖總數，決定畫面上的精靈數量
 function updateVisuals(total) {
   animN('total-warmth', currentDisplayNum, total, 1500);
   currentDisplayNum = total;
 
-  // 控制畫面上的精靈數量 (最多不超過 30 隻，以免手機卡頓)
-  let spriteCount = 12; // 預設 12 隻
+  let spriteCount = 12;
   if (total > 50) spriteCount = 20;
   if (total > 150) spriteCount = 30;
   
-  // 只有在數量需要改變時才重新生成，避免動畫中斷
   const currentNodes = document.querySelectorAll('.sprite-node').length;
   if (currentNodes !== spriteCount) {
       spawnSprites(spriteCount);
