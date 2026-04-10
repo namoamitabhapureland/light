@@ -51,9 +51,9 @@ display:flex;flex-direction:column;align-items:center; min-height:100dvh;}
 .top{width:100%;padding:max(15px,env(safe-area-inset-top)) 0 10px;
 display:flex;justify-content:space-between;align-items:center;}
 
-/* 1. 【修改】橢圓形膠囊「說明」按鈕 */
 .top-btn{
-  width:auto; height:42px; border-radius:21px; padding: 0 18px; 
+  width:auto; height:42px; border-radius:21px;
+  padding: 0 18px; 
   background:var(--glass-bg); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
   border:1px solid var(--glass-border); display:flex;align-items:center;justify-content:center;
   gap:8px; cursor:pointer;transition:.2s;box-shadow:var(--shadow-soft);
@@ -67,7 +67,6 @@ display:flex;justify-content:space-between;align-items:center;}
 padding:0 0 15px;animation:fadeUp .8s ease-out;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
-/* 3. 【修改】小精靈放大與上移 */
 .embrace-wrap{
   width:220px; height:220px; display:flex;align-items:center;justify-content:center;
   position:relative; margin-top: 30px; margin-bottom:5px;
@@ -82,15 +81,18 @@ padding:0 0 15px;animation:fadeUp .8s ease-out;}
 
 /* 發光發亮的光暈 */
 .embrace-wrap::before{content:'';position:absolute;width:220px;height:220px;border-radius:50%;
-background:radial-gradient(circle,rgba(203,163,122,.3) 0%,transparent 70%); 
+background:radial-gradient(circle,rgba(203,163,122,.3) 0%,transparent 70%);
 animation:breathGlow 4s infinite ease-in-out;}
 
 @keyframes breathGlow{0%,100%{transform:scale(1);opacity:.4;}50%{transform:scale(1.15);opacity:1;}}
 
 .sprite-blue { transform-origin: 100px 150px; animation: leanRight 3.5s infinite alternate ease-in-out; }
-.sprite-pink { transform-origin: 100px 150px; animation: leanLeft 3.5s infinite alternate ease-in-out; }
-@keyframes leanRight { 0% { transform: translate(10px, 0) rotate(0deg) scale(1); } 100% { transform: translate(30px, 0) rotate(6deg) scale(1.02); } }
-@keyframes leanLeft { 0% { transform: translate(70px, 0) rotate(0deg) scale(1); } 100% { transform: translate(50px, 0) rotate(-6deg) scale(1.02); } }
+.sprite-pink { transform-origin: 100px 150px;
+animation: leanLeft 3.5s infinite alternate ease-in-out; }
+@keyframes leanRight { 0% { transform: translate(10px, 0) rotate(0deg) scale(1);
+} 100% { transform: translate(30px, 0) rotate(6deg) scale(1.02); } }
+@keyframes leanLeft { 0% { transform: translate(70px, 0) rotate(0deg) scale(1);
+} 100% { transform: translate(50px, 0) rotate(-6deg) scale(1.02); } }
 
 .h-title{font-size:1.6rem;font-weight:300;letter-spacing:6px;color:var(--text-main);margin-bottom:8px;}
 .h-sub{font-size:.85rem;color:var(--text-light);letter-spacing:2px;font-weight:300;margin-bottom:20px;}
@@ -114,7 +116,8 @@ border:1px solid var(--glass-border);border-radius:18px;box-shadow:var(--shadow-
 padding:20px 10px;display:flex;flex-direction:column;align-items:center;gap:8px;
 cursor:pointer;transition:.3s;box-shadow:var(--shadow-soft);}
 .nc:active{transform:scale(.96);}
-.nc.sel{border-color:var(--accent-cheer);background:rgba(255,255,255,.9); box-shadow:0 8px 25px rgba(203,163,122,.15);}
+.nc.sel{border-color:var(--accent-cheer);background:rgba(255,255,255,.9);
+box-shadow:0 8px 25px rgba(203,163,122,.15);}
 .ni{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:2px;}
 .ni svg{width:22px;height:22px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .nl{font-size:.85rem;letter-spacing:1.5px;color:var(--text-main);font-weight:500;}
@@ -126,7 +129,8 @@ cursor:pointer;transition:.3s;box-shadow:var(--shadow-soft);}
 .nc-night .ni{background:rgba(207,164,164,.12);} .nc-night .ni svg{stroke:var(--accent-night);}
 
 /* CTA 按鈕 */
-.cta{width:100%;padding:16px; background:var(--accent-cheer);
+.cta{width:100%;padding:16px;
+background:var(--accent-cheer);
 color:#fff;border:none;border-radius:20px;font-size:.9rem;letter-spacing:3px;
 cursor:pointer;box-shadow:0 8px 24px rgba(203,163,122,.25); transition:.2s;margin-bottom:12px; font-weight:500;}
 .cta:active{transform:scale(0.96);}
@@ -136,7 +140,8 @@ cursor:pointer;box-shadow:var(--shadow-soft);transition:.2s;}
 .cta-ghost:active{transform:scale(0.96);background:rgba(255,255,255,.9);}
 
 /* 燈火牆預覽區 */
-.lights-sec{width:100%;margin-top:24px; margin-bottom:24px;}
+.lights-sec{width:100%;margin-top:24px;
+margin-bottom:24px;}
 .lh{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
 .lt{font-size:.65rem;letter-spacing:4px;color:var(--text-muted);}
 .lm{font-size:.65rem;letter-spacing:2px;color:var(--accent-cheer);cursor:pointer;padding:6px 14px;border-radius:12px;background:rgba(203,163,122,.1);border:1px solid rgba(203,163,122,.2);transition:.2s;}
@@ -152,7 +157,8 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
 .lb-night{background:linear-gradient(180deg,var(--accent-night),transparent);}
 .lb.glow{width:5px;box-shadow:0 0 8px rgba(203,163,122,.4);}
 
-.lbody{flex:1; min-width:0;}
+.lbody{flex:1;
+min-width:0;}
 .ltype{display:inline-flex;align-items:center;gap:5px;font-size:.65rem;letter-spacing:2px;padding:4px 10px;border-radius:10px;margin-bottom:8px;}
 .ty-hole{color:var(--accent-hole);background:rgba(130,150,140,.1);}
 .ty-cheer{color:var(--accent-cheer);background:rgba(203,163,122,.1);}
@@ -174,10 +180,12 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
 /* 彈窗樣式 */
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);z-index:500;display:none;opacity:0;transition:opacity .3s;justify-content:center;align-items:flex-end;}
 .ov.show{display:flex;opacity:1;}
-.sheet{width:100%; max-width:480px; background:rgba(253,252,252,0.96);border-radius:24px 24px 0 0;padding:0 20px max(24px,env(safe-area-inset-bottom));box-shadow:0 -12px 48px rgba(0,0,0,.15);transform:translateY(100%);transition:transform .35s cubic-bezier(.25,.8,.25,1);max-height:90dvh;overflow-y:auto; border:1px solid var(--glass-border);}
+.sheet{width:100%; max-width:480px;
+background:rgba(253,252,252,0.96);border-radius:24px 24px 0 0;padding:0 20px max(24px,env(safe-area-inset-bottom));box-shadow:0 -12px 48px rgba(0,0,0,.15);transform:translateY(100%);transition:transform .35s cubic-bezier(.25,.8,.25,1);max-height:90dvh;overflow-y:auto; border:1px solid var(--glass-border);}
 .ov.show .sheet{transform:translateY(0);}
 .handle{width:36px;height:4px;border-radius:2px;background:rgba(203,163,122,0.3);margin:12px auto 16px;}
-.s-title{font-size:1rem;letter-spacing:3px;color:var(--text-main);text-align:center;margin-bottom:5px; font-weight:500;}
+.s-title{font-size:1rem;letter-spacing:3px;color:var(--text-main);text-align:center;margin-bottom:5px;
+font-weight:500;}
 .s-sub{font-size:.75rem;color:var(--text-light);letter-spacing:2px;text-align:center;margin-bottom:20px;}
 
 .cl{font-size:.7rem;letter-spacing:3px;color:var(--text-muted);margin-bottom:10px;}
@@ -189,7 +197,8 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
 .cb span{font-size:.75rem;letter-spacing:1.5px;color:var(--text-main);}
 
 .pta{width:100%;height:110px;background:white;border:1px solid var(--glass-border);border-radius:18px;padding:15px;font-size:.9rem;color:var(--text-main);line-height:1.6;outline:none;resize:none;font-family:inherit;transition:.2s;}
-.pta:focus{border-color:var(--accent-cheer); box-shadow:inset 0 0 8px rgba(203,163,122,.05);}
+.pta:focus{border-color:var(--accent-cheer);
+box-shadow:inset 0 0 8px rgba(203,163,122,.05);}
 .pta::placeholder{color:var(--text-muted);}
 .ch{text-align:right;font-size:.65rem;color:var(--text-muted);margin-top:6px;margin-bottom:16px;}
 
@@ -201,10 +210,23 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
 .send:active{transform:translateY(2px);}
 .send:disabled{opacity:.5;cursor:not-allowed;}
 
+/* 境界昇華彈窗 (置中型) */
+.glass-levelup {
+  background:rgba(253,252,252,0.98); border:1px solid var(--glass-border);
+  text-align:center; padding:35px 25px 25px; border-radius:24px;
+  box-shadow:0 15px 40px rgba(203,163,122,0.2); margin:0 20px;
+  align-self:center; transform:translateY(20px); transition:transform .35s cubic-bezier(.25,.8,.25,1);
+}
+.ov.show .glass-levelup { transform:translateY(0); }
+.lvl-icon { display:flex; flex-direction:column; align-items:center; margin:15px 0 20px; }
+.lvl-crown { width:45px; height:45px; margin-bottom:-10px; z-index:2; animation:floatLvl 3s infinite ease-in-out;}
+@keyframes floatLvl { 0%, 100%{transform:translateY(0);} 50%{transform:translateY(-5px);} }
+
 .wg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
 .wb{padding:16px 8px;border-radius:20px;background:white;border:1.5px solid var(--glass-border);display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;transition:.25s;}
 .wb:active{transform:scale(.95);}
-.wb.sel{border-color:var(--accent-cheer);background:rgba(203,163,122,.05); box-shadow:0 4px 15px rgba(203,163,122,.1);}
+.wb.sel{border-color:var(--accent-cheer);background:rgba(203,163,122,.05);
+box-shadow:0 4px 15px rgba(203,163,122,.1);}
 .wi{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
 .wi svg{width:24px;height:24px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .wi-hole{background:rgba(130,150,140,.12);} .wi-hole svg{stroke:var(--accent-hole);}
@@ -228,10 +250,12 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
 .ab-t{font-size:.8rem;font-weight:500;color:var(--accent-cheer);letter-spacing:2px;margin-bottom:6px;}
 .ab-tx{font-size:.8rem;color:var(--text-light);line-height:1.7;letter-spacing:.5px;}
 
-/* 新增：阻斷牆專屬樣式 */
-#legal-wall { position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px); z-index:2000; display:none; opacity:0; transition:opacity .3s; justify-content:center; align-items:center; padding: 20px;}
+/* 阻斷牆專屬樣式 */
+#legal-wall { position:fixed;
+inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px); z-index:2000; display:none; opacity:0; transition:opacity .3s; justify-content:center; align-items:center; padding: 20px;}
 #legal-wall.show { display:flex; opacity:1; }
-#legal-wall .glass-confirm { background:rgba(253,252,252,0.96); width:100%; max-width:380px; border-radius:25px; padding:30px 25px; border:1px solid var(--glass-border); box-shadow:0 20px 60px rgba(0,0,0,.15); transform:translateY(20px); transition:transform .3s; text-align: left; }
+#legal-wall .glass-confirm { background:rgba(253,252,252,0.96); width:100%;
+max-width:380px; border-radius:25px; padding:30px 25px; border:1px solid var(--glass-border); box-shadow:0 20px 60px rgba(0,0,0,.15); transform:translateY(20px); transition:transform .3s; text-align: left; }
 #legal-wall.show .glass-confirm { transform:translateY(0); }
 </style>
 </head>
@@ -328,6 +352,15 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
 
 <div class="toast" id="toast"></div>
 
+<div class="ov" id="ov-levelup" onclick="closeOv('ov-levelup')">
+  <div class="sheet glass-levelup" onclick="event.stopPropagation()" style="max-width:340px; border-radius:24px; padding-bottom:30px;">
+    <div class="s-title" id="lvl-title" style="color:var(--accent-cheer); letter-spacing:4px;"></div>
+    <div class="lvl-icon" id="lvl-icon"></div>
+    <div class="s-sub" id="lvl-desc" style="margin-bottom:25px; line-height:1.6;"></div>
+    <button class="send" style="box-shadow:none; padding:12px;" onclick="closeOv('ov-levelup')">法喜充滿</button>
+  </div>
+</div>
+
 <div id="legal-wall">
   <div class="glass-confirm">
     <div style="font-size: 1.1rem; color: var(--text-main); font-weight: 500; letter-spacing: 3px; margin-bottom: 15px; text-align: center;">光域的約定</div>
@@ -386,40 +419,6 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
   </div>
 </div>
 
-<div class="ov" id="ov-resp" onclick="closeOv('ov-resp')">
-  <div class="sheet" onclick="event.stopPropagation()">
-    <div class="handle"></div>
-    <div class="s-title">給他一點溫暖</div>
-    <div class="s-sub">選一個你想給的回應</div>
-
-    <div class="wg">
-      <div class="wb" onclick="pickWarm(this)">
-        <div class="wi wi-hole"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-        <div class="wn">給予擁抱</div><div class="wsb">我抱抱你</div>
-      </div>
-      <div class="wb" onclick="pickWarm(this)">
-        <div class="wi wi-light"><svg viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5Z"/></svg></div>
-        <div class="wn">點亮微光</div><div class="wsb">為你點燈</div>
-      </div>
-      <div class="wb" onclick="pickWarm(this)">
-        <div class="wi wi-listen"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
-        <div class="wn">靜靜傾聽</div><div class="wsb">我在聽喔</div>
-      </div>
-      <div class="wb" onclick="pickWarm(this)">
-        <div class="wi wi-together"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
-        <div class="wn">願光引路</div><div class="wsb">有我在</div>
-      </div>
-    </div>
-
-    <div class="fi-wrap">
-      <div class="fi-lbl">或留下一句話（最多 20 字）</div>
-      <input class="fi" type="text" id="fi-txt" maxlength="20" placeholder="你辛苦了，有我在" oninput="updFiChar(this); filterEmoji(this)">
-      <div class="fc"><span id="fi-ch">0</span> / 20</div>
-    </div>
-    <button class="send" onclick="submitResp()">送出這份溫暖</button>
-  </div>
-</div>
-
 <div class="ov" id="ov-about" onclick="closeOv('ov-about')">
   <div class="sheet" onclick="event.stopPropagation()">
     <div class="handle"></div>
@@ -450,7 +449,7 @@ padding:18px;margin-bottom:12px;box-shadow:var(--shadow-soft);display:flex;gap:1
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
 <script>
-// 新增：檢查是否同意免責聲明
+// --- 安全與美學設定 ---
 function checkLegalBeforeAction() {
   if (!localStorage.getItem('pure_land_agreed')) {
     const wall = document.getElementById('legal-wall');
@@ -461,7 +460,6 @@ function checkLegalBeforeAction() {
   return true;
 }
 
-// 新增：同意免責聲明
 function acceptLegal() {
   localStorage.setItem('pure_land_agreed', 'true');
   const wall = document.getElementById('legal-wall');
@@ -469,7 +467,6 @@ function acceptLegal() {
   setTimeout(() => wall.style.display = 'none', 300);
 }
 
-// 新增：靜默過濾 Emoji，守護純粹美學
 function filterEmoji(el) {
   const regex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
   if (regex.test(el.value)) {
@@ -478,6 +475,60 @@ function filterEmoji(el) {
   }
 }
 
+// --- 點燈次數與皇冠邏輯 ---
+let warmthCount = parseInt(localStorage.getItem('pure_land_warmth') || '0');
+
+function getTier(count) {
+  if (count >= 100) return 4; // 無量金
+  if (count >= 15)  return 3; // 琉璃紫
+  if (count >= 5)   return 2; // 微光青
+  if (count >= 1)   return 1; // 初心
+  return 1; // 預設 1，但送出後才會存入
+}
+
+function checkLevelUp() {
+  const oldTier = parseInt(localStorage.getItem('pure_land_tier') || '0');
+  const newTier = getTier(warmthCount);
+  if (newTier > oldTier) {
+    localStorage.setItem('pure_land_tier', newTier);
+    showLevelUpModal(newTier);
+  }
+}
+
+function showLevelUpModal(tier) {
+  const titles = ["", "初心之光", "微光漸明", "琉璃清透", "無量之光"];
+  const descs = [
+    "",
+    "這是你點亮的第一盞燈，歡迎來到無量的光。",
+    "你的善意已泛起微光，青銀色的冠冕為你加冕。",
+    "溫暖已然成形，紫晶的冠冕映射著你的清澈。",
+    "光芒萬丈，耀金的法冠是你無量願力的見證。"
+  ];
+  const colors = ["", "transparent", "#8AACBD", "#CFA4A4", "#D4AF37"];
+  
+  document.getElementById('lvl-title').textContent = titles[tier];
+  document.getElementById('lvl-desc').textContent = descs[tier];
+  
+  // 極簡皇冠 SVG
+  const crownSvg = tier >= 2 ? `
+  <svg class="lvl-crown" viewBox="0 0 24 24" fill="none" stroke="${colors[tier]}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="2 20 22 20 18 8 12 2 6 8 2 20"></polygon>
+      <circle cx="12" cy="2" r="1.5" fill="${colors[tier]}"></circle>
+      <circle cx="6" cy="8" r="1" fill="${colors[tier]}"></circle>
+      <circle cx="18" cy="8" r="1" fill="${colors[tier]}"></circle>
+  </svg>` : `<div style="height:40px;"></div>`;
+
+  document.getElementById('lvl-icon').innerHTML = `
+      ${crownSvg}
+      <svg viewBox="0 0 100 100" style="width:70px;height:70px;margin-top:-10px;">
+          <circle cx="50" cy="50" r="35" fill="rgba(203,163,122,.15)"/>
+          <path d="M 30 75 C 20 75, 22 50, 35 40 C 45 30, 55 30, 65 40 C 77 50, 80 75, 70 75 C 60 75, 65 80, 50 80 C 35 80, 40 75, 30 75 Z" fill="#D1E4EE"/>
+      </svg>
+  `;
+  showOv('ov-levelup');
+}
+
+// --- Firebase 與主程式邏輯 ---
 const fbCfg = {
   apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMf245", 
   authDomain: "pure-land-light.firebaseapp.com",
@@ -490,7 +541,27 @@ const lightsRef = db.ref('lights_v1');
 
 firebase.auth().signInAnonymously().catch(e=>console.warn(e));
 
-let selNeed = null, chosenT = null, selWarm = null;
+// 7 天自動清理 50 篇背景腳本
+function runAutoCleanup() {
+  const lastCleanup = localStorage.getItem('pure_land_cleanup') || '0';
+  const now = Date.now();
+  // 超過 7 天 (604800000 ms) 執行一次清理
+  if (now - parseInt(lastCleanup) > 604800000) {
+    const limitTime = now - 604800000;
+    lightsRef.orderByChild('ts').endAt(limitTime).once('value', snap => {
+      if (snap.exists()) {
+        snap.forEach(child => child.ref.remove().catch(e => {}));
+      }
+    });
+    localStorage.setItem('pure_land_cleanup', now.toString());
+  }
+}
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) runAutoCleanup();
+});
+
+let selNeed = null, chosenT = null;
 
 // 監聽並渲染統計與預覽牆
 lightsRef.limitToLast(50).on('value', snap => {
@@ -527,7 +598,6 @@ function renderPreview(data) {
     echo:  {lbl:'尋找共鳴', lc:'ty-echo', lb:'lb-echo'},
     night: {lbl:'深夜呢喃', lc:'ty-night', lb:'lb-night'},
   };
-  
   board.innerHTML = keys.map(id => {
     const p = data[id];
     const tm = typeMap[p.type] || typeMap.hole;
@@ -563,10 +633,8 @@ function pickNeed(type, el) {
   el.classList.add('sel'); selNeed = type;
 }
 
-// 修改：觸發免責牆攔截
 function openPost() {
-  if (!checkLegalBeforeAction()) return; // 沒同意就擋下
-  
+  if (!checkLegalBeforeAction()) return;
   showOv('ov-post');
   if(selNeed) {
     const m = {hole:'[data-t="hole"]',cheer:'[data-t="cheer"]',echo:'[data-t="echo"]',night:'[data-t="night"]'};
@@ -583,6 +651,7 @@ function pickType(el) {
 function updPostChar(el) {
   document.getElementById('post-ch').textContent = el.value.length; chkSend();
 }
+
 function chkSend() {
   const txt = document.getElementById('post-txt').value.trim();
   document.getElementById('send-btn').disabled = !(chosenT && txt.length >= 5);
@@ -592,46 +661,37 @@ function submitPost() {
   const txt = document.getElementById('post-txt').value.trim();
   if (!txt || !chosenT) return;
   const btn = document.getElementById('send-btn');
-  btn.disabled = true; btn.textContent = '傳送中...';
+  btn.disabled = true;
+  btn.textContent = '傳送中...';
 
-  lightsRef.push({ type: chosenT, text: txt, ts: Date.now(), lights: 0 })
+  // 取得最新階級
+  const currentTier = getTier(warmthCount);
+
+  // 傳送附加 tier 的資料
+  lightsRef.push({ type: chosenT, text: txt, ts: Date.now(), lights: 0, tier: currentTier })
     .then(() => {
       closeOv('ov-post');
       document.getElementById('post-txt').value = '';
       document.getElementById('post-ch').textContent = '0';
       chosenT = null;
       btn.disabled = false; btn.textContent = '發出這道光';
-      setTimeout(() => { window.location.href = 'forum.html'; }, 300);
+      
+      // 送出成功，增加溫暖次數並檢查是否升級
+      warmthCount++;
+      localStorage.setItem('pure_land_warmth', warmthCount);
+      checkLevelUp();
+
+      // 給予一點時間觀賞升級彈窗，再跳轉
+      if (getTier(warmthCount) > parseInt(localStorage.getItem('pure_land_tier') || '0')) {
+          // 若有彈窗，使用者手動關閉後再決定去哪
+      } else {
+          setTimeout(() => { window.location.href = 'forum.html'; }, 300);
+      }
     })
     .catch(err => {
       btn.disabled = false; btn.textContent = '發出這道光';
       showToast('傳送失敗，請確認網路');
     });
-}
-
-// 修改：觸發免責牆攔截 (若需要在此處攔截回應)
-function openResp(e) { 
-  if(e) e.stopPropagation(); 
-  if (!checkLegalBeforeAction()) return; // 沒同意就擋下
-  showOv('ov-resp'); 
-}
-
-function pickWarm(el) {
-  document.querySelectorAll('.wb').forEach(b=>b.classList.remove('sel'));
-  el.classList.add('sel'); selWarm = el.querySelector('.wn').textContent;
-}
-function updFiChar(el) { document.getElementById('fi-ch').textContent = el.value.length; }
-
-function submitResp() {
-  const warm = selWarm || '為你點燈';
-  showToast(warm.includes('抱') ? '我抱抱你' :
-            warm.includes('微') ? '為你點燈' :
-            warm.includes('聽') ? '我在聽喔' : '有我在');
-  closeOv('ov-resp');
-  document.getElementById('fi-txt').value = '';
-  document.getElementById('fi-ch').textContent = '0';
-  document.querySelectorAll('.wb').forEach(b=>b.classList.remove('sel'));
-  selWarm = null;
 }
 
 function goForum() { window.location.href = 'forum.html'; }
@@ -658,7 +718,8 @@ function showToast(msg) {
 
 function escHtml(s) { return (s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 function formatTime(ts) {
-  if (!ts) return ''; const d = Date.now() - ts;
+  if (!ts) return '';
+  const d = Date.now() - ts;
   if (d < 60000) return '剛剛';
   if (d < 3600000) return Math.floor(d / 60000) + ' 分鐘前';
   if (d < 86400000) return Math.floor(d / 3600000) + ' 小時前';
