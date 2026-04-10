@@ -10,8 +10,7 @@
 :root {
   /* 極致清透淨白背景 */
   --bg-gradient: linear-gradient(135deg, #FFFFFF 0%, #FDFCFB 100%);
-  --glass-bg: rgba(255, 255, 255, 0.8);
-  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.7); 
   --text-main: #58504A; 
   --text-light: #968E86;
   --accent-gold: #D4AF37; 
@@ -27,12 +26,12 @@ html, body {
   overflow: hidden; display: flex; flex-direction: column; align-items: center;
 }
 
+/* ✨ 完美復原的玻璃返回按鈕 */
 .top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: space-between; z-index: 5000; position: absolute; top: 0;}
-.nav-btn { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: var(--shadow-soft); cursor: pointer; transition: 0.2s; }
+.nav-btn { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: var(--shadow-soft); cursor: pointer; transition: 0.2s; }
 .nav-btn:active { transform: scale(0.92); }
-.nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;}
 
-/* 底部計數看板：單行玻璃框 */
+/* ✨ 底部計數看板：透明玻璃與強制單行不折行 */
 .bottom-text {
   position: absolute; bottom: max(40px, env(safe-area-inset-bottom)); text-align: center; z-index: 5000; 
   background: rgba(255,255,255,0.4); 
@@ -50,7 +49,7 @@ html, body {
 
 #visual-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
-/* 晶透氣泡層 */
+/* 晶透氣泡層：已移除耗能濾鏡，保證滑順 */
 #bubble-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
 .crystal-light {
   position: absolute; border-radius: 50%;
@@ -58,31 +57,30 @@ html, body {
   border: 0.5px solid rgba(212,175,55,0.05);
   animation: riseUp var(--d) linear infinite, wiggleX var(--w) ease-in-out infinite alternate, softFade var(--d) linear infinite;
   will-change: transform, opacity;
-  /* ✨ 效能優化：徹底移除 backdrop-filter，解決手機卡頓發燙問題 */
 }
 
 @keyframes riseUp { 0% { transform: translateY(110vh); } 100% { transform: translateY(-15vh); } }
 @keyframes wiggleX { 0% { margin-left: -40px; } 100% { margin-left: 40px; } }
 @keyframes softFade { 0%, 100% { opacity: 0; } 15%, 85% { opacity: 0.8; } }
 
+/* 普通精靈層 */
 #sprite-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
-
-/* 普通小精靈 */
 .sprite-node {
   position: absolute; will-change: transform, opacity;
   animation: deepFloatY var(--dy) ease-in-out infinite alternate, 
              deepFloatX var(--dx) ease-in-out infinite alternate, 
              pulseBreathe var(--ds) ease-in-out infinite alternate;
 }
+
 @keyframes deepFloatY { 0% { transform: translateY(-80px); } 100% { transform: translateY(80px); } }
 @keyframes deepFloatX { 0% { margin-left: -50px; } 100% { margin-left: 50px; } }
 @keyframes pulseBreathe { 0% { transform: scale(0.65); opacity: 0.4; } 100% { transform: scale(1.3); opacity: 1; } }
 
-/* ✨ 鎮守中央的精靈大王（獨立類別，絕不亂飄） */
+/* ✨ 鎮守中央的精靈大王專屬定位 */
 .king-node {
   position: absolute !important;
   left: 50% !important; top: 42% !important; 
-  margin: 0 !important; /* 阻斷任何亂飄的位移 */
+  margin: 0 !important; 
   transform: translate(-50%, -50%) !important;
   animation: kPulse 12s ease-in-out infinite alternate !important;
   will-change: transform;
@@ -101,7 +99,7 @@ html, body {
 
 <div class="top-nav">
   <div class="nav-btn" onclick="window.location.href='index.html'">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
   </div>
 </div>
 
@@ -130,6 +128,7 @@ html, body {
 <script>
 const spriteColors = ["#D1E4EE", "#E8F0E1", "#E1D5E7", "#FDF5D3"];
 
+// ✨ 所有人共用的畫法，確保 100% 不破圖
 function generateSpriteSVG(color) {
     return `
     <svg viewBox="35 15 130 140" width="100%" height="100%" overflow="visible">
@@ -166,9 +165,9 @@ function spawnBubbles(count) {
     }
 }
 
-// ✨ 加入精靈王邏輯（獨立類別，保證置中不亂跑）
+// ✨ 精靈王邏輯
 function spawnKing(total) {
-    if (total < 500) return; // 小於 500 不顯示
+    if (total < 500) return; 
     
     let kingColor = "#FDF5D3"; 
     if (total >= 100000) kingColor = "url(#king-rainbow)"; 
@@ -177,7 +176,7 @@ function spawnKing(total) {
 
     const sea = document.getElementById('sprite-sea');
     const king = document.createElement('div');
-    king.className = 'king-node'; // ✨ 徹底脫離普通精靈的 CSS 類別
+    king.className = 'king-node'; 
     king.style.cssText = `width:360px; height:360px; z-index:100;`;
     king.innerHTML = generateSpriteSVG(kingColor);
     sea.appendChild(king);
@@ -201,7 +200,7 @@ function hideLoader() {
     }
 }
 
-// 👑 完全沿用妳的原始 Fetch 邏輯，絕對穩定
+// 👑 絕對穩定的原生 Fetch
 function fetchOnce() {
     const failSafe = setTimeout(hideLoader, 5000);
 
@@ -210,14 +209,13 @@ function fetchOnce() {
         const total = snap.val() || 0;
         animN('total-warmth', 0, total, 1500);
         
-        // ✨ 效能優化：限制畫面元件總量，保證手機不發燙
         let sCount = 8, bCount = 12;
         if (total > 50) { sCount = 15; bCount = 20; }
         if (total > 150) { sCount = 20; bCount = 25; }
         
         spawnSprites(sCount);
         spawnBubbles(bCount);
-        spawnKing(total); // ✨ 呼叫精靈王
+        spawnKing(total); 
 
         hideLoader();
     }).catch(() => {
