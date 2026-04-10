@@ -1,279 +1,259 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>無量的光 · 光之海</title>
-    <style>
-        :root {
-            --bg-dark: #121416;
-            --text-gold: #CBA37A;
-            --text-muted: #6B615A;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+  
+<title>無量的光 · 守護之光</title>
+<style>
+:root {
+  /* 延續主系統的清透配色 */
+  --bg-gradient: linear-gradient(135deg, #FDFDFD, #F5F2EF);
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --text-main: #58504A; 
+  --text-light: #968E86;
+  --accent-gold: #CBA37A; /* 金色光芒主色 */
+  --shadow-soft: 0 10px 40px rgba(160, 155, 150, 0.12);
+}
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        html, body {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            background: var(--bg-dark);
-            color: #fff;
-            font-family: -apple-system, "PingFang TC", sans-serif;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+html, body {
+  margin: 0; padding: 0; width: 100%; height: 100dvh;
+  background: var(--bg-gradient); color: var(--text-main);
+  font-family: -apple-system, "PingFang TC", sans-serif;
+  overflow: hidden; display: flex; flex-direction: column; align-items: center;
+}
 
-        /* 畫布容器 */
-        #sea-container {
-            position: absolute;
-            inset: 0;
-            z-index: 1;
-        }
+/* 頂部導航 */
+.top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: space-between; z-index: 100; position: absolute; top: 0;}
+.nav-btn { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: var(--shadow-soft); cursor: pointer; transition: 0.2s; }
+.nav-btn:active { transform: scale(0.92); }
+.nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;}
 
-        /* 覆蓋層：營造深度感 */
-        .overlay {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, transparent 0%, rgba(18,20,22,0.4) 100%);
-            pointer-events: none;
-            z-index: 2;
-        }
+/* 底部統計看板 */
+.bottom-text {
+  position: absolute; bottom: max(40px, env(safe-area-inset-bottom)); text-align: center; z-index: 100; animation: fadeUp 1.5s ease-out; background: rgba(253,253,253,0.5); padding: 15px 30px; border-radius: 30px; backdrop-filter: blur(12px); border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft);
+}
+.bt-title { font-size: 0.8rem; letter-spacing: 4px; color: var(--text-light); margin-bottom: 8px; font-weight: 300;}
+.bt-count { font-size: 1.2rem; font-weight: 300; letter-spacing: 2px; color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 8px;}
+.bt-count span { font-weight: 400; color: var(--accent-gold); font-size: 1.8rem; text-shadow: 0 0 15px rgba(203,163,122,0.3);}
 
-        /* 核心計數器 */
-        .content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            animation: fadeIn 2s ease-out;
-        }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+/* 視覺海容器 */
+#visual-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
-        .count-label {
-            font-size: 0.75rem;
-            letter-spacing: 5px;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
+/* 1. 金黃氣泡層（往上飄升） */
+#bubble-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
 
-        .count-num {
-            font-size: 3.5rem;
-            font-weight: 200;
-            letter-spacing: 2px;
-            color: var(--text-gold);
-            text-shadow: 0 0 20px rgba(203, 163, 122, 0.3);
-            font-variant-numeric: tabular-nums;
-        }
+.golden-bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(203,163,122,0.4) 0%, rgba(203,163,122,0.1) 70%, transparent 100%);
+  animation-name: floatUpRise, floatWiggleX, floatFade;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear, ease-in-out, linear;
+  will-change: transform, opacity;
+  filter: blur(1px); /* 軟徑向光點 */
+}
 
-        .sub-text {
-            margin-top: 15px;
-            font-size: 0.85rem;
-            letter-spacing: 3px;
-            color: var(--text-muted);
-            font-weight: 300;
-        }
+/* 氣泡向上飄升 */
+@keyframes floatUpRise { 0% { transform: translateY(110dvh); } 100% { transform: translateY(-10dvh); } }
+/* 氣泡水平晃動 */
+@keyframes floatWiggleX { 0% { margin-left: -15px; } 100% { margin-left: 15px; } }
+/* 氣泡淡出 */
+@keyframes floatFade { 0% { opacity: 0; } 10%, 80% { opacity: 0.9; } 100% { opacity: 0; } }
 
-        /* 返回按鈕 */
-        .back-btn {
-            position: absolute;
-            top: max(20px, env(safe-area-inset-top));
-            left: 20px;
-            z-index: 100;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.3s;
-        }
 
-        .back-btn:active { transform: scale(0.9); background: rgba(255,255,255,0.1); }
-        .back-btn svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 1.5; }
+/* 2. 可愛精靈層（維持不規則呼吸） */
+#sprite-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
 
-        /* 載入中遮罩 */
-        #loading {
-            position: fixed;
-            inset: 0;
-            background: var(--bg-dark);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.8s ease;
-        }
+.sprite-node {
+  position: absolute; 
+  animation-name: floatY, floatX, breatheScale; 
+  animation-iteration-count: infinite; 
+  animation-direction: alternate; 
+  animation-timing-function: ease-in-out; 
+  filter: drop-shadow(0 10px 20px rgba(203,163,122,0.1));
+  will-change: transform, opacity;
+}
 
-        .loader-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--text-gold);
-            border-radius: 50%;
-            animation: pulse 1.5s infinite ease-in-out;
-        }
+/* 精靈運動（妳提供的邏輯） */
+@keyframes floatY { 0% { transform: translateY(-30px); } 100% { transform: translateY(30px); } }
+@keyframes floatX { 0% { margin-left: -20px; } 100% { margin-left: 20px; } }
+@keyframes breatheScale { 0% { transform: scale(0.85); opacity: 0.5; } 100% { transform: scale(1.1); opacity: 0.9; } }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(2); opacity: 1; }
-        }
-    </style>
+#loading { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; font-size: 0.85rem; letter-spacing: 3px; color: var(--text-light); z-index: 200; background: var(--bg-gradient); transition: opacity 0.8s; }
+</style>
 </head>
 <body>
 
-<div id="loading"><div class="loader-dot"></div></div>
+<div id="loading">感受無量光芒中...</div>
 
-<div class="back-btn" onclick="window.location.href='index.html'">
-    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+<div class="top-nav">
+  <div class="nav-btn" onclick="window.location.href='index.html'">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </div>
 </div>
 
-<div id="sea-container"></div>
-<div class="overlay"></div>
+<div id="visual-sea">
+    <div id="bubble-sea"></div> <div id="sprite-sea"></div> </div>
 
-<div class="content">
-    <div class="count-label">無量的光 · 已點亮</div>
-    <div class="count-num" id="total-warmth">0</div>
-    <div class="sub-text">每一道光，都是一份不孤單的證明</div>
+<div class="bottom-text">
+  <div class="bt-title">一燈即無量</div>
+  <div class="bt-count">累計有 <span id="total-warmth">0</span> 份善意發光</div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
-    // --- 視覺：光之海動畫引擎 ---
-    const container = document.getElementById('sea-container');
-    const particleCount = 40;
+// --- 可愛精靈與金黃氣泡設定 ---
+const spriteColors = ["#D1E4EE", "#E8F0E1", "#E1D5E7", "#FDF5D3"];
 
-    function createParticle() {
-        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        const size = Math.random() * 30 + 10;
-        svg.setAttribute("viewBox", "0 0 100 100");
-        svg.style.position = "absolute";
-        svg.style.width = size + "px";
-        svg.style.height = size + "px";
-        svg.style.left = Math.random() * 100 + "%";
-        svg.style.top = Math.random() * 100 + "%";
-        svg.style.opacity = "0";
-        svg.style.filter = "blur(1px)";
-        
-        // 使用妳喜歡的低熵向量圖形：簡單的圓形或菱形
-        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        circle.setAttribute("cx", "50");
-        circle.setAttribute("cy", "50");
-        circle.setAttribute("r", "40");
-        circle.setAttribute("fill", "url(#grad)");
-        
-        if (!document.getElementById('sea-defs')) {
-            const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-            defs.id = 'sea-defs';
-            defs.innerHTML = `
-                <radialGradient id="grad">
-                    <stop offset="0%" stop-color="#CBA37A" stop-opacity="0.6" />
-                    <stop offset="100%" stop-color="#CBA37A" stop-opacity="0" />
-                </radialGradient>
-            `;
-            svg.appendChild(defs);
-        }
-        
-        svg.appendChild(circle);
-        container.appendChild(svg);
+function generateSpriteSVG(color) {
+    return `
+    <svg viewBox="35 15 130 140" width="100%" height="100%" overflow="visible">
+        <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="${color}" opacity="0.9" />
+        <path d="M 85 85 Q 90 88 95 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 105 85 Q 110 88 115 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/>
+        <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/>
+        <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/>
+    </svg>`;
+}
 
-        // 動畫邏輯：漂浮與呼吸
-        const duration = Math.random() * 5000 + 4000;
-        const delay = Math.random() * 3000;
+function randomRange(min, max) { return Math.random() * (max - min) + min; }
+
+// 生成精靈海
+function spawnSprites(count) {
+    const sea = document.getElementById('sprite-sea');
+    sea.innerHTML = ''; 
+    for (let i = 0; i < count; i++) {
+        const node = document.createElement('div');
+        node.className = 'sprite-node';
+        const color = spriteColors[Math.floor(Math.random() * spriteColors.length)];
+        node.innerHTML = generateSpriteSVG(color);
         
-        svg.animate([
-            { transform: 'translateY(0) scale(1)', opacity: 0 },
-            { transform: `translateY(-${Math.random() * 50 + 20}px) scale(1.2)`, opacity: 0.5, offset: 0.5 },
-            { transform: `translateY(-${Math.random() * 100 + 50}px) scale(1)`, opacity: 0 }
-        ], {
-            duration: duration,
-            delay: delay,
-            iterations: Infinity,
-            easing: 'ease-in-out'
-        });
+        // 隨機大小、位置、動畫時長
+        const size = randomRange(60, 150);
+        node.style.width = size + 'px'; 
+        node.style.height = size + 'px';
+        node.style.left = randomRange(-10, 85) + 'vw';
+        node.style.top = randomRange(5, 75) + 'vh';
+        
+        const durY = randomRange(5, 12) + 's'; 
+        const durX = randomRange(6, 14) + 's'; 
+        const durS = randomRange(4, 10) + 's'; 
+        const delay = randomRange(0, -15) + 's';
+        
+        node.style.animationDuration = `${durY}, ${durX}, ${durS}`;
+        node.style.animationDelay = `${delay}, ${delay}, ${delay}`;
+        node.style.zIndex = Math.floor(randomRange(11, 20)); // z-index 比氣泡高
+        
+        sea.appendChild(node);
     }
+}
 
-    for (let i = 0; i < particleCount; i++) {
-        createParticle();
+// 生成金黃氣泡海（向上飄升）
+function spawnGoldenBubbles(count) {
+    const sea = document.getElementById('bubble-sea');
+    sea.innerHTML = '';
+    for (let i = 0; i < count; i++) {
+        const bubble = document.createElement('div');
+        bubble.className = 'golden-bubble';
+        
+        // 氣泡參數：大小隨機、X軸起始位置、飄升速度、晃動幅度、淡出時機
+        const size = randomRange(5, 25); // 氣泡大小
+        bubble.style.width = size + 'px';
+        bubble.style.height = size + 'px';
+        bubble.style.left = randomRange(0, 100) + 'vw';
+        
+        // 核心動畫控制：向上飄升速度不規則
+        const durUp = randomRange(10, 25) + 's'; // 上升時長
+        const durWiggle = randomRange(6, 15) + 's'; // 晃動時長
+        const delay = randomRange(0, -20) + 's'; // 初始延遲 (確保不同時間開始飄)
+        
+        bubble.style.animationDuration = `${durUp}, ${durWiggle}, ${durUp}`; // floatUp 和 floatFade 同步
+        bubble.style.animationDelay = `${delay}, ${delay}, ${delay}`;
+        
+        bubble.style.zIndex = Math.floor(randomRange(1, 10)); // z-index 低，作为背景
+        
+        sea.appendChild(bubble);
     }
+}
 
-    // --- Firebase：單次讀取與自動斷線 ---
-    const fbCfg = {
-        apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", 
-        authDomain: "pure-land-light.firebaseapp.com",
-        databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com",
-        projectId: "pure-land-light"
-    };
-    if (!firebase.apps.length) firebase.initializeApp(fbCfg);
-    const db = firebase.database();
-    const statsRef = db.ref('lights_v1_stats/total_warmth');
+// --- Firebase 邏輯 ---
+const fbCfg = {
+  apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", 
+  authDomain: "pure-land-light.firebaseapp.com",
+  databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com",
+  projectId: "pure-land-light"
+};
+if (!firebase.apps.length) firebase.initializeApp(fbCfg);
+const db = firebase.database();
+const statsRef = db.ref('lights_v1_stats/total_warmth');
 
-    // 1. 開啟連線
+let currentDisplayNum = 0;
+
+// 修改為一次性讀取邏輯（保護流量配額）
+function fetchTotalAndRender() {
     firebase.database().goOnline();
-
-    // 2. 使用 .once 進行單次讀取
+    
     statsRef.once('value').then(snap => {
         const total = snap.val() || 0;
         
-        // 數字跳動動畫
-        animN('total-warmth', 0, total, 2000);
+        // 更新數字與視覺（氣泡與精靈）
+        updateVisuals(total);
         
-        // 隱藏載入畫面
+        // 隱藏 Loading
         const loader = document.getElementById('loading');
-        if (loader) {
+        if (loader && loader.style.display !== 'none') {
             loader.style.opacity = '0';
             setTimeout(() => loader.style.display = 'none', 800);
         }
 
-        // 3. 核心：讀取完畢後，1 秒內斷開連線，把名額讓給下一位有緣人
+        // 讀取完畢後，1 秒內斷開連線
         setTimeout(() => {
             firebase.database().goOffline();
-            console.log("連線已自動釋放，保護系統資源。");
         }, 1000);
-    }).catch(err => {
-        console.warn("讀取失敗:", err);
-        // 失敗也要斷線
+    }).catch(e => {
         firebase.database().goOffline();
     });
+}
 
-    function animN(id, from, to, dur) {
-        const el = document.getElementById(id);
-        if (!el) return;
-        if (to === 0) { el.textContent = '0'; return; }
-        
-        const startTime = performance.now();
-        
-        function update(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / dur, 1);
-            // 使用 easeOutExpo 讓數字跳動更優雅
-            const easeProgress = 1 - Math.pow(2, -10 * progress);
-            const current = Math.floor(easeProgress * (to - from) + from);
-            
-            el.textContent = current.toLocaleString();
-            
-            if (progress < 1) {
-                requestAnimationFrame(update);
-            } else {
-                el.textContent = to.toLocaleString();
-            }
-        }
-        
-        requestAnimationFrame(update);
-    }
+// 執行讀取
+fetchTotalAndRender();
+
+function animN(id, from, to, dur) {
+  const el = document.getElementById(id);
+  if (!el || to === 0) { if(el) el.textContent = '0'; return; }
+  const step = (to - from) / (dur / 16); 
+  let cur = from;
+  const t = setInterval(() => {
+    cur = Math.min(cur + step, to); 
+    el.textContent = Math.round(cur);
+    if (cur >= to) clearInterval(t);
+  }, 16);
+}
+
+function updateVisuals(total) {
+  animN('total-warmth', currentDisplayNum, total, 1500);
+  currentDisplayNum = total;
+
+  // 根據總溫暖值決定密度（精靈與氣泡）
+  let spriteCount = 10, bubbleCount = 15;
+  if (total > 50) { spriteCount = 18; bubbleCount = 25; }
+  if (total > 150) { spriteCount = 25; bubbleCount = 35; }
+  if (total > 500) { spriteCount = 35; bubbleCount = 50; }
+  
+  // 生成視覺（即便斷開連線，這些 DOM 節點與 CSS 動畫依然會運行）
+  spawnSprites(spriteCount);
+  spawnGoldenBubbles(bubbleCount);
+}
 </script>
-
 </body>
 </html>
