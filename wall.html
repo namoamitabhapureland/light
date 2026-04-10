@@ -8,9 +8,10 @@
 <title>無量的光 · 守護之光</title>
 <style>
 :root {
-  --bg-gradient: linear-gradient(135deg, #FFFFFF 0%, #FDFCFB 100%);
-  --glass-bg: rgba(255, 255, 255, 0.8);
-  --glass-border: rgba(255, 255, 255, 0.95);
+  /* 極致清透淨白背景 */
+  --bg-gradient: linear-gradient(135deg, #FFFFFF 0%, #FCFBFA 100%);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.98);
   --text-main: #58504A; 
   --text-light: #968E86;
   --accent-gold: #D4AF37; 
@@ -25,17 +26,17 @@ html, body {
   overflow: hidden; display: flex; flex-direction: column; align-items: center;
 }
 
-.top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: space-between; z-index: 100; position: absolute; top: 0;}
+.top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: space-between; z-index: 1000; position: absolute; top: 0;}
 .nav-btn { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: var(--shadow-soft); cursor: pointer; transition: 0.2s; }
 .nav-btn:active { transform: scale(0.92); }
-.nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;}
 
+/* 底部計數看板 */
 .bottom-text {
-  position: absolute; bottom: max(40px, env(safe-area-inset-bottom)); text-align: center; z-index: 100; background: rgba(255,255,255,0.85); padding: 18px 35px; border-radius: 35px; backdrop-filter: blur(25px); border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft); animation: fadeUp 1.5s ease-out;
+  position: absolute; bottom: max(40px, env(safe-area-inset-bottom)); text-align: center; z-index: 1000; background: rgba(255,255,255,0.9); padding: 18px 35px; border-radius: 35px; backdrop-filter: blur(25px); border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft); animation: fadeUp 1.5s ease-out;
 }
 .bt-title { font-size: 0.85rem; letter-spacing: 5px; color: var(--text-light); margin-bottom: 8px; font-weight: 300;}
 .bt-count { font-size: 1.3rem; font-weight: 300; letter-spacing: 2px; color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 10px;}
-.bt-count span { font-weight: 400; color: var(--accent-gold); font-size: 2.2rem; text-shadow: 0 0 25px rgba(212,175,55,0.2);}
+.bt-count span { font-weight: 400; color: var(--accent-gold); font-size: 2.2rem; text-shadow: 0 0 25px rgba(212,175,55,0.25);}
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -43,9 +44,11 @@ html, body {
 #bubble-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
 .crystal-light {
   position: absolute; border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8) 0%, rgba(212,175,55,0.1) 60%, transparent 100%);
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9) 0%, rgba(212,175,55,0.1) 60%, transparent 100%);
+  border: 0.5px solid rgba(255,255,255,0.3);
   animation: riseUp var(--d) linear infinite, wiggleX var(--w) ease-in-out infinite alternate, softFade var(--d) linear infinite;
   will-change: transform, opacity;
+  filter: blur(1px);
 }
 
 @keyframes riseUp { 0% { transform: translateY(110vh); } 100% { transform: translateY(-15vh); } }
@@ -60,28 +63,24 @@ html, body {
              pulseBreathe var(--ds) ease-in-out infinite alternate;
 }
 
-@keyframes deepFloatY { 0% { transform: translateY(-60px); } 100% { transform: translateY(60px); } }
-@keyframes deepFloatX { 0% { margin-left: -40px; } 100% { margin-left: 40px; } }
-@keyframes pulseBreathe { 0% { transform: scale(0.7); opacity: 0.5; } 100% { transform: scale(1.2); opacity: 1; } }
+@keyframes deepFloatY { 0% { transform: translateY(-80px); } 100% { transform: translateY(80px); } }
+@keyframes deepFloatX { 0% { margin-left: -50px; } 100% { margin-left: 50px; } }
+@keyframes pulseBreathe { 0% { transform: scale(0.65); opacity: 0.45; } 100% { transform: scale(1.4); opacity: 1; } }
 
-#loading { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; font-size: 0.9rem; letter-spacing: 5px; color: var(--text-light); z-index: 200; background: var(--bg-gradient); transition: opacity 0.8s; }
+#loading { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; font-size: 0.9rem; letter-spacing: 5px; color: var(--text-light); z-index: 2000; background: var(--bg-gradient); transition: opacity 0.8s; }
 
-/* 精靈王專用旋轉容器 */
-.king-treasure-wrap {
-  position: absolute;
-  width: 100%; height: 100%;
-  animation: kingRotate 20s linear infinite;
-}
+/* 精靈大王專用旋轉容器 */
+.king-treasure-wrap { position: absolute; width: 100%; height: 100%; animation: kingRotate 20s linear infinite; }
 @keyframes kingRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 
-<div id="loading">感受清透光芒中...</div>
+<div id="loading">感受無量光芒中...</div>
 
 <div class="top-nav">
   <div class="nav-btn" onclick="window.location.href='index.html'">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="1.8"><polyline points="15 18 9 12 15 6"/></svg>
   </div>
 </div>
 
@@ -97,9 +96,12 @@ html, body {
 
 <svg style="width:0;height:0;position:absolute;">
     <defs>
-        <linearGradient id="facet-cyan" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0f7fa" stop-opacity="0.9"/><stop offset="100%" stop-color="#00838f" stop-opacity="0.5"/></linearGradient>
-        <linearGradient id="rainbow-glass" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fff" stop-opacity="0.9"/><stop offset="25%" stop-color="#e0f7fa" stop-opacity="0.7"/><stop offset="50%" stop-color="#f3e5ab" stop-opacity="0.6"/><stop offset="75%" stop-color="#fce4ec" stop-opacity="0.7"/><stop offset="100%" stop-color="#9c27b0" stop-opacity="0.4"/></linearGradient>
-        <linearGradient id="pure-glass" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fff" stop-opacity="0.9" /><stop offset="50%" stop-color="#f3e5ab" stop-opacity="0.6" /><stop offset="100%" stop-color="#d4af37" stop-opacity="0.2" /></linearGradient>
+        <linearGradient id="facet-cyan" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E0F7FA" stop-opacity="0.95"/><stop offset="100%" stop-color="#00838F" stop-opacity="0.6"/></linearGradient>
+        <linearGradient id="facet-gold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFF8E1" stop-opacity="0.95"/><stop offset="100%" stop-color="#D4AF37" stop-opacity="0.7"/></linearGradient>
+        <linearGradient id="facet-rose" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFF0F5" stop-opacity="0.95"/><stop offset="100%" stop-color="#C2185B" stop-opacity="0.6"/></linearGradient>
+        <linearGradient id="rainbow-glass" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fff" stop-opacity="0.9"/><stop offset="25%" stop-color="#E0F7FA" stop-opacity="0.7"/><stop offset="50%" stop-color="#FFFDE7" stop-opacity="0.6"/><stop offset="75%" stop-color="#FCE4EC" stop-opacity="0.7"/><stop offset="100%" stop-color="#E1D5E7" stop-opacity="0.5"/></linearGradient>
+        <linearGradient id="pure-glass" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fff" stop-opacity="0.9" /><stop offset="50%" stop-color="#FFFDE7" stop-opacity="0.6" /><stop offset="100%" stop-color="#D4AF37" stop-opacity="0.2" /></linearGradient>
+        <filter id="宝物光暈" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
     </defs>
 </svg>
 
@@ -110,58 +112,75 @@ html, body {
 <script>
 const spriteColors = ["#D1E4EE", "#E8F0E1", "#E1D5E7", "#FDF5D3"];
 
-// 寶物 SVG 片段
+// ✨ 彩色晶透寶物 (採用多寶閣幾何美學)
 const treasures = {
-    sword: `<g transform="scale(0.4) translate(-50,-75)"><polygon points="50,10 56,40 50,105 44,40" fill="#fff" opacity="0.8"/><circle cx="50" cy="105" r="4" fill="#D4AF37"/></g>`,
-    vase: `<g transform="scale(0.4) translate(-50,-75)"><path d="M40,20 H60 V40 H40 Z M40,40 L25,90 H75 L60,40 Z" fill="#D4AF37" opacity="0.7"/></g>`,
-    jewel: `<g transform="scale(0.4) translate(-50,-75)"><polygon points="50,10 80,40 50,55 20,40" fill="#fff" opacity="0.9"/></g>`,
-    net: `<circle cx="0" cy="0" r="120" fill="none" stroke="#D4AF37" stroke-width="0.5" stroke-dasharray="5,5" opacity="0.3"/>`
+    sword: `<g transform="translate(0,-50) scale(0.6)"><polygon points="50,10 56,40 50,105 44,40" fill="#fff" filter="url(#宝物光暈)"/><polygon points="50,10 56,40 50,105" fill="url(#facet-cyan)" opacity="0.8"/><polygon points="50,10 44,40 50,105" fill="#f3e5ab" opacity="0.6"/><circle cx="50" cy="105" r="5" fill="#fff" filter="drop-shadow(0 0 10px #D4AF37)"/></g>`,
+    vase: `<g transform="translate(0,-50) scale(0.6)"><polygon points="40,40 60,40 75,90 25,90" fill="url(#facet-gold)" filter="url(#宝物光暈)" stroke="#fff" stroke-width="1.5"/><polygon points="25,90 75,90 60,120 40,120" fill="#f3e5ab" opacity="0.8"/></g>`,
+    jewel: `<g transform="translate(0,-50) scale(0.6)"><polygon points="50,10 80,40 50,55 20,40" fill="url(#facet-rose)" filter="url(#宝物光暈)" stroke="#fff" stroke-width="1.5"/><polygon points="20,40 50,55 50,100" fill="#f3e5ab" opacity="0.8"/></g>`,
+    // ✨ 因陀羅網 (背景常駐)
+    net: `<circle cx="0" cy="0" r="140" fill="none" stroke="url(#rainbow-glass)" stroke-width="1" stroke-dasharray="8 8" opacity="0.4"><animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="40s" repeatCount="indefinite"/></circle>`
 };
 
+function generateSpriteSVG(color) {
+    return `
+    <svg viewBox="35 15 130 140" width="100%" height="100%" overflow="visible">
+        <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="${color}" opacity="0.9" />
+        <path d="M 85 85 Q 90 88 95 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 105 85 Q 110 88 115 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/>
+        <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/>
+        <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/>
+    </svg>`;
+}
+
 function getKingSVG(total) {
+    // ✨ 終極進化：因陀羅精靈大王門檻下修至 1 萬 (為了年輕人的成就感)
     let bodyFill = "url(#pure-glass)";
     let treasureContent = "";
     
     if (total >= 100000) {
+        // ✨ 因陀羅大王 (常駐背景結界)
         bodyFill = "url(#rainbow-glass)";
         treasureContent = `
             ${treasures.net}
             <g class="king-treasure-wrap">
-                <g transform="translate(140, 0)">${treasures.jewel}</g>
-                <g transform="translate(-140, 0)">${treasures.vase}</g>
-                <g transform="translate(0, 140)">${treasures.sword}</g>
+                <g transform="translate(160, 0)">${treasures.jewel}</g>
+                <g transform="translate(-160, 0)">${treasures.vase}</g>
+                <g transform="translate(0, 160)">${treasures.sword}</g>
             </g>`;
     } else if (total >= 10000) {
+        // ✨ 彩色琉璃大精靈 (1萬門檻變彩色)
         bodyFill = "url(#rainbow-glass)";
-        treasureContent = `<g class="king-treasure-wrap"><g transform="translate(130, 0)">${treasures.jewel}</g></g>`;
+        treasureContent = `<g class="king-treasure-wrap"><g transform="translate(150, 0)">${treasures.jewel}</g></g>`;
     } else if (total >= 1000) {
-        treasureContent = `<g class="king-treasure-wrap"><g transform="translate(120, 0)">${treasures.sword}</g><g transform="translate(-120, 0)">${treasures.vase}</g></g>`;
+        // ✨ 金白精靈王
+        treasureContent = `<g class="king-treasure-wrap"><g transform="translate(140, 0)">${treasures.sword}</g><g transform="translate(-140, 0)">${treasures.vase}</g></g>`;
     } else if (total >= 500) {
-        treasureContent = `<g class="king-treasure-wrap"><g transform="translate(110, 0)">${treasures.sword}</g></g>`;
+        // ✨ 初階王
+        treasureContent = `<g class="king-treasure-wrap"><g transform="translate(130, 0)">${treasures.sword}</g></g>`;
     }
 
     return `
-    <svg viewBox="-150 -150 300 300" width="100%" height="100%" overflow="visible">
+    <svg viewBox="-200 -200 400 400" width="100%" height="100%" overflow="visible">
         ${treasureContent}
-        <path d="M -40 40 C -70 40, -65 -10, -40 -30 C -20 -50, 20 -50, 40 -30 C 65 -10, 70 40, 40 40 C 20 40, 30 55, 0 55 C -30 55, -20 40, -40 40 Z" fill="${bodyFill}" />
-        <circle cx="-15" cy="-15" r="4" fill="#8C7A6B" opacity="0.8"/>
-        <circle cx="15" cy="-15" r="4" fill="#8C7A6B" opacity="0.8"/>
-        <ellipse cx="-25" cy="-5" rx="8" ry="4" fill="#D1A299" opacity="0.6"/>
-        <ellipse cx="25" cy="-5" rx="8" ry="4" fill="#D1A299" opacity="0.6"/>
+        <path d="M -40 40 C -70 40, -65 -10, -40 -30 C -20 -50, 20 -50, 40 -30 C 65 -10, 70 40, 40 40 C 20 40, 30 55, 0 55 C -30 55, -20 40, -40 40 Z" fill="${bodyFill}" opacity="0.95" />
+        
+        <path d="M -22 -18 Q -15 -21 -8 -18" fill="none" stroke="#58504A" stroke-width="4" stroke-linecap="round"/>
+        <path d="M 8 -18 Q 15 -21 22 -18" fill="none" stroke="#58504A" stroke-width="4" stroke-linecap="round"/>
+        
+        <ellipse cx="-28" cy="2" rx="10" ry="5" fill="#D1A299" opacity="0.6"/>
+        <ellipse cx="28" cy="2" rx="10" ry="5" fill="#D1A299" opacity="0.6"/>
     </svg>`;
 }
 
 function spawnSprites(count) {
     const sea = document.getElementById('sprite-sea');
-    const limitedCount = Math.min(count, 30);
     sea.innerHTML = ''; 
-    for (let i = 0; i < limitedCount; i++) {
+    for (let i = 0; i < count; i++) {
         const node = document.createElement('div');
         node.className = 'sprite-node';
-        // 普通精靈維持原樣
-        node.innerHTML = `<svg viewBox="35 15 130 140" width="100%" height="100%"><path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="${spriteColors[i%4]}" opacity="0.8"/></svg>`;
+        node.innerHTML = generateSpriteSVG(spriteColors[i%4]);
         const size = Math.random() * 60 + 60;
-        node.style.cssText = `width:${size}px; height:${size}px; left:${Math.random()*80}vw; top:${Math.random()*60+10}vh; --dy:${Math.random()*8+7}s; --dx:${Math.random()*10+9}s; --ds:${Math.random()*6+6}s; animation-delay:-${Math.random()*20}s;`;
+        node.style.cssText = `width:${size}px; height:${size}px; left:${Math.random()*80}vw; top:${Math.random()*60+10}vh; --dy:${Math.random()*10+8}s; --dx:${Math.random()*12+10}s; --ds:${Math.random()*6+6}s; animation-delay:-${Math.random()*20}s;`;
         sea.appendChild(node);
     }
 }
@@ -171,7 +190,8 @@ function spawnKing(total) {
     const sea = document.getElementById('sprite-sea');
     const king = document.createElement('div');
     king.className = 'sprite-node';
-    king.style.cssText = `width:260px; height:260px; left:50%; top:45%; transform:translate(-50%,-50%); z-index:100; --dy:10s; --dx:12s; --ds:8s;`;
+    // ✨ 大精靈王尺寸設定為原來的 2.5 倍
+    king.style.cssText = `width:320px; height:320px; left:50%; top:45%; transform:translate(-50%,-50%); z-index:100; --dy:12s; --dx:15s; --ds:10s;`;
     king.innerHTML = getKingSVG(total);
     sea.appendChild(king);
 }
@@ -188,26 +208,4 @@ const statsRef = db.ref('lights_v1_stats/total_warmth');
 
 function fetchOnce() {
     firebase.database().goOnline();
-    const failSafe = setTimeout(() => { document.getElementById('loading').style.display='none'; }, 5000);
-
-    statsRef.once('value').then(snap => {
-        clearTimeout(failSafe);
-        const total = 10000;
-        document.getElementById('total-warmth').textContent = total.toLocaleString();
-        
-        spawnSprites(Math.min(total / 10, 25));
-        spawnKing(total);
-        
-        document.getElementById('loading').style.opacity = '0';
-        setTimeout(() => { document.getElementById('loading').style.display = 'none'; }, 800);
-        setTimeout(() => firebase.database().goOffline(), 1000);
-    }).catch(() => {
-        document.getElementById('loading').style.display = 'none';
-        firebase.database().goOffline();
-    });
-}
-
-firebase.auth().signInAnonymously().then(fetchOnce).catch(fetchOnce);
-</script>
-</body>
-</html>
+    const failSafe = setTimeout(() => { document.getElementById('loading').style
