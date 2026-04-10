@@ -1022,13 +1022,53 @@
         setTimeout(() => wall.style.display = 'none', 300);
     }
 
-    function filterEmoji(el) {
-        const regex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
-        if (regex.test(el.value)) {
-            el.value = el.value.replace(regex, '');
-            showToast('為保持空間的純粹，符號已化為光');
+        function filterEmoji(el) {
+        // 1. 阻擋表情符號與特殊圖案
+        const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
+        
+        // 2. 終極網址阻擋 (涵蓋所有 .xxx 結尾的網域、http、www、甚至 IP 位址)
+        const urlRegex = /(https?:\/\/[^\s]+)|(www\.[^\s]+)|([a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/[^\s]*)?)|(\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b)/gi;
+        
+        // 3. 擴大交友/聯絡方式黑名單 (包含各種交友暗示與群組)
+        const contactRegex = /(加line|加賴|加ig|加微信|加好友|加我|私訊|私我|私聊|交友|約嗎|群組|社群|站內信|賴id|ig帳號|wechat|telegram|tg群|line\s*id)/gi;
+
+        // 4. 阻擋 @標記帳號 (防堵 @username 這種留 IG 帳號的方式)
+        const mentionRegex = /@[a-zA-Z0-9_.-]+/g;
+
+        // 5. 阻擋連續 7 個以上的數字 (防堵電話號碼 09xxxxxxxx、各式數字 ID)
+        const phoneIdRegex = /\d{7,}/g;
+
+        let original = el.value;
+        let modified = original;
+        let triggeredType = null;
+
+        // 依序過濾：先抓表情符號
+        if (emojiRegex.test(modified)) {
+            modified = modified.replace(emojiRegex, '');
+            triggeredType = 'emoji';
+        }
+        
+        // 再抓所有違規文字、網址、暗示
+        if (urlRegex.test(modified) || contactRegex.test(modified) || mentionRegex.test(modified) || phoneIdRegex.test(modified)) {
+            modified = modified.replace(urlRegex, '')
+                               .replace(contactRegex, '')
+                               .replace(mentionRegex, '')
+                               .replace(phoneIdRegex, '');
+            triggeredType = 'violation';
+        }
+
+        // 若內容有被系統沒收，回寫並跳出溫柔的警告
+        if (original !== modified) {
+            el.value = modified;
+            
+            if (triggeredType === 'violation') {
+                showToast('為保護彼此，請勿留下連結或暗示聯絡方式喔');
+            } else {
+                showToast('為保持空間的純粹，符號已化為光');
+            }
         }
     }
+
 
     // --- 點燈次數與皇冠邏輯 ---
     let warmthCount = parseInt(localStorage.getItem('pure_land_warmth') || '0');
