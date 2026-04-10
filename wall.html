@@ -22,55 +22,48 @@ html, body {
 }
 
 /* 頂部返回導航 */
-.top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: space-between; z-index: 10; position: absolute; top: 0;}
+.top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: space-between; z-index: 100; position: absolute; top: 0;}
 .nav-btn { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: var(--shadow-soft); cursor: pointer; transition: 0.2s; }
 .nav-btn:active { transform: scale(0.92); }
 .nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;}
 
-/* 核心守護精靈與光暈區 */
-.guardian-container {
-  flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
-  position: relative; width: 100%;
-}
-
-/* 背景光暈 (會隨數據變色、變大) */
-.aura {
-  position: absolute; width: 250px; height: 250px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(138,172,189,0.4) 0%, transparent 70%);
-  transition: all 2s ease-in-out;
-  animation: breatheAura 5s infinite alternate ease-in-out;
-  z-index: 1;
-}
-@keyframes breatheAura {
-  0% { transform: scale(0.9); opacity: 0.7; }
-  100% { transform: scale(1.2); opacity: 1; }
-}
-
-/* 漂浮的小精靈 */
-.sprite-wrapper {
-  z-index: 2; width: 180px; height: 180px;
-  animation: floatSprite 4s infinite ease-in-out;
-  filter: drop-shadow(0 15px 25px rgba(203,163,122,0.15));
-}
-@keyframes floatSprite {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-
 /* 底部靜謐文字 */
 .bottom-text {
   position: absolute; bottom: max(40px, env(safe-area-inset-bottom));
-  text-align: center; z-index: 10;
+  text-align: center; z-index: 100;
   animation: fadeUp 1.5s ease-out;
+  background: rgba(253,253,253,0.5); padding: 15px 30px; border-radius: 30px; backdrop-filter: blur(5px);
+  border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft);
 }
-.bt-title { font-size: 0.8rem; letter-spacing: 4px; color: var(--text-light); margin-bottom: 12px; font-weight: 300;}
-.bt-count { font-size: 1.5rem; font-weight: 300; letter-spacing: 2px; color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 8px;}
-.bt-count span { font-weight: 400; color: #CBA37A; font-size: 2rem; text-shadow: 0 0 15px rgba(203,163,122,0.3);}
+.bt-title { font-size: 0.8rem; letter-spacing: 4px; color: var(--text-light); margin-bottom: 8px; font-weight: 300;}
+.bt-count { font-size: 1.2rem; font-weight: 300; letter-spacing: 2px; color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 8px;}
+.bt-count span { font-weight: 400; color: #CBA37A; font-size: 1.8rem; text-shadow: 0 0 15px rgba(203,163,122,0.3);}
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+/* 精靈容器 */
+#sprite-sea {
+  position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1;
+}
+
+/* 個別精靈的動畫層 */
+.sprite-node {
+  position: absolute;
+  /* 不規則上下左右漂浮與呼吸縮放 */
+  animation-name: floatY, floatX, breatheScale;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  filter: drop-shadow(0 10px 20px rgba(203,163,122,0.1));
+}
+
+/* 讓不同精靈有不同的運動軌跡 */
+@keyframes floatY { 0% { transform: translateY(-30px); } 100% { transform: translateY(30px); } }
+@keyframes floatX { 0% { margin-left: -20px; } 100% { margin-left: 20px; } }
+@keyframes breatheScale { 0% { transform: scale(0.85); opacity: 0.6; } 100% { transform: scale(1.1); opacity: 0.95; } }
+
 /* 讀取中的遮罩 */
-#loading { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; font-size: 0.85rem; letter-spacing: 3px; color: var(--text-light); z-index: 20; background: var(--bg-gradient); transition: opacity 0.8s; }
+#loading { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; font-size: 0.85rem; letter-spacing: 3px; color: var(--text-light); z-index: 200; background: var(--bg-gradient); transition: opacity 0.8s; }
 </style>
 </head>
 <body>
@@ -83,27 +76,7 @@ html, body {
   </div>
 </div>
 
-<div class="guardian-container">
-  <div class="aura" id="aura"></div>
-  
-  <div class="sprite-wrapper">
-    <svg viewBox="35 15 130 140" style="width:100%; height:100%;" overflow="visible">
-        <path d="M 75 55 L 80 25 L 90 40 L 100 20 L 110 40 L 120 25 L 125 55 Z" fill="rgba(212,175,55,0.4)" stroke="#D4AF37" stroke-width="2.5" stroke-linejoin="round"/>
-        <circle cx="80" cy="25" r="3" fill="#D4AF37"/>
-        <circle cx="100" cy="20" r="3.5" fill="#D4AF37"/>
-        <circle cx="120" cy="25" r="3" fill="#D4AF37"/>
-        <circle cx="100" cy="38" r="2" fill="#D4AF37"/>
-        
-        <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="#FDF5D3" />
-        
-        <path d="M 80 85 Q 85 88 90 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M 110 85 Q 115 88 120 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/>
-        
-        <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/>
-        <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/>
-    </svg>
-  </div>
-</div>
+<div id="sprite-sea"></div>
 
 <div class="bottom-text">
   <div class="bt-title">一燈即無量</div>
@@ -114,6 +87,67 @@ html, body {
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
+// --- 四色精靈身體代碼 ---
+const spriteColors = [
+    "#D1E4EE", // 初心藍
+    "#E8F0E1", // 微光青
+    "#E1D5E7", // 琉璃紫
+    "#FDF5D3"  // 無量金
+];
+
+// 產生單一隻祈禱精靈的 SVG (無皇冠)
+function generateSpriteSVG(color) {
+    return `
+    <svg viewBox="35 15 130 140" width="100%" height="100%" overflow="visible">
+        <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="${color}" opacity="0.9" />
+        <path d="M 80 85 Q 85 88 90 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 110 85 Q 115 88 120 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/>
+        <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/>
+        <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/>
+    </svg>`;
+}
+
+// 隨機數生成器
+function randomRange(min, max) { return Math.random() * (max - min) + min; }
+
+// 動態在畫面上生成精靈
+function spawnSprites(count) {
+    const sea = document.getElementById('sprite-sea');
+    sea.innerHTML = ''; // 清空重新生成
+    
+    for (let i = 0; i < count; i++) {
+        const node = document.createElement('div');
+        node.className = 'sprite-node';
+        
+        // 隨機抽取顏色
+        const color = spriteColors[Math.floor(Math.random() * spriteColors.length)];
+        node.innerHTML = generateSpriteSVG(color);
+        
+        // 隨機大小 (50px 到 160px 之間)
+        const size = randomRange(50, 160);
+        node.style.width = size + 'px';
+        node.style.height = size + 'px';
+        
+        // 隨機位置 (避開邊緣與底部文字)
+        node.style.left = randomRange(-10, 80) + 'vw';
+        node.style.top = randomRange(10, 75) + 'vh';
+        
+        // 隨機不規則動畫時間，讓每一隻看起來都是獨立的生命體
+        const durY = randomRange(4, 10) + 's';
+        const durX = randomRange(5, 12) + 's';
+        const durS = randomRange(3, 8) + 's';
+        const delay = randomRange(0, -10) + 's'; // 負延遲讓它們一開始就在不同狀態
+        
+        node.style.animationDuration = `${durY}, ${durX}, ${durS}`;
+        node.style.animationDelay = `${delay}, ${delay}, ${delay}`;
+        
+        // 讓層級交錯
+        node.style.zIndex = Math.floor(randomRange(1, 10));
+        
+        sea.appendChild(node);
+    }
+}
+
 // --- Firebase 連線 ---
 const fbCfg = {
   apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", 
@@ -125,20 +159,20 @@ if (!firebase.apps.length) firebase.initializeApp(fbCfg);
 const db = firebase.database();
 const lightsRef = db.ref('lights_v1');
 
-// 讀取全站溫暖總數 (發文 + 點燈 + 回覆)
+// 讀取全站溫暖總數
 lightsRef.on('value', snap => {
   const data = snap.val() || {};
   let total = 0;
   
   Object.values(data).forEach(p => {
-    total += 1; // 1篇發文算1份善意
-    total += (p.lights || 0); // 點燈數
+    total += 1; 
+    total += (p.lights || 0); 
     if (p.resps) {
-      total += Object.keys(p.resps).length; // 回覆數
+      total += Object.keys(p.resps).length; 
     }
   });
 
-  updateVisuals(20000);
+  updateVisuals(2000);
   
   // 隱藏讀取畫面
   const loader = document.getElementById('loading');
@@ -147,6 +181,7 @@ lightsRef.on('value', snap => {
 });
 
 // 數字跳動動畫
+let currentDisplayNum = 0;
 function animN(id, from, to, dur) {
   const el = document.getElementById(id);
   if (!el || to === 0) { if(el) el.textContent = '0'; return; }
@@ -159,27 +194,20 @@ function animN(id, from, to, dur) {
   }, 16);
 }
 
-let currentDisplayNum = 0;
-
-// 根據溫暖總數，改變光暈顏色與大小
+// 根據溫暖總數，決定畫面上的精靈數量
 function updateVisuals(total) {
   animN('total-warmth', currentDisplayNum, total, 1500);
   currentDisplayNum = total;
 
-  const aura = document.getElementById('aura');
+  // 控制畫面上的精靈數量 (最多不超過 30 隻，以免手機卡頓)
+  let spriteCount = 12; // 預設 12 隻
+  if (total > 50) spriteCount = 20;
+  if (total > 150) spriteCount = 30;
   
-  if (total <= 50) {
-    // 微光青
-    aura.style.background = 'radial-gradient(circle, rgba(138,172,189,0.3) 0%, transparent 65%)';
-    aura.style.width = '250px'; aura.style.height = '250px';
-  } else if (total <= 150) {
-    // 琉璃紫
-    aura.style.background = 'radial-gradient(circle, rgba(207,164,164,0.35) 0%, transparent 70%)';
-    aura.style.width = '320px'; aura.style.height = '320px';
-  } else {
-    // 無量金
-    aura.style.background = 'radial-gradient(circle, rgba(212,175,55,0.25) 0%, rgba(203,163,122,0.15) 40%, transparent 75%)';
-    aura.style.width = '400px'; aura.style.height = '400px';
+  // 只有在數量需要改變時才重新生成，避免動畫中斷
+  const currentNodes = document.querySelectorAll('.sprite-node').length;
+  if (currentNodes !== spriteCount) {
+      spawnSprites(spriteCount);
   }
 }
 </script>
