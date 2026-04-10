@@ -4,6 +4,7 @@
 [![PWA](https://img.shields.io/badge/PWA-Ready-4285F4?style=for-the-badge)](https://namoamitabhapureland.github.io/light/)
 [![Free](https://img.shields.io/badge/完全免費-100%25-00C853?style=for-the-badge)](https://namoamitabhapureland.github.io/light/)
 [![No Ads](https://img.shields.io/badge/無廣告-純淨-FF9800?style=for-the-badge)](https://namoamitabhapureland.github.io/light/)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-4A7043?style=for-the-badge)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 ## 專案介紹
 
