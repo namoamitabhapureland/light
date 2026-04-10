@@ -1,16 +1,18 @@
 # 無量的光 · 你不孤單
 
-[![GitHub Pages](https://img.shields.io/badge/網站-無量的光-brightness)](https://namoamitabhapureland.github.io/light/index.html)
+[![GitHub Pages](https://img.shields.io/badge/網站-無量的光-4A7043?style=for-the-badge)](https://namoamitabhapureland.github.io/light/)
+[![PWA](https://img.shields.io/badge/PWA-Ready-4285F4?style=for-the-badge)](https://namoamitabhapureland.github.io/light/)
+[![Free](https://img.shields.io/badge/完全免費-100%25-00C853?style=for-the-badge)](https://namoamitabhapureland.github.io/light/)
+[![No Ads](https://img.shields.io/badge/無廣告-純淨-FF9800?style=for-the-badge)](https://namoamitabhapureland.github.io/light/)
 
 ## 專案介紹
 
-「無量的光 · 你不孤單」是一個純粹溫暖的匿名心事分享空間，源自「彌陀淨土系統」衍生的社群共建計畫。
-
+一個純粹溫暖的**匿名心事分享空間**。  
+在深夜裡，任何人可以放心傾訴、尋求鼓勵、獲得共鳴。  
+以「點燈」表達支持，讓每一個孤單的人感受到「你不孤單」。
 在這裡，任何人可以在深夜 anonymously 傾訴心事、尋求共鳴、獲得鼓勵，或只是隨意呢喃。  
 完全匿名、沒有個資、沒有廣告，只有柔和的燈光與陌生人的善意陪伴。
-
 網站以佛教「無量光」與「彌陀淨土」意象為靈感，將「點燈」作為支持他人的方式，讓每一個在黑暗中感到孤單的人，都能感受到「你不孤單」的溫暖。
-
 發文後的內容會暫存於「燈火牆」，僅顯示最新 50 則，7天之後會自動物理消散，確保空間輕盈、不留負擔。
 
 ## 特色
