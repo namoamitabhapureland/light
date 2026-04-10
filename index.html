@@ -1022,49 +1022,54 @@
         setTimeout(() => wall.style.display = 'none', 300);
     }
 
-        function filterEmoji(el) {
-        // 1. 阻擋表情符號與特殊圖案
+        // ✨ 三系統通用：終極淨化防禦 (過濾符號、網址、聯絡方式與髒話)
+    function filterEmoji(el) {
+        // 1. 符號過濾
         const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
         
-        // 2. 終極網址阻擋 (升級版：無視空白鍵！專抓 w w w . 以及 . com / .tw 等常見結尾)
+        // 2. 網址過濾 (無視空白)
         const urlRegex = /(https?:\/\/[^\s]+)|(w\s*w\s*w\s*\.\s*[a-zA-Z0-9-]+\s*\.\s*[a-zA-Z]{2,})|([a-zA-Z0-9-]+\s*\.\s*(com|tw|net|org|io|info|me|cc|xyz)\b)|(\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b)/gi;
         
-        // 3. 擴大交友黑名單 (升級版：無視空白鍵！例如「加 line」、「私 訊」、「賴 id」全擋)
+        // 3. 聯絡方式與暗示 (無視空白)
         const contactRegex = /(加\s*line|加\s*賴|加\s*ig|加\s*微\s*信|加\s*好\s*友|加\s*我|私\s*訊|私\s*我|私\s*聊|交\s*友|約\s*嗎|群\s*組|社\s*群|站\s*內\s*信|賴\s*id|ig\s*帳\s*號|wechat|telegram|tg\s*群|line\s*id)/gi;
-
-        // 4. 阻擋 @標記帳號 (防堵 @username 這種留 IG 帳號的方式)
+        
         const mentionRegex = /@[a-zA-Z0-9_.-]+/g;
-
-        // 5. 阻擋連續 7 個以上的數字 (防堵電話號碼 09xxxxxxxx、各式數字 ID)
         const phoneIdRegex = /\d{7,}/g;
+
+        // 4. ✨ 髒話過濾網 (這裡增加詞彙)
+        const badWordRegex = /(笨蛋|白痴|屁眼|混蛋|臭屌|死全家|fuck|shit|bitch|垃圾|智障|去死|幹你|操妳|我靠)/gi;
 
         let original = el.value;
         let modified = original;
         let triggeredType = null;
 
-        // 依序過濾：先抓表情符號
         if (emojiRegex.test(modified)) {
             modified = modified.replace(emojiRegex, '');
             triggeredType = 'emoji';
         }
         
-        // 再抓所有違規文字、網址、暗示
         if (urlRegex.test(modified) || contactRegex.test(modified) || mentionRegex.test(modified) || phoneIdRegex.test(modified)) {
-            modified = modified.replace(urlRegex, '')
-                               .replace(contactRegex, '')
-                               .replace(mentionRegex, '')
-                               .replace(phoneIdRegex, '');
+            modified = modified.replace(urlRegex, '').replace(contactRegex, '').replace(mentionRegex, '').replace(phoneIdRegex, '');
             triggeredType = 'violation';
         }
 
-        // 若內容有被系統沒收，回寫並跳出溫柔的警告
+        if (badWordRegex.test(modified)) {
+            modified = modified.replace(badWordRegex, '');
+            triggeredType = 'badword';
+        }
+
         if (original !== modified) {
             el.value = modified;
             
+            // 判斷當前語系 (若未設定則預設中文)
+            const isEn = (typeof lang !== 'undefined' && lang === 'en');
+            
             if (triggeredType === 'violation') {
-                showToast('為保護彼此，請勿留下連結或暗示聯絡方式喔');
+                showToast(isEn ? 'Links and contact info are not allowed.' : '為保護彼此，請勿留下連結或聯絡方式喔');
+            } else if (triggeredType === 'badword') {
+                showToast(isEn ? 'Please use gentle words.' : '請保持言語溫和，惡言已化為微塵');
             } else {
-                showToast('為保持空間的純粹，符號已化為光');
+                showToast(isEn ? 'Emojis are converted to light.' : '為保持空間清淨，符號已化為光');
             }
         }
     }
