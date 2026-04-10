@@ -22,7 +22,7 @@
             --shadow-soft: 0 10px 40px rgba(160, 155, 150, 0.12);
 
             /* 四大主題專屬色 */
-            --accent-hole: #82968C;  
+            --accent-hole: #82968C;
             --accent-cheer: #CBA37A; 
             --accent-echo: #8AACBD;  
             --accent-night: #CFA4A4; 
@@ -130,8 +130,10 @@
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0;
+            transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0);
+            }
         }
 
         .embrace-wrap {
@@ -146,11 +148,14 @@
             animation: dynamicBounce 4s infinite ease-in-out;
         }
 
-        .embrace-wrap:active { transform: scale(0.95); } 
+        .embrace-wrap:active { transform: scale(0.95);
+        } 
 
         @keyframes dynamicBounce {
-            0%, 100% { transform: scale(1) translateY(0); }
-            50% { transform: scale(1.08) translateY(-10px); }
+            0%, 100% { transform: scale(1) translateY(0);
+            }
+            50% { transform: scale(1.08) translateY(-10px);
+            }
         }
 
         .embrace-wrap::before {
@@ -164,20 +169,28 @@
         }
 
         @keyframes breathGlow {
-            0%, 100% { transform: scale(1); opacity: .4; }
-            50% { transform: scale(1.15); opacity: 1; }
+            0%, 100% { transform: scale(1);
+            opacity: .4; }
+            50% { transform: scale(1.15); opacity: 1;
+            }
         }
 
-        .sprite-blue { transform-origin: 100px 150px; animation: leanRight 3.5s infinite alternate ease-in-out; }
-        .sprite-pink { transform-origin: 100px 150px; animation: leanLeft 3.5s infinite alternate ease-in-out; }
+        .sprite-blue { transform-origin: 100px 150px;
+            animation: leanRight 3.5s infinite alternate ease-in-out; }
+        .sprite-pink { transform-origin: 100px 150px;
+            animation: leanLeft 3.5s infinite alternate ease-in-out; }
 
         @keyframes leanRight {
-            0% { transform: translate(10px, 0) rotate(0deg) scale(1); }
-            100% { transform: translate(30px, 0) rotate(6deg) scale(1.02); }
+            0% { transform: translate(10px, 0) rotate(0deg) scale(1);
+            }
+            100% { transform: translate(30px, 0) rotate(6deg) scale(1.02);
+            }
         }
         @keyframes leanLeft {
-            0% { transform: translate(70px, 0) rotate(0deg) scale(1); }
-            100% { transform: translate(50px, 0) rotate(-6deg) scale(1.02); }
+            0% { transform: translate(70px, 0) rotate(0deg) scale(1);
+            }
+            100% { transform: translate(50px, 0) rotate(-6deg) scale(1.02);
+            }
         }
 
         .h-title {
@@ -222,12 +235,16 @@
             animation: pulse 2.5s infinite ease-in-out;
         }
 
-        .sd-g { background: var(--accent-cheer); } 
-        .sd-r { background: var(--accent-night); animation-delay: .8s; }
+        .sd-g { background: var(--accent-cheer);
+        } 
+        .sd-r { background: var(--accent-night); animation-delay: .8s;
+        }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: .7; }
-            50% { transform: scale(1.4); opacity: 1; }
+            0%, 100% { transform: scale(1);
+            opacity: .7; }
+            50% { transform: scale(1.4); opacity: 1;
+            }
         }
 
         .st {
@@ -243,9 +260,12 @@
         }
 
         /* 需求入口按鈕 */
-        .need-sec { width: 100%; margin-bottom: 20px; }
-        .sec-lbl { font-size: .65rem; letter-spacing: 4px; color: var(--text-muted); text-align: center; margin-bottom: 12px; }
-        .need-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .need-sec { width: 100%;
+            margin-bottom: 20px; }
+        .sec-lbl { font-size: .65rem; letter-spacing: 4px; color: var(--text-muted); text-align: center;
+            margin-bottom: 12px; }
+        .need-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+        }
         
         .nc {
             background: var(--glass-bg);
@@ -262,7 +282,8 @@
             box-shadow: var(--shadow-soft);
         }
 
-        .nc:active { transform: scale(.96); }
+        .nc:active { transform: scale(.96);
+        }
         .nc.sel {
             border-color: var(--accent-cheer);
             background: rgba(255,255,255,.9);
@@ -288,17 +309,27 @@
             stroke-linejoin: round;
         }
 
-        .nl { font-size: .85rem; letter-spacing: 1.5px; color: var(--text-main); font-weight: 500; }
-        .nsb { font-size: .65rem; color: var(--text-light); letter-spacing: 1px; text-align: center; }
+        .nl { font-size: .85rem; letter-spacing: 1.5px; color: var(--text-main); font-weight: 500;
+        }
+        .nsb { font-size: .65rem; color: var(--text-light); letter-spacing: 1px; text-align: center;
+        }
 
-        .nc-hole .ni { background: rgba(130,150,140,.12); } 
-        .nc-hole .ni svg { stroke: var(--accent-hole); }
-        .nc-cheer .ni { background: rgba(203,163,122,.12); } 
-        .nc-cheer .ni svg { stroke: var(--accent-cheer); }
-        .nc-echo .ni { background: rgba(138,172,189,.12); } 
-        .nc-echo .ni svg { stroke: var(--accent-echo); }
-        .nc-night .ni { background: rgba(207,164,164,.12); } 
-        .nc-night .ni svg { stroke: var(--accent-night); }
+        .nc-hole .ni { background: rgba(130,150,140,.12);
+        } 
+        .nc-hole .ni svg { stroke: var(--accent-hole);
+        }
+        .nc-cheer .ni { background: rgba(203,163,122,.12);
+        } 
+        .nc-cheer .ni svg { stroke: var(--accent-cheer);
+        }
+        .nc-echo .ni { background: rgba(138,172,189,.12);
+        } 
+        .nc-echo .ni svg { stroke: var(--accent-echo);
+        }
+        .nc-night .ni { background: rgba(207,164,164,.12);
+        } 
+        .nc-night .ni svg { stroke: var(--accent-night);
+        }
 
         /* CTA 按鈕 */
         .cta {
@@ -317,7 +348,8 @@
             font-weight: 500;
         }
 
-        .cta:active { transform: scale(0.96); }
+        .cta:active { transform: scale(0.96);
+        }
         
         .cta-ghost {
             width: 100%;
@@ -333,12 +365,16 @@
             transition: .2s;
         }
 
-        .cta-ghost:active { transform: scale(0.96); background: rgba(255,255,255,.9); }
+        .cta-ghost:active { transform: scale(0.96); background: rgba(255,255,255,.9);
+        }
 
         /* 最新預覽牆 */
-        .lights-sec { width: 100%; margin-top: 24px; margin-bottom: 24px; }
-        .lh { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-        .lt { font-size: .65rem; letter-spacing: 4px; color: var(--text-muted); }
+        .lights-sec { width: 100%;
+            margin-top: 24px; margin-bottom: 24px; }
+        .lh { display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 16px; }
+        .lt { font-size: .65rem; letter-spacing: 4px; color: var(--text-muted);
+        }
         
         .lm {
             font-size: .65rem;
@@ -351,7 +387,8 @@
             border: 1px solid rgba(203,163,122,.2);
             transition: .2s;
         }
-        .lm:active { background: rgba(203,163,122,.2); }
+        .lm:active { background: rgba(203,163,122,.2);
+        }
 
         .lc {
             background: var(--glass-bg);
@@ -367,7 +404,8 @@
             cursor: pointer;
             transition: .25s;
         }
-        .lc:active { transform: scale(.98); }
+        .lc:active { transform: scale(.98);
+        }
 
         .lb {
             width: 4px;
@@ -377,13 +415,19 @@
             align-self: stretch;
             transition: width .4s ease, box-shadow .4s ease;
         }
-        .lb-hole { background: linear-gradient(180deg, var(--accent-hole), transparent); } 
-        .lb-cheer { background: linear-gradient(180deg, var(--accent-cheer), transparent); } 
-        .lb-echo { background: linear-gradient(180deg, var(--accent-echo), transparent); } 
-        .lb-night { background: linear-gradient(180deg, var(--accent-night), transparent); }
-        .lb.glow { width: 5px; box-shadow: 0 0 8px rgba(203,163,122,.4); }
+        .lb-hole { background: linear-gradient(180deg, var(--accent-hole), transparent);
+        } 
+        .lb-cheer { background: linear-gradient(180deg, var(--accent-cheer), transparent);
+        } 
+        .lb-echo { background: linear-gradient(180deg, var(--accent-echo), transparent);
+        } 
+        .lb-night { background: linear-gradient(180deg, var(--accent-night), transparent);
+        }
+        .lb.glow { width: 5px; box-shadow: 0 0 8px rgba(203,163,122,.4);
+        }
 
-        .lbody { flex: 1; min-width: 0; }
+        .lbody { flex: 1; min-width: 0;
+        }
         
         .ltype {
             display: inline-flex;
@@ -396,10 +440,14 @@
             margin-bottom: 8px;
         }
         
-        .ty-hole { color: var(--accent-hole); background: rgba(130,150,140,.1); } 
-        .ty-cheer { color: var(--accent-cheer); background: rgba(203,163,122,.1); } 
-        .ty-echo { color: var(--accent-echo); background: rgba(138,172,189,.1); } 
-        .ty-night { color: var(--accent-night); background: rgba(207,164,164,.1); }
+        .ty-hole { color: var(--accent-hole);
+            background: rgba(130,150,140,.1); } 
+        .ty-cheer { color: var(--accent-cheer); background: rgba(203,163,122,.1);
+        } 
+        .ty-echo { color: var(--accent-echo); background: rgba(138,172,189,.1);
+        } 
+        .ty-night { color: var(--accent-night); background: rgba(207,164,164,.1);
+        }
         
         .ltext {
             font-size: .9rem;
@@ -413,9 +461,12 @@
             -webkit-box-orient: vertical;
         }
         
-        .lfooter { display: flex; justify-content: space-between; align-items: center; }
-        .ltime { font-size: .65rem; color: var(--text-muted); letter-spacing: 1px; }
-        .rrow { display: flex; gap: 6px; }
+        .lfooter { display: flex;
+            justify-content: space-between; align-items: center; }
+        .ltime { font-size: .65rem; color: var(--text-muted); letter-spacing: 1px;
+        }
+        .rrow { display: flex; gap: 6px;
+        }
         
         .rb {
             display: flex;
@@ -429,8 +480,10 @@
             color: var(--text-light);
         }
         
-        .rb svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; }
-        .rb.lit { background: rgba(203,163,122,.1); border-color: rgba(203,163,122,.3); color: var(--accent-cheer); }
+        .rb svg { width: 14px;
+            height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+        .rb.lit { background: rgba(203,163,122,.1);
+            border-color: rgba(203,163,122,.3); color: var(--accent-cheer); }
 
         /* 安心專線 */
         .hotline {
@@ -443,8 +496,10 @@
             margin-bottom: 20px;
             box-shadow: var(--shadow-soft);
         }
-        .hl-text { font-size: .7rem; color: var(--text-light); letter-spacing: 1.5px; line-height: 1.8; }
-        .hl-num { color: var(--accent-cheer); font-weight: 500; }
+        .hl-text { font-size: .7rem; color: var(--text-light); letter-spacing: 1.5px; line-height: 1.8;
+        }
+        .hl-num { color: var(--accent-cheer); font-weight: 500;
+        }
 
         /* 彈窗樣式 (發文/說明) */
         .ov {
@@ -460,7 +515,8 @@
             align-items: flex-end;
         }
         
-        .ov.show { display: flex; opacity: 1; }
+        .ov.show { display: flex;
+            opacity: 1; }
         
         .sheet {
             width: 100%;
@@ -476,7 +532,8 @@
             border: 1px solid var(--glass-border);
         }
         
-        .ov.show .sheet { transform: translateY(0); }
+        .ov.show .sheet { transform: translateY(0);
+        }
         
         .handle {
             width: 36px;
@@ -486,11 +543,15 @@
             margin: 12px auto 16px;
         }
 
-        .s-title { font-size: 1rem; letter-spacing: 3px; color: var(--text-main); text-align: center; margin-bottom: 5px; font-weight: 500; }
-        .s-sub { font-size: .75rem; color: var(--text-light); letter-spacing: 2px; text-align: center; margin-bottom: 20px; }
-        .cl { font-size: .7rem; letter-spacing: 3px; color: var(--text-muted); margin-bottom: 10px; }
+        .s-title { font-size: 1rem; letter-spacing: 3px; color: var(--text-main); text-align: center; margin-bottom: 5px;
+            font-weight: 500; }
+        .s-sub { font-size: .75rem; color: var(--text-light); letter-spacing: 2px; text-align: center;
+            margin-bottom: 20px; }
+        .cl { font-size: .7rem; letter-spacing: 3px; color: var(--text-muted); margin-bottom: 10px;
+        }
         
-        .cg { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+        .cg { display: grid;
+            grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
         
         .cb {
             padding: 14px 8px;
@@ -505,15 +566,19 @@
             transition: .2s;
         }
         
-        .cb:active { transform: scale(.95); }
+        .cb:active { transform: scale(.95);
+        }
         .cb.act {
             border-color: var(--accent-cheer);
             background: rgba(203,163,122,.05);
             box-shadow: 0 4px 15px rgba(203,163,122,.1);
         }
         
-        .cb svg { width: 24px; height: 24px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-        .cb span { font-size: .75rem; letter-spacing: 1.5px; color: var(--text-main); }
+        .cb svg { width: 24px;
+            height: 24px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+        }
+        .cb span { font-size: .75rem; letter-spacing: 1.5px; color: var(--text-main);
+        }
         
         .pta {
             width: 100%;
@@ -531,9 +596,12 @@
             transition: .2s;
         }
         
-        .pta:focus { border-color: var(--accent-cheer); box-shadow: inset 0 0 8px rgba(203,163,122,.05); }
-        .pta::placeholder { color: var(--text-muted); }
-        .ch { text-align: right; font-size: .65rem; color: var(--text-muted); margin-top: 6px; margin-bottom: 16px; }
+        .pta:focus { border-color: var(--accent-cheer);
+            box-shadow: inset 0 0 8px rgba(203,163,122,.05); }
+        .pta::placeholder { color: var(--text-muted);
+        }
+        .ch { text-align: right; font-size: .65rem; color: var(--text-muted); margin-top: 6px; margin-bottom: 16px;
+        }
         
         .anon {
             display: flex;
@@ -546,8 +614,11 @@
             margin-bottom: 166px;
         }
         
-        .anon svg { width: 16px; height: 16px; stroke: var(--accent-hole); fill: none; stroke-width: 1.8; flex-shrink: 0; margin-top: 2px; }
-        .anon span { font-size: .7rem; color: var(--text-light); letter-spacing: 1px; line-height: 1.5; }
+        .anon svg { width: 16px;
+            height: 16px; stroke: var(--accent-hole); fill: none; stroke-width: 1.8; flex-shrink: 0; margin-top: 2px;
+        }
+        .anon span { font-size: .7rem; color: var(--text-light); letter-spacing: 1px; line-height: 1.5;
+        }
         
         .send {
             width: 100%;
@@ -563,8 +634,10 @@
             transition: .2s;
         }
         
-        .send:active { transform: translateY(2px); }
-        .send:disabled { opacity: .5; cursor: not-allowed; }
+        .send:active { transform: translateY(2px);
+        }
+        .send:disabled { opacity: .5; cursor: not-allowed;
+        }
 
         /* 境界昇華彈窗 (置中型) */
         .glass-levelup {
@@ -580,8 +653,10 @@
             transition: transform .35s cubic-bezier(.25,.8,.25,1);
         }
         
-        .ov.show .glass-levelup { transform: translateY(0); }
-        .lvl-icon { display: flex; flex-direction: column; align-items: center; margin: 15px 0 20px; }
+        .ov.show .glass-levelup { transform: translateY(0);
+        }
+        .lvl-icon { display: flex; flex-direction: column; align-items: center; margin: 15px 0 20px;
+        }
 
         /* 提示 Toast */
         .toast {
@@ -602,7 +677,8 @@
             pointer-events: none;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
-        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0);
+        }
 
         /* 說明區塊 */
         .ab-block {
@@ -612,8 +688,10 @@
             padding: 16px;
             margin-bottom: 12px;
         }
-        .ab-t { font-size: .8rem; font-weight: 500; color: var(--accent-cheer); letter-spacing: 2px; margin-bottom: 6px; }
-        .ab-tx { font-size: .8rem; color: var(--text-light); line-height: 1.7; letter-spacing: .5px; }
+        .ab-t { font-size: .8rem; font-weight: 500; color: var(--accent-cheer); letter-spacing: 2px; margin-bottom: 6px;
+        }
+        .ab-tx { font-size: .8rem; color: var(--text-light); line-height: 1.7; letter-spacing: .5px;
+        }
 
         /* 阻斷牆 */
         #legal-wall {
@@ -630,7 +708,8 @@
             padding: 20px;
         }
         
-        #legal-wall.show { display: flex; opacity: 1; }
+        #legal-wall.show { display: flex;
+            opacity: 1; }
         
         #legal-wall .glass-confirm {
             background: rgba(253,252,252,0.96);
@@ -645,12 +724,15 @@
             text-align: left;
         }
         
-        #legal-wall.show .glass-confirm { transform: translateY(0); }
+        #legal-wall.show .glass-confirm { transform: translateY(0);
+        }
 
         /* 四階進化專屬動畫 */
         @keyframes floatLvl {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            0%, 100% { transform: translateY(0);
+            }
+            50% { transform: translateY(-8px);
+            }
         }
     </style>
 </head>
@@ -658,7 +740,8 @@
 
 <div class="wrap">
     <div class="top">
-        <div class="top-btn" style="padding: 0 14px;" onclick="window.location.href='wall.html'">
+        <div class="top-btn" style="padding: 0 14px;"
+            onclick="window.location.href='wall.html'">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none"/><circle cx="12" cy="12" r="4" fill="currentColor" opacity="0.5"/></svg>
             <span class="top-btn-txt" style="letter-spacing: 1px;">光之海</span>
         </div>
@@ -947,13 +1030,12 @@
 
     // --- 點燈次數與皇冠邏輯 ---
     let warmthCount = parseInt(localStorage.getItem('pure_land_warmth') || '0');
-
     function getTier(count) {
-        if (count >= 100) return 4; 
+        if (count >= 100) return 4;
         if (count >= 15)  return 3; 
-        if (count >= 5)   return 2; 
+        if (count >= 5)   return 2;
         if (count >= 1)   return 1; 
-        return 1; 
+        return 1;
     }
 
     function checkLevelUp() {
@@ -974,7 +1056,6 @@
             "溫暖已然成形，紫晶的冠冕映射著你的清澈。",
             "光芒萬丈，耀金的法冠是你無量願力的見證。"
         ];
-        
         document.getElementById('lvl-title').textContent = titles[tier];
         document.getElementById('lvl-desc').textContent = descs[tier];
         document.getElementById('lvl-icon').innerHTML = getSpriteSVG(tier, "width:85px; height:85px; filter:drop-shadow(0 10px 20px rgba(203,163,122,0.2)); animation:floatLvl 3s infinite ease-in-out;");
@@ -989,7 +1070,6 @@
         databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com",
         projectId: "pure-land-light"
     };
-    
     if (!firebase.apps.length) firebase.initializeApp(fbCfg);
     const db = firebase.database();
     const lightsRef = db.ref('lights_v1');
@@ -1001,12 +1081,15 @@
         const now = Date.now();
         if (now - parseInt(lastCleanup) > 604800000) {
             const limitTime = now - 604800000;
-            lightsRef.orderByChild('ts').endAt(limitTime).once('value', snap => {
+            
+            firebase.database().goOnline(); // 清理前確保連線開啟
+            
+            lightsRef.orderByChild('ts').endAt(limitTime).once('value').then(snap => {
                 if (snap.exists()) {
                     snap.forEach(child => child.ref.remove().catch(e => {}));
                 }
-            });
-            localStorage.setItem('pure_land_cleanup', now.toString());
+                localStorage.setItem('pure_land_cleanup', now.toString());
+            }).catch(e => {});
         }
     }
 
@@ -1016,7 +1099,9 @@
 
     let selNeed = null, chosenT = null;
 
-    lightsRef.limitToLast(50).on('value', snap => {
+    // --- 修改一：將 .on 改為 .once，並在讀取後斷開連線 ---
+    firebase.database().goOnline();
+    lightsRef.limitToLast(50).once('value').then(snap => {
         const data = snap.val() || {};
         const posts = Object.values(data);
         const today = new Date().toLocaleDateString();
@@ -1026,12 +1111,20 @@
         animN('sn1', 0, todayPosts.length, 800);
         animN('sn2', 0, totalResps, 1000);
         renderPreview(data);
+
+        // 畫面渲染完畢後，強制斷開連線，把名額讓出
+        setTimeout(() => firebase.database().goOffline(), 1000);
+    }).catch(err => {
+        console.warn(err);
+        // 若發生錯誤，也確保釋放資源
+        firebase.database().goOffline();
     });
 
     function animN(id, from, to, dur) {
         const el = document.getElementById(id);
-        if (!el || to === 0) { if(el) el.textContent = '0'; return; }
-        const step = (to - from) / (dur / 16); 
+        if (!el || to === 0) { if(el) el.textContent = '0'; return;
+        }
+        const step = (to - from) / (dur / 16);
         let cur = from;
         const t = setInterval(() => {
             cur = Math.min(cur + step, to); 
@@ -1055,7 +1148,7 @@
             echo:  { lbl: '尋找共鳴', lc: 'ty-echo', lb: 'lb-echo' },
             night: { lbl: '深夜呢喃', lc: 'ty-night', lb: 'lb-night' }
         };
-        
+
         board.innerHTML = keys.map(id => {
             const p = data[id];
             const tm = typeMap[p.type] || typeMap.hole;
@@ -1110,7 +1203,7 @@
     }
 
     function updPostChar(el) {
-        document.getElementById('post-ch').textContent = el.value.length; 
+        document.getElementById('post-ch').textContent = el.value.length;
         chkSend();
     }
 
@@ -1129,11 +1222,15 @@
 
         const currentTier = getTier(warmthCount);
 
-        lightsRef.push({ type: chosenT, text: txt, ts: Date.now(), lights: 0, tier: currentTier })
-            .then(() => {
-                // 💡 路線B：永恆計數器 +1
-                db.ref('lights_v1_stats/total_warmth').transaction(n => (n || 0) + 1);
+        // --- 修改二：發文前重新喚醒連線 ---
+        firebase.database().goOnline();
 
+        // 確保推文和永恆計數器雙雙完成
+        const postPromise = lightsRef.push({ type: chosenT, text: txt, ts: Date.now(), lights: 0, tier: currentTier });
+        const statsPromise = db.ref('lights_v1_stats/total_warmth').transaction(n => (n || 0) + 1);
+
+        Promise.all([postPromise, statsPromise])
+            .then(() => {
                 closeOv('ov-post');
                 document.getElementById('post-txt').value = '';
                 document.getElementById('post-ch').textContent = '0';
@@ -1145,6 +1242,9 @@
                 localStorage.setItem('pure_land_warmth', warmthCount);
                 checkLevelUp();
 
+                // 確定寫入完成，安心斷線
+                setTimeout(() => firebase.database().goOffline(), 1000);
+
                 if (getTier(warmthCount) <= parseInt(localStorage.getItem('pure_land_tier') || '0')) {
                     setTimeout(() => { window.location.href = 'forum.html'; }, 300);
                 }
@@ -1153,10 +1253,14 @@
                 btn.disabled = false; 
                 btn.textContent = '發出這道光';
                 showToast('傳送失敗，請確認網路');
+                
+                // 發生錯誤也要斷線，保護資源
+                firebase.database().goOffline();
             });
     }
 
-    function goForum() { window.location.href = 'forum.html'; }
+    function goForum() { window.location.href = 'forum.html';
+    }
 
     function showOv(id) {
         const o = document.getElementById(id);
@@ -1172,7 +1276,8 @@
         document.body.style.overflow = '';
     }
 
-    function showAbout() { showOv('ov-about'); }
+    function showAbout() { showOv('ov-about');
+    }
 
     function showToast(msg) {
         const t = document.getElementById('toast');
