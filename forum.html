@@ -980,11 +980,12 @@
         // 1. 阻擋表情符號與特殊圖案
         const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
         
-        // 2. 終極網址阻擋 (涵蓋所有 .xxx 結尾的網域、http、www、甚至 IP 位址)
-        const urlRegex = /(https?:\/\/[^\s]+)|(www\.[^\s]+)|([a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/[^\s]*)?)|(\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b)/gi;
+        // 2. 終極網址阻擋 (升級版：無視空白鍵！專抓 w w w . 以及 . com / .tw 等常見結尾)
+        const urlRegex = /(https?:\/\/[^\s]+)|(w\s*w\s*w\s*\.\s*[a-zA-Z0-9-]+\s*\.\s*[a-zA-Z]{2,})|([a-zA-Z0-9-]+\s*\.\s*(com|tw|net|org|io|info|me|cc|xyz)\b)|(\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b)/gi;
         
-        // 3. 擴大交友/聯絡方式黑名單 (包含各種交友暗示與群組)
-        const contactRegex = /(加line|加賴|加ig|加微信|加好友|加我|私訊|私我|私聊|交友|約嗎|群組|社群|站內信|賴id|ig帳號|wechat|telegram|tg群|line\s*id)/gi;
+        // 3. 擴大交友黑名單 (升級版：無視空白鍵！例如「加 line」、「私 訊」、「賴 id」全擋)
+        const contactRegex = /(加\s*line|加\s*賴|加\s*ig|加\s*微\s*信|加\s*好\s*友|加\s*我|私\s*訊|私\s*我|私\s*聊|交\s*友|約\s*嗎|群\s*組|社\s*群|站\s*內\s*信|賴\s*id|ig\s*帳\s*號|wechat|telegram|tg\s*群|line\s*id)/gi;
+
 
         // 4. 阻擋 @標記帳號 (防堵 @username 這種留 IG 帳號的方式)
         const mentionRegex = /@[a-zA-Z0-9_.-]+/g;
