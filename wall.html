@@ -8,10 +8,10 @@
 <title>無量的光 · 守護之光</title>
 <style>
 :root {
-  --bg-gradient: linear-gradient(135deg, #FFFFFF 0%, #F9F8F7 100%);
+  --bg-gradient: linear-gradient(135deg, #FFFFFF 0%, #FAF9F8 100%);
   --glass-bg: rgba(255, 255, 255, 0.85);
   --glass-border: rgba(255, 255, 255, 0.98);
-  --text-main: #58504A; 
+  --text-main: #4A4440; 
   --text-light: #968E86;
   --accent-gold: #D4AF37; 
   --shadow-soft: 0 10px 40px rgba(160, 155, 150, 0.08);
@@ -29,7 +29,7 @@ html, body {
 .nav-btn { display: flex; align-items: center; justify-content: center; width: 44px; height: 42px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: var(--shadow-soft); cursor: pointer; }
 
 .bottom-text {
-  position: absolute; bottom: max(40px, env(safe-area-inset-bottom)); text-align: center; z-index: 5000; background: rgba(255,255,255,0.95); padding: 22px 35px; border-radius: 40px; backdrop-filter: blur(25px); border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft); animation: fadeUp 1.2s ease-out;
+  position: absolute; bottom: max(40px, env(safe-area-inset-bottom)); text-align: center; z-index: 5000; background: rgba(255,255,255,0.96); padding: 22px 35px; border-radius: 40px; backdrop-filter: blur(25px); border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft); animation: fadeUp 1.2s ease-out;
 }
 .bt-title { font-size: 0.85rem; letter-spacing: 5px; color: var(--text-light); margin-bottom: 8px; font-weight: 300;}
 .bt-count { font-size: 1.4rem; font-weight: 300; letter-spacing: 2px; color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 10px;}
@@ -41,11 +41,10 @@ html, body {
 #bubble-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
 .crystal-light {
   position: absolute; border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.98) 0%, rgba(212,175,55,0.15) 60%, transparent 100%);
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.98) 0%, rgba(212,175,55,0.1) 60%, transparent 100%);
   animation: riseUp var(--d) linear infinite, wiggleX var(--w) ease-in-out infinite alternate, softFade var(--d) linear infinite;
   will-change: transform, opacity;
 }
-
 @keyframes riseUp { 0% { transform: translateY(110vh); } 100% { transform: translateY(-15vh); } }
 @keyframes wiggleX { 0% { margin-left: -40px; } 100% { margin-left: 40px; } }
 @keyframes softFade { 0%, 100% { opacity: 0; } 15%, 85% { opacity: 0.8; } }
@@ -55,26 +54,26 @@ html, body {
 
 /* 普通精靈動畫 */
 .normal-node {
-  animation: nFloatY var(--dy) ease-in-out infinite alternate, 
-             nFloatX var(--dx) ease-in-out infinite alternate, 
-             nPulse var(--ds) ease-in-out infinite alternate;
+  animation: nFloatY var(--dy) ease-in-out infinite alternate, nFloatX var(--dx) ease-in-out infinite alternate, nPulse var(--ds) ease-in-out infinite alternate;
 }
 @keyframes nFloatY { 0% { transform: translateY(-60px); } 100% { transform: translateY(60px); } }
 @keyframes nFloatX { 0% { margin-left: -40px; } 100% { margin-left: 40px; } }
 @keyframes nPulse { 0% { transform: scale(0.7); opacity: 0.5; } 100% { transform: scale(1.3); opacity: 1; } }
 
-/* ✨ 大精靈王專屬：範圍極大且呼吸震撼 */
+/* ✨ 大精靈王：撼動螢幕的法相縮放 */
 .king-node {
-  animation: kFloatY 18s ease-in-out infinite alternate, 
-             kFloatX 22s ease-in-out infinite alternate, 
-             kPulse 10s ease-in-out infinite alternate;
+  left: 50% !important; top: 40% !important;
+  transform: translate(-50%, -50%) !important;
+  animation: kRise 15s ease-in-out infinite alternate, kPulse 12s ease-in-out infinite alternate;
 }
-@keyframes kFloatY { 0% { transform: translateY(-120px); } 100% { transform: translateY(120px); } }
-@keyframes kFloatX { 0% { margin-left: -90px; } 100% { margin-left: 90px; } }
-/* 縮放幅度：變小時(0.55)剛好是一般精靈的最大尺寸；變大時(1.05)接近整螢幕寬度 */
-@keyframes kPulse { 0% { transform: scale(0.55); opacity: 0.85; } 100% { transform: scale(1.05); opacity: 1; } }
+@keyframes kRise { 0% { margin-top: -80px; } 100% { margin-top: 80px; } }
+@keyframes kPulse { 
+    /* 縮放幅度：最小(0.65)剛好是一般精靈的最大值；最大(1.15)震撼全螢幕 */
+    0% { transform: translate(-50%, -50%) scale(0.65); opacity: 0.9; } 
+    100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; } 
+}
 
-.king-treasure-wrap { position: absolute; width: 100%; height: 100%; animation: kingRotate 35s linear infinite; }
+.king-treasure-wrap { position: absolute; width: 100%; height: 100%; animation: kingRotate 40s linear infinite; }
 @keyframes kingRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
 #loading { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; font-size: 0.95rem; letter-spacing: 6px; color: var(--text-light); z-index: 9999; background: #FFF; transition: opacity 0.6s; }
@@ -86,7 +85,7 @@ html, body {
 
 <div class="top-nav">
   <div class="nav-btn" onclick="window.location.href='index.html'">
-      <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2.2"><polyline points="15 18 9 12 15 6"/></svg>
   </div>
 </div>
 
@@ -102,10 +101,10 @@ html, body {
 
 <svg style="width:0;height:0;position:absolute;">
     <defs>
-        <linearGradient id="facet-cyan" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E0F7FA" stop-opacity="1"/><stop offset="100%" stop-color="#00838F" stop-opacity="0.9"/></linearGradient>
-        <linearGradient id="facet-gold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFF8E1" stop-opacity="1"/><stop offset="100%" stop-color="#D4AF37" stop-opacity="0.9"/></linearGradient>
-        <linearGradient id="facet-rose" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFF0F5" stop-opacity="1"/><stop offset="100%" stop-color="#C2185B" stop-opacity="0.9"/></linearGradient>
-        <linearGradient id="rainbow-glass" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fff" stop-opacity="0.9"/><stop offset="25%" stop-color="#E0F7FA" stop-opacity="0.8"/><stop offset="50%" stop-color="#FFFDE7" stop-opacity="0.9"/><stop offset="75%" stop-color="#FCE4EC" stop-opacity="0.8"/><stop offset="100%" stop-color="#E1D5E7" stop-opacity="0.7"/></linearGradient>
+        <linearGradient id="f-cyan" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E0F7FA" stop-opacity="1"/><stop offset="100%" stop-color="#00838F" stop-opacity="0.9"/></linearGradient>
+        <linearGradient id="f-gold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFF8E1" stop-opacity="1"/><stop offset="100%" stop-color="#D4AF37" stop-opacity="0.9"/></linearGradient>
+        <linearGradient id="f-rose" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFF0F5" stop-opacity="1"/><stop offset="100%" stop-color="#C2185B" stop-opacity="0.9"/></linearGradient>
+        <linearGradient id="rb-glass" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fff" stop-opacity="0.95"/><stop offset="25%" stop-color="#E0F7FA" stop-opacity="0.85"/><stop offset="50%" stop-color="#FFFDE7" stop-opacity="0.9"/><stop offset="75%" stop-color="#FCE4EC" stop-opacity="0.85"/><stop offset="100%" stop-color="#E1D5E7" stop-opacity="0.7"/></linearGradient>
     </defs>
 </svg>
 
@@ -117,59 +116,58 @@ html, body {
 const spriteColors = ["#D1E4EE", "#E8F0E1", "#E1D5E7", "#FDF5D3"];
 let currentDisplayNum = 0;
 
-// ✨ 採用高飽和多寶閣色彩的寶物
 const treasures = {
-    sword: `<g transform="translate(0,-80) scale(0.9)"><polygon points="50,10 56,40 50,105 44,40" fill="url(#facet-cyan)" stroke="#fff" stroke-width="1.5"/><circle cx="50" cy="105" r="7" fill="#fff" filter="drop-shadow(0 0 10px #D4AF37)"/></g>`,
-    vase: `<g transform="translate(0,-80) scale(0.9)"><polygon points="40,40 60,40 75,90 25,90" fill="url(#facet-gold)" stroke="#fff" stroke-width="2"/><polygon points="25,90 75,90 60,120 40,120" fill="#fff" opacity="0.7"/></g>`,
-    jewel: `<g transform="translate(0,-80) scale(0.9)"><polygon points="50,10 80,40 50,55 20,40" fill="url(#facet-rose)" stroke="#fff" stroke-width="2"/><polygon points="20,40 50,55 50,100" fill="#fff" opacity="0.6"/></g>`,
-    net: `<circle cx="0" cy="0" r="170" fill="none" stroke="url(#rainbow-glass)" stroke-width="1.5" stroke-dasharray="15 10" opacity="0.5"><animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="60s" repeatCount="indefinite"/></circle>`
+    sword: `<g transform="translate(0,-85) scale(1.1)"><polygon points="50,10 56,40 50,105 44,40" fill="url(#f-cyan)" stroke="#fff" stroke-width="1.2"/><circle cx="50" cy="105" r="7" fill="#fff" filter="drop-shadow(0 0 10px #D4AF37)"/></g>`,
+    vase: `<g transform="translate(0,-85) scale(1.1)"><polygon points="40,40 60,40 75,90 25,90" fill="url(#f-gold)" stroke="#fff" stroke-width="1.8"/><polygon points="25,90 75,90 60,120 40,120" fill="#fff" opacity="0.8"/></g>`,
+    jewel: `<g transform="translate(0,-85) scale(1.1)"><polygon points="50,10 80,40 50,55 20,40" fill="url(#f-rose)" stroke="#fff" stroke-width="1.8"/><polygon points="20,40 50,55 50,100" fill="#fff" opacity="0.7"/></g>`,
+    net: `<circle cx="0" cy="0" r="180" fill="none" stroke="url(#rb-glass)" stroke-width="1.8" stroke-dasharray="15 12" opacity="0.5"><animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="80s" repeatCount="indefinite"/></circle>`
 };
 
 function getKingSVG(total) {
-    let bodyFill = "url(#rainbow-glass)";
+    let bodyFill = "url(#rb-glass)";
     let treasureContent = "";
-    
-    // ✨ 調整軌道半徑為 180-220，確保彩色寶物不擋臉
     if (total >= 100000) {
-        treasureContent = `${treasures.net}<g class="king-treasure-wrap"><g transform="translate(210, 0)">${treasures.jewel}</g><g transform="translate(-210, 0)">${treasures.vase}</g><g transform="translate(0, 210)">${treasures.sword}</g></g>`;
+        treasureContent = `${treasures.net}<g class="king-treasure-wrap"><g transform="translate(230, 0)">${treasures.jewel}</g><g transform="translate(-230, 0)">${treasures.vase}</g><g transform="translate(0, 230)">${treasures.sword}</g></g>`;
     } else if (total >= 10000) {
-        treasureContent = `<g class="king-treasure-wrap"><g transform="translate(190, 0)">${treasures.jewel}</g></g>`;
+        treasureContent = `<g class="king-treasure-wrap"><g transform="translate(210, 0)">${treasures.jewel}</g></g>`;
     } else if (total >= 1000) {
-        treasureContent = `<g class="king-treasure-wrap"><g transform="translate(170, 0)">${treasures.sword}</g><g transform="translate(-170, 0)">${treasures.vase}</g></g>`;
+        bodyFill = "url(#pure-glass)";
+        treasureContent = `<g class="king-treasure-wrap"><g transform="translate(190, 0)">${treasures.sword}</g><g transform="translate(-190, 0)">${treasures.vase}</g></g>`;
     } else if (total >= 500) {
-        treasureContent = `<g class="king-treasure-wrap"><g transform="translate(160, 0)">${treasures.sword}</g></g>`;
+        bodyFill = "url(#pure-glass)";
+        treasureContent = `<g class="king-treasure-wrap"><g transform="translate(180, 0)">${treasures.sword}</g></g>`;
     }
 
-    // ✨ 核心修正：將 viewBox 收縮至 -100 到 100，讓精靈王「真正撐滿」整個 420px 容器
+    // ✨ 核心修正：收縮 viewBox 至 -100 ~ 100，讓本體撐滿容器
     return `
     <svg viewBox="-100 -100 200 200" width="100%" height="100%" overflow="visible">
         ${treasureContent}
-        <path d="M -40 40 C -70 40, -65 -10, -40 -30 C -20 -50, 20 -50, 40 -30 C 65 -10, 70 40, 40 40 C 20 40, 30 55, 0 55 C -30 55, -20 40, -40 40 Z" fill="${bodyFill}" opacity="0.98" />
-        <path d="M -22 -18 Q -15 -23 -8 -18" fill="none" stroke="#4A4440" stroke-width="6" stroke-linecap="round"/>
-        <path d="M 8 -18 Q 15 -23 22 -18" fill="none" stroke="#4A4440" stroke-width="6" stroke-linecap="round"/>
-        <ellipse cx="-28" cy="4" rx="12" ry="7" fill="#D1A299" opacity="0.8"/>
-        <ellipse cx="28" cy="4" rx="12" ry="7" fill="#D1A299" opacity="0.8"/>
+        <g transform="translate(0, -68) scale(0.38)">
+            <path d="M -50 40 Q -70 10 -40 -10 Q -20 -30 0 -10 Q 20 -30 40 -10 Q 70 10 50 40 Z" fill="url(#f-gold)" stroke="#fff" stroke-width="2.5"/>
+            <path d="M -28 8 C -45 5 -45 -18 -28 -18 C -11 -18 -11 5 -28 5" fill="none" stroke="#D4AF37" stroke-width="3.5" opacity="0.9"/>
+            <path d="M 28 8 C 45 5 45 -18 28 -18 C 11 -18 11 5 28 5" fill="none" stroke="#D4AF37" stroke-width="3.5" opacity="0.9"/>
+            <path d="M 0 -28 L 6 -18 L 0 -8 L -6 -18 Z" fill="#fff" filter="drop-shadow(0 0 12px #fff)"/>
+            <circle cx="-18" cy="22" r="3.5" fill="#fff"/><circle cx="18" cy="22" r="3.5" fill="#fff"/>
+        </g>
+        <path d="M -40 40 C -70 40, -65 -10, -40 -30 C -20 -50, 20 -50, 40 -30 C 65 -10, 70 40, 40 40 C 20 40, 30 55, 0 55 C -30 55, -20 40, -40 40 Z" fill="${bodyFill}" opacity="1" />
+        <path d="M -22 -18 Q -15 -24 -8 -18" fill="none" stroke="#3D3834" stroke-width="7" stroke-linecap="round"/>
+        <path d="M 8 -18 Q 15 -24 22 -18" fill="none" stroke="#3D3834" stroke-width="7" stroke-linecap="round"/>
+        <ellipse cx="-30" cy="5" rx="13" ry="8" fill="#D1A299" opacity="0.85"/>
+        <ellipse cx="30" cy="5" rx="13" ry="8" fill="#D1A299" opacity="0.85"/>
     </svg>`;
 }
 
 function generateSpriteSVG(color) {
-    return `
-    <svg viewBox="35 15 130 140" width="100%" height="100%" overflow="visible">
-        <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="${color}" opacity="0.9" />
-        <path d="M 85 85 Q 90 88 95 85" fill="none" stroke="#8C7A6B" stroke-width="2.8" stroke-linecap="round"/>
-        <path d="M 105 85 Q 110 88 115 85" fill="none" stroke="#8C7A6B" stroke-width="2.8" stroke-linecap="round"/>
-        <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/>
-        <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/>
-    </svg>`;
+    return `<svg viewBox="35 15 130 140" width="100%" height="100%" overflow="visible"><path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="${color}" opacity="0.9" /><path d="M 85 85 Q 90 88 95 85" fill="none" stroke="#8C7A6B" stroke-width="3" stroke-linecap="round"/><path d="M 105 85 Q 110 88 115 85" fill="none" stroke="#8C7A6B" stroke-width="3" stroke-linecap="round"/><ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/><ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/></svg>`;
 }
 
 function spawnSprites(count) {
     const sea = document.getElementById('sprite-sea'); sea.innerHTML = ''; 
-    for (let i = 0; i < Math.min(count, 20); i++) {
+    for (let i = 0; i < Math.min(count, 18); i++) {
         const node = document.createElement('div');
         node.className = 'sprite-node normal-node';
         node.innerHTML = generateSpriteSVG(spriteColors[i%4]);
-        const s = Math.random() * 60 + 90;
+        const s = Math.random() * 50 + 100;
         node.style.cssText = `width:${s}px; height:${s}px; left:${Math.random()*82}vw; top:${Math.random()*65+10}vh; --dy:${Math.random()*10+8}s; --dx:${Math.random()*12+10}s; --ds:${Math.random()*6+5}s; animation-delay:-${Math.random()*20}s;`;
         sea.appendChild(node);
     }
@@ -180,8 +178,7 @@ function spawnKing(total) {
     const sea = document.getElementById('sprite-sea');
     const king = document.createElement('div');
     king.className = 'sprite-node king-node';
-    // ✨ 大精靈王尺寸設定為 420px，配合新的 viewBox 產出巨大震撼效果
-    king.style.cssText = `width:420px; height:420px; left:50%; top:42%; transform:translate(-50%,-50%); z-index:100;`;
+    king.style.cssText = `width:420px; height:420px; z-index:100;`;
     king.innerHTML = getKingSVG(total);
     sea.appendChild(king);
 }
@@ -195,7 +192,7 @@ function updateVisuals(total) {
     const el = document.getElementById('total-warmth');
     if (el) el.textContent = total.toLocaleString();
     currentDisplayNum = total;
-    spawnSprites(Math.min(10 + total/15, 20));
+    spawnSprites(Math.min(10 + total/15, 18));
     spawnKing(total);
     const bSea = document.getElementById('bubble-sea'); bSea.innerHTML = '';
     for(let i=0; i<30; i++){
@@ -206,16 +203,14 @@ function updateVisuals(total) {
     }
 }
 
-// ✨ 強效防卡死：2.2 秒強制開門
-setTimeout(() => { if (document.getElementById('loading').style.display !== 'none') { updateVisuals(100000); hideLoader(); } }, 2200);
+setTimeout(() => { if (document.getElementById('loading').style.display !== 'none') { updateVisuals(100000); hideLoader(); } }, 2000);
 
 function startFetch() {
     try {
         if (!firebase.apps.length) firebase.initializeApp({ apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", authDomain: "pure-land-light.firebaseapp.com", databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com", projectId: "pure-land-light" });
         firebase.database().goOnline();
         firebase.database().ref('lights_v1_stats/total_warmth').once('value').then(snap => {
-            // ✨ 檢閱測試值：100,000 (記得之後改回真實數據)
-            const total = 100000; 
+            const total = 100000; // 測試模式
             updateVisuals(total); hideLoader();
             setTimeout(() => firebase.database().goOffline(), 1000);
         }).catch(() => hideLoader());
