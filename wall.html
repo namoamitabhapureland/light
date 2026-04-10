@@ -1,188 +1,187 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>燈火牆 · 無量的光</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>無量的光 · 守護之光</title>
+<style>
+:root {
+  --bg-gradient: linear-gradient(135deg, #FDFDFD, #F5F2EF);
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --text-main: #58504A; 
+  --text-light: #968E86;
+  --shadow-soft: 0 10px 40px rgba(160, 155, 150, 0.12);
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body {
+  margin: 0; padding: 0; width: 100%; height: 100dvh;
+  background: var(--bg-gradient); color: var(--text-main);
+  font-family: -apple-system, "PingFang TC", sans-serif;
+  overflow: hidden; display: flex; flex-direction: column; align-items: center;
+}
 
-    body {
-      margin: 0;
-      padding: 0;
-      background: #0a0a0a;
-      color: #f5e8c7;
-      font-family: 'Noto Serif TC', serif;
-      overflow-x: hidden;
-    }
+/* 頂部返回導航 */
+.top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: space-between; z-index: 10; position: absolute; top: 0;}
+.nav-btn { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: var(--shadow-soft); cursor: pointer; transition: 0.2s; }
+.nav-btn:active { transform: scale(0.92); }
+.nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;}
 
-    .header {
-      text-align: center;
-      padding: 40px 20px 20px;
-      background: linear-gradient(to bottom, rgba(20,10,0,0.9), transparent);
-    }
+/* 核心守護精靈與光暈區 */
+.guardian-container {
+  flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  position: relative; width: 100%;
+}
 
-    .header h1 {
-      font-size: 2.8rem;
-      margin: 0;
-      color: #ffcc77;
-      text-shadow: 0 0 30px rgba(255, 180, 80, 0.6);
-    }
+/* 背景光暈 (會隨數據變色、變大) */
+.aura {
+  position: absolute; width: 250px; height: 250px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(138,172,189,0.4) 0%, transparent 70%);
+  transition: all 2s ease-in-out;
+  animation: breatheAura 5s infinite alternate ease-in-out;
+  z-index: 1;
+}
+@keyframes breatheAura {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
 
-    .header p {
-      font-size: 1.1rem;
-      opacity: 0.8;
-      margin-top: 8px;
-    }
+/* 漂浮的小精靈 */
+.sprite-wrapper {
+  z-index: 2; width: 180px; height: 180px;
+  animation: floatSprite 4s infinite ease-in-out;
+  filter: drop-shadow(0 15px 25px rgba(203,163,122,0.15));
+}
+@keyframes floatSprite {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
 
-    .lamp-wall {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 24px;
-      padding: 30px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+/* 底部靜謐文字 */
+.bottom-text {
+  position: absolute; bottom: max(40px, env(safe-area-inset-bottom));
+  text-align: center; z-index: 10;
+  animation: fadeUp 1.5s ease-out;
+}
+.bt-title { font-size: 0.8rem; letter-spacing: 4px; color: var(--text-light); margin-bottom: 12px; font-weight: 300;}
+.bt-count { font-size: 1.5rem; font-weight: 300; letter-spacing: 2px; color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 8px;}
+.bt-count span { font-weight: 400; color: #CBA37A; font-size: 2rem; text-shadow: 0 0 15px rgba(203,163,122,0.3);}
 
-    .lamp-card {
-      background: rgba(30, 20, 10, 0.85);
-      border-radius: 20px;
-      padding: 24px;
-      border: 1px solid rgba(255, 180, 80, 0.2);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-    }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-    .lamp-card:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 20px 50px rgba(255, 140, 60, 0.25);
-      border-color: rgba(255, 180, 80, 0.5);
-    }
-
-    .lamp-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 60%;
-      height: 60%;
-      background: radial-gradient(circle, rgba(255,220,120,0.25) 0%, transparent 70%);
-      opacity: 0;
-      transition: all 0.6s;
-    }
-
-    .lamp-card:hover::before {
-      opacity: 1;
-      top: -20%;
-      left: -20%;
-    }
-
-    .category {
-      font-size: 0.85rem;
-      color: #ffaa55;
-      margin-bottom: 12px;
-      display: inline-block;
-    }
-
-    .content {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      margin-bottom: 20px;
-      min-height: 120px;
-    }
-
-    .footer-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.9rem;
-      opacity: 0.75;
-    }
-
-    .lights {
-      color: #ffdd88;
-    }
-
-    .back-btn {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: rgba(255, 140, 60, 0.9);
-      color: white;
-      border: none;
-      padding: 14px 24px;
-      border-radius: 50px;
-      font-size: 1rem;
-      box-shadow: 0 8px 25px rgba(255, 100, 30, 0.4);
-      cursor: pointer;
-      z-index: 100;
-    }
-  </style>
+/* 讀取中的遮罩 */
+#loading { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; font-size: 0.85rem; letter-spacing: 3px; color: var(--text-light); z-index: 20; background: var(--bg-gradient); transition: opacity 0.8s; }
+</style>
 </head>
 <body>
 
-  <div class="header">
-    <h1>🌟 燈火牆</h1>
-    <p>此時此刻，全世界有這些燈正在微微發亮</p>
+<div id="loading">感受光芒中...</div>
+
+<div class="top-nav">
+  <div class="nav-btn" onclick="history.back() || (window.location.href='index.html')">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
   </div>
+</div>
 
-  <div class="lamp-wall" id="lampContainer">
-    <!-- 這裡會由 JS 動態插入卡片 -->
+<div class="guardian-container">
+  <div class="aura" id="aura"></div>
+  
+  <div class="sprite-wrapper">
+    <svg viewBox="35 15 130 140" style="width:100%; height:100%;" overflow="visible">
+        <path d="M 75 55 L 80 25 L 90 40 L 100 20 L 110 40 L 120 25 L 125 55 Z" fill="rgba(212,175,55,0.4)" stroke="#D4AF37" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="80" cy="25" r="3" fill="#D4AF37"/>
+        <circle cx="100" cy="20" r="3.5" fill="#D4AF37"/>
+        <circle cx="120" cy="25" r="3" fill="#D4AF37"/>
+        <circle cx="100" cy="38" r="2" fill="#D4AF37"/>
+        
+        <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="#FDF5D3" />
+        
+        <path d="M 80 85 Q 85 88 90 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 110 85 Q 115 88 120 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/>
+        
+        <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/>
+        <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.6"/>
+    </svg>
   </div>
+</div>
 
-  <button class="back-btn" onclick="history.back()">← 回到點燈處</button>
+<div class="bottom-text">
+  <div class="bt-title">一燈即無量</div>
+  <div class="bt-count">此刻，有 <span id="total-warmth">0</span> 份善意發光</div>
+</div>
 
-  <script>
-    // 範例資料（之後換成從 Firebase 抓真實資料）
-    const sampleLamps = [
-      {
-        category: "心事樹洞",
-        content: "今天又夢到以前的自己了… 好想告訴那個小孩，沒事的，你會走過來的。",
-        lights: 27,
-        time: "12 分鐘前"
-      },
-      {
-        category: "求個鼓勵",
-        content: "面試又被刷掉了，心好累。好像怎麼努力都不夠。",
-        lights: 42,
-        time: "47 分鐘前"
-      },
-      {
-        category: "深夜呢喃",
-        content: "凌晨三點的台北，下著雨。我在陽台抽煙，突然覺得自己好渺小，但又莫名安心。",
-        lights: 19,
-        time: "2 小時前"
-      },
-      {
-        category: "尋找共鳴",
-        content: "有人也曾經一邊哭一邊笑嗎？今天在捷運上突然就哭了出來。",
-        lights: 35,
-        time: "剛剛"
-      }
-    ];
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-    function renderLamps() {
-      const container = document.getElementById('lampContainer');
-      container.innerHTML = '';
+<script>
+// --- Firebase 連線 ---
+const fbCfg = {
+  apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", 
+  authDomain: "pure-land-light.firebaseapp.com",
+  databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com",
+  projectId: "pure-land-light"
+};
+if (!firebase.apps.length) firebase.initializeApp(fbCfg);
+const db = firebase.database();
+const lightsRef = db.ref('lights_v1');
 
-      sampleLamps.forEach(lamp => {
-        const card = document.createElement('div');
-        card.className = 'lamp-card';
-        card.innerHTML = `
-          <div class="category">「${lamp.category}」</div>
-          <div class="content">${lamp.content}</div>
-          <div class="footer-info">
-            <span>${lamp.time}</span>
-            <span class="lights">🔥 被點亮 ${lamp.lights} 次</span>
-          </div>
-        `;
-        container.appendChild(card);
-      });
+// 讀取全站溫暖總數 (發文 + 點燈 + 回覆)
+lightsRef.on('value', snap => {
+  const data = snap.val() || {};
+  let total = 0;
+  
+  Object.values(data).forEach(p => {
+    total += 1; // 1篇發文算1份善意
+    total += (p.lights || 0); // 點燈數
+    if (p.resps) {
+      total += Object.keys(p.resps).length; // 回覆數
     }
+  });
 
-    window.onload = renderLamps;
-  </script>
+  updateVisuals(total);
+  
+  // 隱藏讀取畫面
+  const loader = document.getElementById('loading');
+  loader.style.opacity = '0';
+  setTimeout(() => loader.style.display = 'none', 800);
+});
+
+// 數字跳動動畫
+function animN(id, from, to, dur) {
+  const el = document.getElementById(id);
+  if (!el || to === 0) { if(el) el.textContent = '0'; return; }
+  const step = (to - from) / (dur / 16); 
+  let cur = from;
+  const t = setInterval(() => {
+    cur = Math.min(cur + step, to); 
+    el.textContent = Math.round(cur);
+    if (cur >= to) clearInterval(t);
+  }, 16);
+}
+
+let currentDisplayNum = 0;
+
+// 根據溫暖總數，改變光暈顏色與大小
+function updateVisuals(total) {
+  animN('total-warmth', currentDisplayNum, total, 1500);
+  currentDisplayNum = total;
+
+  const aura = document.getElementById('aura');
+  
+  if (total <= 50) {
+    // 微光青
+    aura.style.background = 'radial-gradient(circle, rgba(138,172,189,0.3) 0%, transparent 65%)';
+    aura.style.width = '250px'; aura.style.height = '250px';
+  } else if (total <= 150) {
+    // 琉璃紫
+    aura.style.background = 'radial-gradient(circle, rgba(207,164,164,0.35) 0%, transparent 70%)';
+    aura.style.width = '320px'; aura.style.height = '320px';
+  } else {
+    // 無量金
+    aura.style.background = 'radial-gradient(circle, rgba(212,175,55,0.25) 0%, rgba(203,163,122,0.15) 40%, transparent 75%)';
+    aura.style.width = '400px'; aura.style.height = '400px';
+  }
+}
+</script>
 </body>
 </html>
