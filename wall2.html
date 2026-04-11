@@ -189,10 +189,19 @@ function generateKingSVG(colorKey) {
            </radialGradient>`;
 
     const crownGrad = colorKey === 'rainbow'
-        ? `<linearGradient id="kg-crown" x1="0%" y1="0%" x2="100%" y2="100%">
-               <stop offset="0%"   stop-color="#FBBF24"/>
-               <stop offset="40%"  stop-color="#60A5FA"/>
-               <stop offset="100%" stop-color="#A78BFA"/>
+        ? `<linearGradient id="kg-crown" x1="0%" y1="0%" x2="100%" y2="0%">
+               <stop offset="0%"   stop-color="#FF9AA2"/>
+               <stop offset="20%"  stop-color="#FFB347"/>
+               <stop offset="40%"  stop-color="#FFE066"/>
+               <stop offset="60%"  stop-color="#77DD77"/>
+               <stop offset="80%"  stop-color="#89CFF0"/>
+               <stop offset="100%" stop-color="#C9A0DC"/>
+           </linearGradient>
+           <!-- 立體高光層（疊在彩虹上） -->
+           <linearGradient id="kg-crown-hi" x1="0%" y1="0%" x2="0%" y2="100%">
+               <stop offset="0%"   stop-color="white"  stop-opacity="0.55"/>
+               <stop offset="45%"  stop-color="white"  stop-opacity="0.12"/>
+               <stop offset="100%" stop-color="black"  stop-opacity="0.10"/>
            </linearGradient>`
         : `<linearGradient id="kg-crown" x1="0%" y1="0%" x2="70%" y2="100%">
                <stop offset="0%"   stop-color="${t.c0}"/>
@@ -236,6 +245,13 @@ function generateKingSVG(colorKey) {
         <!-- 底座帶 -->
         <rect x="60" y="78" width="80" height="18" rx="6"
               fill="url(#kg-crown)" stroke="${t.c2}" stroke-width="0.8"/>
+        <!-- 彩虹版：立體高光疊層 -->
+        ${colorKey === 'rainbow' ? `
+        <polygon points="62,82  74,50  86,76"  fill="url(#kg-crown-hi)" opacity="0.9"/>
+        <polygon points="86,82  100,36  114,82" fill="url(#kg-crown-hi)" opacity="0.9"/>
+        <polygon points="114,76 126,50  138,82" fill="url(#kg-crown-hi)" opacity="0.9"/>
+        <rect x="60" y="78" width="80" height="18" rx="6" fill="url(#kg-crown-hi)" opacity="0.9"/>
+        ` : ''}
         <!-- 皇冠光澤 -->
         <rect x="63" y="80" width="74" height="6" rx="3"
               fill="${t.shimmer}"/>
