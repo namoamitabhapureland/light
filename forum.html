@@ -366,6 +366,21 @@
             transition: 0.2s;
             cursor: pointer;
         }
+        /* ✨ 新增：點燈時的微光粒子動畫 */
+        .light-particle {
+            position: fixed;
+            pointer-events: none;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-cheer);
+            border-radius: 50%;
+            z-index: 10000;
+            filter: blur(1px);
+        }
+        @keyframes spark {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
 
         .action-btn:active { background: white;
         }
@@ -1294,36 +1309,49 @@
     }
 
     function toggleLight(id, e) {
-        if(e) e.stopPropagation();
-        const isLit = litSet.has(id);
-        
-        firebase.database().goOnline();
-        
-        if (isLit) {
-            litSet.delete(id);
-            lightsRef.child(id).child('lights').transaction(n => Math.max(0, (n || 0) - 1))
-                .then(() => {
-                    fetchAndRenderPosts(); // 重新整理畫面並斷線
-                })
-                .catch(() => firebase.database().goOffline());
-        } else {
-            litSet.add(id);
-            Promise.all([
-                lightsRef.child(id).child('lights').transaction(n => (n || 0) + 1),
-                db.ref('lights_v1_stats/total_warmth').transaction(n => (n || 0) + 1)
-            ]).then(() => {
-                showToast('你為他點了一盞燈');
-                warmthCount++; 
-                localStorage.setItem('pure_land_warmth', warmthCount); 
-                checkLevelUp();
-                
-                fetchAndRenderPosts(); // 重新整理畫面並斷線
-            }).catch(() => {
-                firebase.database().goOffline();
-            });
+    if(e) {
+        e.stopPropagation();
+        // ✨ 視覺特效：點擊位置噴發 6 顆微光粒子
+        for (let i = 0; i < 6; i++) {
+            const p = document.createElement('div');
+            p.className = 'light-particle';
+            p.style.left = e.clientX + 'px';
+            p.style.top = e.clientY + 'px';
+            p.style.setProperty('--tx', (Math.random() - 0.5) * 100 + 'px');
+            p.style.setProperty('--ty', (Math.random() - 1) * 100 + 'px');
+            p.style.animation = `spark ${Math.random() * 0.5 + 0.5}s forwards`;
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 1000);
         }
-        localStorage.setItem('lit_v1', JSON.stringify([...litSet]));
     }
+
+    const isLit = litSet.has(id);
+    firebase.database().goOnline();
+    
+    if (isLit) {
+        litSet.delete(id);
+        lightsRef.child(id).child('lights').transaction(n => Math.max(0, (n || 0) - 1))
+            .then(() => fetchAndRenderPosts())
+            .catch(() => firebase.database().goOffline());
+    } else {
+        litSet.add(id);
+        Promise.all([
+            lightsRef.child(id).child('lights').transaction(n => (n || 0) + 1),
+            db.ref('lights_v1_stats/total_warmth').transaction(n => (n || 0) + 1)
+        ]).then(() => {
+            showToast('你點亮了一盞燈，善意已化為資糧');
+            
+            [span_1](start_span)[span_2](start_span)// ✨ 核心邏輯：點亮他人文章，自己的溫暖值也增加[span_1](end_span)[span_2](end_span)
+            warmthCount++; 
+            localStorage.setItem('pure_land_warmth', warmthCount); 
+            checkLevelUp(); [span_3](start_span)// 檢查是否觸發精靈進化[span_3](end_span)
+            
+            fetchAndRenderPosts(); 
+        }).catch(() => firebase.database().goOffline());
+    }
+    localStorage.setItem('lit_v1', JSON.stringify([...litSet]));
+}
+
 
     window.reportPost = (id, e) => { 
         if(e) e.stopPropagation();
