@@ -238,7 +238,7 @@
 
     function fetchOnce() {
         statsRef.once('value').then(snap => {
-            const total = snap.val() || 0;
+            const total = 500;
             animN('total-warmth', 0, total, 1500);
             spawnSprites(total > 150 ? 25 : 8);
             spawnBubbles(total > 150 ? 30 : 12);
