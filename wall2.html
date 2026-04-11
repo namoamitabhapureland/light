@@ -1,140 +1,141 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icon-192.png">
-    <title>無量的光 · 守護之光</title>
-    <style>
-        :root {
-            --bg-gradient: linear-gradient(135deg, #FFFFFF 0%, #FDFCFB 100%);
-            --glass-border: rgba(255, 255, 255, 0.7); 
-            --text-main: #58504A; 
-            --text-light: #968E86;
-            --accent-gold: #D4AF37; 
-            --shadow-soft: 0 10px 40px rgba(160, 155, 150, 0.08);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>無量的光 · 守護之光</title>
+<style>
+:root {
+  /* 極致清透淨白背景 */
+  --bg-gradient: linear-gradient(135deg, #FFFFFF 0%, #FDFCFB 100%);
+  --glass-border: rgba(255, 255, 255, 0.7); 
+  --text-main: #58504A; 
+  --text-light: #968E86;
+  --accent-gold: #D4AF37; 
+  --shadow-soft: 0 10px 40px rgba(160, 155, 150, 0.08);
+}
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        html, body {
-            margin: 0; padding: 0; width: 100%; height: 100dvh;
-            background: var(--bg-gradient); color: var(--text-main);
-            font-family: -apple-system, "PingFang TC", sans-serif;
-            overflow: hidden; display: flex; flex-direction: column; align-items: center;
-        }
+html, body {
+  margin: 0; padding: 0; width: 100%; height: 100dvh;
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  font-family: -apple-system, "PingFang TC", sans-serif;
+  overflow: hidden; display: flex; flex-direction: column; align-items: center;
+}
 
-        /* 頂部導航列 */
-        .top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: space-between; z-index: 5000; position: absolute; top: 0; }
-        
-        .nav-btn { 
-            display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; 
-            border-radius: 50%; background: rgba(255, 255, 255, 0.6); 
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
-            border: 1px solid var(--glass-border); color: var(--text-main); 
-            box-shadow: var(--shadow-soft); cursor: pointer; transition: 0.2s; 
-        }
-        .nav-btn:active { transform: scale(0.92); }
+/* ✨ 頂部導航與說明按鈕 */
+.top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: space-between; z-index: 5000; position: absolute; top: 0;}
+.nav-btn { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: var(--shadow-soft); cursor: pointer; transition: 0.2s; }
+.nav-btn:active { transform: scale(0.92); }
 
-        /* 說明視窗 (Modal) */
-        #info-modal {
-            position: fixed; inset: 0; background: rgba(255,255,255,0.4); 
-            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            z-index: 6000; display: none; align-items: center; justify-content: center; opacity: 0; transition: 0.4s;
-        }
-        .info-card {
-            width: 85%; max-width: 320px; background: white; padding: 30px; border-radius: 30px;
-            box-shadow: var(--shadow-soft); text-align: center; border: 1px solid var(--glass-border);
-        }
-        .info-card h3 { margin: 0 0 15px; font-weight: 400; color: var(--accent-gold); letter-spacing: 2px; }
-        .info-card p { font-size: 0.9rem; line-height: 1.8; color: var(--text-main); margin-bottom: 25px; }
-        .close-btn { 
-            padding: 10px 30px; border-radius: 20px; background: var(--bg-gradient); 
-            border: 1px solid var(--glass-border); color: var(--text-light); cursor: pointer; font-size: 0.85rem;
-        }
+/* ✨ 說明視窗 (Modal) 樣式 */
+#info-modal {
+  position: fixed; inset: 0; background: rgba(255,255,255,0.4); 
+  backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+  z-index: 6000; display: none; align-items: center; justify-content: center; opacity: 0; transition: 0.4s;
+}
+.info-card {
+  width: 85%; max-width: 320px; background: white; padding: 30px; border-radius: 30px;
+  box-shadow: var(--shadow-soft); text-align: center; border: 1px solid var(--glass-border);
+}
+.info-card h3 { margin: 0 0 15px; font-weight: 400; color: var(--accent-gold); letter-spacing: 2px; }
+.info-card p { font-size: 0.9rem; line-height: 1.8; color: var(--text-main); margin-bottom: 25px; }
+.close-btn { 
+  padding: 10px 30px; border-radius: 20px; background: var(--bg-gradient); 
+  border: 1px solid var(--glass-border); color: var(--text-light); cursor: pointer; font-size: 0.85rem;
+}
 
-        /* 底部計數 */
-        .bottom-text {
-            position: absolute; bottom: max(40px, env(safe-area-inset-bottom)); text-align: center; z-index: 5000;
-            background: rgba(255,255,255,0.4); padding: 18px 35px; border-radius: 40px;
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft);
-            animation: fadeUp 1.5s ease-out; width: max-content; max-width: 90%; white-space: nowrap;
-        }
-        .bt-title { font-size: 0.85rem; letter-spacing: 5px; color: var(--text-light); margin-bottom: 6px; font-weight: 300;}
-        .bt-count { font-size: 1.3rem; font-weight: 300; letter-spacing: 2px; color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 10px;}
-        .bt-count span { font-weight: 400; color: var(--accent-gold); font-size: 2.2rem; text-shadow: 0 0 20px rgba(212,175,55,0.25);}
+/* ✨ 底部計數看板 */
+.bottom-text {
+  position: absolute; bottom: max(40px, env(safe-area-inset-bottom)); text-align: center; z-index: 5000; 
+  background: rgba(255,255,255,0.4); 
+  padding: 18px 35px; border-radius: 40px; 
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+  border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft); 
+  animation: fadeUp 1.5s ease-out;
+  width: max-content; max-width: 90%; white-space: nowrap; 
+}
+.bt-title { font-size: 0.85rem; letter-spacing: 5px; color: var(--text-light); margin-bottom: 6px; font-weight: 300;}
+.bt-count { font-size: 1.3rem; font-weight: 300; letter-spacing: 2px; color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 10px;}
+.bt-count span { font-weight: 400; color: var(--accent-gold); font-size: 2.2rem; text-shadow: 0 0 20px rgba(212,175,55,0.25);}
 
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 視覺層 */
-        #visual-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-        #bubble-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
-        #sprite-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
+#visual-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
-        .crystal-light {
-            position: absolute; border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8) 0%, rgba(212,175,55,0.1) 60%, transparent 100%);
-            border: 0.5px solid rgba(212,175,55,0.05);
-            animation: riseUp var(--d) linear infinite, wiggleX var(--w) ease-in-out infinite alternate, softFade var(--d) linear infinite;
-            will-change: transform, opacity;
-        }
-        @keyframes riseUp { 0% { transform: translateY(110vh); } 100% { transform: translateY(-15vh); } }
-        @keyframes wiggleX { 0% { margin-left: -40px; } 100% { margin-left: 40px; } }
-        @keyframes softFade { 0%, 100% { opacity: 0; } 15%, 85% { opacity: 0.8; } }
+/* 晶透氣泡層 */
+#bubble-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+.crystal-light {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8) 0%, rgba(212,175,55,0.1) 60%, transparent 100%);
+  border: 0.5px solid rgba(212,175,55,0.05);
+  animation: riseUp var(--d) linear infinite, wiggleX var(--w) ease-in-out infinite alternate, softFade var(--d) linear infinite;
+  will-change: transform, opacity;
+}
 
-        .sprite-node {
-            position: absolute; will-change: transform, opacity;
-            animation: deepFloatY var(--dy) ease-in-out infinite alternate,
-                       deepFloatX var(--dx) ease-in-out infinite alternate,
-                       pulseBreathe var(--ds) ease-in-out infinite alternate;
-        }
-        @keyframes deepFloatY { 0% { transform: translateY(-80px); } 100% { transform: translateY(80px); } }
-        @keyframes deepFloatX { 0% { margin-left: -50px; } 100% { margin-left: 50px; } }
-        @keyframes pulseBreathe { 0% { transform: scale(0.65); opacity: 0.4; } 100% { transform: scale(1.3); opacity: 1; } }
+@keyframes riseUp { 0% { transform: translateY(110vh); } 100% { transform: translateY(-15vh); } }
+@keyframes wiggleX { 0% { margin-left: -40px; } 100% { margin-left: 40px; } }
+@keyframes softFade { 0%, 100% { opacity: 0; } 15%, 85% { opacity: 0.8; } }
 
-        .king-node {
-            position: absolute !important; left: 50% !important; top: 42% !important;
-            margin: 0 !important; transform: translate(-50%, -50%) !important;
-            animation: kPulse 10s ease-in-out infinite alternate !important;
-            will-change: transform;
-        }
-        @keyframes kPulse {
-            0%  { transform: translate(-50%, -50%) scale(0.85); opacity: 0.95; }
-            100%{ transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
-        }
+/* 普通精靈層 */
+#sprite-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
+.sprite-node {
+  position: absolute; will-change: transform, opacity;
+  animation: deepFloatY var(--dy) ease-in-out infinite alternate, 
+             deepFloatX var(--dx) ease-in-out infinite alternate, 
+             pulseBreathe var(--ds) ease-in-out infinite alternate;
+}
 
-        #loading { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; font-size: 0.9rem; letter-spacing: 5px; color: var(--text-light); z-index: 9999; background: var(--bg-gradient); transition: opacity 0.8s; }
-    </style>
+@keyframes deepFloatY { 0% { transform: translateY(-80px); } 100% { transform: translateY(80px); } }
+@keyframes deepFloatX { 0% { margin-left: -50px; } 100% { margin-left: 50px; } }
+@keyframes pulseBreathe { 0% { transform: scale(0.65); opacity: 0.4; } 100% { transform: scale(1.3); opacity: 1; } }
+
+/* ✨ 鎮守中央的精靈大王專屬定位 */
+.king-node {
+  position: absolute !important;
+  left: 50% !important; top: 42% !important;
+  margin: 0 !important; 
+  transform: translate(-50%, -50%) !important;
+  animation: kPulse 12s ease-in-out infinite alternate !important;
+  will-change: transform;
+  filter: drop-shadow(0 0 24px rgba(212,175,55,0.18));
+}
+@keyframes kPulse { 
+    0% { transform: translate(-50%, -50%) scale(0.78); opacity: 0.92; } 
+    100% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; } 
+}
+
+#loading { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; font-size: 0.9rem; letter-spacing: 5px; color: var(--text-light); z-index: 9999; background: var(--bg-gradient); transition: opacity 0.8s; }
+</style>
 </head>
 <body>
 
 <div id="loading">感受清透光芒中...</div>
 
 <div id="info-modal" onclick="toggleInfo(false)">
-    <div class="info-card" onclick="event.stopPropagation()">
-        <h3>善意之進化</h3>
-        <p>
-            隨著眾人累積善意的光芒<br>
-            守護精靈將會變幻型態：<br><br>
-            500 份 · 奶油精靈王<br>
-            1,000 份 · 黃金精靈王<br>
-            10,000 份 · 玫瑰精靈王<br>
-            100,000 份 · 彩虹精靈王<br>
-            1,000,000 份 · 極光超級精靈王
-        </p>
-        <button class="close-btn" onclick="toggleInfo(false)">關閉</button>
-    </div>
+  <div class="info-card" onclick="event.stopPropagation()">
+    <h3>光之形態</h3>
+    <p>
+      500 · 1,000 · 10,000<br>
+      100,000 · 1,000,000<br><br>
+      隨著眾人累積善意的光芒<br>
+      守護精靈將幻化為不同的光之型態
+    </p>
+    <button class="close-btn" onclick="toggleInfo(false)">我瞭解了</button>
+  </div>
 </div>
 
 <div class="top-nav">
-    <div class="nav-btn" onclick="window.location.href='index.html'">
-        <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    </div>
-    <div class="nav-btn" onclick="toggleInfo(true)">
-        <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-    </div>
+  <div class="nav-btn" onclick="window.location.href='index.html'">
+      <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </div>
+  <div class="nav-btn" onclick="toggleInfo(true)">
+      <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+  </div>
 </div>
 
 <div id="visual-sea">
@@ -143,8 +144,8 @@
 </div>
 
 <div class="bottom-text">
-    <div class="bt-title">一燈即無量</div>
-    <div class="bt-count">累計有 <span id="total-warmth">0</span> 份善意發光</div>
+  <div class="bt-title">一燈即無量</div>
+  <div class="bt-count">累計有 <span id="total-warmth">0</span> 份善意發光</div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -152,130 +153,448 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
-    const spriteColors = ["#D1E4EE", "#E8F0E1", "#E1D5E7", "#FDF5D3"];
+const spriteColors = ["#D1E4EE", "#E8F0E1", "#E1D5E7", "#FDF5D3"];
 
-    function toggleInfo(show) {
-        const modal = document.getElementById('info-modal');
-        if (show) {
-            modal.style.display = 'flex';
-            setTimeout(() => modal.style.opacity = '1', 10);
-        } else {
-            modal.style.opacity = '0';
-            setTimeout(() => modal.style.display = 'none', 400);
+// ✨ 控制說明視窗開關
+function toggleInfo(show) {
+  const modal = document.getElementById('info-modal');
+  if(show) {
+    modal.style.display = 'flex';
+    setTimeout(() => modal.style.opacity = '1', 10);
+  } else {
+    modal.style.opacity = '0';
+    setTimeout(() => modal.style.display = 'none', 400);
+  }
+}
+
+// 所有人共用的畫法
+function generateSpriteSVG(color) {
+    return `
+    <svg viewBox="35 15 130 140" width="100%" height="100%" overflow="visible">
+        <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="${color}" opacity="0.95" />
+        <path d="M 85 85 Q 90 88 95 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 105 85 Q 110 88 115 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/>
+        <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.7"/>
+        <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.7"/>
+    </svg>`;
+}
+
+/* ─────────────────────────────────────────────────────
+   ✨ 精靈王 SVG — 四段色彩主題
+   ───────────────────────────────────────────────────── */
+function generateKingSVG(colorKey) {
+
+    const themes = {
+        cream: {
+            b0:'#FFFEF8', b1:'#FDF5D3', b2:'#E8D5A0',
+            stroke:'rgba(212,175,55,0.28)', eye:'#8C7A6B', cheek:'#D1A299',
+            glow:'#FDF5D3',
+            c0:'#FFF2A0', c1:'#D4AF37', c2:'rgba(160,120,32,0.55)',
+            gem:'#FFFDE7', shimmer:'rgba(255,248,200,0.7)',
+            innocentEye: true
+        },
+        gold: {
+            b0:'#FFFFF2', b1:'#FFE878', b2:'#C8A030',
+            stroke:'rgba(160,120,32,0.25)', eye:'#9B7830', cheek:'#F5C842',
+            glow:'#FFF8DC',
+            c0:'#FFD700', c1:'#B8860B', c2:'rgba(122,88,0,0.5)',
+            gem:'#FFFFFF', shimmer:'rgba(255,240,100,0.75)',
+            innocentEye: false
+        },
+        rose: {
+            b0:'#FFF0F8', b1:'#F8C8D5', b2:'#E5989B',
+            stroke:'rgba(200,112,122,0.25)', eye:'#C07080', cheek:'#F4A7B9',
+            glow:'#FCE4EC',
+            c0:'#FFB6C1', c1:'#E07080', c2:'rgba(160,64,80,0.5)',
+            gem:'#FFFFFF', shimmer:'rgba(255,180,200,0.7)',
+            innocentEye: false
+        },
+        rainbow: {
+            b0:'#FFFFFF', b1:'#EDE0FF', b2:'#C8D8FF',
+            stroke:'rgba(220,210,240,0.30)', eye:'#B09AC8', cheek:'#F4A7B9',
+            glow:'#F0E8FF',
+            c0:'#FBBF24', c1:'#60A5FA', c2:'rgba(140,110,210,0.45)',
+            gem:'#FFFFFF', shimmer:'rgba(200,180,255,0.65)',
+            innocentEye: false
         }
+    };
+
+    const t = themes[colorKey] || themes.cream;
+
+    /* 彩虹版 body gradient 改為線性漸層 */
+    const bodyGrad = colorKey === 'rainbow'
+        ? `<linearGradient id="kg-body" x1="10%" y1="0%" x2="90%" y2="100%">
+               <stop offset="0%"   stop-color="#E0F7FA"/>
+               <stop offset="30%"  stop-color="#FFFDE7"/>
+               <stop offset="65%"  stop-color="#FCE4EC"/>
+               <stop offset="100%" stop-color="#E1D5E7"/>
+           </linearGradient>`
+        : `<radialGradient id="kg-body" cx="38%" cy="30%" r="68%">
+               <stop offset="0%"   stop-color="${t.b0}"/>
+               <stop offset="52%"  stop-color="${t.b1}"/>
+               <stop offset="100%" stop-color="${t.b2}"/>
+           </radialGradient>`;
+
+    const crownGrad = colorKey === 'rainbow'
+        ? `<linearGradient id="kg-crown" x1="0%" y1="0%" x2="100%" y2="0%">
+               <stop offset="0%"   stop-color="#FF9AA2"/>
+               <stop offset="20%"  stop-color="#FFB347"/>
+               <stop offset="40%"  stop-color="#FFE066"/>
+               <stop offset="60%"  stop-color="#77DD77"/>
+               <stop offset="80%"  stop-color="#89CFF0"/>
+               <stop offset="100%" stop-color="#C9A0DC"/>
+           </linearGradient>
+           <linearGradient id="kg-crown-hi" x1="0%" y1="0%" x2="0%" y2="100%">
+               <stop offset="0%"   stop-color="white"  stop-opacity="0.55"/>
+               <stop offset="45%"  stop-color="white"  stop-opacity="0.12"/>
+               <stop offset="100%" stop-color="black"  stop-opacity="0.10"/>
+           </linearGradient>`
+        : `<linearGradient id="kg-crown" x1="0%" y1="0%" x2="70%" y2="100%">
+               <stop offset="0%"   stop-color="${t.c0}"/>
+               <stop offset="55%"  stop-color="${t.c1}"/>
+               <stop offset="100%" stop-color="${t.c2}"/>
+           </linearGradient>`;
+
+    return `<svg viewBox="0 0 200 255" width="100%" height="100%" overflow="visible" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        ${bodyGrad}
+        ${crownGrad}
+        <radialGradient id="kg-glow" cx="50%" cy="58%" r="52%">
+          <stop offset="0%"   stop-color="${t.glow}" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="${t.glow}" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="kg-cheek" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="${t.cheek}" stop-opacity="0.62"/>
+          <stop offset="100%" stop-color="${t.cheek}" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="kg-hi" cx="30%" cy="25%" r="60%">
+          <stop offset="0%"   stop-color="white" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="white" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <ellipse cx="100" cy="162" rx="88" ry="92" fill="url(#kg-glow)"/>
+
+      <g>
+        <polygon points="62,82  74,50  86,76"
+                 fill="url(#kg-crown)" stroke="${t.c2}" stroke-width="0.8" stroke-linejoin="round"/>
+        <polygon points="86,82  100,36  114,82"
+                 fill="url(#kg-crown)" stroke="${t.c2}" stroke-width="0.8" stroke-linejoin="round"/>
+        <polygon points="114,76  126,50  138,82"
+                 fill="url(#kg-crown)" stroke="${t.c2}" stroke-width="0.8" stroke-linejoin="round"/>
+        <rect x="60" y="78" width="80" height="18" rx="6"
+              fill="url(#kg-crown)" stroke="${t.c2}" stroke-width="0.8"/>
+        ${colorKey === 'rainbow' ? `
+        <polygon points="62,82  74,50  86,76"  fill="url(#kg-crown-hi)" opacity="0.9"/>
+        <polygon points="86,82  100,36  114,82" fill="url(#kg-crown-hi)" opacity="0.9"/>
+        <polygon points="114,76 126,50  138,82" fill="url(#kg-crown-hi)" opacity="0.9"/>
+        <rect x="60" y="78" width="80" height="18" rx="6" fill="url(#kg-crown-hi)" opacity="0.9"/>
+        ` : ''}
+        <rect x="63" y="80" width="74" height="6" rx="3"
+              fill="${t.shimmer}"/>
+        <path d="M100 37 L103.5 42.5 L100 48 L96.5 42.5 Z"
+              fill="${t.gem}" opacity="0.92"/>
+        <path d="M74 51 L76.5 55.5 L74 60 L71.5 55.5 Z"
+              fill="${t.gem}" opacity="0.82"/>
+        <path d="M126 51 L128.5 55.5 L126 60 L123.5 55.5 Z"
+              fill="${t.gem}" opacity="0.82"/>
+      </g>
+
+      <path d="M 54 148 Q 30 143, 32 161 Q 34 175, 55 170"
+            fill="url(#kg-body)" stroke="${t.stroke}" stroke-width="1.5"
+            stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 146 148 Q 170 143, 168 161 Q 166 175, 145 170"
+            fill="url(#kg-body)" stroke="${t.stroke}" stroke-width="1.5"
+            stroke-linejoin="round" stroke-linecap="round"/>
+
+      <path d="
+        M  70 210
+        Q  66 224,  78 225
+        Q  90 226,  90 210
+        Q  95 217, 100 217
+        Q 105 217, 110 210
+        Q 110 226, 122 225
+        Q 134 224, 130 210
+        C 156 196, 164 158, 151 116
+        C 141  82, 123  68, 100  68
+        C  77  68,  59  82,  49 116
+        C  36 158,  44 196,  70 210
+        Z
+      " fill="url(#kg-body)" stroke="${t.stroke}" stroke-width="1.6"
+        stroke-linejoin="round"/>
+
+      <ellipse cx="84" cy="105" rx="18" ry="13" fill="url(#kg-hi)"/>
+
+      ${t.innocentEye ? `
+      <circle cx="89"  cy="130" r="6.5" fill="${t.eye}" opacity="0.82"/>
+      <circle cx="111" cy="130" r="6.5" fill="${t.eye}" opacity="0.82"/>
+      <circle cx="91"  cy="127" r="2.4" fill="white" opacity="0.75"/>
+      <circle cx="113" cy="127" r="2.4" fill="white" opacity="0.75"/>
+      ` : `
+      <path d="M 82 130 Q 90 123, 97 130"
+            fill="none" stroke="${t.eye}" stroke-width="3.5"
+            stroke-linecap="round"/>
+      <path d="M 103 130 Q 110 123, 118 130"
+            fill="none" stroke="${t.eye}" stroke-width="3.5"
+            stroke-linecap="round"/>
+      `}
+
+      <ellipse cx="76"  cy="143" rx="15" ry="9" fill="url(#kg-cheek)"/>
+      <ellipse cx="124" cy="143" rx="15" ry="9" fill="url(#kg-cheek)"/>
+    </svg>`;
+}
+
+/* ─────────────────────────────────────────────────────
+   ✨ 百萬超級精靈王
+   ───────────────────────────────────────────────────── */
+function generateMillionKingSVG() {
+
+    // 4芒星 helper: 在(cx,cy)畫外徑R、內徑r的四芒星
+    function star4(cx, cy, R, r, color, dur, delay) {
+        const p = `M ${cx},${cy-R} L ${cx+r},${cy-r} L ${cx+R},${cy} L ${cx+r},${cy+r} L ${cx},${cy+R} L ${cx-r},${cy+r} L ${cx-R},${cy} L ${cx-r},${cy-r} Z`;
+        return `<path d="${p}" fill="${color}" opacity="0.85">
+                  <animate attributeName="opacity" values="0.3;1;0.3" dur="${dur}s" begin="${delay}s" repeatCount="indefinite"/>
+                  <animateTransform attributeName="transform" type="rotate" from="0 ${cx} ${cy}" to="45 ${cx} ${cy}" dur="${dur*2}s" repeatCount="indefinite"/>
+                </path>`;
     }
 
-    function generateSpriteSVG(color) {
-        return `<svg viewBox="35 15 130 140" width="100%" height="100%"><path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="${color}" opacity="0.95" /><path d="M 85 85 Q 90 88 95 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/><path d="M 105 85 Q 110 88 115 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.7"/><ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.7"/></svg>`;
+    return `<svg viewBox="0 0 200 272" width="100%" height="100%" overflow="visible" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="km-body" cx="38%" cy="30%" r="70%">
+          <stop offset="0%"   stop-color="#FFFFFF"/>
+          <stop offset="38%"  stop-color="#F5F0FF"/>
+          <stop offset="72%"  stop-color="#EBF5FF"/>
+          <stop offset="100%" stop-color="#E2E8F8"/>
+        </radialGradient>
+        <linearGradient id="km-aurora" x1="15%" y1="0%" x2="85%" y2="100%">
+          <stop offset="0%"   stop-color="#B8F0FF" stop-opacity="0.18"/>
+          <stop offset="40%"  stop-color="#FFD8F0" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#D8D0FF" stop-opacity="0.20"/>
+        </linearGradient>
+        <linearGradient id="km-crown" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stop-color="#FF9AA2"/>
+          <stop offset="18%"  stop-color="#FFB347"/>
+          <stop offset="36%"  stop-color="#FFE566"/>
+          <stop offset="54%"  stop-color="#77DD77"/>
+          <stop offset="72%"  stop-color="#89CFF0"/>
+          <stop offset="100%" stop-color="#C9A0DC"/>
+        </linearGradient>
+        <linearGradient id="km-crown-hi" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="white" stop-opacity="0.72"/>
+          <stop offset="42%"  stop-color="white" stop-opacity="0.14"/>
+          <stop offset="100%" stop-color="black" stop-opacity="0.09"/>
+        </linearGradient>
+        <linearGradient id="km-halo" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stop-color="#FF9AA2"/>
+          <stop offset="20%"  stop-color="#FFE566"/>
+          <stop offset="42%"  stop-color="#77DD77"/>
+          <stop offset="64%"  stop-color="#89CFF0"/>
+          <stop offset="82%"  stop-color="#C9A0DC"/>
+          <stop offset="100%" stop-color="#FF9AA2"/>
+        </linearGradient>
+        <radialGradient id="km-glow" cx="50%" cy="57%" r="52%">
+          <stop offset="0%"   stop-color="#EAE4FF" stop-opacity="0.65"/>
+          <stop offset="100%" stop-color="#EAE4FF" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="km-cheek" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#FFB8D0" stop-opacity="0.65"/>
+          <stop offset="100%" stop-color="#FFB8D0" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="km-hi" cx="30%" cy="25%" r="60%">
+          <stop offset="0%"   stop-color="white" stop-opacity="0.65"/>
+          <stop offset="100%" stop-color="white" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <ellipse cx="100" cy="178" rx="96" ry="102" fill="url(#km-glow)"/>
+
+      <ellipse cx="100" cy="23" rx="48" ry="11"
+               fill="none" stroke="url(#km-halo)" stroke-width="5.5" opacity="0.72"/>
+      <ellipse cx="100" cy="23" rx="48" ry="11"
+               fill="none" stroke="white" stroke-width="1.8" opacity="0.42"/>
+      <ellipse cx="100" cy="23" rx="48" ry="11"
+               fill="none" stroke="white" stroke-width="7" opacity="0">
+        <animate attributeName="opacity" values="0;0.28;0" dur="2.8s" repeatCount="indefinite"/>
+      </ellipse>
+
+      <path d="M 53 112
+               L 53  95  L 67  51
+               L 79  89  L 88  67
+               L 94  89  L 100 30
+               L 106  89 L 112 67
+               L 121  89 L 133 51
+               L 147  95 L 147 112 Z"
+            fill="url(#km-crown)"
+            stroke="rgba(200,180,240,0.32)" stroke-width="0.8" stroke-linejoin="round"/>
+      <path d="M 53 112
+               L 53  95  L 67  51
+               L 79  89  L 88  67
+               L 94  89  L 100 30
+               L 106  89 L 112 67
+               L 121  89 L 133 51
+               L 147  95 L 147 112 Z"
+            fill="url(#km-crown-hi)" opacity="0.88"/>
+      <path d="M 100 24 L 104 30 L 100 36 L 96 30 Z" fill="white" opacity="0.95"/>
+      <path d="M  88 61 L 91 67 L 88 73 L 85 67 Z" fill="white" opacity="0.80"/>
+      <path d="M 112 61 L 115 67 L 112 73 L 109 67 Z" fill="white" opacity="0.80"/>
+      <path d="M  67 45 L 70 51 L 67 57 L 64 51 Z" fill="white" opacity="0.68"/>
+      <path d="M 133 45 L 136 51 L 133 57 L 130 51 Z" fill="white" opacity="0.68"/>
+
+      <path d="M 54 162 Q 30 157, 32 175 Q 34 189, 55 184"
+            fill="url(#km-body)" stroke="rgba(200,210,240,0.20)" stroke-width="1.4"
+            stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 146 162 Q 170 157, 168 175 Q 166 189, 145 184"
+            fill="url(#km-body)" stroke="rgba(200,210,240,0.20)" stroke-width="1.4"
+            stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M  70 222
+               Q  66 236,  78 237
+               Q  90 238,  90 222
+               Q  95 229, 100 229
+               Q 105 229, 110 222
+               Q 110 238, 122 237
+               Q 134 236, 130 222
+               C 156 208, 164 170, 151 128
+               C 141  94, 123  80, 100  80
+               C  77  80,  59  94,  49 128
+               C  36 170,  44 208,  70 222 Z"
+            fill="url(#km-body)"
+            stroke="rgba(200,210,240,0.20)" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M  70 222
+               Q  66 236,  78 237
+               Q  90 238,  90 222
+               Q  95 229, 100 229
+               Q 105 229, 110 222
+               Q 110 238, 122 237
+               Q 134 236, 130 222
+               C 156 208, 164 170, 151 128
+               C 141  94, 123  80, 100  80
+               C  77  80,  59  94,  49 128
+               C  36 170,  44 208,  70 222 Z"
+            fill="url(#km-aurora)"/>
+      <ellipse cx="84" cy="117" rx="19" ry="14" fill="url(#km-hi)"/>
+
+      <path d="M 82 143 Q 90 136, 97 143"
+            fill="none" stroke="#B09AC8" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M 103 143 Q 110 136, 118 143"
+            fill="none" stroke="#B09AC8" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="89" y1="135" x2="89" y2="130" stroke="#C9A0DC" stroke-width="1.2" stroke-linecap="round" opacity="0.65"/>
+      <line x1="111" y1="135" x2="111" y2="130" stroke="#C9A0DC" stroke-width="1.2" stroke-linecap="round" opacity="0.65"/>
+
+      <ellipse cx="76"  cy="156" rx="16" ry="10" fill="url(#km-cheek)"/>
+      <ellipse cx="124" cy="156" rx="16" ry="10" fill="url(#km-cheek)"/>
+
+      ${star4( 33, 118,  7, 2.2, '#FFE566', 2.3,  0.0)}
+      ${star4(167, 112,  7, 2.2, '#89CFF0', 1.9,  0.4)}
+      ${star4( 20, 163,  5, 1.6, '#FF9AA2', 2.7,  0.8)}
+      ${star4(180, 158,  5, 1.6, '#C9A0DC', 2.1,  1.2)}
+      ${star4( 40, 200,  4, 1.3, '#77DD77', 3.1,  0.2)}
+      ${star4(162, 197,  4, 1.3, '#FFB347', 2.5,  0.6)}
+    </svg>`;
+}
+
+function spawnSprites(count) {
+    const sea = document.getElementById('sprite-sea');
+    sea.innerHTML = '';
+    for (let i = 0; i < count; i++) {
+        const node = document.createElement('div');
+        node.className = 'sprite-node';
+        node.innerHTML = generateSpriteSVG(spriteColors[i % 4]);
+        const size = Math.random() * 60 + 80;
+        node.style.cssText = `width:${size}px; height:${size}px; left:${Math.random()*85}vw; top:${Math.random()*70+5}vh; --dy:${Math.random()*8+6}s; --dx:${Math.random()*10+8}s; --ds:${Math.random()*6+5}s; animation-delay:-${Math.random()*20}s;`;
+        sea.appendChild(node);
+    }
+}
+
+function spawnBubbles(count) {
+    const sea = document.getElementById('bubble-sea');
+    sea.innerHTML = '';
+    for (let i = 0; i < count; i++) {
+        const b = document.createElement('div');
+        b.className = 'crystal-light';
+        const size = Math.random() * 40 + 10;
+        b.style.cssText = `width:${size}px; height:${size}px; left:${Math.random()*100}vw; --d:${Math.random()*15+15}s; --w:${Math.random()*8+8}s; animation-delay:-${Math.random()*30}s;`;
+        sea.appendChild(b);
+    }
+}
+
+function spawnKing(total) {
+    if (total < 500) return; 
+
+    const sea = document.getElementById('sprite-sea');
+    const king = document.createElement('div');
+    king.className = 'king-node';
+
+    // 判斷門檻套用對應的精靈王 SVG
+    if (total >= 1000000) {
+        king.style.cssText = 'width:400px; height:400px; z-index:100;';
+        king.innerHTML = generateMillionKingSVG();
+    } else {
+        let colorKey = 'cream';
+        if      (total >= 100000) colorKey = 'rainbow';
+        else if (total >= 10000)  colorKey = 'rose';
+        else if (total >= 1000)   colorKey = 'gold';
+        king.style.cssText = 'width:360px; height:360px; z-index:100;';
+        king.innerHTML = generateKingSVG(colorKey);
     }
 
-    // ✨ 超級精靈王：百萬級別
-    function generateMillionKingSVG() {
-        return `
-        <svg viewBox="0 0 200 280" width="100%" height="100%" overflow="visible" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <radialGradient id="halo-grad" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#FF9AA2" stop-opacity="0.3"/>
-                    <stop offset="50%" stop-color="#FFE566" stop-opacity="0.5"/>
-                    <stop offset="100%" stop-color="#C9A0DC" stop-opacity="0.3"/>
-                </radialGradient>
-                <linearGradient id="million-crown" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#FF9AA2"/><stop offset="50%" stop-color="#FFE566"/><stop offset="100%" stop-color="#C9A0DC"/>
-                </linearGradient>
-            </defs>
-            <ellipse cx="100" cy="25" rx="60" ry="18" fill="none" stroke="url(#halo-grad)" stroke-width="4" opacity="0.8">
-                <animate attributeName="rx" values="55;65;55" dur="3s" repeatCount="indefinite"/>
-            </ellipse>
-            <path d="M 50 110 L 65 50 L 85 70 L 100 30 L 115 70 L 135 50 L 150 110 Z" fill="url(#million-crown)" stroke="white" stroke-width="0.5"/>
-            <path d="M 70 230 C 30 180, 40 90, 100 80 C 160 90, 170 180, 130 230 Z" fill="white" fill-opacity="0.9" stroke="#E2E8F8" stroke-width="1.5"/>
-            <ellipse cx="75" cy="155" rx="15" ry="10" fill="#FFB8D0" fill-opacity="0.4"/>
-            <ellipse cx="125" cy="155" rx="15" ry="10" fill="#FFB8D0" fill-opacity="0.4"/>
-            <path d="M 80 145 Q 90 138, 98 145" fill="none" stroke="#B09AC8" stroke-width="3" stroke-linecap="round"/>
-            <path d="M 102 145 Q 110 138, 120 145" fill="none" stroke="#B09AC8" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="30" cy="120" r="3" fill="#FFE566"><animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/></circle>
-            <circle cx="170" cy="110" r="3" fill="#C9A0DC"><animate attributeName="opacity" values="0;1;0" dur="2.5s" repeatCount="indefinite" begin="0.5s"/></circle>
-        </svg>`;
+    sea.appendChild(king);
+}
+
+const fbCfg = {
+  apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", 
+  authDomain: "pure-land-light.firebaseapp.com",
+  databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com",
+  projectId: "pure-land-light"
+};
+if (!firebase.apps.length) firebase.initializeApp(fbCfg);
+const db = firebase.database();
+const statsRef = db.ref('lights_v1_stats/total_warmth');
+
+function hideLoader() {
+    const loader = document.getElementById('loading');
+    if (loader) {
+        loader.style.opacity = '0';
+        setTimeout(() => { if (loader) loader.style.display = 'none'; }, 800);
     }
+}
 
-    function generateKingSVG(colorKey) {
-        const themes = {
-            cream: { b: '#FDF5D3', c: '#D4AF37', innocent: true },
-            gold: { b: '#FFE878', c: '#B8860B', innocent: false },
-            rose: { b: '#F8C8D5', c: '#E07080', innocent: false },
-            rainbow: { b: '#EDE0FF', c: '#60A5FA', innocent: false }
-        };
-        const t = themes[colorKey];
-        const eyes = t.innocent 
-            ? `<circle cx="89" cy="130" r="6" fill="#8C7A6B"/><circle cx="111" cy="130" r="6" fill="#8C7A6B"/>`
-            : `<path d="M 82 130 Q 90 123, 97 130" fill="none" stroke="#8C7A6B" stroke-width="3.5" stroke-linecap="round"/><path d="M 103 130 Q 110 123, 118 130" fill="none" stroke="#8C7A6B" stroke-width="3.5" stroke-linecap="round"/>`;
+function fetchOnce() {
+    const failSafe = setTimeout(hideLoader, 5000);
+    statsRef.once('value').then(snap => {
+        clearTimeout(failSafe);
+        const total = snap.val() || 0;
+        animN('total-warmth', 0, total, 1500);
+        
+        let sCount = 8, bCount = 12;
+        if (total > 50) { sCount = 15; bCount = 20; }
+        if (total > 150) { sCount = 20; bCount = 25; }
+      
+        spawnSprites(sCount);
+        spawnBubbles(bCount);
+        spawnKing(total); 
 
-        return `<svg viewBox="0 0 200 255" width="100%" height="100%"><rect x="60" y="78" width="80" height="15" rx="5" fill="${t.c}"/><path d="M 70 210 Q 90 226, 90 210 C 141 82, 123 68, 100 68 C 59 82, 49 116, 70 210 Z" fill="${t.b}" stroke="rgba(0,0,0,0.05)" stroke-width="1.2"/>${eyes}</svg>`;
-    }
+        hideLoader();
+    }).catch(() => {
+        hideLoader();
+    });
+}
 
-    function spawnKing(total) {
-        if (total < 500) return;
-        const sea = document.getElementById('sprite-sea');
-        const king = document.createElement('div');
-        king.className = 'king-node';
-        if (total >= 1000000) {
-            king.style.cssText = 'width:420px; height:420px; z-index:100;';
-            king.innerHTML = generateMillionKingSVG();
-        } else {
-            let colorKey = 'cream';
-            if (total >= 100000) colorKey = 'rainbow';
-            else if (total >= 10000) colorKey = 'rose';
-            else if (total >= 1000) colorKey = 'gold';
-            king.style.cssText = 'width:360px; height:360px; z-index:100;';
-            king.innerHTML = generateKingSVG(colorKey);
-        }
-        sea.appendChild(king);
-    }
+function animN(id, from, to, dur) {
+  const el = document.getElementById(id);
+  if (!el || to === 0) { if(el) el.textContent = '0'; return; }
+  const step = (to - from) / (dur / 16); 
+  let cur = from;
+  const t = setInterval(() => {
+    cur = Math.min(cur + step, to); 
+    el.textContent = Math.round(cur).toLocaleString();
+    if (cur >= to) clearInterval(t);
+  }, 16);
+}
 
-    const fbCfg = { apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", authDomain: "pure-land-light.firebaseapp.com", databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com", projectId: "pure-land-light" };
-    if (!firebase.apps.length) firebase.initializeApp(fbCfg);
-    const db = firebase.database();
-    const statsRef = db.ref('lights_v1_stats/total_warmth');
+firebase.auth().signInAnonymously()
+    .then(() => fetchOnce())
+    .catch(() => fetchOnce());
 
-    function fetchOnce() {
-        statsRef.once('value').then(snap => {
-            const total = 500;
-            animN('total-warmth', 0, total, 1500);
-            spawnSprites(total > 150 ? 25 : 8);
-            spawnBubbles(total > 150 ? 30 : 12);
-            spawnKing(total);
-            document.getElementById('loading').style.opacity = '0';
-            setTimeout(() => document.getElementById('loading').style.display = 'none', 800);
-        });
-    }
-
-    function spawnSprites(count) {
-        const sea = document.getElementById('sprite-sea'); sea.innerHTML = '';
-        for (let i = 0; i < count; i++) {
-            const node = document.createElement('div'); node.className = 'sprite-node';
-            node.innerHTML = generateSpriteSVG(spriteColors[i % 4]);
-            const size = Math.random() * 60 + 80;
-            node.style.cssText = `width:${size}px; height:${size}px; left:${Math.random()*85}vw; top:${Math.random()*70+5}vh; --dy:${Math.random()*8+6}s; --dx:${Math.random()*10+8}s; --ds:${Math.random()*6+5}s; animation-delay:-${Math.random()*20}s;`;
-            sea.appendChild(node);
-        }
-    }
-
-    function spawnBubbles(count) {
-        const sea = document.getElementById('bubble-sea'); sea.innerHTML = '';
-        for (let i = 0; i < count; i++) {
-            const b = document.createElement('div'); b.className = 'crystal-light';
-            const size = Math.random() * 40 + 10;
-            b.style.cssText = `width:${size}px; height:${size}px; left:${Math.random()*100}vw; --d:${Math.random()*15+15}s; --w:${Math.random()*8+8}s; animation-delay:-${Math.random()*30}s;`;
-            sea.appendChild(b);
-        }
-    }
-
-    function animN(id, from, to, dur) {
-        const el = document.getElementById(id); if (!el) return;
-        const step = (to - from) / (dur / 16); let cur = from;
-        const t = setInterval(() => { cur = Math.min(cur + step, to); el.textContent = Math.round(cur).toLocaleString(); if (cur >= to) clearInterval(t); }, 16);
-    }
-
-    firebase.auth().signInAnonymously().then(() => fetchOnce()).catch(() => fetchOnce());
 </script>
 </body>
 </html>
