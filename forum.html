@@ -1067,13 +1067,14 @@
     // --- 3. 皇冠與階級邏輯 ---
     let warmthCount = parseInt(localStorage.getItem('pure_land_warmth') || '0');
     function getTier(count) { 
-    if (count >= 1000000) return 8; // 百萬超級精靈王
-    if (count >= 100000)  return 7; // 幻彩精靈王
-    if (count >= 10000)   return 6; // 玫瑰精靈王
-    if (count >= 1000)    return 5; // 黃金精靈王
-    if (count >= 500)     return 4; // ✨ 奶油精靈王 (開始稱王)
-    if (count >= 15)      return 3; // 琉璃精靈 (四階進化)
-    if (count >= 5)       return 2; // 微光精靈 (四階進化)
+    // 透過 Math.min 確保最終回傳的數字絕對不會超過 Firebase Rule 的上限 10
+    if (count >= 1000000) return Math.min(8, 10); // 百萬超級精靈王
+    if (count >= 100000)  return Math.min(7, 10); // 幻彩精靈王
+    if (count >= 10000)   return Math.min(6, 10); // 玫瑰精靈王
+    if (count >= 1000)    return Math.min(5, 10); // 黃金精靈王
+    if (count >= 500)     return Math.min(4, 10); // ✨ 奶油精靈王 (開始稱王)
+    if (count >= 15)      return Math.min(3, 10); // 琉璃精靈 (四階進化)
+    if (count >= 5)       return Math.min(2, 10); // 微光精靈 (四階進化)
     return 1; // 初心精靈
 }
 
