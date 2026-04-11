@@ -319,6 +319,185 @@ function generateKingSVG(colorKey) {
     </svg>`;
 }
 
+/* ══════════════════════════════════════════════════════
+   ✨ 百萬超級精靈王 — 極光水晶 · 5峰彩虹皇冠 · 聖光環 · 星芒
+   ══════════════════════════════════════════════════════ */
+function generateMillionKingSVG() {
+
+    // 4芒星 helper: 在(cx,cy)畫外徑R、內徑r的四芒星
+    function star4(cx, cy, R, r, color, dur, delay) {
+        const p = `M ${cx},${cy-R} L ${cx+r},${cy-r} L ${cx+R},${cy} L ${cx+r},${cy+r} L ${cx},${cy+R} L ${cx-r},${cy+r} L ${cx-R},${cy} L ${cx-r},${cy-r} Z`;
+        return `<path d="${p}" fill="${color}" opacity="0.85">
+                  <animate attributeName="opacity" values="0.3;1;0.3" dur="${dur}s" begin="${delay}s" repeatCount="indefinite"/>
+                  <animateTransform attributeName="transform" type="rotate" from="0 ${cx} ${cy}" to="45 ${cx} ${cy}" dur="${dur*2}s" repeatCount="indefinite"/>
+                </path>`;
+    }
+
+    return `<svg viewBox="0 0 200 272" width="100%" height="100%" overflow="visible" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- 極光身體 -->
+        <radialGradient id="km-body" cx="38%" cy="30%" r="70%">
+          <stop offset="0%"   stop-color="#FFFFFF"/>
+          <stop offset="38%"  stop-color="#F5F0FF"/>
+          <stop offset="72%"  stop-color="#EBF5FF"/>
+          <stop offset="100%" stop-color="#E2E8F8"/>
+        </radialGradient>
+        <!-- 極光疊色（讓身體隱約透出彩光） -->
+        <linearGradient id="km-aurora" x1="15%" y1="0%" x2="85%" y2="100%">
+          <stop offset="0%"   stop-color="#B8F0FF" stop-opacity="0.18"/>
+          <stop offset="40%"  stop-color="#FFD8F0" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#D8D0FF" stop-opacity="0.20"/>
+        </linearGradient>
+        <!-- 彩虹皇冠（橫向） -->
+        <linearGradient id="km-crown" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stop-color="#FF9AA2"/>
+          <stop offset="18%"  stop-color="#FFB347"/>
+          <stop offset="36%"  stop-color="#FFE566"/>
+          <stop offset="54%"  stop-color="#77DD77"/>
+          <stop offset="72%"  stop-color="#89CFF0"/>
+          <stop offset="100%" stop-color="#C9A0DC"/>
+        </linearGradient>
+        <!-- 皇冠立體高光 -->
+        <linearGradient id="km-crown-hi" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="white" stop-opacity="0.72"/>
+          <stop offset="42%"  stop-color="white" stop-opacity="0.14"/>
+          <stop offset="100%" stop-color="black" stop-opacity="0.09"/>
+        </linearGradient>
+        <!-- 光環彩虹 -->
+        <linearGradient id="km-halo" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stop-color="#FF9AA2"/>
+          <stop offset="20%"  stop-color="#FFE566"/>
+          <stop offset="42%"  stop-color="#77DD77"/>
+          <stop offset="64%"  stop-color="#89CFF0"/>
+          <stop offset="82%"  stop-color="#C9A0DC"/>
+          <stop offset="100%" stop-color="#FF9AA2"/>
+        </linearGradient>
+        <!-- 背景光暈 -->
+        <radialGradient id="km-glow" cx="50%" cy="57%" r="52%">
+          <stop offset="0%"   stop-color="#EAE4FF" stop-opacity="0.65"/>
+          <stop offset="100%" stop-color="#EAE4FF" stop-opacity="0"/>
+        </radialGradient>
+        <!-- 臉頰 -->
+        <radialGradient id="km-cheek" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#FFB8D0" stop-opacity="0.65"/>
+          <stop offset="100%" stop-color="#FFB8D0" stop-opacity="0"/>
+        </radialGradient>
+        <!-- 高光 -->
+        <radialGradient id="km-hi" cx="30%" cy="25%" r="60%">
+          <stop offset="0%"   stop-color="white" stop-opacity="0.65"/>
+          <stop offset="100%" stop-color="white" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- ── 環境光暈 ── -->
+      <ellipse cx="100" cy="178" rx="96" ry="102" fill="url(#km-glow)"/>
+
+      <!-- ══ 聖光環 (Halo) ══ -->
+      <!-- 外環彩虹 -->
+      <ellipse cx="100" cy="23" rx="48" ry="11"
+               fill="none" stroke="url(#km-halo)" stroke-width="5.5" opacity="0.72"/>
+      <!-- 內環白光 -->
+      <ellipse cx="100" cy="23" rx="48" ry="11"
+               fill="none" stroke="white" stroke-width="1.8" opacity="0.42"/>
+      <!-- 閃動脈衝 -->
+      <ellipse cx="100" cy="23" rx="48" ry="11"
+               fill="none" stroke="white" stroke-width="7" opacity="0">
+        <animate attributeName="opacity" values="0;0.28;0" dur="2.8s" repeatCount="indefinite"/>
+      </ellipse>
+
+      <!-- ══ 5峰彩虹皇冠 ══ -->
+      <!-- 主體輪廓 -->
+      <path d="M 53 112
+               L 53  95  L 67  51
+               L 79  89  L 88  67
+               L 94  89  L 100 30
+               L 106  89 L 112 67
+               L 121  89 L 133 51
+               L 147  95 L 147 112 Z"
+            fill="url(#km-crown)"
+            stroke="rgba(200,180,240,0.32)" stroke-width="0.8" stroke-linejoin="round"/>
+      <!-- 立體高光疊層 -->
+      <path d="M 53 112
+               L 53  95  L 67  51
+               L 79  89  L 88  67
+               L 94  89  L 100 30
+               L 106  89 L 112 67
+               L 121  89 L 133 51
+               L 147  95 L 147 112 Z"
+            fill="url(#km-crown-hi)" opacity="0.88"/>
+      <!-- 5顆菱形寶石（峰頂） -->
+      <!-- 中央最大 -->
+      <path d="M 100 24 L 104 30 L 100 36 L 96 30 Z" fill="white" opacity="0.95"/>
+      <!-- 左内 -->
+      <path d="M  88 61 L 91 67 L 88 73 L 85 67 Z" fill="white" opacity="0.80"/>
+      <!-- 右内 -->
+      <path d="M 112 61 L 115 67 L 112 73 L 109 67 Z" fill="white" opacity="0.80"/>
+      <!-- 左外 -->
+      <path d="M  67 45 L 70 51 L 67 57 L 64 51 Z" fill="white" opacity="0.68"/>
+      <!-- 右外 -->
+      <path d="M 133 45 L 136 51 L 133 57 L 130 51 Z" fill="white" opacity="0.68"/>
+
+      <!-- ══ 身體 ══ -->
+      <!-- 手臂 -->
+      <path d="M 54 162 Q 30 157, 32 175 Q 34 189, 55 184"
+            fill="url(#km-body)" stroke="rgba(200,210,240,0.20)" stroke-width="1.4"
+            stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 146 162 Q 170 157, 168 175 Q 166 189, 145 184"
+            fill="url(#km-body)" stroke="rgba(200,210,240,0.20)" stroke-width="1.4"
+            stroke-linejoin="round" stroke-linecap="round"/>
+      <!-- 主體 -->
+      <path d="M  70 222
+               Q  66 236,  78 237
+               Q  90 238,  90 222
+               Q  95 229, 100 229
+               Q 105 229, 110 222
+               Q 110 238, 122 237
+               Q 134 236, 130 222
+               C 156 208, 164 170, 151 128
+               C 141  94, 123  80, 100  80
+               C  77  80,  59  94,  49 128
+               C  36 170,  44 208,  70 222 Z"
+            fill="url(#km-body)"
+            stroke="rgba(200,210,240,0.20)" stroke-width="1.5" stroke-linejoin="round"/>
+      <!-- 極光覆蓋層 -->
+      <path d="M  70 222
+               Q  66 236,  78 237
+               Q  90 238,  90 222
+               Q  95 229, 100 229
+               Q 105 229, 110 222
+               Q 110 238, 122 237
+               Q 134 236, 130 222
+               C 156 208, 164 170, 151 128
+               C 141  94, 123  80, 100  80
+               C  77  80,  59  94,  49 128
+               C  36 170,  44 208,  70 222 Z"
+            fill="url(#km-aurora)"/>
+      <!-- 身體高光 -->
+      <ellipse cx="84" cy="117" rx="19" ry="14" fill="url(#km-hi)"/>
+
+      <!-- ══ 笑臉閉眼 + 睫毛光芒 ══ -->
+      <path d="M 82 143 Q 90 136, 97 143"
+            fill="none" stroke="#B09AC8" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M 103 143 Q 110 136, 118 143"
+            fill="none" stroke="#B09AC8" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- 眼角小星芒 -->
+      <line x1="89" y1="135" x2="89" y2="130" stroke="#C9A0DC" stroke-width="1.2" stroke-linecap="round" opacity="0.65"/>
+      <line x1="111" y1="135" x2="111" y2="130" stroke="#C9A0DC" stroke-width="1.2" stroke-linecap="round" opacity="0.65"/>
+
+      <!-- 臉頰 -->
+      <ellipse cx="76"  cy="156" rx="16" ry="10" fill="url(#km-cheek)"/>
+      <ellipse cx="124" cy="156" rx="16" ry="10" fill="url(#km-cheek)"/>
+
+      <!-- ══ 6顆閃爍四芒星 ══ -->
+      ${star4( 33, 118,  7, 2.2, '#FFE566', 2.3,  0.0)}
+      ${star4(167, 112,  7, 2.2, '#89CFF0', 1.9,  0.4)}
+      ${star4( 20, 163,  5, 1.6, '#FF9AA2', 2.7,  0.8)}
+      ${star4(180, 158,  5, 1.6, '#C9A0DC', 2.1,  1.2)}
+      ${star4( 40, 200,  4, 1.3, '#77DD77', 3.1,  0.2)}
+      ${star4(162, 197,  4, 1.3, '#FFB347', 2.5,  0.6)}
+    </svg>`;
+}
+
 function spawnSprites(count) {
     const sea = document.getElementById('sprite-sea');
     sea.innerHTML = ''; 
@@ -383,7 +562,7 @@ function fetchOnce() {
     const failSafe = setTimeout(hideLoader, 5000);
     statsRef.once('value').then(snap => {
         clearTimeout(failSafe);
-        const total = 100000;
+        const total = 10000000;
         animN('total-warmth', 0, total, 1500);
         
         let sCount = 8, bCount = 12;
