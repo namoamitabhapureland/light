@@ -140,31 +140,35 @@ function generateKingSVG(colorKey) {
     const themes = {
         cream: {
             b0:'#FFFEF8', b1:'#FDF5D3', b2:'#E8D5A0',
-            stroke:'#D4AF37', eye:'#8C7A6B', cheek:'#D1A299',
+            stroke:'rgba(212,175,55,0.28)', eye:'#8C7A6B', cheek:'#D1A299',
             glow:'#FDF5D3',
-            c0:'#FFF2A0', c1:'#D4AF37', c2:'#A07820',
-            gem:'#FFFDE7', shimmer:'rgba(255,248,200,0.7)'
+            c0:'#FFF2A0', c1:'#D4AF37', c2:'rgba(160,120,32,0.55)',
+            gem:'#FFFDE7', shimmer:'rgba(255,248,200,0.7)',
+            innocentEye: true
         },
         gold: {
             b0:'#FFFFF2', b1:'#FFE878', b2:'#C8A030',
-            stroke:'#A07820', eye:'#6B5020', cheek:'#F5C842',
+            stroke:'rgba(160,120,32,0.25)', eye:'#9B7830', cheek:'#F5C842',
             glow:'#FFF8DC',
-            c0:'#FFD700', c1:'#B8860B', c2:'#7A5800',
-            gem:'#FFFFFF', shimmer:'rgba(255,240,100,0.75)'
+            c0:'#FFD700', c1:'#B8860B', c2:'rgba(122,88,0,0.5)',
+            gem:'#FFFFFF', shimmer:'rgba(255,240,100,0.75)',
+            innocentEye: false
         },
         rose: {
             b0:'#FFF0F8', b1:'#F8C8D5', b2:'#E5989B',
-            stroke:'#C8707A', eye:'#8B5A60', cheek:'#F4A7B9',
+            stroke:'rgba(200,112,122,0.25)', eye:'#C07080', cheek:'#F4A7B9',
             glow:'#FCE4EC',
-            c0:'#FFB6C1', c1:'#E07080', c2:'#A04050',
-            gem:'#FFFFFF', shimmer:'rgba(255,180,200,0.7)'
+            c0:'#FFB6C1', c1:'#E07080', c2:'rgba(160,64,80,0.5)',
+            gem:'#FFFFFF', shimmer:'rgba(255,180,200,0.7)',
+            innocentEye: false
         },
         rainbow: {
             b0:'#FFFFFF', b1:'#EDE0FF', b2:'#C8D8FF',
-            stroke:'#9B8EC4', eye:'#6B5A8B', cheek:'#F4A7B9',
+            stroke:'rgba(220,210,240,0.30)', eye:'#B09AC8', cheek:'#F4A7B9',
             glow:'#F0E8FF',
-            c0:'#FBBF24', c1:'#60A5FA', c2:'#A78BFA',
-            gem:'#FFFFFF', shimmer:'rgba(200,180,255,0.65)'
+            c0:'#FBBF24', c1:'#60A5FA', c2:'rgba(140,110,210,0.45)',
+            gem:'#FFFFFF', shimmer:'rgba(200,180,255,0.65)',
+            innocentEye: false
         }
     };
 
@@ -222,16 +226,16 @@ function generateKingSVG(colorKey) {
       <g>
         <!-- 左尖 -->
         <polygon points="62,82  74,50  86,76"
-                 fill="url(#kg-crown)" stroke="${t.c2}" stroke-width="1.2" stroke-linejoin="round"/>
+                 fill="url(#kg-crown)" stroke="${t.c2}" stroke-width="0.8" stroke-linejoin="round"/>
         <!-- 中尖（最高） -->
         <polygon points="86,82  100,36  114,82"
-                 fill="url(#kg-crown)" stroke="${t.c2}" stroke-width="1.2" stroke-linejoin="round"/>
+                 fill="url(#kg-crown)" stroke="${t.c2}" stroke-width="0.8" stroke-linejoin="round"/>
         <!-- 右尖 -->
         <polygon points="114,76  126,50  138,82"
-                 fill="url(#kg-crown)" stroke="${t.c2}" stroke-width="1.2" stroke-linejoin="round"/>
+                 fill="url(#kg-crown)" stroke="${t.c2}" stroke-width="0.8" stroke-linejoin="round"/>
         <!-- 底座帶 -->
         <rect x="60" y="78" width="80" height="18" rx="6"
-              fill="url(#kg-crown)" stroke="${t.c2}" stroke-width="1.2"/>
+              fill="url(#kg-crown)" stroke="${t.c2}" stroke-width="0.8"/>
         <!-- 皇冠光澤 -->
         <rect x="63" y="80" width="74" height="6" rx="3"
               fill="${t.shimmer}"/>
@@ -249,10 +253,10 @@ function generateKingSVG(colorKey) {
       <!-- ══════════ 身體主體 ══════════ -->
       <!-- 兩側小手臂 (先畫在身體下方) -->
       <path d="M 54 148 Q 30 143, 32 161 Q 34 175, 55 170"
-            fill="url(#kg-body)" stroke="${t.stroke}" stroke-width="2.2"
+            fill="url(#kg-body)" stroke="${t.stroke}" stroke-width="1.5"
             stroke-linejoin="round" stroke-linecap="round"/>
       <path d="M 146 148 Q 170 143, 168 161 Q 166 175, 145 170"
-            fill="url(#kg-body)" stroke="${t.stroke}" stroke-width="2.2"
+            fill="url(#kg-body)" stroke="${t.stroke}" stroke-width="1.5"
             stroke-linejoin="round" stroke-linecap="round"/>
 
       <!-- 主體（圓潤鬼魂形，底部兩個小腳） -->
@@ -269,20 +273,29 @@ function generateKingSVG(colorKey) {
         C  77  68,  59  82,  49 116
         C  36 158,  44 196,  70 210
         Z
-      " fill="url(#kg-body)" stroke="${t.stroke}" stroke-width="2.8"
+      " fill="url(#kg-body)" stroke="${t.stroke}" stroke-width="1.6"
         stroke-linejoin="round"/>
 
       <!-- 身體高光 -->
       <ellipse cx="84" cy="105" rx="18" ry="13" fill="url(#kg-hi)"/>
 
       <!-- ══════════ 表情 ══════════ -->
-      <!-- 閉眼（下彎弧 = 舒服微笑眼） -->
+      ${t.innocentEye ? `
+      <!-- 無辜圓眼（500–999 奶油精靈王） -->
+      <circle cx="89"  cy="130" r="6.5" fill="${t.eye}" opacity="0.82"/>
+      <circle cx="111" cy="130" r="6.5" fill="${t.eye}" opacity="0.82"/>
+      <!-- 眼睛高光 -->
+      <circle cx="91"  cy="127" r="2.4" fill="white" opacity="0.75"/>
+      <circle cx="113" cy="127" r="2.4" fill="white" opacity="0.75"/>
+      ` : `
+      <!-- 笑臉閉眼（1000+ 金/玫瑰/彩虹） -->
       <path d="M 82 130 Q 90 123, 97 130"
-            fill="none" stroke="${t.eye}" stroke-width="3.8"
+            fill="none" stroke="${t.eye}" stroke-width="3.5"
             stroke-linecap="round"/>
       <path d="M 103 130 Q 110 123, 118 130"
-            fill="none" stroke="${t.eye}" stroke-width="3.8"
+            fill="none" stroke="${t.eye}" stroke-width="3.5"
             stroke-linecap="round"/>
+      `}
 
       <!-- 臉頰紅暈 -->
       <ellipse cx="76"  cy="143" rx="15" ry="9" fill="url(#kg-cheek)"/>
@@ -354,7 +367,7 @@ function fetchOnce() {
     const failSafe = setTimeout(hideLoader, 5000);
     statsRef.once('value').then(snap => {
         clearTimeout(failSafe);
-        const total = 100000;
+        const total = 500;
         animN('total-warmth', 0, total, 1500);
         
         let sCount = 8, bCount = 12;
