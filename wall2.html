@@ -8,7 +8,6 @@
     <title>無量的光 · 守護之光</title>
     <style>
         :root {
-            [span_4](start_span)/* 極致清透背景與變數設定[span_4](end_span) */
             --bg-gradient: linear-gradient(135deg, #FFFFFF 0%, #FDFCFB 100%);
             --glass-border: rgba(255, 255, 255, 0.7); 
             --text-main: #58504A; 
@@ -17,124 +16,63 @@
             --shadow-soft: 0 10px 40px rgba(160, 155, 150, 0.08);
         }
 
-        * { 
-            box-sizing: border-box; 
-            -webkit-tap-highlight-color: transparent; 
-        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         html, body {
             margin: 0; padding: 0; width: 100%; height: 100dvh;
-            background: var(--bg-gradient);
-            color: var(--text-main);
+            background: var(--bg-gradient); color: var(--text-main);
             font-family: -apple-system, "PingFang TC", sans-serif;
-            overflow: hidden; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
+            overflow: hidden; display: flex; flex-direction: column; align-items: center;
         }
 
-        [span_5](start_span)/* ✨ 頂部導航按鈕：返回與說明[span_5](end_span) */
-        .top-nav { 
-            width: 100%; 
-            padding: max(15px, env(safe-area-inset-top)) 20px 10px; 
-            display: flex; 
-            justify-content: space-between; 
-            z-index: 5000; 
-            position: absolute; 
-            top: 0;
-        }
-
+        /* 頂部導航列 */
+        .top-nav { width: 100%; padding: max(15px, env(safe-area-inset-top)) 20px 10px; display: flex; justify-content: space-between; z-index: 5000; position: absolute; top: 0; }
+        
         .nav-btn { 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            width: 44px; 
-            height: 44px; 
-            border-radius: 50%; 
-            background: rgba(255, 255, 255, 0.6); 
-            backdrop-filter: blur(15px); 
-            -webkit-backdrop-filter: blur(15px); 
-            border: 1px solid var(--glass-border); 
-            color: var(--text-main); 
-            box-shadow: var(--shadow-soft); 
-            cursor: pointer; 
-            transition: 0.2s; 
+            display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; 
+            border-radius: 50%; background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            border: 1px solid var(--glass-border); color: var(--text-main); 
+            box-shadow: var(--shadow-soft); cursor: pointer; transition: 0.2s; 
         }
         .nav-btn:active { transform: scale(0.92); }
 
-        /* ✨ 說明彈窗樣式 */
+        /* 說明視窗 (Modal) */
         #info-modal {
-            position: fixed; 
-            inset: 0; 
-            background: rgba(255, 255, 255, 0.4); 
-            backdrop-filter: blur(25px); 
-            -webkit-backdrop-filter: blur(25px);
-            z-index: 6000; 
-            display: none; 
-            align-items: center; 
-            justify-content: center; 
-            opacity: 0; 
-            transition: 0.4s;
+            position: fixed; inset: 0; background: rgba(255,255,255,0.4); 
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            z-index: 6000; display: none; align-items: center; justify-content: center; opacity: 0; transition: 0.4s;
         }
-
         .info-card {
-            width: 85%; 
-            max-width: 320px; 
-            background: white; 
-            padding: 30px; 
-            border-radius: 30px;
-            box-shadow: var(--shadow-soft); 
-            text-align: center; 
-            border: 1px solid var(--glass-border);
+            width: 85%; max-width: 320px; background: white; padding: 30px; border-radius: 30px;
+            box-shadow: var(--shadow-soft); text-align: center; border: 1px solid var(--glass-border);
         }
-
         .info-card h3 { margin: 0 0 15px; font-weight: 400; color: var(--accent-gold); letter-spacing: 2px; }
         .info-card p { font-size: 0.9rem; line-height: 1.8; color: var(--text-main); margin-bottom: 25px; }
-
         .close-btn { 
-            padding: 10px 30px; 
-            border-radius: 20px; 
-            background: var(--bg-gradient); 
-            border: 1px solid var(--glass-border); 
-            color: var(--text-light); 
-            cursor: pointer; 
-            font-size: 0.85rem;
+            padding: 10px 30px; border-radius: 20px; background: var(--bg-gradient); 
+            border: 1px solid var(--glass-border); color: var(--text-light); cursor: pointer; font-size: 0.85rem;
         }
 
-        [span_6](start_span)/* ✨ 底部計數看板[span_6](end_span) */
+        /* 底部計數 */
         .bottom-text {
-            position: absolute; 
-            bottom: max(40px, env(safe-area-inset-bottom)); 
-            text-align: center; 
-            z-index: 5000; 
-            background: rgba(255, 255, 255, 0.4); 
-            padding: 18px 35px; 
-            border-radius: 40px; 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px); 
-            border: 1px solid var(--glass-border); 
-            box-shadow: var(--shadow-soft); 
-            animation: fadeUp 1.5s ease-out;
-            width: max-content; 
-            max-width: 90%; 
-            white-space: nowrap; 
+            position: absolute; bottom: max(40px, env(safe-area-inset-bottom)); text-align: center; z-index: 5000;
+            background: rgba(255,255,255,0.4); padding: 18px 35px; border-radius: 40px;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); box-shadow: var(--shadow-soft);
+            animation: fadeUp 1.5s ease-out; width: max-content; max-width: 90%; white-space: nowrap;
         }
-
         .bt-title { font-size: 0.85rem; letter-spacing: 5px; color: var(--text-light); margin-bottom: 6px; font-weight: 300;}
         .bt-count { font-size: 1.3rem; font-weight: 300; letter-spacing: 2px; color: var(--text-main); display: flex; align-items: center; justify-content: center; gap: 10px;}
         .bt-count span { font-weight: 400; color: var(--accent-gold); font-size: 2.2rem; text-shadow: 0 0 20px rgba(212,175,55,0.25);}
 
-        @keyframes fadeUp { 
-            from { opacity: 0; transform: translateY(25px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
 
-        [span_7](start_span)/* ✨ 視覺海層設定[span_7](end_span) */
+        /* 視覺層 */
         #visual-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
         #bubble-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
         #sprite-sea { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
 
-        [span_8](start_span)/* 氣泡動畫設定[span_8](end_span) */
         .crystal-light {
             position: absolute; border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8) 0%, rgba(212,175,55,0.1) 60%, transparent 100%);
@@ -142,46 +80,32 @@
             animation: riseUp var(--d) linear infinite, wiggleX var(--w) ease-in-out infinite alternate, softFade var(--d) linear infinite;
             will-change: transform, opacity;
         }
-
         @keyframes riseUp { 0% { transform: translateY(110vh); } 100% { transform: translateY(-15vh); } }
         @keyframes wiggleX { 0% { margin-left: -40px; } 100% { margin-left: 40px; } }
         @keyframes softFade { 0%, 100% { opacity: 0; } 15%, 85% { opacity: 0.8; } }
 
-        [span_9](start_span)/* 普通精靈節點[span_9](end_span) */
         .sprite-node {
-            position: absolute; 
-            will-change: transform, opacity;
-            animation: deepFloatY var(--dy) ease-in-out infinite alternate, 
-                       deepFloatX var(--dx) ease-in-out infinite alternate, 
+            position: absolute; will-change: transform, opacity;
+            animation: deepFloatY var(--dy) ease-in-out infinite alternate,
+                       deepFloatX var(--dx) ease-in-out infinite alternate,
                        pulseBreathe var(--ds) ease-in-out infinite alternate;
         }
-
         @keyframes deepFloatY { 0% { transform: translateY(-80px); } 100% { transform: translateY(80px); } }
         @keyframes deepFloatX { 0% { margin-left: -50px; } 100% { margin-left: 50px; } }
         @keyframes pulseBreathe { 0% { transform: scale(0.65); opacity: 0.4; } 100% { transform: scale(1.3); opacity: 1; } }
 
-        [span_10](start_span)/* ✨ 精靈王專屬定位與呼吸脈動[span_10](end_span) */
         .king-node {
-            position: absolute !important;
-            left: 50% !important; 
-            top: 42% !important;
-            margin: 0 !important; 
-            transform: translate(-50%, -50%) !important;
+            position: absolute !important; left: 50% !important; top: 42% !important;
+            margin: 0 !important; transform: translate(-50%, -50%) !important;
             animation: kPulse 10s ease-in-out infinite alternate !important;
             will-change: transform;
-            filter: drop-shadow(0 0 24px rgba(212,175,55,0.18));
+        }
+        @keyframes kPulse {
+            0%  { transform: translate(-50%, -50%) scale(0.85); opacity: 0.95; }
+            100%{ transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
         }
 
-        @keyframes kPulse { 
-            0%  { transform: translate(-50%, -50%) scale(0.78); opacity: 0.92; } 
-            100%{ transform: translate(-50%, -50%) scale(1.08); opacity: 1; } 
-        }
-
-        #loading { 
-            position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; 
-            font-size: 0.9rem; letter-spacing: 5px; color: var(--text-light); z-index: 9999; 
-            background: var(--bg-gradient); transition: opacity 0.8s; 
-        }
+        #loading { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; font-size: 0.9rem; letter-spacing: 5px; color: var(--text-light); z-index: 9999; background: var(--bg-gradient); transition: opacity 0.8s; }
     </style>
 </head>
 <body>
@@ -190,29 +114,26 @@
 
 <div id="info-modal" onclick="toggleInfo(false)">
     <div class="info-card" onclick="event.stopPropagation()">
-        <h3>光之形態</h3>
+        <h3>善意之進化</h3>
         <p>
-            500 · 1,000 · 10,000<br>
-            100,000 · 1,000,000<br><br>
             隨著眾人累積善意的光芒<br>
-            守護精靈將幻化為不同的光之型態
+            守護精靈將會變幻型態：<br><br>
+            500 份 · 奶油精靈王<br>
+            1,000 份 · 黃金精靈王<br>
+            10,000 份 · 玫瑰精靈王<br>
+            100,000 份 · 彩虹精靈王<br>
+            1,000,000 份 · 極光超級精靈王
         </p>
-        <button class="close-btn" onclick="toggleInfo(false)">我瞭解了</button>
+        <button class="close-btn" onclick="toggleInfo(false)">關閉</button>
     </div>
 </div>
 
 <div class="top-nav">
     <div class="nav-btn" onclick="window.location.href='index.html'">
-        <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"/>
-        </svg>
+        <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </div>
     <div class="nav-btn" onclick="toggleInfo(true)">
-        <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-            <line x1="12" y1="17" x2="12.01" y2="17"></line>
-        </svg>
+        <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
     </div>
 </div>
 
@@ -233,7 +154,6 @@
 <script>
     const spriteColors = ["#D1E4EE", "#E8F0E1", "#E1D5E7", "#FDF5D3"];
 
-    // 控制說明視窗
     function toggleInfo(show) {
         const modal = document.getElementById('info-modal');
         if (show) {
@@ -245,87 +165,58 @@
         }
     }
 
-    [span_11](start_span)// 生成普通小精靈 SVG[span_11](end_span)
     function generateSpriteSVG(color) {
-        return `
-        <svg viewBox="35 15 130 140" width="100%" height="100%" overflow="visible">
-            <path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="${color}" opacity="0.95" />
-            <path d="M 85 85 Q 90 88 95 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M 105 85 Q 110 88 115 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/>
-            <ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.7"/>
-            <ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.7"/>
-        </svg>`;
+        return `<svg viewBox="35 15 130 140" width="100%" height="100%"><path d="M 60 140 C 40 140, 45 90, 70 70 C 90 50, 110 50, 130 70 C 155 90, 160 140, 140 140 C 120 140, 130 150, 100 150 C 70 150, 80 140, 60 140 Z" fill="${color}" opacity="0.95" /><path d="M 85 85 Q 90 88 95 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/><path d="M 105 85 Q 110 88 115 85" fill="none" stroke="#8C7A6B" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="70" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.7"/><ellipse cx="130" cy="95" rx="8" ry="4" fill="#D1A299" opacity="0.7"/></svg>`;
     }
 
-    [span_12](start_span)// ✨ 100 萬級：極光水晶超級精靈王[span_12](end_span)
+    // ✨ 超級精靈王：百萬級別
     function generateMillionKingSVG() {
-        // 內部輔助：四芒星
-        function star4(cx, cy, R, r, color, dur, delay) {
-            return `
-            <path d="M ${cx},${cy-R} L ${cx+r},${cy-r} L ${cx+R},${cy} L ${cx+r},${cy+r} L ${cx},${cy+R} L ${cx-r},${cy+r} L ${cx-R},${cy} L ${cx-r},${cy-r} Z" fill="${color}" opacity="0.85">
-                <animate attributeName="opacity" values="0.3;1;0.3" dur="${dur}s" begin="${delay}s" repeatCount="indefinite"/>
-                <animateTransform attributeName="transform" type="rotate" from="0 ${cx} ${cy}" to="45 ${cx} ${cy}" dur="${dur*2}s" repeatCount="indefinite"/>
-            </path>`;
-        }
-
         return `
         <svg viewBox="0 0 200 280" width="100%" height="100%" overflow="visible" xmlns="http://www.w3.org/2000/svg">
             <defs>
-                <radialGradient id="km-body" cx="38%" cy="30%" r="70%">
-                    <stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#E2E8F8"/>
+                <radialGradient id="halo-grad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#FF9AA2" stop-opacity="0.3"/>
+                    <stop offset="50%" stop-color="#FFE566" stop-opacity="0.5"/>
+                    <stop offset="100%" stop-color="#C9A0DC" stop-opacity="0.3"/>
                 </radialGradient>
-                <linearGradient id="km-crown" x1="0%" y1="0%" x2="100%" y2="0%">
+                <linearGradient id="million-crown" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stop-color="#FF9AA2"/><stop offset="50%" stop-color="#FFE566"/><stop offset="100%" stop-color="#C9A0DC"/>
                 </linearGradient>
-                <radialGradient id="km-halo" cx="50%" cy="50%" r="50%">
-                    <stop offset="85%" stop-color="transparent"/><stop offset="95%" stop-color="rgba(255,229,102,0.4)"/><stop offset="100%" stop-color="transparent"/>
-                </radialGradient>
             </defs>
-            <ellipse cx="100" cy="25" rx="60" ry="18" fill="url(#km-halo)">
+            <ellipse cx="100" cy="25" rx="60" ry="18" fill="none" stroke="url(#halo-grad)" stroke-width="4" opacity="0.8">
                 <animate attributeName="rx" values="55;65;55" dur="3s" repeatCount="indefinite"/>
             </ellipse>
-            <path d="M 53 115 L 67 55 L 88 72 L 100 35 L 112 72 L 133 55 L 147 115 Z" fill="url(#km-crown)" stroke="white" stroke-width="0.8"/>
-            <path d="M 70 230 C 36 180, 44 100, 100 85 C 156 100, 164 180, 130 230 Z" fill="url(#km-body)" stroke="rgba(200,210,240,0.4)" stroke-width="2"/>
-            <path d="M 82 150 Q 90 143, 97 150" fill="none" stroke="#B09AC8" stroke-width="3.5" stroke-linecap="round"/>
-            <path d="M 103 150 Q 110 143, 118 150" fill="none" stroke="#B09AC8" stroke-width="3.5" stroke-linecap="round"/>
-            ${star4(30,120,10,3,'#FFE566',2.5,0)} ${star4(170,120,10,3,'#C9A0DC',2,0.5)}
+            <path d="M 50 110 L 65 50 L 85 70 L 100 30 L 115 70 L 135 50 L 150 110 Z" fill="url(#million-crown)" stroke="white" stroke-width="0.5"/>
+            <path d="M 70 230 C 30 180, 40 90, 100 80 C 160 90, 170 180, 130 230 Z" fill="white" fill-opacity="0.9" stroke="#E2E8F8" stroke-width="1.5"/>
+            <ellipse cx="75" cy="155" rx="15" ry="10" fill="#FFB8D0" fill-opacity="0.4"/>
+            <ellipse cx="125" cy="155" rx="15" ry="10" fill="#FFB8D0" fill-opacity="0.4"/>
+            <path d="M 80 145 Q 90 138, 98 145" fill="none" stroke="#B09AC8" stroke-width="3" stroke-linecap="round"/>
+            <path d="M 102 145 Q 110 138, 120 145" fill="none" stroke="#B09AC8" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="30" cy="120" r="3" fill="#FFE566"><animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/></circle>
+            <circle cx="170" cy="110" r="3" fill="#C9A0DC"><animate attributeName="opacity" values="0;1;0" dur="2.5s" repeatCount="indefinite" begin="0.5s"/></circle>
         </svg>`;
     }
 
-    [span_13](start_span)// 精靈王進化型態[span_13](end_span)
     function generateKingSVG(colorKey) {
         const themes = {
-            cream: { b0:'#FFFEF8', b2:'#E8D5A0', eye:'#8C7A6B', c1:'#D4AF37', innocent: true },
-            gold: { b0:'#FFFFF2', b2:'#C8A030', eye:'#9B7830', c1:'#B8860B', innocent: false },
-            rose: { b0:'#FFF0F8', b2:'#E5989B', eye:'#C07080', c1:'#E07080', innocent: false },
-            rainbow: { b0:'#FFFFFF', b2:'#C8D8FF', eye:'#B09AC8', c1:'#60A5FA', innocent: false }
+            cream: { b: '#FDF5D3', c: '#D4AF37', innocent: true },
+            gold: { b: '#FFE878', c: '#B8860B', innocent: false },
+            rose: { b: '#F8C8D5', c: '#E07080', innocent: false },
+            rainbow: { b: '#EDE0FF', c: '#60A5FA', innocent: false }
         };
-        const t = themes[colorKey] || themes.cream;
-        
-        const eyeMarkup = t.innocent 
-            ? `<circle cx="89" cy="130" r="6.5" fill="${t.eye}" opacity="0.85"/><circle cx="111" cy="130" r="6.5" fill="${t.eye}" opacity="0.85"/>`
-            : `<path d="M 82 130 Q 90 123, 97 130" fill="none" stroke="${t.eye}" stroke-width="3.5" stroke-linecap="round"/><path d="M 103 130 Q 110 123, 118 130" fill="none" stroke="${t.eye}" stroke-width="3.5" stroke-linecap="round"/>`;
+        const t = themes[colorKey];
+        const eyes = t.innocent 
+            ? `<circle cx="89" cy="130" r="6" fill="#8C7A6B"/><circle cx="111" cy="130" r="6" fill="#8C7A6B"/>`
+            : `<path d="M 82 130 Q 90 123, 97 130" fill="none" stroke="#8C7A6B" stroke-width="3.5" stroke-linecap="round"/><path d="M 103 130 Q 110 123, 118 130" fill="none" stroke="#8C7A6B" stroke-width="3.5" stroke-linecap="round"/>`;
 
-        return `
-        <svg viewBox="0 0 200 255" width="100%" height="100%" overflow="visible">
-            <defs>
-                <radialGradient id="kg-body-${colorKey}" cx="38%" cy="30%" r="68%">
-                    <stop offset="0%" stop-color="${t.b0}"/><stop offset="100%" stop-color="${t.b2}"/>
-                </radialGradient>
-            </defs>
-            <rect x="60" y="78" width="80" height="15" rx="5" fill="${t.c1}" opacity="0.9"/>
-            <path d="M 70 210 Q 90 226, 90 210 C 141 82, 123 68, 100 68 C 59 82, 49 116, 70 210 Z" fill="url(#kg-body-${colorKey})" stroke="rgba(0,0,0,0.05)" stroke-width="1.2"/>
-            ${eyeMarkup}
-        </svg>`;
+        return `<svg viewBox="0 0 200 255" width="100%" height="100%"><rect x="60" y="78" width="80" height="15" rx="5" fill="${t.c}"/><path d="M 70 210 Q 90 226, 90 210 C 141 82, 123 68, 100 68 C 59 82, 49 116, 70 210 Z" fill="${t.b}" stroke="rgba(0,0,0,0.05)" stroke-width="1.2"/>${eyes}</svg>`;
     }
 
-    [span_14](start_span)// 生成精靈王邏輯[span_14](end_span)
     function spawnKing(total) {
         if (total < 500) return;
         const sea = document.getElementById('sprite-sea');
         const king = document.createElement('div');
         king.className = 'king-node';
-
         if (total >= 1000000) {
             king.style.cssText = 'width:420px; height:420px; z-index:100;';
             king.innerHTML = generateMillionKingSVG();
@@ -340,41 +231,21 @@
         sea.appendChild(king);
     }
 
-    [span_15](start_span)// Firebase 初始設定[span_15](end_span)
-    const fbCfg = { 
-        apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", 
-        authDomain: "pure-land-light.firebaseapp.com", 
-        databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com", 
-        projectId: "pure-land-light" 
-    };
+    const fbCfg = { apiKey: "AIzaSyDMIkS0XPIR98U8LkOjdio5ygh20eMfTr0", authDomain: "pure-land-light.firebaseapp.com", databaseURL: "https://pure-land-light-default-rtdb.firebaseio.com", projectId: "pure-land-light" };
     if (!firebase.apps.length) firebase.initializeApp(fbCfg);
     const db = firebase.database();
     const statsRef = db.ref('lights_v1_stats/total_warmth');
 
-    function hideLoader() {
-        const loader = document.getElementById('loading');
-        if (loader) { 
-            loader.style.opacity = '0'; 
-            setTimeout(() => loader.style.display = 'none', 800); 
-        }
-    }
-
     function fetchOnce() {
-        const failSafe = setTimeout(hideLoader, 5000);
         statsRef.once('value').then(snap => {
-            clearTimeout(failSafe);
             const total = snap.val() || 0;
             animN('total-warmth', 0, total, 1500);
-            
-            [span_16](start_span)// 根據數據量調整背景豐富度[span_16](end_span)
-            let sCount = total > 150 ? 20 : 8;
-            let bCount = total > 150 ? 25 : 12;
-            
-            spawnSprites(sCount);
-            spawnBubbles(bCount);
+            spawnSprites(total > 150 ? 25 : 8);
+            spawnBubbles(total > 150 ? 30 : 12);
             spawnKing(total);
-            hideLoader();
-        }).catch(() => hideLoader());
+            document.getElementById('loading').style.opacity = '0';
+            setTimeout(() => document.getElementById('loading').style.display = 'none', 800);
+        });
     }
 
     function spawnSprites(count) {
@@ -401,11 +272,7 @@
     function animN(id, from, to, dur) {
         const el = document.getElementById(id); if (!el) return;
         const step = (to - from) / (dur / 16); let cur = from;
-        const t = setInterval(() => { 
-            cur = Math.min(cur + step, to); 
-            el.textContent = Math.round(cur).toLocaleString(); 
-            if (cur >= to) clearInterval(t); 
-        }, 16);
+        const t = setInterval(() => { cur = Math.min(cur + step, to); el.textContent = Math.round(cur).toLocaleString(); if (cur >= to) clearInterval(t); }, 16);
     }
 
     firebase.auth().signInAnonymously().then(() => fetchOnce()).catch(() => fetchOnce());
