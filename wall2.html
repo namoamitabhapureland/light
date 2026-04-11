@@ -367,7 +367,7 @@ function fetchOnce() {
     const failSafe = setTimeout(hideLoader, 5000);
     statsRef.once('value').then(snap => {
         clearTimeout(failSafe);
-        const total = 1000;
+        const total = 10000;
         animN('total-warmth', 0, total, 1500);
         
         let sCount = 8, bCount = 12;
