@@ -1094,21 +1094,52 @@
         }
     }
 
-    function showLevelUpModal(tier) {
-        const titles = ["", "初心之光", "微光漸明", "琉璃清透", "無量之光"];
+        function showLevelUpModal(tier) {
+        // ✨ 同步論壇等級名稱
+        const titles = [
+            "", "初心之光", "微光漸明", "琉璃清透", 
+            "奶油精靈王", "黃金精靈王", "玫瑰精靈王", "幻彩精靈王", "無量精靈王"
+        ];
+        
+        // ✨ 同步論壇等級描述
         const descs = [
             "",
             "這是你點亮的第一盞燈，歡迎來到無量的光。",
             "你的善意已泛起微光，青銀色的冠冕為你加冕。",
             "溫暖已然成形，紫晶的冠冕映射著你的清澈。",
-            "光芒萬丈，耀金的法冠是你無量願力的見證。"
+            "【五百資糧】奶油精靈王現身，領導眾生的善意。",
+            "【千燈供養】黃金精靈王降臨，法界充滿耀眼光芒。",
+            "【萬德莊嚴】玫瑰精靈王昇華，那是極致慈悲的色彩。",
+            "【十萬功德】幻彩精靈王顯現，一念之間轉動無量光。",
+            "【百萬成佛】百萬超級精靈王！你已圓滿無量願力。"
         ];
-        document.getElementById('lvl-title').textContent = titles[tier];
-        document.getElementById('lvl-desc').textContent = descs[tier];
-        document.getElementById('lvl-icon').innerHTML = getSpriteSVG(tier, "width:85px; height:85px; filter:drop-shadow(0 10px 20px rgba(203,163,122,0.2)); animation:floatLvl 3s infinite ease-in-out;");
+
+        document.getElementById('lvl-title').textContent = titles[tier] || "無量境界";
+        document.getElementById('lvl-desc').textContent = descs[tier] || "善意無止境，光芒永相隨。";
+
+        // ✨ 判斷顯示：500次(等級4)以上顯示精靈王 SVG，否則顯示小精靈
+        let modalSvg = "";
+        if (tier >= 8) {
+            modalSvg = generateMillionKingSVG();
+        } else if (tier === 7) {
+            modalSvg = generateKingSVG('rainbow');
+        } else if (tier === 6) {
+            modalSvg = generateKingSVG('rose');
+        } else if (tier === 5) {
+            modalSvg = generateKingSVG('gold');
+        } else if (tier === 4) {
+            modalSvg = generateKingSVG('cream');
+        } else {
+            // 原本的四階小精靈邏輯
+            modalSvg = getSpriteSVG(tier, "width:85px; height:85px; filter:drop-shadow(0 10px 20px rgba(203,163,122,0.2)); animation:floatLvl 3s infinite ease-in-out;");
+        }
+
+        // 渲染圖示
+        document.getElementById('lvl-icon').innerHTML = modalSvg;
         
         showOv('ov-levelup');
     }
+
 
     // --- Firebase 與主程式邏輯 ---
     const fbCfg = {
