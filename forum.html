@@ -970,8 +970,27 @@
     }
 
     function getAvatarHtml(tier) { 
-        return `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center;">${getSpriteSVG(tier, "width:45px; height:45px; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.05)); margin-top:-2px;")}</div>`;
+    let svgContent = '';
+
+    // 根據計算出的 tier 顯示對應的莊嚴形態
+    if (tier >= 8) {
+        svgContent = generateMillionKingSVG(); // 百萬級
+    } else if (tier === 7) {
+        svgContent = generateKingSVG('rainbow'); // 幻彩級
+    } else if (tier === 6) {
+        svgContent = generateKingSVG('rose');    // 萬級玫瑰
+    } else if (tier === 5) {
+        svgContent = generateKingSVG('gold');    // 千級黃金
+    } else if (tier === 4) {
+        svgContent = generateKingSVG('cream');   // ✨ 500級奶油王
+    } else {
+        // 500 次以下，顯示你原本設計的四階進化小精靈
+        svgContent = getSpriteSVG(tier, "width:45px; height:45px; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.05)); margin-top:-2px;");
     }
+
+    return `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center;">${svgContent}</div>`;
+}
+
 
     // --- 2. 安全過濾與阻斷牆 ---
     function checkLegalBeforeAction() { 
@@ -1048,12 +1067,16 @@
     // --- 3. 皇冠與階級邏輯 ---
     let warmthCount = parseInt(localStorage.getItem('pure_land_warmth') || '0');
     function getTier(count) { 
-        if (count >= 100) return 4;
-        if (count >= 15) return 3; 
-        if (count >= 5) return 2; 
-        if (count >= 1) return 1; 
-        return 1;
-    }
+    if (count >= 1000000) return 8; // 百萬超級精靈王
+    if (count >= 100000)  return 7; // 幻彩精靈王
+    if (count >= 10000)   return 6; // 玫瑰精靈王
+    if (count >= 1000)    return 5; // 黃金精靈王
+    if (count >= 500)     return 4; // ✨ 奶油精靈王 (開始稱王)
+    if (count >= 15)      return 3; // 琉璃精靈 (四階進化)
+    if (count >= 5)       return 2; // 微光精靈 (四階進化)
+    return 1; // 初心精靈
+}
+
 
     function checkLevelUp() { 
         const oldTier = parseInt(localStorage.getItem('pure_land_tier') || '0');
@@ -1065,16 +1088,62 @@
     }
 
     function showLevelUpModal(tier) { 
-        const titles = ["", "初心之光", "微光漸明", "琉璃清透", "無量之光"];
-        const descs = ["", "這是你點亮的第一盞燈，歡迎來到無量的光。", "你的善意已泛起微光，青銀色的冠冕為你加冕。", "溫暖已然成形，紫晶的冠冕映射著你的清澈。", "光芒萬丈，耀金的法冠是你無量願力的見證。"]; 
-        document.getElementById('lvl-title').textContent = titles[tier]; 
-        document.getElementById('lvl-desc').textContent = descs[tier];
-        document.getElementById('lvl-icon').innerHTML = getSpriteSVG(tier, "width:85px; height:85px; filter:drop-shadow(0 10px 20px rgba(203,163,122,0.2)); animation:floatLvl 3s infinite ease-in-out;"); 
-        
-        const m = document.getElementById('modal-levelup'); 
-        m.style.display = 'flex';
-        setTimeout(() => m.classList.add('show'), 10); 
+    // ✨ 擴充等級名稱與描述，對應你設計的精靈王境界
+    const titles = [
+        "", 
+        "初心之光",   // 1級
+        "微光漸明",   // 2級
+        "琉璃清透",   // 3級
+        "奶油精靈王", // 4級 (500次)
+        "黃金精靈王", // 5級 (1000次)
+        "玫瑰精靈王", // 6級 (10000次)
+        "幻彩精靈王", // 7級 (10萬次)
+        "無量精靈王"  // 8級 (百萬次)
+    ];
+
+    const descs = [
+        "",
+        "這是你點亮的第一盞燈，歡迎來到無量的光。",
+        "你的善意已泛起微光，青銀色的冠冕為你加冕。",
+        "溫暖已然成形，紫晶的冠冕映射著你的清澈。",
+        "【五百資糧】奶油精靈王現身，領導眾生的善意。", // 4級
+        "【千燈供養】黃金精靈王降臨，法界充滿耀眼光芒。", // 5級
+        "【萬德莊嚴】玫瑰精靈王昇華，那是極致慈悲的色彩。", // 6級
+        "【十萬功德】幻彩精靈王顯現，一念之間轉動無量光。", // 7級
+        "【百萬成佛】百萬超級精靈王！你已圓滿無量願力。"  // 8級
+    ];
+
+    document.getElementById('lvl-title').textContent = titles[tier] || "無量境界";
+    document.getElementById('lvl-desc').textContent = descs[tier] || "善意無止境，光芒永相隨。";
+
+    // ✨ 關鍵：根據等級決定彈窗顯示哪尊 SVG
+    let modalSvg = "";
+    if (tier >= 8) {
+        modalSvg = generateMillionKingSVG();
+    } else if (tier === 7) {
+        modalSvg = generateKingSVG('rainbow');
+    } else if (tier === 6) {
+        modalSvg = generateKingSVG('rose');
+    } else if (tier === 5) {
+        modalSvg = generateKingSVG('gold');
+    } else if (tier === 4) {
+        modalSvg = generateKingSVG('cream');
+    } else {
+        // 4級以下顯示原本的小精靈
+        modalSvg = getSpriteSVG(tier, "width:85px; height:85px; filter:drop-shadow(0 10px 20px rgba(203,163,122,0.2)); animation:floatLvl 3s infinite ease-in-out;");
     }
+
+    // 渲染到視窗中
+    document.getElementById('lvl-icon').innerHTML = (tier >= 4) 
+        ? `<div style="width:120px; height:120px; animation:floatLvl 3s infinite ease-in-out;">${modalSvg}</div>`
+        : modalSvg;
+    
+    // 顯示彈窗
+    const m = document.getElementById('modal-levelup'); 
+    m.style.display = 'flex';
+    setTimeout(() => m.classList.add('show'), 10); 
+}
+
 
     function closeLevelUpModal() { 
         const m = document.getElementById('modal-levelup');
