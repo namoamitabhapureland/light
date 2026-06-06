@@ -48,13 +48,7 @@
         #home-btn{position:fixed;bottom:25px;right:25px;border:1.2px solid var(--gold);color:var(--gold);background:#000;padding:10px 22px;border-radius:25px;z-index:1000;font-size:0.85rem;font-weight:bold;cursor:pointer}
         .gold-btn{border:1.2px solid var(--gold);color:var(--gold);background:rgba(0,0,0,0.8);backdrop-filter:blur(5px);padding:10px 22px;border-radius:25px;font-size:0.8rem;font-weight:bold;cursor:pointer;text-align:center;transition:0.3s;box-shadow:0 0 10px rgba(212,175,55,0.1)}
         .gold-btn:active{background:var(--gold);color:#000}
-         #nian-num-wrap {
-            margin-top: 10px;
-            padding: 5px 25px;
-            position: relative;
-            z-index: 20;
-        }
-
+        #nian-num-wrap{margin-top:10px;padding:5px 25px;border:1.2px solid var(--gold);border-radius:50px;background:rgba(243,229,171,0.05);box-shadow:inset 0 0 15px rgba(212,175,55,0.1);position:relative;z-index:20}
         @keyframes goldRipple{0%{box-shadow:0 0 0 0 rgba(212,175,55,0.8)}70%{box-shadow:0 0 0 60px rgba(212,175,55,0)}100%{box-shadow:0 0 0 0 rgba(212,175,55,0)}}
         .ripple-effect{border-radius:50%;animation:goldRipple 1s cubic-bezier(0.1,0.8,0.3,1) !important}
         #level-up-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle,rgba(212,175,55,0.3) 0%,rgba(0,0,0,0.95) 80%);display:none;justify-content:center;align-items:center;flex-direction:column;z-index:20000;opacity:0;transition:opacity 0.3s ease}
@@ -437,11 +431,10 @@
         <div id="big-seed" onclick="handleNian(event)" style="z-index: 10; width:100%; height:100%;"></div>
         <div id="guide-ripple"></div>
     </div>
-  <div id="nian-num-wrap" style="margin-top: 10px; padding: 5px 25px; position: relative; z-index: 20; text-align: center;">
-    <div id="nian-num" class="connect-text" style="font-size: 1.25rem; letter-spacing: 4px; color: var(--gold); transition: opacity 0.3s ease;">蓮華に触れる</div>
+    <div id="nian-num-wrap"><div id="nian-num" style="font-size:3.2rem; font-weight:bold; color:var(--gold); letter-spacing: 3px; text-shadow: 0 0 15px rgba(212,175,55,0.4); font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;">0 / 10</div></div>
+<div id="nian-word" style="font-size:2.2rem; color:var(--gold); height:3.5rem; margin-top:15px; font-weight:bold; letter-spacing: 2px; opacity: 0; transition: opacity 0.5s;"></div>
+
 </div>
-
-
 
 <div id="screen-3" class="container" style="overflow-x: hidden; width: 100%; max-width: 100vw; padding: 20px 10px;">
     <div class="section-header">
@@ -1982,7 +1975,7 @@ function confirmDedi() { document.getElementById('dedi-modal').style.display='no
 
 function goHome() { 
     nianCount=0; perfectHits=0; document.getElementById('progress-ring').style.strokeDashoffset=892; 
-    document.getElementById('nian-num').innerText="蓮華に触れる"; document.getElementById('nian-word').style.opacity = "0"; 
+    document.getElementById('nian-num').innerText="0 / 10"; document.getElementById('nian-word').style.opacity = "0"; 
     showScreen(1); updateUI(); 
 }
 
