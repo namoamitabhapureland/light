@@ -1113,23 +1113,8 @@
     </div>
 
 
-       <div id="nian-bar-wrap" style="width: 85%; max-width: 320px; margin: 15px auto 0 auto; display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative; z-index: 20;">
-        
-        <div id="nian-num" style="font-size: 1.6rem; font-weight: bold; color: var(--gold); letter-spacing: 3px; text-shadow: 0 0 12px rgba(212,175,55,0.4); font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;">0 / 10</div>
-        
-        <div id="nian-steps-grid" style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; width: 100%; height: 8px;">
-            <div class="nian-step" style="height: 100%; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(212,175,55,0.15); border-radius: 2px; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"></div>
-            <div class="nian-step" style="height: 100%; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(212,175,55,0.15); border-radius: 2px; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"></div>
-            <div class="nian-step" style="height: 100%; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(212,175,55,0.15); border-radius: 2px; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"></div>
-            <div class="nian-step" style="height: 100%; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(212,175,55,0.15); border-radius: 2px; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"></div>
-            <div class="nian-step" style="height: 100%; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(212,175,55,0.15); border-radius: 2px; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"></div>
-            <div class="nian-step" style="height: 100%; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(212,175,55,0.15); border-radius: 2px; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"></div>
-            <div class="nian-step" style="height: 100%; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(212,175,55,0.15); border-radius: 2px; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"></div>
-            <div class="nian-step" style="height: 100%; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(212,175,55,0.15); border-radius: 2px; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"></div>
-            <div class="nian-step" style="height: 100%; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(212,175,55,0.15); border-radius: 2px; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"></div>
-            <div class="nian-step" style="height: 100%; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(212,175,55,0.15); border-radius: 2px; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);"></div>
-        </div>
-        
+        <div id="nian-num-wrap" style="margin-top: 20px; text-align: center;">
+        <div id="id-nian-num-display" style="display:none;"></div> <div id="nian-num" style="font-size: 2.2rem; font-weight: bold; color: var(--gold); letter-spacing: 4px; text-shadow: 0 0 15px rgba(212,175,55,0.4); font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; transition: all 0.3s ease;">請按蓮花</div>
     </div>
 
 
@@ -2639,23 +2624,14 @@ function handleNian(event) {
         speak("南無阿彌陀佛", 0.75);
         document.getElementById('progress-ring').style.strokeDashoffset = 892 - (nianCount * 89.2);
         document.getElementById('nian-num').innerText = nianCount + " / 10";
-        // 驅動十格獨立資糧格點亮
-let nianSteps = document.querySelectorAll('.nian-step');
-if (nianSteps.length > 0) {
-    nianSteps.forEach((step, index) => {
-        if (index < nianCount) {
-            // 已達到的念數，注入真金漸層與內斂微光
-            step.style.background = 'linear-gradient(180deg, var(--gold), var(--solid-gold))';
-            step.style.boxShadow = '0 0 6px rgba(212,175,55,0.6)';
-            step.style.borderColor = 'var(--solid-gold)';
-        } else {
-            // 未達到的念數，維持極簡深邃底色
-            step.style.background = 'rgba(255,255,255,0.05)';
-            step.style.boxShadow = 'none';
-            step.style.borderColor = 'rgba(212,175,55,0.15)';
-        }
-    });
-}
+        let nianNumEl = document.getElementById('nian-num');
+
+// 當行者按下蓮花，文字變身為大字重、具張力的 3.2rem 數字
+nianNumEl.style.fontSize = "3.2rem";
+nianNumEl.style.letterSpacing = "3px";
+
+// 顯示當前的念佛進度 (例如 0 / 10 或 1 / 10，依妳原本的變數為準)
+nianNumEl.innerText = nianCount + " / 10"; 
 
         const p = document.getElementById('petal-' + (nianCount-1));
         
@@ -3189,12 +3165,12 @@ function goHome() {
     nianCount=0; perfectHits=0; 
     document.getElementById('progress-ring').style.strokeDashoffset=892; 
     document.getElementById('nian-num').innerText="0 / 10"; 
-    // 歸零時，將所有方格恢復成初始未點亮狀態
-document.querySelectorAll('.nian-step').forEach(step => {
-    step.style.background = 'rgba(255,255,255,0.05)';
-    step.style.boxShadow = 'none';
-    step.style.borderColor = 'rgba(212,175,55,0.15)';
-});
+    let nianNumEl = document.getElementById('nian-num');
+
+// 恢復為靜謐的引導文字比例
+nianNumEl.style.fontSize = "2.2rem";
+nianNumEl.style.letterSpacing = "4px";
+nianNumEl.innerText = "請按蓮花";
 
     document.getElementById('nian-word').style.opacity = "0"; 
     showScreen(1); updateUI(); 
