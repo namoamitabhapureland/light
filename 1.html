@@ -158,12 +158,11 @@
         }
         .gold-btn:active { background: var(--gold); color: #000; }
 
-               /* ✨ 移除外框，唯留清淨文字 */
         #nian-num-wrap {
             margin-top: 10px;
+            padding: 5px 25px;
             position: relative;
             z-index: 20;
-            text-align: center; /* 確保文字居中 */
         }
 
 
@@ -1111,10 +1110,9 @@
     </div>
 
 
-            <div id="nian-num-wrap" style="margin-top: 20px; text-align: center;">
-        <div id="nian-num" class="connect-text" style="transition: opacity 0.3s ease;">請按蓮花</div>
-    </div>
-
+   <div id="nian-num-wrap" style="margin-top: 10px; padding: 5px 25px; position: relative; z-index: 20; text-align: center;">
+    <div id="nian-num" class="connect-text" style="font-size: 1.1rem; letter-spacing: 2px; transition: opacity 0.3s ease;">請按蓮花</div>
+</div>
 
 
     <div id="nian-word" style="font-size:2.2rem; color:var(--gold); height:3.5rem; margin-top:15px; font-weight:bold; letter-spacing: 2px; opacity: 0; transition: opacity 0.5s;"></div>
@@ -2623,10 +2621,7 @@ function handleNian(event) {
         speak("南無阿彌陀佛", 0.75);
         document.getElementById('progress-ring').style.strokeDashoffset = 892 - (nianCount * 89.2);
         document.getElementById('nian-num').innerText = nianCount + " / 10";
-        let nianNumEl = document.getElementById('nian-num');
-
-
-// 保持首頁優雅小字，僅動態更新為當前進度 (例如 0 / 10)
+        
 document.getElementById('nian-num').innerText = nianCount + " / 10";
 
         const p = document.getElementById('petal-' + (nianCount-1));
@@ -3161,9 +3156,7 @@ function goHome() {
     nianCount=0; perfectHits=0; 
     document.getElementById('progress-ring').style.strokeDashoffset=892; 
     document.getElementById('nian-num').innerText="0 / 10"; 
-    let nianNumEl = document.getElementById('nian-num');
-
-// 還原為最初的精緻小字指引
+    // 還原為最初的精緻小字指引
 document.getElementById('nian-num').innerText = "請按蓮花";
 
     document.getElementById('nian-word').style.opacity = "0"; 
