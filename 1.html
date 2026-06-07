@@ -48,12 +48,14 @@
         #home-btn{position:fixed;bottom:25px;right:25px;border:1.2px solid var(--gold);color:var(--gold);background:#000;padding:10px 22px;border-radius:25px;z-index:1000;font-size:0.85rem;font-weight:bold;cursor:pointer}
         .gold-btn{border:1.2px solid var(--gold);color:var(--gold);background:rgba(0,0,0,0.8);backdrop-filter:blur(5px);padding:10px 22px;border-radius:25px;font-size:0.8rem;font-weight:bold;cursor:pointer;text-align:center;transition:0.3s;box-shadow:0 0 10px rgba(212,175,55,0.1)}
         .gold-btn:active{background:var(--gold);color:#000}
-         #nian-num-wrap {
+               /* ✨ 移除外框，唯留清淨文字 */
+        #nian-num-wrap {
             margin-top: 10px;
-            padding: 5px 25px;
             position: relative;
             z-index: 20;
+            text-align: center; /* 確保文字居中 */
         }
+
 
         @keyframes goldRipple{0%{box-shadow:0 0 0 0 rgba(212,175,55,0.8)}70%{box-shadow:0 0 0 60px rgba(212,175,55,0)}100%{box-shadow:0 0 0 0 rgba(212,175,55,0)}}
         .ripple-effect{border-radius:50%;animation:goldRipple 1s cubic-bezier(0.1,0.8,0.3,1) !important}
