@@ -48,13 +48,13 @@
         #home-btn{position:fixed;bottom:25px;right:25px;border:1.2px solid var(--gold);color:var(--gold);background:#000;padding:10px 22px;border-radius:25px;z-index:1000;font-size:0.85rem;font-weight:bold;cursor:pointer}
         .gold-btn{border:1.2px solid var(--gold);color:var(--gold);background:rgba(0,0,0,0.8);backdrop-filter:blur(5px);padding:10px 22px;border-radius:25px;font-size:0.8rem;font-weight:bold;cursor:pointer;text-align:center;transition:0.3s;box-shadow:0 0 10px rgba(212,175,55,0.1)}
         .gold-btn:active{background:var(--gold);color:#000}
-#nian-num-wrap {
-    margin-top: 10px;
-    padding: 5px 25px;
-    position: relative;
-    z-index: 20;
-    text-align: center; /* 確保文字主體與數字絕對置中 */
-}
+         #nian-num-wrap {
+            margin-top: 10px;
+            padding: 5px 25px;
+            position: relative;
+            z-index: 20;
+        }
+
         @keyframes goldRipple{0%{box-shadow:0 0 0 0 rgba(212,175,55,0.8)}70%{box-shadow:0 0 0 60px rgba(212,175,55,0)}100%{box-shadow:0 0 0 0 rgba(212,175,55,0)}}
         .ripple-effect{border-radius:50%;animation:goldRipple 1s cubic-bezier(0.1,0.8,0.3,1) !important}
         #level-up-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle,rgba(212,175,55,0.3) 0%,rgba(0,0,0,0.95) 80%);display:none;justify-content:center;align-items:center;flex-direction:column;z-index:20000;opacity:0;transition:opacity 0.3s ease}
@@ -429,7 +429,7 @@
     <div style="text-align:center; margin-top:25px;">
         <span style="font-size:0.75rem; letter-spacing:2px; color: rgba(243, 229, 171, 0.8); cursor:pointer; border-bottom: 1px solid rgba(212, 175, 55, 0.5); padding-bottom: 3px; transition: color 0.3s ease;" onmouseover="this.style.color='var(--gold)';" onmouseout="this.style.color='rgba(243, 229, 171, 0.8)';" onclick="shareSystemJp()">浄土システムを共有 ． 永久無料オープンソース</span>
     </div>
-
+</div>
 <div id="screen-2" class="container">
     <div class="circle-wrap" style="width: 320px; height: 320px;">
         <svg width="320" height="320" viewBox="0 0 300 300" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-90deg); pointer-events:none;"><circle cx="150" cy="150" r="142" fill="none" stroke="rgba(212,175,55,0.08)" stroke-width="1.5"/><circle id="progress-ring" cx="150" cy="150" r="142" fill="none" stroke="var(--gold)" stroke-width="3" stroke-dasharray="892" stroke-dashoffset="892" stroke-linecap="round" style="transition:0.4s; opacity:0.6; filter: drop-shadow(0 0 6px var(--solid-gold));"></circle></svg>
@@ -437,12 +437,12 @@
         <div id="big-seed" onclick="handleNian(event)" style="z-index: 10; width:100%; height:100%;"></div>
         <div id="guide-ripple"></div>
     </div>
-  
-<div id="nian-num-wrap" style="margin-top: 10px; padding: 5px 25px; position: relative; z-index: 20; text-align: center;">
-    <div id="nian-num" class="connect-text" style="font-size: 1.4rem; letter-spacing: 3px; transition: opacity 0.3s ease;">蓮華に触れる</div>
-</div>
+  <div id="nian-num-wrap">
+    <div id="nian-num" class="connect-text" style="font-size: 1.3rem; letter-spacing: 4px; color: var(--gold); transition: opacity 0.3s ease;">蓮華に触れる</div>
     <div id="nian-word" style="font-size:2.2rem; color:var(--gold); height:3.5rem; margin-top:15px; font-weight:bold; letter-spacing: 2px; opacity: 0; transition: opacity 0.5s;"></div>
 </div>
+
+
 <div id="screen-3" class="container" style="overflow-x: hidden; width: 100%; max-width: 100vw; padding: 20px 10px;">
     <div class="section-header">
         <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 C16 6, 20 12, 12 22 C4 12, 8 6, 12 2 Z" fill="rgba(243,229,171,0.12)" stroke="var(--gold)"/><circle cx="12" cy="15" r="2" fill="var(--gold)" stroke="none"/></svg>菩提 ． 誓願
@@ -1981,19 +1981,10 @@ function renderVisitedRealms() {
 function confirmDedi() { document.getElementById('dedi-modal').style.display='none'; showScreen(3); }
 
 function goHome() { 
-    nianCount = 0; 
-    perfectHits = 0; 
-    document.getElementById('progress-ring').style.strokeDashoffset = 892; 
-    
-    // 讓這兩個元素各司其職
-    document.getElementById('nian-num').innerText = "0 / 10"; 
-    document.getElementById('nian-word').innerText = "蓮華に触れる"; 
-    document.getElementById('nian-word').style.opacity = "1"; // 顯示指引
-    
-    showScreen(1); 
-    updateUI(); 
+    nianCount=0; perfectHits=0; document.getElementById('progress-ring').style.strokeDashoffset=892; 
+    document.getElementById('nian-num').innerText="蓮華に触れる"; document.getElementById('nian-word').style.opacity = "0"; 
+    showScreen(1); updateUI(); 
 }
-
 
 function startDedicationEffect() {
     const box = document.getElementById('dedi-box'); const btn = document.getElementById('dedi-btn');
