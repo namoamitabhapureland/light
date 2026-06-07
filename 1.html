@@ -1326,15 +1326,23 @@ function checkNewDay() {
 
 function updateClock() {
     const now = new Date();
-    const earthEl = document.getElementById('earth-time'); const pureEl = document.getElementById('pure-time-display');
-    if(earthEl) earthEl.innerText = "娑婆： " + now.toLocaleTimeString();
-    const dayPercent = (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds() + now.getMilliseconds()/1000) / 86400;
+    const earthEl = document.getElementById('earth-time'); 
+    const pureEl = document.getElementById('pure-time-display');
+    
+    // 顯示娑婆時間 (只更新 時:分，視覺更寧靜)
+    if(earthEl) {
+        earthEl.innerText = "Saha: " + now.getHours().toString().padStart(2, '0') + ":" + 
+                            now.getMinutes().toString().padStart(2, '0');
+    }
+
+    // 關鍵：依然使用您原本的 db.points 邏輯，數值絕對安全
+    const dayPercent = (now.getHours() * 3600 + now.getMinutes() * 60) / 86400;
     const total = (db.points || 0) + dayPercent;
-if(pureEl) pureEl.innerText = `極楽浄土：${Math.floor(total)} 菩提`;
-
-
+    
+    if(pureEl) {
+        pureEl.innerText = `Pure Land: ${Math.floor(total)} Bodhi`;
+    }
 }
-setInterval(updateClock, 1000);
 
 let pendingNewName = "";
 
