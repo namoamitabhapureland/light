@@ -82,8 +82,10 @@
 .task-container { 
     position: relative; z-index: 10; margin-top: 2vh; 
     width: 95%; max-width: 450px; 
-    flex: 1; min-height: 0; /* 讓容器自動填滿剩餘高度，確保小螢幕不溢出 */
+    flex: 1; min-height: 0; /* 關鍵：這允許內容框在空間受限時縮小 */
     display: flex; justify-content: center; align-items: center; 
+    overflow-y: auto; /* 內容過多時，內部捲動，不影響外部結構 */
+    -webkit-overflow-scrolling: touch; /* 確保在手機上有順暢的捲動體驗 */
 }
 
 
