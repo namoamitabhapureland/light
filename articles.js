@@ -3,6 +3,34 @@ const rawArticles = [
     // 中文文章
     // ==========================================
 
+{
+        id: "2026-06-09-zh-pureland-five-evils",
+        isNew: true,
+        lang: "zh",
+        category: "佛學", 
+        title: "釋迦本師闡明娑婆五惡、五痛、五燒與五善",
+        status: "無量壽經 ． 業力法則 ． 五惡五善",
+        humble: "本篇依據《佛說無量壽經》原典，如實梳理五惡、五痛、五燒之分類，並對照修持五善之功德與迴向路徑，為淨土實修之基礎指引。",
+        content: `[引言：娑婆修行之功德殊勝] 
+佛言：「汝今諸天人民，及後世人，得佛經語，當熟思之，能於其中，端心正行。……正心正意，齋戒清淨，一日一夜，勝在無量壽國為善百歲。所以者何？彼佛國土，無為自然，皆積眾善，無毛髮之惡。於此修善，十日十夜，勝於他方諸佛國中為善千歲。……唯此間多惡，無有自然，勤苦求欲，轉相欺殆，心勞形困，飲苦食毒，如是惡務，未嘗寧息。」
+
+在五濁惡世之中，環境艱困，卻是修持精進的絕佳契機。正因娑婆眾生時時刻刻面對「飲苦食毒」的惡劣環境，若能在此艱難處境中，發心端正行為、堅守齋戒，其修行的力度與轉化力量極為強大。這便是佛陀開示「一日一夜，勝在無量壽國為善百歲」的深意，展現了此土修行的獨特殊勝性。
+
+[五惡、五痛、五燒與五善之梳理] 
+依據《佛說無量壽經》卷下，佛陀詳述眾生因造作五惡而引發的「五痛」與「五燒」。經文並指出，透過轉化惡念為五善，可獲福德並導向涅槃。以下為其結構整理：
+
+<div class="tree-wrapper"><div class="dharma-tree"><ul><li><div class="tree-node root"><span class="t-tag">無量壽經</span><span class="t-title">娑婆五惡與五善</span><span class="t-desc">拔斷生死眾惡之本</span></div><ul><li><div class="tree-node"><span class="t-tag">其一惡者</span><span class="t-title">殺生與殘害</span></div><ul><li><div class="tree-node"><span class="t-tag">果報</span><span class="t-title">一痛一燒</span><span class="t-desc">現世殃罰，死墮三途</span></div></li><li><div class="tree-node pure"><span class="t-tag">持一善</span><span class="t-title">仁慈博愛</span><span class="t-desc">慈心不殺</span></div></li></ul></li><li><div class="tree-node"><span class="t-tag">其二惡者</span><span class="t-title">貪盜與欺罔</span></div><ul><li><div class="tree-node"><span class="t-tag">果報</span><span class="t-title">二痛二燒</span><span class="t-desc">現世恐懼，死入惡道</span></div></li><li><div class="tree-node pure"><span class="t-tag">持二善</span><span class="t-title">清廉知足</span><span class="t-desc">布恩施惠</span></div></li></ul></li><li><div class="tree-node"><span class="t-tag">其三惡者</span><span class="t-title">邪淫與結怨</span></div><ul><li><div class="tree-node"><span class="t-tag">果報</span><span class="t-title">三痛三燒</span><span class="t-desc">現遭折磨，歷劫難出</span></div></li><li><div class="tree-node pure"><span class="t-tag">持三善</span><span class="t-title">端正貞潔</span><span class="t-desc">守禮節制</span></div></li></ul></li><li><div class="tree-node"><span class="t-tag">其四惡者</span><span class="t-title">口惡與不孝</span></div><ul><li><div class="tree-node"><span class="t-tag">果報</span><span class="t-title">四痛四燒</span><span class="t-desc">現招怨恨，死受極苦</span></div></li><li><div class="tree-node pure"><span class="t-tag">持四善</span><span class="t-title">誠實柔和</span><span class="t-desc">孝養父母</span></div></li></ul></li><li><div class="tree-node"><span class="t-tag">其五惡者</span><span class="t-title">懈怠與不信</span></div><ul><li><div class="tree-node"><span class="t-tag">果報</span><span class="t-title">五痛五燒</span><span class="t-desc">現世沉淪，死墮地獄</span></div></li><li><div class="tree-node pure"><span class="t-tag">持五善</span><span class="t-title">忍辱精進</span><span class="t-desc">深信因果</span></div></li></ul></li></ul></li></ul></div></div>
+
+[迴向與往生：三輩往生之修持] 
+經文指出往生淨土之修持途徑，依據個人根器與發心，分為三輩：
+
+1. 中輩：即便未能出家修道，亦可透過發無上菩提心來落實修持。經載：「其中輩者，十方世界諸天人民，其有至心，願生彼國，雖不能行作沙門，大修功德，當發無上菩提之心，一向專念無量壽佛，多少修善，奉持齋戒，起立塔像，飯食沙門，懸繒然燈，散華燒香，以此迴向，願生彼國。其人臨終，無量壽佛，化現其身，光明相好，具如真佛，與諸大眾，現其人前。即隨化佛往生其國，住不退轉，功德智慧，次如上輩者也。」
+
+2. 下輩：若能明信佛智，在娑婆世界此等艱困環境中，至心願生者，亦得接引。經載：「其下輩者，十方世界，諸天人民，其有至心，欲生彼國，假使不能作諸功德，當發無上菩提之心，一向專意，乃至十念，念無量壽佛，願生其國。若聞深法，歡喜信樂，不生疑惑，乃至一念，念於彼佛，以至誠心，願生其國。此人臨終，夢見彼佛，亦得往生，功德智慧，次如中輩者也。」
+
+總結而言，若能於娑婆世界中，明信佛智，乃至勝智，發心作諸功德並信心迴向，其往生後於七寶華中自然化生，須臾之間，身相光明、智慧功德，皆如諸菩薩具足成就。此即為娑婆一日齋戒、修善功德，能感應極樂淨土殊勝果報之依據。`
+    },
+
 
 {
         id: "2026-06-02-zh-karmic-samsara-bardo",
@@ -529,6 +557,32 @@ Neukart 的理論認為，神祕的暗物質與暗能量與這些「資訊」息
     // ==========================================
     // 英文文章 (English Articles)
     // ==========================================
+    {
+    id: "2026-06-09-en-pureland-five-evils",
+    isNew: true,
+    lang: "en",
+    category: "Buddhism",
+    title: "Shakyamuni Buddha on the Five Evils, Five Pains, Five Burnings, and Five Virtues in the Saha World",
+    status: "Infinite Life Sutra . Law of Karma . Five Evils and Five Virtues",
+    humble: "Based on the original text of the 'Infinite Life Sutra,' this article clarifies the classification of the five evils, pains, and burnings, and contrasts them with the merits and dedication paths of practicing the five virtues, serving as a foundational guide for Pure Land practice.",
+    content: `[Introduction: The Supreme Merit of Practice in the Saha World]
+The Buddha said: "Sentient beings of the heavens and earth now and in the future, upon receiving the Buddha's words, should contemplate them deeply. By rectifying their minds and conduct... practicing purity and observing precepts for one day and one night, one gains more merit than practicing for a hundred years in the Land of Immeasurable Life... Only in this world is there much evil, with no natural goodness, where beings toil in desire, deceive one another, labor in body and mind, and consume bitterness and poison, never finding a moment of rest."
+
+In this world of five defilements, the environment is harsh, yet it offers an excellent opportunity for diligent practice. Precisely because Saha beings constantly face an environment of "consuming bitterness and poison," if they can cultivate a righteous mind and uphold precepts in such difficult circumstances, their practice exerts a profound transformative power. This is the deep meaning behind the Buddha's teaching that one day of practice here surpasses a hundred years in the Land of Immeasurable Life, highlighting the unique excellence of practice in this world.
+
+[Analysis of the Five Evils, Five Pains, Five Burnings, and Five Virtues]
+According to the 'Infinite Life Sutra,' the Buddha detailed the "five pains" and "five burnings" caused by the "five evils." The sutra points out that by transforming evil thoughts into the five virtues, one gains merit and leads toward Nirvana.
+
+<div class="tree-wrapper"><div class="dharma-tree"><ul><li><div class="tree-node root"><span class="t-tag">Infinite Life Sutra</span><span class="t-title">Five Evils and Five Virtues in Saha</span><span class="t-desc">Root of all suffering and death</span></div><ul><li><div class="tree-node"><span class="t-tag">1st Evil</span><span class="t-title">Killing and Harm</span></div><ul><li><div class="tree-node"><span class="t-tag">Result</span><span class="t-title">1st Pain & Burning</span><span class="t-desc">Retribution in this life and the three paths</span></div></li><li><div class="tree-node pure"><span class="t-tag">1st Virtue</span><span class="t-title">Benevolence</span><span class="t-desc">Compassion without killing</span></div></li></ul></li><li><div class="tree-node"><span class="t-tag">2nd Evil</span><span class="t-title">Theft and Deceit</span></div><ul><li><div class="tree-node"><span class="t-tag">Result</span><span class="t-title">2nd Pain & Burning</span><span class="t-desc">Fear in this life and evil paths</span></div></li><li><div class="tree-node pure"><span class="t-tag">2nd Virtue</span><span class="t-title">Integrity</span><span class="t-desc">Generosity and charity</span></div></li></ul></li><li><div class="tree-node"><span class="t-tag">3rd Evil</span><span class="t-title">Sexual Misconduct</span></div><ul><li><div class="tree-node"><span class="t-tag">Result</span><span class="t-title">3rd Pain & Burning</span><span class="t-desc">Torment and endless cycles</span></div></li><li><div class="tree-node pure"><span class="t-tag">3rd Virtue</span><span class="t-title">Propriety</span><span class="t-desc">Constraint and etiquette</span></div></li></ul></li><li><div class="tree-node"><span class="t-tag">4th Evil</span><span class="t-title">Speech and Filial Duty</span></div><ul><li><div class="tree-node"><span class="t-tag">Result</span><span class="t-title">4th Pain & Burning</span><span class="t-desc">Resentment and extreme suffering</span></div></li><li><div class="tree-node pure"><span class="t-tag">4th Virtue</span><span class="t-title">Truthfulness</span><span class="t-desc">Filial piety and kindness</span></div></li></ul></li><li><div class="tree-node"><span class="t-tag">5th Evil</span><span class="t-title">Lethargy and Doubt</span></div><ul><li><div class="tree-node"><span class="t-tag">Result</span><span class="t-title">5th Pain & Burning</span><span class="t-desc">Downfall and hellish realms</span></div></li><li><div class="tree-node pure"><span class="t-tag">5th Virtue</span><span class="t-title">Diligence</span><span class="t-desc">Deep faith in Karma</span></div></li></ul></li></ul></li></ul></div></div>
+
+[Dedication and Rebirth: The Practice of the Three Grades]
+The sutra outlines the paths to rebirth, categorized by one's capacity and aspiration:
+1. Middle Grade: Even without being a monastic, one can implement practice by developing the supreme Bodhi mind. By focusing exclusively on Amitabha Buddha, performing merits, and dedicating them to rebirth, one will see the transformed body of the Buddha and attain rebirth.
+2. Lower Grade: Even if one cannot perform many deeds, by developing the supreme Bodhi mind, focusing with sincere intent, and chanting the Buddha's name, one will attain rebirth through faith and the Buddha's vow.
+
+In summary, for those who clearly believe in the Buddha's wisdom and dedicate their merits, their rebirth will be a transformation within the seven-jeweled lotus, instantly attaining the light, wisdom, and merit of a Bodhisattva.`
+},
+
 
 {
         id: "2026-06-02-en-karmic-samsara-bardo",
@@ -1060,6 +1114,32 @@ However, when we look at time-travel plots in science fiction, we occasionally f
     // ==========================================
     // 日文文章 (Japanese Articles)
     // ==========================================
+    {
+    id: "2026-06-09-ja-pureland-five-evils",
+    isNew: true,
+    lang: "ja",
+    category: "仏学",
+    title: "釈迦本師による娑婆世界の五悪・五痛・五焼と五善の闡明",
+    status: "無量寿経 ． 業力法則 ． 五悪五善",
+    humble: "『仏説無量寿経』原典に基づき、五悪・五痛・五焼の分類を梳理し、五善を修する功徳と回向の道を対照し、浄土実修の基礎指針とする。",
+    content: `[引言：娑婆修行の功徳の殊勝]
+仏言：「汝今諸天人民、及び後世人、仏の経語を得て、当に熟思すべし。能く其の中に於いて、端心正行せん……心を正し意を正し、斎戒清浄にすること、一日一夜ならん。無量寿国に於いて善を為すこと百歳なるに勝れり……唯だ此の間のみ多悪にして、自然有ること無し。勤苦して欲を求むるに、転た相い欺殆し、心労形困し、苦を飲み毒を食らう。是の如き悪務、未だ嘗て寧息せず。」
+
+五濁悪世の中で、環境は艱難であるが、精進修行には絶好の機縁である。娑婆の衆生が常に「苦を飲み毒を食らう」環境に直面しているからこそ、この難処において心を正し斎戒を守れば、その修行の力は極めて強大である。これこそが、一日一晩の修行が他国での百年に勝るという仏陀の教えの深意であり、此土修行の特殊な勝れた点である。
+
+[五悪・五痛・五焼と五善の梳理]
+『仏説無量寿経』巻下に基づき、仏陀は衆生が五悪を造作することで引き起こす「五痛」と「五焼」を詳述した。経文は、悪念を五善に転換することで福徳を得て、涅槃へと導かれることを示している。
+
+<div class="tree-wrapper"><div class="dharma-tree"><ul><li><div class="tree-node root"><span class="t-tag">無量寿経</span><span class="t-title">娑婆五悪と五善</span><span class="t-desc">生死の衆悪を断つ根源</span></div><ul><li><div class="tree-node"><span class="t-tag">其の一</span><span class="t-title">殺生と残害</span></div><ul><li><div class="tree-node"><span class="t-tag">果報</span><span class="t-title">一痛一焼</span><span class="t-desc">現世の災い、三途に堕つ</span></div></li><li><div class="tree-node pure"><span class="t-tag">其の一善</span><span class="t-title">仁慈博愛</span><span class="t-desc">慈心不殺</span></div></li></ul></li><li><div class="tree-node"><span class="t-tag">其の二</span><span class="t-title">貪盗と欺罔</span></div><ul><li><div class="tree-node"><span class="t-tag">果報</span><span class="t-title">二痛二焼</span><span class="t-desc">現世の恐怖、悪道に入る</span></div></li><li><div class="tree-node pure"><span class="t-tag">其の二善</span><span class="t-title">清廉知足</span><span class="t-desc">恩恵を施す</span></div></li></ul></li><li><div class="tree-node"><span class="t-tag">其の三</span><span class="t-title">邪淫と結怨</span></div><ul><li><div class="tree-node"><span class="t-tag">果報</span><span class="t-title">三痛三焼</span><span class="t-desc">現世の苦悩、脱出難し</span></div></li><li><div class="tree-node pure"><span class="t-tag">其の三善</span><span class="t-title">端正貞潔</span><span class="t-desc">礼と節度を守る</span></div></li></ul></li><li><div class="tree-node"><span class="t-tag">其の四</span><span class="t-title">口悪と不孝</span></div><ul><li><div class="tree-node"><span class="t-tag">果報</span><span class="t-title">四痛四焼</span><span class="t-desc">怨念を招き、極苦を受ける</span></div></li><li><div class="tree-node pure"><span class="t-tag">其の四善</span><span class="t-title">誠実柔和</span><span class="t-desc">親に孝養す</span></div></li></ul></li><li><div class="tree-node"><span class="t-tag">其の五</span><span class="t-title">懈怠と不信</span></div><ul><li><div class="tree-node"><span class="t-tag">果報</span><span class="t-title">五痛五焼</span><span class="t-desc">現世の沈淪、地獄に堕つ</span></div></li><li><div class="tree-node pure"><span class="t-tag">其の五善</span><span class="t-title">忍辱精進</span><span class="t-desc">因果を深信す</span></div></li></ul></li></ul></li></ul></div></div>
+
+[回向と往生：三輩往生の修持]
+経文は往生の修持の道筋を、個人の根器と発心に応じて三輩に分けている。
+1. 中輩：出家できずとも、無上菩提心を発して実践できる。無量寿仏に一向専念し、功徳を修め、斎戒を奉持し回向すれば、化身の仏が現れ往生を遂げる。
+2. 下輩：功徳を積むことができずとも、無上菩提心を発し、至誠心をもって念仏すれば、仏の誓いにより往生を得る。
+
+要するに、娑婆世界において仏智を明信し、功徳を積み回向すれば、往生後には七宝華の中で自然に化生し、瞬く間に諸菩薩の智慧と功徳を具足成就する。これが娑婆での修善が、極楽浄土の殊勝な果報を感応する根拠である。`
+},
+
 
 {
         id: "2026-06-02-ja-karmic-samsara-bardo",
