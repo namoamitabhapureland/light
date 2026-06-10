@@ -90,6 +90,19 @@
         .c-title { color: var(--cyan); font-size: 1.15rem; letter-spacing: 1.5px; font-weight: bold; }
         .c-text { color: var(--text-main); font-size: 0.95rem; line-height: 1.9; text-align: justify; padding-left: 39px; letter-spacing: 0.8px;}
         .chapter-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(139,168,156,0.2), transparent); margin: 35px 0; }
+                /* 增加玉簡專屬按鈕與抽屜樣式 */
+        #vows-btn { border-color:rgba(139,168,156,0.6); color:#e0f2ec; background:rgba(5,15,10,0.9); display: none; }
+        
+        #vows-drawer {
+            position: fixed; bottom: 0; left: 0; width: 100vw; height: 85vh; background: rgba(5, 8, 5, 0.96); backdrop-filter: blur(20px);
+            border-top: 1.5px solid rgba(139,168,156,0.5); border-radius: 25px 25px 0 0; transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 2000; overflow-y: auto; padding: 0 0 80px 0; touch-action: pan-y; box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
+        }
+        #vows-drawer.open { transform: translateY(0); }
+        
+        .vow-box { margin-bottom: 25px; padding: 20px; border-left: 2px solid rgba(139,168,156,0.5); background: linear-gradient(90deg, rgba(139,168,156,0.08), transparent); border-radius: 0 12px 12px 0; }
+        .vow-num { color: var(--gold); font-size: 0.9rem; margin-bottom: 8px; font-weight: bold; letter-spacing: 2px; text-shadow: 0 0 5px rgba(212,175,55,0.3); }
+        .vow-text { color: var(--text-main); font-size: 1.05rem; line-height: 1.9; text-align: justify; letter-spacing: 1.5px; }
+
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -110,7 +123,10 @@
         
         <div class="ui-layer" id="ui-layer">
             <div id="hold-hint">長按螢幕十秒 放開啟動接引</div>
-            
+             <button class="switch-btn" id="vows-btn" onclick="openVowsDrawer()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="16" height="18" rx="2" ry="2"></rect><line x1="8" y1="3" x2="8" y2="21"></line><line x1="12" y1="3" x2="12" y2="21"></line><line x1="16" y1="3" x2="16" y2="21"></line></svg>
+                恭閱四十八願玉簡
+            </button>
             <button class="switch-btn" id="theory-btn" onclick="openTheoryDrawer()">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                 探究彌陀無量願海
@@ -253,6 +269,72 @@
         </div>
     </div>
 </div>
+    <div id="vows-drawer">
+    <div class="drawer-header" onclick="closeVowsDrawer()">
+        <div class="close-bar"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding: 0 5px;">
+            <div style="color:var(--cyan); font-size:0.85rem; letter-spacing:2px; font-weight:bold; cursor:pointer;" onclick="closeVowsDrawer()">收起玉簡</div>
+            <div id="tts-vows-btn" onclick="event.stopPropagation(); toggleVowsAudio()" style="color:var(--gold); font-size:0.85rem; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:6px; background:rgba(212,175,55,0.15); padding: 6px 12px; border-radius:20px; border: 1px solid rgba(212,175,55,0.4);">
+                <svg id="tts-vows-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+                <span id="tts-vows-text">恭聆願文</span>
+            </div>
+        </div>
+    </div>
+    <div class="theory-container" id="vows-content-box">
+        <h1 class="main-title" style="color:#e0f2ec; text-shadow: 0 0 15px rgba(139,168,156,0.4);">佛說無量壽經 ． 四十八大願</h1>
+        <div class="humble-statement">曹魏康僧鎧譯本。法藏比丘於世自在王佛前，發弘誓願，建立極樂淨土。行者當以至誠心，恭閱願文，契入彌陀本願海。</div>
+        
+        <div class="vow-box"><div class="vow-num">第一願</div><div class="vow-text">設我得佛，國有地獄、餓鬼、畜生者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二願</div><div class="vow-text">設我得佛，國中天人壽終之後，復更三惡道者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三願</div><div class="vow-text">設我得佛，國中天人，不悉真金色者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四願</div><div class="vow-text">設我得佛，國中天人，形色不同，有好醜者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第五願</div><div class="vow-text">設我得佛，國中天人，不識宿命，下至知百千億那由他諸劫事者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第六願</div><div class="vow-text">設我得佛，國中天人，不得天眼，下至見百千億那由他諸佛國者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第七願</div><div class="vow-text">設我得佛，國中天人，不得天耳，下至聞百千億那由他諸佛所說，不悉受持者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第八願</div><div class="vow-text">設我得佛，國中天人，不得見他心智，下至知百千億那由他諸佛國中眾生心念者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第九願</div><div class="vow-text">設我得佛，國中天人，不得神足，於一念頃，下至不能超過百千億那由他諸佛國者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十願</div><div class="vow-text">設我得佛，國中天人，若起想念，貪計身者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十一願</div><div class="vow-text">設我得佛，國中天人，不住定聚，必至滅度者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十二願</div><div class="vow-text">設我得佛，光明有限量，下至不照百千億那由他諸佛國者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十三願</div><div class="vow-text">設我得佛，壽命有限量，下至百千億那由他劫者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十四願</div><div class="vow-text">設我得佛，國中聲聞，有能計量，乃至三千大千世界眾生，悉成緣覺，於百千劫，悉共計校，知其數者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十五願</div><div class="vow-text">設我得佛，國中天人，壽命無能限量。除其本願，脩短自在。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十六願</div><div class="vow-text">設我得佛，國中天人，乃至聞有不善名者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十七願</div><div class="vow-text">設我得佛，十方世界無量諸佛，不悉咨嗟稱我名者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十八願</div><div class="vow-text">設我得佛，十方眾生，至心信樂，欲生我國，乃至十念，若不生者，不取正覺。唯除五逆，誹謗正法。</div></div>
+        <div class="vow-box"><div class="vow-num">第十九願</div><div class="vow-text">設我得佛，十方眾生，發菩提心，修諸功德，至心發願，欲生我國，臨壽終時，假令不與大眾圍繞，現其人前者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十願</div><div class="vow-text">設我得佛，十方眾生，聞我名號，繫念我國，植眾德本，至心迴向，欲生我國，不果遂者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十一願</div><div class="vow-text">設我得佛，國中天人，不悉成滿三十二大人相者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十二願</div><div class="vow-text">設我得佛，他方佛土諸菩薩眾，來生我國，究竟必至一生補處。除其本願自在所化。為眾生故，被弘誓鎧，積累德本，度脫一切。遊諸佛國，修菩薩行，供養十方諸佛如來。開化恆沙無量眾生，使立無上正真之道，超出常倫諸地之行，現前修習普賢之德。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十三願</div><div class="vow-text">設我得佛，國中菩薩，承佛神力，供養諸佛，一食之頃，不能遍至無數無量億那由他諸佛國者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十四願</div><div class="vow-text">設我得佛，國中菩薩，在諸佛前，現其德本，諸所求求，供養之具，若不如意者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十五願</div><div class="vow-text">設我得佛，國中菩薩，不能演說一切智者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十六願</div><div class="vow-text">設我得佛，國中菩薩，不得金剛那羅延身者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十七願</div><div class="vow-text">設我得佛，國中天人，一切萬物，嚴淨光麗，形色殊特，窮微極妙，無能稱量。其諸眾生，乃至逮得天眼，有能明了，辨其名數者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十八願</div><div class="vow-text">設我得佛，國中菩薩，乃至少功德者，不能知見其道場樹無量光色，高四百萬里者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十九願</div><div class="vow-text">設我得佛，國中菩薩，若受讀經法，諷誦持說，而不得辯才智慧者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十願</div><div class="vow-text">設我得佛，國中菩薩，智慧辯才，若可限量者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十一願</div><div class="vow-text">設我得佛，國土清淨，皆悉照見十方一切無量無數不可思議諸佛世界，猶如明鏡，睹其面像。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十二願</div><div class="vow-text">設我得佛，自地以上，至於虛空，宮殿、樓觀、池流、華樹，國土所有一切萬物，皆以無量雜寶、百千種香而共合成。嚴飾奇妙，超諸天人。其香普熏十方世界。菩薩聞者，皆修佛行。若不如是，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十三願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界眾生之類，蒙我光明觸其身者，身心柔軟，超過天人。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十四願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界眾生之類，聞我名字，不得菩薩無生法忍、深總持者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十五願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界，其有女人，聞我名字，歡喜信樂，發菩提心，厭惡女身。壽終之後，復為女像者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十六願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界諸菩薩眾，聞我名字，壽終之後，常修梵行，至成佛道。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十七願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界諸天人民，聞我名字，五體投地，稽首作禮，歡喜信樂，修菩薩行，諸天世人，莫不致敬。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十八願</div><div class="vow-text">設我得佛，國中天人，欲得衣服，隨念即至，如佛所讚應法妙服，自然在身。有求裁縫、擣染、浣濯者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十九願</div><div class="vow-text">設我得佛，國中天人，所受快樂，不如漏盡比丘者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十願</div><div class="vow-text">設我得佛，國中菩薩，隨意欲見十方無量嚴淨佛土，應時如願，於寶樹中，皆悉照見，猶如明鏡，睹其面像。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十一願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，至於得佛，諸根缺陋不具足者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十二願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，皆悉逮得清淨解脫三昧。住是三昧，一發意頃，供養無量不可思議諸佛世尊，而不失定意。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十三願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，壽終之後，生尊貴家。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十四願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，歡喜踊躍，修菩薩行，具足德本。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十五願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，皆悉逮得普等三昧。住是三昧，至於成佛，常見無量不可思議一切如來。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十六願</div><div class="vow-text">設我得佛，國中菩薩，隨其志願所欲聞法，自然得聞。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十七願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，不即得至不退轉者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十八願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，不即得至第一忍、第二第三法忍，於諸佛法，不能即得不退轉者，不取正覺。</div></div>
+    </div>
+</div>
+
 
 <script>
 
@@ -538,19 +620,21 @@
         requestAnimationFrame(animate);
     }
 
-    function toggleRealm(type) {
+        function toggleRealm(type) {
         if(currentRealm === type) return;
         currentRealm = type;
         
         let title = document.getElementById('s-title'); let desc = document.getElementById('s-desc');
         let hintContainer = document.getElementById('hold-hint');
         let theoryBtn = document.getElementById('theory-btn');
+        let vowsBtn = document.getElementById('vows-btn'); // 綁定新按鈕
 
         if (type === 0) {
             title.innerText = "彌陀願力接引"; desc.innerHTML = "「萬念歸一，光芒四射。」<br>長按螢幕凝聚金光，放手契入極樂。";
             title.style.color = 'var(--gold)';
             hintContainer.style.display = 'block';
             theoryBtn.style.display = 'none';
+            vowsBtn.style.display = 'none'; // 隱藏玉簡按鈕
             angleX = 0.2; angleY = 0; 
             charge = 0; gravityForce = 0;
         } else {
@@ -559,15 +643,23 @@
             hintContainer.style.display = 'none';
 
             theoryBtn.style.display = 'flex';
+            vowsBtn.style.display = 'flex'; // 顯示玉簡按鈕
             angleX = 0.6; angleY = 0; 
         }
     }
 
+
     function openTheoryDrawer() { document.getElementById('theory-drawer').classList.add('open'); }
     function closeTheoryDrawer() { document.getElementById('theory-drawer').classList.remove('open'); }
+        function openVowsDrawer() { document.getElementById('vows-drawer').classList.add('open'); }
+    function closeVowsDrawer() { document.getElementById('vows-drawer').classList.remove('open'); }
+    
+    document.getElementById('vows-drawer').addEventListener('pointerdown', (e) => e.stopPropagation());
+
 
     document.getElementById('theory-drawer').addEventListener('pointerdown', (e) => e.stopPropagation());
     document.getElementById('ui-layer').addEventListener('pointerdown', (e) => e.stopPropagation());
+    
 
     // --- 互動偵測 ---
     function onDown(e) { 
@@ -613,6 +705,50 @@
     canvas.addEventListener('touchstart', onDown, {passive: true}); canvas.addEventListener('touchmove', onMove, {passive: true}); window.addEventListener('touchend', onUp);
 
     // ================= ✨ TTS 語音導航系統 ✨ =================
+        // ================= ✨ 經文玉簡 TTS 語音系統 ✨ =================
+    let isPlayingVows = false;
+    let vowsUtterance = null;
+
+    function toggleVowsAudio() {
+        if (!window.speechSynthesis) return alert("您的設備不支援語音功能");
+        const btnText = document.getElementById('tts-vows-text'); const btnIcon = document.getElementById('tts-vows-icon');
+        
+        if (isPlayingVows) {
+            window.speechSynthesis.cancel(); isPlayingVows = false; btnText.innerText = "恭聆願文";
+            btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
+        } else {
+            // 中斷可能正在播放的探究文章語音
+            if (isPlayingTheory) toggleTheoryAudio();
+            
+            let contentNodes = document.querySelectorAll('#vows-content-box .vow-num, #vows-content-box .vow-text');
+            let textToRead = Array.from(contentNodes).map(node => node.textContent.trim()).join('，');
+            
+            let isAndroid = /Android/i.test(navigator.userAgent);
+            textToRead = isAndroid ? textToRead : textToRead.replace(/阿/g, 'ㄚ');
+            
+            vowsUtterance = new SpeechSynthesisUtterance(textToRead); vowsUtterance.lang = 'zh-TW'; vowsUtterance.rate = 0.85; 
+            if (isAndroid) {
+                window.sysUtterances.push(vowsUtterance);
+                let voices = window.speechSynthesis.getVoices();
+                if (voices.length > 0) {
+                    let zhVoice = voices.find(v => v.lang === 'zh-TW' && v.name.includes('Google')) || voices.find(v => v.lang.includes('zh'));
+                    if (zhVoice) vowsUtterance.voice = zhVoice;
+                }
+            }
+            vowsUtterance.onend = () => {
+                isPlayingVows = false; btnText.innerText = "恭聆願文";
+                btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
+                if(isAndroid) window.sysUtterances = window.sysUtterances.filter(u => u !== vowsUtterance);
+            };
+            setTimeout(() => { window.speechSynthesis.speak(vowsUtterance); }, isAndroid ? 150 : 50);
+            isPlayingVows = true; btnText.innerText = "停止聆聽";
+            btnIcon.innerHTML = '<rect x="6" y="6" width="12" height="12"></rect>';
+        }
+    }
+
+    const originalCloseVowsDrawer = closeVowsDrawer;
+    closeVowsDrawer = function() { if (isPlayingVows) toggleVowsAudio(); originalCloseVowsDrawer(); }
+
     let isPlayingTheory = false;
     let theoryUtterance = null;
     window.sysUtterances = []; 
