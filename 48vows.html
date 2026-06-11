@@ -114,7 +114,7 @@
 
     <div id="status-panel">
         <div class="status-title" id="s-title">彌陀願力接引</div>
-        <div class="status-desc" id="s-desc">「萬念歸一，光芒四射。」<br>長按螢幕凝聚金光，放手契入極樂。</div>
+        <div class="status-desc" id="s-desc">「萬念歸一，光芒四射。」<br>長按螢幕凝聚金光，願生極樂。</div>
     </div>
 
     <section class="matrix-section" id="bg-section">
@@ -122,11 +122,13 @@
         <div id="lengyan-flash"></div> 
         
         <div class="ui-layer" id="ui-layer">
-            <div id="hold-hint">長按螢幕十秒 放開啟動接引</div>
-             <button class="switch-btn" id="vows-btn" onclick="openVowsDrawer()">
+            <div id="hold-hint">長按螢幕十秒 再放開 進入大願海</div>
+            <!-- 新增玉簡按鈕 -->
+            <button class="switch-btn" id="vows-btn" onclick="openVowsDrawer()">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="16" height="18" rx="2" ry="2"></rect><line x1="8" y1="3" x2="8" y2="21"></line><line x1="12" y1="3" x2="12" y2="21"></line><line x1="16" y1="3" x2="16" y2="21"></line></svg>
                 恭閱四十八願玉簡
             </button>
+            
             <button class="switch-btn" id="theory-btn" onclick="openTheoryDrawer()">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                 探究彌陀無量願海
@@ -269,7 +271,7 @@
         </div>
     </div>
 </div>
-    <div id="vows-drawer">
+<div id="vows-drawer">
     <div class="drawer-header" onclick="closeVowsDrawer()">
         <div class="close-bar"></div>
         <div style="display:flex; justify-content:space-between; align-items:center; padding: 0 5px;">
@@ -620,21 +622,19 @@
         requestAnimationFrame(animate);
     }
 
-        function toggleRealm(type) {
+    function toggleRealm(type) {
         if(currentRealm === type) return;
         currentRealm = type;
         
         let title = document.getElementById('s-title'); let desc = document.getElementById('s-desc');
         let hintContainer = document.getElementById('hold-hint');
         let theoryBtn = document.getElementById('theory-btn');
-        let vowsBtn = document.getElementById('vows-btn'); // 綁定新按鈕
 
         if (type === 0) {
-            title.innerText = "彌陀願力接引"; desc.innerHTML = "「萬念歸一，光芒四射。」<br>長按螢幕凝聚金光，放手契入極樂。";
+            title.innerText = "彌陀願力接引"; desc.innerHTML = "「萬念歸一，光芒四射。」<br>長按螢幕凝聚金光，願生極樂。";
             title.style.color = 'var(--gold)';
             hintContainer.style.display = 'block';
             theoryBtn.style.display = 'none';
-            vowsBtn.style.display = 'none'; // 隱藏玉簡按鈕
             angleX = 0.2; angleY = 0; 
             charge = 0; gravityForce = 0;
         } else {
@@ -643,11 +643,9 @@
             hintContainer.style.display = 'none';
 
             theoryBtn.style.display = 'flex';
-            vowsBtn.style.display = 'flex'; // 顯示玉簡按鈕
             angleX = 0.6; angleY = 0; 
         }
     }
-
 
     function openTheoryDrawer() { document.getElementById('theory-drawer').classList.add('open'); }
     function closeTheoryDrawer() { document.getElementById('theory-drawer').classList.remove('open'); }
@@ -659,7 +657,6 @@
 
     document.getElementById('theory-drawer').addEventListener('pointerdown', (e) => e.stopPropagation());
     document.getElementById('ui-layer').addEventListener('pointerdown', (e) => e.stopPropagation());
-    
 
     // --- 互動偵測 ---
     function onDown(e) { 
@@ -704,7 +701,7 @@
     canvas.addEventListener('mousedown', onDown); window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp);
     canvas.addEventListener('touchstart', onDown, {passive: true}); canvas.addEventListener('touchmove', onMove, {passive: true}); window.addEventListener('touchend', onUp);
 
-    // ================= ✨ TTS 語音導航系統 ✨ =================
+    
         // ================= ✨ 經文玉簡 TTS 語音系統 ✨ =================
     let isPlayingVows = false;
     let vowsUtterance = null;
@@ -748,6 +745,8 @@
 
     const originalCloseVowsDrawer = closeVowsDrawer;
     closeVowsDrawer = function() { if (isPlayingVows) toggleVowsAudio(); originalCloseVowsDrawer(); }
+
+    // ================= ✨ TTS 語音導航系統 ✨ =================
 
     let isPlayingTheory = false;
     let theoryUtterance = null;
