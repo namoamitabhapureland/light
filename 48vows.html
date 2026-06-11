@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <meta name="robots" content="noindex, nofollow">
-        <link rel="manifest" href="manifest.json">
-    <title>彌陀大願 ． 極樂蓮邦</title>
+    <meta name="robots" content="noindex, nofollow">
+     <link rel="manifest" href="manifest_en.json">
+    <title>Amitabha's Great Vows · Pure Land of Ultimate Bliss</title>
     <style>
         :root {
             --bg-deep: #020205; 
@@ -18,7 +18,7 @@
         
         body { 
             margin: 0; background: var(--bg-deep); color: var(--text-main); 
-            font-family: "PingFang TC", "Microsoft JhengHei", serif;
+            font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
             overflow: hidden; touch-action: none; overscroll-behavior: none;
             -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none;
             -moz-user-select: none; -ms-user-select: none; user-select: none;
@@ -53,10 +53,10 @@
         .ui-layer { position: absolute; bottom: 8%; width: 100%; display: flex; flex-direction: column; align-items: center; z-index: 10; gap: 12px; transition: opacity 1s;}
         
         .switch-btn {
-            width: 85%; max-width: 320px; justify-content: center;
+            width: 85%; max-width: 360px; justify-content: center;
             background: linear-gradient(135deg, rgba(15,15,15,0.9), rgba(5,5,5,0.95)); 
             border: 1px solid rgba(212,175,55,0.5); color: var(--gold);
-            padding: 14px 20px; border-radius: 30px; font-size: 1rem; font-weight: bold; letter-spacing: 2px;
+            padding: 14px 20px; border-radius: 30px; font-size: 0.95rem; font-weight: bold; letter-spacing: 1px;
             cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s; display: flex; align-items: center; gap: 10px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.8), inset 0 0 15px rgba(212,175,55,0.1);
         }
@@ -65,7 +65,7 @@
         #theory-btn { border-color:rgba(139,168,156,0.8); color:var(--cyan); background:rgba(5,10,15,0.9); display: none; }
         
         #hold-hint {
-            color: rgba(212,175,55,0.8); font-size: 1rem; letter-spacing: 3px; font-weight: bold;
+            color: rgba(212,175,55,0.8); font-size: 0.95rem; letter-spacing: 2px; font-weight: bold;
             text-shadow: 0 0 10px rgba(212,175,55,0.5); padding: 15px; text-align: center;
         }
 
@@ -81,14 +81,14 @@
         
         .humble-statement { font-size: 0.85rem; color: #b0b0b0; line-height: 1.8; text-align: justify; padding: 20px; border: 1px solid rgba(139,168,156,0.2); border-radius: 12px; background: rgba(10,15,20,0.3); margin-bottom: 50px; }
         
-        .main-title { color: var(--cyan); font-size: 1.5rem; letter-spacing: 3px; text-align: center; margin-bottom: 50px; text-shadow: 0 0 15px rgba(139,168,156,0.3); }
+        .main-title { color: var(--cyan); font-size: 1.35rem; letter-spacing: 2px; text-align: center; margin-bottom: 50px; text-shadow: 0 0 15px rgba(139,168,156,0.3); line-height: 1.5;}
         .main-title::after { content: ''; display: block; width: 50px; height: 1.5px; background: linear-gradient(90deg, transparent, var(--cyan), transparent); margin: 15px auto 0; }
         
         .chapter-box { margin-bottom: 50px; }
         .c-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
         .c-icon { width: 24px; height: 24px; stroke: var(--cyan); fill: none; stroke-width: 1.5; filter: drop-shadow(0 0 5px rgba(139,168,156,0.4)); flex-shrink: 0;}
-        .c-title { color: var(--cyan); font-size: 1.15rem; letter-spacing: 1.5px; font-weight: bold; }
-        .c-text { color: var(--text-main); font-size: 0.95rem; line-height: 1.9; text-align: justify; padding-left: 39px; letter-spacing: 0.8px;}
+        .c-title { color: var(--cyan); font-size: 1.1rem; letter-spacing: 1px; font-weight: bold; }
+        .c-text { color: var(--text-main); font-size: 0.95rem; line-height: 1.9; text-align: justify; padding-left: 39px; letter-spacing: 0.5px;}
         .chapter-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(139,168,156,0.2), transparent); margin: 35px 0; }
                 /* 增加玉簡專屬按鈕與抽屜樣式 */
         #vows-btn { border-color:rgba(139,168,156,0.6); color:#e0f2ec; background:rgba(5,15,10,0.9); display: none; }
@@ -101,20 +101,20 @@
         
         .vow-box { margin-bottom: 25px; padding: 20px; border-left: 2px solid rgba(139,168,156,0.5); background: linear-gradient(90deg, rgba(139,168,156,0.08), transparent); border-radius: 0 12px 12px 0; }
         .vow-num { color: var(--gold); font-size: 0.9rem; margin-bottom: 8px; font-weight: bold; letter-spacing: 2px; text-shadow: 0 0 5px rgba(212,175,55,0.3); }
-        .vow-text { color: var(--text-main); font-size: 1.05rem; line-height: 1.9; text-align: justify; letter-spacing: 1.5px; }
+        .vow-text { color: var(--text-main); font-size: 1.05rem; line-height: 1.9; text-align: justify; letter-spacing: 1px; }
 
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div class="back-btn" onclick="window.location.href='index.html'">
+    <div class="back-btn" onclick="window.location.href='index_en.html'">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-        回道場
+        Bodhimanda
     </div>
 
     <div id="status-panel">
-        <div class="status-title" id="s-title">彌陀願力接引</div>
-        <div class="status-desc" id="s-desc">「萬念歸一，光芒四射。」<br>長按螢幕凝聚金光，願生極樂。</div>
+        <div class="status-title" id="s-title">Amitabha's Guiding Light</div>
+        <div class="status-desc" id="s-desc">"All thoughts gather into one, radiating boundless light."<br>Hold screen to gather golden light, release to enter Ultimate Bliss.</div>
     </div>
 
     <section class="matrix-section" id="bg-section">
@@ -122,16 +122,16 @@
         <div id="lengyan-flash"></div> 
         
         <div class="ui-layer" id="ui-layer">
-            <div id="hold-hint">長按螢幕十秒 再放開 進入大願海</div>
-            <!-- 新增玉簡按鈕 -->
-            <button class="switch-btn" id="vows-btn" onclick="openVowsDrawer()">
+            <div id="hold-hint">Hold screen for 10 seconds, release to activate guidance</div>
+                        <button class="switch-btn" id="vows-btn" onclick="openVowsDrawer()">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="16" height="18" rx="2" ry="2"></rect><line x1="8" y1="3" x2="8" y2="21"></line><line x1="12" y1="3" x2="12" y2="21"></line><line x1="16" y1="3" x2="16" y2="21"></line></svg>
-                恭閱四十八願玉簡
+                Read the 48 Vows Scroll
             </button>
+
             
             <button class="switch-btn" id="theory-btn" onclick="openTheoryDrawer()">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                探究彌陀無量願海
+                Explore the Infinite Vow Ocean
             </button>
         </div>
    </section>
@@ -140,37 +140,37 @@
     <div class="drawer-header" onclick="closeTheoryDrawer()">
         <div class="close-bar"></div>
         <div style="display:flex; justify-content:space-between; align-items:center; padding: 0 5px;">
-            <div style="color:var(--cyan); font-size:0.85rem; letter-spacing:2px; font-weight:bold; cursor:pointer;" onclick="closeTheoryDrawer()">收起法卷</div>
+            <div style="color:var(--cyan); font-size:0.85rem; letter-spacing:1px; font-weight:bold; cursor:pointer;" onclick="closeTheoryDrawer()">Close Dharma Scroll</div>
             <div id="tts-btn" onclick="event.stopPropagation(); toggleTheoryAudio()" style="color:var(--gold); font-size:0.85rem; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:6px; background:rgba(212,175,55,0.15); padding: 6px 12px; border-radius:20px; border: 1px solid rgba(212,175,55,0.4);">
                 <svg id="tts-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
-                <span id="tts-text">聆聽法音</span>
+                <span id="tts-text">Listen to Dharma</span>
             </div>
         </div>
     </div>
     <div class="theory-container" id="theory-content-box">
-        <div class="humble-statement">法海浩瀚，唯佛與佛乃能究盡。本文僅為一介在家居士，依經教邏輯與祖師大德之註疏，試圖探求如來真實義之修學略影。若有未盡或錯漏之處，皆屬個人智識之侷限，祈願三寶加被，同修共鑒。</div>
+        <div class="humble-statement">The ocean of Dharma is vast and profound; only fully comprehended by Buddhas. This text is but a humble attempt by a lay practitioner, relying on the logic of sutras and the commentaries of ancestral masters, to explore a glimpse of the Tathagata's true meaning for cultivation. Any omissions or errors are entirely due to the limitations of personal intellect. May the Three Jewels bless us, and may fellow practitioners examine this together.</div>
         
-        <h1 class="main-title">覺海澄觀 ． 彌陀淨土之實相與菩提心要</h1>
+        <h1 class="main-title">Clear Contemplation of the Awakening Ocean<br>The True Mark of Amitabha's Pure Land and the Essence of Bodhicitta</h1>
         
-        <div style="color:rgba(255,255,255,0.8); font-size:0.95rem; line-height:1.8; margin-bottom: 2rem; text-align: justify; text-justify: inter-ideograph;">
-            《無量壽經》梵文原典迭經譯傳，異本中所載法藏比丘因地發願之數，有二十四至四十九之別。經歷代祖師大德判釋與文獻考覈，今以魏譯四十八願為上求佛道、下化眾生之主流圭臬。四十八願實乃極樂淨土之締造樞機，盡攝彌陀之悲智雙運。
+        <div style="color:rgba(255,255,255,0.8); font-size:0.95rem; line-height:1.8; margin-bottom: 2rem; text-align: justify;">
+            The original Sanskrit texts of the <em>Infinite Life Sutra</em> have undergone various translations, and different versions record the number of vows made by Dharmakara Bodhisattva in his causal stage as ranging from 24 to 49. Through the judgment and textual research of past ancestral masters, the 48 Vows of the Wei translation are now regarded as the mainstream standard for seeking the Buddha Way above and transforming sentient beings below. The 48 Vows are the very foundation of the Pure Land of Ultimate Bliss, encompassing the perfect union of Amitabha's infinite compassion and wisdom.
         </div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                <div class="c-title">第一篇　清淨法界與色身圓融</div>
+                <div class="c-title">Chapter 1: The Pure Dharma Realm and the Perfect Harmony of Form</div>
             </div>
-            <div class="c-text">國無惡道與不墮惡趣之願，極樂之境從本源蠲除三塗之業感。此乃無盡之護念，俾令修行者靈命根基永不退墮。而身悉金色、形無好醜，實為泯除形相之妄別，當攀緣與高下之心失其所依，方能與一真法界冥契交感。至若光明無量與壽命無量，其真義斷非世俗貪戀之長生。無量光，宛如法身遍照之圓融，一即一切；而無量壽，實乃開演一處無退轉之勝妙境地，護持往生者於無盡歲月中圓滿菩提。待彌陀化緣既畢，入於涅槃，觀音大士紹繼佛位，此無量壽之宏旨，即在護持願力之永恆傳續。而壽命隨願修短，更微顯此土實乃菩薩道之棲神化驛，行者若資糧具足，隨時皆可倒駕慈航，重返十方無量世界。</div>
+            <div class="c-text">The vows of "No Evil Destinies" and "Not Falling into Evil Destinies" eradicate the karmic resonance of the three lower realms from their very source. This is boundless protection, ensuring the spiritual foundation of practitioners never regresses. That bodies are entirely golden in color, without distinction of beauty or ugliness, is to eliminate the false discrimination of physical forms. When the mind of grasping and the perception of superiority and inferiority lose their basis, one can profoundly resonate with the One True Dharma Realm. As for infinite light and infinite life, their true meaning is absolutely not a worldly attachment to longevity. Infinite light is like the perfect integration of the Dharma Body shining everywhere; one is all. Infinite life, in reality, establishes an eternal realm of non-retrogression, protecting reborn beings through endless eons until their Bodhi is perfected. When Amitabha's affinity for transforming beings concludes and he enters Nirvana, Avalokitesvara Bodhisattva will succeed the Buddha's position. The grand purpose of this infinite life is to protect the eternal continuation of vow power. The fact that lifespans can be shortened or lengthened at will further reveals this land is truly a spiritual waystation for the Bodhisattva path. If practitioners possess sufficient merits, they can turn the ship of compassion around at any time, returning to the infinite worlds of the ten directions.</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <div class="c-title">第二篇　不更惡道之真機</div>
+                <div class="c-title">Chapter 2: The True Mechanism of Never Returning to Evil Destinies</div>
             </div>
-            <div class="c-text">第二願「不更三惡道」緊攝於第一願「國無惡道」與「無量壽」之後，實乃法界最深密之對比與呼應。此願特以極樂之「人、天」為授記標的，乃「以小示大」之勝妙權巧。首層真機，即為迴入十方大千世界度化群迷之大士預設不壞之防護網：縱然隨緣受生，亦絕不流轉於重濁業境。更深層之奧祕，在於凡曾生極樂者，阿賴耶識深處已然凝結彌陀本願之無漏種子，於無盡之迴入受生中，生生世世自然絕緣於三惡趣之牽引，無有退轉。</div>
+            <div class="c-text">The second vow, "Never Returning to the Three Evil Destinies," closely follows the first vow of "No Evil Destinies" and "Infinite Life," forming the deepest contrast and resonance in the Dharma realm. This vow specifically targets the "humans and devas" of Ultimate Bliss for prophecy, which is a wondrous and expedient means of "revealing the great through the small." The first level of true mechanism is establishing an indestructible safety net for great beings who return to the vast universe to save deluded sentient beings: even if they undergo rebirth according to conditions, they will absolutely never flow into heavy, turbid karmic realms. The deeper mystery lies in the fact that for anyone who has ever been born in Ultimate Bliss, the flawless seeds of Amitabha's original vow have already condensed deep within their Alaya-vijnana (storehouse consciousness). Throughout endless returns and rebirths, life after life, they are naturally insulated from the pull of the three evil destinies, experiencing no retrogression.</div>
         </div>
         <div class="chapter-divider"></div>
 
@@ -181,93 +181,92 @@
                     <circle cx="12" cy="12" r="4"/>
                     <path d="M12 2v6"/><path d="M12 16v6"/><path d="M2 12h6"/><path d="M16 12h6"/>
                 </svg>
-                <div class="c-title">第三篇　聲聞迴心與一佛乘之歸宿</div>
+                <div class="c-title">Chapter 3: The Turning of Sravakas and the Destination of the One Buddha Vehicle</div>
             </div>
-            <div class="c-text">國中聲聞無數，印證原始佛教實為覺悟之初基。然獨善其身終難契入究竟涅槃，當聲聞眾沐浴於極樂法性，心隨境轉，便如《法華》所云，迴小向大，發菩提心，匯入一佛乘之浩瀚。而邊地疑城之設，猶如法界最慈悲之韜光之所，令夾帶世俗微細惑障之眾生，於無苦之境緩緩洗滌蛻變。一旦契入，便蒙不住定聚必至滅度之加被，彷彿頓超一大阿僧祇劫，直證初地之不退轉。</div>
+            <div class="c-text">The presence of countless Sravakas (Hearers) in the land confirms that original Buddhism is indeed the foundational stage of awakening. Yet, merely perfecting oneself ultimately struggles to reach absolute Nirvana. When the assembly of Sravakas is bathed in the Dharma nature of Ultimate Bliss, their minds shift with the environment. Just as stated in the <em>Lotus Sutra</em>, they turn from the small to the great, give rise to Bodhicitta, and merge into the vastness of the One Buddha Vehicle. The establishment of the Borderland and the City of Doubt is like the most compassionate concealed shelter in the Dharma realm, allowing sentient beings carrying subtle, worldly doubts and karmic hindrances to slowly cleanse and transform in a realm without suffering. Once they enter, they are blessed to be established in the definitely assured group, as if transcending a great asankhya kalpa in an instant, directly realizing the non-retrogression of the First Ground.</div>
         </div>
         <div class="chapter-divider"></div>
-
 
                <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
                 </svg>
-                <div class="c-title">第四篇　純善無漏與轉染成淨之妙用</div>
+                <div class="c-title">Chapter 4: Pure Goodness, Outflow-Free, and Transforming Pollution into Purity</div>
             </div>
-            <div class="c-text">極樂國土不聞不善之名，所受快樂如漏盡比丘。此樂非感官之短暫生滅，乃常寂光中之大寂靜。國土清淨照見十方，令行者諦觀空性而不失明了。衣服隨念而至，於此清淨法界中，念起物現乃法爾如是之理。諸天敬禮，猶如立一轉染成淨之法界常軌，令菩提心無限賡續。寶樹中能見十方佛國，宛若帝網重重，累世宿命與十方苦難皆可洞鑑無礙，令行者常興悲智，不失度生之宏願。</div>
+            <div class="c-text">In the land of Ultimate Bliss, even the names of unwholesome things are unheard of, and the joy experienced is like that of an outflow-free Bhikkhu. This joy is not the temporary arising and ceasing of sensory stimulation, but the great tranquility within the Eternal Serene Light. The pure land reflects the ten directions, allowing practitioners to clearly contemplate emptiness without losing profound understanding. Clothing arrives at a mere thought; in this pure Dharma realm, phenomena appearing upon a thought is the natural law of Dharma. Devatas paying homage establishes a standard track of transforming pollution into purity in the Dharma realm, allowing Bodhicitta to continue infinitely. Within the jeweled trees, one can see the Buddha lands of the ten directions, like Indra's Net reflecting upon itself. Past karmic conditions and the suffering of the ten directions can be clearly observed without obstruction, inspiring practitioners to constantly give rise to compassion and wisdom, never losing their great vow to save beings.</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <div class="c-title">第五篇　破除相執與轉身受記</div>
+                <div class="c-title">Chapter 5: Breaking Form Attachments and the Prophecy of Body Transformation</div>
             </div>
-            <div class="c-text">轉女成男之深旨，實非僅局於極樂本國之化現。極樂本無性別之相，皆為純粹無礙之金剛法軀。此願真機乃十方世界之女性，若深厭女身業縛，蒙此願力加被，盡此一報身後，來世即永不受女身。若以菩薩道進程觀之，無論南傳嚴定男身受記，或北傳蒙佛授記後須示現男身以圓滿佛道，彌陀此願實為十方發心大士預先拔除宿業藩籬。國中菩薩智慧辯才不可限量，更充實行者應對華嚴大世界無量眾生心性流轉之軟實力，乃踐行普賢大願最堅實之渡世津梁。</div>
+            <div class="c-text">The profound purpose of transforming the female form into male is truly not limited to manifestations within the land of Ultimate Bliss itself. Ultimate Bliss inherently has no gender distinctions; all possess pure, unobstructed vajra Dharma bodies. The true mechanism of this vow is for women in the worlds of the ten directions: if they deeply detest the karmic bindings of the female form, by the blessing of this vow, after exhausting this one retribution body, they will never receive a female body in future lives. Looking at the progression of the Bodhisattva path—whether it is the strict Southern tradition requiring a male body for prophecy, or the Northern tradition requiring the manifestation of a male body to perfect Buddhahood after receiving a prophecy—Amitabha's vow is actually uprooting the karmic barriers of past lives in advance for Bodhisattvas of the ten directions. The immeasurable wisdom and eloquence of the Bodhisattvas in the land further enrich the practitioner's soft power to respond to the flowing mind-natures of countless sentient beings in the Flower Adornment (Avatamsaka) cosmos. This is the firmest bridge for practicing the great vows of Samantabhadra.</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                <div class="c-title">第六篇　神足徹視與法界藏識之交融</div>
+                <div class="c-title">Chapter 6: Divine Swiftness, Penetrating Vision, and Blending with Storehouse Consciousness</div>
             </div>
-            <div class="c-text">此五神通之願，旨趣印證極樂聖眾了達「身」非「我」之幻相，無貪計我執，自絕貪瞋癡之妄念。彌陀深智為令往生者慧命相續，必假蓮胎化生之淨妙色身為依託。臨命終時，憑彌陀願力牽引，將娑婆之幻我轉識成智。於彼境中，行者神識可與法界藏識（阿賴耶）無礙交融，宿命因緣互攝互照。極樂聖眾皆得洞鑒三世因果，彼此心念交參，淨妙法身更具神足飛舉之能，天眼徹視、天耳遙聞，皆臻至圓滿無漏。</div>
+            <div class="c-text">The vows of the five spiritual powers aim to confirm that the holy assembly of Ultimate Bliss fully understands the illusion that the "body" is not the "self." Without craving or attachment to self, they naturally sever the deluded thoughts of greed, anger, and ignorance. Amitabha's profound wisdom, to ensure the continuation of the spiritual life of those reborn, necessarily relies on the pure and wondrous physical form born by transformation from a lotus as a basis. At the moment of death, guided by Amitabha's vow power, the illusory self of the Saha world is transformed from consciousness into wisdom. In that realm, the practitioner's spiritual consciousness can seamlessly blend with the Dharma realm's storehouse consciousness (Alaya-vijnana), and past life causes and conditions mutually reflect and absorb each other. The holy assembly of Ultimate Bliss can all clearly discern the karma of the three times; their mind-thoughts mutually interpenetrate. The pure and wondrous Dharma body further possesses the ability of divine flight. Heavenly vision and heavenly hearing both reach flawless perfection.</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20v-8m0 0V4m0 8h8m-8 0H4"/></svg>
-                <div class="c-title">第七篇　平等法相與普賢妙供</div>
+                <div class="c-title">Chapter 7: Equal Dharma Marks and Samantabhadra's Wondrous Offerings</div>
             </div>
-            <div class="c-text">身具三十二大丈夫相與那羅延金剛不壞之軀，實乃承繼「形無好醜」之深密義理。國中所謂「人、天、聲聞、菩薩」，皆屬隨順他方世界之方便假名，其實無二無別，正為徹底泯除娑婆眾生之分別妄見。而一食之頃供養十方諸佛，供具隨心如意，此皆契入普賢大願之自然流露。彼土既無造作，亦無世俗之營求交易，萬物皆為清淨心識之化現，以供養之行，任運圓滿福慧之資糧。</div>
+            <div class="c-text">Possessing the thirty-two marks of a great man and the indestructible vajra body of Narayana is truly the continuation of the profound meaning of "no distinction of beauty or ugliness." The so-called "humans, devas, Sravakas, and Bodhisattvas" in the land are merely expedient names conforming to the habits of other worlds; in reality, there is no duality and no difference. This is precisely to completely eradicate the discriminatory delusions of sentient beings in the Saha world. Making offerings to the Buddhas of the ten directions in the time it takes to eat a meal, with offering implements appearing at will—this is the natural outflow of entering Samantabhadra's great vows. Since that land has no fabrication, nor any worldly seeking or transaction, all things are manifestations of pure consciousness. Through the act of offering, one naturally and perfectly accumulates the provisions of merit and wisdom.</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 22h20L12 2z"/></svg>
-                <div class="c-title">第八篇　實有報土與香光勝緣</div>
+                <div class="c-title">Chapter 8: The True Reward Land and the Supreme Condition of Fragrance and Light</div>
             </div>
-            <div class="c-text">極樂國土萬物嚴淨光麗，寶香普熏十方，見菩提樹即獲無生法忍。此殊勝境界印證彌陀淨土乃「實有報土」，絕非偏空之唯心所現。行者褪去娑婆粗重病苦，得金剛之軀處於至美之境，實乃彌陀深智：藉眾生殘存之微細「我執」與感官覺受，轉化為向道之勝緣。寶樹之無量光，交攝華嚴之常寂光，於光影交錯間，昭示修行與光之甚深密意，令行者於無垢相中，直悟清淨本心。</div>
+            <div class="c-text">All things in the land of Ultimate Bliss are majestic, pure, and brilliantly beautiful; jeweled fragrances universally perfume the ten directions, and seeing the Bodhi tree grants the realization of the non-arising of dharmas. This supreme state proves that Amitabha's Pure Land is a "True Reward Land," absolutely not merely a manifestation of subjective emptiness. Practitioners shed the heavy, coarse suffering and illnesses of the Saha world and obtain vajra bodies dwelling in a realm of ultimate beauty. This is truly Amitabha's profound wisdom: using the subtle residual "self-attachment" and sensory perceptions of sentient beings to transform them into supreme conditions directed toward the Way. The boundless light of the jeweled trees intertwines with the Eternal Serene Light of the Flower Adornment cosmos. Amidst the interplay of light and shadow, the profound secret meaning of cultivation and light is revealed, allowing practitioners to directly realize their pure original mind amidst stainless marks.</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.36-6.36l-1.41 1.41M6.05 17.95l-1.41 1.41m14.14 0l-1.41-1.41M6.05 6.05L4.64 4.64"/></svg>
-                <div class="c-title">第九篇　光頻化育與演說無礙</div>
+                <div class="c-title">Chapter 9: Nurturing through Light Frequencies and Unhindered Eloquence</div>
             </div>
-            <div class="c-text">蒙佛光照觸而身心柔軟，萬物皆能隨願演說妙法。此法界之光，其頻率足以拔濟心靈，實為無量光與常寂光之同體，亦即「菩提心不滅」之永恆法身。菩薩欲修何法，皆能隨願得聞。國中菩薩演說法要必契一切智，其所具備之智慧神通，乃為斷除生死洪流、踐行普賢度生大願，絕非世俗有漏之業通。此智辯無礙，實為廣度群迷之無上利器。</div>
+            <div class="c-text">When touched by the Buddha's light, body and mind become gentle and soft; all things can speak the wondrous Dharma according to one's wish. This light of the Dharma realm has a frequency sufficient to rescue the soul. It is actually of the same essence as the Infinite Light and the Eternal Serene Light, representing the eternal Dharma body of "indestructible Bodhicitta." Whatever Dharma a Bodhisattva wishes to practice, they can hear it at will. The Bodhisattvas in the land, when expounding the essence of Dharma, must accord with omniscient wisdom. The wisdom and spiritual powers they possess are meant to sever the torrent of birth and death and to practice Samantabhadra's great vow to save beings; they are absolutely not the flawed, worldly karmic powers. This unhindered wisdom and eloquence is the supreme weapon for broadly saving deluded beings.</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
-                <div class="c-title">第十篇　法界印可與中繼攝受</div>
+                <div class="c-title">Chapter 10: The Seal of the Dharma Realm and the Intermediate Reception</div>
             </div>
-            <div class="c-text">諸佛稱嘆，猶如十方如來對此化驛之同聲印可。最末之聞名得益、生尊貴家與獲三法忍，乃彌陀為彼等乘願再來之大權菩薩，所設之遙相攝受誓願。他方高僧大德聞彌陀名號即得諸根具足。極樂實為法界之「中繼大站」，彼等無懼生死之行者，焉知非昔日早經極樂薰修、迴入他方世界之大士？其於娑婆聽聞聖號，便能喚醒阿賴耶識中之印記，縱處五濁惡世，亦能於轉識成智剎那，重獲不退轉之深慧定力。</div>
+            <div class="c-text">The praise of all Buddhas is like the simultaneous seal of approval from Tathagatas in all ten directions for this spiritual waystation. The final vows concerning obtaining benefits upon hearing the name, being born into noble families, and attaining the three Dharma tolerances, are Amitabha's remote vows of reception for those great Bodhisattvas who return riding upon their vows. Eminent monks and great virtues in other realms obtain perfect faculties simply upon hearing Amitabha's name. Ultimate Bliss is truly the "Great Intermediate Station" of the Dharma realm. For those practitioners fearless of birth and death, how do we know they are not great beings who previously cultivated in Ultimate Bliss and have returned to other worlds? Hearing the holy name in the Saha world can awaken the imprint within their Alaya-vijnana. Even amidst the evil world of the five turbidities, they can regain the profound wisdom and concentration of non-retrogression in the instant they transform consciousness into wisdom.</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                <div class="c-title">第十一篇　本願海會與菩提心宗</div>
+                <div class="c-title">Chapter 11: The Assembly of the Original Vow Ocean and the Core of Bodhicitta</div>
             </div>
-            <div class="c-text">第十八、十九、二十願，實為接引眾生之核心樞機。極樂非僅個人拔苦，實為孕育度生菩薩之法界搖籃。第十八願以「至心信樂」為宗，此乃首要之基。深信極樂與娑婆法則之迥異，唯依佛力，不假造作。早植善根，方能於臨命終時絕慮斷疑，無礙往生；第十九願「發菩提心」，實乃契入法界之究竟大乘正因。考諸《無量壽經》三輩往生之樞機，無論品位高下，咸以「發無上菩提心」為首要津梁；復觀《華嚴》奧旨，善財童子南詢五十三參，其發軔之初，亦必先發此無上大覺之心。蓋因菩提心乃諸佛之本源、成佛之真種。行者唯有立此宏大誓願，方能與彌陀悲願之海同頻交感，令心識不昧，蒙佛攝受，直登阿惟越致（不退轉）之寂滅尊位；第二十願「至心迴向」普攝群機，將世出世間一切善根，悉數匯入彌陀願海。善導大師云：「以佛願力，五逆十惡，罪滅得生。」道盡彌陀無條件之究竟慈悲。學佛終極乃是成佛，而奧義盡在《金剛經》：「應滅度無量眾生，實無眾生得滅度者。」此大空性見，方是極樂菩薩乘願再來之真實底氣。</div>
+            <div class="c-text">The 18th, 19th, and 20th vows are the core mechanisms for receiving sentient beings. Ultimate Bliss is not merely about uprooting personal suffering; it is the Dharma realm's cradle for nurturing Bodhisattvas who save beings. The 18th vow is centered on "sincere faith and joy"—this is the primary foundation. One must deeply believe in the stark difference between the laws of Ultimate Bliss and the Saha world, relying solely on Buddha power without artificial contrivance. Only by planting good roots early can one cut off anxieties and doubts at the moment of death, achieving unhindered rebirth. The 19th vow, "bringing forth Bodhicitta," is the ultimate Mahayana cause for entering the Dharma realm. Examining the core principles of the three grades of rebirth in the <em>Infinite Life Sutra</em>, regardless of the level, all take "bringing forth the unsurpassed Bodhicitta" as the primary bridge. Looking further into the profound meaning of the <em>Flower Adornment Sutra</em>, when the youth Sudhana embarked on his fifty-three visitations to the south, his very first step required bringing forth this mind of supreme awakening. This is because Bodhicitta is the source of all Buddhas and the true seed of attaining Buddhahood. Only by establishing this grand vow can a practitioner resonate at the same frequency as Amitabha's ocean of compassionate vows, keeping their consciousness unclouded, receiving the Buddha's embrace, and directly ascending to the tranquil, honored position of Avaivartika (non-retrogression). The 20th vow, "sincere dedication," universally gathers all capacities, directing all mundane and supramundane good roots into Amitabha's vow ocean. Master Shandao said, "By the Buddha's vow power, those who commit the five grave offenses and ten evil deeds can extinguish their sins and attain rebirth." This expresses Amitabha's unconditional, ultimate compassion. The ultimate goal of studying Buddhism is to become a Buddha, and the profound meaning is found in the <em>Diamond Sutra</em>: "I must liberate all countless sentient beings, yet in reality, no sentient beings are liberated." Only this perspective of great emptiness forms the true underlying strength for the Bodhisattvas of Ultimate Bliss returning upon their vows.</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15l-2 5-9-5 9-5 2 5zM12 15l2-5 9 5-9 5-2-5zM12 10V2"/></svg>
-                <div class="c-title">第十二篇　一生補處與普賢大行</div>
+                <div class="c-title">Chapter 12: One Life to Replacement and the Great Conduct of Samantabhadra</div>
             </div>
-            <div class="c-text">第二十二願實乃四十八願之巔頂與化育標的。生彼國者究竟必至一生補處，此乃必成正覺之絕對授記。然其甚深奧義，更在於「超出常倫諸地之行，現前修習普賢之德」。極樂菩薩證此位次，絕非耽溺淨土安樂，而是披弘誓大鎧，迴入十方濁惡之世，示現八相成道，廣濟群迷。行普賢願，歸彌陀土，隱然相合世尊出世度生之究竟本懷。這更是菩薩不住生死、不住涅槃，將法身遍入十方無量世界之大悲極致。四十八願，至此方顯周遍法界之圓滿無礙。</div>
+            <div class="c-text">The 22nd vow is truly the pinnacle and nurturing target of the 48 Vows. Those born in that land will ultimately reach the stage of becoming a Buddha in their next life (One Life to Replacement). This is an absolute prophecy of definitely attaining perfect enlightenment. Yet its profound meaning lies even more in "surpassing the practices of the ordinary stages, manifesting the cultivation of the virtues of Samantabhadra." When Bodhisattvas of Ultimate Bliss attain this stage, they absolutely do not indulge in the peace and joy of the Pure Land. Instead, they don the great armor of vast vows, return to the turbid and evil worlds of the ten directions, manifest the eight stages of attaining the Way, and broadly save deluded beings. Practicing the vows of Samantabhadra while returning to Amitabha's land subtly aligns with the World-Honored One's ultimate original intent for appearing in the world to save beings. This is further the ultimate manifestation of great compassion, where a Bodhisattva abides neither in birth and death nor in Nirvana, pervading the Dharma body into the infinite worlds of the ten directions. The 48 Vows, at this point, truly reveal their perfect, unobstructed omnipresence throughout the Dharma realm.</div>
         </div>
     </div>
 </div>
@@ -275,65 +274,65 @@
     <div class="drawer-header" onclick="closeVowsDrawer()">
         <div class="close-bar"></div>
         <div style="display:flex; justify-content:space-between; align-items:center; padding: 0 5px;">
-            <div style="color:var(--cyan); font-size:0.85rem; letter-spacing:2px; font-weight:bold; cursor:pointer;" onclick="closeVowsDrawer()">收起玉簡</div>
+            <div style="color:var(--cyan); font-size:0.85rem; letter-spacing:1px; font-weight:bold; cursor:pointer;" onclick="closeVowsDrawer()">Close Scroll</div>
             <div id="tts-vows-btn" onclick="event.stopPropagation(); toggleVowsAudio()" style="color:var(--gold); font-size:0.85rem; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:6px; background:rgba(212,175,55,0.15); padding: 6px 12px; border-radius:20px; border: 1px solid rgba(212,175,55,0.4);">
                 <svg id="tts-vows-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
-                <span id="tts-vows-text">恭聆願文</span>
+                <span id="tts-vows-text">Listen to Vows</span>
             </div>
         </div>
     </div>
     <div class="theory-container" id="vows-content-box">
-        <h1 class="main-title" style="color:#e0f2ec; text-shadow: 0 0 15px rgba(139,168,156,0.4);">佛說無量壽經 ． 四十八大願</h1>
-        <div class="humble-statement">曹魏康僧鎧譯本。法藏比丘於世自在王佛前，發弘誓願，建立極樂淨土。行者當以至誠心，恭閱願文，契入彌陀本願海。</div>
+        <h1 class="main-title" style="color:#e0f2ec; text-shadow: 0 0 15px rgba(139,168,156,0.4);">The Infinite Life Sutra · The 48 Great Vows</h1>
+        <div class="humble-statement">Translated by Sanghavarman of the Cao Wei Dynasty. Dharmakara Bodhisattva made these great vows before Lokesvararaja Buddha to establish the Pure Land of Ultimate Bliss. Practitioners should read these vows with utmost sincerity to enter the ocean of Amitabha's original vows.</div>
         
-        <div class="vow-box"><div class="vow-num">第一願</div><div class="vow-text">設我得佛，國有地獄、餓鬼、畜生者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第二願</div><div class="vow-text">設我得佛，國中天人壽終之後，復更三惡道者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第三願</div><div class="vow-text">設我得佛，國中天人，不悉真金色者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第四願</div><div class="vow-text">設我得佛，國中天人，形色不同，有好醜者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第五願</div><div class="vow-text">設我得佛，國中天人，不識宿命，下至知百千億那由他諸劫事者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第六願</div><div class="vow-text">設我得佛，國中天人，不得天眼，下至見百千億那由他諸佛國者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第七願</div><div class="vow-text">設我得佛，國中天人，不得天耳，下至聞百千億那由他諸佛所說，不悉受持者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第八願</div><div class="vow-text">設我得佛，國中天人，不得見他心智，下至知百千億那由他諸佛國中眾生心念者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第九願</div><div class="vow-text">設我得佛，國中天人，不得神足，於一念頃，下至不能超過百千億那由他諸佛國者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第十願</div><div class="vow-text">設我得佛，國中天人，若起想念，貪計身者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第十一願</div><div class="vow-text">設我得佛，國中天人，不住定聚，必至滅度者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第十二願</div><div class="vow-text">設我得佛，光明有限量，下至不照百千億那由他諸佛國者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第十三願</div><div class="vow-text">設我得佛，壽命有限量，下至百千億那由他劫者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第十四願</div><div class="vow-text">設我得佛，國中聲聞，有能計量，乃至三千大千世界眾生，悉成緣覺，於百千劫，悉共計校，知其數者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第十五願</div><div class="vow-text">設我得佛，國中天人，壽命無能限量。除其本願，脩短自在。若不爾者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第十六願</div><div class="vow-text">設我得佛，國中天人，乃至聞有不善名者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第十七願</div><div class="vow-text">設我得佛，十方世界無量諸佛，不悉咨嗟稱我名者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第十八願</div><div class="vow-text">設我得佛，十方眾生，至心信樂，欲生我國，乃至十念，若不生者，不取正覺。唯除五逆，誹謗正法。</div></div>
-        <div class="vow-box"><div class="vow-num">第十九願</div><div class="vow-text">設我得佛，十方眾生，發菩提心，修諸功德，至心發願，欲生我國，臨壽終時，假令不與大眾圍繞，現其人前者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十願</div><div class="vow-text">設我得佛，十方眾生，聞我名號，繫念我國，植眾德本，至心迴向，欲生我國，不果遂者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十一願</div><div class="vow-text">設我得佛，國中天人，不悉成滿三十二大人相者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十二願</div><div class="vow-text">設我得佛，他方佛土諸菩薩眾，來生我國，究竟必至一生補處。除其本願自在所化。為眾生故，被弘誓鎧，積累德本，度脫一切。遊諸佛國，修菩薩行，供養十方諸佛如來。開化恆沙無量眾生，使立無上正真之道，超出常倫諸地之行，現前修習普賢之德。若不爾者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十三願</div><div class="vow-text">設我得佛，國中菩薩，承佛神力，供養諸佛，一食之頃，不能遍至無數無量億那由他諸佛國者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十四願</div><div class="vow-text">設我得佛，國中菩薩，在諸佛前，現其德本，諸所求求，供養之具，若不如意者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十五願</div><div class="vow-text">設我得佛，國中菩薩，不能演說一切智者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十六願</div><div class="vow-text">設我得佛，國中菩薩，不得金剛那羅延身者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十七願</div><div class="vow-text">設我得佛，國中天人，一切萬物，嚴淨光麗，形色殊特，窮微極妙，無能稱量。其諸眾生，乃至逮得天眼，有能明了，辨其名數者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十八願</div><div class="vow-text">設我得佛，國中菩薩，乃至少功德者，不能知見其道場樹無量光色，高四百萬里者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十九願</div><div class="vow-text">設我得佛，國中菩薩，若受讀經法，諷誦持說，而不得辯才智慧者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十願</div><div class="vow-text">設我得佛，國中菩薩，智慧辯才，若可限量者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十一願</div><div class="vow-text">設我得佛，國土清淨，皆悉照見十方一切無量無數不可思議諸佛世界，猶如明鏡，睹其面像。若不爾者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十二願</div><div class="vow-text">設我得佛，自地以上，至於虛空，宮殿、樓觀、池流、華樹，國土所有一切萬物，皆以無量雜寶、百千種香而共合成。嚴飾奇妙，超諸天人。其香普熏十方世界。菩薩聞者，皆修佛行。若不如是，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十三願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界眾生之類，蒙我光明觸其身者，身心柔軟，超過天人。若不爾者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十四願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界眾生之類，聞我名字，不得菩薩無生法忍、深總持者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十五願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界，其有女人，聞我名字，歡喜信樂，發菩提心，厭惡女身。壽終之後，復為女像者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十六願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界諸菩薩眾，聞我名字，壽終之後，常修梵行，至成佛道。若不爾者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十七願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界諸天人民，聞我名字，五體投地，稽首作禮，歡喜信樂，修菩薩行，諸天世人，莫不致敬。若不爾者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十八願</div><div class="vow-text">設我得佛，國中天人，欲得衣服，隨念即至，如佛所讚應法妙服，自然在身。有求裁縫、擣染、浣濯者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十九願</div><div class="vow-text">設我得佛，國中天人，所受快樂，不如漏盡比丘者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十願</div><div class="vow-text">設我得佛，國中菩薩，隨意欲見十方無量嚴淨佛土，應時如願，於寶樹中，皆悉照見，猶如明鏡，睹其面像。若不爾者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十一願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，至於得佛，諸根缺陋不具足者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十二願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，皆悉逮得清淨解脫三昧。住是三昧，一發意頃，供養無量不可思議諸佛世尊，而不失定意。若不爾者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十三願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，壽終之後，生尊貴家。若不爾者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十四願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，歡喜踊躍，修菩薩行，具足德本。若不爾者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十五願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，皆悉逮得普等三昧。住是三昧，至於成佛，常見無量不可思議一切如來。若不爾者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十六願</div><div class="vow-text">設我得佛，國中菩薩，隨其志願所欲聞法，自然得聞。若不爾者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十七願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，不即得至不退轉者，不取正覺。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十八願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，不即得至第一忍、第二第三法忍，於諸佛法，不能即得不退轉者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 1</div><div class="vow-text">If, when I attain Buddhahood, there should be in my land a hell, a realm of hungry spirits or a realm of animals, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 2</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should after death fall again into the three evil realms, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 3</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should not all be the color of genuine gold, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 4</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should not all be of one appearance, and should there be any difference in beauty, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 5</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should not remember all their previous lives, not knowing even the events of a hundred thousand kotis of nayutas of kalpas, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 6</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should not possess the divine eye of seeing even a hundred thousand kotis of nayutas of Buddha-lands, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 7</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should not possess the divine ear of hearing the teachings of a hundred thousand kotis of nayutas of Buddhas, or should they not remember them all, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 8</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should not possess the faculty of knowing the thoughts of others, at least those of all sentient beings living in a hundred thousand kotis of nayutas of Buddha-lands, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 9</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should not possess the divine power of traveling anywhere in one instant, even beyond a hundred thousand kotis of nayutas of Buddha-lands, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 10</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should give rise to thoughts of self-attachment, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 11</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should not dwell in the Definitely Assured State and unfailingly reach Nirvana, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 12</div><div class="vow-text">If, when I attain Buddhahood, my light should be limited, unable to illuminate at least a hundred thousand kotis of nayutas of Buddha-lands, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 13</div><div class="vow-text">If, when I attain Buddhahood, my life-span should be limited, even to the extent of a hundred thousand kotis of nayutas of kalpas, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 14</div><div class="vow-text">If, when I attain Buddhahood, the number of the shravakas in my land could be known, even if all the beings and pratyekabuddhas living in this universe should count them for a hundred thousand kalpas, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 15</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should have limited life-spans, except when they wish to shorten them in accordance with their original vows, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 16</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should even hear the name of anything unwholesome, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 17</div><div class="vow-text">If, when I attain Buddhahood, innumerable Buddhas in the land of the ten quarters should not all praise and glorify my Name, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 18</div><div class="vow-text">If, when I attain Buddhahood, sentient beings in the lands of the ten quarters who sincerely and joyfully entrust themselves to me, desire to be born in my land, and call my Name, even ten times, should not be born there, may I not attain perfect Enlightenment. Excluded, however, are those who commit the five gravest offenses and abuse the right Dharma.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 19</div><div class="vow-text">If, when I attain Buddhahood, sentient beings in the lands of the ten quarters, who awaken aspiration for Enlightenment, do various meritorious deeds and sincerely desire to be born in my land, should not, at their death, see me appear before them surrounded by a multitude of sages, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 20</div><div class="vow-text">If, when I attain Buddhahood, sentient beings in the lands of the ten quarters who, having heard my Name, concentrate their thoughts on my land, do various meritorious deeds and sincerely transfer their merits towards my land with a desire to be born there, should not eventually fulfill their aspiration, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 21</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should not all be endowed with the thirty-two physical characteristics of a Great Man, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 22</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in the Buddha-lands of other quarters who visit my land should not ultimately and unfailingly reach the Stage of Becoming a Buddha after One More Life, may I not attain perfect Enlightenment. Excepted are those who wish to teach and guide sentient beings in accordance with their original vows. For they wear the armour of great vows, accumulate merits, deliver all beings from suffering, visit Buddha-lands to perform the bodhisattva practices, make offerings to Buddhas, and awaken countless sentient beings like the sands of the River Ganges to the unsurpassed Bodhi.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 23</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in my land, in order to make offerings to Buddhas through my divine power, should not be able to reach immeasurable and innumerable kotis of nayutas of Buddha-lands in as short a time as it takes to eat a meal, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 24</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in my land should not be able, as they wish, to perform meritorious acts of worshipping the Buddhas with the offerings of their choice, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 25</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in my land should not be able to expound the Dharma with the all-knowing wisdom, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 26</div><div class="vow-text">If, when I attain Buddhahood, there should be any bodhisattva in my land not endowed with a body as firm as a diamond (Narayana), may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 27</div><div class="vow-text">If, when I attain Buddhahood, sentient beings should be able to distinguish by name and calculate by number all the myriads of manifestations in my land, which are glorious, resplendent and exquisite beyond compare, even if they have the divine eye, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 28</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in my land, even those with little accumulated merit, should not be able to see the Bodhi-tree which has countless colors and is four million li in height, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 29</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in my land should not acquire eloquence and wisdom in upholding sutras and reciting and expounding them, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 30</div><div class="vow-text">If, when I attain Buddhahood, the wisdom and eloquence of bodhisattvas in my land should be limited, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 31</div><div class="vow-text">If, when I attain Buddhahood, my land should not be resplendent, reflecting in its light all the immeasurable, innumerable and inconceivable Buddha-lands, like images reflected in a clear mirror, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 32</div><div class="vow-text">If, when I attain Buddhahood, all the myriads of manifestations in my land, from the ground to the sky, such as palaces, pavilions, ponds, streams and trees, should not be composed of both countless treasures, which surpass in supreme excellence anything in the worlds of humans and devas, and of a hundred thousand kinds of aromatic wood, whose fragrance pervades all the worlds of the ten quarters, causing all bodhisattvas who smell it to perform Buddhist practices, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 33</div><div class="vow-text">If, when I attain Buddhahood, sentient beings in the immeasurable and inconceivable Buddha-lands of the ten quarters, who have been touched by my light, should not feel peace and happiness in their bodies and minds surpassing those of humans and devas, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 34</div><div class="vow-text">If, when I attain Buddhahood, sentient beings in the immeasurable and inconceivable Buddha-lands of the ten quarters, who have heard my Name, should not gain the bodhisattva's insight into the non-arising of all dharmas and should not acquire profound dharanis, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 35</div><div class="vow-text">If, when I attain Buddhahood, women in the immeasurable and inconceivable Buddha-lands of the ten quarters who, having heard my Name, rejoice in faith, awaken aspiration for Enlightenment and wish to renounce womanhood, should after death be reborn again as women, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 36</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in the immeasurable and inconceivable Buddha-lands of the ten quarters, who have heard my Name, should not, after the end of their lives, always perform sacred practices until they reach Buddhahood, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 37</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in the immeasurable and inconceivable Buddha-lands of the ten quarters, who having heard my Name, prostrate themselves on the ground to revere and worship me, rejoice in faith, and perform bodhisattva practices, should not be respected by all devas and people of the world, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 38</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should not obtain clothing, as soon as such a desire arises in their minds, and if the fine robes as prescribed and praised by the Buddhas should not be naturally provided for them to wear, and should they need tailoring, dyeing, washing or mending, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 39</div><div class="vow-text">If, when I attain Buddhahood, humans and devas in my land should not enjoy happiness and pleasure comparable to that of a monk who has exhausted all evil passions, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 40</div><div class="vow-text">If, when I attain Buddhahood, the bodhisattvas in my land who wish to see the immeasurable glorious Buddha-lands of the ten quarters, should not at once be able to view them in the jeweled trees, just as one sees one's face reflected in a clear mirror, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 41</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in the lands of the other quarters who hear my Name should, at any time before becoming Buddhas, have impaired, inferior or incomplete sense organs, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 42</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in the lands of the other quarters who hear my Name should not all attain the samadhi called 'pure emancipation' and, while dwelling therein, without losing concentration, should not be able to make offerings in one instant to immeasurable and inconceivable Buddhas, World Honored Ones, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 43</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in the lands of the other quarters who hear my Name should not be reborn into noble families after their death, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 44</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in the lands of the other quarters who hear my Name should not rejoice so greatly as to dance and perform the bodhisattva practices and should not acquire stores of merit, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 45</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in the lands of the other quarters who hear my Name should not all attain the samadhi called 'universal equality' and, while dwelling therein, should not always be able to see all the immeasurable and inconceivable Tathagatas until those bodhisattvas, too, become Buddhas, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 46</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in my land should not be able to hear spontaneously whatever teachings they may wish, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 47</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in the lands of the other quarters who hear my Name should not instantly reach the Stage of Non-retrogression, may I not attain perfect Enlightenment.</div></div>
+        <div class="vow-box"><div class="vow-num">Vow 48</div><div class="vow-text">If, when I attain Buddhahood, bodhisattvas in the lands of the other quarters who hear my Name should not instantly gain the first, second and third insights into the nature of dharmas and firmly abide in the truths realized by all the Buddhas, may I not attain perfect Enlightenment.</div></div>
     </div>
 </div>
 
@@ -344,23 +343,21 @@
     const ctx = canvas.getContext('2d');
     let width, height;
     
-    let currentRealm = 0; // 0: 彌陀接引, 1: 探彌陀48願海
+    let currentRealm = 0; // 0: Amitabha Guidance, 1: 48 Vows Ocean
     let time = 0;
 
-    // 粒子系統與蓮花陣列
     let jieyinParticles = [];
     let yuanhaiParticles = [];
-    let lotusMatrix = []; // 儲存 48 朵金蓮
+    let lotusMatrix = []; 
     
     let angleX = 0.6, angleY = 0;
     let isDragging = false;
     let lastMouseX = 0, lastMouseY = 0;
     
-    // 物理狀態變數
-    let charge = 0;         // 蓄力值 (0-100)
-    let gravityForce = 0;   // 接引的引力
-    let flashIntensity = 0; // 爆光強度
-    let waveColorBlend = 0; // 願海顏色過渡 (0=青灰, 1=純金)
+    let charge = 0;         
+    let gravityForce = 0;   
+    let flashIntensity = 0; 
+    let waveColorBlend = 0; 
     let transitioning = false;
 
     const FOV = 400; 
@@ -372,7 +369,6 @@
     window.addEventListener('resize', resize); resize();
 
     function initEngines() {
-        // 1. 彌陀願力接引：金色光塵
         jieyinParticles = [];
         for(let i=0; i<1500; i++) {
             jieyinParticles.push({
@@ -383,7 +379,6 @@
             });
         }
 
-        // 2. 探彌陀願海：海浪波紋
         yuanhaiParticles = [];
         for(let r = 20; r <= 800; r += 15) {
             let count = Math.floor(r * 0.4);
@@ -396,21 +391,18 @@
             }
         }
 
-        // 3. 建立 48 朵金蓮矩陣
         lotusMatrix = [];
-        // 主金蓮 (第 1 朵)
         lotusMatrix.push({
             r: 0, theta: 0, orbitSpeed: 0, rotateSpeed: 0.2, scale: 1.0, phase: 0
         });
-        // 伴生中小金蓮 (第 2 到 48 朵)
         for(let i=1; i<48; i++) {
             lotusMatrix.push({
-                r: 60 + Math.random() * 350,               // 軌道半徑分佈
-                theta: Math.random() * Math.PI * 2,        // 初始角度
-                orbitSpeed: (Math.random() - 0.5) * 0.015, // 公轉速度 (有正有負)
-                rotateSpeed: (Math.random() - 0.5) * 0.8,  // 自轉速度
-                scale: 0.15 + Math.random() * 0.35,        // 縮放比例 (主蓮的 15% 到 50%)
-                phase: Math.random() * Math.PI * 2         // 獨立呼吸相位
+                r: 60 + Math.random() * 350,               
+                theta: Math.random() * Math.PI * 2,        
+                orbitSpeed: (Math.random() - 0.5) * 0.015, 
+                rotateSpeed: (Math.random() - 0.5) * 0.8,  
+                scale: 0.15 + Math.random() * 0.35,        
+                phase: Math.random() * Math.PI * 2         
             });
         }
     }
@@ -424,7 +416,6 @@
         return { x: (width/2) + x2*scale, y: (height/2) - y1*scale - 50, scale: scale, z: z2 };
     }
 
-    // ✨ 繪製純金蓮花 (純向量)
     function drawGiantLotus(proj, beat, blend, rotation, scaleMult) {
         if(!proj) return;
         ctx.save();
@@ -481,7 +472,6 @@
         ctx.restore();
     }
 
-    // --- 彌陀願力接引 ---
     function renderJieyin() {
         if(isDragging && !transitioning) {
             charge += 0.35; 
@@ -551,7 +541,6 @@
         ctx.shadowBlur = 0; ctx.globalCompositeOperation = 'source-over';
     }
 
-    // --- 探彌陀48願海 ---
     function renderYuanhai() {
         waveColorBlend += ((isDragging ? 1 : 0) - waveColorBlend) * 0.05;
 
@@ -588,15 +577,12 @@
         });
         ctx.shadowBlur = 0; ctx.globalCompositeOperation = 'source-over';
 
-        // ✨ 繪製 48 朵金蓮矩陣 ✨
-        // 為了 3D 正確遮擋，將蓮花也做深度排序
         let projectedLotuses = [];
         lotusMatrix.forEach(lotus => {
-            lotus.theta += lotus.orbitSpeed; // 公轉
-            // 讓蓮花隨著海浪軌道起伏
+            lotus.theta += lotus.orbitSpeed; 
             let waveOffset = Math.sin(lotus.r * 0.05 - time * 2) * 40;
             let lx = Math.cos(lotus.theta) * lotus.r;
-            let lz = Math.sin(lotus.theta) * lotus.r + waveOffset + 10; // 稍微浮於水面
+            let lz = Math.sin(lotus.theta) * lotus.r + waveOffset + 10; 
             
             let proj = project3D(lx, 0, lz);
             if(proj) projectedLotuses.push({ proj: proj, lotus: lotus });
@@ -605,8 +591,8 @@
         projectedLotuses.sort((a,b) => b.proj.z - a.proj.z);
 
         projectedLotuses.forEach(item => {
-            let beat = Math.sin(time * 2 + item.lotus.phase); // 獨立呼吸
-            let rotation = time * item.lotus.rotateSpeed;     // 獨立自轉
+            let beat = Math.sin(time * 2 + item.lotus.phase); 
+            let rotation = time * item.lotus.rotateSpeed;     
             drawGiantLotus(item.proj, beat, waveColorBlend, rotation, item.lotus.scale);
         });
     }
@@ -629,36 +615,82 @@
         let title = document.getElementById('s-title'); let desc = document.getElementById('s-desc');
         let hintContainer = document.getElementById('hold-hint');
         let theoryBtn = document.getElementById('theory-btn');
+        let vowsBtn = document.getElementById('vows-btn'); 
 
         if (type === 0) {
-            title.innerText = "彌陀願力接引"; desc.innerHTML = "「萬念歸一，光芒四射。」<br>長按螢幕凝聚金光，願生極樂。";
+            title.innerText = "Amitabha's Guiding Light"; 
+            desc.innerHTML = "\"All thoughts gather into one, radiating boundless light.\"<br>Hold screen to gather golden light, release to enter Ultimate Bliss.";
             title.style.color = 'var(--gold)';
             hintContainer.style.display = 'block';
             theoryBtn.style.display = 'none';
+            vowsBtn.style.display = 'none'; 
             angleX = 0.2; angleY = 0; 
             charge = 0; gravityForce = 0;
         } else {
-            title.innerText = "探彌陀無量願海"; desc.innerHTML = "「清淨海浪，大願金蓮。」<br>360度滑動螢幕，點亮無量大願海。";
+            title.innerText = "Explore Infinite Vows"; 
+            desc.innerHTML = "\"Pure ocean waves, great vow golden lotuses.\"<br>Swipe 360° to illuminate the infinite vow ocean.";
             title.style.color = 'var(--cyan)';
             hintContainer.style.display = 'none';
 
             theoryBtn.style.display = 'flex';
+            vowsBtn.style.display = 'flex'; 
             angleX = 0.6; angleY = 0; 
         }
     }
 
-    function openTheoryDrawer() { document.getElementById('theory-drawer').classList.add('open'); }
-    function closeTheoryDrawer() { document.getElementById('theory-drawer').classList.remove('open'); }
-        function openVowsDrawer() { document.getElementById('vows-drawer').classList.add('open'); }
+    function openVowsDrawer() { document.getElementById('vows-drawer').classList.add('open'); }
     function closeVowsDrawer() { document.getElementById('vows-drawer').classList.remove('open'); }
-    
     document.getElementById('vows-drawer').addEventListener('pointerdown', (e) => e.stopPropagation());
 
+    // ================= ✨ Vows English TTS System ✨ =================
+    let isPlayingVows = false;
+    let vowsUtterance = null;
+
+    function toggleVowsAudio() {
+        if (!window.speechSynthesis) return alert("Your device does not support TTS.");
+        const btnText = document.getElementById('tts-vows-text'); const btnIcon = document.getElementById('tts-vows-icon');
+        
+        if (isPlayingVows) {
+            window.speechSynthesis.cancel(); isPlayingVows = false; btnText.innerText = "Listen to Vows";
+            btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
+        } else {
+            if (isPlayingTheory) toggleTheoryAudio();
+            
+            let contentNodes = document.querySelectorAll('#vows-content-box .vow-num, #vows-content-box .vow-text');
+            let textToRead = Array.from(contentNodes).map(node => node.textContent.trim()).join('. ');
+            
+            vowsUtterance = new SpeechSynthesisUtterance(textToRead); vowsUtterance.lang = 'en-US'; vowsUtterance.rate = 0.85; 
+            
+            let isAndroid = /Android/i.test(navigator.userAgent);
+            if (isAndroid) {
+                window.sysUtterances.push(vowsUtterance);
+                let voices = window.speechSynthesis.getVoices();
+                if (voices.length > 0) {
+                    let enVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Google')) || voices.find(v => v.lang.includes('en'));
+                    if (enVoice) vowsUtterance.voice = enVoice;
+                }
+            }
+            vowsUtterance.onend = () => {
+                isPlayingVows = false; btnText.innerText = "Listen to Vows";
+                btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
+                if(isAndroid) window.sysUtterances = window.sysUtterances.filter(u => u !== vowsUtterance);
+            };
+            setTimeout(() => { window.speechSynthesis.speak(vowsUtterance); }, isAndroid ? 150 : 50);
+            isPlayingVows = true; btnText.innerText = "Stop Listening";
+            btnIcon.innerHTML = '<rect x="6" y="6" width="12" height="12"></rect>';
+        }
+    }
+
+    const originalCloseVowsDrawer = closeVowsDrawer;
+    closeVowsDrawer = function() { if (isPlayingVows) toggleVowsAudio(); originalCloseVowsDrawer(); }
+
+
+    function openTheoryDrawer() { document.getElementById('theory-drawer').classList.add('open'); }
+    function closeTheoryDrawer() { document.getElementById('theory-drawer').classList.remove('open'); }
 
     document.getElementById('theory-drawer').addEventListener('pointerdown', (e) => e.stopPropagation());
     document.getElementById('ui-layer').addEventListener('pointerdown', (e) => e.stopPropagation());
 
-    // --- 互動偵測 ---
     function onDown(e) { 
         if(e.target.closest('#ui-layer') || e.target.closest('#theory-drawer')) return; 
         isDragging = true; 
@@ -682,13 +714,11 @@
         if(!isDragging) return;
         isDragging = false; 
         
-        // 彌陀接引：蓄力超過 90 (約五秒) 放手，觸發爆光與過場
         if(currentRealm === 0 && charge > 90 && !transitioning) {
             flashIntensity = 1; 
             document.getElementById('lengyan-flash').style.opacity = flashIntensity;
             transitioning = true;
             
-            // 引力自然衰退混亂，等待 3.5 秒後跳轉蓮海
             setTimeout(() => {
                 if(currentRealm === 0) toggleRealm(1);
                 transitioning = false;
@@ -701,53 +731,7 @@
     canvas.addEventListener('mousedown', onDown); window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp);
     canvas.addEventListener('touchstart', onDown, {passive: true}); canvas.addEventListener('touchmove', onMove, {passive: true}); window.addEventListener('touchend', onUp);
 
-    
-        // ================= ✨ 經文玉簡 TTS 語音系統 ✨ =================
-    let isPlayingVows = false;
-    let vowsUtterance = null;
-
-    function toggleVowsAudio() {
-        if (!window.speechSynthesis) return alert("您的設備不支援語音功能");
-        const btnText = document.getElementById('tts-vows-text'); const btnIcon = document.getElementById('tts-vows-icon');
-        
-        if (isPlayingVows) {
-            window.speechSynthesis.cancel(); isPlayingVows = false; btnText.innerText = "恭聆願文";
-            btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
-        } else {
-            // 中斷可能正在播放的探究文章語音
-            if (isPlayingTheory) toggleTheoryAudio();
-            
-            let contentNodes = document.querySelectorAll('#vows-content-box .vow-num, #vows-content-box .vow-text');
-            let textToRead = Array.from(contentNodes).map(node => node.textContent.trim()).join('，');
-            
-            let isAndroid = /Android/i.test(navigator.userAgent);
-            textToRead = isAndroid ? textToRead : textToRead.replace(/阿/g, 'ㄚ');
-            
-            vowsUtterance = new SpeechSynthesisUtterance(textToRead); vowsUtterance.lang = 'zh-TW'; vowsUtterance.rate = 0.85; 
-            if (isAndroid) {
-                window.sysUtterances.push(vowsUtterance);
-                let voices = window.speechSynthesis.getVoices();
-                if (voices.length > 0) {
-                    let zhVoice = voices.find(v => v.lang === 'zh-TW' && v.name.includes('Google')) || voices.find(v => v.lang.includes('zh'));
-                    if (zhVoice) vowsUtterance.voice = zhVoice;
-                }
-            }
-            vowsUtterance.onend = () => {
-                isPlayingVows = false; btnText.innerText = "恭聆願文";
-                btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
-                if(isAndroid) window.sysUtterances = window.sysUtterances.filter(u => u !== vowsUtterance);
-            };
-            setTimeout(() => { window.speechSynthesis.speak(vowsUtterance); }, isAndroid ? 150 : 50);
-            isPlayingVows = true; btnText.innerText = "停止聆聽";
-            btnIcon.innerHTML = '<rect x="6" y="6" width="12" height="12"></rect>';
-        }
-    }
-
-    const originalCloseVowsDrawer = closeVowsDrawer;
-    closeVowsDrawer = function() { if (isPlayingVows) toggleVowsAudio(); originalCloseVowsDrawer(); }
-
-    // ================= ✨ TTS 語音導航系統 ✨ =================
-
+    // ================= ✨ English TTS System ✨ =================
     let isPlayingTheory = false;
     let theoryUtterance = null;
     window.sysUtterances = []; 
@@ -757,35 +741,35 @@
     }
 
     function toggleTheoryAudio() {
-        if (!window.speechSynthesis) return alert("您的設備不支援語音功能");
+        if (!window.speechSynthesis) return alert("Your device does not support Text-to-Speech functionality.");
         const btnText = document.getElementById('tts-text'); const btnIcon = document.getElementById('tts-icon');
         if (isPlayingTheory) {
-            window.speechSynthesis.cancel(); isPlayingTheory = false; btnText.innerText = "聆聽法音";
+            window.speechSynthesis.cancel(); isPlayingTheory = false; btnText.innerText = "Listen to Dharma";
             btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
         } else {
             let contentNodes = document.querySelectorAll('#theory-content-box .main-title, #theory-content-box .c-title, #theory-content-box .c-text, #theory-content-box .humble-statement');
-            let textToRead = Array.from(contentNodes).map(node => node.textContent.trim()).join('。');
-            textToRead = textToRead.replace(/一、/g, '第一章：').replace(/二、/g, '第二章：').replace(/三、/g, '第三章：');
+            let textToRead = Array.from(contentNodes).map(node => node.textContent.trim()).join('. ');
+            
+            theoryUtterance = new SpeechSynthesisUtterance(textToRead); 
+            theoryUtterance.lang = 'en-US'; 
+            theoryUtterance.rate = 0.85; 
             
             let isAndroid = /Android/i.test(navigator.userAgent);
-            textToRead = isAndroid ? textToRead : textToRead.replace(/阿/g, 'ㄚ');
-            
-            theoryUtterance = new SpeechSynthesisUtterance(textToRead); theoryUtterance.lang = 'zh-TW'; theoryUtterance.rate = 0.85; 
             if (isAndroid) {
                 window.sysUtterances.push(theoryUtterance);
                 let voices = window.speechSynthesis.getVoices();
                 if (voices.length > 0) {
-                    let zhVoice = voices.find(v => v.lang === 'zh-TW' && v.name.includes('Google')) || voices.find(v => v.lang.includes('zh'));
-                    if (zhVoice) theoryUtterance.voice = zhVoice;
+                    let enVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Google')) || voices.find(v => v.lang.includes('en'));
+                    if (enVoice) theoryUtterance.voice = enVoice;
                 }
             }
             theoryUtterance.onend = () => {
-                isPlayingTheory = false; btnText.innerText = "聆聽法音";
+                isPlayingTheory = false; btnText.innerText = "Listen to Dharma";
                 btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
                 if(isAndroid) window.sysUtterances = window.sysUtterances.filter(u => u !== theoryUtterance);
             };
             setTimeout(() => { window.speechSynthesis.speak(theoryUtterance); }, isAndroid ? 150 : 50);
-            isPlayingTheory = true; btnText.innerText = "停止聆聽";
+            isPlayingTheory = true; btnText.innerText = "Stop Listening";
             btnIcon.innerHTML = '<rect x="6" y="6" width="12" height="12"></rect>';
         }
     }
