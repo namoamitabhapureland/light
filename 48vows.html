@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ja-JP">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="manifest" href="manifest_jp.json">
-    <title>阿弥陀仏の四十八願 ． 極楽蓮邦</title>
+        <meta name="robots" content="noindex, nofollow">
+        <link rel="manifest" href="manifest.json">
+    <title>彌陀大願 ． 極樂蓮邦</title>
     <style>
         :root {
             --bg-deep: #020205; 
@@ -18,7 +18,7 @@
         
         body { 
             margin: 0; background: var(--bg-deep); color: var(--text-main); 
-            font-family: "Hiragino Mincho ProN", "Yu Mincho", "PingFang TC", "Microsoft JhengHei", serif;
+            font-family: "PingFang TC", "Microsoft JhengHei", serif;
             overflow: hidden; touch-action: none; overscroll-behavior: none;
             -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none;
             -moz-user-select: none; -ms-user-select: none; user-select: none;
@@ -101,20 +101,20 @@
         
         .vow-box { margin-bottom: 25px; padding: 20px; border-left: 2px solid rgba(139,168,156,0.5); background: linear-gradient(90deg, rgba(139,168,156,0.08), transparent); border-radius: 0 12px 12px 0; }
         .vow-num { color: var(--gold); font-size: 0.9rem; margin-bottom: 8px; font-weight: bold; letter-spacing: 2px; text-shadow: 0 0 5px rgba(212,175,55,0.3); }
-        .vow-text { color: var(--text-main); font-size: 1.05rem; line-height: 1.9; text-align: justify; letter-spacing: 1px; }
+        .vow-text { color: var(--text-main); font-size: 1.05rem; line-height: 1.9; text-align: justify; letter-spacing: 1.5px; }
 
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div class="back-btn" onclick="window.location.href='index_jp.html'">
+    <div class="back-btn" onclick="window.location.href='index.html'">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-        道場へ戻る
+        回道場
     </div>
 
     <div id="status-panel">
-        <div class="status-title" id="s-title">阿弥陀仏の願力による接引</div>
-        <div class="status-desc" id="s-desc">「万念帰一、光芒四射。」<br>画面を長押しして金光を集め、願生極楽。</div>
+        <div class="status-title" id="s-title">彌陀願力接引</div>
+        <div class="status-desc" id="s-desc">「萬念歸一，光芒四射。」<br>長按螢幕凝聚金光，願生極樂。</div>
     </div>
 
     <section class="matrix-section" id="bg-section">
@@ -122,16 +122,16 @@
         <div id="lengyan-flash"></div> 
         
         <div class="ui-layer" id="ui-layer">
-            <div id="hold-hint">画面を十秒間長押しし、離して接引を起動する</div>
-                        <button class="switch-btn" id="vows-btn" onclick="openVowsDrawer()">
+            <div id="hold-hint">長按螢幕十秒 再放開 進入大願海</div>
+            <!-- 新增玉簡按鈕 -->
+            <button class="switch-btn" id="vows-btn" onclick="openVowsDrawer()">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="16" height="18" rx="2" ry="2"></rect><line x1="8" y1="3" x2="8" y2="21"></line><line x1="12" y1="3" x2="12" y2="21"></line><line x1="16" y1="3" x2="16" y2="21"></line></svg>
-                四十八願の玉簡を恭閲する
+                恭閱四十八願玉簡
             </button>
-
             
             <button class="switch-btn" id="theory-btn" onclick="openTheoryDrawer()">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                阿弥陀仏の無量なる願海を探究する
+                探究彌陀無量願海
             </button>
         </div>
    </section>
@@ -140,133 +140,134 @@
     <div class="drawer-header" onclick="closeTheoryDrawer()">
         <div class="close-bar"></div>
         <div style="display:flex; justify-content:space-between; align-items:center; padding: 0 5px;">
-            <div style="color:var(--cyan); font-size:0.85rem; letter-spacing:2px; font-weight:bold; cursor:pointer;" onclick="closeTheoryDrawer()">法巻を閉じる</div>
+            <div style="color:var(--cyan); font-size:0.85rem; letter-spacing:2px; font-weight:bold; cursor:pointer;" onclick="closeTheoryDrawer()">收起法卷</div>
             <div id="tts-btn" onclick="event.stopPropagation(); toggleTheoryAudio()" style="color:var(--gold); font-size:0.85rem; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:6px; background:rgba(212,175,55,0.15); padding: 6px 12px; border-radius:20px; border: 1px solid rgba(212,175,55,0.4);">
                 <svg id="tts-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
-                <span id="tts-text">法音を聴く</span>
+                <span id="tts-text">聆聽法音</span>
             </div>
         </div>
     </div>
     <div class="theory-container" id="theory-content-box">
-        <div class="humble-statement">法海は浩瀚にして、唯だ仏と仏のみ能く究尽す。本文は一介の在家居士が、経教の論理と祖師大徳の註疏に依り、如来の真実義を探求せんとする修学の略影に過ぎず。若し未尽や錯漏の処あらば、皆な個人の智識の局限に属す。三宝の加被を祈願し、同修の共鑑を乞う。</div>
+        <div class="humble-statement">法海浩瀚，唯佛與佛乃能究盡。本文僅為一介在家居士，依經教邏輯與祖師大德之註疏，試圖探求如來真實義之修學略影。若有未盡或錯漏之處，皆屬個人智識之侷限，祈願三寶加被，同修共鑒。</div>
         
-        <h1 class="main-title">覚海澄観 ． 弥陀浄土の実相と菩提の心要</h1>
+        <h1 class="main-title">覺海澄觀 ． 彌陀淨土之實相與菩提心要</h1>
         
         <div style="color:rgba(255,255,255,0.8); font-size:0.95rem; line-height:1.8; margin-bottom: 2rem; text-align: justify; text-justify: inter-ideograph;">
-            『無量寿経』の梵文原典は幾度も訳伝され、異本に載る法蔵比丘の因地における発願の数は、二十四から四十九の違いがある。歴代祖師大徳の判釈と文献の考覈を経て、今は魏訳の四十八願を「上求仏道、下化衆生」の主流たる圭臬とする。四十八願は実に極楽浄土を締造する枢機であり、阿弥陀仏の悲智双運を尽く摂している。
+            《無量壽經》梵文原典迭經譯傳，異本中所載法藏比丘因地發願之數，有二十四至四十九之別。經歷代祖師大德判釋與文獻考覈，今以魏譯四十八願為上求佛道、下化眾生之主流圭臬。四十八願實乃極樂淨土之締造樞機，盡攝彌陀之悲智雙運。
         </div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                <div class="c-title">第一篇　清浄なる法界と色身の円融</div>
+                <div class="c-title">第一篇　清淨法界與色身圓融</div>
             </div>
-            <div class="c-text">「国無悪道」と「不堕悪趣」の願により、極楽の境涯は本源から三塗の業感を蠲除（けんじょ）す。此れ乃ち無尽の護念にして、修行者の霊命の根基をして永く退堕せざらしむ。而して身は悉く金色、形に好醜無きは、実に形相の妄別を泯除し、攀縁と高下の心が其の所依を失うとき、方に一真法界と冥契交感する能うなり。無量光と無量寿に至っては、其の真義は断じて世俗の貪恋たる長生にあらず。無量光は、宛も法身遍照の円融の如く、一即一切なり。而して無量寿は、実に一処の無退転の勝妙なる境地を開演し、往生者をして無尽の歳月の中に菩提を円満せしめんと護持す。阿弥陀仏の化縁が既に畢（おわ）り、涅槃に入るを待ちて、観音大士が仏位を紹継（しょうけい）す。此の無量寿の宏旨は、即ち願力の永恒なる伝続を護持するに在り。而して寿命は願いに随って修短すとは、此の土が実に菩薩道の棲神の化駅（かえき）なるを微かに顕す。行者もし資糧具足せば、随時に皆な慈航を倒駕し、十方無量世界へと重返するを得ん。</div>
+            <div class="c-text">國無惡道與不墮惡趣之願，極樂之境從本源蠲除三塗之業感。此乃無盡之護念，俾令修行者靈命根基永不退墮。而身悉金色、形無好醜，實為泯除形相之妄別，當攀緣與高下之心失其所依，方能與一真法界冥契交感。至若光明無量與壽命無量，其真義斷非世俗貪戀之長生。無量光，宛如法身遍照之圓融，一即一切；而無量壽，實乃開演一處無退轉之勝妙境地，護持往生者於無盡歲月中圓滿菩提。待彌陀化緣既畢，入於涅槃，觀音大士紹繼佛位，此無量壽之宏旨，即在護持願力之永恆傳續。而壽命隨願修短，更微顯此土實乃菩薩道之棲神化驛，行者若資糧具足，隨時皆可倒駕慈航，重返十方無量世界。</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <div class="c-title">第二篇　悪道に更らずの真機</div>
+                <div class="c-title">第二篇　不更惡道之真機</div>
             </div>
-            <div class="c-text">第二願「不更三悪道」は第一願の「国無悪道」と「無量寿」の後に緊密に摂せられ、実に法界の最も深密なる対比と呼応なり。此の願は特（こと）に極楽の「人、天」を授記の標的となす。是れ乃ち「小を以て大を示す」勝妙の権巧なり。第一層の真機は、即ち十方大千世界へ回入して群迷を度化せんとする大士の為に、不壊の防護網を預（あらかじ）め設く。縦い縁に随って受生すとも、亦た絶対に重濁なる業境に流転せじ。更なる深層の奥秘は、凡そ曽て極楽に生ぜし者は、阿頼耶識の深処に已に阿弥陀仏の本願たる無漏の種子を凝結せり。無尽の回入受生の中において、生生世世に自然と三悪趣の牽引から絶縁され、退転すること無きに在り。</div>
+            <div class="c-text">第二願「不更三惡道」緊攝於第一願「國無惡道」與「無量壽」之後，實乃法界最深密之對比與呼應。此願特以極樂之「人、天」為授記標的，乃「以小示大」之勝妙權巧。首層真機，即為迴入十方大千世界度化群迷之大士預設不壞之防護網：縱然隨緣受生，亦絕不流轉於重濁業境。更深層之奧祕，在於凡曾生極樂者，阿賴耶識深處已然凝結彌陀本願之無漏種子，於無盡之迴入受生中，生生世世自然絕緣於三惡趣之牽引，無有退轉。</div>
         </div>
         <div class="chapter-divider"></div>
 
-        <div class="chapter-box">
+               <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10"/>
                     <circle cx="12" cy="12" r="4"/>
                     <path d="M12 2v6"/><path d="M12 16v6"/><path d="M2 12h6"/><path d="M16 12h6"/>
                 </svg>
-                <div class="c-title">第三篇　声聞の回心と一仏乗の帰宿</div>
+                <div class="c-title">第三篇　聲聞迴心與一佛乘之歸宿</div>
             </div>
-            <div class="c-text">国中に声聞無数なるは、原始仏教が実に覚悟の初基なるを印証す。然れども独り其の身を善くするは終（つい）に究竟の涅槃に契入し難し。声聞衆が極楽の法性に沐浴し、心が境に随って転ずる時、便ち『法華』に云う如く、小を回（めぐ）らして大に向かい、菩提心を発し、一仏乗の浩瀚に匯入（かいにゅう）す。而して辺地疑城の設えは、猶ほ法界で最も慈悲なる韜光（とうこう）の所の如し。世俗の微細なる惑障を挟帯する衆生をして、無苦の境涯にて緩やかに洗滌・蛻変（ぜいへん）せしむ。一旦契入せば、便ち定聚に住して必ず滅度に至るの加被を蒙り、彷彿（さながら）一大阿僧祇劫を頓超して、直ちに初地の不退転を証するが如し。</div>
+            <div class="c-text">國中聲聞無數，印證原始佛教實為覺悟之初基。然獨善其身終難契入究竟涅槃，當聲聞眾沐浴於極樂法性，心隨境轉，便如《法華》所云，迴小向大，發菩提心，匯入一佛乘之浩瀚。而邊地疑城之設，猶如法界最慈悲之韜光之所，令夾帶世俗微細惑障之眾生，於無苦之境緩緩洗滌蛻變。一旦契入，便蒙不住定聚必至滅度之加被，彷彿頓超一大阿僧祇劫，直證初地之不退轉。</div>
         </div>
         <div class="chapter-divider"></div>
 
-        <div class="chapter-box">
+
+               <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
                 </svg>
-                <div class="c-title">第四篇　純善無漏と転染成浄の妙用</div>
+                <div class="c-title">第四篇　純善無漏與轉染成淨之妙用</div>
             </div>
-            <div class="c-text">極楽国土は不善の名を聞かず、受くる所の快楽は漏尽の比丘の如し。此の楽は感覚器官の短暫なる生滅にあらず、乃ち常寂光中の大寂静なり。国土の清浄は十方を照見し、行者をして空性を諦観しつつも明了を失わざらしむ。衣服は念に随って至り、此の清浄法界中において、念起これば物現前するは乃ち法爾如是の理なり。諸天の敬礼は、猶ほ一つの転染成浄の法界常軌を立つるが如く、菩提心をして無限に賡続（こうぞく）せしむ。宝樹の中に能く十方仏国を見るは、宛も帝網重重の如く、累世の宿命と十方の苦難を皆な無礙に洞鑑す可く、行者をして常に悲智を興さしめ、度生の宏願を失わざらしむ。</div>
+            <div class="c-text">極樂國土不聞不善之名，所受快樂如漏盡比丘。此樂非感官之短暫生滅，乃常寂光中之大寂靜。國土清淨照見十方，令行者諦觀空性而不失明了。衣服隨念而至，於此清淨法界中，念起物現乃法爾如是之理。諸天敬禮，猶如立一轉染成淨之法界常軌，令菩提心無限賡續。寶樹中能見十方佛國，宛若帝網重重，累世宿命與十方苦難皆可洞鑑無礙，令行者常興悲智，不失度生之宏願。</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <div class="c-title">第五篇　相執の破除と転身授記</div>
+                <div class="c-title">第五篇　破除相執與轉身受記</div>
             </div>
-            <div class="c-text">転女成男の深旨は、実に僅かに極楽本国の化現に局するにあらず。極楽には本より性別の相無く、皆な純粋無礙の金剛の法躯なり。此の願の真機は乃ち十方世界の女性が、若し深く女身の業縛を厭い、此の願力の加被を蒙らば、此の一報身を尽くしたる後、来世には即ち永く女身を受けず。若し菩薩道の進程を以て之を観れば、南伝の厳格なる男身授記を定めるも、或いは北伝の仏の授記を蒙りたる後に須く男身を示現して以て仏道を円満すべきとするも、阿弥陀仏の此の願は実に十方発心の大士の為に預め宿業の藩籬（はんり）を抜除す。国中の菩薩の智慧と弁才は限量すべからず、更に万行者が華厳大世界の無量衆生の心性の流転に応対する軟実力を充実せしむ。乃ち普賢大願を践行する最も堅実なる渡世の津梁（しんりょう）なり。</div>
+            <div class="c-text">轉女成男之深旨，實非僅局於極樂本國之化現。極樂本無性別之相，皆為純粹無礙之金剛法軀。此願真機乃十方世界之女性，若深厭女身業縛，蒙此願力加被，盡此一報身後，來世即永不受女身。若以菩薩道進程觀之，無論南傳嚴定男身受記，或北傳蒙佛授記後須示現男身以圓滿佛道，彌陀此願實為十方發心大士預先拔除宿業藩籬。國中菩薩智慧辯才不可限量，更充實行者應對華嚴大世界無量眾生心性流轉之軟實力，乃踐行普賢大願最堅實之渡世津梁。</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                <div class="c-title">第六篇　神足徹視と法界蔵識の交融</div>
+                <div class="c-title">第六篇　神足徹視與法界藏識之交融</div>
             </div>
-            <div class="c-text">此の五神通の願は、極楽の聖衆が「身」は「我」の幻相なるに非ずと了達し、我執を貪計すること無く、自ら貪瞋痴の妄念を絶つを印証するに趣旨あり。阿弥陀仏の深智は往生者をして慧命を相続せしめんが為、必ず蓮胎化生の浄妙なる色身を仮りて依托となす。臨命終の時、阿弥陀仏の願力の牽引に憑（よ）りて、娑婆の幻なる我を転識得智す。彼の境中において、行者の神識は法界の蔵識（阿頼耶）と無礙に交融し、宿命の因縁は互摂互照す。極楽聖衆は皆な三世の因果を洞鑑するを得、彼此の心念は交参し、浄妙法身は更に飛挙の神足を具え、天眼の徹視、天耳の遥聞、皆な円満無漏に至る。</div>
+            <div class="c-text">此五神通之願，旨趣印證極樂聖眾了達「身」非「我」之幻相，無貪計我執，自絕貪瞋癡之妄念。彌陀深智為令往生者慧命相續，必假蓮胎化生之淨妙色身為依託。臨命終時，憑彌陀願力牽引，將娑婆之幻我轉識成智。於彼境中，行者神識可與法界藏識（阿賴耶）無礙交融，宿命因緣互攝互照。極樂聖眾皆得洞鑒三世因果，彼此心念交參，淨妙法身更具神足飛舉之能，天眼徹視、天耳遙聞，皆臻至圓滿無漏。</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20v-8m0 0V4m0 8h8m-8 0H4"/></svg>
-                <div class="c-title">第七篇　平等法相と普賢の妙供</div>
+                <div class="c-title">第七篇　平等法相與普賢妙供</div>
             </div>
-            <div class="c-text">身に三十二大丈夫相と那羅延（ならえん）金剛不壊の躯（むくろ）を具うるは、実に「形無好醜」の深密なる義理を承継す。国中の所謂「人、天、声聞、菩薩」は、皆な他方世界に随順する方便の仮名に属し、其の実は無二無別にして、正しく娑婆衆生の分別妄見を徹底して泯除（みんじょ）せんが為なり。而して一食の頓（ころ）に十方諸仏を供養し、供具が心に随って如意なるは、此れ皆な普賢大願に契入する自然の流露なり。彼の土には既に造作無く、亦た世俗の営求や交易無し。万物は皆な清浄心識の化現にして、供養の行を以て、任運に福慧の資糧を円満す。</div>
+            <div class="c-text">身具三十二大丈夫相與那羅延金剛不壞之軀，實乃承繼「形無好醜」之深密義理。國中所謂「人、天、聲聞、菩薩」，皆屬隨順他方世界之方便假名，其實無二無別，正為徹底泯除娑婆眾生之分別妄見。而一食之頃供養十方諸佛，供具隨心如意，此皆契入普賢大願之自然流露。彼土既無造作，亦無世俗之營求交易，萬物皆為清淨心識之化現，以供養之行，任運圓滿福慧之資糧。</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 22h20L12 2z"/></svg>
-                <div class="c-title">第八篇　実有の報土と香光の勝縁</div>
+                <div class="c-title">第八篇　實有報土與香光勝緣</div>
             </div>
-            <div class="c-text">極楽国土の万物は厳浄光麗にして、宝香は普く十方に薫じ、菩提樹を見れば即ち無生法忍を獲る。此の殊勝の境界は、阿弥陀仏の浄土が「実有の報土」にして、断じて偏空の唯心所現にあらざるを印証す。行者が娑婆の粗重なる病苦を褪（ぬ）ぎ捨て、金剛の躯を得て至美の境に処（お）るは、実に阿弥陀仏の深智なり。衆生の残存する微細なる「我執」と感覚的覚受を借りて、之を向道の勝縁へと転化す。宝樹の無量光は、華厳の常寂光と交摂し、光影が交錯する間において、修行と光の甚深なる密意を昭示し、行者をして無垢の相の中において、直ちに清浄なる本心を悟らしむ。</div>
+            <div class="c-text">極樂國土萬物嚴淨光麗，寶香普熏十方，見菩提樹即獲無生法忍。此殊勝境界印證彌陀淨土乃「實有報土」，絕非偏空之唯心所現。行者褪去娑婆粗重病苦，得金剛之軀處於至美之境，實乃彌陀深智：藉眾生殘存之微細「我執」與感官覺受，轉化為向道之勝緣。寶樹之無量光，交攝華嚴之常寂光，於光影交錯間，昭示修行與光之甚深密意，令行者於無垢相中，直悟清淨本心。</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.36-6.36l-1.41 1.41M6.05 17.95l-1.41 1.41m14.14 0l-1.41-1.41M6.05 6.05L4.64 4.64"/></svg>
-                <div class="c-title">第九篇　光の波長による化育と演説無礙</div>
+                <div class="c-title">第九篇　光頻化育與演說無礙</div>
             </div>
-            <div class="c-text">仏光の照触を蒙りて身心柔軟となり、万物は皆な願いに随って妙法を演説する能う。此の法界の光は、其の波長が心霊を抜済するに足り、実に無量光と常寂光の同体にして、亦た即ち「菩提心不滅」の永恒たる法身なり。菩薩は何れの法を修めんと欲するも、皆な願いに随って聞くを得る。国中の菩薩が法要を演説するは必ず一切智に契（かな）う。其の具備する所の智慧と神通は、生死の洪流を断除し、普賢の度生大願を践行する為のものにして、断じて世俗の有漏の業通にあらず。此の智弁無礙は、実に群迷を広く度する無上の利器なり。</div>
+            <div class="c-text">蒙佛光照觸而身心柔軟，萬物皆能隨願演說妙法。此法界之光，其頻率足以拔濟心靈，實為無量光與常寂光之同體，亦即「菩提心不滅」之永恆法身。菩薩欲修何法，皆能隨願得聞。國中菩薩演說法要必契一切智，其所具備之智慧神通，乃為斷除生死洪流、踐行普賢度生大願，絕非世俗有漏之業通。此智辯無礙，實為廣度群迷之無上利器。</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
-                <div class="c-title">第十篇　法界の印可と中継摂受</div>
+                <div class="c-title">第十篇　法界印可與中繼攝受</div>
             </div>
-            <div class="c-text">諸仏の称歎は、猶ほ十方如来が此の化駅に対する同声の印可の如し。最末の聞名得益、生尊貴家、三法忍の獲得は、乃ち阿弥陀仏が彼の乗願再来の大権菩薩の為に設けたる遥相摂受の誓願なり。他方の高僧大徳は阿弥陀仏の名号を聞けば即ち諸根具足を特る。極楽は実に法界の「中継大站」なり。彼の生死を懼れざる行者は、焉（いずく）んぞ昔日に早く極楽にて薫修を経て、他方世界へ回入せし大士にあらざるを知らんや。其の娑婆において聖号を聴聞せば、便ち能く阿頼耶識中の印記を喚醒し、縦え五濁悪世に処すとも、亦た転識得智の刹那において、再び不退転の深慧定力を獲る能う。</div>
+            <div class="c-text">諸佛稱嘆，猶如十方如來對此化驛之同聲印可。最末之聞名得益、生尊貴家與獲三法忍，乃彌陀為彼等乘願再來之大權菩薩，所設之遙相攝受誓願。他方高僧大德聞彌陀名號即得諸根具足。極樂實為法界之「中繼大站」，彼等無懼生死之行者，焉知非昔日早經極樂薰修、迴入他方世界之大士？其於娑婆聽聞聖號，便能喚醒阿賴耶識中之印記，縱處五濁惡世，亦能於轉識成智剎那，重獲不退轉之深慧定力。</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                <div class="c-title">第十一篇　本願海会と菩提心宗</div>
+                <div class="c-title">第十一篇　本願海會與菩提心宗</div>
             </div>
-            <div class="c-text">第十八、十九、二十願は、実に衆生を接引する核心の枢機なり。極楽は僅かに個人の抜苦のみにあらず、実に度生菩薩を孕育（よういく）する法界の揺籃（ようらん）なり。第十八願は「至心信楽」を以て宗となす。此れ乃ち首要の基なり。深く極楽と娑婆の法則の迥異（けいい）なるを信じ、唯だ仏力に依り、造作を仮らず。早く善根を植えて、方に能く臨命終の時に慮を絶ち疑いを断ち、無礙に往生す。第十九願「発菩提心」は、実に法界に契入する究竟の大乗正因なり。『無量寿経』三輩往生の枢機を考ずるに、品位の高下を論ぜず、咸（ことごと）く「無上菩提心を発す」を以て首要の津梁となす。復た『華厳』の奥旨を観るに、善財童子南して五十三参し、其の発軔の初めにも、亦た必ず先ず此の無上大覚の心を発す。蓋し菩提心は乃ち諸仏の本源にして、成仏の真種なればなり。行者は唯だ此の宏大なる誓願を立てて、方に能く阿弥陀仏の悲願の海と同頻（どうひん）交感し、心識をして昧（くら）まざらしめ、仏の摂受を蒙りて、直ちに阿惟越致（あゆいっち：不退転）の寂滅の尊位に登る。第二十願「至心回向」は普く群機を摂し、世と出世間の諸々の善根を、悉く阿弥陀仏の願海へと匯入（かいにゅう）す。善導大師云く「仏の願力を以て、五逆十悪も、罪滅して生ずるを得る」と。道（い）い尽くす、阿弥陀仏の無条件なる究竟の慈悲を。学仏の終極は乃ち是れ成仏なり。而して奥義は尽く『金剛経』に在り「応に無量衆生を滅度すべし。実には滅度を得る衆生無き者なり」と。此の大空性見こそ、正に極楽菩薩が乗願再来する真実の底気（ていき）なり。</div>
+            <div class="c-text">第十八、十九、二十願，實為接引眾生之核心樞機。極樂非僅個人拔苦，實為孕育度生菩薩之法界搖籃。第十八願以「至心信樂」為宗，此乃首要之基。深信極樂與娑婆法則之迥異，唯依佛力，不假造作。早植善根，方能於臨命終時絕慮斷疑，無礙往生；第十九願「發菩提心」，實乃契入法界之究竟大乘正因。考諸《無量壽經》三輩往生之樞機，無論品位高下，咸以「發無上菩提心」為首要津梁；復觀《華嚴》奧旨，善財童子南詢五十三參，其發軔之初，亦必先發此無上大覺之心。蓋因菩提心乃諸佛之本源、成佛之真種。行者唯有立此宏大誓願，方能與彌陀悲願之海同頻交感，令心識不昧，蒙佛攝受，直登阿惟越致（不退轉）之寂滅尊位；第二十願「至心迴向」普攝群機，將世出世間一切善根，悉數匯入彌陀願海。善導大師云：「以佛願力，五逆十惡，罪滅得生。」道盡彌陀無條件之究竟慈悲。學佛終極乃是成佛，而奧義盡在《金剛經》：「應滅度無量眾生，實無眾生得滅度者。」此大空性見，方是極樂菩薩乘願再來之真實底氣。</div>
         </div>
         <div class="chapter-divider"></div>
 
         <div class="chapter-box">
             <div class="c-header">
                 <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15l-2 5-9-5 9-5 2 5zM12 15l2-5 9 5-9 5-2-5zM12 10V2"/></svg>
-                <div class="c-title">第十二篇　一生補処と普賢大行</div>
+                <div class="c-title">第十二篇　一生補處與普賢大行</div>
             </div>
-            <div class="c-text">第二十二願は実に四十八願の巓頂（てんちょう）と化育の標的（ひょうてき）なり。彼の国に生ずる者は究竟して必ず一生補処に至る。此れ乃ち必ず正覚を成ずるの絶対たる授記なり。然れども其の甚深の奥義は、更に「常倫の諸地を超える行にして、現前に普賢の徳を修習す」るに在り。極楽の菩薩が此の位次を証するは、断じて浄土の安楽に耽溺するにあらず。是れ弘誓（ぐぜい）の大鎧を披（き）て、十方濁悪の世に回入し、八相成道を示現して、広く群迷を済度（さいど）するなり。普賢の願いを行じ、弥陀の土に帰するは、隠然と世尊が出世度生せし究竟の本懐に相合う。是れ更に菩薩が生死に住せず、涅槃に住せず、法身を十方無量世界へと遍入せしむる大悲の極致なり。四十八願は、此に至って方に法界に周遍する円満無礙を顕す。</div>
+            <div class="c-text">第二十二願實乃四十八願之巔頂與化育標的。生彼國者究竟必至一生補處，此乃必成正覺之絕對授記。然其甚深奧義，更在於「超出常倫諸地之行，現前修習普賢之德」。極樂菩薩證此位次，絕非耽溺淨土安樂，而是披弘誓大鎧，迴入十方濁惡之世，示現八相成道，廣濟群迷。行普賢願，歸彌陀土，隱然相合世尊出世度生之究竟本懷。這更是菩薩不住生死、不住涅槃，將法身遍入十方無量世界之大悲極致。四十八願，至此方顯周遍法界之圓滿無礙。</div>
         </div>
     </div>
 </div>
@@ -274,89 +275,92 @@
     <div class="drawer-header" onclick="closeVowsDrawer()">
         <div class="close-bar"></div>
         <div style="display:flex; justify-content:space-between; align-items:center; padding: 0 5px;">
-            <div style="color:var(--cyan); font-size:0.85rem; letter-spacing:2px; font-weight:bold; cursor:pointer;" onclick="closeVowsDrawer()">玉簡を閉じる</div>
+            <div style="color:var(--cyan); font-size:0.85rem; letter-spacing:2px; font-weight:bold; cursor:pointer;" onclick="closeVowsDrawer()">收起玉簡</div>
             <div id="tts-vows-btn" onclick="event.stopPropagation(); toggleVowsAudio()" style="color:var(--gold); font-size:0.85rem; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:6px; background:rgba(212,175,55,0.15); padding: 6px 12px; border-radius:20px; border: 1px solid rgba(212,175,55,0.4);">
                 <svg id="tts-vows-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
-                <span id="tts-vows-text">願文を恭聴する</span>
+                <span id="tts-vows-text">恭聆願文</span>
             </div>
         </div>
     </div>
     <div class="theory-container" id="vows-content-box">
-        <h1 class="main-title" style="color:#e0f2ec; text-shadow: 0 0 15px rgba(139,168,156,0.4);">仏説無量寿経 ． 四十八大願</h1>
-        <div class="humble-statement">曹魏の康僧鎧訳本。法蔵比丘、世自在王仏の御前にて弘誓の願を発し、極楽浄土を建立す。行者、当に至誠心を以て願文を恭閲し、阿弥陀仏の本願海に契入すべし。</div>
+        <h1 class="main-title" style="color:#e0f2ec; text-shadow: 0 0 15px rgba(139,168,156,0.4);">佛說無量壽經 ． 四十八大願</h1>
+        <div class="humble-statement">曹魏康僧鎧譯本。法藏比丘於世自在王佛前，發弘誓願，建立極樂淨土。行者當以至誠心，恭閱願文，契入彌陀本願海。</div>
         
-        <div class="vow-box"><div class="vow-num">第一願</div><div class="vow-text">たとい我、仏を得んに、国に地獄・餓鬼・畜生あらば、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第二願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、寿終ののち、また三悪道に更らば、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第三願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、ことごとく真金色ならずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第四願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、形色不同にして、好醜あらば、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第五願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、宿命を知らず、下、百千億那由他諸劫の事を知るに至らずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第六願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、天眼を得ず、下、百千億那由他の諸仏の国を見るに至らずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第七願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、天耳を得ず、下、百千億那由他の諸仏の所説を聞きて、ことごとく受持せずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第八願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、他心智を得ず、下、百千億那由他の諸仏の国中の衆生の心念を知るに至らずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第九願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、神足を得ず、一念の頃に、下、百千億那由他の諸仏の国を過ぎ越ゆること能わずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第十願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、想念を起こして身を貪計せば、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第十一願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、定聚に住し、必ず滅度に至らずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第十二願</div><div class="vow-text">たとい我、仏を得んに、光明有限量にして、下、百千億那由他の諸仏の国を照らさざるに至らば、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第十三願</div><div class="vow-text">たとい我、仏を得んに、寿命有限量にして、下、百千億那由他劫に至らば、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第十四願</div><div class="vow-text">たとい我、仏を得んに、国中の声聞、よく計量あることあらん。ないし三千大千世界の衆生、ことごとく縁覚と成りて、百千劫において、ことごとくともに計校してその数を知らば、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第十五願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、寿命よく限量あることなけん。その本願の修短自在なるを除く。もししからずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第十六願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、ないし不善の名を聞かば、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第十七願</div><div class="vow-text">たとい我、仏を得んに、十方世界の無量の諸仏、ことごとく咨嗟（ししゃ）して我が名を称せずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第十八願</div><div class="vow-text">たとい我、仏を得んに、十方の衆生、至心信楽して我が国に生ぜんと欲し、乃至十念せん。もし生ぜずは、正覚を取らじ。唯五逆と誹謗正法とを除く。</div></div>
-        <div class="vow-box"><div class="vow-num">第十九願</div><div class="vow-text">たとい我、仏を得んに、十方の衆生、菩提心を発し、諸々の功徳を修し、至心発願して我が国に生ぜんと欲せん。寿終の時に臨んで、たとい大衆と囲繞してその人の前に現ぜずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十願</div><div class="vow-text">たとい我、仏を得んに、十方の衆生、我が名号を聞きて、念を我が国に係け、もろもろの徳本を植え、至心回向して我が国に生ぜんと欲せん。果遂せずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十一願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、ことごとく三十二大人相を成満せずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十二願</div><div class="vow-text">たとい我、仏を得んに、他方仏土の諸菩薩衆、我が国に来生せば、究竟して必ず一生補処に至らん。その本願の自在の所化をば除く。衆生のために、弘誓の鎧を被（き）て、徳本を積累し、一切を度脱す。諸仏の国に遊びて、菩薩の行を修し、十方諸仏如来を供養す。恒沙無量の衆生を開化して、無上正真の道を立たしめんこと、常倫の諸地を超える行にして、現前に普賢の徳を修習せん。もししからずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十三願</div><div class="vow-text">たとい我、仏を得んに、国中の菩薩、仏の神力を承け、諸仏を供養するに、一食の頃に無数無量億那由他の諸仏の国に遍く至ること能わずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十四願</div><div class="vow-text">たとい我、仏を得んに、国中の菩薩、諸仏の前に在って、その徳本を現し、もろもろの求むる所の供養の具、もし如意ならずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十五願</div><div class="vow-text">たとい我、仏を得んに、国中の菩薩、一切智を演説すること能わずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十六願</div><div class="vow-text">たとい我、仏を得んに、国中の菩薩、金剛那羅延身を得ずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十七願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、一切万物、厳浄光麗にして、形色殊特なり。窮微極妙にして、よく称量あることなけん。そのもろもろの衆生、ないし天眼を逮得して、よく明了にその名数を弁ずるあらば、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十八願</div><div class="vow-text">たとい我、仏を得んに、国中の菩薩、ないし少功徳の者も、その道場樹の無量光色にして高さ四百万里なるを知見すること能わずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第二十九願</div><div class="vow-text">たとい我、仏を得んに、国中の菩薩、もし読経法を受し、諷誦・持説して、弁才智慧を得ずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十願</div><div class="vow-text">たとい我、仏を得んに、国中の菩薩の智慧弁才、もし限量あるべくんば、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十一願</div><div class="vow-text">たとい我、仏を得んに、国土清浄にして、ことごとく十方一切無量無数不可思議の諸仏世界を照見せんこと、明鏡にその面像を覩るがごとくならん。もししからずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十二願</div><div class="vow-text">たとい我、仏を得んに、自地以上、虚空に至るまで、宮殿・楼観・池流・華樹、国土にあるところの一切万物、皆な無量の雑宝・百千種の香を以て共に合成せん。厳飾奇妙にして諸の天人に超えん。その香、普く十方世界に薫じ、菩薩、聞く者は皆な仏行を修せん。もしかくのごとくならずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十三願</div><div class="vow-text">たとい我、仏を得んに、十方無量不可思議の諸仏世界の衆生の類、我が光明を蒙りてその身に触れん者、身心柔軟にして人・天に超過せん。もししからずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十四願</div><div class="vow-text">たとい我、仏を得んに、十方無量不可思議の諸仏世界の衆生の類、我が名字を聞きて、菩薩の無生法忍・深総持を得ずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十五願</div><div class="vow-text">たとい我、仏を得んに、十方無量不可思議の諸仏世界に、それ女人ありて、我が名字を聞き、歓喜信楽して菩提心を発し、女身を厭悪せん。寿終の後、また女像とならば、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十六願</div><div class="vow-text">たとい我、仏を得んに、十方無量不可思議の諸仏世界の諸菩薩衆、我が名字を聞き、寿終ののち、常に梵行を修して仏道成るに至らん。もししからずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十七願</div><div class="vow-text">たとい我、仏を得んに、十方無量不可思議の諸仏世界の諸天人民、我が名字を聞きて五体投地し、稽首作礼して歓喜信楽して、菩薩の行を修せん。諸天・世人、敬を致さざるはなけん。もししからずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十八願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天、衣服を得んと欲せば、念に随って即ち至らん。仏の讃ずる所の応法の妙服の、自然に身に在るがごとくならん。裁縫・擣染（とうぜん）・浣濯（かんたく）を求むることあらば、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第三十九願</div><div class="vow-text">たとい我、仏を得んに、国中の人・天の受くる所の快楽、漏尽の比丘に如かずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十願</div><div class="vow-text">たとい我、仏を得んに、国中の菩薩、十方無量の厳浄の仏土を見んと欲することに随意せば、応時に願のごとく、宝樹の中において皆なことごとく照見すること、明鏡にその面像を覩るがごとくならん。もししからずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十一願</div><div class="vow-text">たとい我、仏を得んに、他方国土の諸菩薩衆、我が名字を聞きて仏を得るに至るまで、諸根欠陋にして具足せずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十二願</div><div class="vow-text">たとい我、仏を得んに、他方国土の諸菩薩衆、我が名字を聞きて、皆なことごとく清浄解脱三昧を逮得せん。この三昧に住して、一発意の頃に、無量不可思議の諸仏世尊を供養して定意を失わず。もししからずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十三願</div><div class="vow-text">たとい我、仏を得んに、他方国土の諸菩薩衆、我が名字を聞き、寿終ののち、尊貴の家に生ぜん。もししからずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十四願</div><div class="vow-text">たとい我、仏を得んに、他方国土の諸菩薩衆、我が名字を聞き、歓喜踊躍して菩薩の行を修し徳本を具足せん。もししからずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十五願</div><div class="vow-text">たとい我、仏を得んに、他方国土の諸菩薩衆、我が名字を聞きて、皆なことごとく普等三昧を逮得せん。この三昧に住して仏と成るに至るまで、常に無量不可思議の一切如来を見ん。もししからずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十六願</div><div class="vow-text">たとい我、仏を得んに、国中の菩薩、その志願に随いて法を聞かんと欲する所、自然に聞くことを得ん。もししからずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十七願</div><div class="vow-text">たとい我、仏を得んに、他方国土の諸菩薩衆、我が名字を聞き、即ち不退転に至ることを得ずは、正覚を取らじ。</div></div>
-        <div class="vow-box"><div class="vow-num">第四十八願</div><div class="vow-text">たとい我、仏を得んに、他方国土の諸菩薩衆、我が名字を聞き、即ち第一・第二・第三法忍に至ることを得ず、諸仏の法において即ち不退転を得ること能わずは、正覚を取らじ。</div></div>
+        <div class="vow-box"><div class="vow-num">第一願</div><div class="vow-text">設我得佛，國有地獄、餓鬼、畜生者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二願</div><div class="vow-text">設我得佛，國中天人壽終之後，復更三惡道者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三願</div><div class="vow-text">設我得佛，國中天人，不悉真金色者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四願</div><div class="vow-text">設我得佛，國中天人，形色不同，有好醜者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第五願</div><div class="vow-text">設我得佛，國中天人，不識宿命，下至知百千億那由他諸劫事者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第六願</div><div class="vow-text">設我得佛，國中天人，不得天眼，下至見百千億那由他諸佛國者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第七願</div><div class="vow-text">設我得佛，國中天人，不得天耳，下至聞百千億那由他諸佛所說，不悉受持者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第八願</div><div class="vow-text">設我得佛，國中天人，不得見他心智，下至知百千億那由他諸佛國中眾生心念者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第九願</div><div class="vow-text">設我得佛，國中天人，不得神足，於一念頃，下至不能超過百千億那由他諸佛國者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十願</div><div class="vow-text">設我得佛，國中天人，若起想念，貪計身者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十一願</div><div class="vow-text">設我得佛，國中天人，不住定聚，必至滅度者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十二願</div><div class="vow-text">設我得佛，光明有限量，下至不照百千億那由他諸佛國者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十三願</div><div class="vow-text">設我得佛，壽命有限量，下至百千億那由他劫者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十四願</div><div class="vow-text">設我得佛，國中聲聞，有能計量，乃至三千大千世界眾生，悉成緣覺，於百千劫，悉共計校，知其數者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十五願</div><div class="vow-text">設我得佛，國中天人，壽命無能限量。除其本願，脩短自在。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十六願</div><div class="vow-text">設我得佛，國中天人，乃至聞有不善名者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十七願</div><div class="vow-text">設我得佛，十方世界無量諸佛，不悉咨嗟稱我名者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第十八願</div><div class="vow-text">設我得佛，十方眾生，至心信樂，欲生我國，乃至十念，若不生者，不取正覺。唯除五逆，誹謗正法。</div></div>
+        <div class="vow-box"><div class="vow-num">第十九願</div><div class="vow-text">設我得佛，十方眾生，發菩提心，修諸功德，至心發願，欲生我國，臨壽終時，假令不與大眾圍繞，現其人前者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十願</div><div class="vow-text">設我得佛，十方眾生，聞我名號，繫念我國，植眾德本，至心迴向，欲生我國，不果遂者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十一願</div><div class="vow-text">設我得佛，國中天人，不悉成滿三十二大人相者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十二願</div><div class="vow-text">設我得佛，他方佛土諸菩薩眾，來生我國，究竟必至一生補處。除其本願自在所化。為眾生故，被弘誓鎧，積累德本，度脫一切。遊諸佛國，修菩薩行，供養十方諸佛如來。開化恆沙無量眾生，使立無上正真之道，超出常倫諸地之行，現前修習普賢之德。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十三願</div><div class="vow-text">設我得佛，國中菩薩，承佛神力，供養諸佛，一食之頃，不能遍至無數無量億那由他諸佛國者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十四願</div><div class="vow-text">設我得佛，國中菩薩，在諸佛前，現其德本，諸所求求，供養之具，若不如意者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十五願</div><div class="vow-text">設我得佛，國中菩薩，不能演說一切智者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十六願</div><div class="vow-text">設我得佛，國中菩薩，不得金剛那羅延身者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十七願</div><div class="vow-text">設我得佛，國中天人，一切萬物，嚴淨光麗，形色殊特，窮微極妙，無能稱量。其諸眾生，乃至逮得天眼，有能明了，辨其名數者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十八願</div><div class="vow-text">設我得佛，國中菩薩，乃至少功德者，不能知見其道場樹無量光色，高四百萬里者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第二十九願</div><div class="vow-text">設我得佛，國中菩薩，若受讀經法，諷誦持說，而不得辯才智慧者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十願</div><div class="vow-text">設我得佛，國中菩薩，智慧辯才，若可限量者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十一願</div><div class="vow-text">設我得佛，國土清淨，皆悉照見十方一切無量無數不可思議諸佛世界，猶如明鏡，睹其面像。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十二願</div><div class="vow-text">設我得佛，自地以上，至於虛空，宮殿、樓觀、池流、華樹，國土所有一切萬物，皆以無量雜寶、百千種香而共合成。嚴飾奇妙，超諸天人。其香普熏十方世界。菩薩聞者，皆修佛行。若不如是，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十三願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界眾生之類，蒙我光明觸其身者，身心柔軟，超過天人。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十四願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界眾生之類，聞我名字，不得菩薩無生法忍、深總持者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十五願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界，其有女人，聞我名字，歡喜信樂，發菩提心，厭惡女身。壽終之後，復為女像者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十六願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界諸菩薩眾，聞我名字，壽終之後，常修梵行，至成佛道。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十七願</div><div class="vow-text">設我得佛，十方無量不可思議諸佛世界諸天人民，聞我名字，五體投地，稽首作禮，歡喜信樂，修菩薩行，諸天世人，莫不致敬。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十八願</div><div class="vow-text">設我得佛，國中天人，欲得衣服，隨念即至，如佛所讚應法妙服，自然在身。有求裁縫、擣染、浣濯者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第三十九願</div><div class="vow-text">設我得佛，國中天人，所受快樂，不如漏盡比丘者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十願</div><div class="vow-text">設我得佛，國中菩薩，隨意欲見十方無量嚴淨佛土，應時如願，於寶樹中，皆悉照見，猶如明鏡，睹其面像。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十一願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，至於得佛，諸根缺陋不具足者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十二願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，皆悉逮得清淨解脫三昧。住是三昧，一發意頃，供養無量不可思議諸佛世尊，而不失定意。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十三願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，壽終之後，生尊貴家。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十四願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，歡喜踊躍，修菩薩行，具足德本。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十五願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，皆悉逮得普等三昧。住是三昧，至於成佛，常見無量不可思議一切如來。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十六願</div><div class="vow-text">設我得佛，國中菩薩，隨其志願所欲聞法，自然得聞。若不爾者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十七願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，不即得至不退轉者，不取正覺。</div></div>
+        <div class="vow-box"><div class="vow-num">第四十八願</div><div class="vow-text">設我得佛，他方國土諸菩薩眾，聞我名字，不即得至第一忍、第二第三法忍，於諸佛法，不能即得不退轉者，不取正覺。</div></div>
     </div>
 </div>
 
 
 <script>
+
     const canvas = document.getElementById('realmCanvas');
     const ctx = canvas.getContext('2d');
     let width, height;
     
-    let currentRealm = 0; 
+    let currentRealm = 0; // 0: 彌陀接引, 1: 探彌陀48願海
     let time = 0;
 
+    // 粒子系統與蓮花陣列
     let jieyinParticles = [];
     let yuanhaiParticles = [];
-    let lotusMatrix = []; 
+    let lotusMatrix = []; // 儲存 48 朵金蓮
     
     let angleX = 0.6, angleY = 0;
     let isDragging = false;
     let lastMouseX = 0, lastMouseY = 0;
     
-    let charge = 0;         
-    let gravityForce = 0;   
-    let flashIntensity = 0; 
-    let waveColorBlend = 0; 
+    // 物理狀態變數
+    let charge = 0;         // 蓄力值 (0-100)
+    let gravityForce = 0;   // 接引的引力
+    let flashIntensity = 0; // 爆光強度
+    let waveColorBlend = 0; // 願海顏色過渡 (0=青灰, 1=純金)
     let transitioning = false;
 
     const FOV = 400; 
@@ -368,6 +372,7 @@
     window.addEventListener('resize', resize); resize();
 
     function initEngines() {
+        // 1. 彌陀願力接引：金色光塵
         jieyinParticles = [];
         for(let i=0; i<1500; i++) {
             jieyinParticles.push({
@@ -378,6 +383,7 @@
             });
         }
 
+        // 2. 探彌陀願海：海浪波紋
         yuanhaiParticles = [];
         for(let r = 20; r <= 800; r += 15) {
             let count = Math.floor(r * 0.4);
@@ -390,18 +396,21 @@
             }
         }
 
+        // 3. 建立 48 朵金蓮矩陣
         lotusMatrix = [];
+        // 主金蓮 (第 1 朵)
         lotusMatrix.push({
             r: 0, theta: 0, orbitSpeed: 0, rotateSpeed: 0.2, scale: 1.0, phase: 0
         });
+        // 伴生中小金蓮 (第 2 到 48 朵)
         for(let i=1; i<48; i++) {
             lotusMatrix.push({
-                r: 60 + Math.random() * 350,               
-                theta: Math.random() * Math.PI * 2,        
-                orbitSpeed: (Math.random() - 0.5) * 0.015, 
-                rotateSpeed: (Math.random() - 0.5) * 0.8,  
-                scale: 0.15 + Math.random() * 0.35,        
-                phase: Math.random() * Math.PI * 2         
+                r: 60 + Math.random() * 350,               // 軌道半徑分佈
+                theta: Math.random() * Math.PI * 2,        // 初始角度
+                orbitSpeed: (Math.random() - 0.5) * 0.015, // 公轉速度 (有正有負)
+                rotateSpeed: (Math.random() - 0.5) * 0.8,  // 自轉速度
+                scale: 0.15 + Math.random() * 0.35,        // 縮放比例 (主蓮的 15% 到 50%)
+                phase: Math.random() * Math.PI * 2         // 獨立呼吸相位
             });
         }
     }
@@ -415,6 +424,7 @@
         return { x: (width/2) + x2*scale, y: (height/2) - y1*scale - 50, scale: scale, z: z2 };
     }
 
+    // ✨ 繪製純金蓮花 (純向量)
     function drawGiantLotus(proj, beat, blend, rotation, scaleMult) {
         if(!proj) return;
         ctx.save();
@@ -471,6 +481,7 @@
         ctx.restore();
     }
 
+    // --- 彌陀願力接引 ---
     function renderJieyin() {
         if(isDragging && !transitioning) {
             charge += 0.35; 
@@ -540,6 +551,7 @@
         ctx.shadowBlur = 0; ctx.globalCompositeOperation = 'source-over';
     }
 
+    // --- 探彌陀48願海 ---
     function renderYuanhai() {
         waveColorBlend += ((isDragging ? 1 : 0) - waveColorBlend) * 0.05;
 
@@ -576,12 +588,15 @@
         });
         ctx.shadowBlur = 0; ctx.globalCompositeOperation = 'source-over';
 
+        // ✨ 繪製 48 朵金蓮矩陣 ✨
+        // 為了 3D 正確遮擋，將蓮花也做深度排序
         let projectedLotuses = [];
         lotusMatrix.forEach(lotus => {
-            lotus.theta += lotus.orbitSpeed; 
+            lotus.theta += lotus.orbitSpeed; // 公轉
+            // 讓蓮花隨著海浪軌道起伏
             let waveOffset = Math.sin(lotus.r * 0.05 - time * 2) * 40;
             let lx = Math.cos(lotus.theta) * lotus.r;
-            let lz = Math.sin(lotus.theta) * lotus.r + waveOffset + 10; 
+            let lz = Math.sin(lotus.theta) * lotus.r + waveOffset + 10; // 稍微浮於水面
             
             let proj = project3D(lx, 0, lz);
             if(proj) projectedLotuses.push({ proj: proj, lotus: lotus });
@@ -590,8 +605,8 @@
         projectedLotuses.sort((a,b) => b.proj.z - a.proj.z);
 
         projectedLotuses.forEach(item => {
-            let beat = Math.sin(time * 2 + item.lotus.phase); 
-            let rotation = time * item.lotus.rotateSpeed;     
+            let beat = Math.sin(time * 2 + item.lotus.phase); // 獨立呼吸
+            let rotation = time * item.lotus.rotateSpeed;     // 獨立自轉
             drawGiantLotus(item.proj, beat, waveColorBlend, rotation, item.lotus.scale);
         });
     }
@@ -614,82 +629,36 @@
         let title = document.getElementById('s-title'); let desc = document.getElementById('s-desc');
         let hintContainer = document.getElementById('hold-hint');
         let theoryBtn = document.getElementById('theory-btn');
-        let vowsBtn = document.getElementById('vows-btn'); 
 
         if (type === 0) {
-            title.innerText = "阿弥陀仏の導きの光"; 
-            desc.innerHTML = "「万念帰一、光芒四射。」<br>画面を長押しして金光を集め、願生極楽。";
+            title.innerText = "彌陀願力接引"; desc.innerHTML = "「萬念歸一，光芒四射。」<br>長按螢幕凝聚金光，願生極樂。";
             title.style.color = 'var(--gold)';
             hintContainer.style.display = 'block';
             theoryBtn.style.display = 'none';
-            vowsBtn.style.display = 'none'; 
             angleX = 0.2; angleY = 0; 
             charge = 0; gravityForce = 0;
         } else {
-            title.innerText = "阿弥陀の無量願海を探求"; 
-            desc.innerHTML = "「清浄海浪、大願金蓮。」<br>360度画面をスワイプして、無量の大願海を照らす。";
+            title.innerText = "探彌陀無量願海"; desc.innerHTML = "「清淨海浪，大願金蓮。」<br>360度滑動螢幕，點亮無量大願海。";
             title.style.color = 'var(--cyan)';
             hintContainer.style.display = 'none';
 
             theoryBtn.style.display = 'flex';
-            vowsBtn.style.display = 'flex'; 
             angleX = 0.6; angleY = 0; 
         }
     }
 
-    function openVowsDrawer() { document.getElementById('vows-drawer').classList.add('open'); }
-    function closeVowsDrawer() { document.getElementById('vows-drawer').classList.remove('open'); }
-    document.getElementById('vows-drawer').addEventListener('pointerdown', (e) => e.stopPropagation());
-
-    // ================= ✨ 四十八願玉簡 TTS システム ✨ =================
-    let isPlayingVows = false;
-    let vowsUtterance = null;
-
-    function toggleVowsAudio() {
-        if (!window.speechSynthesis) return alert("お使いの端末は音声合成に対応していません。");
-        const btnText = document.getElementById('tts-vows-text'); const btnIcon = document.getElementById('tts-vows-icon');
-        
-        if (isPlayingVows) {
-            window.speechSynthesis.cancel(); isPlayingVows = false; btnText.innerText = "願文を聴く";
-            btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
-        } else {
-            if (isPlayingTheory) toggleTheoryAudio();
-            
-            let contentNodes = document.querySelectorAll('#vows-content-box .vow-num, #vows-content-box .vow-text');
-            let textToRead = Array.from(contentNodes).map(node => node.textContent.trim()).join('。');
-            
-            vowsUtterance = new SpeechSynthesisUtterance(textToRead); vowsUtterance.lang = 'ja-JP'; vowsUtterance.rate = 0.85; 
-            
-            let isAndroid = /Android/i.test(navigator.userAgent);
-            if (isAndroid) {
-                window.sysUtterances.push(vowsUtterance);
-                let voices = window.speechSynthesis.getVoices();
-                if (voices.length > 0) {
-                    let jaVoice = voices.find(v => v.lang === 'ja-JP' && v.name.includes('Google')) || voices.find(v => v.lang.includes('ja'));
-                    if (jaVoice) vowsUtterance.voice = jaVoice;
-                }
-            }
-            vowsUtterance.onend = () => {
-                isPlayingVows = false; btnText.innerText = "願文を聴く";
-                btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
-                if(isAndroid) window.sysUtterances = window.sysUtterances.filter(u => u !== vowsUtterance);
-            };
-            setTimeout(() => { window.speechSynthesis.speak(vowsUtterance); }, isAndroid ? 150 : 50);
-            isPlayingVows = true; btnText.innerText = "停止する";
-            btnIcon.innerHTML = '<rect x="6" y="6" width="12" height="12"></rect>';
-        }
-    }
-
-    const originalCloseVowsDrawer = closeVowsDrawer;
-    closeVowsDrawer = function() { if (isPlayingVows) toggleVowsAudio(); originalCloseVowsDrawer(); }
-
-
     function openTheoryDrawer() { document.getElementById('theory-drawer').classList.add('open'); }
     function closeTheoryDrawer() { document.getElementById('theory-drawer').classList.remove('open'); }
+        function openVowsDrawer() { document.getElementById('vows-drawer').classList.add('open'); }
+    function closeVowsDrawer() { document.getElementById('vows-drawer').classList.remove('open'); }
+    
+    document.getElementById('vows-drawer').addEventListener('pointerdown', (e) => e.stopPropagation());
+
 
     document.getElementById('theory-drawer').addEventListener('pointerdown', (e) => e.stopPropagation());
     document.getElementById('ui-layer').addEventListener('pointerdown', (e) => e.stopPropagation());
 
+    // --- 互動偵測 ---
     function onDown(e) { 
         if(e.target.closest('#ui-layer') || e.target.closest('#theory-drawer')) return; 
         isDragging = true; 
@@ -713,11 +682,13 @@
         if(!isDragging) return;
         isDragging = false; 
         
+        // 彌陀接引：蓄力超過 90 (約五秒) 放手，觸發爆光與過場
         if(currentRealm === 0 && charge > 90 && !transitioning) {
             flashIntensity = 1; 
             document.getElementById('lengyan-flash').style.opacity = flashIntensity;
             transitioning = true;
             
+            // 引力自然衰退混亂，等待 3.5 秒後跳轉蓮海
             setTimeout(() => {
                 if(currentRealm === 0) toggleRealm(1);
                 transitioning = false;
@@ -730,6 +701,53 @@
     canvas.addEventListener('mousedown', onDown); window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp);
     canvas.addEventListener('touchstart', onDown, {passive: true}); canvas.addEventListener('touchmove', onMove, {passive: true}); window.addEventListener('touchend', onUp);
 
+    
+        // ================= ✨ 經文玉簡 TTS 語音系統 ✨ =================
+    let isPlayingVows = false;
+    let vowsUtterance = null;
+
+    function toggleVowsAudio() {
+        if (!window.speechSynthesis) return alert("您的設備不支援語音功能");
+        const btnText = document.getElementById('tts-vows-text'); const btnIcon = document.getElementById('tts-vows-icon');
+        
+        if (isPlayingVows) {
+            window.speechSynthesis.cancel(); isPlayingVows = false; btnText.innerText = "恭聆願文";
+            btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
+        } else {
+            // 中斷可能正在播放的探究文章語音
+            if (isPlayingTheory) toggleTheoryAudio();
+            
+            let contentNodes = document.querySelectorAll('#vows-content-box .vow-num, #vows-content-box .vow-text');
+            let textToRead = Array.from(contentNodes).map(node => node.textContent.trim()).join('，');
+            
+            let isAndroid = /Android/i.test(navigator.userAgent);
+            textToRead = isAndroid ? textToRead : textToRead.replace(/阿/g, 'ㄚ');
+            
+            vowsUtterance = new SpeechSynthesisUtterance(textToRead); vowsUtterance.lang = 'zh-TW'; vowsUtterance.rate = 0.85; 
+            if (isAndroid) {
+                window.sysUtterances.push(vowsUtterance);
+                let voices = window.speechSynthesis.getVoices();
+                if (voices.length > 0) {
+                    let zhVoice = voices.find(v => v.lang === 'zh-TW' && v.name.includes('Google')) || voices.find(v => v.lang.includes('zh'));
+                    if (zhVoice) vowsUtterance.voice = zhVoice;
+                }
+            }
+            vowsUtterance.onend = () => {
+                isPlayingVows = false; btnText.innerText = "恭聆願文";
+                btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
+                if(isAndroid) window.sysUtterances = window.sysUtterances.filter(u => u !== vowsUtterance);
+            };
+            setTimeout(() => { window.speechSynthesis.speak(vowsUtterance); }, isAndroid ? 150 : 50);
+            isPlayingVows = true; btnText.innerText = "停止聆聽";
+            btnIcon.innerHTML = '<rect x="6" y="6" width="12" height="12"></rect>';
+        }
+    }
+
+    const originalCloseVowsDrawer = closeVowsDrawer;
+    closeVowsDrawer = function() { if (isPlayingVows) toggleVowsAudio(); originalCloseVowsDrawer(); }
+
+    // ================= ✨ TTS 語音導航系統 ✨ =================
+
     let isPlayingTheory = false;
     let theoryUtterance = null;
     window.sysUtterances = []; 
@@ -739,35 +757,35 @@
     }
 
     function toggleTheoryAudio() {
-        if (!window.speechSynthesis) return alert("お使いのデバイスは音声機能に対応していません");
+        if (!window.speechSynthesis) return alert("您的設備不支援語音功能");
         const btnText = document.getElementById('tts-text'); const btnIcon = document.getElementById('tts-icon');
         if (isPlayingTheory) {
-            window.speechSynthesis.cancel(); isPlayingTheory = false; btnText.innerText = "法音を聴く";
+            window.speechSynthesis.cancel(); isPlayingTheory = false; btnText.innerText = "聆聽法音";
             btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
         } else {
             let contentNodes = document.querySelectorAll('#theory-content-box .main-title, #theory-content-box .c-title, #theory-content-box .c-text, #theory-content-box .humble-statement');
             let textToRead = Array.from(contentNodes).map(node => node.textContent.trim()).join('。');
-            
-            theoryUtterance = new SpeechSynthesisUtterance(textToRead); 
-            theoryUtterance.lang = 'ja-JP'; 
-            theoryUtterance.rate = 0.85; 
+            textToRead = textToRead.replace(/一、/g, '第一章：').replace(/二、/g, '第二章：').replace(/三、/g, '第三章：');
             
             let isAndroid = /Android/i.test(navigator.userAgent);
+            textToRead = isAndroid ? textToRead : textToRead.replace(/阿/g, 'ㄚ');
+            
+            theoryUtterance = new SpeechSynthesisUtterance(textToRead); theoryUtterance.lang = 'zh-TW'; theoryUtterance.rate = 0.85; 
             if (isAndroid) {
                 window.sysUtterances.push(theoryUtterance);
                 let voices = window.speechSynthesis.getVoices();
                 if (voices.length > 0) {
-                    let jaVoice = voices.find(v => v.lang === 'ja-JP' && v.name.includes('Google')) || voices.find(v => v.lang.includes('ja'));
-                    if (jaVoice) theoryUtterance.voice = jaVoice;
+                    let zhVoice = voices.find(v => v.lang === 'zh-TW' && v.name.includes('Google')) || voices.find(v => v.lang.includes('zh'));
+                    if (zhVoice) theoryUtterance.voice = zhVoice;
                 }
             }
             theoryUtterance.onend = () => {
-                isPlayingTheory = false; btnText.innerText = "法音を聴く";
+                isPlayingTheory = false; btnText.innerText = "聆聽法音";
                 btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
                 if(isAndroid) window.sysUtterances = window.sysUtterances.filter(u => u !== theoryUtterance);
             };
             setTimeout(() => { window.speechSynthesis.speak(theoryUtterance); }, isAndroid ? 150 : 50);
-            isPlayingTheory = true; btnText.innerText = "聴聞を停止する";
+            isPlayingTheory = true; btnText.innerText = "停止聆聽";
             btnIcon.innerHTML = '<rect x="6" y="6" width="12" height="12"></rect>';
         }
     }
