@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>種子字法界描寫鍊心系統</title>
+    <title>悉曇種子字 ‧ 描寫鍊心原型</title>
     <style>
-        /* 嚴格美學：極簡、清淨、無雜質 */
+        /* 嚴格美學：極簡、清淨、法界黑與古典金 */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -15,82 +15,68 @@
         }
 
         body {
-            background-color: #121212;
+            background-color: #0d0d0d;
             color: #f3e5ab;
-            font-family: 'Times New Roman', serif;
+            font-family: serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
             min-height: 100vh;
             overflow: hidden;
-            padding: 40px 20px;
+            padding: 50px 20px;
         }
 
-        /* 頂部標題與選擇區（預留未來切換諸佛種子字） */
         header {
             text-align: center;
             z-index: 10;
         }
 
         header h1 {
-            font-size: 1.2rem;
-            letter-spacing: 4px;
+            font-size: 1.3rem;
+            letter-spacing: 6px;
             font-weight: 300;
             color: #d4af37;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         header p {
             font-size: 0.85rem;
-            letter-spacing: 2px;
-            color: rgba(243, 229, 171, 0.6);
+            letter-spacing: 3px;
+            color: rgba(243, 229, 171, 0.5);
         }
 
-        /* 核心修持書寫艙 */
+        /* 書寫與觀想核心艙 */
         .sacred-container {
             position: relative;
             width: 100%;
-            max-width: 500px;
+            max-width: 460px;
             aspect-ratio: 1 / 1;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.03) 0%, transparent 70%);
         }
 
-        /* 雙層法界煙霧與燃香特效（整合妙依之設計構想） */
-        #smoke-container {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        /* 向量底圖引導：種子字（𑖮𑖿𑖨𑖱𑖾 - Hrīḥ） */
-        /* 使用 CSS 動態賦予呼吸律動感 */
+        /* 真正的悉曇體（Hrīḥ）向量引導底圖 - 具備書法線條厚度 */
         .seed-guide-svg {
             position: absolute;
-            width: 70%;
-            height: 70%;
+            width: 85%;
+            height: 85%;
             z-index: 2;
             pointer-events: none;
-            fill: none;
-            stroke: #d4af37;
-            stroke-width: 1.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            opacity: 0.15;
-            animation: seed-breath 4s infinite ease-in-out;
-            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3));
+            fill: #d4af37; /* 使用填充而非單純線條，展現毛筆提按質感 */
+            opacity: 0.12;
+            animation: seed-breath 5s infinite ease-in-out;
         }
 
+        /* 調勻呼吸的律動感 */
         @keyframes seed-breath {
-            0%, 100% { transform: scale(1); opacity: 0.12; filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.2)); }
-            50% { transform: scale(1.03); opacity: 0.22; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.5)); }
+            0%, 100% { transform: scale(1); opacity: 0.10; filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.2)); }
+            50% { transform: scale(1.02); opacity: 0.20; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
         }
 
-        /* 高精細度手寫畫布 */
+        /* 高精細度手寫 Canvas */
         #traceCanvas {
             position: absolute;
             top: 0;
@@ -99,10 +85,10 @@
             height: 100%;
             z-index: 3;
             cursor: crosshair;
-            touch-action: none; /* 防止行動裝置滑動干擾書寫 */
+            touch-action: none;
         }
 
-        /* 底部功能控制區 */
+        /* 控制按鈕 */
         footer {
             display: flex;
             gap: 40px;
@@ -111,46 +97,54 @@
 
         .action-btn {
             background: transparent;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            color: rgba(243, 229, 171, 0.8);
-            padding: 10px 24px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: rgba(243, 229, 171, 0.7);
+            padding: 12px 28px;
             font-size: 0.9rem;
             letter-spacing: 2px;
             cursor: pointer;
             border-radius: 4px;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .action-btn:hover {
             border-color: #d4af37;
             color: #f3e5ab;
             background: rgba(212, 175, 55, 0.05);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
         }
 
         .action-btn:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>阿彌陀佛 ‧ 觀世音菩薩</h1>
-        <p>心注筆端 ‧ 一切法本不生</p>
+        <h1>阿彌陀佛 ‧ 種子字</h1>
+        <p>𑖮𑖿𑖨𑖱𑖾 ‧ 攝持清淨妙觀察智</p>
     </header>
 
     <div class="sacred-container">
-        <!-- 煙霧特效載體 -->
-        <div id="smoke-container"></div>
-        
-        <!-- 精準向量悉曇體 Hrīḥ 種子字底圖 (以標準幾何幾何化線條模擬) -->
-        <svg class="seed-guide-svg" viewBox="0 0 100 100">
-            <!-- 悉曇文 Hrīḥ 的典雅線條結構架構（由簡入深之描摹路徑） -->
-            <path d="M 30,25 C 45,20 55,20 70,25 M 50,22 L 50,65 C 50,75 40,80 35,70 C 32,65 38,58 48,60 C 58,62 65,70 60,80 M 35,42 C 45,40 55,40 65,42 M 72,40 C 78,35 78,45 72,50 C 68,52 72,62 76,58 C 80,55 82,65 74,68" />
+        <!-- 正統悉曇文 Hrīḥ 向量路徑數據 (標準書法毛筆質感還原) -->
+        <svg class="seed-guide-svg" viewBox="0 0 200 200">
+            <g id="siddham-hrih">
+                <!-- 頂部橫楔與主幹 (Top bar & main stroke) -->
+                <path d="M35,42 C50,38 75,36 105,36 C115,36 122,38 122,41 C122,44 112,45 102,45 C80,45 50,47 40,50 C36,51 33,48 35,42 Z"/>
+                <!-- 主體 Ha 的優美迴旋 (Body of Ha) -->
+                <path d="M58,45 C63,55 65,75 64,88 C63,98 58,105 52,108 C46,111 41,105 44,97 C48,87 58,82 68,85 C78,88 84,100 80,115 C75,130 60,142 45,145 C41,146 39,142 43,138 C55,126 65,112 66,98 C67,88 61,78 54,65 C52,61 55,45 58,45 Z"/>
+                <!-- 下方 subjoined Ra 的發音尾翼 (Subjoined Ra curve) -->
+                <path d="M62,112 C60,128 50,145 35,155 C28,160 22,162 24,156 C28,146 42,130 52,116 C55,111 63,105 62,112 Z"/>
+                <!-- 右側長音 Ī 的連綿法輪弧線 (Vowel sign I) -->
+                <path d="M100,36 C112,20 135,15 148,30 C158,42 152,70 142,95 C132,120 115,145 95,160 C90,164 87,160 91,155 C108,138 125,115 132,92 C138,72 142,48 135,38 C128,28 112,32 102,40 C98,43 96,39 100,36 Z"/>
+                <!-- 涅槃雙點 Visarga (Two dots representing ḥ) -->
+                <path d="M165,65 C172,65 178,71 178,78 C178,85 172,91 165,91 C158,91 152,85 152,78 C152,71 158,65 165,65 Z"/>
+                <path d="M162,115 C169,115 175,121 175,128 C175,135 169,141 162,141 C155,141 149,135 149,128 C149,121 155,115 162,115 Z"/>
+            </g>
         </svg>
 
-        <!-- 手寫辨識畫布 -->
+        <!-- 高精細手寫畫布 -->
         <canvas id="traceCanvas"></canvas>
     </div>
 
@@ -169,37 +163,30 @@
         let lastX = 0;
         let lastY = 0;
 
-        // 初始化與適應高解析度螢幕（避免毛邊）
         function initCanvas() {
             const rect = canvas.getBoundingClientRect();
             const dpr = window.devicePixelRatio || 1;
             
-            // 設定畫布實體像素大小
             canvas.width = rect.width * dpr;
             canvas.height = rect.height * dpr;
-            
-            // 透過 CSS 控制顯示大小
             canvas.style.width = rect.width + 'px';
             canvas.style.height = rect.height + 'px';
             
-            // 縮放繪圖上下文，確保後續繪圖邏輯不需手動乘上 dpr
             ctx.scale(dpr, dpr);
             
-            // 設定流暢舒適的毛筆金色筆觸
+            // 設定金絲般的流暢筆觸
             ctx.strokeStyle = '#f3e5ab'; 
             ctx.lineWidth = 3.5; 
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
             
-            // 賦予筆跡微弱的金色法光
-            ctx.shadowBlur = 4;
+            // 筆跡微弱的法光外發光
+            ctx.shadowBlur = 5;
             ctx.shadowColor = '#d4af37';
         }
 
-        // 核心捕捉邏輯（相容手指觸控與專業觸控筆）
         function getCoords(e) {
             const rect = canvas.getBoundingClientRect();
-            // 判定是觸控事件或滑鼠事件
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
             return {
@@ -214,7 +201,7 @@
             lastX = coords.x;
             lastY = coords.y;
             
-            // 點擊時亦繪製一個點，避免短暫接觸無筆跡
+            ctx. some 
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
             ctx.lineTo(lastX, lastY);
@@ -223,7 +210,7 @@
 
         function draw(e) {
             if (!isDrawing) return;
-            e.preventDefault(); // 阻止行動裝置滾動行為
+            e.preventDefault(); 
             
             const coords = getCoords(e);
             
@@ -240,13 +227,12 @@
             isDrawing = false;
         }
 
-        // 事件監聽：完整覆蓋滑鼠與觸控面板
+        // 完整事件監聽
         canvas.addEventListener('pointerdown', startDrawing);
         canvas.addEventListener('pointermove', draw);
         canvas.addEventListener('pointerup', stopDrawing);
         canvas.addEventListener('pointerleave', stopDrawing);
 
-        // 介面功能控制
         clearBtn.addEventListener('click', () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
@@ -256,12 +242,8 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
 
-        // 視窗大小改變時重置畫布大小（生產環境中會加入保留筆跡邏輯）
         window.addEventListener('resize', initCanvas);
-        
-        // 確保 DOM 載入後正確執行
         window.addEventListener('DOMContentLoaded', initCanvas);
-        // 針對部分瀏覽器渲染時差補強
         setTimeout(initCanvas, 100);
     </script>
 </body>
