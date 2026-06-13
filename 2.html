@@ -98,21 +98,21 @@
             font-size: 0.75rem; color: var(--cyan-jade); opacity: 0.5; letter-spacing: 2px;
         }
 
-        /* 重新校正座標後、法相端正之悉曇字形 SVG */
+        /* 依妙依口訣精密重塑：上方右傾15度、主體反轉2字型、右弧線右滑 */
         .siddham-math-svg {
             width: 80%;
             height: 80%;
             fill: none;
             stroke: var(--gold-light);
-            stroke-width: 2.8;
+            stroke-width: 3.2; /* 增強毛筆骨架感 */
             stroke-linecap: round;
             stroke-linejoin: round;
             animation: seed-glow 5s infinite ease-in-out;
         }
 
         @keyframes seed-glow {
-            0%, 100% { opacity: 0.65; filter: drop-shadow(0 0 10px rgba(243,229,171,0.2)); transform: scale(1); }
-            50% { opacity: 0.95; filter: drop-shadow(0 0 30px rgba(243,229,171,0.5)); transform: scale(1.01); }
+            0%, 100% { opacity: 0.7; filter: drop-shadow(0 0 12px rgba(243,229,171,0.25)); }
+            50% { opacity: 0.95; filter: drop-shadow(0 0 32px rgba(243,229,171,0.55)); }
         }
 
         /* 自寫艙 */
@@ -232,14 +232,17 @@
         
         <div class="vision-chamber">
             <svg class="siddham-math-svg" viewBox="0 0 100 100">
-                <path d="M 22,25 L 70,25" />
+                <g transform="rotate(15, 45, 25)">
+                    <path d="M 42,16 L 48,16" stroke-width="2.2" />
+                    <path d="M 28,25 L 28,29 M 28,25 L 66,25" />
+                </g>
                 
-                <path d="M 40,25 C 26,25 24,42 36,46 C 46,49 46,65 34,68 C 24,70 20,83 36,83 C 50,83 54,64 45,52 C 38,42 42,32 52,32" />
+                <path d="M 37,27 C 22,27 18,48 35,51 C 48,53 50,71 33,78 C 22,83 15,70 32,65 C 44,61 48,63 60,78" />
                 
-                <path d="M 48,25 C 60,25 68,38 64,56 C 60,72 48,84 38,87" />
+                <path d="M 54,27 C 64,30 72,46 66,66 C 62,76 56,82 48,85" />
                 
-                <circle cx="78" cy="42" r="3" fill="var(--gold-classic)" />
-                <circle cx="74" cy="65" r="3" fill="var(--gold-classic)" />
+                <circle cx="82" cy="43" r="3.2" fill="var(--gold-classic)" />
+                <circle cx="78" cy="65" r="3.2" fill="var(--gold-classic)" />
             </svg>
         </div>
 
@@ -505,7 +508,7 @@
         }
 
         function goHome() { alert("返回主道場系統"); }
-        function toggleHelp() { alert("左側已更正為正確法相的悉曇幾何觀想區。右側為毛筆自寫區。"); }
+        function toggleHelp() { alert("左側已完全依據妙依口訣重塑正確悉曇法相。右側為具備提按點圓手感的毛筆自寫區。"); }
 
         window.addEventListener('resize', () => { initStars(); initCanvas(); });
         window.addEventListener('DOMContentLoaded', () => { initStars(); initCanvas(); startFadeMechanism(); });
