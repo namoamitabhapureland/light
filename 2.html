@@ -305,7 +305,6 @@
     </div>
     <div id="flash-overlay"></div>
 
-    <!-- PAGE 1 -->
     <div id="page-1">
         <div id="ui-layer-p1">
             <div class="main-title-p1">七日行願 ． 步步生蓮</div>
@@ -319,7 +318,6 @@
         </div>
     </div>
 
-    <!-- PAGE 2 -->
     <div id="page-2">
         <div class="nav-top">
             <div class="nav-btn" onclick="returnToMainHall()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> 返回道場</div>
@@ -334,7 +332,6 @@
             <div class="tracker-circles" id="ui-trackers"></div>
         </div>
 
-        <!-- 全新兩倍大 雙金框星空黑底手寫道場 -->
         <div class="hrih-container">
             <div class="hrih-title">ह्रीः</div>
             <div class="write-box-outer">
@@ -349,7 +346,6 @@
         </div>
 
         <div class="action-zone" id="action-zone">
-            <!-- 高級扁平化線條光影長按按鈕 -->
             <div class="seal-btn-rect" id="seal-btn">
                 <div class="seal-btn-progress-bg" id="btn-progress"></div>
                 <div class="seal-btn-text" id="seal-text">長按契印 ． 圓滿今日</div>
@@ -361,7 +357,6 @@
         </div>
     </div>
 
-    <!-- 大數據 Modal -->
     <div class="modal-overlay" id="dataModal">
         <div class="data-card" onclick="event.stopPropagation()">
             <div class="data-title">十方結緣 ‧ 歷史軌跡</div>
@@ -389,7 +384,6 @@
         </div>
     </div>
 
-    <!-- 契印證書 彈框 -->
     <div class="cert-overlay" id="cert-modal">
         <div class="cert-box">
             <div class="cert-header" id="cert-title">✦ 菩提契印 ✦</div>
@@ -487,7 +481,7 @@
         }
     }
 
-    // P1 脈動星空階梯
+    // P1 階梯
     const ANCHORS = [
         { xl: 30, xr: 370, y: 800, h: 45 }, { xl: 115, xr: 405, y: 675, h: 40 },
         { xl: 190, xr: 430, y: 570, h: 35 }, { xl: 245, xr: 445, y: 485, h: 30 },
@@ -568,14 +562,13 @@
         }
     }
 
-    // 精緻流暢的手寫 Canvas 控制
+    // 手寫 Canvas 控制
     let hwCanvas, hwCtx, isDrawing = false;
     function initHandwritingCanvas() {
         hwCanvas = document.getElementById('writeCanvas');
         hwCtx = hwCanvas.getContext('2d');
         resizeHandwritingCanvas();
 
-        // 完美阻斷所有導致縮放與干擾條的預設事件
         const preventAndExecute = (e, func) => { e.preventDefault(); func(e); };
 
         hwCanvas.addEventListener('mousedown', (e) => { isDrawing = true; drawStroke(e); });
@@ -594,6 +587,7 @@
         clearCanvas();
     }
 
+    // 方案 A 改進版：落筆即形成圓形點線段
     function drawStroke(e) {
         const rect = hwCanvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -608,7 +602,10 @@
 
         if (e.type === 'mousedown' || isDrawing && hwCtx.pathBegun === false) {
             hwCtx.beginPath();
+            // 在原地微移 0.1 像素，強迫渲染出圓形的起筆點
             hwCtx.moveTo(x, y);
+            hwCtx.lineTo(x + 0.1, y);
+            hwCtx.stroke();
             hwCtx.pathBegun = true;
         } else {
             hwCtx.lineTo(x, y);
@@ -698,7 +695,7 @@
         }, 1200);
     }
 
-    // 扁平線條長按打卡邏輯
+    // 長按打卡邏輯
     const sealBtn = document.getElementById('seal-btn'); 
     const progressFill = document.getElementById('btn-progress'); 
     const hintText = document.getElementById('seal-text');
