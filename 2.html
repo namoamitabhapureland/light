@@ -3,205 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>悉曇種子字 ‧ 描寫鍊心原型</title>
+    <title>種子字流暢描寫鍊心系統</title>
     <style>
-        /* 嚴格美學：極簡、清淨、法界黑與古典金 */
+        /* ════ 承襲系統變數與嚴格美學 ════ */
+        :root {
+            --cyan-jade: #8ba89c;    /* 靜謐琉璃色 */
+            --gold-light: #f3e5ab;   /* 柔和淺金 */
+            --gold-classic: #d4af37; /* 古典金 */
+            --bg-dark: #010204;      /* 深邃法界黑 */
+        }
+
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-user-select: none;
-            user-select: none;
+            margin: 0; padding: 0;
+            -webkit-user-select: none; user-select: none;
         }
 
         body {
-            background-color: #0d0d0d;
-            color: #f3e5ab;
+            background-color: var(--bg-dark);
+            color: var(--gold-light);
             font-family: serif;
+            min-height: 100vh;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            min-height: 100vh;
-            overflow: hidden;
-            padding: 50px 20px;
+            padding: 100px 20px 40px 20px;
         }
 
-        header {
-            text-align: center;
-            z-index: 10;
+        /* ════ 星空背景載體 ════ */
+        #starCanvas {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
         }
 
-        header h1 {
-            font-size: 1.3rem;
-            letter-spacing: 6px;
-            font-weight: 300;
-            color: #d4af37;
-            margin-bottom: 10px;
+        /* ════ 頂部導航列 (承襲華藏月相) ════ */
+        .top-nav {
+            position: absolute; top: 25px; left: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: env(safe-area-inset-top, 0px) 20px 0 20px; 
+            z-index: 200;
         }
 
-        header p {
-            font-size: 0.85rem;
-            letter-spacing: 3px;
-            color: rgba(243, 229, 171, 0.5);
+        .nav-btn {
+            color: var(--cyan-jade); font-size: 0.85rem; letter-spacing: 2px;
+            padding: 6px 14px; border: 1px solid rgba(139,168,156,0.3); border-radius: 20px;
+            background: rgba(1,2,4,0.6); cursor: pointer; backdrop-filter: blur(5px);
+            transition: all 0.3s;
         }
 
-        /* 書寫與觀想核心艙 */
+        .nav-btn:active { 
+            background: rgba(139,168,156,0.2); 
+            transform: scale(0.95); 
+            opacity: 0.8; 
+        }
+
+        .nav-title {
+            color: var(--gold-light); font-size: 1.1rem; letter-spacing: 4px; 
+            text-shadow: 0 0 10px rgba(243,229,171,0.3);
+        }
+
+        /* ════ 核心書寫艙 ════ */
         .sacred-container {
             position: relative;
             width: 100%;
-            max-width: 460px;
+            max-width: 420px;
             aspect-ratio: 1 / 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.03) 0%, transparent 70%);
+            z-index: 10;
         }
 
-        /* 真正的悉曇體（Hrīḥ）向量引導底圖 - 具備書法線條厚度 */
+        /* 專為手指設計之極簡幾何流線引導底圖 (1px 淡淡金光) */
         .seed-guide-svg {
             position: absolute;
-            width: 85%;
-            height: 85%;
+            width: 80%; height: 80%;
             z-index: 2;
             pointer-events: none;
-            fill: #d4af37; /* 使用填充而非單純線條，展現毛筆提按質感 */
-            opacity: 0.12;
-            animation: seed-breath 5s infinite ease-in-out;
+            fill: none;
+            stroke: var(--gold-classic);
+            stroke-width: 1.2; /* 極細光軌，避免卡手 */
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0.15;
+            animation: seed-breath 4s infinite ease-in-out;
         }
 
-        /* 調勻呼吸的律動感 */
         @keyframes seed-breath {
-            0%, 100% { transform: scale(1); opacity: 0.10; filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.2)); }
-            50% { transform: scale(1.02); opacity: 0.20; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
+            0%, 100% { transform: scale(1); opacity: 0.15; filter: drop-shadow(0 0 4px rgba(212,175,55,0.1)); }
+            50% { transform: scale(1.02); opacity: 0.3; filter: drop-shadow(0 0 12px rgba(212,175,55,0.4)); }
         }
 
-        /* 高精細度手寫 Canvas */
+        /* 高精細手寫畫布 */
         #traceCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
             z-index: 3;
             cursor: crosshair;
             touch-action: none;
         }
 
-        /* 控制按鈕 */
+        /* 狀態提示文字 */
+        .state-hint {
+            position: absolute; bottom: -30px;
+            font-size: 0.8rem; letter-spacing: 2px;
+            color: var(--cyan-jade); opacity: 0.6;
+            transition: all 0.3s;
+        }
+
+        /* ════ 底部功能控制區 ════ */
         footer {
-            display: flex;
-            gap: 40px;
-            z-index: 10;
+            display: flex; gap: 40px; z-index: 10;
         }
 
         .action-btn {
-            background: transparent;
+            background: rgba(1,2,4,0.6);
             border: 1px solid rgba(212, 175, 55, 0.3);
             color: rgba(243, 229, 171, 0.7);
-            padding: 12px 28px;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            cursor: pointer;
-            border-radius: 4px;
+            padding: 10px 24px; font-size: 0.9rem; letter-spacing: 2px;
+            cursor: pointer; border-radius: 4px; backdrop-filter: blur(5px);
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .action-btn:hover {
-            border-color: #d4af37;
-            color: #f3e5ab;
-            background: rgba(212, 175, 55, 0.05);
+            border-color: var(--gold-classic); color: var(--gold-light);
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
         }
 
-        .action-btn:active {
-            transform: scale(0.97);
+        /* ════ 迴向確認與動畫遮罩層 ════ */
+        #confirm-layer {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            display: none; opacity: 0; transition: opacity 0.5s;
+            justify-content: center; align-items: center; z-index: 999;
+            flex-direction: column; gap: 30px;
+        }
+
+        #anim-overlay {
+            position: fixed; inset: 0; background: #000;
+            display: none; opacity: 0; transition: opacity 0.5s;
+            justify-content: center; align-items: center; z-index: 1000;
+            flex-direction: column;
+        }
+
+        #full-screen-flash {
+            position: absolute; inset: 0; background: #fff;
+            opacity: 0; pointer-events: none; z-index: 1001;
+            transition: opacity 0.2s ease-out;
+        }
+
+        #anim-text {
+            color: var(--gold-light); text-align: center; font-size: 1.1rem;
+            letter-spacing: 3px; line-height: 1.8; z-index: 1002;
+            transition: opacity 1s; opacity: 0;
+        }
+
+        /* ════ 微塵迴向特效 CSS ════ */
+        .dust-particle {
+            position: absolute;
+            width: 3px; height: 3px;
+            background: var(--cyan-jade); 
+            border-radius: 50%;
+            pointer-events: none;
+            animation: drift 2s ease-out forwards;
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--dx), var(--dy)) scale(0.3); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>阿彌陀佛 ‧ 種子字</h1>
-        <p>𑖮𑖿𑖨𑖱𑖾 ‧ 攝持清淨妙觀察智</p>
-    </header>
-
-    <div class="sacred-container">
-        <!-- 正統悉曇文 Hrīḥ 向量路徑數據 (標準書法毛筆質感還原) -->
-        <svg class="seed-guide-svg" viewBox="0 0 200 200">
-            <g id="siddham-hrih">
-                <!-- 頂部橫楔與主幹 (Top bar & main stroke) -->
-                <path d="M35,42 C50,38 75,36 105,36 C115,36 122,38 122,41 C122,44 112,45 102,45 C80,45 50,47 40,50 C36,51 33,48 35,42 Z"/>
-                <!-- 主體 Ha 的優美迴旋 (Body of Ha) -->
-                <path d="M58,45 C63,55 65,75 64,88 C63,98 58,105 52,108 C46,111 41,105 44,97 C48,87 58,82 68,85 C78,88 84,100 80,115 C75,130 60,142 45,145 C41,146 39,142 43,138 C55,126 65,112 66,98 C67,88 61,78 54,65 C52,61 55,45 58,45 Z"/>
-                <!-- 下方 subjoined Ra 的發音尾翼 (Subjoined Ra curve) -->
-                <path d="M62,112 C60,128 50,145 35,155 C28,160 22,162 24,156 C28,146 42,130 52,116 C55,111 63,105 62,112 Z"/>
-                <!-- 右側長音 Ī 的連綿法輪弧線 (Vowel sign I) -->
-                <path d="M100,36 C112,20 135,15 148,30 C158,42 152,70 142,95 C132,120 115,145 95,160 C90,164 87,160 91,155 C108,138 125,115 132,92 C138,72 142,48 135,38 C128,28 112,32 102,40 C98,43 96,39 100,36 Z"/>
-                <!-- 涅槃雙點 Visarga (Two dots representing ḥ) -->
-                <path d="M165,65 C172,65 178,71 178,78 C178,85 172,91 165,91 C158,91 152,85 152,78 C152,71 158,65 165,65 Z"/>
-                <path d="M162,115 C169,115 175,121 175,128 C175,135 169,141 162,141 C155,141 149,135 149,128 C149,121 155,115 162,115 Z"/>
-            </g>
-        </svg>
-
-        <!-- 高精細手寫畫布 -->
-        <canvas id="traceCanvas"></canvas>
+    <!-- 頂部導航列 (承襲華藏月相) -->
+    <div class="top-nav">
+        <div class="nav-btn" onclick="goHome()">歸返道場</div>
+        <div class="nav-title" id="display-name">阿彌陀佛 ‧ 𑖮𑖿𑖨𑖱𑖾</div>
+        <div class="nav-btn" onclick="toggleHelp()">說明</div>
     </div>
 
+    <!-- 星空背景畫布 -->
+    <canvas id="starCanvas"></canvas>
+
+    <!-- 書寫核心舱 -->
+    <div class="sacred-container">
+        <!-- 專為手指優化的極簡幾何光軌（阿彌陀佛種子字骨架） -->
+        <svg class="seed-guide-svg" viewBox="0 0 100 100">
+            <!-- 頂部橫梁 -->
+            <path d="M 25,30 L 75,30" />
+            <!-- 左側 Ha 主體與順暢的圓滑拋物線（避開卡手死角） -->
+            <path d="M 45,30 C 45,55 35,65 35,75 C 38,85 55,80 50,60 C 45,45 60,45 60,65 C 60,85 45,90 30,85" />
+            <!-- 右側長音 I 完美的對稱圓弧軌跡 -->
+            <path d="M 55,30 C 65,15 85,35 75,65 C 68,80 55,92 45,95" />
+            <!-- 右側涅槃雙點 -->
+            <circle cx="85" cy="45" r="2.5" fill="var(--gold-classic)" opacity="0.4"/>
+            <circle cx="82" cy="70" r="2.5" fill="var(--gold-classic)" opacity="0.4"/>
+        </svg>
+
+        <canvas id="traceCanvas"></canvas>
+        <div class="state-hint" id="stateHint">當前狀態：隨意試寫（妄念隨消）</div>
+    </div>
+
+    <!-- 底部控制 -->
     <footer>
-        <button class="action-btn" id="clearBtn">重寫清淨</button>
-        <button class="action-btn" id="dedicateBtn" style="border-color: #d4af37; color: #d4af37;">大迴向</button>
+        <button class="action-btn" id="stageBtn">正式鍊心</button>
+        <button class="action-btn" id="clearBtn">清淨</button>
+        <button class="action-btn" id="dedicateBtn" style="border-color: var(--gold-classic); color: var(--gold-classic); display:none;">大迴向</button>
     </footer>
 
+    <!-- ════ 迴向確認與動畫層 (整合自妳的代碼) ════ -->
+    <div id="confirm-layer">
+        <div style="font-size: 1.1rem; color: var(--gold-light); letter-spacing: 3px;">是否將此一筆一劃之功德，圓滿迴向？</div>
+        <div style="display: flex; gap: 30px;">
+            <button class="action-btn" onclick="closeConfirm()">再行精進</button>
+            <button class="action-btn" style="border-color: var(--gold-classic);" onclick="executeDedicate()">確認迴向</button>
+        </div>
+    </div>
+
+    <div id="anim-overlay">
+        <div id="full-screen-flash"></div>
+        <div id="anim-text"></div>
+        <button class="action-btn" id="close-anim-btn" style="margin-top: 40px; opacity:0; pointer-events:none;" onclick="closeAnim()">因緣圓滿</button>
+    </div>
+
     <script>
+        // ════ 基礎宣告 ════
         const canvas = document.getElementById('traceCanvas');
         const ctx = canvas.getContext('2d');
+        const starCanvas = document.getElementById('starCanvas');
+        const starCtx = starCanvas.getContext('2d');
+        
+        const stageBtn = document.getElementById('stageBtn');
         const clearBtn = document.getElementById('clearBtn');
         const dedicateBtn = document.getElementById('dedicateBtn');
-
+        const stateHint = document.getElementById('stateHint');
+        
         let isDrawing = false;
-        let lastX = 0;
-        let lastY = 0;
+        let lastX = 0; let lastY = 0;
+        let currentStage = 1; // 1: 隨意試寫, 2: 正式鍊心
+        let fadeInterval = null;
 
+        // ════ 靜謐星空背景初始化 ════
+        function initStars() {
+            starCanvas.width = window.innerWidth;
+            starCanvas.height = window.innerHeight;
+            starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+            starCtx.fillStyle = 'rgba(139, 168, 156, 0.15)';
+            for(let i=0; i<60; i++) {
+                starCtx.beginPath();
+                starCtx.arc(Math.random()*starCanvas.width, Math.random()*starCanvas.height, Math.random()*1.5, 0, Math.PI*2);
+                starCtx.fill();
+            }
+        }
+
+        // ════ 書寫畫布初始化 (High-DPI 級別抗鋸齒) ════
         function initCanvas() {
             const rect = canvas.getBoundingClientRect();
             const dpr = window.devicePixelRatio || 1;
-            
             canvas.width = rect.width * dpr;
             canvas.height = rect.height * dpr;
             canvas.style.width = rect.width + 'px';
             canvas.style.height = rect.height + 'px';
-            
             ctx.scale(dpr, dpr);
-            
-            // 設定金絲般的流暢筆觸
-            ctx.strokeStyle = '#f3e5ab'; 
-            ctx.lineWidth = 3.5; 
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            
-            // 筆跡微弱的法光外發光
-            ctx.shadowBlur = 5;
-            ctx.shadowColor = '#d4af37';
+            setStrokeStyle();
         }
 
+        function setStrokeStyle() {
+            // 隨意試寫時是柔和琉璃光，正式鍊心時是凝聚的金光
+            ctx.strokeStyle = currentStage === 1 ? '#8ba89c' : '#f3e5ab';
+            ctx.lineWidth = 3.5;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.shadowBlur = 6;
+            ctx.shadowColor = currentStage === 1 ? '#8ba89c' : '#d4af37';
+        }
+
+        // ════ 隨意試寫（妄念隨消）的微透消退機制 ════
+        function startFadeMechanism() {
+            if (fadeInterval) clearInterval(fadeInterval);
+            fadeInterval = setInterval(() => {
+                if (currentStage !== 1 || isDrawing) return;
+                // 利用全域複合操作，讓筆跡溫柔地、層層淡出歸空
+                ctx.save();
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.restore();
+            }, 100);
+        }
+
+        // ════ 觸控與書寫核心捕捉 ════
         function getCoords(e) {
             const rect = canvas.getBoundingClientRect();
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            return {
-                x: clientX - rect.left,
-                y: clientY - rect.top
-            };
+            return { x: clientX - rect.left, y: clientY - rect.top };
         }
 
         function startDrawing(e) {
             isDrawing = true;
             const coords = getCoords(e);
-            lastX = coords.x;
-            lastY = coords.y;
-            
-            ctx. some 
+            lastX = coords.x; lastY = coords.y;
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
             ctx.lineTo(lastX, lastY);
@@ -210,41 +316,137 @@
 
         function draw(e) {
             if (!isDrawing) return;
-            e.preventDefault(); 
-            
+            e.preventDefault();
             const coords = getCoords(e);
-            
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
             ctx.lineTo(coords.x, coords.y);
             ctx.stroke();
-            
-            lastX = coords.x;
-            lastY = coords.y;
+            lastX = coords.x; lastY = coords.y;
         }
 
-        function stopDrawing() {
-            isDrawing = false;
-        }
+        function stopDrawing() { isDrawing = false; }
 
-        // 完整事件監聽
         canvas.addEventListener('pointerdown', startDrawing);
         canvas.addEventListener('pointermove', draw);
         canvas.addEventListener('pointerup', stopDrawing);
         canvas.addEventListener('pointerleave', stopDrawing);
 
+        // ════ 階段轉換：隨意 ➔ 正式 ════
+        stageBtn.addEventListener('click', () => {
+            if (currentStage === 1) {
+                currentStage = 2;
+                clearInterval(fadeInterval);
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空隨意塗鴉
+                setStrokeStyle();
+                stateHint.innerText = '當前狀態：正式鍊心（凝聚心念）';
+                stageBtn.innerText = '重回試寫';
+                dedicateBtn.style.display = 'inline-block';
+            } else {
+                currentStage = 1;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                setStrokeStyle();
+                stateHint.innerText = '當前狀態：隨意試寫（妄念隨消）';
+                stageBtn.innerText = '正式鍊心';
+                dedicateBtn.style.display = 'none';
+                startFadeMechanism();
+            }
+        });
+
         clearBtn.addEventListener('click', () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
 
+        // ════ 完美整合：妳的微塵化光大迴向機制 ════
         dedicateBtn.addEventListener('click', () => {
-            alert('願以此功德，普及於一切。我等與眾生，皆共成佛道。');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const m = document.getElementById('confirm-layer');
+            m.style.display = 'flex';
+            setTimeout(() => m.style.opacity = 1, 10);
         });
 
-        window.addEventListener('resize', initCanvas);
-        window.addEventListener('DOMContentLoaded', initCanvas);
-        setTimeout(initCanvas, 100);
+        function closeConfirm() {
+            const m = document.getElementById('confirm-layer');
+            m.style.opacity = 0;
+            setTimeout(() => m.style.display = 'none', 500);
+        }
+
+        function executeDedicate() {
+            closeConfirm();
+
+            const ov = document.getElementById('anim-overlay');
+            const flash = document.getElementById('full-screen-flash');
+            const txt = document.getElementById('anim-text');
+            const btn = document.getElementById('close-anim-btn');
+
+            ov.style.display = 'flex';
+            txt.style.opacity = 0;
+            btn.style.opacity = 0;
+            btn.style.pointerEvents = 'none';
+
+            setTimeout(() => ov.style.opacity = 1, 50);
+
+            // 剎那閃光，字跡消融，化為滿天微塵
+            setTimeout(() => {
+                flash.style.opacity = 1;
+                
+                // 實體筆跡清空，歸於無相
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // 250顆琉璃色與淡金微塵從中央噴發散落
+                for (let k = 0; k < 250; k++) {
+                    let d = document.createElement('div');
+                    d.className = 'dust-particle';
+                    d.style.background = Math.random() > 0.5 ? 'var(--gold-light)' : 'var(--cyan-jade)';
+                    d.style.width = (Math.random() * 4 + 2) + 'px';
+                    d.style.height = d.style.width;
+                    d.style.left = '50%'; d.style.top = '50%';
+                    
+                    let a = Math.random() * Math.PI * 2;
+                    let dist = 100 + Math.random() * 500;
+                    d.style.setProperty('--dx', Math.cos(a) * dist + 'px');
+                    d.style.setProperty('--dy', Math.sin(a) * dist + 'px');
+                    d.style.animationDuration = (0.7 + Math.random() * 1.5) + 's';
+                    ov.appendChild(d);
+                }
+
+                setTimeout(() => {
+                    flash.style.transition = 'opacity 1.5s ease-in';
+                    flash.style.opacity = 0;
+                }, 1200);
+
+                txt.innerHTML = "【 因緣圓滿 ‧ 悉皆迴向 】<br><span style='font-size:0.95rem; color:var(--cyan-jade);'><br>心念筆跡已化作無漏金剛光束，迴向虛空法界。</span>";
+                txt.style.opacity = 1;
+
+                setTimeout(() => {
+                    btn.style.opacity = 1;
+                    btn.style.pointerEvents = 'auto';
+                }, 2500);
+            }, 1600);
+        }
+
+        function closeAnim() {
+            const ov = document.getElementById('anim-overlay');
+            ov.style.opacity = 0;
+            setTimeout(() => {
+                ov.style.display = 'none';
+                document.querySelectorAll('#anim-overlay .dust-particle').forEach(d => d.remove());
+                // 自動重置回試寫狀態
+                currentStage = 1;
+                setStrokeStyle();
+                stateHint.innerText = '當前狀態：隨意試寫（妄念隨消）';
+                stageBtn.innerText = '正式鍊心';
+                dedicateBtn.style.display = 'none';
+                startFadeMechanism();
+            }, 500);
+        }
+
+        // ════ 系統外部介面虛擬導航（供整合進主系統） ════
+        function goHome() { alert("返回主道場系統"); }
+        function toggleHelp() { alert("隨意試寫模式下，筆跡會隨寫隨消；點擊『正式鍊心』後，筆跡將保留，寫畢可進行大迴向。"); }
+
+        // ════ 啟動 ════
+        window.addEventListener('resize', () => { initStars(); initCanvas(); });
+        window.addEventListener('DOMContentLoaded', () => { initStars(); initCanvas(); startFadeMechanism(); });
     </script>
 </body>
 </html>
