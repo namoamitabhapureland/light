@@ -98,13 +98,13 @@
             font-size: 0.75rem; color: var(--cyan-jade); opacity: 0.5; letter-spacing: 2px;
         }
 
-        /* 依妙依口訣精密重塑：上方右傾15度、主體反轉2字型、右弧線右滑 */
+        /* 完全遵照妙依指導校正方向之 𑖮𑖿𑖨𑖱𑖾 幾何聖相 */
         .siddham-math-svg {
             width: 80%;
             height: 80%;
             fill: none;
             stroke: var(--gold-light);
-            stroke-width: 3.2; /* 增強毛筆骨架感 */
+            stroke-width: 3.2;
             stroke-linecap: round;
             stroke-linejoin: round;
             animation: seed-glow 5s infinite ease-in-out;
@@ -237,12 +237,12 @@
                     <path d="M 28,25 L 28,29 M 28,25 L 66,25" />
                 </g>
                 
-                <path d="M 37,27 C 22,27 18,48 35,51 C 48,53 50,71 33,78 C 22,83 15,70 32,65 C 44,61 48,63 60,78" />
+                <path d="M 37,28 C 22,28 16,46 32,50 C 45,53 44,70 32,74 C 18,78 16,92 35,92 C 50,92 56,86 64,86" />
                 
-                <path d="M 54,27 C 64,30 72,46 66,66 C 62,76 56,82 48,85" />
+                <path d="M 54,28 C 66,28 76,46 72,66 C 68,80 58,88 48,93" />
                 
-                <circle cx="82" cy="43" r="3.2" fill="var(--gold-classic)" />
-                <circle cx="78" cy="65" r="3.2" fill="var(--gold-classic)" />
+                <circle cx="86" cy="44" r="3.2" fill="var(--gold-classic)" />
+                <circle cx="82" cy="68" r="3.2" fill="var(--gold-classic)" />
             </svg>
         </div>
 
@@ -508,7 +508,7 @@
         }
 
         function goHome() { alert("返回主道場系統"); }
-        function toggleHelp() { alert("左側已完全依據妙依口訣重塑正確悉曇法相。右側為具備提按點圓手感的毛筆自寫區。"); }
+        function toggleHelp() { alert("左側已徹底更正：右弧線導向右滑，左下主體完美舒展反轉 2 字基底。右側為毛筆自寫區。"); }
 
         window.addEventListener('resize', () => { initStars(); initCanvas(); });
         window.addEventListener('DOMContentLoaded', () => { initStars(); initCanvas(); startFadeMechanism(); });
