@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>種子字字型觀想與毛筆鍊心系統</title>
+    <title>幾何悉曇觀想與毛筆鍊心系統</title>
     <style>
         /* ════ 承襲主系統變數與嚴格美學 ════ */
         :root {
@@ -11,15 +11,6 @@
             --gold-light: #f3e5ab;   /* 柔和淺金 */
             --gold-classic: #d4af37; /* 古典金 */
             --bg-dark: #010204;      /* 深邃法界黑 */
-        }
-
-        /* 引入開源無版權爭議之標準悉曇文字型 */
-        @font-face {
-            font-family: 'SiddhamUnicode';
-            /* 採用網路上開源免版權的正統悉曇字型庫，若單機離線亦可放置於同級目錄 */
-            src: url('https://fonts.gstatic.com/ea/siddham/v1/Siddham-Regular.ttf') format('truetype'),
-                 url('Siddham.ttf') format('truetype');
-            font-display: swap;
         }
 
         * {
@@ -49,7 +40,7 @@
             pointer-events: none;
         }
 
-        /* ════ 頂部導航列 (承襲華藏月相) ════ */
+        /* ════ 頂部導航列 ════ */
         .top-nav {
             position: absolute; top: 25px; left: 0; width: 100%;
             display: flex; justify-content: space-between; align-items: center;
@@ -87,7 +78,7 @@
             z-index: 10;
         }
 
-        /* 觀想艙：純文字 Unicode 悉曇字放大顯示，不需描摹 */
+        /* 觀想艙：大智精準手算出來的完美的幾何曲線聖相 */
         .vision-chamber {
             flex: 1;
             aspect-ratio: 1 / 1;
@@ -95,7 +86,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.01) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.02) 0%, transparent 70%);
             border: 1px solid rgba(139,168,156,0.1);
             border-radius: 8px;
             position: relative;
@@ -107,23 +98,24 @@
             font-size: 0.75rem; color: var(--cyan-jade); opacity: 0.5; letter-spacing: 2px;
         }
 
-        /* 純文字悉曇文展示區（絕不失真） */
-        .siddham-text-render {
-            font-family: 'SiddhamUnicode', serif;
-            font-size: 11rem; /* 放大字體 */
-            color: var(--gold-light);
-            line-height: 1;
-            text-align: center;
-            cursor: default;
-            animation: seed-glow 6s infinite ease-in-out;
+        /* 大智精密手算：極致流暢、無死角的幾何聖相 SVG 載體 */
+        .siddham-math-svg {
+            width: 80%;
+            height: 80%;
+            fill: none;
+            stroke: var(--gold-light);
+            stroke-width: 2.8; /* 稍微加粗，使其莊嚴清晰 */
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: seed-glow 5s infinite ease-in-out;
         }
 
         @keyframes seed-glow {
-            0%, 100% { opacity: 0.7; filter: drop-shadow(0 0 15px rgba(243,229,171,0.15)); }
-            50% { opacity: 0.95; filter: drop-shadow(0 0 35px rgba(243,229,171,0.45)); }
+            0%, 100% { opacity: 0.65; filter: drop-shadow(0 0 10px rgba(243,229,171,0.2)); transform: scale(1); }
+            50% { opacity: 0.95; filter: drop-shadow(0 0 30px rgba(243,229,171,0.5)); transform: scale(1.01); }
         }
 
-        /* 自寫艙：完全淨空的手寫畫布（動態毛筆刷） */
+        /* 自寫艙：完全淨空的手寫畫布（毛筆刷） */
         .writing-chamber {
             flex: 1;
             aspect-ratio: 1 / 1;
@@ -176,7 +168,7 @@
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
         }
 
-        /* ════ 迴向確認與動畫遮罩層 ════ */
+        /* ════ 大迴向遮罩層 ════ */
         #confirm-layer {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85);
             display: none; opacity: 0; transition: opacity 0.5s;
@@ -218,31 +210,48 @@
             100% { transform: translate(var(--dx), var(--dy)) scale(0.3); opacity: 0; }
         }
 
-        /* 響應式佈局：當螢幕太小時改為上下排列 */
+        /* 響應式佈局 */
         @media (max-width: 768px) {
             body { padding-top: 80px; }
             .zen-workspace { flex-direction: column; gap: 25px; }
             .vision-chamber, .writing-chamber { max-width: 290px; }
-            .siddham-text-render { font-size: 8rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- 頂部導航列 (承襲華藏月相) -->
     <div class="top-nav">
         <div class="nav-btn" onclick="goHome()">歸返道場</div>
-        <div class="nav-title" id="display-name">阿彌陀佛種子字 ‧ 𑖮𑖿𑖨𑖱𑖾</div>
+        <div class="nav-title" id="display-name">觀相鍊心 ‧ 阿彌陀佛</div>
         <div class="nav-btn" onclick="toggleHelp()">說明</div>
     </div>
 
+    <!-- 星空背景畫布 -->
     <canvas id="starCanvas"></canvas>
 
+    <!-- 雙艙並立布局 -->
     <div class="zen-workspace">
         
+        <!-- 左/上艙：大智精準手算、無死角、最流暢完美的悉曇種子字（觀想專用） -->
         <div class="vision-chamber">
-            <div class="siddham-text-render" id="siddhamText">𑖮𑖿𑖨𑖱𑖾</div>
+            <svg class="siddham-math-svg" viewBox="0 0 100 100">
+                <!-- 頂部莊嚴橫梁 -->
+                <path d="M 22,25 L 78,25" />
+                
+                <!-- Ha 主體與順暢拋物線，去除了字體生硬的鋸齒與死角 -->
+                <path d="M 46,25 C 46,52 34,62 34,74 C 37,84 54,80 49,60 C 44,45 58,45 58,65 C 58,84 44,89 29,84" />
+                
+                <!-- 長音 I 的優美對稱右側大圓弧軌跡 -->
+                <path d="M 56,25 C 66,12 86,32 76,62 C 69,77 56,89 46,92" />
+                
+                <!-- 右側最核心飽滿的「涅槃雙點」：大智用純幾何圓形手算定位 -->
+                <circle cx="85" cy="42" r="3.2" fill="var(--gold-classic)" />
+                <circle cx="81" cy="68" r="3.2" fill="var(--gold-classic)" />
+            </svg>
         </div>
 
+        <!-- 右/下艙：完全空無一物的手寫畫布（毛筆刷，行者在此自己點圓、運筆） -->
         <div class="writing-chamber">
             <canvas id="traceCanvas"></canvas>
             <div class="state-hint" id="stateHint">當前狀態：隨意試寫（妄念隨消）</div>
@@ -250,12 +259,14 @@
 
     </div>
 
+    <!-- 底部控制 -->
     <footer>
         <button class="action-btn" id="stageBtn">正式鍊心</button>
         <button class="action-btn" id="clearBtn">清淨</button>
         <button class="action-btn" id="dedicateBtn" style="border-color: var(--gold-classic); color: var(--gold-classic); display:none;">大迴向</button>
     </footer>
 
+    <!-- ════ 大迴向確認與動畫層 ════ -->
     <div id="confirm-layer">
         <div style="font-size: 1.1rem; color: var(--gold-light); letter-spacing: 3px;">是否將此憑心自寫之功德，圓滿迴向？</div>
         <div style="display: flex; gap: 30px;">
@@ -284,16 +295,16 @@
         
         let isDrawing = false;
         let lastX = 0; let lastY = 0;
-        let lastWidth = 4; // 初始筆寬
+        let lastWidth = 4; 
         let lastTime = 0;
-        let currentStage = 1; // 1: 隨意試寫, 2: 正式鍊心
+        let currentStage = 1; 
         let fadeInterval = null;
 
-        // 筆刷粗細限制演算法參數
-        const MAX_WIDTH = 12; // 慢速停頓點圓時的最大寬度
-        const MIN_WIDTH = 2;  // 快速提筆疾書時的最小寬度
+        // 專為手指點圓、提按設計之參數
+        const MAX_WIDTH = 13; // 原地輕點、慢速按壓時的飽滿圓點直徑
+        const MIN_WIDTH = 2.2; // 疾書拉尖時的細緻鋒芒
 
-        // ════ 靜謐星空背景 ════
+        // ════ 靜謐星空 ════
         function initStars() {
             starCanvas.width = window.innerWidth;
             starCanvas.height = window.innerHeight;
@@ -306,7 +317,7 @@
             }
         }
 
-        // ════ 書寫畫布初始化 ════
+        // ════ 手寫畫布 High-DPI 化 ════
         function initCanvas() {
             const rect = canvas.getBoundingClientRect();
             const dpr = window.devicePixelRatio || 1;
@@ -325,7 +336,7 @@
             ctx.shadowColor = currentStage === 1 ? '#8ba89c' : '#d4af37';
         }
 
-        // ════ 隨意試寫（妄念隨消）柔和淡出機制 ════
+        // ════ 隨意試寫消退機制 ════
         function startFadeMechanism() {
             if (fadeInterval) clearInterval(fadeInterval);
             fadeInterval = setInterval(() => {
@@ -338,7 +349,6 @@
             }, 100);
         }
 
-        // ════ 座標獲取 ════
         function getCoords(e) {
             const rect = canvas.getBoundingClientRect();
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -352,9 +362,9 @@
             const coords = getCoords(e);
             lastX = coords.x; lastY = coords.y;
             lastTime = Date.now();
-            lastWidth = MAX_WIDTH * 0.7; // 起筆略帶圓潤
+            lastWidth = MAX_WIDTH * 0.75; // 起筆略帶圓潤
 
-            // 處理輕點（即刻點圓）
+            // 處理輕點：手指一落下的剎那即刻形成一個圓點
             ctx.beginPath();
             ctx.fillStyle = currentStage === 1 ? '#8ba89c' : '#f3e5ab';
             ctx.arc(lastX, lastY, lastWidth / 2, 0, Math.PI * 2);
@@ -367,22 +377,18 @@
             const coords = getCoords(e);
             const currentTime = Date.now();
             
-            // 計算移動距離與時間差
             const distance = Math.hypot(coords.x - lastX, coords.y - lastY);
             const timeDiff = currentTime - lastTime || 1;
-            
-            // 速度 = 距離 / 時間
             const speed = distance / timeDiff;
 
-            // 彈性粗細公式：速度快則線條細，速度慢（停頓）則線條粗（點圓擴散）
-            let targetWidth = MAX_WIDTH - (speed * 2.5);
+            // 速度慢（或停頓）時，寬度趨近 MAX_WIDTH，點出完美的圓
+            let targetWidth = MAX_WIDTH - (speed * 2.8);
             if (targetWidth > MAX_WIDTH) targetWidth = MAX_WIDTH;
             if (targetWidth < MIN_WIDTH) targetWidth = MIN_WIDTH;
 
-            // 緩和筆寬過渡（阻尼效應，使線條流暢不突兀）
-            let currentWidth = lastWidth * 0.65 + targetWidth * 0.35;
+            // 阻尼平滑過渡
+            let currentWidth = lastWidth * 0.6 + targetWidth * 0.4;
 
-            // 繪製毛筆路徑
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
             ctx.lineTo(coords.x, coords.y);
@@ -391,34 +397,32 @@
             ctx.lineWidth = currentWidth;
             ctx.stroke();
 
-            // 如果速度極慢且有移動，追加微量圓弧填充以確保「重按成圓」的墨跡飽滿度
-            if (speed < 0.2) {
+            // 若速度極慢，追加圓弧填充以保證涅槃圓點的飽滿無瑕
+            if (speed < 0.25) {
                 ctx.beginPath();
                 ctx.fillStyle = ctx.strokeStyle;
                 ctx.arc(coords.x, coords.y, currentWidth / 2, 0, Math.PI * 2);
                 ctx.fill();
             }
 
-            lastX = coords.x; 
-            lastY = coords.y;
+            lastX = coords.x; lastY = coords.y;
             lastTime = currentTime;
             lastWidth = currentWidth;
         }
 
         function stopDrawing() { isDrawing = false; }
 
-        // 事件綁定 (支援觸控筆與手指高精細識別)
         canvas.addEventListener('pointerdown', startDrawing);
         canvas.addEventListener('pointermove', draw);
         canvas.addEventListener('pointerup', stopDrawing);
         canvas.addEventListener('pointerleave', stopDrawing);
 
-        // ════ 修持階段轉換 ════
+        // ════ 階段轉換 ════
         stageBtn.addEventListener('click', () => {
             if (currentStage === 1) {
                 currentStage = 2;
                 clearInterval(fadeInterval);
-                ctx.clearRect(0, 0, canvas.width, canvas.height); // 淨空畫布
+                ctx.clearRect(0, 0, canvas.width, canvas.height); 
                 setBaseStrokeConfig();
                 stateHint.innerText = '當前狀態：正式鍊心（憑空默寫）';
                 stageBtn.innerText = '重回試寫';
@@ -438,7 +442,7 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
 
-        // ════ 完美銜接：大迴向機制 ════
+        // ════ 大迴向機制 ════
         dedicateBtn.addEventListener('click', () => {
             const m = document.getElementById('confirm-layer');
             m.style.display = 'flex';
@@ -466,12 +470,11 @@
 
             setTimeout(() => ov.style.opacity = 1, 50);
 
-            // 剎那閃光，毛筆字跡清空歸空，化作微塵
             setTimeout(() => {
                 flash.style.opacity = 1;
-                ctx.clearRect(0, 0, canvas.width, canvas.height); 
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // 手寫字跡化空
 
-                // 250顆琉璃色與淡金微塵噴發散落
+                // 250顆微塵向外噴發散落
                 for (let k = 0; k < 250; k++) {
                     let d = document.createElement('div');
                     d.className = 'dust-particle';
@@ -518,9 +521,8 @@
             }, 500);
         }
 
-        // ════ 系統外部引導虛擬接口 ════
         function goHome() { alert("返回主道場系統"); }
-        function toggleHelp() { alert("左側為純文字字型放大觀想區。右側為毛筆自寫區，手指移動慢或原地停頓即可『點圓』，移動快則線條銳利。"); }
+        function toggleHelp() { alert("左側為大智精密手算幾何觀想區。右側為毛筆自寫區，手指移動慢或原地停頓即可『點圓』，移動快則線條銳利。"); }
 
         window.addEventListener('resize', () => { initStars(); initCanvas(); });
         window.addEventListener('DOMContentLoaded', () => { initStars(); initCanvas(); startFadeMechanism(); });
