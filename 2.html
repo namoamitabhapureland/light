@@ -3,55 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <title>彌陀淨土同心圓 - 滿版流轉</title>
-    <style>
-        body { background-color: #050505; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
-        .mandala-svg { width: 90vmin; height: 90vmin; }
-        @keyframes spin-cw { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes spin-ccw { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
-        .layer { transform-origin: 500px 500px; }
-        .l1 { animation: spin-cw 70s linear infinite; }
-        .l2 { animation: spin-ccw 55s linear infinite; }
-        .l3 { animation: spin-cw 40s linear infinite; }
-        .l4 { animation: spin-ccw 25s linear infinite; }
-    </style>
-</head>
-<body>
-<svg class="mandala-svg" viewBox="0 0 1000 1000">
-    <defs>
-        <!-- 玻璃材質 -->
-        <radialGradient id="glass" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.1"/>
-            <stop offset="100%" stop-color="#ffffff" stop-opacity="0.05"/>
-        </radialGradient>
-        <!-- 各圈路徑 -->
-        <path id="p1" d="M 500 40 A 460 460 0 1 1 499.9 40" />
-        <path id="p2" d="M 500 110 A 390 390 0 1 1 499.9 110" />
-        <path id="p3" d="M 500 180 A 320 320 0 1 1 499.9 180" />
-        <path id="p4" d="M 500 250 A 250 250 0 1 1 499.9 250" />
-    </defs>
+  <!-- ===== CSS：取代原本 .write-box-outer / .write-box-inner / .write-btn-group ===== -->
+<style>
+.write-box-outer {
+    width: 280px;
+    height: 280px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
+}
 
-    <!-- 藍層 -->
-    <g class="layer l1">
-        <circle cx="500" cy="500" r="460" fill="#0D47A1" opacity="0.9"/>
-        <text fill="#F3E5AB" font-size="32" font-family="serif" letter-spacing="20"><textPath href="#p1" startOffset="0%">भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ</textPath></text>
-    </g>
-    <!-- 綠層 -->
-    <g class="layer l2">
-        <circle cx="500" cy="500" r="390" fill="#1B5E20" opacity="0.9"/>
-        <text fill="#A5D6A7" font-size="30" font-family="serif" letter-spacing="18"><textPath href="#p2" startOffset="0%">ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः</textPath></text>
-    </g>
-    <!-- 紅層 -->
-    <g class="layer l3">
-        <circle cx="500" cy="500" r="320" fill="#880E4F" opacity="0.9"/>
-        <text fill="#FFCCBC" font-size="28" font-family="serif" letter-spacing="15"><textPath href="#p3" startOffset="0%">भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ</textPath></text>
-    </g>
-    <!-- 黃層 -->
-    <g class="layer l4">
-        <circle cx="500" cy="500" r="250" fill="#F57F17" opacity="0.9"/>
-        <text fill="#FFF9C4" font-size="26" font-family="serif" letter-spacing="12"><textPath href="#p4" startOffset="0%">ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः</textPath></text>
-    </g>
-    <!-- 玻璃中心 -->
-    <circle cx="500" cy="500" r="200" fill="url(#glass)" stroke="#ffffff" stroke-width="2" opacity="0.3"/>
-</svg>
-</body>
-</html>
+.write-box-outer svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* 中央可書寫圓形區域 — 放大讓字寫得開 */
+.write-box-inner {
+    width: 78%;
+    height: 78%;
+    border-radius: 50%;
+    border: 1.5px solid rgba(212, 175, 55, 0.85);
+    background: rgba(2, 2, 4, 0.5);
+    position: relative;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+    overflow: hidden;
+    z-index: 2;
+}
+
+#writeCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 25;
+    touch-action: none;
+    border-radius: 50%;
+}
+
+/* 簡化版圖示按鈕：恢復 + 音符 */
+.write-btn-group {
+    margin-top: 14px;
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    justify-content: center;
+}
+.icon-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(212,175,55,0.5);
+    background: linear-gradient(180deg, rgba(30,25,15,0.8) 0%, rgba(10,8,5,0.95) 100%);
+    box-shadow: inset 0 0 10px rgba(212,175,55,0.2), 0 4px 12px rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+.icon-btn:active {
+    transform: scale(0.92);
+    border-color: var(--gold);
+    box-shadow: inset 0 0 14px rgba(255,255,255,0.2), 0 2px 6px rgba(0,0,0,0.8);
+}
+.icon-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--gold-light);
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.icon-btn.tts-btn svg {
+    fill: var(--gold-light);
+    stroke: none;
+}
+</style>
+
+<!-- ===== HTML：取代原本 .write-box-outer 區塊與 .write-btn-group ===== -->
+<div class="write-box-outer">
+    <!-- 同心圓種子字環 SVG（原創幾何排列，無版權問題） -->
+    <svg viewBox="0 0 280 280" aria-hidden="true">
+        <defs>
+            <!-- 文字排列路徑：外圈大圓 -->
+            <path id="ringPathOuter" d="M 140,18 A 122,122 0 1,1 139.99,18" fill="none"/>
+        </defs>
+
+        <!-- 最外層細金線圓 -->
+        <circle cx="140" cy="140" r="138" fill="none" stroke="rgba(212,175,55,0.25)" stroke-width="1"/>
+
+        <!-- 種子字環底色 -->
+        <circle cx="140" cy="140" r="122" fill="rgba(2,2,4,0.55)" stroke="rgba(212,175,55,0.85)" stroke-width="1.5"/>
+        <circle cx="140" cy="140" r="110" fill="rgba(2,2,4,0)" stroke="rgba(212,175,55,0.85)" stroke-width="1.5"/>
+
+        <!-- 環繞種子字（重複排列，沿圓周分佈） -->
+        <g fill="#f3e5ab" font-family="serif" font-size="13" text-anchor="middle"
+           style="text-shadow:0 0 6px rgba(243,229,171,0.5);">
+            <text>
+                <textPath href="#ringPathOuter" startOffset="0%">
+                    ॐ अ ह्रीः भः यु अं भै ह ॐ अ ह्रीः भः यु अं भै ह ॐ अ ह्रीः भः यु अं भै ह ॐ अ ह्रीः भः यu अं भै ह
+                </textPath>
+            </text>
+        </g>
+
+        <!-- 內圈裝飾細線 -->
+        <circle cx="140" cy="140" r="98" fill="none" stroke="rgba(212,175,55,0.35)" stroke-width="1" stroke-dasharray="2 4"/>
+    </svg>
+
+    <div class="write-box-inner" id="writeContainer">
+        <canvas id="writeCanvas"></canvas>
+    </div>
+</div>
+
+<div class="write-btn-group">
+    <div class="icon-btn" onclick="clearCanvas()" title="重新書寫">
+        <svg viewBox="0 0 24 24">
+            <path d="M3 12a9 9 0 1 0 2.64-6.36L3 8"/>
+            <path d="M3 3v5h5"/>
+        </svg>
+    </div>
+    <div class="icon-btn tts-btn" onclick="playTTS()" title="恭聆法音">
+        <svg viewBox="0 0 24 24">
+            <path d="M9 18V5l12-2v13"/>
+            <circle cx="6" cy="18" r="3"/>
+            <circle cx="18" cy="16" r="3"/>
+        </svg>
+    </div>
+</div>
