@@ -470,8 +470,7 @@ body {
                     <stop offset="50%" style="stop-color:#B8860B;stop-opacity:1" />
                     <stop offset="100%" style="stop-color:#8B6508;stop-opacity:1" />
                 </linearGradient>
-
-<defs>
+                  <defs>
     <linearGradient id="lotusFill" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stop-color="#FFDF00" stop-opacity="0.95"/> 
         <stop offset="50%" stop-color="#D4AF37" stop-opacity="0.95"/> 
@@ -495,10 +494,6 @@ body {
         <stop offset="100%" stop-color="#f3e5ab" stop-opacity="0"/>
     </radialGradient>
 </defs>
-
-
-  
-
 
 
 
@@ -548,7 +543,7 @@ body {
                     <stop offset="100%" stop-color="#f3c2c4" stop-opacity="0.35"/> 
                 </linearGradient>
                
-    
+            
                 
                 <linearGradient id="glass-base-mini" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stop-color="rgba(243, 229, 171, 0.5)"/>
@@ -704,7 +699,6 @@ body {
                         <path d="M 435 240 Q 423 275 432 305" stroke-width="1.5" fill="none" />
                         <path d="M 565 240 Q 577 275 568 305" stroke-width="1.5" fill="none" />
 
-                        
                        <path d="M 410 410 C 410 600, 590 600, 590 410" />
                        <path d="M 410 400 C 410 590, 590 590, 590 400" />
                        <path d="M 410 390 C 410 580, 590 580, 590 390" />
@@ -721,9 +715,9 @@ body {
         
                         <path d="M 646 625 Q 632 630 585 660" stroke-width="2" />
                         <path d="M 415 660 Q 430 710 465 715" stroke-width="2.2" />
-                                <path d="M 415 660 Q 430 710 465 720" stroke-width="2.2" />
+                         <path d="M 415 660 Q 430 710 465 720" stroke-width="2.2" />
                         <path d="M 585 660 Q 570 710 535 715" stroke-width="2.2" />
-                                <path d="M 585 660 Q 570 710 535 720" stroke-width="2.2" />
+                         <path d="M 585 660 Q 570 710 535 720" stroke-width="2.2" />
                     </g>
 
                     <g transform="translate(500, 610) scale(0.7) translate(-100, -155)" style="filter: drop-shadow(0 0 20px rgba(212,175,55,0.6));">
@@ -784,23 +778,27 @@ body {
                     <path d="M 475 358 Q 500 370 525 358" fill="none" />
 
                 </g>
-  </g>
+            </g>
 
-                                                    
-                                                   <ellipse cx="500" cy="780" rx="150" ry="40" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
+                             <ellipse cx="500" cy="780" rx="150" ry="40" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
 
                 <g stroke="url(#goldLotus)" stroke-width="1.5" stroke-linejoin="round">
 
-                    <g transform="scale(0.85, -0.75)" transform-origin="500 840" fill="url(#lotusFillBottom)">
+                                    <g transform="scale(0.85, -0.75)" transform-origin="500 840" fill="url(#lotusFillBottom)">
+                        
                         <use href="#pure-petal" transform="translate(-205, -50) rotate(-20, 500, 840)" />
+                        <use href="#pure-petal" transform="translate(205, -50) rotate(20, 500, 840)" />
+                        
                         <use href="#pure-petal" transform="translate(-145, -65) rotate(-18, 500, 840)" />
+                        <use href="#pure-petal" transform="translate(145, -65) rotate(18, 500, 840)" />
+                        
                         <use href="#pure-petal" transform="translate(-75, -70) rotate(-7, 500, 840)" />
+                        <use href="#pure-petal" transform="translate(75, -70) rotate(7, 500, 840)" />
+                        
                         <use href="#pure-petal" transform="translate(0, -70) rotate(0, 500, 840)" />
-                        <use href="#pure-petal" transform="translate(75, -65) rotate(7, 500, 840)" />
-                        <use href="#pure-petal" transform="translate(205, -50) rotate(18, 500, 840)" />
-  <use href="#pure-petal" transform="translate(145, -55) rotate(20, 500, 840)" />
-
+                        
                     </g>
+
 
                     <g transform="translate(0, 115)" fill="url(#lotusFill)">
                         <use href="#pure-petal" transform="translate(-280, -160) rotate(-35, 500, 840)" />
@@ -817,12 +815,6 @@ body {
                     </g>
                     
                 </g>
-
-
-
-
-
-
 
                 <g id="orb-layer" style="opacity: 0; pointer-events: none;">
                     <path id="beam-left-glow" fill="none" stroke="#FFD700" stroke-width="15" stroke-linecap="round" style="filter: blur(8px); opacity: 0.3;" />
