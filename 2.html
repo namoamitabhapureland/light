@@ -11,6 +11,7 @@
             --gold-light: #f3e5ab; 
             --text-gold: #f3e5ab;
             --gold-glow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.3);
+            --mandala-red: rgba(70, 15, 15, 0.45);
         }
         * { box-sizing: border-box; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; outline: none; }
         body { 
@@ -51,13 +52,11 @@
         .tracker-container { z-index: 20; margin-top: 15px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
         .tracker-title { color: var(--gold-light); font-size: 0.85rem; letter-spacing: 4px; text-shadow: 0 0 10px var(--solid-gold); font-weight: bold; }
         
-        /* 1. 去象牙燈，改為聖字亮燈軌道 */
         .tracker-circles { display: flex; gap: 8px; align-items: center; }
         .track-circle { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(212,175,55,0.3); display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.6); font-size: 0.95rem; color: #555; font-weight: bold; transition: all 0.4s ease; cursor: pointer; }
         .track-circle.lit { border-color: #fff; color: rgba(255, 255, 255, 0.4); background: rgba(212,175,55,0.1); }
         .track-circle.active-day { border-color: var(--gold); color: var(--gold); background: rgba(212,175,55,0.25); box-shadow: var(--gold-glow); text-shadow: var(--gold-glow); }
 
-        /* 經典禪意美學高級按鈕樣式 */
         .zen-action-btn {
             background: linear-gradient(180deg, rgba(30, 25, 15, 0.8) 0%, rgba(10, 8, 5, 0.95) 100%);
             border: 1px solid rgba(212, 175, 55, 0.5);
@@ -83,10 +82,10 @@
             color: #fff;
         }
 
-        /* 手寫區域容器與雙金線正方形格子 */
+        /* 曼荼羅圓形手寫區域 */
         .hrih-container {
             z-index: 20;
-            margin-top: 15px;
+            margin-top: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -105,26 +104,41 @@
             color: #888;
             font-size: 0.8rem;
             letter-spacing: 2px;
-            margin-bottom: 12px;
+            margin-bottom: 5px;
         }
-        .write-box-outer {
-            width: 250px;
-            height: 250px;
-            padding: 4px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            background: transparent;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+        
+        .mandala-wrap {
+            position: relative;
+            width: 310px;
+            height: 310px;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
+            margin: 5px 0;
         }
-        .write-box-inner {
+        .mandala-svg {
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
-            border: 1.5px solid rgba(212, 175, 55, 0.85);
-            background: rgba(2, 2, 4, 0.5);
+            pointer-events: none;
+            z-index: 20;
+            animation: mandala-rotate 180s linear infinite;
+        }
+        @keyframes mandala-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .write-box-circular {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: rgba(10, 8, 8, 0.85);
+            border: 2px solid rgba(212, 175, 55, 0.85);
+            box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.3);
             position: relative;
+            z-index: 25;
+            overflow: hidden;
             touch-action: none;
             -webkit-user-select: none;
             user-select: none;
@@ -135,11 +149,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 25;
             touch-action: none;
         }
+        
         .write-btn-group {
-            margin-top: 12px;
+            margin-top: 10px;
             display: flex;
             gap: 15px;
         }
@@ -293,7 +307,7 @@
         <div class="nav-top">
             <div class="nav-btn" onclick="returnToMainHall()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> 返回道場</div>
             <div class="nav-divider"></div>
-            <div class="nav-btn" onclick="showVowAlert('<div style=\'text-align:left; font-size:0.9rem; line-height:1.8; color:#ddd;\\'>將諸佛與本尊大願融入 <span style=\'color:var(--gold);\'>七日法界觀想</span> 之中。<br><br>每日由不同本尊輪值，行者可點選上方聖字切換深觀。於格子內恭敬端嚴書寫當日種子字，並長按契印圓滿後，資糧將暫存法界。<br><br>每圓滿七日，系統將自動結算 <span style=\'color:var(--gold);\'>1000 點大願資糧</span>，匯入您的彌陀主系統。</div>')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> 法門說明</div>
+            <div class="nav-btn" onclick="showVowAlert('<div style=\'text-align:left; font-size:0.9rem; line-height:1.8; color:#ddd;\\'>將諸佛與本尊大願融入 <span style=\'color:var(--gold);\'>七日法界觀想</span> 之中。<br><br>每日由不同本尊輪值，行者可點選上方聖字切換深觀。於圓滿壇城內恭敬端嚴書寫當日種子字，並長按契印圓滿後，資糧將暫存法界。<br><br>每圓滿七日，系統將自動結算 <span style=\'color:var(--gold);\'>1000 點大願資糧</span>，匯入您的彌陀主系統。</div>')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> 法門說明</div>
             <div class="nav-divider"></div>
             <div class="nav-btn" id="nav-history-btn" onclick="openDataModal()"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20V14"></path></svg> 歷史大數據</div>
         </div>
@@ -306,11 +320,38 @@
         <div class="hrih-container">
             <div class="hrih-title" id="dharma-seed-title">भः</div>
             <div class="hrih-subtitle" id="dharma-deity-subtitle">釋迦如來 (bhaḥ)</div>
-            <div class="write-box-outer">
-                <div class="write-box-inner" id="writeContainer">
+            
+            <div class="mandala-wrap">
+                <svg class="mandala-svg" viewBox="0 0 340 340">
+                    <defs>
+                        <path id="ring-outer" d="M 170 25 A 145 145 0 1 1 169.9 25" />
+                        <path id="ring-mid" d="M 170 50 A 120 120 0 1 1 169.9 50" />
+                        <path id="ring-inner" d="M 170 70 A 100 100 0 1 1 169.9 70" />
+                        <filter id="gold-glow-svg"><feGaussianBlur stdDeviation="2" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    </defs>
+                    
+                    <circle cx="170" cy="170" r="152" fill="var(--mandala-red)" stroke="var(--gold-light)" stroke-width="0.8" opacity="0.6"/>
+                    <circle cx="170" cy="170" r="158" fill="none" stroke="var(--solid-gold)" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.7"/>
+
+                    <text fill="var(--gold)" font-size="14" font-family="serif" letter-spacing="4" opacity="0.85">
+                        <textPath href="#ring-outer" startOffset="0%">भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह</textPath>
+                    </text>
+                    <text fill="var(--cyan)" font-size="12" font-family="serif" letter-spacing="3" opacity="0.8">
+                        <textPath href="#ring-mid" startOffset="15%">ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः</textPath>
+                    </text>
+                    <text fill="#E5989B" font-size="11" font-family="serif" letter-spacing="2" opacity="0.85">
+                        <textPath href="#ring-inner" startOffset="30%">अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः</textPath>
+                    </text>
+
+                    <circle cx="170" cy="170" r="86" fill="none" stroke="var(--solid-gold)" stroke-width="2" filter="url(#gold-glow-svg)" opacity="0.8"/>
+                    <circle cx="170" cy="170" r="82" fill="none" stroke="var(--gold)" stroke-width="1" stroke-dasharray="2 3"/>
+                </svg>
+
+                <div class="write-box-circular" id="writeContainer">
                     <canvas id="writeCanvas"></canvas>
                 </div>
             </div>
+
             <div class="write-btn-group">
                 <button class="zen-action-btn" onclick="clearCanvas()">重事端嚴</button>
                 <button class="zen-action-btn" onclick="playTTS()">
@@ -373,7 +414,6 @@
     </div>
 
 <script>
-    // 1-7日全新本尊、法音與大願核心資料庫
     const purelandData = [
         { day: 1, seed: "भः", audioText: "bhaḥ", name: "釋迦如來", vow: "【娑婆教主 ． 寂靜涅槃】" },
         { day: 2, seed: "ह", audioText: "ha", name: "地藏菩薩", vow: "【地藏本願 ． 拔苦與樂】" },
@@ -420,9 +460,7 @@
     let startMidnight = new Date(db.startDate).setHours(0,0,0,0);
     let daysPassed = Math.max(0, Math.round((nowMidnight - startMidnight) / 86400000));
     
-    // 今日實際流轉輪到的天數 (0-6 循環對應 1-7 日)
     let currentDayOfWeek = daysPassed % 7; 
-    // 觀看天數（預設為今日輪值天數，行者亦可點擊軌道切換瀏覽）
     let activeViewIndex = currentDayOfWeek; 
 
     if (db.lastLogin !== todayStr) {
@@ -449,7 +487,6 @@
         setTimeout(() => { window.location.href = 'index.html?screen=3'; }, 800);
     }
 
-    // 彈窗通知
     function showVowAlert(msg) {
         const alertMsg = document.getElementById('vow-alert-msg');
         const overlay = document.getElementById('vow-alert-overlay');
@@ -472,34 +509,28 @@
         }
     }
 
-    // 切換點選的觀想日
     function selectDay(idx) {
         activeViewIndex = idx;
         clearCanvas();
         updatePageUI();
     }
 
-    // 更新網頁核心 UI 元素與聖字流轉狀態
     function updatePageUI() {
         let trackersHTML = '';
         for (let i = 0; i < 7; i++) {
             let isLit = db.weekRecord[i] ? 'lit' : '';
             let isActive = (i === activeViewIndex) ? 'active-day' : '';
-            // 直接完美置入梵文種子字
             trackersHTML += `<div class="track-circle ${isLit} ${isActive}" onclick="selectDay(${i})">${purelandData[i].seed}</div>`;
         }
         document.getElementById('ui-trackers').innerHTML = trackersHTML;
 
-        // 動態變更手寫框上的本尊聖字與拼音
         const currentData = purelandData[activeViewIndex];
         document.getElementById('dharma-seed-title').innerText = currentData.seed;
         document.getElementById('dharma-deity-subtitle').innerText = `${currentData.name} (${currentData.audioText})`;
 
-        // 資糧與進度條更新
         document.getElementById('ui-pool-text').innerText = `法界暫存資糧 : ${db.poolPoints} / 1000`;
         document.getElementById('ui-pool-bar').style.width = `${(db.poolPoints / 1000) * 100}%`;
 
-        // 長按按鈕文字與邏輯綁定
         let btnText = document.getElementById('seal-text');
         let progressFill = document.getElementById('btn-progress');
 
@@ -516,7 +547,6 @@
         }
     }
 
-    // 優化手寫 Canvas 控制
     let hwCanvas, hwCtx, isDrawing = false;
     function initHandwritingCanvas() {
         hwCanvas = document.getElementById('writeCanvas');
@@ -575,18 +605,16 @@
         hwCtx.pathBegun = false;
     }
 
-    // TTS 動態發音同步
     function playTTS() {
         if (!('speechSynthesis' in window)) return showVowAlert("法界回饋：您的設備暫不支援語音朗讀。");
         window.speechSynthesis.cancel(); 
         const currentData = purelandData[activeViewIndex];
         let utterance = new SpeechSynthesisUtterance(currentData.audioText);
-        utterance.lang = 'sa-IN'; // 精準梵文語系
+        utterance.lang = 'sa-IN'; 
         utterance.rate = 0.8; 
         window.speechSynthesis.speak(utterance);
     }
 
-    // 數據中心與寶幢契印
     function updateDataModal() {
         document.getElementById('ui-txt-365').innerText = db.totalDays365; 
         document.getElementById('ui-txt-108').innerText = db.totalYears108;
@@ -653,7 +681,6 @@
         }, 1200);
     }
 
-    // 長按契印定課邏輯
     const sealBtn = document.getElementById('seal-btn'); 
     const progressFill = document.getElementById('btn-progress'); 
     const hintText = document.getElementById('seal-text');
@@ -667,7 +694,7 @@
     }
 
     function startPress(e) { 
-        if (activeViewIndex !== currentDayOfWeek) return; // 只能契印今日輪值日
+        if (activeViewIndex !== currentDayOfWeek) return; 
         if (db.weekRecord[currentDayOfWeek]) return; 
         e.preventDefault(); 
         hintText.innerText = "能 量 注 入 中 ..."; 
@@ -699,7 +726,6 @@
             db.totalYears108++; 
             showVowAlert("歲星圓滿，365日行願已成，<br>劫波蓮花歲數 + 1。"); 
         } else {
-            // 自動跳出當日本尊顯化宏願
             showVowAlert(`<div style='font-size:1.1rem; color:var(--gold); font-weight:bold; margin-bottom:10px;'>${currentData.name} ‧ 顯化現前</div><div style='letter-spacing:2px; line-height:1.8; color:#eee;'>已端嚴書寫聖字 <span style='color:var(--gold);'>${currentData.seed}</span><br>${currentData.vow}<br><br>今日觀想實修功德圓滿！</div>`);
         }
         
@@ -720,7 +746,6 @@
     function openDataModal() { updateDataModal(); document.getElementById('dataModal').classList.add('active'); }
     function closeDataModal() { document.getElementById('dataModal').classList.remove('active'); }
 
-    // 背景星空
     const canvas = document.getElementById('starCanvas'); const ctx = canvas.getContext('2d');
     let width, height, stars = [], warpSpeed = 1, starScale = 0.6; 
     function resize() { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; }
@@ -739,7 +764,6 @@
         ctx.globalCompositeOperation = 'source-over'; requestAnimationFrame(renderStars);
     }
 
-    // 系統載入初始化
     window.addEventListener('load', () => { 
         renderStars(); 
         initHandwritingCanvas(); 
