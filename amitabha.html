@@ -470,25 +470,34 @@ body {
                     <stop offset="50%" style="stop-color:#B8860B;stop-opacity:1" />
                     <stop offset="100%" style="stop-color:#8B6508;stop-opacity:1" />
                 </linearGradient>
-         <defs>
-    <linearGradient id="lotusFill" x1="0%" y1="100%" x2="0%" y2="0%">
-        <stop offset="0%" stop-color="#916E28" />
-        <stop offset="45%" stop-color="#C5A655" />
-        <stop offset="85%" stop-color="#E1CD8C" />
-        <stop offset="100%" stop-color="#FFF2B8" />
+
+<defs>
+    <linearGradient id="lotusFill" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#FFDF00" stop-opacity="0.95"/> 
+        <stop offset="50%" stop-color="#D4AF37" stop-opacity="0.95"/> 
+        <stop offset="100%" stop-color="#995000" stop-opacity="1"/> 
     </linearGradient>
 
-    <linearGradient id="goldLotus" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#FFF2B8" />
-        <stop offset="50%" stop-color="#C5A655" />
-        <stop offset="100%" stop-color="#916E28" />
+    <linearGradient id="lotusFillBottom" x1="0%" y1="100%" x2="0%" y2="0%">
+        <stop offset="0%" stop-color="#FFDF00" stop-opacity="0.95"/> 
+        <stop offset="50%" stop-color="#D4AF37" stop-opacity="0.95"/> 
+        <stop offset="100%" stop-color="#995000" stop-opacity="1"/> 
+    </linearGradient>
+
+    <linearGradient id="goldLotus" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+        <stop offset="50%" style="stop-color:#FFD700;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#D4AF37;stop-opacity:1" />
     </linearGradient>
 
     <radialGradient id="junctionGlow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#E1CD8C" stop-opacity="0.4" />
-        <stop offset="100%" stop-color="#916E28" stop-opacity="0" />
+        <stop offset="0%" stop-color="#f3e5ab" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#f3e5ab" stop-opacity="0"/>
     </radialGradient>
 </defs>
+
+
+  
 
 
 
@@ -775,12 +784,14 @@ body {
                     <path d="M 475 358 Q 500 370 525 358" fill="none" />
 
                 </g>
+  </g>
+
                                                     
                                      <ellipse cx="500" cy="780" rx="150" ry="40" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
 
-                <g fill="url(#lotusFill)" stroke="url(#goldLotus)" stroke-linejoin="round">
+                <g stroke="url(#goldLotus)" stroke-width="1.5" stroke-linejoin="round">
 
-                    <g transform="scale(0.85, -0.75)" transform-origin="500 840">
+                    <g transform="scale(0.85, -0.75)" transform-origin="500 840" fill="url(#lotusFillBottom)">
                         <use href="#pure-petal" transform="translate(-205, -55) rotate(-18, 500, 840)" />
                         <use href="#pure-petal" transform="translate(-145, -65) rotate(-18, 500, 840)" />
                         <use href="#pure-petal" transform="translate(-75, -70) rotate(-7, 500, 840)" />
@@ -790,7 +801,7 @@ body {
                         <use href="#pure-petal" transform="translate(205, -55) rotate(18, 500, 840)" />
                     </g>
 
-                    <g transform="translate(0, 115)" stroke-width="1.5">
+                    <g transform="translate(0, 115)" fill="url(#lotusFill)">
                         <use href="#pure-petal" transform="translate(-280, -160) rotate(-35, 500, 840)" />
                         <use href="#pure-petal" transform="translate(280, -160) rotate(35, 500, 840)" />
                         <use href="#pure-petal" transform="translate(-250, -110) rotate(-40, 500, 840)" />
@@ -805,6 +816,7 @@ body {
                     </g>
                     
                 </g>
+
 
 
 
