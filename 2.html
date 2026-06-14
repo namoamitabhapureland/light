@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>彌陀淨土同心圓設計 - 視覺測試</title>
+    <title>彌陀淨土同心圓 - 動態光影測試</title>
     <style>
         body {
             display: flex;
@@ -11,13 +11,30 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #FAFAFA; /* 乾淨無干擾的背景 */
+            background-color: #EFEFEF;
             font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
         }
         .mandala-container {
             width: 100%;
-            max-width: 850px; /* 確保高畫質縮放 */
+            max-width: 850px;
         }
+
+        /* 定義順時針與逆時針旋轉動畫 */
+        @keyframes spin-cw {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes spin-ccw {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        /* 每一圈設定不同的轉速與方向，transform-origin 鎖定在 SVG 畫布正中心 */
+        .layer-blue { transform-origin: 500px 500px; animation: spin-cw 45s linear infinite; }
+        .layer-green { transform-origin: 500px 500px; animation: spin-ccw 35s linear infinite; }
+        .layer-red { transform-origin: 500px 500px; animation: spin-cw 25s linear infinite; }
+        .layer-yellow { transform-origin: 500px 500px; animation: spin-ccw 18s linear infinite; }
+        .layer-white { transform-origin: 500px 500px; animation: spin-cw 12s linear infinite; }
     </style>
 </head>
 <body>
@@ -25,37 +42,54 @@
 <div class="mandala-container">
     <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
         <defs>
-            <radialGradient id="grad-r4" cx="50%" cy="50%" r="50%">
-                <stop offset="83%" stop-color="#9FA8DA"/>
-                <stop offset="100%" stop-color="#283593"/>
+            <radialGradient id="grad-blue" cx="50%" cy="50%" r="50%" fx="35%" fy="35%">
+                <stop offset="60%" stop-color="#1565C0"/>
+                <stop offset="100%" stop-color="#0D47A1"/>
             </radialGradient>
             
-            <radialGradient id="grad-r3" cx="50%" cy="50%" r="50%">
-                <stop offset="80%" stop-color="#80DEEA"/>
-                <stop offset="100%" stop-color="#00838F"/>
+            <radialGradient id="grad-green" cx="50%" cy="50%" r="50%" fx="65%" fy="35%">
+                <stop offset="60%" stop-color="#2E7D32"/>
+                <stop offset="100%" stop-color="#1B5E20"/>
             </radialGradient>
             
-            <radialGradient id="grad-r2" cx="50%" cy="50%" r="50%">
-                <stop offset="75%" stop-color="#F48FB1"/>
-                <stop offset="100%" stop-color="#C2185B"/>
+            <radialGradient id="grad-red" cx="50%" cy="50%" r="50%" fx="35%" fy="65%">
+                <stop offset="60%" stop-color="#C62828"/>
+                <stop offset="100%" stop-color="#880E4F"/>
             </radialGradient>
 
-            <radialGradient id="grad-r1" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#FFF59D"/>
-                <stop offset="100%" stop-color="#FBC02D"/>
+            <radialGradient id="grad-yellow" cx="50%" cy="50%" r="50%" fx="65%" fy="65%">
+                <stop offset="60%" stop-color="#F9A825"/>
+                <stop offset="100%" stop-color="#F57F17"/>
+            </radialGradient>
+
+            <radialGradient id="grad-white" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="100%" stop-color="#B0BEC5"/>
             </radialGradient>
         </defs>
 
-        <circle cx="500" cy="500" r="480" fill="url(#grad-r4)" />
+        <g class="layer-blue">
+            <circle cx="500" cy="500" r="480" fill="url(#grad-blue)" />
+        </g>
         
-        <circle cx="500" cy="500" r="400" fill="url(#grad-r3)" />
+        <g class="layer-green">
+            <circle cx="500" cy="500" r="420" fill="url(#grad-green)" />
+        </g>
         
-        <circle cx="500" cy="500" r="320" fill="url(#grad-r2)" />
+        <g class="layer-red">
+            <circle cx="500" cy="500" r="360" fill="url(#grad-red)" />
+        </g>
         
-        <circle cx="500" cy="500" r="240" fill="url(#grad-r1)" />
+        <g class="layer-yellow">
+            <circle cx="500" cy="500" r="300" fill="url(#grad-yellow)" />
+        </g>
 
-        <text x="500" y="470" font-size="42" text-anchor="middle" fill="#333333" font-weight="bold">充足的中心空間</text>
-        <text x="500" y="530" font-size="28" text-anchor="middle" fill="#333333">文字不需鮮豔，即有極佳對比</text>
+        <g class="layer-white">
+            <circle cx="500" cy="500" r="240" fill="url(#grad-white)" />
+        </g>
+
+        <text x="500" y="480" font-size="42" text-anchor="middle" fill="#263238" font-weight="bold">光影流轉 靜定於心</text>
+        <text x="500" y="540" font-size="24" text-anchor="middle" fill="#37474F">中心區塊依然保有三分之一的寬廣</text>
         
     </svg>
 </div>
