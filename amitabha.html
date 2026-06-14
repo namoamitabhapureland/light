@@ -471,16 +471,26 @@ body {
                     <stop offset="100%" style="stop-color:#8B6508;stop-opacity:1" />
                 </linearGradient>
                                   
-                              <linearGradient id="lotusFill" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#FFDF00" stop-opacity="0.95"/> 
-                    <stop offset="50%" stop-color="#D4AF37" stop-opacity="0.95"/> 
-                    <stop offset="100%" stop-color="#995000" stop-opacity="1"/> </linearGradient>
+                             <defs>
+    <linearGradient id="lotusFill" x1="0%" y1="100%" x2="0%" y2="0%">
+        <stop offset="0%" stop-color="#9A7B1C" />
+        <stop offset="25%" stop-color="#D4AF37" />
+        <stop offset="75%" stop-color="#FFDF73" />
+        <stop offset="100%" stop-color="#FFF2B2" />
+    </linearGradient>
 
-                <linearGradient id="goldLotus" x1="50%" y1="0%" x2="50%" y2="100%">
-                    <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
-                    <stop offset="50%" style="stop-color:#FFD700;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#D4AF37;stop-opacity:1" />
-                </linearGradient>
+    <linearGradient id="goldLotus" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FFF2B2" />
+        <stop offset="50%" stop-color="#D4AF37" />
+        <stop offset="100%" stop-color="#9A7B1C" />
+    </linearGradient>
+
+    <radialGradient id="junctionGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFDF73" stop-opacity="0.5" />
+        <stop offset="100%" stop-color="#9A7B1C" stop-opacity="0" />
+    </radialGradient>
+</defs>
+
 
 
                 <radialGradient id="haloFillDef" cx="50%" cy="50%" r="50%">
@@ -529,10 +539,7 @@ body {
                     <stop offset="100%" stop-color="#f3c2c4" stop-opacity="0.35"/> 
                 </linearGradient>
                
-                <radialGradient id="junctionGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#f3e5ab" stop-opacity="0.5"/>
-                    <stop offset="100%" stop-color="#f3e5ab" stop-opacity="0"/>
-                </radialGradient>
+    
                 
                 <linearGradient id="glass-base-mini" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stop-color="rgba(243, 229, 171, 0.5)"/>
