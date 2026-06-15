@@ -82,6 +82,35 @@
             color: #fff;
         }
 
+        /* 透明玻璃面圓形向量按鈕 */
+        .glass-vector-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            color: var(--gold-light);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            padding: 0;
+        }
+        .glass-vector-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.35);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.15);
+        }
+        .glass-vector-btn:active {
+            transform: scale(0.94);
+            background: rgba(255, 255, 255, 0.22);
+        }
+
         /* 曼荼羅圓形手寫區域 */
         .hrih-container {
             z-index: 20;
@@ -104,7 +133,7 @@
             color: #888;
             font-size: 0.8rem;
             letter-spacing: 2px;
-            margin-bottom: 20px; /* 因移除說明欄，微調間距 */
+            margin-bottom: 20px;
         }
         
         .mandala-wrap {
@@ -125,12 +154,22 @@
             height: 100%;
             pointer-events: none;
             z-index: 20;
-            animation: mandala-rotate 180s linear infinite;
         }
-        @keyframes mandala-rotate {
+        
+        /* 線框與同心圓非同步旋轉設定 */
+        .circle-layer-1 { animation: rotateClockwise 50s linear infinite; transform-origin: 200px 200px; }
+        .circle-layer-2 { animation: rotateCounterClockwise 70s linear infinite; transform-origin: 200px 200px; }
+        .circle-layer-3 { animation: rotateClockwise 95s linear infinite; transform-origin: 200px 200px; }
+
+        @keyframes rotateClockwise {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        @keyframes rotateCounterClockwise {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
         .write-box-circular {
             width: 56%;
             height: 56%;
@@ -157,7 +196,7 @@
         .write-btn-group {
             margin-top: 15px;
             display: flex;
-            gap: 15px;
+            gap: 20px;
         }
 
         .action-zone { z-index: 20; margin-top: 15px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 10px; }
@@ -215,7 +254,7 @@
         .trophy-item { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 20%; }
         .trophy-label { font-size: 0.65rem; color: rgba(243,229,171,0.6); letter-spacing: 1px; white-space: nowrap; }
 
-        .banner-jewel { width: 25px; height: 42px; cursor: pointer; transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); transform-origin: bottom center; }
+        .banner-jewel { width: 42px; height: 42px; cursor: pointer; transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); transform-origin: center; }
         .banner-unlit { opacity: 0.15; filter: grayscale(100%); }
         .banner-lit { opacity: 0.95; animation: star-breathe 3s infinite alternate ease-in-out; }
         @keyframes star-breathe { 0% { transform: scale(1); } 100% { transform: scale(1.08); filter: brightness(1.2); } }
@@ -244,7 +283,7 @@
         .cert-box { background: linear-gradient(180deg, rgba(20,20,20,0.95) 0%, rgba(5,5,5,0.98) 100%); border: 1px solid rgba(212,175,55,0.4); border-radius: 20px; width: 85%; max-width: 360px; padding: 40px 25px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.9); transform: translateY(20px) scale(0.95); transition: 0.4s; }
         .cert-overlay.show .cert-box { transform: translateY(0) scale(1); }
         .cert-header { color: var(--gold-light); font-size: 0.9rem; letter-spacing: 6px; margin-bottom: 25px; }
-        .cert-svg-wrap { width: 90px; height: 150px; margin: 0 auto 25px auto; animation: cert-float 3s infinite alternate; }
+        .cert-svg-wrap { width: 90px; height: 90px; margin: 0 auto 25px auto; display: flex; align-items: center; justify-content: center; animation: cert-float 3s infinite alternate; }
         .cert-svg-wrap svg { width: 100%; height: 100%; overflow: visible; }
         @keyframes cert-float { 0% { transform: translateY(0); } 100% { transform: translateY(-8px); } }
         .cert-name { color: var(--solid-gold); font-size: 1.3rem; font-weight: bold; letter-spacing: 5px; margin: 10px 0 25px 0; }
@@ -262,7 +301,7 @@
         .dust-particle {
             position: absolute;
             width: 3px; height: 3px;
-            background: #8ba89c; /* 與您系統色調一致的琉璃色 */
+            background: #8ba89c; 
             border-radius: 50%;
             pointer-events: none;
             animation: drift 2s ease-out forwards;
@@ -274,7 +313,7 @@
             100% { transform: translate(var(--dx), var(--dy)); opacity: 0; }
         }
 
-        /* ════ 新增：黑金彈框樣式 ════ */
+        /* ════ 黑金彈框樣式 ════ */
         #anim-overlay { z-index: 10001; }
         .t-box { 
             background: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.12) 0%, rgba(1,2,4,0.95) 100%); 
@@ -304,20 +343,11 @@
             <linearGradient id="f-light" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#fff" stop-opacity="0.8"/><stop offset="100%" stop-color="#fff" stop-opacity="0.1"/></linearGradient>
             <linearGradient id="f-dark" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#000" stop-opacity="0.05"/><stop offset="100%" stop-color="#000" stop-opacity="0.4"/></linearGradient>
             <linearGradient id="g-gold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fff8dc"/><stop offset="50%" stop-color="#f3e5ab"/><stop offset="100%" stop-color="#d4af37"/></linearGradient>
+            
             <g id="dynamic-banner">
-                <path d="M60,10 Q65,25 60,35 Q55,25 60,10" fill="var(--f1, #E76F51)"/><path d="M60,18 Q62,26 60,30 Q58,26 60,18" fill="var(--f2, #F4A261)"/>
-                <path d="M60,25 C78,35 88,55 78,75 C68,55 63,55 60,62 C57,55 52,55 42,75 C32,55 42,35 60,25 Z" fill="var(--f3, #2A9D8F)"/>
-                <path d="M60,40 C85,50 100,75 88,95 C78,75 68,75 60,82 C52,75 42,75 32,95 C20,75 35,50 60,40 Z" fill="var(--bd, #E9C46A)"/>
-                <path d="M60,55 C95,65 112,95 100,115 C88,95 72,95 60,105 C48,95 32,95 20,115 C8,95 25,65 60,55 Z" fill="var(--bs, #C1121F)"/>
-                <path d="M60,75 C105,85 125,120 108,145 C92,120 75,118 60,130 C45,118 28,120 12,145 C-5,120 15,85 60,75 Z" fill="var(--bd, #1D3557)"/>
-                <path d="M38,100 C15,120 10,155 25,175 C38,195 12,185 5,160 C-2,135 18,110 38,100 Z" fill="var(--rb, #FDFCDC)"/><path d="M82,100 C105,120 110,155 95,175 C82,195 108,185 115,160 C122,135 102,110 82,100 Z" fill="var(--rb, #FDFCDC)"/>
-                <path d="M60,128 C70,140 70,155 60,165 C50,155 50,140 60,128 Z" fill="var(--f3, #2A9D8F)"/>
-                <circle cx="60" cy="172" r="5" fill="var(--f2, #E9C46A)"/>
-                <path d="M60,177 Q65,185 60,195 Q55,185 60,177" fill="var(--f1, #C1121F)"/>
-                <g fill="none" stroke="#F3E5AB" stroke-width="2" opacity="0.8">
-                    <path d="M60,25 C78,35 88,55 78,75"/><path d="M60,40 C85,50 100,75 88,95"/><path d="M60,55 C95,65 112,95 100,115"/><path d="M60,75 C105,85 125,120 108,145"/>
-                    <path d="M60,25 C42,35 32,55 42,75"/><path d="M60,40 C35,50 20,75 32,95"/><path d="M60,55 C25,65 8,95 20,115"/><path d="M60,75 C15,85 -5,120 12,145"/>
-                </g>
+                <circle cx="60" cy="100" r="45" fill="none" stroke="var(--f2, #d4af37)" stroke-width="2.5" />
+                <circle cx="60" cy="100" r="39" fill="rgba(255,255,255,0.03)" stroke="var(--f1, #fff)" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.6"/>
+                <text x="60" y="113" font-family="'Siddham', 'Noto Sans Siddham', serif" font-size="32" fill="var(--f2, #f3e5ab)" text-anchor="middle" font-weight="bold">𑖮𑖿𑖨𑖱𑖾</text>
             </g>
         </defs>
     </svg>
@@ -334,7 +364,7 @@
         <div class="nav-top">
             <div class="nav-btn" onclick="returnToMainHall()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> 返回道場</div>
             <div class="nav-divider"></div>
-            <div class="nav-btn" onclick="showVowAlert('<div style=\'text-align:left; font-size:0.9rem; line-height:1.8; color:#ddd;\\'>將諸佛與本尊大願融入 <span style=\'color:var(--gold);\'>七日法界觀想</span> 之中。<br><br>每日由不同本尊輪值，行者可點選上方聖字切換深觀。於圓滿壇城內恭敬端嚴書寫當日種子字，並長按大迴向圓滿後，資糧將暫存法界。<br><br>每圓滿七日，系統將自動結算 <span style=\'color:var(--gold);\'>1000 點大願資糧</span>，匯入您的彌陀主系統。</div>')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> 法門說明</div>
+            <div class="nav-btn" id="dharma-desc-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> 法門說明</div>
             <div class="nav-divider"></div>
             <div class="nav-btn" id="nav-history-btn" onclick="openDataModal()"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20V14"></path></svg> 歷史大數據</div>
         </div>
@@ -360,15 +390,26 @@
                     <circle cx="200" cy="200" r="192" fill="var(--mandala-red)" stroke="var(--gold-light)" stroke-width="0.8" opacity="0.6"/>
                     <circle cx="200" cy="200" r="198" fill="none" stroke="var(--solid-gold)" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.7"/>
 
-                    <text fill="var(--gold)" font-size="18" font-family="serif" opacity="0.85">
-                        <textPath href="#ring-outer" startOffset="0%" textLength="1162.3" lengthAdjust="spacing">भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ </textPath>
-                    </text>
-                    <text fill="var(--cyan)" font-size="16" font-family="serif" opacity="0.8">
-                        <textPath href="#ring-mid" startOffset="0%" textLength="1005.3" lengthAdjust="spacing">ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः </textPath>
-                    </text>
-                    <text fill="#E5989B" font-size="14" font-family="serif" opacity="0.85">
-                        <textPath href="#ring-inner" startOffset="0%" textLength="848.2" lengthAdjust="spacing">भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ </textPath>
-                    </text>
+                    <g class="circle-layer-1">
+                        <circle cx="200" cy="200" r="185" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" />
+                        <text fill="var(--gold)" font-size="18" font-family="serif" opacity="0.85">
+                            <textPath href="#ring-outer" startOffset="0%" textLength="1162.3" lengthAdjust="spacing">भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै h्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ </textPath>
+                        </text>
+                    </g>
+                    
+                    <g class="circle-layer-2">
+                        <circle cx="200" cy="200" r="160" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" />
+                        <text fill="var(--cyan)" font-size="16" font-family="serif" opacity="0.8">
+                            <textPath href="#ring-mid" startOffset="0%" textLength="1005.3" lengthAdjust="spacing">ॐ अ ह्रीः भै अं यु h भः ॐ अ ह्रीः भै अं यु h भः ॐ अ h्रीः भै अं यु h भः ॐ अ h्रीः भै अं यु h भः ॐ अ h्रीः भै अं यु h भः ॐ अ h्रीः भै अं यु h भः ॐ अ h्रीः भै अं यु h भः ॐ अ h्रीः भै अं यु h भः </textPath>
+                        </text>
+                    </g>
+                    
+                    <g class="circle-layer-3">
+                        <circle cx="200" cy="200" r="135" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" />
+                        <text fill="#E5989B" font-size="14" font-family="serif" opacity="0.85">
+                            <textPath href="#ring-inner" startOffset="0%" textLength="848.2" lengthAdjust="spacing">भः h यु अं भै ह्रीः अ ॐ भः h यु अं भै ह्रीः अ ॐ भः h यु अं भै ह्रीः अ ॐ भः h यु अं भै ह्रीः अ ॐ भः h यु अं भै ह्रीः अ ॐ भः h यु अं भै ह्रीः अ ॐ भः h यु अं भै ह्रीः अ ॐ </textPath>
+                        </text>
+                    </g>
 
                     <circle cx="200" cy="200" r="116" fill="none" stroke="var(--solid-gold)" stroke-width="2" filter="url(#gold-glow-svg)" opacity="0.8"/>
                     <circle cx="200" cy="200" r="112" fill="none" stroke="var(--gold)" stroke-width="1" stroke-dasharray="2 3"/>
@@ -380,11 +421,17 @@
             </div>
 
             <div class="write-btn-group">
-                <button class="zen-action-btn" onclick="clearCanvas()">重事端嚴</button>
-                <button class="zen-action-btn" onclick="playTTS()">
-                    <svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor; margin-right:6px;">
-                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-                    </svg>恭聆法音
+                <button class="glass-vector-btn" onclick="clearCanvas()" aria-label="恢復">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+                    </svg>
+                </button>
+                <button class="glass-vector-btn" onclick="playTTS()" aria-label="發音">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18V5l12-2v13" />
+                        <circle cx="6" cy="18" r="3" />
+                        <circle cx="18" cy="16" r="3" />
+                    </svg>
                 </button>
             </div>
         </div>
@@ -553,7 +600,6 @@
         }
     }
 
-    // 新增：黑金彈窗控制函數
     function showCustomAlert(msg, title = "法界告示") {
         document.getElementById('custom-alert-title').innerText = title;
         document.getElementById('custom-alert-desc').innerHTML = msg;
@@ -774,7 +820,6 @@
         hintText.style.color = "var(--cyan)"; 
     }
     
-    // 改寫：圓滿任務後觸發微塵迴向動畫
     function completeTodayTask() {
         if (db.weekRecord[currentDayOfWeek]) return;
         db.weekRecord[currentDayOfWeek] = true; 
@@ -792,7 +837,6 @@
         showDedicationAnim(currentData);
     }
 
-    // 新增：顯示迴向動畫與本尊願力說明
     function showDedicationAnim(currentData) {
         const ov = document.getElementById('anim-overlay');
         const flash = document.getElementById('anim-flash');
@@ -804,7 +848,6 @@
         flash.style.opacity = 0;
         flash.style.transition = 'none';
 
-        // 顯示種子字與原先上方的說明
         svgCont.innerHTML = currentData.seed;
         txt.innerHTML = `
             <div style="color:var(--gold); font-size:1.05rem; letter-spacing:2px; font-weight:bold; margin-bottom:10px;">${currentData.vowTitle}</div>
@@ -816,10 +859,9 @@
 
         setTimeout(() => ov.style.opacity = 1, 50);
 
-        // 讓行者閱讀 3 秒後觸發微塵特效
         setTimeout(() => {
             flash.style.opacity = 1; 
-            svgCont.innerHTML = ''; // 實體消失，化為微塵
+            svgCont.innerHTML = ''; 
             
             for (let k = 0; k < 250; k++) {
                 let d = document.createElement('div');
@@ -841,7 +883,6 @@
                 flash.style.opacity = 0; 
             }, 800); 
 
-            // 更換為迴向文
             txt.innerHTML = `
                 <div style="color:var(--gold); font-size:1.05rem; letter-spacing:2px; font-weight:bold; margin-bottom:8px;">${currentData.vowTitle}</div>
                 <div style="font-size:0.85rem; color:#aaa; text-align:justify; text-align-last:center; margin-bottom:15px;">${currentData.vowDesc}</div>
@@ -853,7 +894,6 @@
         }, 3000); 
     }
 
-    // 新增：關閉動畫並更新UI與檢查證書
     function closeAnim() {
         const ov = document.getElementById('anim-overlay');
         ov.style.opacity = 0;
@@ -907,6 +947,11 @@
         initHandwritingCanvas(); 
         updatePageUI(); 
         updateDataModal(); 
+
+        // 安全接管法門說明點擊事件，免去 inline 轉義造成的失效問題
+        document.getElementById('dharma-desc-btn').addEventListener('click', () => {
+            showVowAlert(`<div style='text-align:left; font-size:0.9rem; line-height:1.8; color:#ddd;'>將諸佛與本尊大願融入 <span style='color:var(--gold);'>七日法界觀想</span> 之中。<br><br>每日由不同本尊輪值，行者可點選上方聖字切換深觀。於圓滿壇城內恭敬端嚴書寫當日種子字，並長按大迴向圓滿後，資糧將暫存法界。<br><br>每圓滿七日，系統將自動結算 <span style='color:var(--gold);'>1000 點大願資糧</span>，匯入您的彌陀主系統。</div>`);
+        });
     });
 </script>
 </body>
