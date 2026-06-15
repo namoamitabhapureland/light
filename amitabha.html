@@ -35,10 +35,10 @@ body {
 #waterCanvas { 
     z-index: 2; 
     mix-blend-mode: screen; 
-    opacity: 0.95; /* 從 0.6 大幅調高到 0.95，讓功德海的水波高光完全顯現 */
+    opacity: 0.7; /* 從 0.6 大幅調高到 0.95，讓功德海的水波高光完全顯現 */
     pointer-events: none; 
     transition: opacity 2s ease, filter 2s ease; 
-    filter: brightness(1.4) contrast(1.1); /* 利用 CSS 濾鏡，直接將畫布線條提亮 1.4 倍，並增強波光倒影的對比度 */
+    filter: brightness(1) contrast(1); /* 利用 CSS 濾鏡，直接將畫布線條提亮 1.4 倍，並增強波光倒影的對比度 */
 }
 
         
