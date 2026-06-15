@@ -82,7 +82,7 @@
             color: #fff;
         }
 
-        /* 曼荼羅圓形手寫區域與說明欄 */
+        /* 曼荼羅圓形手寫區域 */
         .hrih-container {
             z-index: 20;
             margin-top: 10px;
@@ -104,35 +104,7 @@
             color: #888;
             font-size: 0.8rem;
             letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
-
-        .hrih-desc-box {
-            width: 88%;
-            max-width: 380px;
-            text-align: center;
-            margin: 0 0 12px 0;
-            padding: 12px 18px;
-            background: rgba(10, 8, 5, 0.55);
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            border-radius: 12px;
-            box-shadow: inset 0 0 12px rgba(0,0,0,0.8), 0 4px 10px rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-        }
-        .hrih-desc-title {
-            color: var(--gold);
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            font-weight: bold;
-            margin-bottom: 6px;
-        }
-        .hrih-desc-text {
-            color: #ddd;
-            font-size: 0.75rem;
-            line-height: 1.7;
-            letter-spacing: 1px;
-            text-align: justify;
-            text-align-last: center;
+            margin-bottom: 20px; /* 因移除說明欄，微調間距 */
         }
         
         .mandala-wrap {
@@ -285,6 +257,31 @@
             z-index: 10001; pointer-events: none; opacity: 0;
             transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
+
+        /* ════ 微塵迴向特效 CSS ════ */
+        .dust-particle {
+            position: absolute;
+            width: 3px; height: 3px;
+            background: #8ba89c; /* 與您系統色調一致的琉璃色 */
+            border-radius: 50%;
+            pointer-events: none;
+            animation: drift 2s ease-out forwards;
+            z-index: 20;
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(var(--dx), var(--dy)); opacity: 0; }
+        }
+
+        /* ════ 新增：黑金彈框樣式 ════ */
+        #anim-overlay { z-index: 10001; }
+        .t-box { 
+            background: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.12) 0%, rgba(1,2,4,0.95) 100%); 
+            border: 1px solid rgba(212,175,55,0.4); border-radius: 25px; padding: 40px 25px; 
+            display: flex; flex-direction: column; align-items: center; max-width: 85%; width: 340px; text-align: center; 
+            box-shadow: 0 0 30px rgba(0,0,0,0.8); position: relative; overflow: hidden;
+        }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -337,7 +334,7 @@
         <div class="nav-top">
             <div class="nav-btn" onclick="returnToMainHall()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> 返回道場</div>
             <div class="nav-divider"></div>
-            <div class="nav-btn" onclick="showVowAlert('<div style=\'text-align:left; font-size:0.9rem; line-height:1.8; color:#ddd;\\'>將諸佛與本尊大願融入 <span style=\'color:var(--gold);\'>七日法界觀想</span> 之中。<br><br>每日由不同本尊輪值，行者可點選上方聖字切換深觀。於圓滿壇城內恭敬端嚴書寫當日種子字，並長按契印圓滿後，資糧將暫存法界。<br><br>每圓滿七日，系統將自動結算 <span style=\'color:var(--gold);\'>1000 點大願資糧</span>，匯入您的彌陀主系統。</div>')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> 法門說明</div>
+            <div class="nav-btn" onclick="showVowAlert('<div style=\'text-align:left; font-size:0.9rem; line-height:1.8; color:#ddd;\\'>將諸佛與本尊大願融入 <span style=\'color:var(--gold);\'>七日法界觀想</span> 之中。<br><br>每日由不同本尊輪值，行者可點選上方聖字切換深觀。於圓滿壇城內恭敬端嚴書寫當日種子字，並長按大迴向圓滿後，資糧將暫存法界。<br><br>每圓滿七日，系統將自動結算 <span style=\'color:var(--gold);\'>1000 點大願資糧</span>，匯入您的彌陀主系統。</div>')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> 法門說明</div>
             <div class="nav-divider"></div>
             <div class="nav-btn" id="nav-history-btn" onclick="openDataModal()"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20V14"></path></svg> 歷史大數據</div>
         </div>
@@ -350,11 +347,6 @@
         <div class="hrih-container">
             <div class="hrih-title" id="dharma-seed-title">भः</div>
             <div class="hrih-subtitle" id="dharma-deity-subtitle">釋迦如來 (bhaḥ)</div>
-            
-            <div class="hrih-desc-box">
-                <div class="hrih-desc-title" id="dharma-vow-title">【娑婆教主 ． 寂靜涅槃】</div>
-                <div class="hrih-desc-text" id="dharma-vow-desc-text">「भः」字代表釋迦如來於娑婆世界示現成佛、破除一切魔軍與無明的威德。書寫此字能生起無上出離心與大菩提心，身心歸於寂靜。</div>
-            </div>
 
             <div class="mandala-wrap">
                 <svg class="mandala-svg" viewBox="0 0 400 400">
@@ -400,7 +392,7 @@
         <div class="action-zone" id="action-zone">
             <div class="seal-btn-rect" id="seal-btn">
                 <div class="seal-btn-progress-bg" id="btn-progress"></div>
-                <div class="seal-btn-text" id="seal-text">長按契印 ． 圓滿今日</div>
+                <div class="seal-btn-text" id="seal-text">長按契印 ． 大迴向</div>
             </div>
             <div class="pool-wrap">
                 <div class="pool-label" id="ui-pool-text">法界暫存資糧 : 0 / 1000</div>
@@ -445,6 +437,23 @@
             <div class="cert-divider"></div>
             <div class="cert-desc" id="cert-text">...</div>
             <button class="zen-action-btn" onclick="closeCert()">歡喜功德 ． 締結契印</button>
+        </div>
+    </div>
+
+    <div id="anim-overlay" class="modal-overlay">
+        <div class="t-box" id="anim-box">
+            <div id="anim-flash" style="position:absolute; inset:0; background:#fff; opacity:0; pointer-events:none; z-index:10; transition:opacity 0.2s; border-radius:25px;"></div>
+            <div id="anim-svg-cont" style="font-size: 3.5rem; color: var(--gold); text-shadow: 0 0 25px rgba(212,175,55,0.8); margin-bottom: 15px; position: relative; z-index: 5;"></div>
+            <div id="anim-txt" style="position: relative; z-index: 5; margin-bottom: 25px; min-height: 80px;"></div>
+            <button id="anim-btn" class="zen-action-btn" onclick="closeAnim()" style="position: relative; z-index: 5;">功德圓滿</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="custom-alert-modal">
+        <div class="t-box" onclick="event.stopPropagation()">
+            <div style="color: var(--gold); font-size: 1.15rem; letter-spacing: 4px; margin-bottom: 15px; font-weight: bold; text-shadow: 0 0 10px rgba(212,175,55,0.3);" id="custom-alert-title">法界告示</div>
+            <div id="custom-alert-desc" style="color: #bbb; font-size: 0.95rem; line-height: 1.8; letter-spacing: 1px; margin-bottom: 25px;"></div>
+            <button class="zen-action-btn" onclick="closeCustomAlert()">合十收攝</button>
         </div>
     </div>
 
@@ -544,6 +553,21 @@
         }
     }
 
+    // 新增：黑金彈窗控制函數
+    function showCustomAlert(msg, title = "法界告示") {
+        document.getElementById('custom-alert-title').innerText = title;
+        document.getElementById('custom-alert-desc').innerHTML = msg;
+        const m = document.getElementById('custom-alert-modal');
+        m.style.display = 'flex';
+        setTimeout(() => m.style.opacity = 1, 50);
+    }
+    
+    function closeCustomAlert() {
+        const m = document.getElementById('custom-alert-modal');
+        m.style.opacity = 0;
+        setTimeout(() => m.style.display = 'none', 500);
+    }
+
     function selectDay(idx) {
         activeViewIndex = idx;
         clearCanvas();
@@ -562,10 +586,6 @@
         const currentData = purelandData[activeViewIndex];
         document.getElementById('dharma-seed-title').innerText = currentData.seed;
         document.getElementById('dharma-deity-subtitle').innerText = `${currentData.name} (${currentData.audioText})`;
-        
-        // 更新說明欄文字
-        document.getElementById('dharma-vow-title').innerText = currentData.vowTitle;
-        document.getElementById('dharma-vow-desc-text').innerText = currentData.vowDesc;
 
         document.getElementById('ui-pool-text').innerText = `法界暫存資糧 : ${db.poolPoints} / 1000`;
         document.getElementById('ui-pool-bar').style.width = `${(db.poolPoints / 1000) * 100}%`;
@@ -574,13 +594,13 @@
         let progressFill = document.getElementById('btn-progress');
 
         if (db.weekRecord[activeViewIndex]) {
-            btnText.innerText = "【 此日行願已圓滿 】"; btnText.style.color = "var(--solid-gold)";
+            btnText.innerText = "【 此日大迴向已圓滿 】"; btnText.style.color = "var(--solid-gold)";
             progressFill.style.width = '100%';
         } else {
             if (activeViewIndex === currentDayOfWeek) {
-                btnText.innerText = "長按契印 ． 圓滿今日"; btnText.style.color = "var(--cyan)";
+                btnText.innerText = "長按契印 ． 大迴向"; btnText.style.color = "var(--cyan)";
             } else {
-                btnText.innerText = "瀏覽觀想中 ． 無法跨日契印"; btnText.style.color = "#555";
+                btnText.innerText = "瀏覽觀想中 ． 無法跨日迴向"; btnText.style.color = "#555";
             }
             progressFill.style.width = '0%';
         }
@@ -644,14 +664,13 @@
         hwCtx.pathBegun = false;
     }
 
-    // 更新語音引擎，直接傳入天城體文字並強制使用印地語 (hi-IN)
     function playTTS() {
         if (!('speechSynthesis' in window)) return showVowAlert("法界回饋：您的設備暫不支援語音朗讀。");
         window.speechSynthesis.cancel(); 
         const currentData = purelandData[activeViewIndex];
         
         let utterance = new SpeechSynthesisUtterance(currentData.seed);
-        utterance.lang = 'hi-IN'; // 使用印地語引擎完美朗讀天城體
+        utterance.lang = 'hi-IN';
         utterance.rate = 0.75; 
         utterance.pitch = 0.9;
         window.speechSynthesis.speak(utterance);
@@ -751,32 +770,109 @@
         if (db.weekRecord[currentDayOfWeek]) return; 
         cancelAnimationFrame(reqAnimId); 
         progressFill.style.width = '0%'; 
-        hintText.innerText = "長按契印 ． 圓滿今日"; 
+        hintText.innerText = "長按契印 ． 大迴向"; 
         hintText.style.color = "var(--cyan)"; 
     }
     
+    // 改寫：圓滿任務後觸發微塵迴向動畫
     function completeTodayTask() {
         if (db.weekRecord[currentDayOfWeek]) return;
         db.weekRecord[currentDayOfWeek] = true; 
         db.totalDays365++;
         db.totalPracticedDays++; 
 
-        const currentData = purelandData[currentDayOfWeek];
-
         if (db.totalDays365 >= 365) { 
             db.totalDays365 = 0; 
             db.totalYears108++; 
-            showVowAlert("歲星圓滿，365日行願已成，<br>劫波蓮花歲數 + 1。"); 
-        } else {
-            showVowAlert(`<div style='font-size:1.1rem; color:var(--gold); font-weight:bold; margin-bottom:10px;'>${currentData.name} ‧ 顯化現前</div><div style='letter-spacing:2px; line-height:1.8; color:#eee;'>已端嚴書寫聖字 <span style='color:var(--gold);'>${currentData.seed}</span><br>${currentData.vowTitle}<br><br>今日觀想實修功德圓滿！</div>`);
         }
         
-        saveDB(); updatePageUI(); updateDataModal();
+        saveDB(); 
 
-        const triggers = [7, 70, 700, 7000, 9999999];
-        if (triggers.includes(db.totalPracticedDays)) {
-            setTimeout(() => { isAutoTriggered = true; openCert(db.totalPracticedDays); }, 1200);
-        }
+        const currentData = purelandData[currentDayOfWeek];
+        showDedicationAnim(currentData);
+    }
+
+    // 新增：顯示迴向動畫與本尊願力說明
+    function showDedicationAnim(currentData) {
+        const ov = document.getElementById('anim-overlay');
+        const flash = document.getElementById('anim-flash');
+        const svgCont = document.getElementById('anim-svg-cont');
+        const txt = document.getElementById('anim-txt');
+        const btn = document.getElementById('anim-btn');
+
+        ov.style.display = 'flex';
+        flash.style.opacity = 0;
+        flash.style.transition = 'none';
+
+        // 顯示種子字與原先上方的說明
+        svgCont.innerHTML = currentData.seed;
+        txt.innerHTML = `
+            <div style="color:var(--gold); font-size:1.05rem; letter-spacing:2px; font-weight:bold; margin-bottom:10px;">${currentData.vowTitle}</div>
+            <div style="font-size:0.85rem; color:#ccc; text-align:justify; text-align-last:center; line-height: 1.8;">${currentData.vowDesc}</div>`;
+        
+        txt.style.opacity = 1;
+        btn.style.opacity = 0;
+        btn.style.pointerEvents = 'none';
+
+        setTimeout(() => ov.style.opacity = 1, 50);
+
+        // 讓行者閱讀 3 秒後觸發微塵特效
+        setTimeout(() => {
+            flash.style.opacity = 1; 
+            svgCont.innerHTML = ''; // 實體消失，化為微塵
+            
+            for (let k = 0; k < 250; k++) {
+                let d = document.createElement('div');
+                d.className = 'dust-particle';
+                d.style.background = Math.random() > 0.5 ? '#f3e5ab' : '#FCF6D8'; 
+                d.style.width = Math.random() * 4 + 2 + 'px'; 
+                d.style.height = d.style.width;
+                d.style.position = 'absolute';
+                d.style.left = '50%'; d.style.top = '50%';
+                let a = Math.random() * Math.PI * 2, dist = 100 + Math.random() * 600;
+                d.style.setProperty('--dx', Math.cos(a) * dist + 'px');
+                d.style.setProperty('--dy', Math.sin(a) * dist + 'px');
+                d.style.animationDuration = (0.7 + Math.random() * 1.5) + 's';
+                ov.appendChild(d);
+            }
+            
+            setTimeout(() => { 
+                flash.style.transition = 'opacity 1.5s ease-in'; 
+                flash.style.opacity = 0; 
+            }, 800); 
+
+            // 更換為迴向文
+            txt.innerHTML = `
+                <div style="color:var(--gold); font-size:1.05rem; letter-spacing:2px; font-weight:bold; margin-bottom:8px;">${currentData.vowTitle}</div>
+                <div style="font-size:0.85rem; color:#aaa; text-align:justify; text-align-last:center; margin-bottom:15px;">${currentData.vowDesc}</div>
+                <div style="width:80%; height:1px; background:rgba(212,175,55,0.3); margin:0 auto 15px auto;"></div>
+                <div style="color:var(--gold); font-size:1.1rem; letter-spacing:3px; margin-bottom:5px;">【 因緣圓滿 ‧ 悉皆迴向 】</div>
+                <span style='font-size:0.85rem; color:var(--cyan); letter-spacing:1px;'>功德已化作無漏金剛光束<br>迴向虛空法界。</span>`;
+            
+            setTimeout(() => { btn.style.opacity = 1; btn.style.pointerEvents = 'auto'; }, 2500);
+        }, 3000); 
+    }
+
+    // 新增：關閉動畫並更新UI與檢查證書
+    function closeAnim() {
+        const ov = document.getElementById('anim-overlay');
+        ov.style.opacity = 0;
+        setTimeout(() => {
+            ov.style.display = 'none';
+            document.querySelectorAll('#anim-overlay .dust-particle').forEach(d => d.remove());
+            
+            updatePageUI(); 
+            updateDataModal();
+
+            if (db.totalDays365 === 0 && db.totalPracticedDays > 0) {
+                showVowAlert("歲星圓滿，365日行願已成，<br>劫波蓮花歲數 + 1。");
+            }
+
+            const triggers = [7, 70, 700, 7000, 9999999];
+            if (triggers.includes(db.totalPracticedDays)) {
+                setTimeout(() => { isAutoTriggered = true; openCert(db.totalPracticedDays); }, 1200);
+            }
+        }, 500);
     }
 
     sealBtn.addEventListener('mousedown', startPress); 
