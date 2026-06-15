@@ -608,7 +608,7 @@ body {
                     <path d="M 500 815 Q 475 805, 465 780 C 465 730, 500 715, 500 715 C 500 715, 535 730, 535 780 Q 525 805, 500 815 Z" fill="none" />
                 </g>
             </defs>
-             <g class="mandala-static-container" mask="url(#mandala-total-mask)" style="mix-blend-mode: screen;">
+         <g class="mandala-static-container" mask="url(#mandala-total-mask)" style="mix-blend-mode: screen;">
     <g class="mandala-glow-effect">
         
         <g stroke="#FFD700" stroke-width="2.2" fill="url(#mandalaInnerFill)">
@@ -617,13 +617,22 @@ body {
             <path d="M764.5 95.9 L928 599.1 L500 910 L72 599.1 L235.5 95.9" fill="none" opacity="0.6" />
             <path d="M500 10 L928 599.1 L235.5 824.1 M235.5 95.9 L928 320.9 L500 910 L72 320.9 L764.5 95.9" fill="none" opacity="0.4" stroke-width="1.2" />
             <path d="M764.5 824.1 L72 599.1 L500 10 M928 599.1 L72 320.9 M928 320.9 L72 599.1" fill="none" opacity="0.4" stroke-width="1.2" />
+            
+            <animateTransform 
+                attributeName="transform" 
+                type="rotate" 
+                from="0 500 460" 
+                to="360 500 460" 
+                dur="150s" 
+                repeatCount="indefinite" />
         </g>
 
         <circle cx="500" cy="460" r="450" fill="none" stroke="#FFD700" stroke-width="3.5" opacity="0.8" />
         <circle cx="500" cy="460" r="462" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.3" />
         
-        </g>
+    </g>
 </g>
+
 
             <g class="aura-pulse" mask="url(#halo-mask)">
                 <g mask="url(#color-ring-mask)">
@@ -812,10 +821,10 @@ body {
 
                     <g transform="translate(0, 115)" fill="url(#lotusFill)">
                         
-                        <use href="#pure-petal" transform="translate(-250, -110) rotate(-30, 500, 840)" />
-                        <use href="#pure-petal" transform="translate(250, -110) rotate(30, 500, 840)" />
-                        <use href="#pure-petal" transform="translate(-205, -55) rotate(-30, 500, 840)" />
-                        <use href="#pure-petal" transform="translate(205, -55) rotate(30, 500, 840)" />
+                        <use href="#pure-petal" transform="translate(-250, -110) rotate(-40, 500, 840)" />
+                        <use href="#pure-petal" transform="translate(250, -110) rotate(40, 500, 840)" />
+                        <use href="#pure-petal" transform="translate(-205, -65) rotate(-35, 500, 840)" />
+                        <use href="#pure-petal" transform="translate(205, -65) rotate(35, 500, 840)" />
                         <use href="#pure-petal" transform="translate(-145, -30) rotate(-20, 500, 840)" />
                         <use href="#pure-petal" transform="translate(145, -30) rotate(20, 500, 840)" />
                         <use href="#pure-petal" transform="translate(-75, -23) rotate(-8, 500, 840)" />
