@@ -32,16 +32,7 @@ body {
         /* 背景畫布 */
         canvas { position: absolute; inset: 0; }
         #starCanvas { z-index: 1; pointer-events: none; transition: filter 2s ease; }
-#waterCanvas { 
-    z-index: 2; 
-    mix-blend-mode: screen; 
-    opacity: 0.7; /* 從 0.6 大幅調高到 0.95，讓功德海的水波高光完全顯現 */
-    pointer-events: none; 
-    transition: opacity 2s ease, filter 2s ease; 
-    filter: brightness(1) contrast(1); /* 利用 CSS 濾鏡，直接將畫布線條提亮 1.4 倍，並增強波光倒影的對比度 */
-}
-
-        
+        #waterCanvas { z-index: 2; mix-blend-mode: screen; opacity: 0.6; pointer-events: none; transition: opacity 2s ease; }
         /* ================= 頂部導航與資訊列 (徹底修復擠壓跑版問題) ================= */
         /* 1. 左上導航：移除 max-width，強制同行不換行，微調間距完美適配手機 */
         .nav-top { position: absolute; top: max(20px, env(safe-area-inset-top)); left: 15px; z-index: 1000; display: flex; flex-wrap: nowrap; gap: 6px; }
@@ -432,8 +423,16 @@ body {
     <svg style="width:0; height:0; position:absolute; pointer-events:none;">
         <defs>
             <linearGradient id="glass-glare" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0.6)"/><stop offset="30%" stop-color="transparent"/><stop offset="100%" stop-color="rgba(0,0,0,0.4)"/></linearGradient>
-            <linearGradient id="water-grad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="rgba(0, 229, 255, 0.7)"/><stop offset="100%" stop-color="rgba(0, 77, 64, 0.9)"/></linearGradient>
-            <linearGradient id="water-light" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="rgba(224, 247, 250, 0.8)"/><stop offset="100%" stop-color="rgba(0, 131, 143, 0.4)"/></linearGradient>
+            <linearGradient id="water-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="rgba(0, 229, 255, 0.7)"/>
+    <stop offset="100%" stop-color="rgba(0, 150, 136, 0.55)"/>
+</linearGradient>
+
+<linearGradient id="water-light" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="rgba(224, 247, 250, 0.8)"/>
+    <stop offset="100%" stop-color="rgba(77, 208, 225, 0.45)"/>
+</linearGradient>
+
             <radialGradient id="fruit-yellow" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fff9c4"/><stop offset="60%" stop-color="#fbc02d"/><stop offset="100%" stop-color="#f57f17"/></radialGradient>
             <radialGradient id="fruit-pink" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fce4ec"/><stop offset="60%" stop-color="#f06292"/><stop offset="100%" stop-color="#c2185b"/></radialGradient>
             <radialGradient id="fruit-green" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#e8f5e9"/><stop offset="60%" stop-color="#81c784"/><stop offset="100%" stop-color="#388e3c"/></radialGradient>
