@@ -208,52 +208,105 @@
         }
 
         .action-zone { z-index: 20; margin-top: 10px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        
-        /* 全新圓形大迴向按鈕 */
+                /* 全新圓形大迴向按鈕（縮小至 90px，自帶 4 秒法界呼吸律動） */
         .seal-btn-circle {
-            width: 110px;
-            height: 110px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             position: relative;
             cursor: pointer;
             overflow: hidden;
-            border: 2px solid rgba(212, 175, 55, 0.4);
-            background: linear-gradient(180deg, rgba(25, 22, 15, 0.85) 0%, rgba(5, 5, 5, 0.95) 100%);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.7), inset 0 0 20px rgba(212, 175, 55, 0.15);
+            border: 1.5px solid rgba(212, 175, 55, 0.4);
+            background: radial-gradient(circle, rgba(25, 22, 15, 0.85) 0%, rgba(5, 5, 5, 0.95) 100%);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.7), inset 0 0 15px rgba(212, 175, 55, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
             touch-action: none;
             flex-shrink: 0;
+            margin: 0 auto;
+            
+            /* 啟動純淨呼吸動畫 */
+            animation: bodhiBreath 4s infinite ease-in-out;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
+
+        /* 按鈕內部的核心明點（象徵法界本初清淨） */
+        .seal-btn-core-light {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #ffffff, 0 0 25px var(--gold-solid);
+            pointer-events: none;
+            z-index: 2;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        /* 能量注入進度條（液態金光浮現動態） */
         .seal-btn-progress-bg {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
             height: 0%;
-            background: linear-gradient(0deg, rgba(214, 175, 53, 0.15), rgba(243, 229, 171, 0.35));
-            transition: opacity 0.3s;
+            background: linear-gradient(0deg, rgba(214, 175, 53, 0.35), rgba(243, 229, 171, 0.55));
             pointer-events: none;
-        }
-        .seal-btn-text {
-            position: relative;
-            z-index: 5;
-            color: var(--cyan);
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
-            transition: color 0.3s;
-            text-align: center;
-            line-height: 1.6;
+            z-index: 1;
+            transition: height 0.1s linear;
         }
 
-        .pool-wrap { width: 70%; max-width: 300px; text-align: center; }
+        /* 觀想模式：無法跨日或非當天時的按鈕沉寂狀態 */
+        .seal-btn-circle.view-only-mode {
+            border-color: rgba(255, 255, 255, 0.1) !important;
+            animation: none !important;
+            box-shadow: none !important;
+            background: rgba(255, 255, 255, 0.02) !important;
+        }
+        .seal-btn-circle.view-only-mode .seal-btn-core-light {
+            background: #444444 !important;
+            box-shadow: none !important;
+        }
+
+        /* 移至按鈕下方的獨立說明文字樣式（改為單行典雅字體） */
+        .seal-btn-text {
+            color: var(--cyan);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
+            transition: color 0.3s, text-shadow 0.3s;
+            text-align: center;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+
+        .pool-wrap { width: 70%; max-width: 300px; text-align: center; margin: 0 auto; }
         .pool-label { font-size: 0.7rem; color: var(--gold-light); letter-spacing: 2px; margin-bottom: 6px; opacity: 0.8; }
         .pool-bar-bg { width: 100%; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5); }
         .pool-bar-fill { height: 100%; width: 0%; transition: width 1s cubic-bezier(0.2,0.8,0.2,1); }
 
+        /* 菩提心慢速呼吸影格 */
+        @keyframes bodhiBreath {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.7), inset 0 0 15px rgba(212, 175, 55, 0.15);
+                border-color: rgba(212, 175, 55, 0.4);
+            }
+            50% {
+                transform: scale(1.04);
+                box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5), inset 0 0 22px rgba(212, 175, 55, 0.4);
+                border-color: rgba(255, 255, 255, 0.7);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.7), inset 0 0 15px rgba(212, 175, 55, 0.15);
+                border-color: rgba(212, 175, 55, 0.4);
+            }
+        }
+
+     
         /* Modal 彈窗樣式 */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.4s; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
@@ -617,20 +670,28 @@
     </div>
 </div>
 
-<div class="seal-btn-circle" id="seal-btn">
-    <div class="seal-btn-progress-bg" id="btn-progress"></div>
-    <div class="seal-btn-text" id="seal-text">長按契印<br>大迴向</div>
-</div>
-
-            </div>
-
+        <!-- 行動與資糧專區 -->
         <div class="action-zone" id="action-zone">
-            <div class="pool-wrap">
-                <div class="pool-label" id="ui-pool-text">法界暫存資糧 : 0 / 1000</div>
-                <div class="pool-bar-bg"><div class="pool-bar-fill neon-flow" id="ui-pool-bar"></div></div>
+            
+            <!-- 菩提心按鈕：內部完全純淨，僅保留明點與進度層 -->
+            <div class="seal-btn-circle" id="seal-btn">
+                <div class="seal-btn-progress-bg" id="btn-progress"></div>
+                <div class="seal-btn-core-light"></div>
             </div>
+
+            <!-- 說明文字獨立於下方，單行端嚴呈現 -->
+            <div class="seal-btn-text" id="seal-text">長按契印 ． 大迴向</div>
+
+            <!-- 資糧大數據進度條 -->
+            <div class="pool-wrap">
+                <div class="pool-label" id="ui-pool-text">法界暫存資糧 : 0 / 100</div>
+                <div class="pool-bar-bg">
+                    <div class="pool-bar-fill neon-flow" id="ui-pool-bar"></div>
+                </div>
+            </div>
+
         </div>
-    </div>
+
 <div class="modal-overlay" id="dataModal">
     <div class="data-card" onclick="event.stopPropagation()">
         <div class="data-title">十方結緣 ‧ 歷史軌跡</div>
@@ -869,7 +930,7 @@
         updatePageUI();
     }
 
-    function updatePageUI() {
+        function updatePageUI() {
         let trackersHTML = '';
         for (let i = 0; i < 7; i++) {
             let isLit = db.weekRecord[i] ? 'lit' : '';
@@ -882,20 +943,34 @@
         document.getElementById('dharma-seed-title').innerText = currentData.seed;
         document.getElementById('dharma-deity-subtitle').innerText = `${currentData.name} (${currentData.audioText})`;
 
-        document.getElementById('ui-pool-text').innerText = `法界暫存資糧 : ${db.poolPoints} / 100`; // 改為 / 100
-document.getElementById('ui-pool-bar').style.width = `${(db.poolPoints / 100) * 100}%`; // 改為 / 100
+        // 精確降級至百點制 UI 結算
+        document.getElementById('ui-pool-text').innerText = `法界暫存資糧 : ${db.poolPoints} / 100`;
+        document.getElementById('ui-pool-bar').style.width = `${(db.poolPoints / 100) * 100}%`;
 
         let btnText = document.getElementById('seal-text');
         let progressFill = document.getElementById('btn-progress');
+        let sealBtn = document.getElementById('seal-btn');
 
         if (db.weekRecord[activeViewIndex]) {
-            btnText.innerHTML = "迴向<br>圓滿"; btnText.style.color = "var(--solid-gold)";
+            // 當日或選定日已圓滿
+            btnText.innerText = "迴向圓滿"; 
+            btnText.style.color = "var(--solid-gold)";
+            btnText.style.textShadow = "0 0 8px rgba(212,175,55,0.6)";
             progressFill.style.height = '100%';
+            if(sealBtn) sealBtn.classList.remove('view-only-mode');
         } else {
             if (activeViewIndex === currentDayOfWeek) {
-                btnText.innerHTML = "長按契印<br>大迴向"; btnText.style.color = "var(--cyan)";
+                // 當日待修持狀態
+                btnText.innerText = "長按契印 ． 大迴向"; 
+                btnText.style.color = "var(--cyan)";
+                btnText.style.textShadow = "0 0 8px rgba(0,242,254,0.5)";
+                if(sealBtn) sealBtn.classList.remove('view-only-mode');
             } else {
-                btnText.innerHTML = "觀想模式<br>無法跨日"; btnText.style.color = "#555";
+                // 非當日（僅供切換觀想）狀態：啟動沉寂灰階，文字轉暗
+                btnText.innerText = "觀想模式 ． 無法跨日"; 
+                btnText.style.color = "#555";
+                btnText.style.textShadow = "none";
+                if(sealBtn) sealBtn.classList.add('view-only-mode');
             }
             progressFill.style.height = '0%';
         }
