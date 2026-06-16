@@ -724,13 +724,39 @@
         { day: 7, seed: "अ", audioText: "a", name: "胎藏界大日如來", vowTitle: "【毗盧遮那 ． 本初清淨】", vowDesc: "「अ」字是一切梵音之母，象徵「諸法本不生」，是一切智慧與法界的根本。作為萬德總歸之清淨法身，書寫此字即是回歸無量光明的本來面目。" }
     ];
 
-    const CERT_DATA = {
-        7: { title: "✦ 初心 ． 發心契印 ✦", glow: "drop-shadow(0 0 25px rgba(251,133,0,0.8))", text: "初發菩提心，已行七日。<br>橘紅微光破除無明黑闇。<br>願此一念，相續不斷。", cssVars: "--f1: #FFB703; --f2: #FB8500; --f3: #E85D04; --bd: #9D0208; --bs: #370617; --rb: #FFF;" },
-        70: { title: "✦ 歡喜 ． 菩提契印 ✦", glow: "drop-shadow(0 0 25px rgba(233,196,106,0.8))", text: "已圓滿七十日普賢行願。<br>真金寶幢於法界初現。<br>願此生步步生蓮，永不退轉。", cssVars: "--f1: #FFF8DC; --f2: #F3E5AB; --f3: #D4AF37; --bd: #AA7900; --bs: #5C4000; --rb: #FFF;" },
-        700: { title: "✦ 遠行 ． 琉璃契印 ✦", glow: "drop-shadow(0 0 35px rgba(42,157,143,0.8))", text: "歷經七百日大願薰修。<br>煩惱漸除，青琉璃寶幢高懸法界。<br>願身心清淨，內外明徹。", cssVars: "--f1: #E0FBFC; --f2: #98C1D9; --f3: #48CAE4; --bd: #2A9D8F; --bs: #1D3557; --rb: #FFF;" },
-        7000: { title: "✦ 善慧 ． 妙法契印 ✦", glow: "drop-shadow(0 0 45px rgba(193,18,31,0.8))", text: "七千日行願，不疲不厭。<br>赤紅寶幢燃起三昧真火。<br>願大悲拔苦，普度一切有情。", cssVars: "--f1: #F4A261; --f2: #E76F51; --f3: #C1121F; --bd: #780000; --bs: #370617; --rb: #FDFCDC;" },
-        9999999: { title: "✦ 無量 ． 盡未來際 ✦", glow: "drop-shadow(0 0 60px #fff) drop-shadow(0 0 15px #E9C46A)", text: "盡未來際，行願無盡。<br>累劫功德化為無上白金佛光。<br>法界授記，十方如來同聲讚歎。", cssVars: "--f1: #FFFFFF; --f2: #FDFCDC; --f3: #E0E1DD; --bd: #F3E5AB; --bs: #D4AF37; --rb: #FFFFFF;" }
+        const CERT_DATA = {
+        7: { 
+            title: "✦ 初心 ． 書寫契印 ✦", 
+            glow: "drop-shadow(0 0 25px rgba(251,133,0,0.8))", 
+            text: "初發菩提心，抄寫種子字已達七日。<br>橘紅墨痕破除無明黑闇。<br>願此法筆一落，淨念相續不斷。", 
+            cssVars: "--f1: #FFB703; --f2: #FB8500; --f3: #E85D04; --bd: #9D0208; --bs: #370617; --rb: #FFF;" 
+        },
+        70: { 
+            title: "✦ 歡喜 ． 墨光契印 ✦", 
+            glow: "drop-shadow(0 0 25px rgba(233,196,106,0.8))", 
+            text: "已圓滿七十日梵音字形抄寫。<br>真金法身字輪於意根初現。<br>願筆筆生蓮，與諸佛本願永不退轉。", 
+            cssVars: "--f1: #FFF8DC; --f2: #F3E5AB; --f3: #D4AF37; --bd: #AA7900; --bs: #5C4000; --rb: #FFF;" 
+        },
+        700: { 
+            title: "✦ 遠行 ． 琉璃契印 ✦", 
+            glow: "drop-shadow(0 0 35px rgba(42,157,143,0.8))", 
+            text: "歷經七百日妙筆觀想抄寫。<br>煩惱漸除，清淨字輪高懸意顯。<br>願法筆所至，身心如琉璃內外明徹。", 
+            cssVars: "--f1: #E0FBFC; --f2: #98C1D9; --f3: #48CAE4; --bd: #2A9D8F; --bs: #1D3557; --rb: #FFF;" 
+        },
+        7000: { 
+            title: "✦ 善慧 ． 妙法契印 ✦", 
+            glow: "drop-shadow(0 0 45px rgba(193,18,31,0.8))", 
+            text: "七千日一筆一畫，解諸法本不生。<br>赤紅墨跡燃起三昧真火，燒盡無明。<br>願以此抄寫功德，普度一切有情歸於寂靜。", 
+            cssVars: "--f1: #F4A261; --f2: #E76F51; --f3: #C1121F; --bd: #780000; --bs: #370617; --rb: #FDFCDC;" 
+        },
+        9999999: { 
+            title: "✦ 無量 ． 字輪法身 ✦", 
+            glow: "drop-shadow(0 0 60px #fff) drop-shadow(0 0 15px #E9C46A)", 
+            text: "盡未來際，一筆一劃回歸本初清淨。<br>累劫抄寫功德化為無上白金字輪佛光。<br>法身契合，十方如來同聲讚歎。", 
+            cssVars: "--f1: #FFFFFF; --f2: #FDFCDC; --f3: #E0E1DD; --bd: #F3E5AB; --bs: #D4AF37; --rb: #FFFFFF;" 
+        }
     };
+
 
     const MAIN_DB_KEY = 'PX_V15.0'; 
     let mainDb = localStorage.getItem(MAIN_DB_KEY) ? JSON.parse(localStorage.getItem(MAIN_DB_KEY)) : { points: 0, puxianData: null };
