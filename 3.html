@@ -771,7 +771,6 @@
         }
     };
 
-    // 隔離命名空間，使用 mituoWritingData 避免與原本的普賢系統衝突
     const MAIN_DB_KEY = 'PX_V15.0'; 
     let mainDb = localStorage.getItem(MAIN_DB_KEY) ? JSON.parse(localStorage.getItem(MAIN_DB_KEY)) : { points: 0, mituoWritingData: null };
     let todayStr = new Date().toDateString();
@@ -808,16 +807,17 @@
         let lastLoginWeek = Math.floor(Math.round((lastLoginMidnight - startMidnight) / 86400000) / 7);
         let currentWeek = Math.floor(daysPassed / 7);
 
-        if (currentWeek > lastLoginWeek) {
-            let successCount = db.weekRecord.filter(Boolean).length;
-            db.poolPoints += (successCount === 7) ? 1000 : (successCount * 100);
-            if (db.poolPoints >= 1000) {
-                showVowAlert(`行願資糧已滿千，<br>自動匯入彌陀淨土主系統。`);
-                mainDb.points = (mainDb.points || 0) + db.poolPoints; 
-                db.poolPoints = 0; 
-            }
-            db.weekRecord = [false, false, false, false, false, false, false];
-        }
+    if (currentWeek > lastLoginWeek) {
+    let successCount = db.weekRecord.filter(Boolean).length;
+    db.poolPoints += (successCount === 7) ? 100 : (successCount * 10); // 7日改100，單日改10
+    if (db.poolPoints >= 100) { // 門檻由改為 100
+        showVowAlert(`行願資糧已滿百，<br>自動匯入彌陀淨土主系統。`); // 改滿百
+        mainDb.points = (mainDb.points || 0) + db.poolPoints; 
+        db.poolPoints = 0; 
+    }
+    db.weekRecord = [false, false, false, false, false, false, false];
+}
+
         db.lastLogin = todayStr; saveDB();
     }
     function saveDB() { localStorage.setItem(MAIN_DB_KEY, JSON.stringify(mainDb)); }
@@ -882,8 +882,8 @@
         document.getElementById('dharma-seed-title').innerText = currentData.seed;
         document.getElementById('dharma-deity-subtitle').innerText = `${currentData.name} (${currentData.audioText})`;
 
-        document.getElementById('ui-pool-text').innerText = `法界暫存資糧 : ${db.poolPoints} / 1000`;
-        document.getElementById('ui-pool-bar').style.width = `${(db.poolPoints / 1000) * 100}%`;
+        document.getElementById('ui-pool-text').innerText = `法界暫存資糧 : ${db.poolPoints} / 100`; // 改為 / 100
+document.getElementById('ui-pool-bar').style.width = `${(db.poolPoints / 100) * 100}%`; // 改為 / 100
 
         let btnText = document.getElementById('seal-text');
         let progressFill = document.getElementById('btn-progress');
@@ -994,19 +994,20 @@
     }
 
     let isAutoTriggered = false; 
-    function openCert(tier) {
-        if (db.totalPracticedDays < tier) return; 
-        isAutoTriggered = false; 
 
-        let currentName = "行 者";
-        if (mainDb && mainDb.name && mainDb.name.trim() !== "") { currentName = mainDb.name; }
-        document.getElementById('cert-name-display').innerText = currentName;
-        document.getElementById('cert-title').innerText = CERT_DATA[tier].title;
-        document.getElementById('cert-text').innerHTML = CERT_DATA[tier].text;
-        document.getElementById('cert-glow').style.filter = CERT_DATA[tier].glow;
-        document.getElementById('cert-svg').style.cssText = CERT_DATA[tier].cssVars;
-        document.getElementById('cert-modal').classList.add('show');
-    }
+function openCert(tier, auto = false) {
+    if (db.totalPracticedDays < tier) return; 
+    isAutoTriggered = auto; // 根據來源決定是 true 還是 false
+
+    let currentName = "行 者";
+    if (mainDb && mainDb.name && mainDb.name.trim() !== "") { currentName = mainDb.name; }
+    document.getElementById('cert-name-display').innerText = currentName;
+    document.getElementById('cert-title').innerText = CERT_DATA[tier].title;
+    document.getElementById('cert-text').innerHTML = CERT_DATA[tier].text;
+    document.getElementById('cert-glow').style.filter = CERT_DATA[tier].glow;
+    document.getElementById('cert-svg').style.cssText = CERT_DATA[tier].cssVars;
+    document.getElementById('cert-modal').classList.add('show');
+}
 
     function closeCert() { 
         document.getElementById('cert-modal').classList.remove('show'); 
@@ -1159,9 +1160,11 @@
             }
 
             const triggers = [7, 70, 700, 7000, 9999999];
-            if (triggers.includes(db.totalPracticedDays)) {
-                setTimeout(() => { isAutoTriggered = true; openCert(db.totalPracticedDays); }, 1200);
-            }
+           
+if (triggers.includes(db.totalPracticedDays)) {
+    setTimeout(() => { openCert(db.totalPracticedDays, true); }, 1200);
+}
+
         }, 500);
     }
 
@@ -1199,7 +1202,7 @@
         updateDataModal(); 
 
         document.getElementById('dharma-desc-btn').addEventListener('click', () => {
-            showVowAlert(`<div style='text-align:left; font-size:0.9rem; line-height:1.8; color:#ddd;'>將諸佛與本尊大願融入 <span style='color:var(--gold);'>七日法界觀想</span> 之中。<br><br>每日由不同本尊輪值，行者可點選上方聖字切換深觀。於圓滿壇城內恭敬端嚴書寫當日種子字，並長按大迴向圓滿後，資糧將暫存法界。<br><br>每圓滿七日，系統將自動結算 <span style='color:var(--gold);'>1000 點大願資糧</span>，匯入您的彌陀主系統。</div>`);
+            showVowAlert(`<div style='text-align:left; font-size:0.9rem; line-height:1.8; color:#ddd;'>將諸佛與本尊大願融入 <span style='color:var(--gold);'>七日法界觀想</span> 之中。<br><br>每日由不同本尊輪值，行者可點選上方聖字切換深觀。於圓滿壇城內恭敬端嚴書寫當日種子字，並長按大迴向圓滿後，資糧將暫存法界。<br><br>每圓滿七日，系統將自動結算 <span style='color:var(--gold);'>100 點大願資糧</span>，匯入您的彌陀主系統。</div>`);
         });
     });
 </script>
