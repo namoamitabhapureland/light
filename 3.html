@@ -486,6 +486,16 @@
     0% { filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.5)); }
     100% { filter: drop-shadow(0 0 16px rgba(255, 242, 168, 1)); }
 }
+#flash-overlay {
+    position: fixed;
+    inset: 0;
+    /* 使用放射狀漸層，中心爆發白光，向外擴散成純金與深色，模擬法界顯化 */
+    background: radial-gradient(circle at 50% 50%, #ffffff 0%, var(--solid-gold) 60%, #0a0e14 100%);
+    opacity: 0;
+    pointer-events: none;
+    /* z-index 必須設定為 10002，才能完美覆蓋在原本的彈窗（10001）之上 */
+    z-index: 10002;
+}
 
     </style>
 </head>
@@ -702,7 +712,7 @@
 
     <div id="anim-overlay" class="modal-overlay">
         <div class="t-box" id="anim-box">
-            <div id="anim-flash" style="position:absolute; inset:0; background:#fff; opacity:0; pointer-events:none; z-index:10; transition:opacity 0.2s; border-radius:25px;"></div>
+
             <div id="anim-svg-cont" style="font-size: 3.5rem; color: var(--gold); text-shadow: 0 0 25px rgba(212,175,55,0.8); margin-bottom: 15px; position: relative; z-index: 5;"></div>
             <div id="anim-txt" style="position: relative; z-index: 5; margin-bottom: 25px; min-height: 80px;"></div>
             <button id="anim-btn" class="zen-action-btn" onclick="closeAnim()" style="position: relative; z-index: 5;">功德圓滿</button>
@@ -1078,61 +1088,69 @@
     }
 
     function showDedicationAnim(currentData) {
-        const ov = document.getElementById('anim-overlay');
-        const flash = document.getElementById('anim-flash');
-        const svgCont = document.getElementById('anim-svg-cont');
-        const txt = document.getElementById('anim-txt');
-        const btn = document.getElementById('anim-btn');
+    const ov = document.getElementById('anim-overlay');
+    const globalFlash = document.getElementById('flash-overlay'); // 改為控制全螢幕金光
+    const svgCont = document.getElementById('anim-svg-cont');
+    const txt = document.getElementById('anim-txt');
+    const btn = document.getElementById('anim-btn');
 
-        ov.style.display = 'flex';
-        flash.style.opacity = 0;
-        flash.style.transition = 'none';
+    ov.style.display = 'flex';
+    // 確保金光初始狀態為透明
+    globalFlash.style.opacity = 0;
+    globalFlash.style.transition = 'none';
 
-        svgCont.innerHTML = currentData.seed;
-        txt.innerHTML = `
-            <div style="color:var(--gold); font-size:1.05rem; letter-spacing:2px; font-weight:bold; margin-bottom:10px;">${currentData.vowTitle}</div>
-            <div style="font-size:0.85rem; color:#ccc; text-align:justify; text-align-last:center; line-height: 1.8;">${currentData.vowDesc}</div>`;
+    svgCont.innerHTML = currentData.seed;
+    txt.innerHTML = `
+        <div style="color:var(--gold); font-size:1.05rem; letter-spacing:2px; font-weight:bold; margin-bottom:10px;">${currentData.vowTitle}</div>
+        <div style="font-size:0.85rem; color:#ccc; text-align:justify; text-align-last:center; line-height: 1.8;">${currentData.vowDesc}</div>`;
+    
+    txt.style.opacity = 1;
+    btn.style.opacity = 0;
+    btn.style.pointerEvents = 'none';
+
+    setTimeout(() => ov.style.opacity = 1, 50);
+
+    // 3秒觀想結束，觸發全螢幕金光爆發
+    setTimeout(() => {
+        globalFlash.style.transition = 'none';
+        globalFlash.style.opacity = 1; // 瞬間點亮整個螢幕
+        svgCont.innerHTML = ''; 
         
-        txt.style.opacity = 1;
-        btn.style.opacity = 0;
-        btn.style.pointerEvents = 'none';
+        // 微塵粒子特效（保持原有邏輯）
+        for (let k = 0; k < 250; k++) {
+            let d = document.createElement('div');
+            d.className = 'dust-particle';
+            d.style.background = Math.random() > 0.5 ? '#f3e5ab' : '#FCF6D8'; 
+            d.style.width = Math.random() * 4 + 2 + 'px'; 
+            d.style.height = d.style.width;
+            d.style.position = 'absolute';
+            d.style.left = '50%'; d.style.top = '50%';
+            let a = Math.random() * Math.PI * 2, dist = 100 + Math.random() * 600;
+            d.style.setProperty('--dx', Math.cos(a) * dist + 'px');
+            d.style.setProperty('--dy', Math.sin(a) * dist + 'px');
+            d.style.animationDuration = (0.7 + Math.random() * 1.5) + 's';
+            ov.appendChild(d);
+        }
+        
+        // 金光維持極短時間後，優雅地緩慢隱沒
+        setTimeout(() => { 
+            globalFlash.style.transition = 'opacity 1.8s ease-in-out'; 
+            globalFlash.style.opacity = 0; 
+        }, 300); 
 
-        setTimeout(() => ov.style.opacity = 1, 50);
+        // 更新為迴向完成的文字
+        txt.innerHTML = `
+            <div style="color:var(--gold); font-size:1.05rem; letter-spacing:2px; font-weight:bold; margin-bottom:8px;">${currentData.vowTitle}</div>
+            <div style="font-size:0.85rem; color:#aaa; text-align:justify; text-align-last:center; margin-bottom:15px;">${currentData.vowDesc}</div>
+            <div style="width:80%; height:1px; background:rgba(212,175,55,0.3); margin:0 auto 15px auto;"></div>
+            <div style="color:var(--gold); font-size:1.1rem; letter-spacing:3px; margin-bottom:5px;">【 因緣圓滿 ‧ 悉皆迴向 】</div>
+            <span style='font-size:0.85rem; color:var(--cyan); letter-spacing:1px;'>功功德已化作無漏金剛光束<br>迴向虛空法界。</span>`;
+        
+        setTimeout(() => { btn.style.opacity = 1; btn.style.pointerEvents = 'auto'; }, 2500);
+    }, 3000); 
+}
 
-        setTimeout(() => {
-            flash.style.opacity = 1; 
-            svgCont.innerHTML = ''; 
             
-            for (let k = 0; k < 250; k++) {
-                let d = document.createElement('div');
-                d.className = 'dust-particle';
-                d.style.background = Math.random() > 0.5 ? '#f3e5ab' : '#FCF6D8'; 
-                d.style.width = Math.random() * 4 + 2 + 'px'; 
-                d.style.height = d.style.width;
-                d.style.position = 'absolute';
-                d.style.left = '50%'; d.style.top = '50%';
-                let a = Math.random() * Math.PI * 2, dist = 100 + Math.random() * 600;
-                d.style.setProperty('--dx', Math.cos(a) * dist + 'px');
-                d.style.setProperty('--dy', Math.sin(a) * dist + 'px');
-                d.style.animationDuration = (0.7 + Math.random() * 1.5) + 's';
-                ov.appendChild(d);
-            }
-            
-            setTimeout(() => { 
-                flash.style.transition = 'opacity 1.5s ease-in'; 
-                flash.style.opacity = 0; 
-            }, 800); 
-
-            txt.innerHTML = `
-                <div style="color:var(--gold); font-size:1.05rem; letter-spacing:2px; font-weight:bold; margin-bottom:8px;">${currentData.vowTitle}</div>
-                <div style="font-size:0.85rem; color:#aaa; text-align:justify; text-align-last:center; margin-bottom:15px;">${currentData.vowDesc}</div>
-                <div style="width:80%; height:1px; background:rgba(212,175,55,0.3); margin:0 auto 15px auto;"></div>
-                <div style="color:var(--gold); font-size:1.1rem; letter-spacing:3px; margin-bottom:5px;">【 因緣圓滿 ‧ 悉皆迴向 】</div>
-                <span style='font-size:0.85rem; color:var(--cyan); letter-spacing:1px;'>功德已化作無漏金剛光束<br>迴向虛空法界。</span>`;
-            
-            setTimeout(() => { btn.style.opacity = 1; btn.style.pointerEvents = 'auto'; }, 2500);
-        }, 3000); 
-    }
 
     function closeAnim() {
         const ov = document.getElementById('anim-overlay');
