@@ -932,11 +932,11 @@ document.getElementById('ui-pool-bar').style.width = `${(db.poolPoints / 100) * 
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        hwCtx.lineWidth = 4;
+        hwCtx.lineWidth = 10;
         hwCtx.lineCap = 'round';
         hwCtx.lineJoin = 'round';
         hwCtx.strokeStyle = '#f3e5ab';
-        hwCtx.shadowBlur = 6;
+        hwCtx.shadowBlur = 10;
         hwCtx.shadowColor = '#d4af37';
 
         if (e.type === 'mousedown' || (isDrawing && hwCtx.pathBegun === false)) {
