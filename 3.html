@@ -1007,11 +1007,11 @@
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        hwCtx.lineWidth = 10;
+        hwCtx.lineWidth = 8;
         hwCtx.lineCap = 'round';
         hwCtx.lineJoin = 'round';
         hwCtx.strokeStyle = '#f3e5ab';
-        hwCtx.shadowBlur = 10;
+        hwCtx.shadowBlur = 8;
         hwCtx.shadowColor = '#d4af37';
 
         if (e.type === 'mousedown' || (isDrawing && hwCtx.pathBegun === false)) {
