@@ -82,10 +82,10 @@
             color: #fff;
         }
 
-        /* 透明玻璃面圓形向量按鈕 */
+        /* 透明玻璃面圓形向量按鈕 - 略微放大版本 */
         .glass-vector-btn {
-            width: 46px;
-            height: 46px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             border: 1px solid rgba(255, 255, 255, 0.18);
             background: rgba(255, 255, 255, 0.06);
@@ -99,6 +99,11 @@
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             padding: 0;
+            flex-shrink: 0;
+        }
+        .glass-vector-btn svg {
+            width: 22px;
+            height: 22px;
         }
         .glass-vector-btn:hover {
             background: rgba(255, 255, 255, 0.15);
@@ -111,7 +116,7 @@
             background: rgba(255, 255, 255, 0.22);
         }
 
-        /* 曼荼羅圓形手寫區域 */
+        /* 曼荼羅圓形手寫區域與上方對齊 */
         .hrih-container {
             z-index: 20;
             margin-top: 10px;
@@ -119,6 +124,15 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
+        }
+        .hrih-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            width: 100%;
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
         .hrih-title {
             color: var(--gold);
@@ -133,7 +147,7 @@
             color: #888;
             font-size: 0.8rem;
             letter-spacing: 2px;
-            margin-bottom: 20px;
+            margin-bottom: 0;
         }
         
         .mandala-wrap {
@@ -145,7 +159,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 5px 0;
+            margin: 15px 0;
         }
         .mandala-svg {
             position: absolute;
@@ -192,38 +206,33 @@
             height: 100%;
             touch-action: none;
         }
-        
-        .write-btn-group {
-            margin-top: 15px;
-            display: flex;
-            gap: 20px;
-        }
 
-        .action-zone { z-index: 20; margin-top: 15px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .action-zone { z-index: 20; margin-top: 10px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 10px; }
         
-        .seal-btn-rect {
-            width: 85%;
-            max-width: 320px;
-            height: 52px;
+        /* 全新圓形大迴向按鈕 */
+        .seal-btn-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
             position: relative;
             cursor: pointer;
-            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.4);
+            border: 2px solid rgba(212, 175, 55, 0.4);
             background: linear-gradient(180deg, rgba(25, 22, 15, 0.85) 0%, rgba(5, 5, 5, 0.95) 100%);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.7), inset 0 0 20px rgba(212, 175, 55, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
             touch-action: none;
+            flex-shrink: 0;
         }
         .seal-btn-progress-bg {
             position: absolute;
+            bottom: 0;
             left: 0;
-            top: 0;
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, rgba(214, 175, 53, 0.05), rgba(243, 229, 171, 0.25));
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(0deg, rgba(214, 175, 53, 0.15), rgba(243, 229, 171, 0.35));
             transition: opacity 0.3s;
             pointer-events: none;
         }
@@ -232,10 +241,12 @@
             z-index: 5;
             color: var(--cyan);
             font-size: 0.9rem;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             font-weight: bold;
             text-shadow: 0 0 10px rgba(0,0,0,0.8);
             transition: color 0.3s;
+            text-align: center;
+            line-height: 1.6;
         }
 
         .pool-wrap { width: 70%; max-width: 300px; text-align: center; }
@@ -375,8 +386,26 @@
         </div>
 
         <div class="hrih-container">
-            <div class="hrih-title" id="dharma-seed-title">भः</div>
-            <div class="hrih-subtitle" id="dharma-deity-subtitle">釋迦如來 (bhaḥ)</div>
+            <div class="hrih-header-row">
+                <button class="glass-vector-btn" onclick="clearCanvas()" aria-label="恢復">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+                    </svg>
+                </button>
+
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div class="hrih-title" id="dharma-seed-title">भः</div>
+                    <div class="hrih-subtitle" id="dharma-deity-subtitle">釋迦如來 (bhaḥ)</div>
+                </div>
+
+                <button class="glass-vector-btn" onclick="playTTS()" aria-label="發音">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18V5l12-2v13" />
+                        <circle cx="6" cy="18" r="3" />
+                        <circle cx="18" cy="16" r="3" />
+                    </svg>
+                </button>
+            </div>
 
             <div class="mandala-wrap">
                 <svg class="mandala-svg" viewBox="0 0 400 400">
@@ -420,27 +449,13 @@
                 </div>
             </div>
 
-            <div class="write-btn-group">
-                <button class="glass-vector-btn" onclick="clearCanvas()" aria-label="恢復">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
-                    </svg>
-                </button>
-                <button class="glass-vector-btn" onclick="playTTS()" aria-label="發音">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 18V5l12-2v13" />
-                        <circle cx="6" cy="18" r="3" />
-                        <circle cx="18" cy="16" r="3" />
-                    </svg>
-                </button>
+            <div class="seal-btn-circle" id="seal-btn">
+                <div class="seal-btn-progress-bg" id="btn-progress"></div>
+                <div class="seal-btn-text" id="seal-text">長按契印<br>大迴向</div>
             </div>
         </div>
 
         <div class="action-zone" id="action-zone">
-            <div class="seal-btn-rect" id="seal-btn">
-                <div class="seal-btn-progress-bg" id="btn-progress"></div>
-                <div class="seal-btn-text" id="seal-text">長按契印 ． 大迴向</div>
-            </div>
             <div class="pool-wrap">
                 <div class="pool-label" id="ui-pool-text">法界暫存資糧 : 0 / 1000</div>
                 <div class="pool-bar-bg"><div class="pool-bar-fill neon-flow" id="ui-pool-bar"></div></div>
@@ -640,15 +655,15 @@
         let progressFill = document.getElementById('btn-progress');
 
         if (db.weekRecord[activeViewIndex]) {
-            btnText.innerText = "【 此日大迴向已圓滿 】"; btnText.style.color = "var(--solid-gold)";
-            progressFill.style.width = '100%';
+            btnText.innerHTML = "迴向<br>圓滿"; btnText.style.color = "var(--solid-gold)";
+            progressFill.style.height = '100%';
         } else {
             if (activeViewIndex === currentDayOfWeek) {
-                btnText.innerText = "長按契印 ． 大迴向"; btnText.style.color = "var(--cyan)";
+                btnText.innerHTML = "長按契印<br>大迴向"; btnText.style.color = "var(--cyan)";
             } else {
-                btnText.innerText = "瀏覽觀想中 ． 無法跨日迴向"; btnText.style.color = "#555";
+                btnText.innerHTML = "觀想模式<br>無法跨日"; btnText.style.color = "#555";
             }
-            progressFill.style.width = '0%';
+            progressFill.style.height = '0%';
         }
     }
 
@@ -793,10 +808,11 @@
     const hintText = document.getElementById('seal-text');
     let reqAnimId, startTime, DURATION = 2000;
 
+    /* 將進度條動畫調整為由底部向上方滿溢，契合圓形按鈕 */
     function drawProgress(timestamp) {
         if (!startTime) startTime = timestamp; 
         let pct = Math.min((timestamp - startTime) / DURATION, 1);
-        progressFill.style.width = (pct * 100) + '%';
+        progressFill.style.height = (pct * 100) + '%';
         if (pct < 1) reqAnimId = requestAnimationFrame(drawProgress); else completeTodayTask();
     }
 
@@ -804,7 +820,7 @@
         if (activeViewIndex !== currentDayOfWeek) return; 
         if (db.weekRecord[currentDayOfWeek]) return; 
         e.preventDefault(); 
-        hintText.innerText = "能 量 注 入 中 ..."; 
+        hintText.innerHTML = "能量<br>注入"; 
         hintText.style.color = "#fff"; 
         if (reqAnimId) { cancelAnimationFrame(reqAnimId); }
         startTime = null; 
@@ -815,8 +831,8 @@
         if (activeViewIndex !== currentDayOfWeek) return;
         if (db.weekRecord[currentDayOfWeek]) return; 
         cancelAnimationFrame(reqAnimId); 
-        progressFill.style.width = '0%'; 
-        hintText.innerText = "長按契印 ． 大迴向"; 
+        progressFill.style.height = '0%'; 
+        hintText.innerHTML = "長按契印<br>大迴向"; 
         hintText.style.color = "var(--cyan)"; 
     }
     
@@ -948,7 +964,6 @@
         updatePageUI(); 
         updateDataModal(); 
 
-        // 安全接管法門說明點擊事件，免去 inline 轉義造成的失效問題
         document.getElementById('dharma-desc-btn').addEventListener('click', () => {
             showVowAlert(`<div style='text-align:left; font-size:0.9rem; line-height:1.8; color:#ddd;'>將諸佛與本尊大願融入 <span style='color:var(--gold);'>七日法界觀想</span> 之中。<br><br>每日由不同本尊輪值，行者可點選上方聖字切換深觀。於圓滿壇城內恭敬端嚴書寫當日種子字，並長按大迴向圓滿後，資糧將暫存法界。<br><br>每圓滿七日，系統將自動結算 <span style='color:var(--gold);'>1000 點大願資糧</span>，匯入您的彌陀主系統。</div>`);
         });
