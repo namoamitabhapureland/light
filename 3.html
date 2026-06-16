@@ -738,7 +738,7 @@
         { day: 7, seed: "अ", audioText: "a", name: "胎藏界大日如來", vowTitle: "【毗盧遮那 ． 本初清淨】", vowDesc: "「अ」字是一切梵音之母，象徵「諸法本不生」，是一切智慧與法界的根本。作為萬德總歸之清淨法身，書寫此字即是回歸無量光明的本來面目。" }
     ];
 
-        const CERT_DATA = {
+    const CERT_DATA = {
         7: { 
             title: "✦ 初心 ． 書寫契印 ✦", 
             glow: "drop-shadow(0 0 25px rgba(251,133,0,0.8))", 
@@ -771,13 +771,13 @@
         }
     };
 
-
+    // 隔離命名空間，使用 mituoWritingData 避免與原本的普賢系統衝突
     const MAIN_DB_KEY = 'PX_V15.0'; 
-    let mainDb = localStorage.getItem(MAIN_DB_KEY) ? JSON.parse(localStorage.getItem(MAIN_DB_KEY)) : { points: 0, puxianData: null };
+    let mainDb = localStorage.getItem(MAIN_DB_KEY) ? JSON.parse(localStorage.getItem(MAIN_DB_KEY)) : { points: 0, mituoWritingData: null };
     let todayStr = new Date().toDateString();
 
-    if (!mainDb.puxianData) {
-        mainDb.puxianData = {
+    if (!mainDb.mituoWritingData) {
+        mainDb.mituoWritingData = {
             startDate: new Date().setHours(0,0,0,0), 
             lastLogin: todayStr,
             weekRecord: [false, false, false, false, false, false, false],
@@ -789,7 +789,7 @@
         localStorage.setItem(MAIN_DB_KEY, JSON.stringify(mainDb));
     }
 
-    let db = mainDb.puxianData; 
+    let db = mainDb.mituoWritingData; 
     let trueDays = (db.totalYears108 * 365) + db.totalDays365;
     if (typeof db.totalPracticedDays === 'undefined' || db.totalPracticedDays < trueDays) {
         db.totalPracticedDays = trueDays;
@@ -1042,7 +1042,6 @@
     const hintText = document.getElementById('seal-text');
     let reqAnimId, startTime, DURATION = 2000;
 
-    /* 將進度條動畫調整為由底部向上方滿溢，契合圓形按鈕 */
     function drawProgress(timestamp) {
         if (!startTime) startTime = timestamp; 
         let pct = Math.min((timestamp - startTime) / DURATION, 1);
@@ -1088,69 +1087,62 @@
     }
 
     function showDedicationAnim(currentData) {
-    const ov = document.getElementById('anim-overlay');
-    const globalFlash = document.getElementById('flash-overlay'); // 改為控制全螢幕金光
-    const svgCont = document.getElementById('anim-svg-cont');
-    const txt = document.getElementById('anim-txt');
-    const btn = document.getElementById('anim-btn');
+        const ov = document.getElementById('anim-overlay');
+        const globalFlash = document.getElementById('flash-overlay'); 
+        const svgCont = document.getElementById('anim-svg-cont');
+        const txt = document.getElementById('anim-txt');
+        const btn = document.getElementById('anim-btn');
 
-    ov.style.display = 'flex';
-    // 確保金光初始狀態為透明
-    globalFlash.style.opacity = 0;
-    globalFlash.style.transition = 'none';
-
-    svgCont.innerHTML = currentData.seed;
-    txt.innerHTML = `
-        <div style="color:var(--gold); font-size:1.05rem; letter-spacing:2px; font-weight:bold; margin-bottom:10px;">${currentData.vowTitle}</div>
-        <div style="font-size:0.85rem; color:#ccc; text-align:justify; text-align-last:center; line-height: 1.8;">${currentData.vowDesc}</div>`;
-    
-    txt.style.opacity = 1;
-    btn.style.opacity = 0;
-    btn.style.pointerEvents = 'none';
-
-    setTimeout(() => ov.style.opacity = 1, 50);
-
-    // 3秒觀想結束，觸發全螢幕金光爆發
-    setTimeout(() => {
+        ov.style.display = 'flex';
+        globalFlash.style.opacity = 0;
         globalFlash.style.transition = 'none';
-        globalFlash.style.opacity = 1; // 瞬間點亮整個螢幕
-        svgCont.innerHTML = ''; 
-        
-        // 微塵粒子特效（保持原有邏輯）
-        for (let k = 0; k < 250; k++) {
-            let d = document.createElement('div');
-            d.className = 'dust-particle';
-            d.style.background = Math.random() > 0.5 ? '#f3e5ab' : '#FCF6D8'; 
-            d.style.width = Math.random() * 4 + 2 + 'px'; 
-            d.style.height = d.style.width;
-            d.style.position = 'absolute';
-            d.style.left = '50%'; d.style.top = '50%';
-            let a = Math.random() * Math.PI * 2, dist = 100 + Math.random() * 600;
-            d.style.setProperty('--dx', Math.cos(a) * dist + 'px');
-            d.style.setProperty('--dy', Math.sin(a) * dist + 'px');
-            d.style.animationDuration = (0.7 + Math.random() * 1.5) + 's';
-            ov.appendChild(d);
-        }
-        
-        // 金光維持極短時間後，優雅地緩慢隱沒
-        setTimeout(() => { 
-            globalFlash.style.transition = 'opacity 1.8s ease-in-out'; 
-            globalFlash.style.opacity = 0; 
-        }, 300); 
 
-        // 更新為迴向完成的文字
+        svgCont.innerHTML = currentData.seed;
         txt.innerHTML = `
-            <div style="color:var(--gold); font-size:1.05rem; letter-spacing:2px; font-weight:bold; margin-bottom:8px;">${currentData.vowTitle}</div>
-            <div style="font-size:0.85rem; color:#aaa; text-align:justify; text-align-last:center; margin-bottom:15px;">${currentData.vowDesc}</div>
-            <div style="width:80%; height:1px; background:rgba(212,175,55,0.3); margin:0 auto 15px auto;"></div>
-            <div style="color:var(--gold); font-size:1.1rem; letter-spacing:3px; margin-bottom:5px;">【 因緣圓滿 ‧ 悉皆迴向 】</div>
-            <span style='font-size:0.85rem; color:var(--cyan); letter-spacing:1px;'>功功德已化作無漏金剛光束<br>迴向虛空法界。</span>`;
+            <div style="color:var(--gold); font-size:1.05rem; letter-spacing:2px; font-weight:bold; margin-bottom:10px;">${currentData.vowTitle}</div>
+            <div style="font-size:0.85rem; color:#ccc; text-align:justify; text-align-last:center; line-height: 1.8;">${currentData.vowDesc}</div>`;
         
-        setTimeout(() => { btn.style.opacity = 1; btn.style.pointerEvents = 'auto'; }, 2500);
-    }, 3000); 
-}
+        txt.style.opacity = 1;
+        btn.style.opacity = 0;
+        btn.style.pointerEvents = 'none';
 
+        setTimeout(() => ov.style.opacity = 1, 50);
+
+        setTimeout(() => {
+            globalFlash.style.transition = 'none';
+            globalFlash.style.opacity = 1; 
+            svgCont.innerHTML = ''; 
             
+            for (let k = 0; k < 250; k++) {
+                let d = document.createElement('div');
+                d.className = 'dust-particle';
+                d.style.background = Math.random() > 0.5 ? '#f3e5ab' : '#FCF6D8'; 
+                d.style.width = Math.random() * 4 + 2 + 'px'; 
+                d.style.height = d.style.width;
+                d.style.position = 'absolute';
+                d.style.left = '50%'; d.style.top = '50%';
+                let a = Math.random() * Math.PI * 2, dist = 100 + Math.random() * 600;
+                d.style.setProperty('--dx', Math.cos(a) * dist + 'px');
+                d.style.setProperty('--dy', Math.sin(a) * dist + 'px');
+                d.style.animationDuration = (0.7 + Math.random() * 1.5) + 's';
+                ov.appendChild(d);
+            }
+            
+            setTimeout(() => { 
+                globalFlash.style.transition = 'opacity 1.8s ease-in-out'; 
+                globalFlash.style.opacity = 0; 
+            }, 300); 
+
+            txt.innerHTML = `
+                <div style="color:var(--gold); font-size:1.05rem; letter-spacing:2px; font-weight:bold; margin-bottom:8px;">${currentData.vowTitle}</div>
+                <div style="font-size:0.85rem; color:#aaa; text-align:justify; text-align-last:center; margin-bottom:15px;">${currentData.vowDesc}</div>
+                <div style="width:80%; height:1px; background:rgba(212,175,55,0.3); margin:0 auto 15px auto;"></div>
+                <div style="color:var(--gold); font-size:1.1rem; letter-spacing:3px; margin-bottom:5px;">【 因緣圓滿 ‧ 悉皆迴向 】</div>
+                <span style='font-size:0.85rem; color:var(--cyan); letter-spacing:1px;'>功功德已化作無漏金剛光束<br>迴向虛空法界。</span>`;
+            
+            setTimeout(() => { btn.style.opacity = 1; btn.style.pointerEvents = 'auto'; }, 2500);
+        }, 3000); 
+    }
 
     function closeAnim() {
         const ov = document.getElementById('anim-overlay');
