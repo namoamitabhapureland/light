@@ -624,7 +624,7 @@
 
                 <div style="display: flex; flex-direction: column; align-items: center;">
                     <div class="hrih-title" id="dharma-seed-title">भः</div>
-                    <div class="hrih-subtitle" id="dharma-deity-subtitle">釋迦如來 (bhaḥ)</div>
+                    <div class="hrih-subtitle" id="dharma-deity-subtitle">釋迦本師 (bhaḥ)</div>
                 </div>
 
                 <button class="glass-vector-btn" onclick="playTTS()" aria-label="發音">
@@ -803,13 +803,13 @@
 
 <script>
     const purelandData = [
-        { day: 1, seed: "भः", audioText: "bhaḥ", name: "釋迦牟尼如來", vowTitle: "【娑婆教主 ． 寂靜涅槃】", vowDesc: "「भः」字代表釋迦如來於娑婆世界示現成佛、破除一切魔軍與無明的威德。書寫此字能生起無上出離心與大菩提心，身心歸於寂靜。" },
+        { day: 1, seed: "भः", audioText: "bhaḥ", name: "釋迦本師", vowTitle: "【娑婆教主 ． 寂靜涅槃】", vowDesc: "「भः」字代表釋迦如來於娑婆世界示現成佛、破除一切魔軍與無明的威德。書寫此字能生起無上出離心與大菩提心，身心歸於寂靜。" },
         { day: 2, seed: "ह", audioText: "ha", name: "地藏菩薩", vowTitle: "【地藏本願 ． 拔苦與樂】", vowDesc: "「ह」字具備一切法因不可得、大悲拔苦之義。行者書寫此字，當觀想自身與地藏菩薩「地獄不空，誓不成佛」的無邊願力相應，化解一切怨結，大地安穩。" },
         { day: 3, seed: "यु", audioText: "yu", name: "彌勒菩薩", vowTitle: "【慈氏當來 ． 慈心三昧】", vowDesc: "「यु」字代表彌勒如來的慈心三昧，象徵「大慈予樂」與當來下生的希望。書寫此字當與慈悲心相應，願一切有情皆得解脫歡喜，皆受記作佛。" },
         { day: 4, seed: "अं", audioText: "aṃ", name: "普賢文殊", vowTitle: "【大行大智 ． 智行合一】", vowDesc: "「अं」字代表智行圓滿、空性與菩提心的極致結合。文殊之大智導引普賢之大行，行者書寫此字，即能開啟內在無上妙智，行願無礙。" },
         { day: 5, seed: "भै", audioText: "bhai", name: "藥師佛", vowTitle: "【藥師消災 ． 身心琉璃】", vowDesc: "「भै」字乃藥師如來之核心密碼，象徵醫治一切眾生身心疾苦與無明痼疾。書寫時觀想琉璃光芒照徹法界，消除內外障礙，福慧增長。" },
         { day: 6, seed: "ह्रीः", audioText: "hrīḥ", name: "阿彌陀佛", vowTitle: "【彌陀淨土 ． 萬德洪名】", vowDesc: "「ह्रीः」字（紇哩字）是阿彌陀佛的根本心字，具足「清淨、慚愧、因緣圓滿」之萬德。作為圓滿極樂之報身示現，書寫此字直通西方淨土，九品蓮開。" },
-        { day: 7, seed: "अ", audioText: "a", name: "胎藏界大日如來", vowTitle: "【毗盧遮那 ． 本初清淨】", vowDesc: "「अ」字是一切梵音之母，象徵「諸法本不生」，是一切智慧與法界的根本。作為萬德總歸之清淨法身，書寫此字即是回歸無量光明的本來面目。" }
+        { day: 7, seed: "अ", audioText: "a", name: "大日如來", vowTitle: "【毗盧遮那 ． 本初清淨】", vowDesc: "「अ」字是一切梵音之母，象徵「諸法本不生」，是一切智慧與法界的根本。作為萬德總歸之清淨法身，書寫此字即是回歸無量光明的本來面目。" }
     ];
 
     const CERT_DATA = {
@@ -1049,16 +1049,43 @@
 
     function playTTS() {
         if (!('speechSynthesis' in window)) return showVowAlert("法界回饋：您的設備暫不支援語音朗讀。");
-        window.speechSynthesis.cancel(); 
-        const currentData = purelandData[activeViewIndex];
         
+        // 1. 清除先前可能卡住的語音佇列
+        window.speechSynthesis.cancel(); 
+        
+        const currentData = purelandData[activeViewIndex];
+        if (!currentData || !currentData.seed) return;
+
         let utterance = new SpeechSynthesisUtterance(currentData.seed);
-        utterance.lang = 'hi-IN';
         utterance.rate = 0.75; 
         utterance.pitch = 0.9;
-        window.speechSynthesis.speak(utterance);
+        
+        // 2. 【核心相容防呆】動態偵測平板是否具備印地語/梵音引擎
+        const voices = window.speechSynthesis.getVoices();
+        const hasHindiVoice = voices.some(v => v.lang.toLowerCase().startsWith('hi'));
+        
+        if (hasHindiVoice) {
+            utterance.lang = 'hi-IN'; // 若平板有安裝印地語，優先以梵音聲調誦讀
+        } else {
+            // 若平板無印地語，則自動降級採用本地系統預設語音（如 zh-TW 或 en-US），防止完全靜音
+            utterance.lang = navigator.language || 'zh-TW'; 
+        }
+
+        // 3. 【防範垃圾回收 Bug】將物件掛載至全域 window，防止平板瀏覽器過早將其從記憶體釋放
+        window.dharmaCurrentUtterance = utterance; 
+
+        // 4. 【解決佇列卡死 Bug】微幅延遲 60 毫秒執行，確保 cancel 動作完全釋放後才讓平板發聲
+        setTimeout(() => {
+            window.speechSynthesis.speak(utterance);
+        }, 60);
     }
 
+    // 5. 【額外保障機制】部分瀏覽器首次載入時 voices 陣列為空，此監聽可確保語音包動態載入成功
+    if ('speechSynthesis' in window && window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = () => {
+            window.speechSynthesis.getVoices();
+        };
+    }
     function updateDataModal() {
         document.getElementById('ui-txt-365').innerText = db.totalDays365; 
         document.getElementById('ui-txt-108').innerText = db.totalYears108;
