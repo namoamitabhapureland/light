@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <link rel="manifest" href="manifest.json">
-    <title>彌陀淨土系統 ． 七日法界觀想</title>
+    <title>弥陀浄土システム ． 七日法界観想</title>
     <style>
         :root {
             --bg-deep: #020203; --gold: #f3e5ab; --solid-gold: #d4af37; --cyan: #8ba89c; 
@@ -16,7 +16,7 @@
         * { box-sizing: border-box; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; outline: none; }
         body { 
             background: radial-gradient(circle at 50% 50%, #0a0e14 0%, var(--bg-deep) 100%); 
-            font-family: "PingFang TC", "Microsoft JhengHei", serif;
+            font-family: "Hiragino Mincho ProN", "MS PMincho", "Noto Serif JP", serif;
             overflow: hidden; touch-action: none; width: 100vw; height: 100dvh;
             display: flex; justify-content: center; align-items: center; color: #fff;
         }
@@ -39,7 +39,7 @@
         .mist-5 { width: 800px; height: 400px; left: 35%; bottom: -40px; background: radial-gradient(ellipse, rgba(255,255,255,0.25) 0%, transparent 70%); animation-duration: 14s; animation-delay: -10s; }
         @keyframes drift-mist { 0% { transform: translateX(-40px) translateY(10px) scale(1); opacity: 0.6; } 100% { transform: translateX(40px) translateY(-10px) scale(1.1); opacity: 1; } }
 
-        /* 行願主頁面 */
+        /* 行願メインページ */
         #page-main { position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column; align-items: center; width: 100%; height: 100%; }
         .neon-flow { background: linear-gradient(90deg, #FDF5D3, #D4AF37, #E5989B, #89CFF0, #C9A0DC, #D4AF37, #FDF5D3); background-size: 200% 100%; animation: energyFlow 4s linear infinite; }
         @keyframes energyFlow { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
@@ -82,7 +82,7 @@
             color: #fff;
         }
 
-        /* 透明玻璃面圓形向量按鈕 - 略微放大版本 */
+        /* 透明ガラス円形ベクトルボタン - わずかに拡大されたバージョン */
         .glass-vector-btn {
             width: 52px;
             height: 52px;
@@ -116,7 +116,7 @@
             background: rgba(255, 255, 255, 0.22);
         }
 
-        /* 曼荼羅圓形手寫區域與上方對齊 */
+        /* 曼荼羅円形手書きエリア、上部整列 */
         .hrih-container {
             z-index: 20;
             margin-top: 10px;
@@ -170,7 +170,7 @@
             z-index: 20;
         }
         
-        /* 線框與同心圓非同步旋轉設定 */
+        /* ワイヤーフレームと同心円の非同期回転設定 */
         .circle-layer-1 { animation: rotateClockwise 50s linear infinite; transform-origin: 200px 200px; }
         .circle-layer-2 { animation: rotateCounterClockwise 70s linear infinite; transform-origin: 200px 200px; }
         .circle-layer-3 { animation: rotateClockwise 95s linear infinite; transform-origin: 200px 200px; }
@@ -208,53 +208,106 @@
         }
 
         .action-zone { z-index: 20; margin-top: 10px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        
-        /* 全新圓形大迴向按鈕 */
+        /* 新しい円形大回向ボタン（90pxに縮小、4秒の法界呼吸リズム内蔵） */
         .seal-btn-circle {
-            width: 110px;
-            height: 110px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             position: relative;
             cursor: pointer;
             overflow: hidden;
-            border: 2px solid rgba(212, 175, 55, 0.4);
-            background: linear-gradient(180deg, rgba(25, 22, 15, 0.85) 0%, rgba(5, 5, 5, 0.95) 100%);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.7), inset 0 0 20px rgba(212, 175, 55, 0.15);
+            border: 1.5px solid rgba(212, 175, 55, 0.4);
+            background: radial-gradient(circle, rgba(25, 22, 15, 0.85) 0%, rgba(5, 5, 5, 0.95) 100%);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.7), inset 0 0 15px rgba(212, 175, 55, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
             touch-action: none;
             flex-shrink: 0;
+            margin: 0 auto;
+            
+            /* 純粋な呼吸アニメーションを開始 */
+            animation: bodhiBreath 4s infinite ease-in-out;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
+
+        /* ボタン内部のコア明点（法界の初発清浄を象徴） */
+        .seal-btn-core-light {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #f3e5ab;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #f3e5ab, 0 0 25px var(--gold-solid);
+            pointer-events: none;
+            z-index: 2;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        /* エネルギー注入進行状況バー（流体金光浮現ダイナミック） */
         .seal-btn-progress-bg {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
             height: 0%;
-            background: linear-gradient(0deg, rgba(214, 175, 53, 0.15), rgba(243, 229, 171, 0.35));
-            transition: opacity 0.3s;
+            background: linear-gradient(0deg, rgba(214, 175, 53, 0.35), rgba(243, 229, 171, 0.55));
             pointer-events: none;
-        }
-        .seal-btn-text {
-            position: relative;
-            z-index: 5;
-            color: var(--cyan);
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
-            transition: color 0.3s;
-            text-align: center;
-            line-height: 1.6;
+            z-index: 1;
+            transition: height 0.1s linear;
         }
 
-        .pool-wrap { width: 70%; max-width: 300px; text-align: center; }
+        /* 観想モード：日をまたぐ場合または当日ではない場合のボタン沈黙状態 */
+        .seal-btn-circle.view-only-mode {
+            border-color: rgba(255, 255, 255, 0.1) !important;
+            animation: none !important;
+            box-shadow: none !important;
+            background: rgba(255, 255, 255, 0.02) !important;
+        }
+        .seal-btn-circle.view-only-mode .seal-btn-core-light {
+            background: #444444 !important;
+            box-shadow: none !important;
+        }
+
+        /* ボタン下方に移動した独立説明テキストスタイル（単行のエレガントなフォントに変更） */
+        .seal-btn-text {
+            color: var(--cyan);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
+            transition: color 0.3s, text-shadow 0.3s;
+            text-align: center;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+
+        .pool-wrap { width: 70%; max-width: 300px; text-align: center; margin: 0 auto; }
         .pool-label { font-size: 0.7rem; color: var(--gold-light); letter-spacing: 2px; margin-bottom: 6px; opacity: 0.8; }
         .pool-bar-bg { width: 100%; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5); }
         .pool-bar-fill { height: 100%; width: 0%; transition: width 1s cubic-bezier(0.2,0.8,0.2,1); }
 
-        /* Modal 彈窗樣式 */
+        /* 菩提心低速呼吸フレーム */
+        @keyframes bodhiBreath {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.7), inset 0 0 15px rgba(212, 175, 55, 0.15);
+                border-color: rgba(212, 175, 55, 0.4);
+            }
+            50% {
+                transform: scale(1.04);
+                box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5), inset 0 0 22px rgba(212, 175, 55, 0.4);
+                border-color: rgba(255, 255, 255, 0.7);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.7), inset 0 0 15px rgba(212, 175, 55, 0.15);
+                border-color: rgba(212, 175, 55, 0.4);
+            }
+        }
+
+     
+        /* モーダルポップアップスタイル */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.4s; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
         .data-card { width: 92%; max-width: 420px; border: 1px solid rgba(212,175,55,0.42); border-radius: 20px; padding: 30px 25px; box-shadow: 0 10px 55px rgba(0,0,0,0.9), inset 0 0 20px rgba(212,175,55,0.1); background: linear-gradient(180deg, rgba(20,20,20,0.95) 0%, rgba(5,5,5,0.98) 100%); }
@@ -288,14 +341,25 @@
         .bar-labels span { position: absolute; font-size: 9px; color: var(--text-gold); letter-spacing: 1px; transform: translateX(-50%); white-space: nowrap; opacity: 0.7; }
         .bar-labels span::before { content: ''; position: absolute; top: -11px; left: 50%; transform: translateX(-50%); width: 3px; height: 3px; background: rgba(255,255,255,0.8); border-radius: 50%; box-shadow: 0 0 4px #fff; }
         
-        /* 證書彈窗 */
+        /* 証明書ポップアップ */
         .cert-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); z-index: 10000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.4s; }
         .cert-overlay.show { opacity: 1; pointer-events: auto; }
         .cert-box { background: linear-gradient(180deg, rgba(20,20,20,0.95) 0%, rgba(5,5,5,0.98) 100%); border: 1px solid rgba(212,175,55,0.4); border-radius: 20px; width: 85%; max-width: 360px; padding: 40px 25px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.9); transform: translateY(20px) scale(0.95); transition: 0.4s; }
         .cert-overlay.show .cert-box { transform: translateY(0) scale(1); }
         .cert-header { color: var(--gold-light); font-size: 0.9rem; letter-spacing: 6px; margin-bottom: 25px; }
-        .cert-svg-wrap { width: 90px; height: 90px; margin: 0 auto 25px auto; display: flex; align-items: center; justify-content: center; animation: cert-float 3s infinite alternate; }
-        .cert-svg-wrap svg { width: 100%; height: 100%; overflow: visible; }
+        .cert-svg-wrap { 
+            width: 55px; 
+            height: 120px; 
+            margin: 0 auto 25px auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            animation: cert-float 3s infinite alternate; 
+        }
+        
+        .cert-svg-wrap .modal-banner {
+            animation: bannerGlow 3s ease-in-out infinite alternate; 
+        }
         @keyframes cert-float { 0% { transform: translateY(0); } 100% { transform: translateY(-8px); } }
         .cert-name { color: var(--solid-gold); font-size: 1.3rem; font-weight: bold; letter-spacing: 5px; margin: 10px 0 25px 0; }
         .cert-divider { width: 60%; height: 1px; background: radial-gradient(circle, rgba(212,175,55,0.6) 0%, transparent 100%); margin: 0 auto 20px auto; }
@@ -308,7 +372,7 @@
             transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* ════ 微塵迴向特效 CSS ════ */
+        /* ════ 微塵回向エフェクト CSS ════ */
         .dust-particle {
             position: absolute;
             width: 3px; height: 3px;
@@ -324,7 +388,7 @@
             100% { transform: translate(var(--dx), var(--dy)); opacity: 0; }
         }
 
-        /* ════ 黑金彈框樣式 ════ */
+        /* ════ 黒金ポップアップスタイル ════ */
         #anim-overlay { z-index: 10001; }
         .t-box { 
             background: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.12) 0%, rgba(1,2,4,0.95) 100%); 
@@ -332,164 +396,174 @@
             display: flex; flex-direction: column; align-items: center; max-width: 85%; width: 340px; text-align: center; 
             box-shadow: 0 0 30px rgba(0,0,0,0.8); position: relative; overflow: hidden;
         }
-        /* 彈出視窗寶幡基礎設定 */
-.modal-banner {
-    width: 55px;
-    height: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    transform-origin: top center;
-    transition: filter 0.5s ease, transform 0.3s ease, box-shadow 0.5s ease;
-    animation: modalSway 5s ease-in-out infinite;
-}
+        /* ポップアップウィンドウ宝幡基本設定 */
+        .modal-banner {
+            width: 55px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transform-origin: top center;
+            transition: filter 0.5s ease, transform 0.3s ease, box-shadow 0.5s ease;
+            animation: modalSway 5s ease-in-out infinite;
+        }
 
-/* 懸停時微幅放大 */
-.modal-banner:hover {
-    transform: scale(1.05);
-}
+        /* ホバー時に微幅拡大 */
+        .modal-banner:hover {
+            transform: scale(1.05);
+        }
 
-/* 【關鍵：未點亮/未解鎖狀態】 呈現暗淡、灰階、低飽和度 */
-.modal-banner.banner-unlit {
-    filter: grayscale(85%) brightness(40%) contrast(90%);
-    opacity: 0.5;
-    animation: none; /* 未解鎖時不搖擺 */
-}
+        /* 【重要：未点灯/未解放状態】 暗淡、グレースケール、低彩度で表示 */
+        .modal-banner.banner-unlit {
+            filter: grayscale(85%) brightness(40%) contrast(90%);
+            opacity: 0.5;
+            animation: none; /* 未解放時は揺れない */
+        }
 
-/* 【關鍵：已點亮/已解鎖狀態】 觸發發光與呼吸動畫 */
-.modal-banner:not(.banner-unlit) {
-    filter: drop-shadow(0 0 12px var(--gold-light, #ffd700));
-    animation: modalSway 5s ease-in-out infinite, bannerGlow 3s ease-in-out infinite alternate;
-}
+        /* 【重要：点灯済/解放済状態】 発光と呼吸アニメーションをトリガー */
+        .modal-banner:not(.banner-unlit) {
+            filter: drop-shadow(0 0 12px var(--gold-light, #ffd700));
+            animation: modalSway 5s ease-in-out infinite, bannerGlow 3s ease-in-out infinite alternate;
+        }
 
-/* 幡身尺寸與框線 */
-.m-banner-body {
-    width: 100%;
-    height: 85px;
-    background: #fff;
-    border: 1.5px solid #333;
-    border-bottom: none;
-    box-sizing: border-box;
-    position: relative;
-    overflow: hidden;
-}
-.m-banner-body::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    opacity: 0.85;
-}
+        /* 幡身サイズと境界線 */
+        .m-banner-body {
+            width: 100%;
+            height: 85px;
+            background: #fff;
+            border: 1.5px solid #333;
+            border-bottom: none;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+        .m-banner-body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.85;
+        }
 
-/* 10條細尖流蘇（適應縮小後的尺寸） */
-.m-tassels {
-    width: 100%;
-    height: 20px;
-    background: currentColor;
-    position: relative;
-    clip-path: polygon(
-        0% 0%, 100% 0%,
-        100% 0%, 95% 100%, 90% 0%,
-        90% 0%, 85% 100%, 80% 0%,
-        80% 0%, 75% 100%, 70% 0%,
-        70% 0%, 65% 100%, 60% 0%,
-        60% 0%, 55% 100%, 50% 0%,
-        50% 0%, 45% 100%, 40% 0%,
-        40% 0%, 35% 100%, 30% 0%,
-        30% 0%, 25% 100%, 20% 0%,
-        20% 0%, 15% 100%, 10% 0%,
-        10% 0%, 5% 100%, 0% 0%
-    );
-}
+        /* 10本の細尖タッセル（縮小後のサイズに適応） */
+        .m-tassels {
+            width: 100%;
+            height: 20px;
+            background: currentColor;
+            position: relative;
+            clip-path: polygon(
+                0% 0%, 100% 0%,
+                100% 0%, 95% 100%, 90% 0%,
+                90% 0%, 85% 100%, 80% 0%,
+                80% 0%, 75% 100%, 70% 0%,
+                70% 0%, 65% 100%, 60% 0%,
+                60% 0%, 55% 100%, 50% 0%,
+                50% 0%, 45% 100%, 40% 0%,
+                40% 0%, 35% 100%, 30% 0%,
+                30% 0%, 25% 100%, 20% 0%,
+                20% 0%, 15% 100%, 10% 0%,
+                10% 0%, 5% 100%, 0% 0%
+            );
+        }
 
-/* 幡掛環 */
-.m-hanger {
-    width: 30%;
-    height: 8px;
-    background: #fff;
-    border: 1.5px solid #333;
-    border-bottom: none;
-    border-radius: 4px 4px 0 0;
-    position: relative;
-}
+        /* 幡掛けリング */
+        .m-hanger {
+            width: 30%;
+            height: 8px;
+            background: #fff;
+            border: 1.5px solid #333;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+        }
 
-/* --- 複製前面五個幡的幾何紋路配置 --- */
-/* 幡 1 */
-.modal-banner-1 { color: #FF1493; animation-delay: -0.5s; }
-.modal-banner-1 .m-banner-body {
-    background-color: #FF1493;
-    background-image:
-        linear-gradient(to bottom, transparent 15px, #1E90FF 15px, #1E90FF 30px, transparent 30px),
-        repeating-linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.1) 5px, transparent 5px, transparent 10px);
-}
-.modal-banner-1 .m-banner-body::before {
-    background: conic-gradient(from 45deg at 50% 50%, #FF1493 0% 25%, #1E90FF 25% 50%, #FF1493 50% 75%, #1E90FF 75% 100%);
-    background-size: 12px 12px;
-}
+        /* --- 前面5つの幡の幾何学的パターン配置を複製 --- */
+        /* 幡 1 */
+        .modal-banner-1 { color: #FF1493; animation-delay: -0.5s; }
+        .modal-banner-1 .m-banner-body {
+            background-color: #FF1493;
+            background-image:
+                linear-gradient(to bottom, transparent 15px, #1E90FF 15px, #1E90FF 30px, transparent 30px),
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.1) 5px, transparent 5px, transparent 10px);
+        }
+        .modal-banner-1 .m-banner-body::before {
+            background: conic-gradient(from 45deg at 50% 50%, #FF1493 0% 25%, #1E90FF 25% 50%, #FF1493 50% 75%, #1E90FF 75% 100%);
+            background-size: 12px 12px;
+        }
 
-/* 幡 2 */
-.modal-banner-2 { color: #FFD700; animation-delay: -1.2s; }
-.modal-banner-2 .m-banner-body {
-    background-color: #FFD700;
-    background-image:
-        repeating-linear-gradient(0deg, rgba(0,128,0,0.25), rgba(0,128,0,0.25) 5px, transparent 5px, transparent 10px),
-        repeating-linear-gradient(90deg, rgba(0,128,0,0.25), rgba(0,128,0,0.25) 5px, transparent 5px, transparent 10px);
-}
-.modal-banner-2 .m-banner-body::before {
-    background: conic-gradient(at 50% 50%, transparent 0% 12.5%, rgba(0,0,0,0.15) 12.5% 37.5%, transparent 37.5% 62.5%, rgba(0,0,0,0.15) 62.5% 87.5%, transparent 87.5% 100%);
-    background-size: 10px 10px;
-}
+        /* 幡 2 */
+        .modal-banner-2 { color: #FFD700; animation-delay: -1.2s; }
+        .modal-banner-2 .m-banner-body {
+            background-color: #FFD700;
+            background-image:
+                repeating-linear-gradient(0deg, rgba(0,128,0,0.25), rgba(0,128,0,0.25) 5px, transparent 5px, transparent 10px),
+                repeating-linear-gradient(90deg, rgba(0,128,0,0.25), rgba(0,128,0,0.25) 5px, transparent 5px, transparent 10px);
+        }
+        .modal-banner-2 .m-banner-body::before {
+            background: conic-gradient(at 50% 50%, transparent 0% 12.5%, rgba(0,0,0,0.15) 12.5% 37.5%, transparent 37.5% 62.5%, rgba(0,0,0,0.15) 62.5% 87.5%, transparent 87.5% 100%);
+            background-size: 10px 10px;
+        }
 
-/* 幡 3 */
-.modal-banner-3 { color: #1E90FF; animation-delay: -2s; }
-.modal-banner-3 .m-banner-body { background-color: #1E90FF; }
-.modal-banner-3 .m-banner-body::before {
-    background: conic-gradient(at 50% 50%, #FF1493 0% 12.5%, #FFD700 12.5% 37.5%, #32CD32 37.5% 62.5%, #8A2BE2 62.5% 87.5%, #FF1493 87.5% 100%);
-    background-size: 15px 15px;
-    mask-image: repeating-linear-gradient(transparent, transparent 1px, #000 1px, #000 2px);
-}
+        /* 幡 3 */
+        .modal-banner-3 { color: #1E90FF; animation-delay: -2s; }
+        .modal-banner-3 .m-banner-body { background-color: #1E90FF; }
+        .modal-banner-3 .m-banner-body::before {
+            background: conic-gradient(at 50% 50%, #FF1493 0% 12.5%, #FFD700 12.5% 37.5%, #32CD32 37.5% 62.5%, #8A2BE2 62.5% 87.5%, #FF1493 87.5% 100%);
+            background-size: 15px 15px;
+            mask-image: repeating-linear-gradient(transparent, transparent 1px, #000 1px, #000 2px);
+        }
 
-/* 幡 4 */
-.modal-banner-4 { color: #333333; animation-delay: -0.8s; }
-.modal-banner-4 .m-banner-body {
-    background-color: #333333;
-    background-image: repeating-linear-gradient(0deg, #555, #555 1px, transparent 1px, transparent 6px);
-}
-.modal-banner-4 .m-banner-body::before {
-    background: conic-gradient(at 50% 50%, #fff 0% 12.5%, #333 12.5% 25%, #fff 25% 37.5%, #333 37.5% 50%, #fff 50% 62.5%, #333 62.5% 75%, #fff 75% 87.5%, #333 87.5% 100%);
-    background-size: 16px 16px;
-    opacity: 0.85;
-}
+        /* 幡 4 */
+        .modal-banner-4 { color: #333333; animation-delay: -0.8s; }
+        .modal-banner-4 .m-banner-body {
+            background-color: #333333;
+            background-image: repeating-linear-gradient(0deg, #555, #555 1px, transparent 1px, transparent 6px);
+        }
+        .modal-banner-4 .m-banner-body::before {
+            background: conic-gradient(at 50% 50%, #fff 0% 12.5%, #333 12.5% 25%, #fff 25% 37.5%, #333 37.5% 50%, #fff 50% 62.5%, #333 62.5% 75%, #fff 75% 87.5%, #333 87.5% 100%);
+            background-size: 16px 16px;
+            opacity: 0.85;
+        }
 
-/* 幡 5 */
-.modal-banner-5 { color: #8A2BE2; animation-delay: -1.5s; }
-.modal-banner-5 .m-banner-body {
-    background-color: #8A2BE2;
-    background-image:
-        linear-gradient(45deg, #32CD32 25%, transparent 25%, transparent 75%, #32CD32 75%, #32CD32 100%),
-        linear-gradient(135deg, #32CD32 25%, transparent 25%, transparent 75%, #32CD32 75%, #32CD32 100%);
-    background-size: 12px 12px;
-}
-.modal-banner-5 .m-banner-body::before {
-    background: conic-gradient(from 45deg at 50% 50%, #8A2BE2 0% 25%, #fff 25% 50%, #8A2BE2 50% 75%, #fff 75% 100%);
-    background-size: 8px 8px;
-    mask-image: radial-gradient(circle, transparent 20%, #000 80%);
-}
+        /* 幡 5 */
+        .modal-banner-5 { color: #8A2BE2; animation-delay: -1.5s; }
+        .modal-banner-5 .m-banner-body {
+            background-color: #8A2BE2;
+            background-image:
+                linear-gradient(45deg, #32CD32 25%, transparent 25%, transparent 75%, #32CD32 75%, #32CD32 100%),
+                linear-gradient(135deg, #32CD32 25%, transparent 25%, transparent 75%, #32CD32 75%, #32CD32 100%);
+            background-size: 12px 12px;
+        }
+        .modal-banner-5 .m-banner-body::before {
+            background: conic-gradient(from 45deg at 50% 50%, #8A2BE2 0% 25%, #fff 25% 50%, #8A2BE2 50% 75%, #fff 75% 100%);
+            background-size: 8px 8px;
+            mask-image: radial-gradient(circle, transparent 20%, #000 80%);
+        }
 
-/* 搖擺與解鎖發光動畫定義 */
-@keyframes modalSway {
-    0%, 100% { transform: rotate(1.5deg); }
-    50% { transform: rotate(-1.5deg); }
-}
+        /* 揺れと解放発光アニメーションの定義 */
+        @keyframes modalSway {
+            0%, 100% { transform: rotate(1.5deg); }
+            50% { transform: rotate(-1.5deg); }
+        }
 
-@keyframes bannerGlow {
-    0% { filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.5)); }
-    100% { filter: drop-shadow(0 0 16px rgba(255, 242, 168, 1)); }
-}
+        @keyframes bannerGlow {
+            0% { filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.5)); }
+            100% { filter: drop-shadow(0 0 16px rgba(255, 242, 168, 1)); }
+        }
+        #flash-overlay {
+            position: fixed;
+            inset: 0;
+            /* 放射状グラデーションを使用し、中心から白光が爆発、外側へ純金と深色に拡散、法界の顕現をシミュレート */
+            background: radial-gradient(circle at 50% 50%, #ffffff 0%, var(--solid-gold) 60%, #0a0e14 100%);
+            opacity: 0;
+            pointer-events: none;
+            /* 元のポップアップ（10001）の上に完全にカバーするため、z-indexは10002に設定する必要がある */
+            z-index: 10002;
+        }
 
     </style>
 </head>
-<body oncontextmenu="return false;">
+    <body oncontextmenu="return false;">
 
     <div id="page-transition-curtain" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 999999; opacity: 0; pointer-events: none; transition: opacity 0.8s ease-in-out;"></div>
 
@@ -498,9 +572,9 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.2" style="width: 36px; height: 36px; margin-bottom: 15px; filter: drop-shadow(0 0 8px rgba(212,175,55,0.6));">
                 <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
             </svg>
-            <div style="color: var(--gold); font-size: 1.15rem; letter-spacing: 4px; margin-bottom: 15px; font-weight: bold; text-shadow: 0 0 10px rgba(212,175,55,0.3);">法界顯化</div>
+            <div style="color: var(--gold); font-size: 1.15rem; letter-spacing: 4px; margin-bottom: 15px; font-weight: bold; text-shadow: 0 0 10px rgba(212,175,55,0.3);">法界顕現</div>
             <div id="vow-alert-msg" style="color: #bbb; font-size: 0.95rem; line-height: 1.8; letter-spacing: 1px; margin-bottom: 25px;"></div>
-            <button class="zen-action-btn" onclick="closeVowAlert()">合十收攝</button>
+            <button class="zen-action-btn" onclick="closeVowAlert()">合掌収束</button>
         </div>
     </div>
 
@@ -528,15 +602,15 @@
 
     <div id="page-main">
         <div class="nav-top">
-            <div class="nav-btn" onclick="returnToMainHall()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> 返回道場</div>
+            <div class="nav-btn" onclick="returnToMainHall()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> 道場へ戻る</div>
             <div class="nav-divider"></div>
-            <div class="nav-btn" id="dharma-desc-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> 法門說明</div>
+            <div class="nav-btn" id="dharma-desc-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> 法門説明</div>
             <div class="nav-divider"></div>
-            <div class="nav-btn" id="nav-history-btn" onclick="openDataModal()"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20V14"></path></svg> 歷史大數據</div>
+            <div class="nav-btn" id="nav-history-btn" onclick="openDataModal()"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20V14"></path></svg> 歴史大データ</div>
         </div>
 
         <div class="tracker-container">
-            <div class="tracker-title" id="ui-week-title">【 七日輪值 ． 聖字亮燈 】</div>
+            <div class="tracker-title" id="ui-week-title">【 七日観想 ． 字輪心契 】</div>
             <div class="tracker-circles" id="ui-trackers"></div>
         </div>
 
@@ -550,7 +624,7 @@
 
                 <div style="display: flex; flex-direction: column; align-items: center;">
                     <div class="hrih-title" id="dharma-seed-title">भः</div>
-                    <div class="hrih-subtitle" id="dharma-deity-subtitle">釋迦如來 (bhaḥ)</div>
+                    <div class="hrih-subtitle" id="dharma-deity-subtitle">釈迦本師 (bhaḥ)</div>
                 </div>
 
                 <button class="glass-vector-btn" onclick="playTTS()" aria-label="發音">
@@ -562,76 +636,74 @@
                 </button>
             </div>
 
-            <div class="mandala-wrap">
-                <svg class="mandala-svg" viewBox="0 0 400 400">
-                    <defs>
-                        <path id="ring-outer" d="M 200 15 A 185 185 0 1 1 199.9 15" />
-                        <path id="ring-mid" d="M 200 40 A 160 160 0 1 1 199.9 40" />
-                        <path id="ring-inner" d="M 200 65 A 135 135 0 1 1 199.9 65" />
-                        <filter id="gold-glow-svg"><feGaussianBlur stdDeviation="2" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-                        
-                        <filter id="mandala-text-glow" x="-20%" y="-20%" width="140%" height="140%">
-                            <feGaussianBlur stdDeviation="1.5" result="blur" />
-                            <feComponentTransfer in="blur" result="glow">
-                                <feFuncA type="linear" slope="0.6"/>
-                            </feComponentTransfer>
-                            <feMerge>
-                                <feMergeNode in="glow" />
-                                <feMergeNode in="SourceGraphic" />
-                            </feMerge>
-                        </filter>
-                    </defs>
-                    
-                    <circle cx="200" cy="200" r="192" fill="var(--mandala-red)" stroke="var(--gold-light)" stroke-width="0.8" opacity="0.6"/>
-                    <circle cx="200" cy="200" r="198" fill="none" stroke="var(--solid-gold)" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.7"/>
+        <div class="mandala-wrap">
+    <svg class="mandala-svg" viewBox="0 0 400 400">
+        <defs>
+            <path id="ring-outer" d="M 200 15 A 185 185 0 1 1 199.9 15" />
+            <path id="ring-mid" d="M 200 40 A 160 160 0 1 1 199.9 40" />
+            <path id="ring-inner" d="M 200 65 A 135 135 0 1 1 199.9 65" />
+            <filter id="gold-glow-svg"><feGaussianBlur stdDeviation="2" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        
+        <!-- 背景紅底 -->
+        <circle cx="200" cy="200" r="192" fill="var(--mandala-red)" stroke="none" opacity="0.6"/>
 
-                    <g class="circle-layer-1">
-                        <circle cx="200" cy="200" r="185" fill="rgba(243, 229, 171, 0.03)" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1" />
-                        <text fill="var(--gold)" font-size="21" font-family="serif" opacity="0.9" filter="url(#mandala-text-glow)">
-                            <textPath href="#ring-outer" startOffset="0%" textLength="1162.3" lengthAdjust="spacing">भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै  ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ॐ भः ह यु अं भै  अ ॐ भः ह यु अं भै ह्रीः अ ॐ </textPath>
-                        </text>
-                    </g>
-                    
-                    <g class="circle-layer-2">
-                        <circle cx="200" cy="200" r="160" fill="rgba(139, 168, 156, 0.05)" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" />
-                        <text fill="var(--cyan)" font-size="16" font-family="serif" opacity="0.85" filter="url(#mandala-text-glow)">
-                            <textPath href="#ring-mid" startOffset="0%" textLength="1005.3" lengthAdjust="spacing">ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ अ ह्रीः भै अं यु ह भः ॐ ॐ 開 釋 梵 輪 ॐ ॐ अ ह्रीः भै अं यु  भः ॐ अ ह्रीः भै अं यु ह भः ॐ 普 賢 文 殊 ॐ </textPath>
-                        </text>
-                    </g>
-                    
-                    <g class="circle-layer-3">
-                        <circle cx="200" cy="200" r="135" fill="rgba(229, 152, 155, 0.07)" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" />
-                        <text fill="#E5989B" font-size="11" font-family="serif" opacity="0.9" filter="url(#mandala-text-glow)">
-                            <textPath href="#ring-inner" startOffset="0%" textLength="848.2" lengthAdjust="spacing">भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै  अ ॐ भः  यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः א ॐ भः ह यु  भै ह्रीः अ ॐ भः ह  अं भै ह्रीः अ ॐ भः ह यु  भै ह्रीः अ ॐ भः ह यु  भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु  भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः  ॐ भः ह यु अं भै ह्रीः अ ॐ भः ह यु अं भै ह्रीः א ॐ </textPath>
-                        </text>
-                    </g>
+        <g class="circle-layer-1">
+            <text fill="var(--gold)" font-size="18" font-family="serif" opacity="0.85">
+                <textPath href="#ring-outer" startOffset="0%" textLength="1162.3" lengthAdjust="spacing">भः ह यु अं ॐ 卍 ॐ ॐ bhah ha yu am om manji om om bhah ha yu am om manji a om bhah ha yu am om manji a om am ha yu am om manji a om bhah ha yu a om manji a om bhah ha yu am om manji a om bhah ha yu om a manji a om bhah ha yu am bhai a a om om ha yu am om a a om </textPath>
+            </text>
+        </g>
+        
+        <g class="circle-layer-2">
+            <circle cx="200" cy="200" r="160" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="0.8" />
+            <text fill="var(--cyan)" font-size="16" font-family="serif" opacity="0.8">
+                <textPath href="#ring-mid" startOffset="0%" textLength="1005.3" lengthAdjust="spacing">om a manji om am yu sah bhah om a manji om am yu sah bhah om a manji om am yu sah om om a manji om am yu sah bhah om a manji a am yu sah bhah om a manji om am yu sah bhah om a a sah am yu sah bhah om a a sah am yu sah bhah </textPath>
+            </text>
+        </g>
+        
+        <g class="circle-layer-3">
+            <circle cx="200" cy="200" r="135" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="0.8" />
+            <text fill="#E5989B" font-size="14" font-family="serif" opacity="0.85">
+                <textPath href="#ring-inner" startOffset="0%" textLength="848.2" lengthAdjust="spacing">bhah sah yu am om manji a om bhah sah yu am om manji a om bhah sah yu am om manji a om bhah sah yu am om manji a om bhah sah yu am om manji a om bhah sah yu am a manji a om bhah sah yu am om manji a om </textPath>
+            </text>
+        </g>
 
-                    <circle cx="200" cy="200" r="116" fill="none" stroke="var(--solid-gold)" stroke-width="2" filter="url(#gold-glow-svg)" opacity="0.8"/>
-                    <circle cx="200" cy="200" r="112" fill="none" stroke="var(--gold)" stroke-width="1" stroke-dasharray="2 3"/>
-                </svg>
+        <!-- 內襯核心圈 -->
+        <circle cx="200" cy="200" r="116" fill="none" stroke="var(--solid-gold)" stroke-width="2" filter="url(#gold-glow-svg)" opacity="0.8"/>
+        <circle cx="200" cy="200" r="112" fill="none" stroke="var(--gold)" stroke-width="1" stroke-dasharray="2 3"/>
+    </svg>
 
-                <div class="write-box-circular" id="writeContainer">
-                    <canvas id="writeCanvas"></canvas>
+    <div class="write-box-circular" id="writeContainer">
+        <canvas id="writeCanvas"></canvas>
+    </div>
+</div>
+
+        <!-- 行動與資糧專區 -->
+        <div class="action-zone" id="action-zone">
+            
+            <!-- 菩提心按鈕 -->
+            <div class="seal-btn-circle" id="seal-btn">
+                <div class="seal-btn-progress-bg" id="btn-progress"></div>
+                <div class="seal-btn-core-light"></div>
+            </div>
+
+            <!-- 說明文字 -->
+            <div class="seal-btn-text" id="seal-text">長押し契印 ． 大回向</div>
+
+            <!-- 資糧大數據進度條 -->
+            <div class="pool-wrap">
+                <div class="pool-label" id="ui-pool-text">法界暫存資糧 : 0 / 100</div>
+                <div class="pool-bar-bg">
+                    <div class="pool-bar-fill neon-flow" id="ui-pool-bar"></div>
                 </div>
             </div>
 
-            <div class="seal-btn-circle" id="seal-btn">
-                <div class="seal-btn-progress-bg" id="btn-progress"></div>
-                <div class="seal-btn-text" id="seal-text">長按契印<br>大迴向</div>
-            </div>
         </div>
 
-        <div class="action-zone" id="action-zone">
-            <div class="pool-wrap">
-                <div class="pool-label" id="ui-pool-text">法界暫存資糧 : 0 / 1000</div>
-                <div class="pool-bar-bg"><div class="pool-bar-fill neon-flow" id="ui-pool-bar"></div></div>
-            </div>
-        </div>
-    </div>
 <div class="modal-overlay" id="dataModal">
     <div class="data-card" onclick="event.stopPropagation()">
-        <div class="data-title">十方結緣 ‧ 歷史軌跡</div>
-        <div class="data-sub">(合本願與諸佛之畢生大數據)</div>
+        <div class="data-title">十方結縁 ． 行願蓮蹤</div>
+        <div class="data-sub">(本願と諸仏の歴劫功徳海を合す)</div>
         
         <div class="trophy-shelf">
             <div class="trophy-item">
@@ -640,7 +712,7 @@
                     <div class="m-banner-body"></div>
                     <div class="m-tassels"></div>
                 </div>
-                <div class="trophy-label">7 日</div>
+                <div class="trophy-label">7日</div>
             </div>
 
             <div class="trophy-item">
@@ -649,7 +721,7 @@
                     <div class="m-banner-body"></div>
                     <div class="m-tassels"></div>
                 </div>
-                <div class="trophy-label">70 日</div>
+                <div class="trophy-label">70日</div>
             </div>
 
             <div class="trophy-item">
@@ -658,7 +730,7 @@
                     <div class="m-banner-body"></div>
                     <div class="m-tassels"></div>
                 </div>
-                <div class="trophy-label">700 日</div>
+                <div class="trophy-label">700日</div>
             </div>
 
             <div class="trophy-item">
@@ -681,15 +753,15 @@
         </div>
 
         <div style="margin-bottom: 25px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span style="font-size:13px; color:var(--gold-light); letter-spacing:2px;">歲星軌跡 (日)</span><span style="font-size:14px; color:#fff; font-weight:bold;" id="ui-txt-365">0</span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span style="font-size:13px; color:var(--gold-light); letter-spacing:2px;">歳星軌跡 (日)</span><span style="font-size:14px; color:#fff; font-weight:bold;" id="ui-txt-365">0</span></div>
             <div class="glass-energy-bar"><div class="bar-track"><div class="bar-fill neon-flow" id="ui-bar-365"></div></div><div class="bar-labels"><span style="left:0%">0</span><span style="left:27%">100</span><span style="left:54%">200</span><span style="left:82%">300</span><span style="left:100%">365</span></div></div>
         </div>
         <div style="margin-bottom: 10px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span style="font-size:13px; color:var(--gold-light); letter-spacing:2px;">劫波蓮花 (年)</span><span style="font-size:14px; color:#fff; font-weight:bold;" id="ui-txt-108">0</span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span style="font-size:13px; color:var(--gold-light); letter-spacing:2px;">劫波蓮華 (年)</span><span style="font-size:14px; color:#fff; font-weight:bold;" id="ui-txt-108">0</span></div>
             <div class="glass-energy-bar"><div class="bar-track"><div class="bar-fill neon-flow" id="ui-bar-108"></div></div><div class="bar-labels"><span style="left:0%">0</span><span style="left:33%">36</span><span style="left:66%">72</span><span style="left:100%">108</span></div></div>
         </div>
         <div style="text-align: center; margin-top: 20px;">
-            <button class="zen-action-btn" onclick="closeDataModal()">合十收攝</button>
+            <button class="zen-action-btn" onclick="closeDataModal()">合掌収束</button>
         </div>
     </div>
 </div>
@@ -698,21 +770,23 @@
     <div class="cert-overlay" id="cert-modal">
         <div class="cert-box">
             <div class="cert-header" id="cert-title">✦ 菩提契印 ✦</div>
-            <div class="cert-svg-wrap" id="cert-glow"><svg id="cert-svg" viewBox="0 0 120 200"><use href="#dynamic-banner"/></svg></div>
+<div class="cert-svg-wrap" id="cert-glow">
+    <div id="cert-svg" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"></div>
+</div>
             <div style="color: #aaa; font-size: 0.8rem; letter-spacing: 3px;">行 者</div>
             <div class="cert-name" id="cert-name-display">行 者</div>
             <div class="cert-divider"></div>
             <div class="cert-desc" id="cert-text">...</div>
-            <button class="zen-action-btn" onclick="closeCert()">歡喜功德 ． 締結契印</button>
+            <button class="zen-action-btn" onclick="closeCert()">歓喜功徳 ． 契印締結</button>
         </div>
     </div>
 
     <div id="anim-overlay" class="modal-overlay">
         <div class="t-box" id="anim-box">
-            <div id="anim-flash" style="position:absolute; inset:0; background:#fff; opacity:0; pointer-events:none; z-index:10; transition:opacity 0.2s; border-radius:25px;"></div>
+
             <div id="anim-svg-cont" style="font-size: 3.5rem; color: var(--gold); text-shadow: 0 0 25px rgba(212,175,55,0.8); margin-bottom: 15px; position: relative; z-index: 5;"></div>
             <div id="anim-txt" style="position: relative; z-index: 5; margin-bottom: 25px; min-height: 80px;"></div>
-            <button id="anim-btn" class="zen-action-btn" onclick="closeAnim()" style="position: relative; z-index: 5;">功德圓滿</button>
+            <button id="anim-btn" class="zen-action-btn" onclick="closeAnim()" style="position: relative; z-index: 5;">功徳円満</button>
         </div>
     </div>
 
@@ -720,61 +794,59 @@
         <div class="t-box" onclick="event.stopPropagation()">
             <div style="color: var(--gold); font-size: 1.15rem; letter-spacing: 4px; margin-bottom: 15px; font-weight: bold; text-shadow: 0 0 10px rgba(212,175,55,0.3);" id="custom-alert-title">法界告示</div>
             <div id="custom-alert-desc" style="color: #bbb; font-size: 0.95rem; line-height: 1.8; letter-spacing: 1px; margin-bottom: 25px;"></div>
-            <button class="zen-action-btn" onclick="closeCustomAlert()">合十收攝</button>
+            <button class="zen-action-btn" onclick="closeCustomAlert()">合掌収束</button>
         </div>
     </div>
-
 <script>
     const purelandData = [
-        { day: 1, seed: "भः", audioText: "bhaḥ", name: "釋迦牟尼如來", vowTitle: "【娑婆教主 ． 寂靜涅槃】", vowDesc: "「भः」字代表釋迦如來於娑婆世界示現成佛、破除一切魔軍與無明的威德。書寫此字能生起無上出離心與大菩提心，身心歸於寂靜。" },
-        { day: 2, seed: "ह", audioText: "ha", name: "地藏菩薩", vowTitle: "【地藏本願 ． 拔苦與樂】", vowDesc: "「ह」字具備一切法因不可得、大悲拔苦之義。行者書寫此字，當觀想自身與地藏菩薩「地獄不空，誓不成佛」的無邊願力相應，化解一切怨結，大地安穩。" },
-        { day: 3, seed: "यु", audioText: "yu", name: "彌勒菩薩", vowTitle: "【慈氏當來 ． 慈心三昧】", vowDesc: "「यु」字代表彌勒如來的慈心三昧，象徵「大慈予樂」與當來下生的希望。書寫此字當與慈悲心相應，願一切有情皆得解脫歡喜，皆受記作佛。" },
-        { day: 4, seed: "अं", audioText: "aṃ", name: "普賢文殊", vowTitle: "【大行大智 ． 智行合一】", vowDesc: "「अं」字代表智行圓滿、空性與菩提心的極致結合。文殊之大智導引普賢之大行，行者書寫此字，即能開啟內在無上妙智，行願無礙。" },
-        { day: 5, seed: "भै", audioText: "bhai", name: "藥師佛", vowTitle: "【藥師消災 ． 身心琉璃】", vowDesc: "「भै」字乃藥師如來之核心密碼，象徵醫治一切眾生身心疾苦與無明痼疾。書寫時觀想琉璃光芒照徹法界，消除內外障礙，福慧增長。" },
-        { day: 6, seed: "ह्रीः", audioText: "hrīḥ", name: "阿彌陀佛", vowTitle: "【彌陀淨土 ． 萬德洪名】", vowDesc: "「ह्रीः」字（紇哩字）是阿彌陀佛的根本心字，具足「清淨、慚愧、因緣圓滿」之萬德。作為圓滿極樂之報身示現，書寫此字直通西方淨土，九品蓮開。" },
-        { day: 7, seed: "अ", audioText: "a", name: "胎藏界大日如來", vowTitle: "【毗盧遮那 ． 本初清淨】", vowDesc: "「अ」字是一切梵音之母，象徵「諸法本不生」，是一切智慧與法界的根本。作為萬德總歸之清淨法身，書寫此字即是回歸無量光明的本來面目。" }
+        { day: 1, seed: "भः", audioText: "bhaḥ", name: "釈迦本師", vowTitle: "【娑婆教主 ． 寂静涅槃】", vowDesc: "「भः」の字は、釈迦如来が娑婆世界において成仏を示し、一切の魔軍と無明を打ち破る威徳を表します。この字を書き写すことで、無上の出離心と大菩提心が生じ、心身は寂静へと帰します。" },
+        { day: 2, seed: "ह", audioText: "ha", name: "地蔵菩薩", vowTitle: "【地蔵本願 ． 抜苦与楽】", vowDesc: "「ह」の字は、一切の法の因不可得、大悲抜苦の義を備えています。行者はこの字を書き写す際、自らが地蔵菩薩の「地獄空からずんば、誓って成仏せず」という無邊の願力と相応し、一切の怨結を解消し、大地が安穏となるよう観想してください。" },
+        { day: 3, seed: "यु", audioText: "yu", name: "弥勒菩薩", vowTitle: "【慈氏当来 ． 慈心三昧】", vowDesc: "「यु」の字は、弥勒如来の慈心三昧を表し、「大慈与楽」と当来下生の希望を象徴します。この字を書き写す時は、慈悲の心と相応し、一切の有情が皆解脱の歓喜を得て、皆成仏の記別を受けることを願ってください。" },
+        { day: 4, seed: "अं", audioText: "aṃ", name: "普賢文殊", vowTitle: "【大行大智 ． 智行合一】", vowDesc: "「अं」の字は、智行円満、空性と菩提心の極致たる結合を表します。文殊の大智が普賢の大行を導き、行者がこの字を書き写すことで、内なる無上の妙智を開き、行願無礙となります。" },
+        { day: 5, seed: "भै", audioText: "bhai", name: "薬師如来", vowTitle: "【薬師消災 ． 心身瑠璃】", vowDesc: "「भै」の字は、薬師如来の核心たる密号であり、一切の衆生の身心の疾苦と無明の痼疾を癒すことを象徴します。書写の際は、瑠璃の光が法界を照らし出し、内外の障害を消滅させ、福徳と智慧が増長することを観想してください。" },
+        { day: 6, seed: "ह्रीः", audioText: "hrīḥ", name: "阿弥陀仏", vowTitle: "【阿弥陀浄土 ． 万徳洪名】", vowDesc: "「ह्रीः」の字（キリーク字）は、阿弥陀仏の根本心字であり、「清浄、慙愧、因縁円満」の万徳を具足しています。円満なる極楽の報身の示現として、この字を書き写すことは西方浄土へと直通し、九品の蓮華が開きます。" },
+        { day: 7, seed: "अ", audioText: "a", name: "大日如来", vowTitle: "【毘盧遮那 ． 本初清浄】", vowDesc: "「अ」の字は、一切の梵音の母であり、「諸法本不生」を象徴する、一切の智慧と法界の根本です。万徳総帰の清浄法身として、この字を書き写すことは、無量光の本来の面目へと回帰することに他なりません。" }
     ];
 
-        const CERT_DATA = {
+    const CERT_DATA = {
         7: { 
-            title: "✦ 初心 ． 書寫契印 ✦", 
+            title: "✦ 初心 ． 書写契印 ✦", 
             glow: "drop-shadow(0 0 25px rgba(251,133,0,0.8))", 
-            text: "初發菩提心，抄寫種子字已達七日。<br>橘紅墨痕破除無明黑闇。<br>願此法筆一落，淨念相續不斷。", 
+            text: "初めて菩提心を発し、種子字を写すこと七日に達す。<br>橘紅の墨痕が無明の暗黒を打ち破る。<br>願わくは、この法筆が一たび落つれば、浄念相続して断えざらんことを。", 
             cssVars: "--f1: #FFB703; --f2: #FB8500; --f3: #E85D04; --bd: #9D0208; --bs: #370617; --rb: #FFF;" 
         },
         70: { 
-            title: "✦ 歡喜 ． 墨光契印 ✦", 
+            title: "✦ 歓喜 ． 墨光契印 ✦", 
             glow: "drop-shadow(0 0 25px rgba(233,196,106,0.8))", 
-            text: "已圓滿七十日梵音字形抄寫。<br>真金法身字輪於意根初現。<br>願筆筆生蓮，與諸佛本願永不退轉。", 
+            text: "すでに七十日の梵音字形書写を円満す。<br>真金の法身字輪が意根に初めて現る。<br>願わくは、一筆ごとに蓮華を生じ、諸仏の本願と永遠に退転せざらんことを。", 
             cssVars: "--f1: #FFF8DC; --f2: #F3E5AB; --f3: #D4AF37; --bd: #AA7900; --bs: #5C4000; --rb: #FFF;" 
         },
         700: { 
-            title: "✦ 遠行 ． 琉璃契印 ✦", 
+            title: "✦ 遠行 ． 瑠璃契印 ✦", 
             glow: "drop-shadow(0 0 35px rgba(42,157,143,0.8))", 
-            text: "歷經七百日妙筆觀想抄寫。<br>煩惱漸除，清淨字輪高懸意顯。<br>願法筆所至，身心如琉璃內外明徹。", 
+            text: "七百日に及ぶ妙筆の観想書写を経たり。<br>煩悩は漸く除かれ、清浄なる字輪が高く懸かりて意に顕る。<br>願わくは、法筆の至る所、心身は瑠璃のごとく内外明徹ならんことを。", 
             cssVars: "--f1: #E0FBFC; --f2: #98C1D9; --f3: #48CAE4; --bd: #2A9D8F; --bs: #1D3557; --rb: #FFF;" 
         },
         7000: { 
             title: "✦ 善慧 ． 妙法契印 ✦", 
             glow: "drop-shadow(0 0 45px rgba(193,18,31,0.8))", 
-            text: "七千日一筆一畫，解諸法本不生。<br>赤紅墨跡燃起三昧真火，燒盡無明。<br>願以此抄寫功德，普度一切有情歸於寂靜。", 
+            text: "七千日の一筆一画、諸法本不生を解す。<br>赤紅の墨跡は三昧の真火を燃え立たせ、無明を焼き尽くす。<br>願わくは、この書写の功徳を以て、普く一切の有情を寂静へと度さんことを。", 
             cssVars: "--f1: #F4A261; --f2: #E76F51; --f3: #C1121F; --bd: #780000; --bs: #370617; --rb: #FDFCDC;" 
         },
         9999999: { 
             title: "✦ 無量 ． 字輪法身 ✦", 
             glow: "drop-shadow(0 0 60px #fff) drop-shadow(0 0 15px #E9C46A)", 
-            text: "盡未來際，一筆一劃回歸本初清淨。<br>累劫抄寫功德化為無上白金字輪佛光。<br>法身契合，十方如來同聲讚歎。", 
+            text: "未来際を尽くして、一筆一画が本初清浄へと回帰す。<br>累劫の書写の功徳は、無上の白金字輪の仏光と化す。<br>法身契合し、十方如来同声に讃嘆したもう。", 
             cssVars: "--f1: #FFFFFF; --f2: #FDFCDC; --f3: #E0E1DD; --bd: #F3E5AB; --bs: #D4AF37; --rb: #FFFFFF;" 
         }
     };
 
-
-    const MAIN_DB_KEY = 'PX_V15.0'; 
-    let mainDb = localStorage.getItem(MAIN_DB_KEY) ? JSON.parse(localStorage.getItem(MAIN_DB_KEY)) : { points: 0, puxianData: null };
+    const MAIN_DB_KEY = 'PX_JP_V15.0'; 
+    let mainDb = localStorage.getItem(MAIN_DB_KEY) ? JSON.parse(localStorage.getItem(MAIN_DB_KEY)) : { points: 0, mituoWritingData: null };
     let todayStr = new Date().toDateString();
 
-    if (!mainDb.puxianData) {
-        mainDb.puxianData = {
+    if (!mainDb.mituoWritingData) {
+        mainDb.mituoWritingData = {
             startDate: new Date().setHours(0,0,0,0), 
             lastLogin: todayStr,
             weekRecord: [false, false, false, false, false, false, false],
@@ -786,7 +858,7 @@
         localStorage.setItem(MAIN_DB_KEY, JSON.stringify(mainDb));
     }
 
-    let db = mainDb.puxianData; 
+    let db = mainDb.mituoWritingData; 
     let trueDays = (db.totalYears108 * 365) + db.totalDays365;
     if (typeof db.totalPracticedDays === 'undefined' || db.totalPracticedDays < trueDays) {
         db.totalPracticedDays = trueDays;
@@ -807,14 +879,15 @@
 
         if (currentWeek > lastLoginWeek) {
             let successCount = db.weekRecord.filter(Boolean).length;
-            db.poolPoints += (successCount === 7) ? 1000 : (successCount * 100);
-            if (db.poolPoints >= 1000) {
-                showVowAlert(`行願資糧已滿千，<br>自動匯入彌陀淨土主系統。`);
+            db.poolPoints += (successCount === 7) ? 100 : (successCount * 10); 
+            if (db.poolPoints >= 100) { 
+                showVowAlert(`行願資糧がすでに百に満ちたため、<br>自動的に阿弥陀浄土主システムへと組み込まれました。`); 
                 mainDb.points = (mainDb.points || 0) + db.poolPoints; 
                 db.poolPoints = 0; 
             }
             db.weekRecord = [false, false, false, false, false, false, false];
         }
+
         db.lastLogin = todayStr; saveDB();
     }
     function saveDB() { localStorage.setItem(MAIN_DB_KEY, JSON.stringify(mainDb)); }
@@ -879,20 +952,30 @@
         document.getElementById('dharma-seed-title').innerText = currentData.seed;
         document.getElementById('dharma-deity-subtitle').innerText = `${currentData.name} (${currentData.audioText})`;
 
-        document.getElementById('ui-pool-text').innerText = `法界暫存資糧 : ${db.poolPoints} / 1000`;
-        document.getElementById('ui-pool-bar').style.width = `${(db.poolPoints / 1000) * 100}%`;
+        document.getElementById('ui-pool-text').innerText = `法界暫定資糧 : ${db.poolPoints} / 100`;
+        document.getElementById('ui-pool-bar').style.width = `${(db.poolPoints / 100) * 100}%`;
 
         let btnText = document.getElementById('seal-text');
         let progressFill = document.getElementById('btn-progress');
+        let sealBtn = document.getElementById('seal-btn');
 
         if (db.weekRecord[activeViewIndex]) {
-            btnText.innerHTML = "迴向<br>圓滿"; btnText.style.color = "var(--solid-gold)";
+            btnText.innerText = "回向円満"; 
+            btnText.style.color = "var(--solid-gold)";
+            btnText.style.textShadow = "0 0 8px rgba(212,175,55,0.6)";
             progressFill.style.height = '100%';
+            if(sealBtn) sealBtn.classList.remove('view-only-mode');
         } else {
             if (activeViewIndex === currentDayOfWeek) {
-                btnText.innerHTML = "長按契印<br>大迴向"; btnText.style.color = "var(--cyan)";
+                btnText.innerText = "長押し契印 ． 大回向"; 
+                btnText.style.color = "var(--cyan)";
+                btnText.style.textShadow = "0 0 8px rgba(0,242,254,0.5)";
+                if(sealBtn) sealBtn.classList.remove('view-only-mode');
             } else {
-                btnText.innerHTML = "觀想模式<br>無法跨日"; btnText.style.color = "#555";
+                btnText.innerText = "観想モード ． 日付跨ぎ不可"; 
+                btnText.style.color = "#555";
+                btnText.style.textShadow = "none";
+                if(sealBtn) sealBtn.classList.add('view-only-mode');
             }
             progressFill.style.height = '0%';
         }
@@ -929,11 +1012,11 @@
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        hwCtx.lineWidth = 4;
+        hwCtx.lineWidth = 8;
         hwCtx.lineCap = 'round';
         hwCtx.lineJoin = 'round';
         hwCtx.strokeStyle = '#f3e5ab';
-        hwCtx.shadowBlur = 6;
+        hwCtx.shadowBlur = 8;
         hwCtx.shadowColor = '#d4af37';
 
         if (e.type === 'mousedown' || (isDrawing && hwCtx.pathBegun === false)) {
@@ -957,31 +1040,38 @@
     }
 
     function playTTS() {
-        if (!('speechSynthesis' in window)) return showVowAlert("法界回饋：您的設備暫不支援語音朗讀。");
+        if (!('speechSynthesis' in window)) return showVowAlert("法界の響き：お使いの端末は音声読み上げに対応していません。");
         
-        // 解決部分現代瀏覽器因連續觸發語音所導致的非同步鎖死無回應 bug
         window.speechSynthesis.cancel(); 
         
+        const currentData = purelandData[activeViewIndex];
+        if (!currentData || !currentData.seed) return;
+
+        let utterance = new SpeechSynthesisUtterance(currentData.seed);
+        utterance.rate = 0.75; 
+        utterance.pitch = 0.9;
+        
+        const voices = window.speechSynthesis.getVoices();
+        const hasHindiVoice = voices.some(v => v.lang.toLowerCase().startsWith('hi'));
+        
+        if (hasHindiVoice) {
+            utterance.lang = 'hi-IN'; 
+        } else {
+            utterance.lang = navigator.language || 'ja-JP'; 
+        }
+
+        window.dharmaCurrentUtterance = utterance; 
+
         setTimeout(() => {
-            const currentData = purelandData[activeViewIndex];
-            let utterance = new SpeechSynthesisUtterance(currentData.seed);
-            utterance.lang = 'hi-IN'; // 印地語/天成文發音
-            utterance.rate = 0.70; 
-            utterance.pitch = 0.85;
-            
-            // 容錯降級：若部分設備未預裝印地語音包，自動改用相容性最高的羅馬拼音音軌，確保絕對有聲
-            utterance.onerror = function() {
-                let fallbackUtterance = new SpeechSynthesisUtterance(currentData.audioText);
-                fallbackUtterance.lang = 'en-US';
-                fallbackUtterance.rate = 0.65;
-                fallbackUtterance.pitch = 0.8;
-                window.speechSynthesis.speak(fallbackUtterance);
-            };
-            
             window.speechSynthesis.speak(utterance);
         }, 60);
     }
 
+    if ('speechSynthesis' in window && window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = () => {
+            window.speechSynthesis.getVoices();
+        };
+    }
     function updateDataModal() {
         document.getElementById('ui-txt-365').innerText = db.totalDays365; 
         document.getElementById('ui-txt-108').innerText = db.totalYears108;
@@ -1005,9 +1095,10 @@
     }
 
     let isAutoTriggered = false; 
-    function openCert(tier) {
+
+    function openCert(tier, auto = false) {
         if (db.totalPracticedDays < tier) return; 
-        isAutoTriggered = false; 
+        isAutoTriggered = auto; 
 
         let currentName = "行 者";
         if (mainDb && mainDb.name && mainDb.name.trim() !== "") { currentName = mainDb.name; }
@@ -1015,7 +1106,27 @@
         document.getElementById('cert-title').innerText = CERT_DATA[tier].title;
         document.getElementById('cert-text').innerHTML = CERT_DATA[tier].text;
         document.getElementById('cert-glow').style.filter = CERT_DATA[tier].glow;
-        document.getElementById('cert-svg').style.cssText = CERT_DATA[tier].cssVars;
+        
+        const certSvgEl = document.getElementById('cert-svg');
+        certSvgEl.style.cssText = CERT_DATA[tier].cssVars;
+        
+        certSvgEl.style.display = "flex";
+        certSvgEl.style.justifyContent = "center";
+        certSvgEl.style.alignItems = "center";
+        certSvgEl.style.width = "100%";
+        certSvgEl.style.height = "1000%";
+
+        const tierMap = { 7: 1, 70: 2, 700: 3, 7000: 4, 9999999: 5 };
+        let bannerNum = tierMap[tier] || 1;
+
+        certSvgEl.innerHTML = `
+            <div class="modal-banner modal-banner-${bannerNum}">
+                <div class="m-hanger"></div>
+                <div class="m-banner-body"></div>
+                <div class="m-tassels"></div>
+            </div>
+        `;
+
         document.getElementById('cert-modal').classList.add('show');
     }
 
@@ -1053,7 +1164,6 @@
     const hintText = document.getElementById('seal-text');
     let reqAnimId, startTime, DURATION = 2000;
 
-    /* 將進度條動畫調整為由底部向上方滿溢，契合圓形按鈕 */
     function drawProgress(timestamp) {
         if (!startTime) startTime = timestamp; 
         let pct = Math.min((timestamp - startTime) / DURATION, 1);
@@ -1065,7 +1175,7 @@
         if (activeViewIndex !== currentDayOfWeek) return; 
         if (db.weekRecord[currentDayOfWeek]) return; 
         e.preventDefault(); 
-        hintText.innerHTML = "能量<br>注入"; 
+        hintText.innerHTML = "エネルギー<br>注入"; 
         hintText.style.color = "#fff"; 
         if (reqAnimId) { cancelAnimationFrame(reqAnimId); }
         startTime = null; 
@@ -1077,7 +1187,7 @@
         if (db.weekRecord[currentDayOfWeek]) return; 
         cancelAnimationFrame(reqAnimId); 
         progressFill.style.height = '0%'; 
-        hintText.innerHTML = "長按契印<br>大迴向"; 
+        hintText.innerHTML = "長押し契印<br>大回向"; 
         hintText.style.color = "var(--cyan)"; 
     }
     
@@ -1100,14 +1210,14 @@
 
     function showDedicationAnim(currentData) {
         const ov = document.getElementById('anim-overlay');
-        const flash = document.getElementById('anim-flash');
+        const globalFlash = document.getElementById('flash-overlay'); 
         const svgCont = document.getElementById('anim-svg-cont');
         const txt = document.getElementById('anim-txt');
         const btn = document.getElementById('anim-btn');
 
         ov.style.display = 'flex';
-        flash.style.opacity = 0;
-        flash.style.transition = 'none';
+        globalFlash.style.opacity = 0;
+        globalFlash.style.transition = 'none';
 
         svgCont.innerHTML = currentData.seed;
         txt.innerHTML = `
@@ -1121,7 +1231,8 @@
         setTimeout(() => ov.style.opacity = 1, 50);
 
         setTimeout(() => {
-            flash.style.opacity = 1; 
+            globalFlash.style.transition = 'none';
+            globalFlash.style.opacity = 1; 
             svgCont.innerHTML = ''; 
             
             for (let k = 0; k < 250; k++) {
@@ -1140,16 +1251,16 @@
             }
             
             setTimeout(() => { 
-                flash.style.transition = 'opacity 1.5s ease-in'; 
-                flash.style.opacity = 0; 
-            }, 800); 
+                globalFlash.style.transition = 'opacity 1.8s ease-in-out'; 
+                globalFlash.style.opacity = 0; 
+            }, 300); 
 
             txt.innerHTML = `
                 <div style="color:var(--gold); font-size:1.05rem; letter-spacing:2px; font-weight:bold; margin-bottom:8px;">${currentData.vowTitle}</div>
                 <div style="font-size:0.85rem; color:#aaa; text-align:justify; text-align-last:center; margin-bottom:15px;">${currentData.vowDesc}</div>
                 <div style="width:80%; height:1px; background:rgba(212,175,55,0.3); margin:0 auto 15px auto;"></div>
-                <div style="color:var(--gold); font-size:1.1rem; letter-spacing:3px; margin-bottom:5px;">【 因緣圓滿 ‧ 悉皆迴向 】</div>
-                <span style='font-size:0.85rem; color:var(--cyan); letter-spacing:1px;'>功功德已化作無漏金剛光束<br>迴向虛空法界。</span>`;
+                <div style="color:var(--gold); font-size:1.1rem; letter-spacing:3px; margin-bottom:5px;">【 因縁円満 ‧ 悉皆回向 】</div>
+                <span style='font-size:0.85rem; color:var(--cyan); letter-spacing:1px;'>功徳はすでに無漏の金剛光束と化し、<br>虚空法界へと回向されました。</span>`;
             
             setTimeout(() => { btn.style.opacity = 1; btn.style.pointerEvents = 'auto'; }, 2500);
         }, 3000); 
@@ -1166,13 +1277,15 @@
             updateDataModal();
 
             if (db.totalDays365 === 0 && db.totalPracticedDays > 0) {
-                showVowAlert("歲星圓滿，365日行願已成，<br>劫波蓮花歲數 + 1。");
+                showVowAlert("歳星円満、365日の行願が成就しました。<br>劫波蓮華の歳数 + 1。");
             }
 
             const triggers = [7, 70, 700, 7000, 9999999];
+           
             if (triggers.includes(db.totalPracticedDays)) {
-                setTimeout(() => { isAutoTriggered = true; openCert(db.totalPracticedDays); }, 1200);
+                setTimeout(() => { openCert(db.totalPracticedDays, true); }, 1200);
             }
+
         }, 500);
     }
 
@@ -1210,9 +1323,17 @@
         updateDataModal(); 
 
         document.getElementById('dharma-desc-btn').addEventListener('click', () => {
-            showVowAlert(`<div style='text-align:left; font-size:0.9rem; line-height:1.8; color:#ddd;'>將諸佛與本尊大願融入 <span style='color:var(--gold);'>七日法界觀想</span> 之中。<br><br>每日由不同本尊輪值，行者可點選上方聖字切換深觀。於圓滿壇城內恭敬端嚴書寫當日種子字，並長按大迴向圓滿後，資糧將暫存法界。<br><br>每圓滿七日，系統將自動結算 <span style='color:var(--gold);'>1000 點大願資糧</span>，匯入您的彌陀主系統。</div>`);
+            showVowAlert(`
+                <div style='text-align:left; font-size:0.9rem; line-height:1.8; color:#ddd;'>
+                    <span style='color:var(--gold);'>七日観想</span> の中において、至誠に諸仏菩薩の大願を領受します。<br><br>
+                    ここは行者が随學修持するための清浄なる空間です。毎日、諸仏菩薩の誓願聖字に依拠し、<span style='color:var(--gold);'>恭しく模写し、字輪に随って照らします</span>。壇城内にて厳かに梵音種子字を書き写し、浄念を相続させ、契印を長押しして随学回向を行い、この功徳資糧を法界に暫定保存します。<br><br>
+                    七日の浄観を円満するごとに、システムは自動的に <span style='color:var(--gold);'>100点の菩提資糧</span> を精算し、阿弥陀主システムへと組み込みます。
+                </div>
+            `);
         });
     });
 </script>
-</body>
-</html>
+   </body>
+  </html>
+            
+
