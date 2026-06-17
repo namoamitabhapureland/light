@@ -279,7 +279,7 @@
             transition: color 0.3s, text-shadow 0.3s;
             text-align: center;
             margin-top: 12px;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         .pool-wrap { width: 70%; max-width: 300px; text-align: center; margin: 0 auto; }
@@ -692,7 +692,7 @@
             </div>
 
             <!-- 說明文字 -->
-            <div class="seal-btn-text" id="seal-text">長押し契印 ． 大回向</div>
+            <div class="seal-btn-text" id="seal-text">長押 ． 大回向</div>
 
             <!-- 資糧大數據進度條 -->
             <div class="pool-wrap">
@@ -971,7 +971,7 @@
             if(sealBtn) sealBtn.classList.remove('view-only-mode');
         } else {
             if (activeViewIndex === currentDayOfWeek) {
-                btnText.innerText = "長押し契印 ． 大回向"; 
+                btnText.innerText = "長押 ． 大回向"; 
                 btnText.style.color = "var(--cyan)";
                 btnText.style.textShadow = "0 0 8px rgba(0,242,254,0.5)";
                 if(sealBtn) sealBtn.classList.remove('view-only-mode');
@@ -1179,7 +1179,7 @@
         if (activeViewIndex !== currentDayOfWeek) return; 
         if (db.weekRecord[currentDayOfWeek]) return; 
         e.preventDefault(); 
-        hintText.innerHTML = "エネルギー<br>注入"; 
+        hintText.innerHTML = "エネルギー 注入"; 
         hintText.style.color = "#fff"; 
         if (reqAnimId) { cancelAnimationFrame(reqAnimId); }
         startTime = null; 
@@ -1191,7 +1191,7 @@
         if (db.weekRecord[currentDayOfWeek]) return; 
         cancelAnimationFrame(reqAnimId); 
         progressFill.style.height = '0%'; 
-        hintText.innerHTML = "長押し契印<br>大回向"; 
+        hintText.innerHTML = "長押 ． 大回向"; 
         hintText.style.color = "var(--cyan)"; 
     }
     
