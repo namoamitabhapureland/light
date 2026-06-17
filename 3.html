@@ -347,8 +347,19 @@
         .cert-box { background: linear-gradient(180deg, rgba(20,20,20,0.95) 0%, rgba(5,5,5,0.98) 100%); border: 1px solid rgba(212,175,55,0.4); border-radius: 20px; width: 85%; max-width: 360px; padding: 40px 25px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.9); transform: translateY(20px) scale(0.95); transition: 0.4s; }
         .cert-overlay.show .cert-box { transform: translateY(0) scale(1); }
         .cert-header { color: var(--gold-light); font-size: 0.9rem; letter-spacing: 6px; margin-bottom: 25px; }
-        .cert-svg-wrap { width: 90px; height: 90px; margin: 0 auto 25px auto; display: flex; align-items: center; justify-content: center; animation: cert-float 3s infinite alternate; }
-        .cert-svg-wrap svg { width: 100%; height: 100%; overflow: visible; }
+        .cert-svg-wrap { 
+            width: 55px; 
+            height: 120px; 
+            margin: 0 auto 25px auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            animation: cert-float 3s infinite alternate; 
+        }
+        
+        .cert-svg-wrap .modal-banner {
+            animation: bannerGlow 3s ease-in-out infinite alternate; 
+        }
         @keyframes cert-float { 0% { transform: translateY(0); } 100% { transform: translateY(-8px); } }
         .cert-name { color: var(--solid-gold); font-size: 1.3rem; font-weight: bold; letter-spacing: 5px; margin: 10px 0 25px 0; }
         .cert-divider { width: 60%; height: 1px; background: radial-gradient(circle, rgba(212,175,55,0.6) 0%, transparent 100%); margin: 0 auto 20px auto; }
@@ -599,7 +610,7 @@
         </div>
 
         <div class="tracker-container">
-            <div class="tracker-title" id="ui-week-title">【 七日輪值 ． 聖字亮燈 】</div>
+            <div class="tracker-title" id="ui-week-title">【 七日觀摹 ． 字輪心契 】</div>
             <div class="tracker-circles" id="ui-trackers"></div>
         </div>
 
@@ -694,8 +705,8 @@
 
 <div class="modal-overlay" id="dataModal">
     <div class="data-card" onclick="event.stopPropagation()">
-        <div class="data-title">十方結緣 ‧ 歷史軌跡</div>
-        <div class="data-sub">(合本願與諸佛之畢生大數據)</div>
+        <div class="data-title">十方結緣 ． 行願蓮蹤</div>
+        <div class="data-sub">(合本願與諸佛之歷劫功德海)</div>
         
         <div class="trophy-shelf">
             <div class="trophy-item">
@@ -762,7 +773,9 @@
     <div class="cert-overlay" id="cert-modal">
         <div class="cert-box">
             <div class="cert-header" id="cert-title">✦ 菩提契印 ✦</div>
-            <div class="cert-svg-wrap" id="cert-glow"><svg id="cert-svg" viewBox="0 0 120 200"><use href="#dynamic-banner"/></svg></div>
+<div class="cert-svg-wrap" id="cert-glow">
+    <div id="cert-svg" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"></div>
+</div>
             <div style="color: #aaa; font-size: 0.8rem; letter-spacing: 3px;">行 者</div>
             <div class="cert-name" id="cert-name-display">行 者</div>
             <div class="cert-divider"></div>
@@ -1080,14 +1093,37 @@ function openCert(tier, auto = false) {
     document.getElementById('cert-title').innerText = CERT_DATA[tier].title;
     document.getElementById('cert-text').innerHTML = CERT_DATA[tier].text;
     document.getElementById('cert-glow').style.filter = CERT_DATA[tier].glow;
-    document.getElementById('cert-svg').style.cssText = CERT_DATA[tier].cssVars;
+    
+    // 1. 先賦予您原有的 cssVars 設定
+    const certSvgEl = document.getElementById('cert-svg');
+    certSvgEl.style.cssText = CERT_DATA[tier].cssVars;
+    
+    // 2. 【防呆保護】強制補回置中排版樣式，避免被上面的 cssVars 沖掉
+    certSvgEl.style.display = "flex";
+    certSvgEl.style.justifyContent = "center";
+    certSvgEl.style.alignItems = "center";
+    certSvgEl.style.width = "100%";
+    certSvgEl.style.height = "100%";
+
+    // 3. 對照天數階層，動態生成大數據對應的功德寶幡結構 (7日->幡1, 70日->幡2...)
+    const tierMap = { 7: 1, 70: 2, 700: 3, 7000: 4, 9999999: 5 };
+    let bannerNum = tierMap[tier] || 1;
+
+    certSvgEl.innerHTML = `
+        <div class="modal-banner modal-banner-${bannerNum}">
+            <div class="m-hanger"></div>
+            <div class="m-banner-body"></div>
+            <div class="m-tassels"></div>
+        </div>
+    `;
+
     document.getElementById('cert-modal').classList.add('show');
 }
 
-    function closeCert() { 
-        document.getElementById('cert-modal').classList.remove('show'); 
-        if (isAutoTriggered) { setTimeout(flyLightToHistory, 300); }
-    }
+function closeCert() { 
+    document.getElementById('cert-modal').classList.remove('show'); 
+    if (isAutoTriggered) { setTimeout(flyLightToHistory, 300); }
+}
 
     function flyLightToHistory() {
         const targetBtn = document.getElementById('nav-history-btn'); 
@@ -1277,7 +1313,13 @@ if (triggers.includes(db.totalPracticedDays)) {
         updateDataModal(); 
 
         document.getElementById('dharma-desc-btn').addEventListener('click', () => {
-            showVowAlert(`<div style='text-align:left; font-size:0.9rem; line-height:1.8; color:#ddd;'>將諸佛與本尊大願融入 <span style='color:var(--gold);'>七日法界觀想</span> 之中。<br><br>每日由不同本尊輪值，行者可點選上方聖字切換深觀。於圓滿壇城內恭敬端嚴書寫當日種子字，並長按大迴向圓滿後，資糧將暫存法界。<br><br>每圓滿七日，系統將自動結算 <span style='color:var(--gold);'>100 點大願資糧</span>，匯入您的彌陀主系統。</div>`);
+            showVowAlert(`
+                <div style='text-align:left; font-size:0.9rem; line-height:1.8; color:#ddd;'>
+                    於 <span style='color:var(--gold);'>七日觀摹</span> 之中，至誠領受諸佛菩薩大願。<br><br>
+                    此處為行者隨學修持之清淨空間。每日依循諸佛菩薩之誓願聖字，<span style='color:var(--gold);'>恭敬摹寫、字輪隨照</span>。於壇城內端嚴書寫梵音種子字，淨念相續，並長按契印隨學迴向，將此功德資糧暫存法界。<br><br>
+                    每圓滿七日淨觀，系統將自動結算 <span style='color:var(--gold);'>100 點菩提資糧</span>，匯入您的彌陀主系統。
+                </div>
+            `);
         });
     });
 </script>
