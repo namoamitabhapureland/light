@@ -691,7 +691,7 @@
             </div>
 
             <!-- 說明文字獨立於下方，單行端嚴呈現 -->
-            <div class="seal-btn-text" id="seal-text">長按．大迴向</div>
+            <div class="seal-btn-text" id="seal-text">長按 ． 大迴向</div>
 
             <!-- 資糧大數據進度條 -->
             <div class="pool-wrap">
@@ -1192,7 +1192,7 @@ function closeCert() {
         if (activeViewIndex !== currentDayOfWeek) return; 
         if (db.weekRecord[currentDayOfWeek]) return; 
         e.preventDefault(); 
-        hintText.innerHTML = "能量<br>注入"; 
+        hintText.innerHTML = "能量注入"; 
         hintText.style.color = "#fff"; 
         if (reqAnimId) { cancelAnimationFrame(reqAnimId); }
         startTime = null; 
@@ -1204,7 +1204,7 @@ function closeCert() {
         if (db.weekRecord[currentDayOfWeek]) return; 
         cancelAnimationFrame(reqAnimId); 
         progressFill.style.height = '0%'; 
-        hintText.innerHTML = "長按契印<br>大迴向"; 
+        hintText.innerHTML = "長按契印大迴向"; 
         hintText.style.color = "var(--cyan)"; 
     }
     
