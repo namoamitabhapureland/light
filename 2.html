@@ -259,7 +259,7 @@ text-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
 transition: color 0.3s, text-shadow 0.3s;
 text-align: center;
 margin-top: 12px;
-margin-bottom: 8px;
+margin-bottom: 5px;
 }
 .pool-wrap { width: 70%; max-width: 340px; text-align: center; margin: 0 auto; }
 .pool-label { font-size: 0.65rem; color: var(--gold-light); letter-spacing: 1px; margin-bottom: 6px; opacity: 0.8; }
@@ -1102,7 +1102,7 @@ z-index: 10002;
         if (activeViewIndex !== currentDayOfWeek) return; 
         if (db.weekRecord[currentDayOfWeek]) return; 
         e.preventDefault(); 
-        hintText.innerHTML = "Energy<br>Infusing"; 
+        hintText.innerHTML = "Energy Infusing"; 
         hintText.style.color = "#fff"; 
         if (reqAnimId) { cancelAnimationFrame(reqAnimId); }
         startTime = null; 
@@ -1114,7 +1114,7 @@ z-index: 10002;
         if (db.weekRecord[currentDayOfWeek]) return; 
         cancelAnimationFrame(reqAnimId); 
         progressFill.style.height = '0%'; 
-        hintText.innerHTML = "Hold to Seal<br>Great Dedication"; 
+        hintText.innerHTML = "Hold to Seal ． Great Dedication"; 
         hintText.style.color = "var(--cyan)"; 
     }
     
