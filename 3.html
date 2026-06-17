@@ -974,7 +974,7 @@
         } else {
             if (activeViewIndex === currentDayOfWeek) {
                 // 當日待修持狀態
-                btnText.innerText = "長按契印 ． 大迴向"; 
+                btnText.innerText = "長按 ． 大迴向"; 
                 btnText.style.color = "var(--cyan)";
                 btnText.style.textShadow = "0 0 8px rgba(0,242,254,0.5)";
                 if(sealBtn) sealBtn.classList.remove('view-only-mode');
@@ -1204,7 +1204,7 @@ function closeCert() {
         if (db.weekRecord[currentDayOfWeek]) return; 
         cancelAnimationFrame(reqAnimId); 
         progressFill.style.height = '0%'; 
-        hintText.innerHTML = "長按契印大迴向"; 
+        hintText.innerHTML = "長按 ． 大迴向"; 
         hintText.style.color = "var(--cyan)"; 
     }
     
