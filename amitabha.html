@@ -345,6 +345,25 @@ mix-blend-mode: screen;
         @keyframes glass-pulse { 0% { opacity: 0.6; } 100% { opacity: 1; } }
         .glow-chakra { animation: chakra-pulse 5s ease-in-out infinite alternate; }
         @keyframes chakra-pulse { 0% { opacity: 0.6; stroke-width: 0.8; filter: drop-shadow(0 0 5px #fff); } 100% { opacity: 1; stroke-width: 1.5; filter: drop-shadow(0 0 12px #f3e5ab); } }
+/* 卍字自性心光呼吸：只動 opacity，效能近乎零消耗 */
+@keyframes wan-breathe {
+    0% {
+        opacity: 0.35;
+    }
+    50% {
+        opacity: 0.95;
+    }
+    100% {
+        opacity: 0.35;
+    }
+}
+
+.wan-symbol {
+    /* 轉向中心完美對齊 (500, 460) */
+    transform-origin: 500px 460px;
+    /* 7秒一次呼吸，infinite 代表無盡，ease-in-out 讓過渡極其柔和 */
+    animation: wan-breathe 7s ease-in-out infinite;
+}
 
 
     </style>
@@ -744,8 +763,8 @@ mix-blend-mode: screen;
                         <path d="M 104 23 C 102 25, 102 32, 106 34" stroke="var(--gold-solid)" stroke-width="1" fill="none" />
                         <path d="M 100 25 L 100 225" stroke="var(--gold-solid)" stroke-width="1.5" stroke-linecap="round" fill="none" />
                     </g>
-
-<path d="M 500 460 L 500 440 L 480 440 
+<path class="wan-symbol"
+      d="M 500 460 L 500 440 L 480 440 
          M 500 460 L 520 460 L 520 440 
          M 500 460 L 500 480 L 520 480 
          M 500 460 L 480 460 L 480 480" 
@@ -754,6 +773,8 @@ mix-blend-mode: screen;
       stroke-width="3" 
       stroke-linejoin="miter" 
       stroke-linecap="square" />
+
+
 
 
                             <circle cx="500" cy="195" r="3" fill="url(#pureGoldGradient)" stroke="none" class="glow-core" />
