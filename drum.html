@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>大法鼓經 · 一佛乘法音系統</title>
+  <style>
+    /* 全局極簡與美學設定 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #030308;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    /* 星空背景層：象徵無邊法界與破除無明 */
+    .space-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #0a0b1e 0%, #020205 100%);
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* 隨機星光效果（純CSS） */
+    .space-bg::before {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 20px);
+      background-size: 550px 550px, 350px 350px, 250px 250px;
+      background-position: 0 0, 40px 60px, 130px 270px;
+      opacity: 0.4;
+    }
+
+    /* 主容器 */
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    /* 標題文字：莊嚴、謙卑、一佛乘 */
+    .title-area {
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .title-area h1 {
+      color: #e5c158;
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: 8px;
+      margin-bottom: 8px;
+      text-shadow: 0 0 10px rgba(229, 193, 88, 0.3);
+    }
+
+    .title-area p {
+      color: #8a92a6;
+      font-size: 13px;
+      letter-spacing: 4px;
+    }
+
+    /* 向量鼓 canvas 容器 */
+    .drum-stage {
+      width: 100%;
+      max-width: 600px;
+      height: 50vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* 鼓棒動態效果 */
+    .drumstick {
+      transform-origin: 520px 420px;
+      transition: transform 0.05s ease-out;
+    }
+
+    .drumstick.striking {
+      transform: rotate(-25deg) translate(-40px, -20px);
+    }
+
+    /* 鼓身受擊形變 */
+    .drum-body-group {
+      transform-origin: 400px 300px;
+      transition: transform 0.04s ease-out;
+    }
+    .drum-body-group.vibrate {
+      transform: scale(1.02);
+    }
+
+    /* 控制面板 */
+    .control-panel {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(229, 193, 88, 0.2);
+      color: #8a92a6;
+      padding: 12px 24px;
+      font-size: 13px;
+      letter-spacing: 2px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: rgba(229, 193, 88, 0.05);
+      border-color: rgba(229, 193, 88, 0.5);
+      color: #e5c158;
+    }
+
+    .btn.active {
+      background: rgba(229, 193, 88, 0.1);
+      border-color: #e5c158;
+      color: #e5c158;
+      box-shadow: 0 0 15px rgba(229, 193, 88, 0.15);
+    }
+
+    /* 法音波紋樣式 */
+    .ripple {
+      fill: none;
+      stroke: rgba(229, 193, 88, 0.4);
+      stroke-width: 1.5;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="space-bg"></div>
+
+  <div class="container">
+    <div class="title-area">
+      <h1>大法鼓</h1>
+      <p>破「有」顯空 · 凡聞者邪見悉滅</p>
+    </div>
+
+    <div class="drum-stage" id="drum-trigger">
+      <svg viewBox="0 0 800 600" id="drum-svg">
+        <defs>
+          <linearGradient id="crimson-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#991f26" />
+            <stop offset="50%" stop-color="#661115" />
+            <stop offset="100%" stop-color="#330507" />
+          </linearGradient>
+          <linearGradient id="ivory-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="100%" stop-color="#eadeca" />
+          </linearGradient>
+          <linearGradient id="stand-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#1a1a1a" />
+            <stop offset="50%" stop-color="#2d2d2d" />
+            <stop offset="100%" stop-color="#111111" />
+          </linearGradient>
+        </defs>
+
+        <g id="drum-stand">
+          <path d="M 220 320 L 160 550 L 190 550 L 245 340 Z" fill="url(#stand-grad)" />
+          <path d="M 580 320 L 640 550 L 610 550 L 555 340 Z" fill="url(#stand-grad)" />
+          <rect x="200" y="460" width="400" height="25" fill="url(#stand-grad)" />
+          <ellipse cx="400" cy="550" rx="260" ry="15" fill="rgba(0,0,0,0.5)" />
+        </g>
+
+        <g class="drum-body-group" id="drum-body-identity">
+          
+          <path d="M 200 240 A 200 65 0 0 0 600 240 L 560 450 A 160 50 0 0 1 240 450 Z" fill="url(#crimson-grad)" />
+          
+          <ellipse cx="400" cy="240" rx="200" ry="65" fill="url(#ivory-grad)" stroke="#d4af37" stroke-width="1.5" />
+          
+          <ellipse cx="400" cy="240" rx="30" ry="10" fill="none" stroke="rgba(212, 175, 55, 0.15)" stroke-width="1" />
+
+          <g id="rivets-group"></g>
+          
+        </g>
+
+        <g id="ripple-layer"></g>
+
+        <g class="drumstick" id="drumstick-element">
+          <path d="M 515 425 L 415 225 C 413 221, 417 217, 420 220 L 525 418 Z" fill="#d2b48c" opacity="0.9" />
+          <circle cx="416" cy="221" r="12" fill="#eadeca" />
+        </g>
+      </svg>
+    </div>
+
+    <div class="control-panel">
+      <button class="btn" id="music-btn">如來藏梵音流轉：關閉</button>
+    </div>
+  </div>
+
+  <script>
+    //======================================================================
+    // 1. 幾何向量：動態生成 2.5D 橢圓邊緣卯釘
+    //======================================================================
+    const rivetsGroup = document.getElementById('rivets-group');
+    const totalRivets = 32;
+    const cx = 400;
+    const cy = 243; // 略低於鼓面中心，使其貼合邊緣下沿
+    const rx = 201;
+    const ry = 66;
+
+    // 僅在前半周（面向使用者的下半部橢圓）分佈卯釘，展現立體空間感
+    for (let i = 0; i <= totalRivets; i++) {
+      const angle = Math.PI * (i / totalRivets); // 0 到 π
+      const x = cx + rx * Math.cos(angle);
+      const y = cy + ry * Math.sin(angle);
+      
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', x);
+      circle.setAttribute('cy', y);
+      // 根據透視，兩側的卯釘看起來較小，中央的較大
+      const sizeFactor = Math.sin(angle); 
+      circle.setAttribute('r', 3 + sizeFactor * 2.5);
+      circle.setAttribute('fill', '#d4af37');
+      circle.setAttribute('opacity', 0.3 + sizeFactor * 0.7);
+      
+      rivetsGroup.appendChild(circle);
+    }
+
+    //======================================================================
+    // 2. Web Audio API：無純淨版權爭議、高純度合成音訊系統
+    //======================================================================
+    let audioCtx = null;
+    let bgmNodes = [];
+    let isMusicPlaying = false;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    // 擊鼓音效合成：深沉、具備低頻大鼓震動與空間消隱感
+    function playDrumSound() {
+      initAudio();
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      const now = audioCtx.currentTime;
+      
+      // 主深沉低頻振盪器 (鼓膜主音)
+      const osc = audioCtx.createOscillator();
+      const gainOsc = audioCtx.createGain();
+      
+      // 模擬大鼓敲擊瞬間的物理頻率急速下降（Pitch Drop）
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(140, now);
+      osc.frequency.exponentialRampToValueAtTime(42, now + 0.08); 
+      osc.frequency.linearRampToValueAtTime(30, now + 0.4);
+
+      // 鼓音振幅包絡線（快攻、深沉衰減）
+      gainOsc.gain.setValueAtTime(0, now);
+      gainOsc.gain.linearRampToValueAtTime(1.0, now + 0.005);
+      gainOsc.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+
+      // 低通濾波器：濾除高頻雜音，保留厚重莊嚴的低頻大鼓共鳴
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(180, now);
+
+      // 連結節點
+      osc.connect(gainOsc);
+      gainOsc.connect(filter);
+      filter.connect(audioCtx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.6);
+    }
+
+    // 背景音樂合成：由多組和諧正弦波構成的法界空靈梵音（無版權爭議）
+    function startBackgroundMusic() {
+      initAudio();
+      const now = audioCtx.currentTime;
+      bgmNodes = [];
+
+      // 基礎和弦三音（低沉、平穩、代表真如不動）
+      const baseFrequencies = [55, 110, 165]; 
+
+      baseFrequencies.forEach((freq, index) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+        
+        // 緩慢的氣息波動效果
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(0.08 / baseFrequencies.length, now + 2);
+        
+        // 加入微弱的低頻調變，使聲音呈現宇宙深邃的流動感
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        osc.start(now);
+        bgmNodes.push({ osc, gain });
+      });
+    }
+
+    function stopBackgroundMusic() {
+      const now = audioCtx.currentTime;
+      bgmNodes.forEach(node => {
+        try {
+          node.gain.linearRampToValueAtTime(0, now + 1);
+          node.osc.stop(now + 1.1);
+        } catch(e) {}
+      });
+      bgmNodes = [];
+    }
+
+    //======================================================================
+    // 3. 互動與動效控制：揮棒、形變、法音波紋擴散
+    //======================================================================
+    const drumTrigger = document.getElementById('drum-trigger');
+    const drumstick = document.getElementById('drumstick-element');
+    const drumBody = document.getElementById('drum-body-identity');
+    const rippleLayer = document.getElementById('ripple-layer');
+    const musicBtn = document.getElementById('music-btn');
+
+    drumTrigger.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      triggerHit();
+    });
+
+    drumTrigger.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      triggerHit();
+    });
+
+    function triggerHit() {
+      // 1. 觸發音效
+      playDrumSound();
+
+      // 2. 鼓棒揮擊動畫
+      drumstick.classList.add('striking');
+      setTimeout(() => {
+        drumstick.classList.remove('striking');
+      }, 60);
+
+      // 3. 鼓身物理震顫
+      drumBody.classList.add('vibrate');
+      setTimeout(() => {
+        drumBody.classList.remove('vibrate');
+      }, 50);
+
+      // 4. 生成2.5D透視法音波紋（破除無明）
+      createDharmaRipple();
+    }
+
+    function createDharmaRipple() {
+      const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+      ellipse.setAttribute('cx', '400');
+      ellipse.setAttribute('cy', '240');
+      ellipse.setAttribute('rx', '200');
+      ellipse.setAttribute('ry', '65');
+      ellipse.setAttribute('class', 'ripple');
+      rippleLayer.appendChild(ellipse);
+
+      let radiusX = 200;
+      let radiusY = 65;
+      let opacity = 1.0;
+
+      function animateRipple() {
+        radiusX += 6;
+        radiusY += 1.95; // 依據透視比例同步擴散
+        opacity -= 0.015;
+
+        ellipse.setAttribute('rx', radiusX);
+        ellipse.setAttribute('ry', radiusY);
+        ellipse.setAttribute('style', `opacity: ${opacity}; stroke: rgba(229, 210, 130, ${opacity});`);
+
+        if (opacity > 0) {
+          requestAnimationFrame(animateRipple);
+        } else {
+          ellipse.remove();
+        }
+      }
+      requestAnimationFrame(animateRipple);
+    }
+
+    // 背景法音按鈕切換
+    musicBtn.addEventListener('click', () => {
+      if (!isMusicPlaying) {
+        startBackgroundMusic();
+        musicBtn.textContent = '如來藏梵音流轉：開啟';
+        musicBtn.classList.add('active');
+        isMusicPlaying = true;
+      } else {
+        stopBackgroundMusic();
+        musicBtn.textContent = '如來藏梵音流轉：關閉';
+        musicBtn.classList.remove('active');
+        isMusicPlaying = false;
+      }
+    });
+  </script>
+</body>
+</html>
