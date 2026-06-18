@@ -1417,8 +1417,12 @@ document.getElementById('milestone-name-display').innerText = currentName;
     let ww, wh, wTime=0; 
     function resW() { ww=wCvs.width=window.innerWidth; wh=wCvs.height=window.innerHeight; } 
     window.addEventListener('resize', resW); resW(); 
-    const waterThemes = [ { h: 195, s: 80, l: 65 }, { h: 340, s: 80, l: 70 }, { h: 45,  s: 90, l: 65 } ]; 
-    
+    const waterThemes = [
+    { h: 175, s: 65, l: 55 }, // 翡翠青（沉穩基底）
+    { h: 45,  s: 85, l: 65 }, // 慈光金（核心亮點）
+    { h: 195, s: 70, l: 60 }  // 琉璃藍（清透點綴）
+];
+
     function drawW() { 
         wCtx.clearRect(0,0,ww,wh); wTime += 0.005; 
         for (let i = 0; i < 3; i++) { 
