@@ -108,7 +108,7 @@
 
     /* 鼓體受擊 3D 微共震 */
     .drum-master-group {
-      transform-origin: 480px 350px;
+      transform-origin: 450px 350px;
       transition: transform 0.04s ease-out;
     }
     .drum-master-group.shake {
@@ -161,7 +161,6 @@
     <div class="drum-stage" id="stage-interact">
       <svg viewBox="0 0 800 800" id="drum-svg">
         <defs>
-          <!-- 絳紅飽滿鼓身漸層 -->
           <linearGradient id="crimson-barrel" x1="0%" y1="20%" x2="100%" y2="80%">
             <stop offset="0%" stop-color="#8a161b" />
             <stop offset="35%" stop-color="#590c10" />
@@ -169,28 +168,24 @@
             <stop offset="100%" stop-color="#140002" />
           </linearGradient>
 
-          <!-- 象牙白自性清淨鼓面漸層 -->
           <linearGradient id="drum-head-grad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#ffffff" />
             <stop offset="65%" stop-color="#f5ede2" />
             <stop offset="100%" stop-color="#ded2bf" />
           </linearGradient>
 
-          <!-- 厚重古典木雕大托架漸層 -->
           <linearGradient id="dark-timber" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stop-color="#1f1c19" />
             <stop offset="50%" stop-color="#302a26" />
             <stop offset="100%" stop-color="#171412" />
           </linearGradient>
 
-          <!-- 莊嚴黃金木紋與金屬漸層 -->
           <linearGradient id="gold-metal" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#fede6a" />
             <stop offset="50%" stop-color="#d4af37" />
             <stop offset="100%" stop-color="#8a6f1c" />
           </linearGradient>
 
-          <!-- 渾厚粗大金色木棍專用漸層 -->
           <linearGradient id="gold-timber" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#ffe891" />
             <stop offset="40%" stop-color="#e5b83b" />
@@ -198,7 +193,6 @@
             <stop offset="100%" stop-color="#735203" />
           </linearGradient>
 
-          <!-- 雙層精雕複合飾面卯釘定義 -->
           <g id="decorated-rivet-sym">
             <circle cx="0" cy="0" r="5.5" fill="#543e07" />
             <circle cx="0" cy="0" r="4" fill="url(#gold-metal)" />
@@ -206,69 +200,51 @@
           </g>
         </defs>
 
-        <!-- 【第一層：後方支架層】完美符合透視邏輯，包含原本前方第一根腳在內，全部隱於鼓身後方 -->
         <g id="stand-back-layer">
-          <!-- 修正 2：白色鼓皮下方原本暴露的第一根腳，現在完全移到後方，上段被鼓體完全遮擋 -->
-          <path d="M 340 400 L 260 760 L 305 760 L 380 435 Z" fill="#141210" />
+          <path d="M 420 460 L 220 760 L 265 760 L 450 480 Z" fill="#12100e" />
           
-          <!-- 後方其他長斜撐柱與水平拉桿 -->
-          <path d="M 280 380 L 190 750 L 235 750 L 320 400 Z" fill="#12100e" />
-          <path d="M 590 480 L 530 720 L 565 720 L 615 480 Z" fill="#171412" />
-          <path d="M 210 660 L 550 660 L 550 685 L 210 685 Z" fill="#110f0d" />
+          <path d="M 540 460 L 590 730 L 630 730 L 565 470 Z" fill="#161412" />
+          <path d="M 240 670 L 580 670 L 580 695 L 240 695 Z" fill="#100e0d" />
         </g>
 
-        <!-- 【第二層：主鼓體架構組】 -->
         <g class="drum-master-group" id="drum-hardware-group">
           
-          <!-- 1. 2.5D厚重木製絳紅鼓身 -->
-          <path d="M 330 130 Q 520 100 620 180 L 620 540 Q 520 620 330 570 Z" fill="url(#crimson-barrel)" />
+          <path d="M 330 130 Q 520 110 650 200 L 650 500 Q 520 590 330 570 Z" fill="url(#crimson-barrel)" />
           
-          <!-- 修正 1：右邊紅色鼓身面的【雙層金圓框】，創造極致層次感 -->
-          <ellipse cx="620" cy="360" rx="36" ry="180" fill="none" stroke="url(#gold-metal)" stroke-width="5" />
-          <ellipse cx="620" cy="360" rx="26" ry="165" fill="none" stroke="url(#gold-metal)" stroke-width="2.5" opacity="0.85" />
-
-          <!-- 鼓身黃金拉手座（微調至精緻點綴位置） -->
-          <g transform="translate(535, 360)">
+          <g transform="translate(545, 365)">
             <rect x="-10" y="-20" width="20" height="40" rx="3" fill="url(#gold-metal)" stroke="#42350c" stroke-width="1" />
             <circle cx="0" cy="0" r="12" fill="none" stroke="url(#gold-metal)" stroke-width="4" />
           </g>
 
-          <!-- 2. 前方象牙白鼓面 -->
           <ellipse cx="330" cy="350" rx="120" ry="220" fill="url(#drum-head-grad)" stroke="#baa185" stroke-width="2" />
 
-          <!-- 3. 鼓面中央：極簡金色法輪圖騰 -->
+          <path d="M 330 130 A 120 220 0 0 1 330 570" fill="none" stroke="url(#gold-metal)" stroke-width="6" />
+          <path d="M 330 136 A 114 214 0 0 1 330 564" fill="none" stroke="url(#gold-metal)" stroke-width="3" opacity="0.85" />
+
           <g transform="translate(330, 350) scale(0.65, 1.2)">
             <circle cx="0" cy="0" r="45" fill="none" stroke="rgba(168, 137, 76, 0.3)" stroke-width="2" />
             <circle cx="0" cy="0" r="12" fill="none" stroke="rgba(168, 137, 76, 0.35)" stroke-width="2" />
             <path d="M 0 -45 L 0 45 M -45 0 L 45 0 M -31.8 -31.8 L 31.8 31.8 M -31.8 31.8 L 31.8 -31.8" stroke="rgba(168, 137, 76, 0.3)" stroke-width="1.5" />
           </g>
 
-          <!-- 修正 1：精雕卯釘群，嚴格圍繞在右邊雙層金圓框上，富有立體深度 -->
-          <g id="right-side-rivets-container"></g>
+          <g id="right-rim-rivets-container"></g>
 
         </g>
 
-        <!-- 【第三層：單圈法音波紋層】 -->
         <g id="wave-delivery-layer"></g>
 
-        <!-- 【第四層：前方托架層】承托於鼓身下方，絕不越界遮擋前方鼓面 -->
         <g id="stand-front-layer">
-          <!-- 前右下主支柱 -->
-          <path d="M 520 520 L 440 760 L 485 760 L 560 510 Z" fill="url(#dark-timber)" />
-          <!-- 前方橫向加固托樑 -->
-          <path d="M 280 690 L 475 690 L 475 725 L 280 725 Z" fill="url(#dark-timber)" />
+          <path d="M 370 565 L 300 760 L 345 760 L 410 560 Z" fill="url(#dark-timber)" />
+          <path d="M 500 535 L 440 760 L 485 760 L 535 525 Z" fill="url(#dark-timber)" />
+          <path d="M 290 690 L 490 690 L 490 725 L 290 725 Z" fill="url(#dark-timber)" />
           
-          <!-- 托架傳統工藝裝飾：金屬雕花包角與加固章 -->
-          <path d="M 290 690 L 320 690 L 320 725 L 280 725 Z" fill="url(#gold-metal)" opacity="0.95" />
-          <path d="M 445 690 L 475 690 L 465 725 L 435 725 Z" fill="url(#gold-metal)" opacity="0.95" />
-          <circle cx="378" cy="707" r="9" fill="url(#gold-metal)" />
+          <path d="M 300 690 L 330 690 L 330 725 L 290 725 Z" fill="url(#gold-metal)" opacity="0.95" />
+          <path d="M 460 690 L 490 690 L 480 725 L 450 725 Z" fill="url(#gold-metal)" opacity="0.95" />
+          <circle cx="390" cy="707" r="9" fill="url(#gold-metal)" />
         </g>
 
-        <!-- 【第五層：前景獨一根、極具分量感的粗大木頭金色鼓棒】 -->
         <g class="stick-master" id="drum-stick">
-          <!-- 粗大金色木頭棍身 -->
           <path d="M 115 690 L 265 375 C 270 365, 285 372, 280 382 L 140 705 Z" fill="url(#gold-timber)" />
-          <!-- 渾厚木質金色棒頭 -->
           <ellipse cx="270" cy="376" rx="19" ry="21" fill="url(#gold-metal)" stroke="#9c7514" stroke-width="1.5" />
         </g>
 
@@ -282,36 +258,36 @@
 
   <script>
     //======================================================================
-    // 修正 1：空間透視 —— 卯釘嚴密圍繞於「右邊紅色鼓面」的雙層金圓框上
+    // 修正 1：空間透視 —— 卯釘嚴密且均勻地沿著白色鼓皮的【右半圈】邊緣生成
     //======================================================================
-    const rivetsContainer = document.getElementById('right-side-rivets-container');
-    const rivetCount = 28;
-    const rcx = 620, rcy = 360; // 右邊圓框的幾何中心
-    const rrx = 36, rry = 180;  // 緊貼外層金圓框軌跡
+    const rivetsContainer = document.getElementById('right-rim-rivets-container');
+    const rivetCount = 30;
+    const cx = 330, cy = 350; // 鼓面中心
+    const rx = 120, ry = 220; // 鼓面橢圓半徑
 
     for (let i = 0; i < rivetCount; i++) {
-      const angle = (i / rivetCount) * Math.PI * 2;
+      // 在右半圈（-PI/2 到 PI/2）之間進行均勻分佈
+      const angle = -Math.PI / 2 + (i / (rivetCount - 1)) * Math.PI;
       const cosVal = Math.cos(angle);
       const sinVal = Math.sin(angle);
 
-      // 為了展現 2.5D 的側向厚度與層次感，正面能看到的右側外緣（cosVal >= -0.2）均勻分佈卯釘
-      if (cosVal >= -0.3) {
-        const x = rcx + rrx * cosVal;
-        const y = rcy + rry * sinVal;
+      const x = cx + rx * cosVal;
+      const y = cy + ry * sinVal;
 
-        // 越靠近邊緣線的卯釘，因透視角度產生微縮變化
-        const perspectiveFactor = (cosVal + 0.3) / 1.3; 
-        const scale = 0.65 + (perspectiveFactor * 0.3); 
+      // 利用 cosVal 展現側向透視的立體微縮感
+      const perspectiveFactor = cosVal; // 0 到 1
+      const scale = 0.75 + (perspectiveFactor * 0.25); 
 
-        const useTag = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-        useTag.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#decorated-rivet-sym');
-        useTag.setAttribute('x', x);
-        useTag.setAttribute('y', y);
-        useTag.setAttribute('transform', `translate(${x}, ${y}) scale(${scale}) translate(${-x}, ${-y})`);
-        useTag.setAttribute('opacity', 0.5 + (perspectiveFactor * 0.5));
+      const useTag = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+      useTag.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#decorated-rivet-sym');
+      useTag.setAttribute('x', x);
+      useTag.setAttribute('y', y);
+      useTag.setAttribute('transform', `translate(${x}, ${y}) scale(${scale}) translate(${-x}, ${-y})`);
+      
+      // 邊緣略微加深陰影，增加與紅鼓身的融合層次
+      useTag.setAttribute('opacity', 0.8 + (perspectiveFactor * 0.2));
 
-        rivetsContainer.appendChild(useTag);
-      }
+      rivetsContainer.appendChild(useTag);
     }
 
     //======================================================================
