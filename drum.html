@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>大法鼓經 · 一佛乘法音系統</title>
+  <title>法華一佛乘 · 大法鼓經虛空系統</title>
   <style>
-    /* 全局極簡與美學設定 */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -18,40 +17,35 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background-color: #030308;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #020205;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    /* 星空背景層：象徵無邊法界與破除無明 */
+    /* 星空法界背景 */
     .space-bg {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at center, #0a0b1e 0%, #020205 100%);
+      background: radial-gradient(circle at 30% 40%, #0c0d28 0%, #020206 100%);
       z-index: 1;
-      overflow: hidden;
     }
 
-    /* 隨機星光效果（純CSS） */
+    /* 純CSS星光微動 */
     .space-bg::before {
       content: "";
       position: absolute;
-      width: 2px;
-      height: 2px;
       width: 100%;
       height: 100%;
       background-image: 
-        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 20px);
-      background-size: 550px 550px, 350px 350px, 250px 250px;
-      background-position: 0 0, 40px 60px, 130px 270px;
-      opacity: 0.4;
+        radial-gradient(white, rgba(255,255,255,.3) 1px, transparent 30px),
+        radial-gradient(rgba(229, 193, 88, 0.6), rgba(229, 193, 88, 0.1) 2px, transparent 40px);
+      background-size: 350px 350px, 150px 150px;
+      background-position: 0 0, 40px 60px;
+      opacity: 0.6;
     }
 
-    /* 主容器 */
     .container {
       position: relative;
       width: 100%;
@@ -61,10 +55,9 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 40px 20px;
+      padding: 30px 20px;
     }
 
-    /* 標題文字：莊嚴、謙卑、一佛乘 */
     .title-area {
       text-align: center;
       pointer-events: none;
@@ -72,24 +65,23 @@
 
     .title-area h1 {
       color: #e5c158;
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 300;
-      letter-spacing: 8px;
-      margin-bottom: 8px;
-      text-shadow: 0 0 10px rgba(229, 193, 88, 0.3);
+      letter-spacing: 10px;
+      margin-bottom: 6px;
+      text-shadow: 0 0 12px rgba(229, 193, 88, 0.4);
     }
 
     .title-area p {
-      color: #8a92a6;
-      font-size: 13px;
+      color: #7a8499;
+      font-size: 12px;
       letter-spacing: 4px;
     }
 
-    /* 向量鼓 canvas 容器 */
     .drum-stage {
       width: 100%;
-      max-width: 600px;
-      height: 50vh;
+      max-width: 700px;
+      height: 65vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -102,64 +94,62 @@
       overflow: visible;
     }
 
-    /* 鼓棒動態效果 */
-    .drumstick {
-      transform-origin: 520px 420px;
-      transition: transform 0.05s ease-out;
+    /* 雙鼓棒獨立動畫軌跡 */
+    .stick-left {
+      transform-origin: 120px 680px;
+      transition: transform 0.05s cubic-bezier(0.11, 0, 0, 1);
+    }
+    .stick-left.hit {
+      transform: rotate(22deg) translate(50px, -60px);
     }
 
-    .drumstick.striking {
-      transform: rotate(-25deg) translate(-40px, -20px);
+    .stick-right {
+      transform-origin: 160px 720px;
+      transition: transform 0.05s cubic-bezier(0.11, 0, 0, 1);
+    }
+    .stick-right.hit {
+      transform: rotate(26deg) translate(70px, -80px);
     }
 
-    /* 鼓身受擊形變 */
-    .drum-body-group {
-      transform-origin: 400px 300px;
+    /* 鼓體受擊整體3D微共振 */
+    .drum-master-group {
+      transform-origin: 480px 400px;
       transition: transform 0.04s ease-out;
     }
-    .drum-body-group.vibrate {
-      transform: scale(1.02);
+    .drum-master-group.shake {
+      transform: scale(1.015) translate(-2px, 1px);
     }
 
-    /* 控制面板 */
+    /* 核心法音波紋 */
+    .dharma-wave {
+      fill: none;
+      stroke-width: 2;
+      pointer-events: none;
+    }
+
     .control-panel {
       width: 100%;
       display: flex;
       justify-content: center;
-      gap: 20px;
+      padding-bottom: 10px;
     }
 
     .btn {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(229, 193, 88, 0.2);
-      color: #8a92a6;
-      padding: 12px 24px;
-      font-size: 13px;
+      background: rgba(10, 11, 30, 0.6);
+      border: 1px solid rgba(229, 193, 88, 0.25);
+      color: #8690a6;
+      padding: 10px 24px;
+      font-size: 12px;
       letter-spacing: 2px;
-      border-radius: 4px;
+      border-radius: 3px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.3s;
     }
 
-    .btn:hover {
-      background: rgba(229, 193, 88, 0.05);
-      border-color: rgba(229, 193, 88, 0.5);
-      color: #e5c158;
-    }
-
-    .btn.active {
-      background: rgba(229, 193, 88, 0.1);
+    .btn:hover, .btn.active {
       border-color: #e5c158;
       color: #e5c158;
-      box-shadow: 0 0 15px rgba(229, 193, 88, 0.15);
-    }
-
-    /* 法音波紋樣式 */
-    .ripple {
-      fill: none;
-      stroke: rgba(229, 193, 88, 0.4);
-      stroke-width: 1.5;
-      pointer-events: none;
+      box-shadow: 0 0 12px rgba(229, 193, 88, 0.2);
     }
   </style>
 </head>
@@ -169,97 +159,152 @@
 
   <div class="container">
     <div class="title-area">
-      <h1>大法鼓</h1>
-      <p>破「有」顯空 · 凡聞者邪見悉滅</p>
+      <h1>大法鼓經</h1>
+      <p>法消毒妙藥塗於大鼓而擊之 · 一佛乘正義</p>
     </div>
 
-    <div class="drum-stage" id="drum-trigger">
-      <svg viewBox="0 0 800 600" id="drum-svg">
+    <div class="drum-stage" id="stage-interact">
+      <svg viewBox="0 0 800 800" id="drum-svg">
         <defs>
-          <linearGradient id="crimson-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#991f26" />
-            <stop offset="50%" stop-color="#661115" />
-            <stop offset="100%" stop-color="#330507" />
+          <linearGradient id="crimson-barrel" x1="0%" y1="30%" x2="100%" y2="70%">
+            <stop offset="0%" stop-color="#801419" />
+            <stop offset="40%" stop-color="#540b0e" />
+            <stop offset="85%" stop-color="#2d0406" />
+            <stop offset="100%" stop-color="#150002" />
           </linearGradient>
-          <linearGradient id="ivory-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+
+          <linearGradient id="drum-head-grad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#ffffff" />
-            <stop offset="100%" stop-color="#eadeca" />
+            <stop offset="60%" stop-color="#f4ece1" />
+            <stop offset="100%" stop-color="#dcd0be" />
           </linearGradient>
-          <linearGradient id="stand-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#1a1a1a" />
-            <stop offset="50%" stop-color="#2d2d2d" />
-            <stop offset="100%" stop-color="#111111" />
+
+          <linearGradient id="dark-timber" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#1e1b18" />
+            <stop offset="50%" stop-color="#2d2825" />
+            <stop offset="100%" stop-color="#141210" />
           </linearGradient>
+
+          <linearGradient id="gold-metal" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fedb6a" />
+            <stop offset="50%" stop-color="#d4af37" />
+            <stop offset="100%" stop-color="#8a6f1c" />
+          </linearGradient>
+
+          <g id="decorated-rivet-sym">
+            <circle cx="0" cy="0" r="6" fill="#5c4308" />
+            <circle cx="0" cy="0" r="4.5" fill="url(#gold-metal)" />
+            <circle cx="-1" cy="-1" r="1.5" fill="#ffffff" opacity="0.4" />
+          </g>
+
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
         </defs>
 
-        <g id="drum-stand">
-          <path d="M 220 320 L 160 550 L 190 550 L 245 340 Z" fill="url(#stand-grad)" />
-          <path d="M 580 320 L 640 550 L 610 550 L 555 340 Z" fill="url(#stand-grad)" />
-          <rect x="200" y="460" width="400" height="25" fill="url(#stand-grad)" />
-          <ellipse cx="400" cy="550" rx="260" ry="15" fill="rgba(0,0,0,0.5)" />
+        <g id="stand-back-layer">
+          <path d="M 600 380 L 250 740 L 290 740 L 640 380 Z" fill="#191614" />
+          <path d="M 460 480 L 520 720 L 480 720 L 430 480 Z" fill="#110f0e" />
         </g>
 
-        <g class="drum-body-group" id="drum-body-identity">
+        <g class="drum-master-group" id="drum-hardware-group">
           
-          <path d="M 200 240 A 200 65 0 0 0 600 240 L 560 450 A 160 50 0 0 1 240 450 Z" fill="url(#crimson-grad)" />
+          <path d="M 330 130 Q 520 100 640 180 L 640 540 Q 520 620 330 570 Z" fill="url(#crimson-barrel)" />
           
-          <ellipse cx="400" cy="240" rx="200" ry="65" fill="url(#ivory-grad)" stroke="#d4af37" stroke-width="1.5" />
-          
-          <ellipse cx="400" cy="240" rx="30" ry="10" fill="none" stroke="rgba(212, 175, 55, 0.15)" stroke-width="1" />
+          <g transform="translate(540, 360)">
+            <rect x="-15" y="-25" width="30" height="50" rx="4" fill="url(#gold-metal)" stroke="#4a3b0e" stroke-width="1" />
+            <circle cx="0" cy="0" r="16" fill="none" stroke="url(#gold-metal)" stroke-width="5" />
+          </g>
 
-          <g id="rivets-group"></g>
-          
+          <ellipse cx="330" cy="350" rx="120" ry="220" fill="url(#drum-head-grad)" stroke="#baa185" stroke-width="2" />
+
+          <g transform="translate(330, 350) scale(0.65, 1.2)">
+            <circle cx="0" cy="0" r="45" fill="none" stroke="rgba(168, 137, 76, 0.35)" stroke-width="2" />
+            <circle cx="0" cy="0" r="12" fill="none" stroke="rgba(168, 137, 76, 0.4)" stroke-width="2" />
+            <path d="M 0 -45 L 0 45 M -45 0 L 45 0 M -31.8 -31.8 L 31.8 31.8 M -31.8 31.8 L 31.8 -31.8" stroke="rgba(168, 137, 76, 0.35)" stroke-width="2" />
+          </g>
+
+          <g id="double-rivets-container"></g>
+
         </g>
 
-        <g id="ripple-layer"></g>
+        <g id="wave-delivery-layer"></g>
 
-        <g class="drumstick" id="drumstick-element">
-          <path d="M 515 425 L 415 225 C 413 221, 417 217, 420 220 L 525 418 Z" fill="#d2b48c" opacity="0.9" />
-          <circle cx="416" cy="221" r="12" fill="#eadeca" />
+        <g id="stand-front-layer">
+          <path d="M 280 420 L 200 750 L 245 750 L 320 420 Z" fill="url(#dark-timber)" />
+          <path d="M 400 480 L 450 750 L 495 750 L 430 480 Z" fill="url(#dark-timber)" />
+          <path d="M 180 660 L 520 660 L 520 695 L 180 695 Z" fill="url(#dark-timber)" />
+          
+          <path d="M 215 660 L 245 660 L 245 695 L 205 695 Z" fill="url(#gold-metal)" opacity="0.95" />
+          <path d="M 465 660 L 495 660 L 485 695 L 455 695 Z" fill="url(#gold-metal)" opacity="0.95" />
+          <circle cx="345" cy="677" r="10" fill="url(#gold-metal)" />
         </g>
+
+        <g class="stick-left" id="stick-l">
+          <path d="M 115 675 L 265 380 C 267 376, 273 379, 271 383 L 128 682 Z" fill="url(#dark-timber)" />
+          <ellipse cx="268" cy="381" rx="14" ry="16" fill="#f4ece1" stroke="#c2b6a4" stroke-width="1" />
+        </g>
+
+        <g class="stick-right" id="stick-r">
+          <path d="M 155 715 L 315 415 C 317 411, 323 414, 321 418 L 168 722 Z" fill="url(#dark-timber)" />
+          <ellipse cx="318" cy="416" rx="15" ry="17" fill="#f4ece1" stroke="#c2b6a4" stroke-width="1" />
+        </g>
+
       </svg>
     </div>
 
     <div class="control-panel">
-      <button class="btn" id="music-btn">如來藏梵音流轉：關閉</button>
+      <button class="btn" id="ambient-toggle">真如法界法音：靜音</button>
     </div>
   </div>
 
   <script>
     //======================================================================
-    // 1. 幾何向量：動態生成 2.5D 橢圓邊緣卯釘
+    // 1. 空間幾何：動態雙排裝飾卯釘生成
     //======================================================================
-    const rivetsGroup = document.getElementById('rivets-group');
-    const totalRivets = 32;
-    const cx = 400;
-    const cy = 243; // 略低於鼓面中心，使其貼合邊緣下沿
-    const rx = 201;
-    const ry = 66;
+    const rivetsContainer = document.getElementById('double-rivets-container');
+    const rivetCount = 38;
+    const cx = 330, cy = 350;
+    
+    // 定義內外兩排卯釘的橢圓半徑（貼合2.5D邊緣）
+    const layouts = [
+      { rx: 124, ry: 224, opacityMult: 1.0 }, // 內圈
+      { rx: 133, ry: 233, opacityMult: 0.7 }  // 外圈裝飾
+    ];
 
-    // 僅在前半周（面向使用者的下半部橢圓）分佈卯釘，展現立體空間感
-    for (let i = 0; i <= totalRivets; i++) {
-      const angle = Math.PI * (i / totalRivets); // 0 到 π
-      const x = cx + rx * Math.cos(angle);
-      const y = cy + ry * Math.sin(angle);
-      
-      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('cx', x);
-      circle.setAttribute('cy', y);
-      // 根據透視，兩側的卯釘看起來較小，中央的較大
-      const sizeFactor = Math.sin(angle); 
-      circle.setAttribute('r', 3 + sizeFactor * 2.5);
-      circle.setAttribute('fill', '#d4af37');
-      circle.setAttribute('opacity', 0.3 + sizeFactor * 0.7);
-      
-      rivetsGroup.appendChild(circle);
-    }
+    layouts.forEach((layer) => {
+      for (let i = 0; i < rivetCount; i++) {
+        // 全圓分佈 0 ~ 2π
+        const angle = (i / rivetCount) * Math.PI * 2;
+        const x = cx + layer.rx * Math.cos(angle);
+        const y = cy + layer.ry * Math.sin(angle);
+
+        // 透過透視深度計算卯釘的立體大小與明暗
+        // 右側較遠處的卯釘微縮並變暗，左前方的變亮
+        const perspectiveFactor = Math.cos(angle); // -1 到 1
+        const scale = 0.75 + (perspectiveFactor * -0.25); 
+
+        const useTag = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+        useTag.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#decorated-rivet-sym');
+        useTag.setAttribute('x', x);
+        useTag.setAttribute('y', y);
+        useTag.setAttribute('transform', `translate(${x}, ${y}) scale(${scale}) translate(${-x}, ${-y})`);
+        useTag.setAttribute('opacity', (0.4 + (perspectiveFactor * -0.4)) * layer.opacityMult);
+
+        rivetsContainer.appendChild(useTag);
+      }
+    });
 
     //======================================================================
-    // 2. Web Audio API：無純淨版權爭議、高純度合成音訊系統
+    // 2. Web Audio API：高品質大佛鼓深沉音訊合成器
     //======================================================================
     let audioCtx = null;
-    let bgmNodes = [];
-    let isMusicPlaying = false;
+    let ambientOscs = [];
+    let isAmbientPlaying = false;
 
     function initAudio() {
       if (!audioCtx) {
@@ -267,168 +312,175 @@
       }
     }
 
-    // 擊鼓音效合成：深沉、具備低頻大鼓震動與空間消隱感
-    function playDrumSound() {
+    function playDeepDrumSound() {
       initAudio();
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      const now = audioCtx.currentTime;
+
+      // 1. 衝擊波包絡（類皮革衝擊點 Thwack）
+      const strikeNoise = audioCtx.createBufferSource();
+      const noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.02, audioCtx.sampleRate);
+      const data = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < noiseBuffer.length; i++) {
+        data[i] = Math.random() * 2 - 1;
       }
+      strikeNoise.buffer = noiseBuffer;
 
-      const now = audioCtx.currentTime;
+      const noiseFilter = audioCtx.createBiquadFilter();
+      noiseFilter.type = 'bandpass';
+      noiseFilter.frequency.setValueAtTime(120, now);
       
-      // 主深沉低頻振盪器 (鼓膜主音)
-      const osc = audioCtx.createOscillator();
-      const gainOsc = audioCtx.createGain();
+      const noiseGain = audioCtx.createGain();
+      noiseGain.gain.setValueAtTime(0.4, now);
+      noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.015);
+
+      // 2. 核心深沉大鼓重低音（如來藏共振）
+      const mainOsc = audioCtx.createOscillator();
+      const mainGain = audioCtx.createGain();
       
-      // 模擬大鼓敲擊瞬間的物理頻率急速下降（Pitch Drop）
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(140, now);
-      osc.frequency.exponentialRampToValueAtTime(42, now + 0.08); 
-      osc.frequency.linearRampToValueAtTime(30, now + 0.4);
+      mainOsc.type = 'sine';
+      // 模擬巨型大鼓物理頻率急速下墜
+      mainOsc.frequency.setValueAtTime(110, now);
+      mainOsc.frequency.exponentialRampToValueAtTime(36, now + 0.09);
+      mainOsc.frequency.linearRampToValueAtTime(25, now + 0.7);
 
-      // 鼓音振幅包絡線（快攻、深沉衰減）
-      gainOsc.gain.setValueAtTime(0, now);
-      gainOsc.gain.linearRampToValueAtTime(1.0, now + 0.005);
-      gainOsc.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+      mainGain.gain.setValueAtTime(0, now);
+      mainGain.gain.linearRampToValueAtTime(1.0, now + 0.004);
+      mainGain.gain.exponentialRampToValueAtTime(0.01, now + 1.2); // 超長餘音
 
-      // 低通濾波器：濾除高頻雜音，保留厚重莊嚴的低頻大鼓共鳴
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(180, now);
+      // 低通濾波器，保留莊嚴沉悶的遠處迴音
+      const lowpass = audioCtx.createBiquadFilter();
+      lowpass.type = 'lowpass';
+      lowpass.frequency.setValueAtTime(150, now);
 
-      // 連結節點
-      osc.connect(gainOsc);
-      gainOsc.connect(filter);
-      filter.connect(audioCtx.destination);
+      // 節點串接
+      strikeNoise.connect(noiseGain);
+      noiseGain.connect(noiseFilter);
+      noiseFilter.connect(lowpass);
 
-      osc.start(now);
-      osc.stop(now + 0.6);
+      mainOsc.connect(mainGain);
+      mainGain.connect(lowpass);
+      
+      lowpass.connect(audioCtx.destination);
+
+      // 啟動
+      strikeNoise.start(now);
+      mainOsc.start(now);
+      mainOsc.stop(now + 1.3);
     }
 
-    // 背景音樂合成：由多組和諧正弦波構成的法界空靈梵音（無版權爭議）
-    function startBackgroundMusic() {
+    // 宇宙真如低頻環境音
+    function toggleAmbient() {
       initAudio();
       const now = audioCtx.currentTime;
-      bgmNodes = [];
 
-      // 基礎和弦三音（低沉、平穩、代表真如不動）
-      const baseFrequencies = [55, 110, 165]; 
-
-      baseFrequencies.forEach((freq, index) => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
+      if (!isAmbientPlaying) {
+        ambientOscs = [];
+        // 三乘合一的純淨基音
+        const freqRatio = [54.0, 108.0, 162.0];
         
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, now);
+        freqRatio.forEach((freq) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now);
+          
+          gain.gain.setValueAtTime(0, now);
+          gain.gain.linearRampToValueAtTime(0.04, now + 3.0);
+          
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          
+          osc.start(now);
+          ambientOscs.push({ osc, gain });
+        });
         
-        // 緩慢的氣息波動效果
-        gain.gain.setValueAtTime(0, now);
-        gain.gain.linearRampToValueAtTime(0.08 / baseFrequencies.length, now + 2);
-        
-        // 加入微弱的低頻調變，使聲音呈現宇宙深邃的流動感
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        
-        osc.start(now);
-        bgmNodes.push({ osc, gain });
-      });
-    }
-
-    function stopBackgroundMusic() {
-      const now = audioCtx.currentTime;
-      bgmNodes.forEach(node => {
-        try {
-          node.gain.linearRampToValueAtTime(0, now + 1);
-          node.osc.stop(now + 1.1);
-        } catch(e) {}
-      });
-      bgmNodes = [];
+        document.getElementById('ambient-toggle').textContent = '真如法界法音：流轉';
+        document.getElementById('ambient-toggle').classList.add('active');
+        isAmbientPlaying = true;
+      } else {
+        ambientOscs.forEach((node) => {
+          node.gain.linearRampToValueAtTime(0, now + 1.5);
+          node.osc.stop(now + 1.6);
+        });
+        ambientOscs = [];
+        document.getElementById('ambient-toggle').textContent = '真如法界法音：靜音';
+        document.getElementById('ambient-toggle').classList.remove('active');
+        isAmbientPlaying = false;
+      }
     }
 
     //======================================================================
-    // 3. 互動與動效控制：揮棒、形變、法音波紋擴散
+    // 3. 互動與動效控制中心：交替擊打與透視波紋
     //======================================================================
-    const drumTrigger = document.getElementById('drum-trigger');
-    const drumstick = document.getElementById('drumstick-element');
-    const drumBody = document.getElementById('drum-body-identity');
-    const rippleLayer = document.getElementById('ripple-layer');
-    const musicBtn = document.getElementById('music-btn');
+    const stage = document.getElementById('stage-interact');
+    const stickL = document.getElementById('stick-l');
+    const stickR = document.getElementById('stick-r');
+    const drumHardware = document.getElementById('drum-hardware-group');
+    const waveLayer = document.getElementById('wave-delivery-layer');
+    const ambientBtn = document.getElementById('ambient-toggle');
 
-    drumTrigger.addEventListener('mousedown', (e) => {
-      e.preventDefault();
-      triggerHit();
-    });
+    let alternateFlag = false; // 用於控制雙棒交替擊打
 
-    drumTrigger.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      triggerHit();
-    });
+    stage.addEventListener('mousedown', (e) => { e.preventDefault(); performStrike(); });
+    stage.addEventListener('touchstart', (e) => { e.preventDefault(); performStrike(); });
+    ambientBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleAmbient(); });
 
-    function triggerHit() {
-      // 1. 觸發音效
-      playDrumSound();
+    function performStrike() {
+      // 1. 音效解鎖與播放
+      playDeepDrumSound();
 
-      // 2. 鼓棒揮擊動畫
-      drumstick.classList.add('striking');
-      setTimeout(() => {
-        drumstick.classList.remove('striking');
-      }, 60);
+      // 2. 雙棒交替揮動邏輯
+      if (!alternateFlag) {
+        stickL.classList.add('hit');
+        setTimeout(() => stickL.classList.remove('hit'), 60);
+      } else {
+        stickR.classList.add('hit');
+        setTimeout(() => stickR.classList.remove('hit'), 60);
+      }
+      alternateFlag = !alternateFlag;
 
-      // 3. 鼓身物理震顫
-      drumBody.classList.add('vibrate');
-      setTimeout(() => {
-        drumBody.classList.remove('vibrate');
-      }, 50);
+      // 3. 鼓身3D形變顫動
+      drumHardware.classList.add('shake');
+      setTimeout(() => drumHardware.classList.remove('shake'), 50);
 
-      // 4. 生成2.5D透視法音波紋（破除無明）
-      createDharmaRipple();
+      // 4. 產生與鼓面透視完全平行的法音擴散波紋（破除無明）
+      createPerspectiveWave();
     }
 
-    function createDharmaRipple() {
+    function createPerspectiveWave() {
       const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-      ellipse.setAttribute('cx', '400');
-      ellipse.setAttribute('cy', '240');
-      ellipse.setAttribute('rx', '200');
-      ellipse.setAttribute('ry', '65');
-      ellipse.setAttribute('class', 'ripple');
-      rippleLayer.appendChild(ellipse);
+      ellipse.setAttribute('cx', '330');
+      ellipse.setAttribute('cy', '350');
+      ellipse.setAttribute('rx', '120');
+      ellipse.setAttribute('ry', '220');
+      ellipse.setAttribute('class', 'dharma-wave');
+      ellipse.setAttribute('filter', 'url(#glow)');
+      waveLayer.appendChild(ellipse);
 
-      let radiusX = 200;
-      let radiusY = 65;
+      let rx = 120;
+      let ry = 220;
       let opacity = 1.0;
 
-      function animateRipple() {
-        radiusX += 6;
-        radiusY += 1.95; // 依據透視比例同步擴散
-        opacity -= 0.015;
+      function render() {
+        rx += 8;
+        ry += 14.6; // 嚴格保持 120:220 的幾何透視比例擴散
+        opacity -= 0.016;
 
-        ellipse.setAttribute('rx', radiusX);
-        ellipse.setAttribute('ry', radiusY);
-        ellipse.setAttribute('style', `opacity: ${opacity}; stroke: rgba(229, 210, 130, ${opacity});`);
+        ellipse.setAttribute('rx', rx);
+        ellipse.setAttribute('ry', ry);
+        ellipse.setAttribute('style', `stroke: rgba(229, 193, 88, ${opacity}); opacity: ${opacity};`);
 
         if (opacity > 0) {
-          requestAnimationFrame(animateRipple);
+          requestAnimationFrame(render);
         } else {
           ellipse.remove();
         }
       }
-      requestAnimationFrame(animateRipple);
+      requestAnimationFrame(render);
     }
-
-    // 背景法音按鈕切換
-    musicBtn.addEventListener('click', () => {
-      if (!isMusicPlaying) {
-        startBackgroundMusic();
-        musicBtn.textContent = '如來藏梵音流轉：開啟';
-        musicBtn.classList.add('active');
-        isMusicPlaying = true;
-      } else {
-        stopBackgroundMusic();
-        musicBtn.textContent = '如來藏梵音流轉：關閉';
-        musicBtn.classList.remove('active');
-        isMusicPlaying = false;
-      }
-    });
   </script>
 </body>
 </html>
