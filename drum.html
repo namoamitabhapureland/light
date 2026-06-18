@@ -97,13 +97,38 @@
       overflow: visible;
     }
 
-    /* 獨一根粗大木頭金色鼓棒 動態打擊軌跡 */
+    /* 巨型一字圓柱法槌：初始隱形且置於左側畫面外 */
     .stick-master {
-      transform-origin: 130px 680px;
-      transition: transform 0.04s cubic-bezier(0.1, 0, 0, 1);
+      transform: translate(-350px, 0px);
+      opacity: 0;
+      pointer-events: none;
     }
-    .stick-master.hit {
-      transform: rotate(22deg) translate(50px, -60px);
+
+    /* 左右橫撞的強烈衝擊動態 (支援連續快速點擊) */
+    .stick-master.animate-strike {
+      animation: horizontal-strike 0.32s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes horizontal-strike {
+      0% {
+        transform: translate(-350px, 0px);
+        opacity: 0;
+      }
+      12% {
+        opacity: 1; /* 迅速顯現 */
+      }
+      22% {
+        transform: translate(15px, 0px); /* 猛烈向前橫撞直擊鼓皮 */
+        opacity: 1;
+      }
+      35% {
+        transform: translate(-15px, 0px); /* 撞擊後的物理反彈 */
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-350px, 0px); /* 迅速退回左側並隱形 */
+        opacity: 0;
+      }
     }
 
     /* 鼓體受擊 3D 微共震 */
@@ -186,11 +211,12 @@
             <stop offset="100%" stop-color="#8a6f1c" />
           </linearGradient>
 
-          <linearGradient id="gold-timber" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ffe891" />
-            <stop offset="40%" stop-color="#e5b83b" />
-            <stop offset="75%" stop-color="#b38619" />
-            <stop offset="100%" stop-color="#735203" />
+          <linearGradient id="cylinder-body-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#593e03" />
+            <stop offset="25%" stop-color="#ffe891" />
+            <stop offset="50%" stop-color="#e5b83b" />
+            <stop offset="80%" stop-color="#b38619" />
+            <stop offset="100%" stop-color="#402d02" />
           </linearGradient>
 
           <g id="decorated-rivet-sym">
@@ -202,7 +228,6 @@
 
         <g id="stand-back-layer">
           <path d="M 420 460 L 220 760 L 265 760 L 450 480 Z" fill="#12100e" />
-          
           <path d="M 540 460 L 590 730 L 630 730 L 565 470 Z" fill="#161412" />
           <path d="M 240 670 L 580 670 L 580 695 L 240 695 Z" fill="#100e0d" />
         </g>
@@ -244,8 +269,10 @@
         </g>
 
         <g class="stick-master" id="drum-stick">
-          <path d="M 115 690 L 265 375 C 270 365, 285 372, 280 382 L 140 705 Z" fill="url(#gold-timber)" />
-          <ellipse cx="270" cy="376" rx="19" ry="21" fill="url(#gold-metal)" stroke="#9c7514" stroke-width="1.5" />
+          <path d="M -220 305 L 200 305 A 15 45 0 0 1 200 395 L -220 395 Z" fill="url(#cylinder-body-grad)" />
+          <ellipse cx="200" cy="350" rx="15" ry="45" fill="url(#gold-metal)" stroke="#9c7514" stroke-width="1" />
+          <line x1="-220" y1="325" x2="200" y2="325" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
+          <line x1="-220" y1="375" x2="200" y2="375" stroke="rgba(0,0,0,0.35)" stroke-width="1.5" />
         </g>
 
       </svg>
@@ -257,16 +284,13 @@
   </div>
 
   <script>
-    //======================================================================
-    // 修正 1：空間透視 —— 卯釘嚴密且均勻地沿著白色鼓皮的【右半圈】邊緣生成
-    //======================================================================
+    // 空間透視 —— 卯釘均勻地沿著白色鼓皮的【右半圈】邊緣生成
     const rivetsContainer = document.getElementById('right-rim-rivets-container');
     const rivetCount = 30;
-    const cx = 330, cy = 350; // 鼓面中心
-    const rx = 120, ry = 220; // 鼓面橢圓半徑
+    const cx = 330, cy = 350; 
+    const rx = 120, ry = 220; 
 
     for (let i = 0; i < rivetCount; i++) {
-      // 在右半圈（-PI/2 到 PI/2）之間進行均勻分佈
       const angle = -Math.PI / 2 + (i / (rivetCount - 1)) * Math.PI;
       const cosVal = Math.cos(angle);
       const sinVal = Math.sin(angle);
@@ -274,8 +298,7 @@
       const x = cx + rx * cosVal;
       const y = cy + ry * sinVal;
 
-      // 利用 cosVal 展現側向透視的立體微縮感
-      const perspectiveFactor = cosVal; // 0 到 1
+      const perspectiveFactor = cosVal; 
       const scale = 0.75 + (perspectiveFactor * 0.25); 
 
       const useTag = document.createElementNS('http://www.w3.org/2000/svg', 'use');
@@ -283,16 +306,12 @@
       useTag.setAttribute('x', x);
       useTag.setAttribute('y', y);
       useTag.setAttribute('transform', `translate(${x}, ${y}) scale(${scale}) translate(${-x}, ${-y})`);
-      
-      // 邊緣略微加深陰影，增加與紅鼓身的融合層次
       useTag.setAttribute('opacity', 0.8 + (perspectiveFactor * 0.2));
 
       rivetsContainer.appendChild(useTag);
     }
 
-    //======================================================================
-    // 2. Web Audio API：高品質大佛鼓清淨低頻音訊合成器
-    //======================================================================
+    // Web Audio API：清淨低頻大佛鼓音訊合成器
     let audioCtx = null;
     let ambientOscs = [];
     let isAmbientPlaying = false;
@@ -395,9 +414,7 @@
       }
     }
 
-    //======================================================================
-    // 3. 互動與單圈波紋控制
-    //======================================================================
+    // 互動與法槌、波紋控制
     const stage = document.getElementById('stage-interact');
     const stick = document.getElementById('drum-stick');
     const drumHardware = document.getElementById('drum-hardware-group');
@@ -411,15 +428,16 @@
     function performStrike() {
       playDeepDrumSound();
 
-      // 單根粗大金色鼓棒擊打動畫
-      stick.classList.add('hit');
-      setTimeout(() => stick.classList.remove('hit'), 60);
-
-      // 鼓身微震
+      // 鼓身微震共鳴
       drumHardware.classList.add('shake');
       setTimeout(() => drumHardware.classList.remove('shake'), 50);
 
-      // 清空上一圈，永遠只維持一圈高效能波紋
+      // 巨型撞木橫撞動畫 (消除舊類別並重刷以支援快速連續點擊)
+      stick.classList.remove('animate-strike');
+      void stick.offsetWidth; // 強制瀏覽器重繪 (Reflow)
+      stick.classList.add('animate-strike');
+
+      // 清空上一圈，法音波紋清淨流轉
       waveLayer.innerHTML = "";
       createOptimizedWave();
     }
@@ -439,7 +457,7 @@
 
       function render() {
         rxValue += 8;
-        ryValue += 14.66; // 依透視比例擴散
+        ryValue += 14.66; 
         opacity -= 0.02;
 
         ellipse.setAttribute('rx', rxValue);
