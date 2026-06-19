@@ -84,7 +84,7 @@
       overflow: visible;
     }
 
-    /* 💡 全新加入：法鼓真如呼吸與微光脈動動畫（5秒一週期，內斂、深沉、絲滑） */
+    /* 法鼓真如呼吸與微光脈動動畫（5秒一週期，內斂、深沉、絲滑） */
     .drum-breathing-wrapper {
       transform-origin: 450px 350px;
       animation: drum-meditate-breath 5s ease-in-out infinite alternate;
@@ -97,8 +97,8 @@
         filter: drop-shadow(0 0 6px rgba(229, 193, 88, 0.08));
       }
       100% {
-        transform: scale(1.025); /* 微微優雅放大 2.5% */
-        filter: drop-shadow(0 0 26px rgba(229, 193, 88, 0.38)); /* 黃金結界微光徐徐舒張 */
+        transform: scale(1.025);
+        filter: drop-shadow(0 0 26px rgba(229, 193, 88, 0.38));
       }
     }
 
@@ -230,7 +230,7 @@
           </g>
         </defs>
 
-        <g id="absolute-pure-drum-system" transform="translate(330, 350) scale(1.5) translate(-330, -350)">
+        <g id="absolute-pure-drum-system" transform="translate(450, 350) scale(1.5) translate(-330, -350)">
           
           <g class="drum-breathing-wrapper">
             
@@ -273,7 +273,10 @@
 
               <g id="complete-rim-rivets-container"></g>
 
-            </g> </g> <g id="wave-delivery-layer"></g>
+            </g> 
+          </g> 
+          
+          <g id="wave-delivery-layer"></g>
 
           <g class="stick-master" id="drum-stick">
             <path d="M -220 305 L 200 305 A 15 45 0 0 1 200 395 L -220 395 Z" fill="url(#cylinder-body-grad)" />
