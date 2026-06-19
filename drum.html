@@ -218,11 +218,11 @@
             
             <path d="M 330 130 Q 520 110 650 200 L 650 500 Q 520 590 330 570 Z" fill="url(#crimson-barrel)" />
             
-            <path d="M 430 121 Q 540 350 430 579" fill="none" stroke="url(#gold-metal)" stroke-width="4.5" opacity="0.85" />
-            <path d="M 435 122 Q 545 350 435 578" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3" />
+            <path d="M 330 335 Q 490 342 650 355" fill="none" stroke="url(#gold-metal)" stroke-width="4.5" opacity="0.9" />
+            <path d="M 330 336 Q 490 343 650 356" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.35" />
             
-            <path d="M 585 165 Q 648 350 585 535" fill="none" stroke="url(#gold-metal)" stroke-width="4.5" opacity="0.85" />
-            <path d="M 590 167 Q 653 350 590 533" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3" />
+            <path d="M 330 375 Q 490 382 650 385" fill="none" stroke="url(#gold-metal)" stroke-width="4.5" opacity="0.9" />
+            <path d="M 330 376 Q 490 383 650 386" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.35" />
 
             <g transform="translate(545, 365)">
               <rect x="-10" y="-20" width="20" height="40" rx="3" fill="url(#gold-metal)" stroke="#42350c" stroke-width="1" />
@@ -288,14 +288,13 @@
     }
     drawStars();
 
-    // 空間透視 ── 卯釘全新重構：均勻環繞整整 360 度一整圈
+    // 💡 修正 1：重構卯釘全圈空間透視演算法（右邊大、左邊小）
     const rivetsContainer = document.getElementById('complete-rim-rivets-container');
-    const rivetCount = 54; // 增加數量以維持整圈的莊嚴密度
+    const rivetCount = 54; 
     const cx = 330, cy = 350; 
     const rx = 120, ry = 220; 
 
     for (let i = 0; i < rivetCount; i++) {
-      // 分配 0 到 2*PI 達到完美閉合全圈
       const angle = (i / rivetCount) * Math.PI * 2;
       const cosVal = Math.cos(angle);
       const sinVal = Math.sin(angle);
@@ -303,16 +302,16 @@
       const x = cx + rx * cosVal;
       const y = cy + ry * sinVal;
 
-      // 空間透視優化：鼓面微向左傾，故左半圈(cosVal < 0)相對靠近觀眾，右半圈相對較遠
-      const perspectiveFactor = -cosVal; 
-      const scale = 0.82 + (perspectiveFactor * 0.18); 
+      // cosVal > 0 代表右側（靠近觀者與紅鼓身交接面），此處視覺尺寸應最大
+      const perspectiveFactor = cosVal; 
+      const scale = 0.85 + (perspectiveFactor * 0.15); // 右側放大至 1.0，左側收小至 0.7
 
       const useTag = document.createElementNS('http://www.w3.org/2000/svg', 'use');
       useTag.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#decorated-rivet-sym');
       useTag.setAttribute('x', x);
       useTag.setAttribute('y', y);
       useTag.setAttribute('transform', `translate(${x}, ${y}) scale(${scale}) translate(${-x}, ${-y})`);
-      useTag.setAttribute('opacity', 0.75 + (perspectiveFactor * 0.25));
+      useTag.setAttribute('opacity', 0.8 + (perspectiveFactor * 0.2)); // 右側高亮清晰，左側呈現遠景微隱
 
       rivetsContainer.appendChild(useTag);
     }
@@ -427,7 +426,6 @@
     const waveLayer = document.getElementById('wave-delivery-layer');
     const ambientBtn = document.getElementById('ambient-toggle');
 
-    // 狀態鎖定旗標：防連按，保持沉穩定力
     let isStriking = false;
 
     stage.addEventListener('mousedown', (e) => { e.preventDefault(); performStrike(); });
@@ -438,23 +436,18 @@
       if (isStriking) return;
       isStriking = true;
 
-      // 啟動 1.5 秒慢速法槌軌跡
       stick.classList.add('animate-strike');
 
-      // 於第 570 毫秒（法槌精準觸碰鼓皮瞬間）同步爆發聲音與視覺
       setTimeout(() => {
         playDeepDrumSound();
 
-        // 3D 共震
         drumHardware.classList.add('shake');
         setTimeout(() => drumHardware.classList.remove('shake'), 60);
 
-        // 法音清淨波紋
         waveLayer.innerHTML = "";
         createOptimizedWave();
       }, 570);
 
-      // 1.8 秒後完整解鎖，回歸空寂
       setTimeout(() => {
         stick.classList.remove('animate-strike');
         isStriking = false;
