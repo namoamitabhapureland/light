@@ -67,6 +67,59 @@
       letter-spacing: 4px;
     }
 
+    /* 💡 全新加入：左側虛空經文顯現面板 */
+    .text-panel {
+      position: absolute;
+      left: 6%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 340px;
+      z-index: 3;
+      pointer-events: none;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+    }
+
+    .text-line {
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-bottom: 24px;
+      line-height: 1.8;
+    }
+
+    .text-line.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .text-header {
+      font-size: 22px;
+      color: #e5c158;
+      font-weight: 300;
+      letter-spacing: 6px;
+      border-left: 3px solid #e5c158;
+      padding-left: 12px;
+    }
+
+    .text-body {
+      font-size: 13.5px;
+      color: #a2aecc;
+      letter-spacing: 2px;
+      text-align: justify;
+    }
+
+    .text-highlight {
+      color: #fede6a;
+    }
+
+    .text-footer {
+      font-size: 12px;
+      color: #7a8499;
+      text-align: right;
+      letter-spacing: 3px;
+      margin-top: 10px;
+    }
+
     /* 舞台容器 */
     .drum-stage {
       width: 100%;
@@ -84,7 +137,7 @@
       overflow: visible;
     }
 
-    /* 法鼓真如呼吸與微光脈動動畫（5秒一週期，內斂、深沉、絲滑） */
+    /* 法鼓真如呼吸與微光脈動動畫（5秒一週期） */
     .drum-breathing-wrapper {
       transform-origin: 450px 350px;
       animation: drum-meditate-breath 5s ease-in-out infinite alternate;
@@ -102,46 +155,7 @@
       }
     }
 
-    /* 初始狀態：法槌完全隱形且深藏於左側虛空中 */
-    .stick-master {
-      transform: translate(-300px, 0px);
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    /* 沉穩厚重的法槌動畫 */
-    .stick-master.animate-strike {
-      animation: horizontal-strike 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    }
-
-    @keyframes horizontal-strike {
-      0% {
-        transform: translate(-300px, 0px);
-        opacity: 0;
-      }
-      15% {
-        transform: translate(-120px, 0px);
-        opacity: 1;
-      }
-      38% {
-        transform: translate(-2px, 0px); 
-        opacity: 1;
-      }
-      48% {
-        transform: translate(-2px, 0px); 
-        opacity: 1;
-      }
-      68% {
-        transform: translate(-45px, 0px); 
-        opacity: 1;
-      }
-      100% {
-        transform: translate(-300px, 0px); 
-        opacity: 0;
-      }
-    }
-
-    /* 鼓體受擊 3D 共震（與外部呼吸分層運作，完美不相干擾） */
+    /* 鼓體受擊 3D 共震 */
     .drum-master-group {
       transform-origin: 450px 350px;
       transition: transform 0.05s ease-out;
@@ -193,6 +207,15 @@
       <p>法消毒妙藥塗於大鼓而擊之 · 一佛乘正義</p>
     </div>
 
+    <div class="text-panel" id="text-panel">
+      <div class="text-line text-header">擊大法鼓</div>
+      <div class="text-line text-body">「一切眾生……本有清淨，等同如來」破除世間戲論，使邪見劇毒消殞。</div>
+      <div class="text-line text-body"><span class="text-highlight">聽聞即解脫：</span>眾生聽聞大乘法音，不論信解與否，皆種下斷除貪瞋癡之種子。</div>
+      <div class="text-line text-body">「若善男子善女人，聽聞此經……乃至一念隨喜，其福勝彼，不可稱記。」開發清淨佛性，速趣無上菩提。</div>
+      <div class="text-line text-header" style="font-size: 17px; border-left: none; padding-left: 0; color: #fede6a;">證得如來藏</div>
+      <div class="text-line text-footer">——《大法鼓經》</div>
+    </div>
+
     <div class="drum-stage" id="stage-interact">
       <svg viewBox="0 0 800 800" id="drum-svg">
         <defs>
@@ -213,14 +236,6 @@
             <stop offset="0%" stop-color="#fede6a" />
             <stop offset="50%" stop-color="#d4af37" />
             <stop offset="100%" stop-color="#8a6f1c" />
-          </linearGradient>
-
-          <linearGradient id="cylinder-body-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#593e03" />
-            <stop offset="25%" stop-color="#ffe891" />
-            <stop offset="50%" stop-color="#e5b83b" />
-            <stop offset="80%" stop-color="#b38619" />
-            <stop offset="100%" stop-color="#402d02" />
           </linearGradient>
 
           <g id="decorated-rivet-sym">
@@ -263,6 +278,8 @@
 
               <ellipse cx="330" cy="350" rx="120" ry="220" fill="url(#drum-head-grad)" stroke="#baa185" stroke-width="2" />
 
+              <ellipse cx="330" cy="350" rx="120" ry="220" id="touch-glow-layer" fill="url(#gold-metal)" opacity="0" pointer-events="none" />
+
               <path d="M 330 130 A 120 220 0 0 1 330 570" fill="none" stroke="url(#gold-metal)" stroke-width="5" opacity="0.9" />
 
               <g transform="translate(330, 350) scale(0.65, 1.2)">
@@ -277,13 +294,6 @@
           </g> 
           
           <g id="wave-delivery-layer"></g>
-
-          <g class="stick-master" id="drum-stick">
-            <path d="M -220 305 L 200 305 A 15 45 0 0 1 200 395 L -220 395 Z" fill="url(#cylinder-body-grad)" />
-            <ellipse cx="200" cy="350" rx="15" ry="45" fill="url(#gold-metal)" stroke="#9c7514" stroke-width="1" />
-            <line x1="-220" y1="325" x2="200" y2="325" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
-            <line x1="-220" y1="375" x2="200" y2="375" stroke="rgba(0,0,0,0.35)" stroke-width="1.5" />
-          </g>
 
         </g>
       </svg>
@@ -451,37 +461,55 @@
 
     // 互動與控制核心
     const stage = document.getElementById('stage-interact');
-    const stick = document.getElementById('drum-stick');
     const drumHardware = document.getElementById('drum-hardware-group');
     const waveLayer = document.getElementById('wave-delivery-layer');
     const ambientBtn = document.getElementById('ambient-toggle');
+    const touchGlow = document.getElementById('touch-glow-layer');
+    const textPanel = document.getElementById('text-panel');
 
-    let isStriking = false;
+    let textLineIndex = 0;
 
     stage.addEventListener('mousedown', (e) => { e.preventDefault(); performStrike(); });
     stage.addEventListener('touchstart', (e) => { e.preventDefault(); performStrike(); });
     ambientBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleAmbient(); });
 
     function performStrike() {
-      if (isStriking) return;
-      isStriking = true;
+      // 1. 瞬間擊發深沉法音
+      playDeepDrumSound();
 
-      stick.classList.add('animate-strike');
+      // 2. 鼓體瞬間 3D 震動
+      drumHardware.classList.add('shake');
+      setTimeout(() => drumHardware.classList.remove('shake'), 60);
 
-      setTimeout(() => {
-        playDeepDrumSound();
+      // 3. 💡 觸碰瞬間：黃金微光呼吸閃耀特效（先重置再以高性能動畫徐徐消退）
+      touchGlow.style.transition = 'none';
+      touchGlow.style.opacity = '0.6';
+      touchGlow.style.filter = 'blur(6px)';
+      
+      requestAnimationFrame(() => {
+        touchGlow.style.transition = 'opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), filter 0.75s ease-out';
+        touchGlow.style.opacity = '0';
+        touchGlow.style.filter = 'blur(25px)';
+      });
 
-        drumHardware.classList.add('shake');
-        setTimeout(() => drumHardware.classList.remove('shake'), 60);
+      // 4. 生成擴散法音波紋
+      waveLayer.innerHTML = "";
+      createOptimizedWave();
 
-        waveLayer.innerHTML = "";
-        createOptimizedWave();
-      }, 570);
-
-      setTimeout(() => {
-        stick.classList.remove('animate-strike');
-        isStriking = false;
-      }, 1800);
+      // 5. 💡 經文逐行喚醒與整體共振呼吸控制
+      const lines = document.querySelectorAll('.text-line');
+      if (textLineIndex < lines.length) {
+        lines[textLineIndex].classList.add('show');
+        textLineIndex++;
+      } else {
+        // 當經文全部顯現，後續的每一次觸碰，經文面板都會隨之產生神聖的黃金共鳴脈動
+        textPanel.style.transform = 'translateY(-50%) scale(1.025)';
+        textPanel.style.filter = 'drop-shadow(0 0 8px rgba(229, 193, 88, 0.5))';
+        setTimeout(() => {
+          textPanel.style.transform = 'translateY(-50%) scale(1.0)';
+          textPanel.style.filter = 'none';
+        }, 150);
+      }
     }
 
     function createOptimizedWave() {
