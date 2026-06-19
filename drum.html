@@ -91,7 +91,7 @@
       pointer-events: none;
     }
 
-    /* 沉穩厚重的法槌動畫：總長 1.5 秒，展現蓄力、撞擊、定格能量傳導與安詳退隱 */
+    /* 沉穩厚重的法槌動畫 */
     .stick-master.animate-strike {
       animation: horizontal-strike 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
@@ -123,7 +123,7 @@
       }
     }
 
-    /* 鼓體受擊 3D 共震（配合 570ms 的觸碰時間點爆發） */
+    /* 鼓體受擊 3D 共震 */
     .drum-master-group {
       transform-origin: 450px 350px;
       transition: transform 0.05s ease-out;
@@ -167,6 +167,7 @@
 </head>
 <body>
 
+  <!-- 繪製增強版彩色星塵 Canvas -->
   <canvas id="starCanvas"></canvas>
 
   <div class="container">
@@ -178,6 +179,7 @@
     <div class="drum-stage" id="stage-interact">
       <svg viewBox="0 0 800 800" id="drum-svg">
         <defs>
+          <!-- 絳紅飽滿鼓身漸層 -->
           <linearGradient id="crimson-barrel" x1="0%" y1="20%" x2="100%" y2="80%">
             <stop offset="0%" stop-color="#8a161b" />
             <stop offset="35%" stop-color="#590c10" />
@@ -185,18 +187,21 @@
             <stop offset="100%" stop-color="#140002" />
           </linearGradient>
 
+          <!-- 象牙白自性清淨鼓面漸層 -->
           <linearGradient id="drum-head-grad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#ffffff" />
             <stop offset="65%" stop-color="#f5ede2" />
             <stop offset="100%" stop-color="#ded2bf" />
           </linearGradient>
 
+          <!-- 莊嚴黃金木紋與金屬漸層 -->
           <linearGradient id="gold-metal" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#fede6a" />
             <stop offset="50%" stop-color="#d4af37" />
             <stop offset="100%" stop-color="#8a6f1c" />
           </linearGradient>
 
+          <!-- 巨型一字圓柱專用：立體圓筒縱向光澤漸層 -->
           <linearGradient id="cylinder-body-grad" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#593e03" />
             <stop offset="25%" stop-color="#ffe891" />
@@ -205,6 +210,7 @@
             <stop offset="100%" stop-color="#402d02" />
           </linearGradient>
 
+          <!-- 雙層精雕複合飾面卯釘定義 -->
           <g id="decorated-rivet-sym">
             <circle cx="0" cy="0" r="5.5" fill="#543e07" />
             <circle cx="0" cy="0" r="4" fill="url(#gold-metal)" />
@@ -212,39 +218,61 @@
           </g>
         </defs>
 
+        <!-- 核心等比例放大 1.5 倍母群組，且無任何腳架干擾，完全懸浮於法界 -->
         <g id="absolute-pure-drum-system" transform="translate(330, 350) scale(1.5) translate(-330, -350)">
           
+          <!-- 主鼓體架構組 -->
           <g class="drum-master-group" id="drum-hardware-group">
             
+            <!-- 2.5D厚重木製絳紅鼓身（朝右後方延伸） -->
             <path d="M 330 130 Q 520 110 650 200 L 650 500 Q 520 590 330 570 Z" fill="url(#crimson-barrel)" />
             
+            <!-- 方案 B 橫向穿心金框線組（保持不動） -->
+            <!-- 上橫向金框線 -->
             <path d="M 330 335 Q 490 342 650 355" fill="none" stroke="url(#gold-metal)" stroke-width="4.5" opacity="0.9" />
             <path d="M 330 336 Q 490 343 650 356" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.35" />
             
+            <!-- 下橫向金框線 -->
             <path d="M 330 375 Q 490 382 650 385" fill="none" stroke="url(#gold-metal)" stroke-width="4.5" opacity="0.9" />
             <path d="M 330 376 Q 490 383 650 386" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.35" />
 
+            <!-- 完美連結裝飾物垂直面上下緣的「兩條垂直工藝弧線」 -->
+            <!-- 左側垂直弧線（緊扣上下緣，向左微弧呈現立體感） -->
+            <path d="M 545 345 Q 520 365 545 385" fill="none" stroke="url(#gold-metal)" stroke-width="4" opacity="0.95" />
+            <path d="M 545 345 Q 522 365 545 385" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.4" />
+
+            <!-- 右側垂直弧線（緊扣上下緣，向右微弧配合鼓身大曲率） -->
+            <path d="M 545 345 Q 570 365 545 385" fill="none" stroke="url(#gold-metal)" stroke-width="4" opacity="0.95" />
+            <path d="M 545 345 Q 568 365 545 385" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.4" />
+
+            <!-- 鼓身中央黃金拉手座（金色裝飾物） -->
             <g transform="translate(545, 365)">
               <rect x="-10" y="-20" width="20" height="40" rx="3" fill="url(#gold-metal)" stroke="#42350c" stroke-width="1" />
               <circle cx="0" cy="0" r="12" fill="none" stroke="url(#gold-metal)" stroke-width="4" />
             </g>
 
+            <!-- 前方象牙白鼓面 -->
             <ellipse cx="330" cy="350" rx="120" ry="220" fill="url(#drum-head-grad)" stroke="#baa185" stroke-width="2" />
 
+            <!-- 鼓面交接處的立體邊緣金圈 -->
             <path d="M 330 130 A 120 220 0 0 1 330 570" fill="none" stroke="url(#gold-metal)" stroke-width="5" opacity="0.9" />
 
+            <!-- 鼓面中央：極簡金色法輪圖騰 -->
             <g transform="translate(330, 350) scale(0.65, 1.2)">
               <circle cx="0" cy="0" r="45" fill="none" stroke="rgba(168, 137, 76, 0.3)" stroke-width="2" />
               <circle cx="0" cy="0" r="12" fill="none" stroke="rgba(168, 137, 76, 0.35)" stroke-width="2" />
               <path d="M 0 -45 L 0 45 M -45 0 L 45 0 M -31.8 -31.8 L 31.8 31.8 M -31.8 31.8 L 31.8 -31.8" stroke="rgba(168, 137, 76, 0.3)" stroke-width="1.5" />
             </g>
 
+            <!-- 均勻圍繞整整一圈的精雕卯釘群容器（已修正：右大左小精準空間透視） -->
             <g id="complete-rim-rivets-container"></g>
 
           </g>
 
+          <!-- 單圈法音波紋層 -->
           <g id="wave-delivery-layer"></g>
 
+          <!-- 前景虛空法槌 —— 橫向一字型巨大黃金圓柱體 -->
           <g class="stick-master" id="drum-stick">
             <path d="M -220 305 L 200 305 A 15 45 0 0 1 200 395 L -220 395 Z" fill="url(#cylinder-body-grad)" />
             <ellipse cx="200" cy="350" rx="15" ry="45" fill="url(#gold-metal)" stroke="#9c7514" stroke-width="1" />
@@ -288,7 +316,7 @@
     }
     drawStars();
 
-    // 💡 修正 1：重構卯釘全圈空間透視演算法（右邊大、左邊小）
+    // 卯釘全圈空間透視演算法（右側近景大、左側遠景小）
     const rivetsContainer = document.getElementById('complete-rim-rivets-container');
     const rivetCount = 54; 
     const cx = 330, cy = 350; 
@@ -302,21 +330,20 @@
       const x = cx + rx * cosVal;
       const y = cy + ry * sinVal;
 
-      // cosVal > 0 代表右側（靠近觀者與紅鼓身交接面），此處視覺尺寸應最大
       const perspectiveFactor = cosVal; 
-      const scale = 0.85 + (perspectiveFactor * 0.15); // 右側放大至 1.0，左側收小至 0.7
+      const scale = 0.85 + (perspectiveFactor * 0.15); 
 
       const useTag = document.createElementNS('http://www.w3.org/2000/svg', 'use');
       useTag.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#decorated-rivet-sym');
       useTag.setAttribute('x', x);
       useTag.setAttribute('y', y);
       useTag.setAttribute('transform', `translate(${x}, ${y}) scale(${scale}) translate(${-x}, ${-y})`);
-      useTag.setAttribute('opacity', 0.8 + (perspectiveFactor * 0.2)); // 右側高亮清晰，左側呈現遠景微隱
+      useTag.setAttribute('opacity', 0.8 + (perspectiveFactor * 0.2)); 
 
       rivetsContainer.appendChild(useTag);
     }
 
-    // Web Audio API：清淨低頻大佛鼓音訊合成器
+    // Web Audio API 音訊合成器
     let audioCtx = null;
     let ambientOscs = [];
     let isAmbientPlaying = false;
@@ -333,7 +360,6 @@
 
       const now = audioCtx.currentTime;
 
-      // 皮革撞擊瞬間的物理雜訊層
       const strikeNoise = audioCtx.createBufferSource();
       const noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.015, audioCtx.sampleRate);
       const data = noiseBuffer.getChannelData(0);
@@ -350,7 +376,6 @@
       noiseGain.gain.setValueAtTime(0.35, now);
       noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.012);
 
-      // 核心深沉震撼低音
       const mainOsc = audioCtx.createOscillator();
       const mainGain = audioCtx.createGain();
       
