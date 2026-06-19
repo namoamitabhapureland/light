@@ -22,36 +22,23 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    /* 星空法界背景 */
-    .space-bg {
+    /* 💡 增強版彩色星塵 Canvas 容器 */
+    #starCanvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 50% 50%, #0a0b22 0%, #010103 100%);
       z-index: 1;
+      pointer-events: none;
     }
 
-    .space-bg::before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 30px),
-        radial-gradient(rgba(229, 193, 88, 0.4), rgba(229, 193, 88, 0.05) 2px, transparent 40px);
-      background-size: 300px 300px, 200px 200px;
-      background-position: 0 0, 60px 120px;
-      opacity: 0.5;
-    }
-
-    /* 主容器 */
+    /* 主網頁內容容器 */
     .container {
       position: relative;
       width: 100%;
       height: 100%;
-      z-index: 2;
+      z-index: 2; /* 確保內容浮於星空之上 */
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -83,8 +70,8 @@
     /* 舞台容器 */
     .drum-stage {
       width: 100%;
-      max-width: 750px;
-      height: 60vh;
+      max-width: 850px;
+      height: 650px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -104,7 +91,7 @@
       pointer-events: none;
     }
 
-    /* 沉穩厚重的法槌大改動畫：總長 1.5 秒，展現蓄力、撞擊、定格能量傳導與安詳退隱 */
+    /* 沉穩厚重的法槌動畫：總長 1.5 秒，展現蓄力、撞擊、定格能量傳導與安詳退隱 */
     .stick-master.animate-strike {
       animation: horizontal-strike 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
@@ -116,7 +103,7 @@
       }
       15% {
         transform: translate(-120px, 0px);
-        opacity: 1; /* 緩緩於虛空中凝聚顯現 */
+        opacity: 1;
       }
       38% {
         transform: translate(-2px, 0px); /* 精準向前推進，厚重地穩穩觸碰、撞擊鼓皮 */
@@ -160,7 +147,7 @@
     }
 
     .btn {
-      background: rgba(10, 11, 30, 0.5);
+      background: rgba(10, 11, 30, 0.6);
       border: 1px solid rgba(229, 193, 88, 0.2);
       color: #8690a6;
       padding: 10px 24px;
@@ -180,7 +167,7 @@
 </head>
 <body>
 
-  <div class="space-bg"></div>
+  <canvas id="starCanvas"></canvas>
 
   <div class="container">
     <div class="title-area">
@@ -204,12 +191,6 @@
             <stop offset="100%" stop-color="#ded2bf" />
           </linearGradient>
 
-          <linearGradient id="dark-timber" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#1f1c19" />
-            <stop offset="50%" stop-color="#302a26" />
-            <stop offset="100%" stop-color="#171412" />
-          </linearGradient>
-
           <linearGradient id="gold-metal" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#fede6a" />
             <stop offset="50%" stop-color="#d4af37" />
@@ -231,55 +212,42 @@
           </g>
         </defs>
 
-        <g id="stand-back-layer">
-          <path d="M 420 460 L 220 760 L 265 760 L 450 480 Z" fill="#12100e" />
-          <path d="M 540 460 L 590 730 L 630 730 L 565 470 Z" fill="#161412" />
-          <path d="M 240 670 L 580 670 L 580 695 L 240 695 Z" fill="#100e0d" />
-        </g>
+        <g id="absolute-pure-drum-system" transform="translate(330, 350) scale(1.5) translate(-330, -350)">
+          
+          <g class="drum-master-group" id="drum-hardware-group">
+            
+            <path d="M 330 130 Q 520 110 650 200 L 650 500 Q 520 590 330 570 Z" fill="url(#crimson-barrel)" />
+            
+            <g transform="translate(545, 365)">
+              <rect x="-10" y="-20" width="20" height="40" rx="3" fill="url(#gold-metal)" stroke="#42350c" stroke-width="1" />
+              <circle cx="0" cy="0" r="12" fill="none" stroke="url(#gold-metal)" stroke-width="4" />
+            </g>
 
-        <g class="drum-master-group" id="drum-hardware-group">
-          
-          <path d="M 330 130 Q 520 110 650 200 L 650 500 Q 520 590 330 570 Z" fill="url(#crimson-barrel)" />
-          
-          <g transform="translate(545, 365)">
-            <rect x="-10" y="-20" width="20" height="40" rx="3" fill="url(#gold-metal)" stroke="#42350c" stroke-width="1" />
-            <circle cx="0" cy="0" r="12" fill="none" stroke="url(#gold-metal)" stroke-width="4" />
+            <ellipse cx="330" cy="350" rx="120" ry="220" fill="url(#drum-head-grad)" stroke="#baa185" stroke-width="2" />
+
+            <path d="M 330 130 A 120 220 0 0 1 330 570" fill="none" stroke="url(#gold-metal)" stroke-width="6" />
+            <path d="M 330 136 A 114 214 0 0 1 330 564" fill="none" stroke="url(#gold-metal)" stroke-width="3" opacity="0.85" />
+
+            <g transform="translate(330, 350) scale(0.65, 1.2)">
+              <circle cx="0" cy="0" r="45" fill="none" stroke="rgba(168, 137, 76, 0.3)" stroke-width="2" />
+              <circle cx="0" cy="0" r="12" fill="none" stroke="rgba(168, 137, 76, 0.35)" stroke-width="2" />
+              <path d="M 0 -45 L 0 45 M -45 0 L 45 0 M -31.8 -31.8 L 31.8 31.8 M -31.8 31.8 L 31.8 -31.8" stroke="rgba(168, 137, 76, 0.3)" stroke-width="1.5" />
+            </g>
+
+            <g id="right-rim-rivets-container"></g>
+
           </g>
 
-          <ellipse cx="330" cy="350" rx="120" ry="220" fill="url(#drum-head-grad)" stroke="#baa185" stroke-width="2" />
+          <g id="wave-delivery-layer"></g>
 
-          <path d="M 330 130 A 120 220 0 0 1 330 570" fill="none" stroke="url(#gold-metal)" stroke-width="6" />
-          <path d="M 330 136 A 114 214 0 0 1 330 564" fill="none" stroke="url(#gold-metal)" stroke-width="3" opacity="0.85" />
-
-          <g transform="translate(330, 350) scale(0.65, 1.2)">
-            <circle cx="0" cy="0" r="45" fill="none" stroke="rgba(168, 137, 76, 0.3)" stroke-width="2" />
-            <circle cx="0" cy="0" r="12" fill="none" stroke="rgba(168, 137, 76, 0.35)" stroke-width="2" />
-            <path d="M 0 -45 L 0 45 M -45 0 L 45 0 M -31.8 -31.8 L 31.8 31.8 M -31.8 31.8 L 31.8 -31.8" stroke="rgba(168, 137, 76, 0.3)" stroke-width="1.5" />
+          <g class="stick-master" id="drum-stick">
+            <path d="M -220 305 L 200 305 A 15 45 0 0 1 200 395 L -220 395 Z" fill="url(#cylinder-body-grad)" />
+            <ellipse cx="200" cy="350" rx="15" ry="45" fill="url(#gold-metal)" stroke="#9c7514" stroke-width="1" />
+            <line x1="-220" y1="325" x2="200" y2="325" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
+            <line x1="-220" y1="375" x2="200" y2="375" stroke="rgba(0,0,0,0.35)" stroke-width="1.5" />
           </g>
 
-          <g id="right-rim-rivets-container"></g>
-
         </g>
-
-        <g id="wave-delivery-layer"></g>
-
-        <g id="stand-front-layer">
-          <path d="M 370 565 L 300 760 L 345 760 L 410 560 Z" fill="url(#dark-timber)" />
-          <path d="M 500 535 L 440 760 L 485 760 L 535 525 Z" fill="url(#dark-timber)" />
-          <path d="M 290 690 L 490 690 L 490 725 L 290 725 Z" fill="url(#dark-timber)" />
-          
-          <path d="M 300 690 L 330 690 L 330 725 L 290 725 Z" fill="url(#gold-metal)" opacity="0.95" />
-          <path d="M 460 690 L 490 690 L 480 725 L 450 725 Z" fill="url(#gold-metal)" opacity="0.95" />
-          <circle cx="390" cy="707" r="9" fill="url(#gold-metal)" />
-        </g>
-
-        <g class="stick-master" id="drum-stick">
-          <path d="M -220 305 L 200 305 A 15 45 0 0 1 200 395 L -220 395 Z" fill="url(#cylinder-body-grad)" />
-          <ellipse cx="200" cy="350" rx="15" ry="45" fill="url(#gold-metal)" stroke="#9c7514" stroke-width="1" />
-          <line x1="-220" y1="325" x2="200" y2="325" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
-          <line x1="-220" y1="375" x2="200" y2="375" stroke="rgba(0,0,0,0.35)" stroke-width="1.5" />
-        </g>
-
       </svg>
     </div>
 
@@ -289,6 +257,34 @@
   </div>
 
   <script>
+    // ════ 繪製增強版彩色星塵 ════
+    const canvas = document.getElementById('starCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height, stars = [];
+    const starColors = ['rgba(243, 229, 171, ', 'rgba(255, 150, 150, ', 'rgba(150, 200, 255, ']; 
+
+    function resize() { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; }
+    window.addEventListener('resize', resize); resize();
+    
+    // 💡 修正 3：數量增加至 800，並強化繪製時的亮度
+    for(let i=0; i<800; i++) { 
+        stars.push({ x: (Math.random()-0.5)*2000, y: (Math.random()-0.5)*2000, z: Math.random()*1000, s: Math.random()*3.5 + 0.5, colorType: Math.floor(Math.random() * 3) });
+    }
+    function drawStars() {
+        ctx.clearRect(0, 0, width, height); 
+        ctx.globalCompositeOperation = 'screen';
+        stars.forEach(s => { 
+            s.z -= 0.3; if(s.z <= 0) s.z = 1000; 
+            let sc = 300 / (300 + s.z);
+            ctx.beginPath(); ctx.arc(width/2 + s.x*sc, height/2 + s.y*sc, s.s*sc, 0, Math.PI*2); 
+            // 將透明度倍率從 1.5 提升至 3.0
+            ctx.fillStyle = starColors[s.colorType] + (sc * 3.0) + ')'; 
+            ctx.fill(); 
+        });
+        requestAnimationFrame(drawStars);
+    }
+    drawStars();
+
     // 空間透視 —— 卯釘均勻地沿著白色鼓皮的【右半圈】邊緣生成
     const rivetsContainer = document.getElementById('right-rim-rivets-container');
     const rivetCount = 30;
@@ -426,7 +422,7 @@
     const waveLayer = document.getElementById('wave-delivery-layer');
     const ambientBtn = document.getElementById('ambient-toggle');
 
-    // 狀態鎖定旗標：確保不能連續按，保持法度莊嚴
+    // 狀態鎖定旗標：確保不能連續快按，保持儀軌莊嚴
     let isStriking = false;
 
     stage.addEventListener('mousedown', (e) => { e.preventDefault(); performStrike(); });
@@ -434,14 +430,13 @@
     ambientBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleAmbient(); });
 
     function performStrike() {
-      // 若正在執行擊鼓流程中，則直接屏除點擊
       if (isStriking) return;
       isStriking = true;
 
       // 觸發法槌 1.5 秒慢速撞擊動畫
       stick.classList.add('animate-strike');
 
-      // 精準同步：法槌會在點擊後的第 570 毫秒（38%）完全碰到鼓皮
+      // 精準同步：法槌會在點擊後的第 570 毫秒（38%）完全碰觸並停留在鼓皮上
       setTimeout(() => {
         playDeepDrumSound();
 
@@ -454,7 +449,7 @@
         createOptimizedWave();
       }, 570);
 
-      // 動畫完全結束並預留沉澱時間後（1.8秒），才解鎖下一次點擊
+      // 1.8 秒後完整回歸空寂，方可接受下一次擊奏
       setTimeout(() => {
         stick.classList.remove('animate-strike');
         isStriking = false;
@@ -475,7 +470,7 @@
       let opacity = 1.0;
 
       function render() {
-        rxValue += 5;       // 波紋隨法槌重量，擴散得更穩健優雅
+        rxValue += 5; 
         ryValue += 9.16; 
         opacity -= 0.015;
 
