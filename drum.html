@@ -97,47 +97,52 @@
       overflow: visible;
     }
 
-    /* 巨型一字圓柱法槌：初始隱形且置於左側畫面外 */
+    /* 初始狀態：法槌完全隱形且深藏於左側虛空中 */
     .stick-master {
-      transform: translate(-350px, 0px);
+      transform: translate(-300px, 0px);
       opacity: 0;
       pointer-events: none;
     }
 
-    /* 左右橫撞的強烈衝擊動態 (支援連續快速點擊) */
+    /* 沉穩厚重的法槌大改動畫：總長 1.5 秒，展現蓄力、撞擊、定格能量傳導與安詳退隱 */
     .stick-master.animate-strike {
-      animation: horizontal-strike 0.32s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+      animation: horizontal-strike 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
 
     @keyframes horizontal-strike {
       0% {
-        transform: translate(-350px, 0px);
+        transform: translate(-300px, 0px);
         opacity: 0;
       }
-      12% {
-        opacity: 1; /* 迅速顯現 */
+      15% {
+        transform: translate(-120px, 0px);
+        opacity: 1; /* 緩緩於虛空中凝聚顯現 */
       }
-      22% {
-        transform: translate(15px, 0px); /* 猛烈向前橫撞直擊鼓皮 */
+      38% {
+        transform: translate(-2px, 0px); /* 精準向前推進，厚重地穩穩觸碰、撞擊鼓皮 */
         opacity: 1;
       }
-      35% {
-        transform: translate(-15px, 0px); /* 撞擊後的物理反彈 */
+      48% {
+        transform: translate(-2px, 0px); /* 觸擊後短暫定格 150 毫秒，傳達厚重的物理接觸與法音滲透 */
+        opacity: 1;
+      }
+      68% {
+        transform: translate(-45px, 0px); /* 莊嚴的反彈餘韻 */
         opacity: 1;
       }
       100% {
-        transform: translate(-350px, 0px); /* 迅速退回左側並隱形 */
+        transform: translate(-300px, 0px); /* 緩緩退回左側深處，再度重歸空寂 */
         opacity: 0;
       }
     }
 
-    /* 鼓體受擊 3D 微共震 */
+    /* 鼓體受擊 3D 共震（配合 570ms 的觸碰時間點爆發） */
     .drum-master-group {
       transform-origin: 450px 350px;
-      transition: transform 0.04s ease-out;
+      transition: transform 0.05s ease-out;
     }
     .drum-master-group.shake {
-      transform: scale(1.012) translate(-1px, 1px);
+      transform: scale(1.015) translate(-1px, 1px);
     }
 
     /* 單圈高效能法音波紋 */
@@ -328,7 +333,7 @@
 
       const now = audioCtx.currentTime;
 
-      // 皮革撞擊瞬間的物理雜訊層 (Thwack)
+      // 皮革撞擊瞬間的物理雜訊層
       const strikeNoise = audioCtx.createBufferSource();
       const noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.015, audioCtx.sampleRate);
       const data = noiseBuffer.getChannelData(0);
@@ -421,25 +426,39 @@
     const waveLayer = document.getElementById('wave-delivery-layer');
     const ambientBtn = document.getElementById('ambient-toggle');
 
+    // 狀態鎖定旗標：確保不能連續按，保持法度莊嚴
+    let isStriking = false;
+
     stage.addEventListener('mousedown', (e) => { e.preventDefault(); performStrike(); });
     stage.addEventListener('touchstart', (e) => { e.preventDefault(); performStrike(); });
     ambientBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleAmbient(); });
 
     function performStrike() {
-      playDeepDrumSound();
+      // 若正在執行擊鼓流程中，則直接屏除點擊
+      if (isStriking) return;
+      isStriking = true;
 
-      // 鼓身微震共鳴
-      drumHardware.classList.add('shake');
-      setTimeout(() => drumHardware.classList.remove('shake'), 50);
-
-      // 巨型撞木橫撞動畫 (消除舊類別並重刷以支援快速連續點擊)
-      stick.classList.remove('animate-strike');
-      void stick.offsetWidth; // 強制瀏覽器重繪 (Reflow)
+      // 觸發法槌 1.5 秒慢速撞擊動畫
       stick.classList.add('animate-strike');
 
-      // 清空上一圈，法音波紋清淨流轉
-      waveLayer.innerHTML = "";
-      createOptimizedWave();
+      // 精準同步：法槌會在點擊後的第 570 毫秒（38%）完全碰到鼓皮
+      setTimeout(() => {
+        playDeepDrumSound();
+
+        // 鼓身微震共鳴
+        drumHardware.classList.add('shake');
+        setTimeout(() => drumHardware.classList.remove('shake'), 60);
+
+        // 法音波紋清淨流轉
+        waveLayer.innerHTML = "";
+        createOptimizedWave();
+      }, 570);
+
+      // 動畫完全結束並預留沉澱時間後（1.8秒），才解鎖下一次點擊
+      setTimeout(() => {
+        stick.classList.remove('animate-strike');
+        isStriking = false;
+      }, 1800);
     }
 
     function createOptimizedWave() {
@@ -456,9 +475,9 @@
       let opacity = 1.0;
 
       function render() {
-        rxValue += 8;
-        ryValue += 14.66; 
-        opacity -= 0.02;
+        rxValue += 5;       // 波紋隨法槌重量，擴散得更穩健優雅
+        ryValue += 9.16; 
+        opacity -= 0.015;
 
         ellipse.setAttribute('rx', rxValue);
         ellipse.setAttribute('ry', ryValue);
