@@ -367,13 +367,23 @@ mix-blend-mode: screen;
     display: block;
 }
 
-/* 當行者頂禮，場景帶有 bowing 類別時：自動對調手勢狀態 */
-.bowing .buddha-hands-open {
-    display: block;
+/* ==================== 佛尊動態手勢絕對互斥控制 ==================== */
+/* 1. 常態下：合十手印顯示，接引手印強制拔除消失 */
+.buddha-hands-closed {
+    display: block !important;
 }
+.buddha-hands-open {
+    display: none !important;
+}
+
+/* 2. 當激活頂禮 bowing 狀態時：合十手印強制消失，接引手印強制顯現 */
 .bowing .buddha-hands-closed {
-    display: none;
+    display: none !important;
 }
+.bowing .buddha-hands-open {
+    display: block !important;
+}
+
 
     </style>
 </head>
@@ -727,7 +737,7 @@ mix-blend-mode: screen;
 
                     </g>
 
-                <path d="M 640 710 Q 480 810 320 780" />
+             <path d="M 640 710 Q 480 810 320 780" />
 <path d="M 360 710 Q 420 745 460 780" />
 <path d="M 435 220 Q 427 205 420 220 Q 410 270 425 320 Q 418 380 446 330 Z" fill="rgba(243, 229, 171, 0.12)" stroke="none" />
 <path d="M 565 220 Q 573 205 580 220 Q 590 270 575 320 Q 582 380 554 330 Z" fill="rgba(243, 229, 171, 0.12)" stroke="none" />
