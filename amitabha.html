@@ -763,6 +763,7 @@ mix-blend-mode: screen;
 
 <g transform="translate(500, 610) scale(0.7) translate(-100, -155)" style="filter: drop-shadow(0 0 20px rgba(212,175,55,0.6));">
     
+    <!-- =================【左半邊圖形】================= -->
     <g transform="translate(-0.7, 0)">
         <path d="M 99.3 225 
                  C 59.3 225, 16.3 240, 16.3 255" 
@@ -786,8 +787,9 @@ mix-blend-mode: screen;
               stroke-width="2.5" 
               stroke-linejoin="round"/>
               
+        <!-- 【修復轉彎處】左側人字腳：合併兩段曲線，消除 275 的硬折點，讓轉折順滑向下 -->
         <path d="M 100.7 265 
-                 C 92.7 275.0, 94.5 285.0, 96.3 295" 
+                 C 100.7 274.0, 98.0 286.0, 96.3 295" 
               fill="none" 
               stroke="var(--gold-solid)" 
               stroke-width="2.5" 
@@ -812,6 +814,7 @@ mix-blend-mode: screen;
               stroke-linejoin="round"/>
     </g>
 
+    <!-- =================【右半邊圖形】================= -->
     <g transform="translate(0.7, 0)">
         <path d="M 100.7 225 
                  C 140.7 225, 183.7 240, 183.7 255" 
@@ -835,8 +838,9 @@ mix-blend-mode: screen;
               stroke-width="2.5" 
               stroke-linejoin="round"/>
               
+        <!-- 【修復轉彎處】右側人字腳：合併兩段曲線，消除 275 的硬折點，讓轉折順滑向下 -->
         <path d="M 99.3 265 
-                 C 107.3 275.0, 105.5 285.0, 103.7 295" 
+                 C 99.3 274.0, 102.0 286.0, 103.7 295" 
               fill="none" 
               stroke="var(--gold-solid)" 
               stroke-width="2.5" 
@@ -862,6 +866,7 @@ mix-blend-mode: screen;
     </g>
 
 </g>
+
 
 
 
