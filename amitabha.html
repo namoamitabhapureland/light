@@ -761,9 +761,9 @@ mix-blend-mode: screen;
                         <path d="M 585 660 Q 570 710 535 715" stroke-width="2.2" />
                          <path d="M 585 660 Q 570 710 535 720" stroke-width="2.2" />
 
+
 <g transform="translate(500, 610) scale(0.7) translate(-100, -155)" style="filter: drop-shadow(0 0 20px rgba(212,175,55,0.6));">
     
-    <!-- =================【左半邊圖形】================= -->
     <g transform="translate(-0.7, 0)">
         <path d="M 99.3 225 
                  C 59.3 225, 16.3 240, 16.3 255" 
@@ -787,9 +787,9 @@ mix-blend-mode: screen;
               stroke-width="2.5" 
               stroke-linejoin="round"/>
               
-        <!-- 【修復轉彎處】左側人字腳：合併兩段曲線，消除 275 的硬折點，讓轉折順滑向下 -->
         <path d="M 100.7 265 
-                 C 98.5.7 281.0, 98.0 286.0, 96.3 295" 
+                 L 100.7 275
+                 C 98.5 281.0, 97.5 288.0, 96.3 295" 
               fill="none" 
               stroke="var(--gold-solid)" 
               stroke-width="2.5" 
@@ -814,7 +814,6 @@ mix-blend-mode: screen;
               stroke-linejoin="round"/>
     </g>
 
-    <!-- =================【右半邊圖形】================= -->
     <g transform="translate(0.7, 0)">
         <path d="M 100.7 225 
                  C 140.7 225, 183.7 240, 183.7 255" 
@@ -838,9 +837,9 @@ mix-blend-mode: screen;
               stroke-width="2.5" 
               stroke-linejoin="round"/>
               
-        <!-- 【修復轉彎處】右側人字腳：合併兩段曲線，消除 275 的硬折點，讓轉折順滑向下 -->
         <path d="M 99.3 265 
-                 C 101.0 281.0, 102.0 286.0, 103.7 295" 
+                 L 99.3 275
+                 C 101.5 281.0, 102.5 288.0, 103.7 295" 
               fill="none" 
               stroke="var(--gold-solid)" 
               stroke-width="2.5" 
@@ -866,8 +865,6 @@ mix-blend-mode: screen;
     </g>
 
 </g>
-
-
 
         
                     <path d="M 500 460 L 500 440 L 480 440 
@@ -901,11 +898,11 @@ mix-blend-mode: screen;
 <g class="buddha-eye-open">
     <circle cx="500" cy="195" r="3" fill="url(#pureGoldGradient)" stroke="none" class="glow-core" />
     
-    <circle cx="462" cy="244" r="3" fill="url(#pureGoldGradient)" stroke="none" opacity="0.8" />
+    <circle cx="462" cy="244" r="0" fill="url(#pureGoldGradient)" stroke="none" opacity="0.8" />
     <path d="M 446 236 Q 462 239 478 236" fill="none" stroke="url(#goldBody)" stroke-width="1.8" stroke-opacity="1.3" /> 
     <path d="M 446 236 Q 462 253 478 236" fill="none" stroke="url(#goldBody)" stroke-width="1.8" stroke-opacity="1.3" /> 
     
-    <circle cx="538" cy="244" r="3" fill="url(#pureGoldGradient)" stroke="none" opacity="0.8" />
+    <circle cx="538" cy="244" r="0" fill="url(#pureGoldGradient)" stroke="none" opacity="0.8" />
     <path d="M 522 236 Q 538 239 554 236" fill="none" stroke="url(#goldBody)" stroke-width="1.8" stroke-opacity="1.3" /> 
     <path d="M 522 236 Q 538 253 554 236" fill="none" stroke="url(#goldBody)" stroke-width="1.8" stroke-opacity="1.3" /> 
 </g>
