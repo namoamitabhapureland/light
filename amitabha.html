@@ -361,22 +361,33 @@ mix-blend-mode: screen;
     display: none;
 }
 
-/* ==================== 佛尊動態手勢絕對互斥控制 (修復括號，完美互斥) ==================== */
-/* 1. 常態下：合十手印顯示，接引手印強制拔除消失 */
+/* ==================== 佛尊動態手勢：如行雲流水般的漸變控制 ==================== */
+
+/* 1. 常態下：合十手印完全顯現（透明度 1），接引手印完全隱藏（透明度 0 且不干擾滑鼠） */
 .buddha-hands-closed {
-    display: block !important;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .buddha-hands-open {
-    display: none !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 2. 當激活頂禮 bowing 狀態時：合十手印強制消失，接引手印強制顯現 */
+/* 2. 當點擊頂禮（bowing 激活）時：
+      合十手印在 0.8 秒內輕柔淡出（Opacity 歸 0），
+      接引手印在 0.8 秒內從虛空中柔和化現（Opacity 變 1）。
+*/
 .bowing .buddha-hands-closed {
-    display: none !important;
+    opacity: 0;
+    visibility: hidden;
 }
 .bowing .buddha-hands-open {
-    display: block !important;
+    opacity: 1;
+    visibility: visible;
 }
+
 </style>
 
 
