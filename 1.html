@@ -246,6 +246,100 @@
   90% { transform: translate(2px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-0.5deg); }
 }
+    /* 能量條刻度標籤樣式 */
+.gauge-marker {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: monospace;
+  font-size: 11px;
+  color: rgba(229, 193, 88, 0.4); /* 淡金色微光 */
+  letter-spacing: 1px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.marker-zero {
+  left: -20px; /* 移至能量條左端外側 */
+}
+
+.marker-hundred {
+  right: -32px; /* 移至能量條右端外側 */
+}
+/* 圓形玻璃半透明漸層呼吸按鈕 */
+#recite-done-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  margin: 30px auto 0 auto;
+  
+  /* 玻璃擬態與柔和淡色漸層 */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(229, 193, 88, 0.05));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  /* 細緻邊框與黃金比例陰影 */
+  border: 1px solid rgba(229, 193, 88, 0.25);
+  box-shadow: 0 0 15px rgba(229, 193, 88, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.05);
+  
+  /* 字體極致美學 */
+  color: #e5c158;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  writing-mode: horizontal-tb; /* 保持水平置中文字，4字會自然平鋪成方塊 */
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  
+  /* 預設靜態時的緩慢如意呼吸 */
+  animation: btnNormalBreathe 4s ease-in-out infinite;
+}
+
+/* 滑鼠懸停與觸控焦點時的凝聚感 */
+#recite-done-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(229, 193, 88, 0.18), rgba(255, 255, 255, 0.05));
+  border-color: rgba(229, 193, 88, 0.5);
+  box-shadow: 0 0 25px rgba(229, 193, 88, 0.3), inset 0 0 12px rgba(255, 255, 255, 0.1);
+  transform: scale(1.03);
+}
+
+/* 當按鈕處於蓄力狀態時，由 JavaScript 動態加入此 Class，讓呼吸加速，象徵攝心凝聚 */
+#recite-done-btn.gathering {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.4);
+  animation: btnGatheringBreathe 1.5s ease-in-out infinite;
+}
+
+/* 儀軌冷卻停用時的內斂 */
+#recite-done-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  animation: none;
+  box-shadow: none;
+}
+
+/* 靜態呼吸：平穩、悠長 */
+@keyframes btnNormalBreathe {
+  0% { box-shadow: 0 0 15px rgba(229, 193, 88, 0.1); border-color: rgba(229, 193, 88, 0.25); }
+  50% { box-shadow: 0 0 25px rgba(229, 193, 88, 0.25); border-color: rgba(229, 193, 88, 0.45); }
+  100% { box-shadow: 0 0 15px rgba(229, 193, 88, 0.1); border-color: rgba(229, 193, 88, 0.25); }
+}
+
+/* 蓄力呼吸：緊湊、凝聚 */
+@keyframes btnGatheringBreathe {
+  0% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.15); }
+  50% { box-shadow: 0 0 35px rgba(229, 193, 88, 0.4); }
+  100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.15); }
+}
+
 
   </style>
 </head>
@@ -339,6 +433,12 @@
       <div class="energy-gauge-container" id="energy-gauge-wrap">
         <div class="energy-bar" id="energy-bar-fluid"></div>
       </div>
+      <div id="energy-gauge-wrap">
+  <span class="gauge-marker marker-zero">0</span>
+  <div id="energy-bar-fluid"></div>
+  <span class="gauge-marker marker-hundred">100</span>
+</div>
+
       <button class="btn active" id="recite-done-btn" style="font-size: 15px; padding: 12px 50px; letter-spacing: 4px; border-radius: 30px;">擊鼓</button>
     </div>
   </div>
@@ -618,7 +718,10 @@
       energyGaugeWrap.style.display = 'block';
       energyValue = 0;
       energyDirection = 1;
+            // 聯動修改：切換文字並讓圓形按鈕進入緊湊呼吸狀態
       reciteDoneBtn.textContent = "正念落槌";
+      reciteDoneBtn.classList.add('gathering'); 
+      
       runEnergyLoop();
     }
 
@@ -637,6 +740,8 @@
 
       isGathering = false;
       cancelAnimationFrame(energyRafId);
+      // 聯動修改：移除緊湊呼吸狀態
+      reciteDoneBtn.classList.remove('gathering');
 
       let finalEnergy = Math.round(energyValue);
       let intensity = 'low';
