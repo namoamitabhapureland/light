@@ -28,7 +28,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    /* 彩色星塵 Canvas 容器 */
+    /* 彩色星塵 Canvas */
     #starCanvas {
       position: absolute;
       top: 0;
@@ -126,7 +126,39 @@
       margin-top: 10px;
     }
 
-    /* 舞台容器 */
+    /* 儀軌狀態引導面板 */
+    .ritual-guide-panel {
+      position: absolute;
+      right: 6%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 280px;
+      z-index: 4;
+      background: rgba(15, 20, 25, 0.7);
+      border: 1px solid rgba(229, 193, 88, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .guide-status {
+      color: #7a8499;
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .guide-timer {
+      color: #fede6a;
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* 舞台與大鼓容器 */
     .drum-stage {
       width: 100%;
       max-width: 850px;
@@ -135,6 +167,12 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
+      transition: opacity 0.5s;
+    }
+
+    .drum-stage.locked {
+      cursor: not-allowed;
+      opacity: 0.3;
     }
 
     svg {
@@ -143,7 +181,7 @@
       overflow: visible;
     }
 
-    /* 法鼓真如呼吸與微光脈動動畫（5秒一週期） */
+    /* 法鼓真如呼吸與微光脈動動畫 */
     .drum-breathing-wrapper {
       transform-origin: 450px 350px;
       animation: drum-meditate-breath 5s ease-in-out infinite alternate;
@@ -182,14 +220,16 @@
       width: 100%;
       display: flex;
       justify-content: center;
+      gap: 20px;
+      z-index: 5;
     }
 
     .btn {
       background: rgba(10, 11, 30, 0.6);
       border: 1px solid rgba(229, 193, 88, 0.2);
       color: #8690a6;
-      padding: 10px 24px;
-      font-size: 12px;
+      padding: 12px 28px;
+      font-size: 13px;
       letter-spacing: 2px;
       border-radius: 4px;
       cursor: pointer;
@@ -202,26 +242,24 @@
       box-shadow: 0 0 12px rgba(229, 193, 88, 0.15);
     }
 
+    .btn:disabled {
+      border-color: rgba(122, 132, 153, 0.2);
+      color: #4a505e;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
     /* ================= 各式彈框樣式 ================= */
     .glass-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.5s; }
     .glass-modal.show { opacity: 1; pointer-events: auto; }
     .glass-content { width: 90%; max-width: 420px; max-height: 85vh; background: linear-gradient(135deg, rgba(20,25,30,0.95), rgba(5,10,15,0.98)); border: 1px solid rgba(212,175,55,0.5); border-radius: 20px; padding: 30px 20px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 20px 50px rgba(0,0,0,0.9); position: relative; }
     
     .modal-header { text-align: center; color: var(--gold); font-size: 1.2rem; letter-spacing: 4px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px dashed rgba(212,175,55,0.3); padding-bottom: 15px; display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; }
-    .close-btn { position: absolute; top: 15px; right: 15px; color: #888; font-size: 1.5rem; cursor: pointer; z-index: 10; }
     
-    .tts-icon { width: 22px; height: 22px; fill: var(--cyan); cursor: pointer; transition: 0.3s; filter: drop-shadow(0 0 5px rgba(139,168,156,0.5)); }
-    .tts-icon:active { transform: scale(1.2); fill: #fff; }
-
-    .track-btn { background: rgba(0,0,0,0.5); border: 1px solid rgba(212,175,55,0.4); border-radius: 15px; padding: 20px; margin-bottom: 15px; text-align: center; cursor: pointer; transition: 0.3s; width: 100%; }
-    .track-btn:active { transform: scale(0.96); background: rgba(212,175,55,0.15); border-color: var(--solid-gold); }
-    .track-title { color: var(--gold); font-size: 1.1rem; letter-spacing: 3px; font-weight: bold; margin-bottom: 8px; }
-    .track-desc { color: #aaa; font-size: 0.8rem; letter-spacing: 1px; line-height: 1.5; }
-
     .step-container { overflow-y: auto; padding: 10px; flex-grow: 1; margin-bottom: 25px; display: flex; flex-direction: column; align-items: center; width: 100%; }
     .step-text { color: #ddd; font-size: 0.95rem; line-height: 1.8; text-align: justify; letter-spacing: 1px; width: 100%; }
     
-    .agree-btn, .cert-btn { 
+    .agree-btn { 
         -webkit-appearance: none; appearance: none;
         background: linear-gradient(135deg, rgba(212,175,55,0.15) 0%, rgba(10,10,10,0.9) 100%); 
         border: 1px solid rgba(212,175,55,0.5); color: var(--gold); padding: 12px 35px; 
@@ -229,7 +267,7 @@
         cursor: pointer; transition: 0.3s; box-shadow: inset 0 0 10px rgba(212,175,55,0.05), 0 5px 15px rgba(0,0,0,0.5); 
         font-family: inherit; width: auto; min-width: 180px; display: inline-block;
     }
-    .agree-btn:active, .cert-btn:active { transform: scale(0.96); background: rgba(212,175,55,0.3); border-color: var(--solid-gold); }
+    .agree-btn:active { transform: scale(0.96); background: rgba(212,175,55,0.3); border-color: var(--solid-gold); }
   </style>
 </head>
 <body>
@@ -251,7 +289,13 @@
       <div class="text-line text-footer">——《大法鼓經》</div>
     </div>
 
-    <div class="drum-stage" id="stage-interact">
+    <div class="ritual-guide-panel">
+      <div class="guide-status" id="guide-status-label">當前儀軌：隨文誦念中</div>
+      <div class="guide-timer" id="guide-timer-display">--</div>
+      <div id="guide-hint" style="color: #a2aecc; font-size: 12px; letter-spacing: 1px; line-height: 1.5;">請先隨文觀想默誦左側經文</div>
+    </div>
+
+    <div class="drum-stage locked" id="stage-interact">
       <svg viewBox="0 0 800 800" id="drum-svg">
         <defs>
           <linearGradient id="crimson-barrel" x1="0%" y1="20%" x2="100%" y2="80%">
@@ -281,28 +325,19 @@
         </defs>
 
         <g id="absolute-pure-drum-system" transform="translate(450, 350) scale(1.5) translate(-330, -350)">
-          
           <g class="drum-breathing-wrapper">
-            
             <g class="drum-master-group" id="drum-hardware-group">
-              
               <path d="M 330 130 Q 520 110 650 200 L 650 500 Q 520 590 330 570 Z" fill="url(#crimson-barrel)" />
-              
               <path d="M 330 130 Q 520 110 650 200" fill="none" stroke="url(#gold-metal)" stroke-width="1.5" opacity="0.55" />
               <path d="M 330 131 Q 520 111 650 201" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.18" />
-              
               <path d="M 330 570 Q 520 590 650 500" fill="none" stroke="url(#gold-metal)" stroke-width="1.5" opacity="0.55" />
               <path d="M 330 569 Q 520 589 650 499" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.18" />
-
               <path d="M 330 335 Q 490 342 650 355" fill="none" stroke="url(#gold-metal)" stroke-width="1.5" opacity="0.55" />
               <path d="M 330 336 Q 490 343 650 356" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.35" />
-              
               <path d="M 330 375 Q 490 382 650 385" fill="none" stroke="url(#gold-metal)" stroke-width="1.5" opacity="0.55" />
               <path d="M 330 376 Q 490 383 650 386" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.35" />
-
               <path d="M 490 132 Q 582 350 490 568" fill="none" stroke="url(#gold-metal)" stroke-width="1.5" opacity="0.55" />
               <path d="M 490 132 Q 584 350 490 568" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.35" />
-
               <path d="M 515 138 Q 593 350 515 563" fill="none" stroke="url(#gold-metal)" stroke-width="1.5" opacity="0.55" />
               <path d="M 515 138 Q 595 350 515 563" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.35" />
 
@@ -312,9 +347,7 @@
               </g>
 
               <ellipse cx="330" cy="350" rx="120" ry="220" fill="url(#drum-head-grad)" stroke="#baa185" stroke-width="2" />
-
               <ellipse cx="330" cy="350" rx="120" ry="220" id="touch-glow-layer" fill="url(#gold-metal)" opacity="0" pointer-events="none" />
-
               <path d="M 330 130 A 120 220 0 0 1 330 570" fill="none" stroke="url(#gold-metal)" stroke-width="5" opacity="0.9" />
 
               <g transform="translate(330, 350) scale(0.65, 1.2)">
@@ -322,27 +355,22 @@
                 <circle cx="0" cy="0" r="12" fill="none" stroke="rgba(168, 137, 76, 0.35)" stroke-width="2" />
                 <path d="M 0 -45 L 0 45 M -45 0 L 45 0 M -31.8 -31.8 L 31.8 31.8 M -31.8 31.8 L 31.8 -31.8" stroke="rgba(168, 137, 76, 0.3)" stroke-width="1.5" />
               </g>
-
               <g id="complete-rim-rivets-container"></g>
-
             </g> 
           </g> 
-          
           <g id="wave-delivery-layer"></g>
-
         </g>
       </svg>
     </div>
 
     <div class="control-panel">
-      <button class="btn" id="ambient-toggle">真如法界法音：靜音</button>
+      <button class="btn active" id="recite-done-btn">隨文誦念完畢，解鎖集氣</button>
+      <button class="btn" id="ambient-toggle">真如法音：靜音</button>
     </div>
   </div>
 
-  <!-- 黑金動態彈框系統 -->
   <div class="glass-modal" id="dharma-modal">
     <div class="glass-content">
-      <div class="close-btn" id="modal-close">&times;</div>
       <div class="modal-header" id="modal-title">大法鼓音</div>
       <div class="step-container">
         <div class="step-text" id="modal-text">正法流傳，虛空共鳴。</div>
@@ -352,6 +380,19 @@
   </div>
 
   <script>
+    // ════ 雙軌資料庫整合設定 (對接 v15 主系統) ════
+    const MAIN_DB_KEY = 'namo_buddha_db';  // 配合戒壇與主系統之 LocalStorage Key
+    const RITUAL_KEY = 'drumdb';           // 本大法鼓系統狀態鎖 Key
+
+    // 初始化與安全性校驗：杜絕繞過轉法輪或重複刷點
+    let mainDb = JSON.parse(localStorage.getItem(MAIN_DB_KEY)) || { points: 0 };
+    let drumDb = JSON.parse(localStorage.getItem(RITUAL_KEY));
+
+    if (!drumDb || drumDb.status !== 'auth_granted') {
+      // 若狀態非法，直接退回道場主頁面，徹底斬斷無限循環漏洞
+      window.location.href = 'index.html';
+    }
+
     // ════ 繪製彩色星塵 ════
     const canvas = document.getElementById('starCanvas');
     const ctx = canvas.getContext('2d');
@@ -378,7 +419,7 @@
     }
     drawStars();
 
-    // 卯釘全圈空間透視演算法
+    // 卯釘透視演算法
     const rivetsContainer = document.getElementById('complete-rim-rivets-container');
     const rivetCount = 54; 
     const cx = 330, cy = 350; 
@@ -388,10 +429,8 @@
       const angle = (i / rivetCount) * Math.PI * 2;
       const cosVal = Math.cos(angle);
       const sinVal = Math.sin(angle);
-
       const x = cx + rx * cosVal;
       const y = cy + ry * sinVal;
-
       const perspectiveFactor = cosVal; 
       const scale = 0.85 + (perspectiveFactor * 0.15); 
 
@@ -401,11 +440,10 @@
       useTag.setAttribute('y', y);
       useTag.setAttribute('transform', `translate(${x}, ${y}) scale(${scale}) translate(${-x}, ${-y})`);
       useTag.setAttribute('opacity', 0.8 + (perspectiveFactor * 0.2)); 
-
       rivetsContainer.appendChild(useTag);
     }
 
-    // Web Audio API 音訊合成器
+    // Web Audio API 核心音訊
     let audioCtx = null;
     let ambientOscs = [];
     let isAmbientPlaying = false;
@@ -416,82 +454,77 @@
       }
     }
 
-    function playDeepDrumSound() {
+    function playDeepDrumSound(intensity = 'high') {
       initAudio();
       if (audioCtx.state === 'suspended') audioCtx.resume();
-
       const now = audioCtx.currentTime;
 
       const strikeNoise = audioCtx.createBufferSource();
       const noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.015, audioCtx.sampleRate);
       const data = noiseBuffer.getChannelData(0);
-      for (let i = 0; i < noiseBuffer.length; i++) {
-        data[i] = Math.random() * 2 - 1;
-      }
+      for (let i = 0; i < noiseBuffer.length; i++) data[i] = Math.random() * 2 - 1;
       strikeNoise.buffer = noiseBuffer;
 
       const noiseFilter = audioCtx.createBiquadFilter();
       noiseFilter.type = 'bandpass';
-      noiseFilter.frequency.setValueAtTime(130, now);
+      noiseFilter.frequency.setValueAtTime(intensity === 'high' ? 130 : intensity === 'mid' ? 150 : 180, now);
       
       const noiseGain = audioCtx.createGain();
-      noiseGain.gain.setValueAtTime(0.35, now);
+      noiseGain.gain.setValueAtTime(intensity === 'high' ? 0.45 : intensity === 'mid' ? 0.25 : 0.1, now);
       noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.012);
 
       const mainOsc = audioCtx.createOscillator();
       const mainGain = audioCtx.createGain();
       
       mainOsc.type = 'sine';
-      mainOsc.frequency.setValueAtTime(115, now);
-      mainOsc.frequency.exponentialRampToValueAtTime(38, now + 0.08);
-      mainOsc.frequency.linearRampToValueAtTime(26, now + 0.6);
+      // 依出力力道決定基頻深度
+      let baseFreq = intensity === 'high' ? 115 : intensity === 'mid' ? 135 : 160;
+      let endFreq = intensity === 'high' ? 26 : intensity === 'mid' ? 35 : 50;
+      let duration = intensity === 'high' ? 1.4 : intensity === 'mid' ? 0.8 : 0.4;
+
+      mainOsc.frequency.setValueAtTime(baseFreq, now);
+      mainOsc.frequency.exponentialRampToValueAtTime(baseFreq * 0.35, now + 0.08);
+      mainOsc.frequency.linearRampToValueAtTime(endFreq, now + duration * 0.5);
 
       mainGain.gain.setValueAtTime(0, now);
-      mainGain.gain.linearRampToValueAtTime(1.0, now + 0.004);
-      mainGain.gain.exponentialRampToValueAtTime(0.01, now + 1.1);
+      mainGain.gain.linearRampToValueAtTime(intensity === 'high' ? 1.0 : intensity === 'mid' ? 0.6 : 0.3, now + 0.004);
+      mainGain.gain.exponentialRampToValueAtTime(0.01, now + duration);
 
       const lowpass = audioCtx.createBiquadFilter();
       lowpass.type = 'lowpass';
-      lowpass.frequency.setValueAtTime(140, now);
+      lowpass.frequency.setValueAtTime(intensity === 'high' ? 140 : 180, now);
 
       strikeNoise.connect(noiseGain);
       noiseGain.connect(noiseFilter);
       noiseFilter.connect(lowpass);
-
       mainOsc.connect(mainGain);
       mainGain.connect(lowpass);
       lowpass.connect(audioCtx.destination);
 
       strikeNoise.start(now);
       mainOsc.start(now);
-      mainOsc.stop(now + 1.2);
+      mainOsc.stop(now + duration + 0.1);
     }
 
     function toggleAmbient() {
       initAudio();
       const now = audioCtx.currentTime;
-
       if (!isAmbientPlaying) {
         ambientOscs = [];
         const freqRatio = [54.0, 108.0, 162.0];
-        
         freqRatio.forEach((freq) => {
           const osc = audioCtx.createOscillator();
           const gain = audioCtx.createGain();
-          
           osc.type = 'sine';
           osc.frequency.setValueAtTime(freq, now);
           gain.gain.setValueAtTime(0, now);
           gain.gain.linearRampToValueAtTime(0.035, now + 2.5);
-          
           osc.connect(gain);
           gain.connect(audioCtx.destination);
-          
           osc.start(now);
           ambientOscs.push({ osc, gain });
         });
-        
-        document.getElementById('ambient-toggle').textContent = '真如法界法音：流轉';
+        document.getElementById('ambient-toggle').textContent = '真如法音：流轉';
         document.getElementById('ambient-toggle').classList.add('active');
         isAmbientPlaying = true;
       } else {
@@ -500,110 +533,225 @@
           node.osc.stop(now + 1.3);
         });
         ambientOscs = [];
-        document.getElementById('ambient-toggle').textContent = '真如法界法音：靜音';
+        document.getElementById('ambient-toggle').textContent = '真如法音：靜音';
         document.getElementById('ambient-toggle').classList.remove('active');
         isAmbientPlaying = false;
       }
     }
 
-    // 互動與控制核心
+    // ════ 儀軌與狀態控制核心邏輯 ════
     const stage = document.getElementById('stage-interact');
     const drumHardware = document.getElementById('drum-hardware-group');
     const waveLayer = document.getElementById('wave-delivery-layer');
     const ambientBtn = document.getElementById('ambient-toggle');
+    const reciteDoneBtn = document.getElementById('recite-done-btn');
     const touchGlow = document.getElementById('touch-glow-layer');
     const textPanel = document.getElementById('text-panel');
 
-    // 彈框相關元素與資料結構
+    const guideStatusLabel = document.getElementById('guide-status-label');
+    const guideTimerDisplay = document.getElementById('guide-timer-display');
+    const guideHint = document.getElementById('guide-hint');
+
     const dharmaModal = document.getElementById('dharma-modal');
     const modalTitle = document.getElementById('modal-title');
     const modalText = document.getElementById('modal-text');
-    const modalClose = document.getElementById('modal-close');
     const modalAction = document.getElementById('modal-action');
 
-    let textLineIndex = 0;
-    let strikeCount = 0;
+    let isGathering = false;     // 是否處於集氣時間窗口
+    let currentTaps = 0;         // 本次集氣時間內的點擊數
+    let textLineIndex = 0;       // 經文顯現指標
+    let totalEarnedPoints = 0;   // 本次儀軌累積獲得的資糧點數
+    let gatheringTimer = null;
 
-    // 三次彈框對應的三個深層法義內容
-    const modalContents = [
+    // 三次擊鼓的個別經文解鎖行數與黑金彈框法義
+    const ritualSteps = [
       {
-        title: "第一擊 · 震裂魔網",
-        text: "擊大法鼓，吹大法螺。此清淨大乘法音一震，徹照虛空法界，破除世間一切戲論與邪見劇毒，令眾生本有之清淨心緩緩復甦。"
+        linesToUnlock: 2,
+        modalTitle: "第一擊完結 · 震裂魔網",
+        modalText: "經 6 秒全力專注集氣，法鼓初震。破除世間虛妄戲論，使客塵邪見之劇毒悉皆消殞。行者本有之清淨自性隨法音破暗而出。"
       },
       {
-        title: "第二擊 · 究竟一乘",
-        text: "若善男子善女人聽聞此經，乃至生起一念隨喜之心，其所得福德勝過無量布施。當知此人，已種下速趣無上菩提之不退轉種子。"
+        linesToUnlock: 4,
+        modalTitle: "第二擊完結 · 功德隨喜",
+        modalText: "深入隨文誦念，大鼓再震。聽聞此經乃至一念隨喜，其所得福德不可稱記。於如來藏中，已然深種永不退轉之菩提種子。"
       },
       {
-        title: "第三擊 · 證如來藏",
-        text: "一切眾生本自清淨，等同如來，唯為客塵煩惱所覆。今法音穿透無明，邪毒消殞，真如法性悉皆顯現，究竟歸於一佛乘。"
+        linesToUnlock: 6,
+        modalTitle: "第三擊完結 · 證入真如",
+        modalText: "三界虛空共鳴，究竟一乘正義彰顯。一切眾生本自清淨，等同如來。法音收攝，行者此番修持已圓滿化為清淨資糧。"
       }
     ];
 
-    stage.addEventListener('mousedown', (e) => { e.preventDefault(); performStrike(); });
-    stage.addEventListener('touchstart', (e) => { e.preventDefault(); performStrike(); });
-    ambientBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleAmbient(); });
-
-    // 關閉彈框邏輯
-    function closeModal() {
-      dharmaModal.classList.remove('show');
-    }
-    modalClose.addEventListener('click', closeModal);
-    modalAction.addEventListener('click', closeModal);
-
-    function performStrike() {
-      // 1. 瞬間擊發深沉法音
-      playDeepDrumSound();
-
-      // 2. 鼓體瞬間 3D 震動
-      drumHardware.classList.add('shake');
-      setTimeout(() => drumHardware.classList.remove('shake'), 60);
-
-      // 3. 觸碰瞬間：黃金微光呼吸閃耀特效
-      touchGlow.style.transition = 'none';
-      touchGlow.style.opacity = '0.6';
-      touchGlow.style.filter = 'blur(6px)';
-      
-      requestAnimationFrame(() => {
-        touchGlow.style.transition = 'opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), filter 0.75s ease-out';
-        touchGlow.style.opacity = '0';
-        touchGlow.style.filter = 'blur(25px)';
-      });
-
-      // 4. 生成擴散法音波紋
-      waveLayer.innerHTML = "";
-      createOptimizedWave();
-
-      // 5. 經文逐行喚醒
+    // 初始化經文顯示（顯示前兩行）
+    function updateTextDisplay() {
       const lines = document.querySelectorAll('.text-line');
-      if (textLineIndex < lines.length) {
+      const targetCount = ritualSteps[drumDb.strikeCount].linesToUnlock;
+      while (textLineIndex < targetCount && textLineIndex < lines.length) {
         lines[textLineIndex].classList.add('show');
         textLineIndex++;
-      } else {
-        textPanel.style.transform = 'translateY(-50%) scale(1.025)';
-        textPanel.style.filter = 'drop-shadow(0 0 8px rgba(229, 193, 88, 0.5))';
-        setTimeout(() => {
-          textPanel.style.transform = 'translateY(-50%) scale(1.0)';
-          textPanel.style.filter = 'none';
-        }, 150);
-      }
-
-      // 6. 依序觸發三次黑金彈框
-      if (strikeCount < modalContents.length) {
-        const content = modalContents[strikeCount];
-        modalTitle.textContent = content.title;
-        modalText.textContent = content.text;
-        
-        // 稍微延遲讓擊鼓波紋先擴散，再柔和浮現彈框
-        setTimeout(() => {
-          dharmaModal.classList.add('show');
-        }, 150);
-        
-        strikeCount++;
       }
     }
+    updateTextDisplay();
 
-    function createOptimizedWave() {
+    // 點擊「隨文誦念完畢」解鎖大鼓集氣
+    reciteDoneBtn.addEventListener('click', () => {
+      reciteDoneBtn.disabled = true;
+      stage.classList.remove('locked');
+      isGathering = true;
+      currentTaps = 0;
+
+      guideStatusLabel.textContent = `第 ${drumDb.strikeCount + 1} 擊 · 限時集氣中`;
+      guideHint.textContent = "請連續擊打鼓面凝聚法音力道";
+
+      let secondsLeft = 6;
+      guideTimerDisplay.textContent = secondsLeft;
+
+      gatheringTimer = setInterval(() => {
+        secondsLeft--;
+        if (secondsLeft <= 0) {
+          clearInterval(gatheringTimer);
+          endGatheringWindow();
+        } else {
+          guideTimerDisplay.textContent = secondsLeft;
+        }
+      }, 1000);
+    });
+
+    // 擊鼓互動觸發
+    function performStrikeTap() {
+      if (!isGathering) return; // 未開啟集氣窗口時擊鼓無效
+
+      currentTaps++;
+      
+      // 輕微音效回饋，供集氣連續敲擊使用
+      initAudio();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const now = audioCtx.currentTime;
+      const tickOsc = audioCtx.createOscillator();
+      const tickGain = audioCtx.createGain();
+      tickOsc.type = 'sine';
+      tickOsc.frequency.setValueAtTime(90, now);
+      tickOsc.frequency.linearRampToValueAtTime(30, now + 0.05);
+      tickGain.gain.setValueAtTime(0.15, now);
+      tickGain.gain.linearRampToValueAtTime(0.01, now + 0.05);
+      tickOsc.connect(tickGain);
+      tickGain.connect(audioCtx.destination);
+      tickOsc.start(now);
+      tickOsc.stop(now + 0.06);
+
+      // 鼓體微震
+      drumHardware.classList.add('shake');
+      setTimeout(() => drumHardware.classList.remove('shake'), 40);
+
+      // 黃金微光閃爍
+      touchGlow.style.transition = 'none';
+      touchGlow.style.opacity = '0.4';
+      requestAnimationFrame(() => {
+        touchGlow.style.transition = 'opacity 0.2s ease-out';
+        touchGlow.style.opacity = '0';
+      });
+
+      // 釋放即時小波紋
+      createWave(0.4, 3);
+    }
+
+    stage.addEventListener('mousedown', (e) => { e.preventDefault(); performStrikeTap(); });
+    stage.addEventListener('touchstart', (e) => { e.preventDefault(); performStrikeTap(); });
+    ambientBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleAmbient(); });
+
+    // 6秒集氣窗口截止，結算力道與資糧階梯
+    function endGatheringWindow() {
+      isGathering = false;
+      stage.classWith = stage.classList.add('locked');
+      guideTimerDisplay.textContent = "--";
+
+      // 換算成每分鐘擊打次數 (CPM)
+      const cpm = currentTaps * 10;
+      let intensity = 'low';
+      let strikePoints = 0;
+
+      const currentStrikeIndex = drumDb.strikeCount; // 0, 1, 2
+
+      // 依照妳所定之階梯判定力道與給予點數 (總點數上限 300 點方案)
+      if (cpm >= 30) {
+        intensity = 'high';
+        if (currentStrikeIndex === 0) strikePoints = 50;
+        else if (currentStrikeIndex === 1) strikePoints = 100;
+        else if (currentStrikeIndex === 2) strikePoints = 150;
+      } else if (cpm >= 11 && cpm <= 29) {
+        intensity = 'mid';
+        if (currentStrikeIndex === 0) strikePoints = 30;
+        else if (currentStrikeIndex === 1) strikePoints = 60;
+        else if (currentStrikeIndex === 2) strikePoints = 90;
+      } else {
+        intensity = 'low';
+        strikePoints = 10; // 1 到 10 下小力給 10 點
+      }
+
+      totalEarnedPoints += strikePoints;
+
+      // 發出最終決定性的大震撼法音
+      playDeepDrumSound(intensity);
+
+      // 經文面板產生強烈共鳴脈動
+      textPanel.style.transform = 'translateY(-50%) scale(1.04)';
+      textPanel.style.filter = 'drop-shadow(0 0 15px rgba(229, 193, 88, 0.6))';
+      setTimeout(() => {
+        textPanel.style.transform = 'translateY(-50%) scale(1.0)';
+        textPanel.style.filter = 'none';
+      }, 300);
+
+      // 生成巨大擴散波紋
+      let waveScale = intensity === 'high' ? 8 : intensity === 'mid' ? 5 : 2;
+      createWave(1.0, waveScale);
+
+      // 彈出黑金風格對應法義之黑金彈框
+      const stepData = ritualSteps[currentStrikeIndex];
+      modalTitle.textContent = stepData.modalTitle;
+      modalText.innerHTML = `${stepData.text}<br><br><span style="color:var(--gold);">本次凝聚頻率：每分鐘 ${cpm} 次 (${intensity === 'high' ? '震撼重擊' : intensity === 'mid' ? '沉穩中擊' : '微光輕擊'})</span><br><span style="color:#fede6a;">獲得菩提資糧：+${strikePoints} 點</span>`;
+      
+      if (currentStrikeIndex === 2) {
+        modalAction.textContent = "圓滿收攝 · 迴向功德";
+      } else {
+        modalAction.textContent = "承接法義 · 進修下一擊";
+      }
+
+      setTimeout(() => {
+        dharmaModal.classList.add('show');
+      }, 400);
+    }
+
+    // 關閉彈框與推進儀軌
+    modalAction.addEventListener('click', () => {
+      dharmaModal.classList.remove('show');
+      
+      drumDb.strikeCount += 1;
+      
+      if (drumDb.strikeCount >= 3) {
+        // 第三擊完成，進行最終結算，將總資糧點數寫回 v15 主系統主資料庫
+        mainDb.points = (mainDb.points || 0) + totalEarnedPoints; 
+        localStorage.setItem(MAIN_DB_KEY, JSON.stringify(mainDb));
+
+        // 將敲鼓權限令牌重置為 idling，阻斷一切重新整理或返回上一頁的刷點可能
+        drumDb.status = "idling";
+        localStorage.setItem(RITUAL_KEY, JSON.stringify(drumDb));
+
+        // 功德圓滿，安全跳轉回大廳主頁面
+        window.location.href = 'index.html';
+      } else {
+        // 尚未滿三次，更新權限狀態並進入下一階段的隨文誦念
+        localStorage.setItem(RITUAL_KEY, JSON.stringify(drumDb));
+        
+        guideStatusLabel.textContent = "當前儀軌：隨文誦念中";
+        guideHint.textContent = "請先隨文觀想默誦左側經文";
+        reciteDoneBtn.disabled = false;
+        
+        updateTextDisplay();
+      }
+    });
+
+    // 向量擴散波紋生成器
+    function createWave(initOpacity, speedScale) {
       const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
       ellipse.setAttribute('cx', '330');
       ellipse.setAttribute('cy', '350');
@@ -614,12 +762,12 @@
 
       let rxValue = 120;
       let ryValue = 220;
-      let opacity = 1.0;
+      let opacity = initOpacity;
 
       function render() {
-        rxValue += 5; 
-        ryValue += 9.16; 
-        opacity -= 0.015;
+        rxValue += speedScale; 
+        ryValue += speedScale * 1.83; 
+        opacity -= 0.012;
 
         ellipse.setAttribute('rx', rxValue);
         ellipse.setAttribute('ry', ryValue);
