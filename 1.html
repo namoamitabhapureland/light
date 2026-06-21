@@ -313,23 +313,17 @@
       <button class="agree-btn" id="modal-action">信受奉行</button>
     </div>
   </div>
-
   <script>
-    // ════ 雙軌資料庫整合設定 (對接 v15 主系統) ════
-    const MAIN_DB_KEY = 'namo_buddha_db';  
+    // ════ 雙軌資料庫整合設定 (精確對接 PX_V15.0 主系統) ════
+    const MAIN_DB_KEY = 'PX_V15.0';  
     const RITUAL_KEY = 'drumdb';           
 
-    let mainDb = JSON.parse(localStorage.getItem(MAIN_DB_KEY)) || { points: 0 };
-    // 安全容錯初始化：若無本地狀態則預設給予權限，防止測試時中斷
-    let drumDb = JSON.parse(localStorage.getItem(RITUAL_KEY)) || { strikeCount: 0, status: 'auth_granted' };
+    let mainDb = JSON.parse(localStorage.getItem(MAIN_DB_KEY)) || {};
+    // 確保主系統資糧欄位初始化
+    if (mainDb.points === undefined) mainDb.points = 0;
 
-    /**
-     * ════ 狀態安全防護機制（已完美註解） ════
-     * 遵照要求，將自動退回機制拔除，避免進入時重複發生剔除跳轉迴圈。
-     */
-    // if (!drumDb || drumDb.status !== 'auth_granted') {
-    //   window.location.href = 'index.html';
-    // }
+    // 安全容錯初始化：若無本地狀態則預設給予權限
+    let drumDb = JSON.parse(localStorage.getItem(RITUAL_KEY)) || { strikeCount: 0, status: 'auth_granted' };
 
     // ════ 繪製彩色星塵 ════
     const canvas = document.getElementById('starCanvas');
@@ -357,7 +351,7 @@
     }
     drawStars();
 
-    // 卯釘透視演算法（已修正原版代碼未宣告 sinVal 之崩潰漏洞）
+    // 卯釘透視演算法 (已修正 sinVal 未宣告漏洞)
     const rivetsContainer = document.getElementById('complete-rim-rivets-container');
     const rivetCount = 54; 
     const cx = 330, cy = 350; 
@@ -366,7 +360,7 @@
     for (let i = 0; i < rivetCount; i++) {
       const angle = (i / rivetCount) * Math.PI * 2;
       const cosVal = Math.cos(angle);
-      const sinVal = Math.sin(angle); // 精準修正處：補齊遺漏的正弦變數
+      const sinVal = Math.sin(angle); 
       const x = cx + rx * cosVal;
       const y = cy + ry * sinVal;
       const perspectiveFactor = cosVal; 
@@ -483,7 +477,6 @@
     const ambientBtn = document.getElementById('ambient-toggle');
     const reciteDoneBtn = document.getElementById('recite-done-btn');
     const touchGlow = document.getElementById('touch-glow-layer');
-    const textPanel = document.getElementById('text-panel');
 
     const energyGaugeWrap = document.getElementById('energy-gauge-wrap');
     const energyBarFluid = document.getElementById('energy-bar-fluid');
@@ -500,23 +493,21 @@
     let energySpeed = 1.8;       
     let energyRafId = null;
 
-    // 經文與深層法義封裝入黑金彈框，絕不污染主畫面
     const ritualSteps = [
       {
-        modalTitle: "第一擊完結 · 震裂魔網",
+        modalTitle: "第一擊完結 ‧ 震裂魔網",
         modalText: "經云：「一切眾生……本有清淨，等同如來」破除世間戲論，使邪見劇毒消殞。<br><br>法鼓初震，破除世間虛妄戲論，使客塵邪見之劇毒悉皆消殞。行者本有之清淨自性隨法音破暗而出。"
       },
       {
-        modalTitle: "第二擊完結 · 功德隨喜",
+        modalTitle: "第二擊完結 ‧ 功功德隨喜",
         modalText: "經云：「聽聞即解脫」眾生聽聞大乘法音，不論信解與否，皆種下斷除貪瞋癡之種子。<br><br>大鼓再震，聽聞此經乃至一念隨喜，其所得福德不可稱記。於如來藏中，已然深種永不退轉之菩提種子。"
       },
       {
-        modalTitle: "第三擊完結 · 證入真如",
+        modalTitle: "第三擊完結 ‧ 證入真如",
         modalText: "經云：「若善男子善女人，聽聞此經……速趣無上菩提。」開發清淨佛性，證得如來藏。<br><br>三界虛空共鳴，究竟一乘正義彰顯。一切眾生本自清淨，等同如來。法音收攝，行者此番修持已圓滿化為清淨資糧。"
       }
     ];
 
-    // 能量來回跑動渲染循環
     function runEnergyLoop() {
       if (!isGathering) return;
       
@@ -533,31 +524,30 @@
       energyRafId = requestAnimationFrame(runEnergyLoop);
     }
 
-    // 點擊底部核心按鈕（兼顧雙軌操作邏輯）
-    reciteDoneBtn.addEventListener('click', () => {
-      // 如果已經處於能量聚集狀態，該按鈕自動升級為「正念落槌」擊發點
-      if (isGathering) {
-        performStrikeTap();
-        return;
-      }
-
-      // 開啟擊鼓能量循環
+    // 啟動蓄力運作
+    function startGathering() {
+      if (isGathering) return;
       isGathering = true;
       energyGaugeWrap.style.display = 'block';
       energyValue = 0;
       energyDirection = 1;
-
-      // 文字立即在按鈕中切換
       reciteDoneBtn.textContent = "正念落槌";
-
       runEnergyLoop();
+    }
+
+    // 點擊底部按鈕
+    reciteDoneBtn.addEventListener('click', () => {
+      if (isGathering) {
+        performStrikeTap();
+      } else {
+        startGathering();
+      }
     });
 
     // 擊鼓互動觸發 (單次精準打擊)
     function performStrikeTap() {
       if (!isGathering) return; 
 
-      // 立即鎖定當前能量，停止跑動
       isGathering = false;
       cancelAnimationFrame(energyRafId);
 
@@ -565,33 +555,28 @@
       let intensity = 'low';
       let strikePoints = 0;
       
-      // 安全邊界防止越界
       if (drumDb.strikeCount > 2) drumDb.strikeCount = 2;
       const currentStrikeIndex = drumDb.strikeCount;
 
-      // 依據能量刻度判定打擊力量與給予點數
+      // 修正處：精確變更為 10 / 50 / 100 三檔給分邏輯
       if (finalEnergy >= 75) {
         intensity = 'high';
-        if (currentStrikeIndex === 0) strikePoints = 50;
-        else if (currentStrikeIndex === 1) strikePoints = 100;
-        else if (currentStrikeIndex === 2) strikePoints = 150;
+        strikePoints = 100; 
       } else if (finalEnergy >= 35 && finalEnergy < 75) {
         intensity = 'mid';
-        if (currentStrikeIndex === 0) strikePoints = 30;
-        else if (currentStrikeIndex === 1) strikePoints = 60;
-        else if (currentStrikeIndex === 2) strikePoints = 90;
+        strikePoints = 50;  
       } else {
         intensity = 'low';
-        strikePoints = 10;
+        strikePoints = 10;  
       }
 
       totalEarnedPoints += strikePoints;
 
-      // 鼓體大震動
+      // 鼓體受擊震動
       drumHardware.classList.add('shake');
       setTimeout(() => drumHardware.classList.remove('shake'), 40);
 
-      // 黃金微光滿幅閃爍
+      // 微光閃爍
       touchGlow.style.transition = 'none';
       touchGlow.style.opacity = '0.5';
       requestAnimationFrame(() => {
@@ -599,18 +584,16 @@
         touchGlow.style.opacity = '0';
       });
 
-      // 發出法音大震憾
+      // 觸發音頻
       playDeepDrumSound(intensity);
 
-      // 生成巨大擴散波紋
+      // 生成波紋
       let waveScale = intensity === 'high' ? 9 : intensity === 'mid' ? 5.5 : 2.5;
       createWave(1.0, waveScale);
 
-      // 隱藏能量條並鎖定按鈕
       energyGaugeWrap.style.display = 'none';
       reciteDoneBtn.disabled = true;
 
-      // 彈出黑金風格法義彈框
       const stepData = ritualSteps[currentStrikeIndex];
       modalTitle.textContent = stepData.modalTitle;
       
@@ -618,9 +601,9 @@
       modalText.innerHTML = `${stepData.modalText}<br><br><span style="color:var(--gold);">本次凝聚能量：${finalEnergy}% (${intensityDesc})</span><br><span style="color:#fede6a;">獲得菩提資糧：+${strikePoints} 點</span>`;
       
       if (currentStrikeIndex === 2) {
-        modalAction.textContent = "圓滿收攝 · 迴向功德";
+        modalAction.textContent = "圓滿收攝 ‧ 迴向功德";
       } else {
-        modalAction.textContent = "承接法義 · 進修下一擊";
+        modalAction.textContent = "承接法義 ‧ 進修下一擊";
       }
 
       setTimeout(() => {
@@ -628,9 +611,16 @@
       }, 400);
     }
 
-    // 點擊大鼓本體亦能直接觸發正念落槌
-    stage.addEventListener('mousedown', (e) => { e.preventDefault(); performStrikeTap(); });
-    stage.addEventListener('touchstart', (e) => { e.preventDefault(); performStrikeTap(); });
+    // 修正處：點擊大鼓本體亦能流暢啟動蓄力或引發落槌
+    stage.addEventListener('mousedown', (e) => { 
+      e.preventDefault(); 
+      if (isGathering) performStrikeTap(); else startGathering(); 
+    });
+    stage.addEventListener('touchstart', (e) => { 
+      e.preventDefault(); 
+      if (isGathering) performStrikeTap(); else startGathering(); 
+    });
+    
     ambientBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleAmbient(); });
 
     // 關閉彈框與推進儀軌
@@ -639,11 +629,11 @@
       drumDb.strikeCount += 1;
       
       if (drumDb.strikeCount >= 3) {
-        // 第三擊完成，將總資糧點數寫回主系統主資料庫
+        // 第三擊完成，資糧點數精確寫回 PX_V15.0 資料庫
         mainDb.points = (mainDb.points || 0) + totalEarnedPoints; 
         localStorage.setItem(MAIN_DB_KEY, JSON.stringify(mainDb));
 
-        // 重置狀態
+        // 重置鼓界狀態
         drumDb.status = "idling";
         drumDb.strikeCount = 0;
         localStorage.setItem(RITUAL_KEY, JSON.stringify(drumDb));
@@ -652,7 +642,6 @@
       } else {
         localStorage.setItem(RITUAL_KEY, JSON.stringify(drumDb));
         
-        // 恢復最初只有「擊鼓」二字的乾淨版面
         reciteDoneBtn.textContent = "擊鼓";
         reciteDoneBtn.disabled = false;
       }
@@ -690,5 +679,6 @@
       requestAnimationFrame(render);
     }
   </script>
+
 </body>
 </html>
