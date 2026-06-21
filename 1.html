@@ -266,80 +266,119 @@
 .marker-hundred {
   right: -32px; /* 移至能量條右端外側 */
 }
-/* 圓形玻璃半透明漸層呼吸按鈕 */
+/* ════ 大鼓本體容器響應式優化 ════ */
+#drum-hardware-group {
+  transform-origin: center;
+  animation: drumBreatheFloat 8s ease-in-out infinite;
+  transition: transform 0.04s linear;
+  
+  /* 使用 vmin 確保在任何手機螢幕上都等比例縮放，絕不超出邊界 */
+  width: 60vmin;
+  height: 60vmin;
+  max-width: 280px;  /* 限制大螢幕上的最大尺寸 */
+  max-height: 280px;
+  margin: 0 auto;
+}
+
+/* ════ 圓形玻璃漸層呼吸按鈕（完美正圓與小螢幕自適應） ════ */
 #recite-done-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  margin: 30px auto 0 auto;
   
-  /* 玻璃擬態與柔和淡色漸層 */
+  /* 預設標準尺寸改為更內斂的 96px 正圓 */
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  margin: 20px auto 0 auto;
+  box-sizing: border-box;
+  
+  /* 確保寬高嚴格鎖定，不受內部文字撐開變形 */
+  flex-shrink: 0; 
+  
+  /* 磨砂玻璃擬態與柔和淡色漸層 */
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(229, 193, 88, 0.05));
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   
-  /* 細緻邊框與黃金比例陰影 */
+  /* 細緻金絲邊框與微光陰影 */
   border: 1px solid rgba(229, 193, 88, 0.25);
   box-shadow: 0 0 15px rgba(229, 193, 88, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.05);
   
-  /* 字體極致美學 */
+  /* 字體微調：四字會自然在圓心內排列成緊湊的方陣 */
   color: #e5c158;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: bold;
-  letter-spacing: 2px;
-  writing-mode: horizontal-tb; /* 保持水平置中文字，4字會自然平鋪成方塊 */
+  letter-spacing: 1px;
   text-align: center;
-  padding: 10px;
-  box-sizing: border-box;
+  line-height: 1.3;
+  padding: 12px;
   
   cursor: pointer;
   user-select: none;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  
-  /* 預設靜態時的緩慢如意呼吸 */
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   animation: btnNormalBreathe 4s ease-in-out infinite;
 }
 
-/* 滑鼠懸停與觸控焦點時的凝聚感 */
+/* ════ 針對小螢幕手機 / 矮螢幕裝置的極致壓縮防護 ════ */
+@media (max-width: 375px), (max-height: 667px) {
+  #drum-hardware-group {
+    width: 50vmin;
+    height: 50vmin;
+  }
+  
+  #recite-done-btn {
+    /* 自動縮小至 80px 完美正圓，騰出縱向空間 */
+    width: 80px;
+    height: 80px;
+    font-size: 12px;
+    padding: 8px;
+    margin: 12px auto 0 auto;
+  }
+  
+  /* 能量條外殼同步收斂 */
+  #energy-gauge-wrap {
+    width: 160px !important;
+    margin: 10px auto !important;
+  }
+}
+
+/* 滑鼠懸停與觸控焦點 */
 #recite-done-btn:hover:not(:disabled) {
   background: linear-gradient(135deg, rgba(229, 193, 88, 0.18), rgba(255, 255, 255, 0.05));
   border-color: rgba(229, 193, 88, 0.5);
-  box-shadow: 0 0 25px rgba(229, 193, 88, 0.3), inset 0 0 12px rgba(255, 255, 255, 0.1);
-  transform: scale(1.03);
+  box-shadow: 0 0 22px rgba(229, 193, 88, 0.3), inset 0 0 12px rgba(255, 255, 255, 0.1);
+  transform: scale(1.02);
 }
 
-/* 當按鈕處於蓄力狀態時，由 JavaScript 動態加入此 Class，讓呼吸加速，象徵攝心凝聚 */
+/* 蓄力狀態 */
 #recite-done-btn.gathering {
-  color: #fff;
+  color: #ffffff;
   border-color: rgba(255, 255, 255, 0.4);
-  animation: btnGatheringBreathe 1.5s ease-in-out infinite;
+  animation: btnGatheringBreathe 1.4s ease-in-out infinite;
 }
 
-/* 儀軌冷卻停用時的內斂 */
+/* 停用狀態 */
 #recite-done-btn:disabled {
-  opacity: 0.3;
+  opacity: 0.25;
   cursor: not-allowed;
   animation: none;
   box-shadow: none;
 }
 
-/* 靜態呼吸：平穩、悠長 */
+/* 靜態悠長呼吸 */
 @keyframes btnNormalBreathe {
-  0% { box-shadow: 0 0 15px rgba(229, 193, 88, 0.1); border-color: rgba(229, 193, 88, 0.25); }
-  50% { box-shadow: 0 0 25px rgba(229, 193, 88, 0.25); border-color: rgba(229, 193, 88, 0.45); }
-  100% { box-shadow: 0 0 15px rgba(229, 193, 88, 0.1); border-color: rgba(229, 193, 88, 0.25); }
+  0% { box-shadow: 0 0 12px rgba(229, 193, 88, 0.08); border-color: rgba(229, 193, 88, 0.2); }
+  50% { box-shadow: 0 0 22px rgba(229, 193, 88, 0.22); border-color: rgba(229, 193, 88, 0.4); }
+  100% { box-shadow: 0 0 12px rgba(229, 193, 88, 0.08); border-color: rgba(229, 193, 88, 0.2); }
 }
 
-/* 蓄力呼吸：緊湊、凝聚 */
+/* 蓄力緊湊呼吸 */
 @keyframes btnGatheringBreathe {
-  0% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.15); }
-  50% { box-shadow: 0 0 35px rgba(229, 193, 88, 0.4); }
-  100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.15); }
+  0% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
+  50% { box-shadow: 0 0 30px rgba(229, 193, 88, 0.35); }
+  100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
 }
-
 
   </style>
 </head>
