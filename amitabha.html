@@ -377,6 +377,18 @@ mix-blend-mode: screen;
 .bowing .buddha-hands-open {
     display: block !important;
 }
+        
+/* ✨ 卍字隨手印切換的優雅過渡：無耗能，完全同步 */
+.buddha-swastika {
+    transform-origin: 500px 460px; /* 鎖定卍字的幾何中心點 */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
+}
+
+/* 當外層切換為接引狀態時，卍字放大、亮起 */
+body.hands-open-active .buddha-swastika {
+    transform: scale(1.4);
+    opacity: 1.0 !important; /* 強制提升至最亮 */
+}
 
 
 </style>
@@ -821,9 +833,8 @@ mix-blend-mode: screen;
 
 
         
-
-
-                    <path d="M 500 460 L 500 440 L 480 440 
+<path class="buddha-swastika" 
+      d="M 500 460 L 500 440 L 480 440 
          M 500 460 L 520 460 L 520 440 
          M 500 460 L 500 480 L 520 480 
          M 500 460 L 480 460 L 480 480" 
@@ -835,11 +846,13 @@ mix-blend-mode: screen;
     
     <animate 
         attributeName="opacity" 
-        values="0.65; 1.0; 0.65" 
+        values="0.5; 0.8; 0.5" 
         dur="5s" 
         repeatCount="indefinite" />
 </path>
 
+
+                    
 
 
 
