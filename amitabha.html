@@ -279,7 +279,7 @@ body {
 }
 
 .mandala-static-container {
-mix-blend-mode: screen;
+    /* 核心定位：佛尊胸前中心點 */
     transform-origin: 500px 460px;
 }
 
@@ -345,7 +345,8 @@ mix-blend-mode: screen;
         @keyframes glass-pulse { 0% { opacity: 0.6; } 100% { opacity: 1; } }
         .glow-chakra { animation: chakra-pulse 5s ease-in-out infinite alternate; }
         @keyframes chakra-pulse { 0% { opacity: 0.6; stroke-width: 0.8; filter: drop-shadow(0 0 5px #fff); } 100% { opacity: 1; stroke-width: 1.5; filter: drop-shadow(0 0 12px #f3e5ab); } }
-/* 預設情況下：張開的眼睛隱藏，閉著的眼睛顯示 */
+
+        /* 預設情況下：張開的眼睛隱藏，閉著的眼睛顯示 */
 .buddha-eye-open {
     display: none;
 }
@@ -391,11 +392,7 @@ mix-blend-mode: screen;
 }
 
 
-
-</style>
-
-
-
+    </style>
 </head>
 <body>
         <div class="nav-top">
@@ -618,16 +615,13 @@ mix-blend-mode: screen;
                     <stop offset="60%" stop-color="#FFFAF0" />
                     <stop offset="100%" stop-color="#FFD700" stop-opacity="0.95"/>
                 </radialGradient>
-
-      <radialGradient id="mandalaInnerFill" cx="50%" cy="50%" r="50%">
+                <radialGradient id="mandalaInnerFill" cx="50%" cy="50%" r="50%">
     <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8" />
-    <stop offset="30%" stop-color="#FFD700" stop-opacity="0.5" />
-    <stop offset="75%" stop-color="#E6E6FA" stop-opacity="0.2" />
-    <stop offset="95%" stop-color="#8B6508" stop-opacity="0.05" />
-    <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    <stop offset="35%" stop-color="#FFD700" stop-opacity="0.5" />
+    <stop offset="70%" stop-color="#FFB6C1" stop-opacity="0.2" />
+    <stop offset="100%" stop-color="#B8860B" stop-opacity="0" />
 </radialGradient>
-
-
+                
 
 
                 
@@ -647,7 +641,7 @@ mix-blend-mode: screen;
                     <path d="M 500 815 Q 475 805, 465 780 C 465 730, 500 715, 500 715 C 500 715, 535 730, 535 780 Q 525 805, 500 815 Z" fill="none" />
                 </g>
             </defs>
-  <g class="mandala-static-container" mask="url(#mandala-total-mask)" style="mix-blend-mode: screen;">
+         <g class="mandala-static-container" mask="url(#mandala-total-mask)" style="mix-blend-mode: screen;">
     <g class="mandala-glow-effect">
         
         <g stroke="#FFD700" stroke-width="2" fill="url(#mandalaInnerFill)">
@@ -671,7 +665,6 @@ mix-blend-mode: screen;
         
     </g>
 </g>
-
 
 
             <g class="aura-pulse" mask="url(#halo-mask)">
@@ -747,8 +740,7 @@ mix-blend-mode: screen;
 
                     </g>
 
-      
-        <path d="M 640 710 Q 480 810 320 780" />
+                     <path d="M 640 710 Q 480 810 320 780" />
 <path d="M 360 710 Q 420 745 460 780" />
 <path d="M 435 220 Q 427 205 420 220 Q 410 270 425 320 Q 418 380 446 330 Z" fill="rgba(243, 229, 171, 0.12)" stroke="none" />
 <path d="M 565 220 Q 573 205 580 220 Q 590 270 575 320 Q 582 380 554 330 Z" fill="rgba(243, 229, 171, 0.12)" stroke="none" />
@@ -853,11 +845,7 @@ mix-blend-mode: screen;
 </path>
 
 
-                    
-
-
-
-<g class="buddha-eye-closed">
+                          <g class="buddha-eye-closed">
     <circle cx="500" cy="195" r="3" fill="url(#pureGoldGradient)" stroke="none" class="glow-core" />
     <path d="M 446 236 Q 462 239 478 236" />
     <path d="M 522 236 Q 538 239 554 236" />
@@ -867,12 +855,9 @@ mix-blend-mode: screen;
 
 <g class="buddha-eye-open">
     <circle cx="500" cy="195" r="3" fill="url(#pureGoldGradient)" stroke="none" class="glow-core" />
-    <path d="M 446 236 Q 462 239 478 236 Q 462 250 446 236 Z" fill="url(#glass-base-mini)" opacity="1.8" stroke="url(#goldBody)" stroke-width="1.8" stroke-opacity="1.3" stroke-linejoin="round" /> 
-    <path d="M 522 236 Q 538 239 558 236 Q 538 250 526 236 Z" fill="url(#glass-base-mini)" opacity="1.8" stroke="url(#goldBody)" stroke-width="1.8" stroke-opacity="1.3" stroke-linejoin="round" /> 
+    <path d="M 446 236 Q 462 239 478 236 Q 462 250 446 236 Z" fill="url(#glass-base-mini)" opacity="1.2" stroke="url(#goldBody)" stroke-width="1.8" stroke-opacity="1.3" stroke-linejoin="round" /> 
+    <path d="M 522 236 Q 538 239 554 236 Q 538 250 522 236 Z" fill="url(#glass-base-mini)" opacity="1.2" stroke="url(#goldBody)" stroke-width="1.8" stroke-opacity="1.3" stroke-linejoin="round" /> 
 </g>
-
-
-
 
 
                     
@@ -888,7 +873,7 @@ mix-blend-mode: screen;
                    <path d="M 514 252 Q 519 259 514 264" stroke-width="1" fill="none" />
                     
                   <path d="M 484 285 Q 492 281 500 286 Q 508 281 516 285" stroke-width="1.6" fill="none" />
-                  <path d="M 482 285 Q 500 289 518 285" stroke-width="1.5" fill="none" stroke-opacity="1" />
+                  <path d="M 482 285 Q 500 289 518 285" stroke-width="1.2" fill="none" stroke-opacity="0.8" />
                   <path d="M 486 289 Q 500 293 514 289" stroke-width="1.5" fill="none" />
 
 
@@ -1519,10 +1504,8 @@ document.getElementById('milestone-name-display').innerText = currentName;
     let ww, wh, wTime=0; 
     function resW() { ww=wCvs.width=window.innerWidth; wh=wCvs.height=window.innerHeight; } 
     window.addEventListener('resize', resW); resW(); 
-const waterThemes = [ { h: 195, s: 80, l: 50 }, { h: 340, s: 80, l: 50 }, { h: 45,  s: 90, l: 50 } ]; 
-
-
-
+    const waterThemes = [ { h: 195, s: 80, l: 65 }, { h: 340, s: 80, l: 70 }, { h: 45,  s: 90, l: 65 } ]; 
+    
     function drawW() { 
         wCtx.clearRect(0,0,ww,wh); wTime += 0.005; 
         for (let i = 0; i < 3; i++) { 
