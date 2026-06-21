@@ -133,7 +133,7 @@
       z-index: 5;
     }
 
-    /* 動態幾何能量條容器 */
+    /* 動態幾何能量條容器（修正：移除 overflow: hidden 確保兩端數字展現） */
     .energy-gauge-container {
       width: 260px;
       height: 6px;
@@ -141,10 +141,10 @@
       border: 1px solid rgba(229, 193, 88, 0.2);
       border-radius: 3px;
       position: relative;
-      overflow: hidden;
       display: none; /* 初始隱藏，擊鼓後展現 */
     }
 
+    /* 內層流體能量條（修正：自帶圓角防溢出） */
     .energy-bar {
       width: 0%;
       height: 100%;
@@ -153,6 +153,7 @@
       left: 0;
       top: 0;
       box-shadow: 0 0 8px var(--gold);
+      border-radius: 3px;
     }
 
     /* 系統標準化按鈕樣式 */
@@ -210,169 +211,156 @@
     .agree-btn:active { transform: scale(0.96); background: rgba(212,175,55,0.3); border-color: var(--solid-gold); }
 
     /* 讓大鼓本體在虛空中產生如呼吸般的微微懸浮與定力律動 */
-#drum-hardware-group {
-  transform-origin: center;
-  animation: drumBreatheFloat 8s ease-in-out infinite;
-  transition: transform 0.04s linear; /* 保留擊鼓震動的流暢度 */
-}
+    #drum-hardware-group {
+      transform-origin: center;
+      animation: drumBreatheFloat 8s ease-in-out infinite;
+      transition: transform 0.04s linear; 
+    }
 
-/* 擊鼓重擊時的震撼搖晃（與懸浮動畫完美相容） */
-#drum-hardware-group.shake {
-  animation: drumStrikeShake 0.04s linear infinite;
-}
+    /* 擊鼓重擊時的震撼搖晃 */
+    #drum-hardware-group.shake {
+      animation: drumStrikeShake 0.04s linear infinite;
+    }
 
-@keyframes drumBreatheFloat {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-12px) rotate(0.4deg); /* 緩慢向上懸浮並微幅傾斜 */
-  }
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-}
+    @keyframes drumBreatheFloat {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(0.4deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
 
-@keyframes drumStrikeShake {
-  0% { transform: translate(2px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-0.5deg); }
-  20% { transform: translate(-3px, 0px) rotate(0.5deg); }
-  30% { transform: translate(0px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(0.5deg); }
-  50% { transform: translate(-1px, 2px) rotate(-0.5deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(2px, 1px) rotate(-0.5deg); }
-  80% { transform: translate(-1px, -1px) rotate(0.5deg); }
-  90% { transform: translate(2px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-0.5deg); }
-}
+    @keyframes drumStrikeShake {
+      0% { transform: translate(2px, 1px) rotate(0deg); }
+      10% { transform: translate(-1px, -2px) rotate(-0.5deg); }
+      20% { transform: translate(-3px, 0px) rotate(0.5deg); }
+      30% { transform: translate(0px, 2px) rotate(0deg); }
+      40% { transform: translate(1px, -1px) rotate(0.5deg); }
+      50% { transform: translate(-1px, 2px) rotate(-0.5deg); }
+      60% { transform: translate(-3px, 1px) rotate(0deg); }
+      70% { transform: translate(2px, 1px) rotate(-0.5deg); }
+      80% { transform: translate(-1px, -1px) rotate(0.5deg); }
+      90% { transform: translate(2px, 2px) rotate(0deg); }
+      100% { transform: translate(1px, -2px) rotate(-0.5deg); }
+    }
+
     /* 能量條刻度標籤樣式 */
-.gauge-marker {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-family: monospace;
-  font-size: 11px;
-  color: rgba(229, 193, 88, 0.4); /* 淡金色微光 */
-  letter-spacing: 1px;
-  user-select: none;
-  pointer-events: none;
-}
+    .gauge-marker {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: monospace;
+      font-size: 11px;
+      color: rgba(229, 193, 88, 0.4); 
+      letter-spacing: 1px;
+      user-select: none;
+      pointer-events: none;
+    }
 
-.marker-zero {
-  left: -20px; /* 移至能量條左端外側 */
-}
+    .marker-zero { left: -18px; }
+    .marker-hundred { right: -30px; }
 
-.marker-hundred {
-  right: -32px; /* 移至能量條右端外側 */
-}
-/* ════ 大鼓本體容器響應式優化 ════ */
-#drum-hardware-group {
-  transform-origin: center;
-  animation: drumBreatheFloat 8s ease-in-out infinite;
-  transition: transform 0.04s linear;
-  
-  /* 使用 vmin 確保在任何手機螢幕上都等比例縮放，絕不超出邊界 */
-  width: 60vmin;
-  height: 60vmin;
-  max-width: 280px;  /* 限制大螢幕上的最大尺寸 */
-  max-height: 280px;
-  margin: 0 auto;
-}
+    /* ════ 大鼓本體容器響應式優化 ════ */
+    #drum-hardware-group {
+      transform-origin: center;
+      animation: drumBreatheFloat 8s ease-in-out infinite;
+      transition: transform 0.04s linear;
+      width: 60vmin;
+      height: 60vmin;
+      max-width: 280px;  
+      max-height: 280px;
+      margin: 0 auto;
+    }
 
-/* ════ 橫書清淨正圓呼吸按鈕（中英雙版本完美相容） ════ */
-#recite-done-btn {
-  display: flex;
-  flex-direction: column; /* 允許英文版在必要時自動優雅地上下分行 */
-  align-items: center;
-  justify-content: center;
-  
-  /* 嚴格鎖定正圓幾何，寬高完全相等，絕不隨字數變形 */
-  width: 108px;
-  height: 108px;
-  border-radius: 50%;
-  margin: 20px auto 0 auto;
-  box-sizing: border-box;
-  flex-shrink: 0; 
-  
-  /* 關鍵修正：強制全網域橫書排版，並允許正常斷詞 */
-  writing-mode: horizontal-tb !important;
-  white-space: normal;
-  word-break: break-word;
-  
-  /* 磨砂玻璃擬態與清淨漸層背景 */
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(229, 193, 88, 0.05));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  
-  /* 細緻金絲邊框與內斂微光 */
-  border: 1px solid rgba(229, 193, 88, 0.25);
-  box-shadow: 0 0 15px rgba(229, 193, 88, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.05);
-  
-  /* 字體美學微調 */
-  color: #e5c158;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  text-align: center;
-  line-height: 1.3;
-  padding: 12px; /* 給予正圓內部安全的留白安全區 */
-  
-  cursor: pointer;
-  user-select: none;
-  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  animation: btnNormalBreathe 4s ease-in-out infinite;
-}
+    /* ════ 橫書清淨正圓呼吸按鈕（中英雙版本完美相容） ════ */
+    #recite-done-btn {
+      display: flex;
+      flex-direction: column; 
+      align-items: center;
+      justify-content: center;
+      
+      /* 嚴格鎖定正圓幾何，寬高完全相等 */
+      width: 108px;
+      height: 108px;
+      border-radius: 50% !important; /* 加入重要宣告，防禦任何外部污染 */
+      margin: 20px auto 0 auto;
+      box-sizing: border-box;
+      flex-shrink: 0; 
+      
+      /* 強制全網域橫書排版 */
+      writing-mode: horizontal-tb !important;
+      white-space: normal;
+      word-break: break-word;
+      
+      /* 磨砂玻璃擬態與清淨漸層背景 */
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(229, 193, 88, 0.05));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      
+      /* 細緻金絲邊框與內斂微光 */
+      border: 1px solid rgba(229, 193, 88, 0.25);
+      box-shadow: 0 0 15px rgba(229, 193, 88, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.05);
+      
+      /* 字體美學微調 */
+      color: #e5c158;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-align: center;
+      line-height: 1.3;
+      padding: 12px; 
+      
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      animation: btnNormalBreathe 4s ease-in-out infinite;
+    }
 
-/* ════ 小螢幕行動裝置的等比例正圓縮放 ════ */
-@media (max-width: 375px), (max-height: 667px) {
-  #recite-done-btn {
-    /* 小手機上同步縮小，但依然保持 90px 完美正圓 */
-    width: 90px;
-    height: 90px;
-    font-size: 12px;
-    padding: 8px;
-    margin: 12px auto 0 auto;
-  }
-}
+    /* ════ 小螢幕行動裝置的等比例正圓縮放 ════ */
+    @media (max-width: 375px), (max-height: 667px) {
+      #recite-done-btn {
+        width: 90px;
+        height: 90px;
+        font-size: 12px;
+        padding: 8px;
+        margin: 12px auto 0 auto;
+      }
+    }
 
-/* 滑鼠懸停與觸控焦點 */
-#recite-done-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, rgba(229, 193, 88, 0.18), rgba(255, 255, 255, 0.05));
-  border-color: rgba(229, 193, 88, 0.5);
-  box-shadow: 0 0 22px rgba(229, 193, 88, 0.3), inset 0 0 12px rgba(255, 255, 255, 0.1);
-  transform: scale(1.02);
-}
+    /* 滑鼠懸停與觸控焦點 */
+    #recite-done-btn:hover:not(:disabled) {
+      background: linear-gradient(135deg, rgba(229, 193, 88, 0.18), rgba(255, 255, 255, 0.05));
+      border-color: rgba(229, 193, 88, 0.5);
+      box-shadow: 0 0 22px rgba(229, 193, 88, 0.3), inset 0 0 12px rgba(255, 255, 255, 0.1);
+      transform: scale(1.02);
+    }
 
-/* 蓄力狀態（文字轉白，光暈加速凝聚） */
-#recite-done-btn.gathering {
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.4);
-  animation: btnGatheringBreathe 1.4s ease-in-out infinite;
-}
+    /* 蓄力狀態 */
+    #recite-done-btn.gathering {
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.4);
+      animation: btnGatheringBreathe 1.4s ease-in-out infinite;
+    }
 
-/* 停用狀態 */
-#recite-done-btn:disabled {
-  opacity: 0.25;
-  cursor: not-allowed;
-  animation: none;
-  box-shadow: none;
-}
+    /* 停用狀態 */
+    #recite-done-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+      animation: none;
+      box-shadow: none;
+    }
 
-/* 靜態如意呼吸 */
-@keyframes btnNormalBreathe {
-  0% { box-shadow: 0 0 12px rgba(229, 193, 88, 0.08); border-color: rgba(229, 193, 88, 0.2); }
-  50% { box-shadow: 0 0 22px rgba(229, 193, 88, 0.22); border-color: rgba(229, 193, 88, 0.4); }
-  100% { box-shadow: 0 0 12px rgba(229, 193, 88, 0.08); border-color: rgba(229, 193, 88, 0.2); }
-}
+    /* 靜態如意呼吸 */
+    @keyframes btnNormalBreathe {
+      0% { box-shadow: 0 0 12px rgba(229, 193, 88, 0.08); border-color: rgba(229, 193, 88, 0.2); }
+      50% { box-shadow: 0 0 22px rgba(229, 193, 88, 0.22); border-color: rgba(229, 193, 88, 0.4); }
+      100% { box-shadow: 0 0 12px rgba(229, 193, 88, 0.08); border-color: rgba(229, 193, 88, 0.2); }
+    }
 
-/* 蓄力緊湊呼吸 */
-@keyframes btnGatheringBreathe {
-  0% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
-  50% { box-shadow: 0 0 30px rgba(229, 193, 88, 0.35); }
-  100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
-}
-
+    /* 蓄力緊湊呼吸 */
+    @keyframes btnGatheringBreathe {
+      0% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
+      50% { box-shadow: 0 0 30px rgba(229, 193, 88, 0.35); }
+      100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
+    }
   </style>
 </head>
 <body>
@@ -463,15 +451,12 @@
 
     <div class="control-area">
       <div class="energy-gauge-container" id="energy-gauge-wrap">
+        <span class="gauge-marker marker-zero">0</span>
         <div class="energy-bar" id="energy-bar-fluid"></div>
+        <span class="gauge-marker marker-hundred">100</span>
       </div>
-      <div id="energy-gauge-wrap">
-  <span class="gauge-marker marker-zero">0</span>
-  <div id="energy-bar-fluid"></div>
-  <span class="gauge-marker marker-hundred">100</span>
-</div>
 
-      <button class="btn active" id="recite-done-btn" style="font-size: 15px; padding: 12px 50px; letter-spacing: 4px; border-radius: 30px;">擊鼓</button>
+      <button class="btn active" id="recite-done-btn">擊鼓</button>
     </div>
   </div>
 
@@ -490,10 +475,8 @@
     const RITUAL_KEY = 'drumdb';           
 
     let mainDb = JSON.parse(localStorage.getItem(MAIN_DB_KEY)) || {};
-    // 確保主系統資糧欄位初始化
     if (mainDb.points === undefined) mainDb.points = 0;
 
-    // 安全容錯初始化：若無本地狀態則預設給予權限
     let drumDb = JSON.parse(localStorage.getItem(RITUAL_KEY)) || { strikeCount: 0, status: 'auth_granted' };
 
     // ════ 繪製彩色星塵與法界星球 ════
@@ -502,14 +485,13 @@
     let width, height, stars = [];
     const starColors = ['rgba(243, 229, 171, ', 'rgba(255, 150, 150, ', 'rgba(150, 200, 255, ']; 
 
-    // 初始化法界星球：大小不一、色彩純淨，具備極慢的獨立漂移向量 (不耗能)
     let planets = [];
     function initPlanets() {
       planets = [
-        { x: width * 0.15, y: height * 0.20, r: 65, dx: 0.03, dy: 0.015, c1: 'rgba(80, 130, 230, 0.25)', c2: 'rgba(30, 40, 90, 0.01)' },   // 琉璃藍星
-        { x: width * 0.80, y: height * 0.15, r: 90, dx: -0.02, dy: 0.02, c1: 'rgba(254, 215, 100, 0.20)', c2: 'rgba(140, 90, 20, 0.01)' }, // 菩提金星
-        { x: width * 0.25, y: height * 0.75, r: 45, dx: 0.015, dy: -0.03, c1: 'rgba(245, 140, 170, 0.22)', c2: 'rgba(120, 40, 60, 0.01)' }, // 慈悲粉星
-        { x: width * 0.85, y: height * 0.70, r: 75, dx: -0.025, dy: -0.015, c1: 'rgba(120, 220, 160, 0.18)', c2: 'rgba(20, 80, 40, 0.01)' } // 法水綠星
+        { x: width * 0.15, y: height * 0.20, r: 65, dx: 0.03, dy: 0.015, c1: 'rgba(80, 130, 230, 0.25)', c2: 'rgba(30, 40, 90, 0.01)' },   
+        { x: width * 0.80, y: height * 0.15, r: 90, dx: -0.02, dy: 0.02, c1: 'rgba(254, 215, 100, 0.20)', c2: 'rgba(140, 90, 20, 0.01)' }, 
+        { x: width * 0.25, y: height * 0.75, r: 45, dx: 0.015, dy: -0.03, c1: 'rgba(245, 140, 170, 0.22)', c2: 'rgba(120, 40, 60, 0.01)' }, 
+        { x: width * 0.85, y: height * 0.70, r: 75, dx: -0.025, dy: -0.015, c1: 'rgba(120, 220, 160, 0.18)', c2: 'rgba(20, 80, 40, 0.01)' } 
       ];
     }
 
@@ -518,11 +500,10 @@
       height = window.innerHeight; 
       canvas.width = width; 
       canvas.height = height; 
-      initPlanets(); // 視窗縮放時重新調整星球相對初始位置
+      initPlanets(); 
     }
     window.addEventListener('resize', resize); resize();
     
-    // 初始化 800 顆背景細碎星塵
     for(let i=0; i<800; i++) { 
         stars.push({ x: (Math.random()-0.5)*2000, y: (Math.random()-0.5)*2000, z: Math.random()*1000, s: Math.random()*3.5 + 0.5, colorType: Math.floor(Math.random() * 3) });
     }
@@ -531,19 +512,15 @@
         ctx.clearRect(0, 0, width, height); 
         ctx.globalCompositeOperation = 'screen';
 
-        // 1. 先繪製「法界星球」作為遙遠背景
         planets.forEach(p => {
-            // 依據各自的微弱向量極慢位移
             p.x += p.dx;
             p.y += p.dy;
 
-            // 邊界流轉重置：當完全滑出螢幕時，從另一側重新化現
             if (p.x - p.r > width) p.x = -p.r;
             if (p.x + p.r < 0) p.x = width + p.r;
             if (p.y - p.r > height) p.y = -p.r;
             if (p.y + p.r < 0) p.y = height + p.r;
 
-            // 利用向量徑向漸層，模擬球面光影擴散，呈現高級美學質感
             let grad = ctx.createRadialGradient(p.x - p.r * 0.3, p.y - p.r * 0.3, p.r * 0.05, p.x, p.y, p.r);
             grad.addColorStop(0, p.c1);
             grad.addColorStop(1, p.c2);
@@ -554,9 +531,8 @@
             ctx.fill();
         });
 
-        // 2. 再繪製「星海穿梭星塵」
         stars.forEach(s => { 
-            s.z -= 0.6; // 核心優化：將流動速度由 0.3 加快至 0.6，使虛空動態更具穿梭體感
+            s.z -= 0.6; 
             if(s.z <= 0) s.z = 1000; 
             
             let sc = 300 / (300 + s.z);
@@ -570,7 +546,7 @@
     }
     drawStars();
 
-    // 卯釘透視演算法 (已修正 sinVal 未宣告漏洞)
+    // 卯釘透視演算法
     const rivetsContainer = document.getElementById('complete-rim-rivets-container');
     const rivetCount = 54; 
     const cx = 330, cy = 350; 
@@ -743,21 +719,19 @@
       energyRafId = requestAnimationFrame(runEnergyLoop);
     }
 
-    // 啟動蓄力運作
     function startGathering() {
       if (isGathering) return;
       isGathering = true;
       energyGaugeWrap.style.display = 'block';
       energyValue = 0;
       energyDirection = 1;
-            // 聯動修改：切換文字並讓圓形按鈕進入緊湊呼吸狀態
+      
       reciteDoneBtn.textContent = "正念落槌";
       reciteDoneBtn.classList.add('gathering'); 
       
       runEnergyLoop();
     }
 
-    // 點擊底部按鈕
     reciteDoneBtn.addEventListener('click', () => {
       if (isGathering) {
         performStrikeTap();
@@ -766,13 +740,11 @@
       }
     });
 
-    // 擊鼓互動觸發 (單次精準打擊)
     function performStrikeTap() {
       if (!isGathering) return; 
 
       isGathering = false;
       cancelAnimationFrame(energyRafId);
-      // 聯動修改：移除緊湊呼吸狀態
       reciteDoneBtn.classList.remove('gathering');
 
       let finalEnergy = Math.round(energyValue);
@@ -782,7 +754,6 @@
       if (drumDb.strikeCount > 2) drumDb.strikeCount = 2;
       const currentStrikeIndex = drumDb.strikeCount;
 
-      // 修正處：精確變更為 10 / 50 / 100 三檔給分邏輯
       if (finalEnergy >= 75) {
         intensity = 'high';
         strikePoints = 100; 
@@ -796,11 +767,9 @@
 
       totalEarnedPoints += strikePoints;
 
-      // 鼓體受擊震動
       drumHardware.classList.add('shake');
       setTimeout(() => drumHardware.classList.remove('shake'), 40);
 
-      // 微光閃爍
       touchGlow.style.transition = 'none';
       touchGlow.style.opacity = '0.5';
       requestAnimationFrame(() => {
@@ -808,10 +777,8 @@
         touchGlow.style.opacity = '0';
       });
 
-      // 觸發音頻
       playDeepDrumSound(intensity);
 
-      // 生成波紋
       let waveScale = intensity === 'high' ? 9 : intensity === 'mid' ? 5.5 : 2.5;
       createWave(1.0, waveScale);
 
@@ -825,7 +792,7 @@
       modalText.innerHTML = `${stepData.modalText}<br><br><span style="color:var(--gold);">本次凝聚能量：${finalEnergy}% (${intensityDesc})</span><br><span style="color:#fede6a;">獲得菩提資糧：+${strikePoints} 點</span>`;
       
       if (currentStrikeIndex === 2) {
-        modalAction.textContent = "圓滿收攝 ‧ 迴向功德";
+        modalAction.textContent = "圓滿收攝 ‧ 迴向功功德";
       } else {
         modalAction.textContent = "承接法義 ‧ 進修下一擊";
       }
@@ -835,7 +802,6 @@
       }, 400);
     }
 
-    // 修正處：點擊大鼓本體亦能流暢啟動蓄力或引發落槌
     stage.addEventListener('mousedown', (e) => { 
       e.preventDefault(); 
       if (isGathering) performStrikeTap(); else startGathering(); 
@@ -847,17 +813,14 @@
     
     ambientBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleAmbient(); });
 
-    // 關閉彈框與推進儀軌
     modalAction.addEventListener('click', () => {
       dharmaModal.classList.remove('show');
       drumDb.strikeCount += 1;
       
       if (drumDb.strikeCount >= 3) {
-        // 第三擊完成，資糧點數精確寫回 PX_V15.0 資料庫
         mainDb.points = (mainDb.points || 0) + totalEarnedPoints; 
         localStorage.setItem(MAIN_DB_KEY, JSON.stringify(mainDb));
 
-        // 重置鼓界狀態
         drumDb.status = "idling";
         drumDb.strikeCount = 0;
         localStorage.setItem(RITUAL_KEY, JSON.stringify(drumDb));
@@ -871,7 +834,6 @@
       }
     });
 
-    // 向量擴散波紋生成器
     function createWave(initOpacity, speedScale) {
       const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
       ellipse.setAttribute('cx', '330');
@@ -903,6 +865,5 @@
       requestAnimationFrame(render);
     }
   </script>
-
 </body>
 </html>
