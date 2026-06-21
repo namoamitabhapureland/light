@@ -368,7 +368,7 @@
   <canvas id="starCanvas"></canvas>
 
   <div class="nav-container">
-    <a href="index.html" class="btn">回道場</a>
+    <a href="index.html?screen=3" class="btn">回道場</a>
     <button class="btn" id="ambient-toggle">真如法音：靜音</button>
   </div>
 
@@ -470,6 +470,7 @@
     </div>
   </div>
   <script>
+    <script>
     // ════ 雙軌資料庫整合設定 (精確對接 PX_V15.0 主系統) ════
     const MAIN_DB_KEY = 'PX_V15.0';  
     const RITUAL_KEY = 'drumdb';           
@@ -477,7 +478,15 @@
     let mainDb = JSON.parse(localStorage.getItem(MAIN_DB_KEY)) || {};
     if (mainDb.points === undefined) mainDb.points = 0;
 
-    let drumDb = JSON.parse(localStorage.getItem(RITUAL_KEY)) || { strikeCount: 0, status: 'auth_granted' };
+    // 修正一：找不到資料時，預設狀態必須是 'idling'（閒置），絕對不能預設給予授權
+    let drumDb = JSON.parse(localStorage.getItem(RITUAL_KEY)) || { strikeCount: 0, status: 'idling' };
+
+    // 修正二：實裝嚴格警衛。如果狀態不是 'auth_granted'，不管是按 F5 還是手動輸入網址，一律遣返主系統
+    if (drumDb.status !== 'auth_granted') {
+        window.location.href = 'index.html?screen=3';
+    }
+
+   
 
     // ════ 繪製彩色星塵與法界星球 ════
     const canvas = document.getElementById('starCanvas');
