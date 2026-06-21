@@ -378,17 +378,18 @@ mix-blend-mode: screen;
     display: block !important;
 }
         
-/* ✨ 卍字隨手印切換的優雅過渡：無耗能，完全同步 */
+/* ✨ 卍字隨手印切換的優雅過渡：無耗能，精準鎖定系統的 .bowing 類別 */
 .buddha-swastika {
     transform-origin: 500px 460px; /* 鎖定卍字的幾何中心點 */
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
 }
 
-/* 當外層切換為接引狀態時，卍字放大、亮起 */
-body.hands-open-active .buddha-swastika {
+/* 當外層 #buddha-scene 被賦予 .bowing 狀態（接引手化現）時，卍字同步放大、亮起 */
+#buddha-scene.bowing .buddha-swastika {
     transform: scale(1.4);
     opacity: 1.0 !important; /* 強制提升至最亮 */
 }
+
 
 
 </style>
