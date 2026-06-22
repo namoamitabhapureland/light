@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
- <link rel="manifest" href="manifest.json">
-
-  <title>法華一佛乘 · 大法鼓經虛空系統</title>
+   <link rel="manifest" href="manifest_en.json">
+  
+  <title>Lotus Sutra One Vehicle · Cosmic Great Dharma Drum System</title>
   <style>
-    /* 全局極簡與純淨美學設定 */
+    /* Minimalist and Pure Aesthetic Settings */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -28,10 +28,10 @@
       height: 100%;
       overflow: hidden;
       background-color: #020205;
-      font-family: "Songti TC", "PMingLiU", "Noto Serif TC", serif;
+      font-family: "Times New Roman", "Baskerville", "Playfair Display", serif;
     }
 
-    /* 彩色星塵 Canvas */
+    /* Cosmic Stardust Canvas */
     #starCanvas {
       position: absolute;
       top: 0;
@@ -42,7 +42,7 @@
       pointer-events: none;
     }
 
-    /* 主內容容器：使大鼓居中 */
+    /* Main Content Container: Center the Drum */
     .container {
       position: relative;
       width: 100%;
@@ -53,7 +53,7 @@
       align-items: center;
     }
 
-    /* 頂部雙軌導航按鈕區域 */
+    /* Top Navigation Area */
     .nav-container {
       position: absolute;
       top: max(20px, env(safe-area-inset-top));
@@ -66,12 +66,12 @@
       pointer-events: none;
     }
 
-    /* 隱藏經文與引導面板，確保版面絕對乾淨 */
+    /* Hidden panels for pure and absolute layout clarity */
     .text-panel, .title-area, .guide-status, #guide-hint {
       display: none !important;
     }
 
-    /* 舞台與大鼓容器 */
+    /* Stage and Drum Group */
     .drum-stage {
       width: 100%;
       max-width: 850px;
@@ -89,7 +89,7 @@
       overflow: visible;
     }
 
-    /* 法鼓真如呼吸與微光脈動動畫 */
+    /* Tathata Drum Meditative Breathing Animation */
     .drum-breathing-wrapper {
       transform-origin: 450px 350px;
       animation: drum-meditate-breath 5s ease-in-out infinite alternate;
@@ -107,7 +107,7 @@
       }
     }
 
-    /* 鼓體受擊 3D 共震 */
+    /* 3D Resonance Effect on Strike */
     .drum-master-group {
       transform-origin: 450px 350px;
       transition: transform 0.05s ease-out;
@@ -116,14 +116,14 @@
       transform: scale(1.015) translate(-1px, 1px);
     }
 
-    /* 单圈高效能法音波紋 */
+    /* Dharma Sound Waves */
     .dharma-wave {
       fill: none;
       stroke-width: 3;
       pointer-events: none;
     }
 
-    /* 下方互動中樞區域 */
+    /* Bottom Interactive Area */
     .control-area {
       position: absolute;
       bottom: max(30px, env(safe-area-inset-bottom));
@@ -135,7 +135,7 @@
       z-index: 5;
     }
 
-    /* 動態幾何能量條容器 */
+    /* Geometric Energy Gauge Container */
     .energy-gauge-container {
       width: 260px;
       height: 6px;
@@ -143,10 +143,10 @@
       border: 1px solid rgba(229, 193, 88, 0.2);
       border-radius: 3px;
       position: relative;
-      display: none;
+      display: none; 
     }
 
-    /* 內層流體能量條 */
+    /* Fluid Energy Bar */
     .energy-bar {
       width: 0%;
       height: 100%;
@@ -158,7 +158,7 @@
       border-radius: 3px;
     }
 
-    /* 系統標準化按鈕樣式 */
+    /* Standard Button Styles */
     .btn {
       pointer-events: auto;
       background: rgba(10, 11, 30, 0.6);
@@ -166,7 +166,7 @@
       color: var(--gold);
       padding: 10px 24px;
       font-size: 13px;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       border-radius: 20px;
       cursor: pointer;
       transition: all 0.3s;
@@ -192,34 +192,34 @@
       box-shadow: none;
     }
 
-    /* 各式彈框樣式 */
+    /* Glassmorphism Modals */
     .glass-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.5s; }
     .glass-modal.show { opacity: 1; pointer-events: auto; }
-    .glass-content { width: 90%; max-width: 420px; max-height: 85vh; background: linear-gradient(135deg, rgba(20,25,30,0.95), rgba(5,10,15,0.98)); border: 1px solid rgba(212,175,55,0.5); border-radius: 20px; padding: 30px 20px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 20px 50px rgba(0,0,0,0.9); position: relative; }
+    .glass-content { width: 90%; max-width: 440px; max-height: 85vh; background: linear-gradient(135deg, rgba(20,25,30,0.95), rgba(5,10,15,0.98)); border: 1px solid rgba(212,175,55,0.5); border-radius: 20px; padding: 30px 24px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 20px 50px rgba(0,0,0,0.9); position: relative; }
     
-    .modal-header { text-align: center; color: var(--gold); font-size: 1.2rem; letter-spacing: 4px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px dashed rgba(212,175,55,0.3); padding-bottom: 15px; display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; }
+    .modal-header { text-align: center; color: var(--gold); font-size: 1.15rem; letter-spacing: 2px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px dashed rgba(212,175,55,0.3); padding-bottom: 15px; display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; }
     
     .step-container { overflow-y: auto; padding: 10px; flex-grow: 1; margin-bottom: 25px; display: flex; flex-direction: column; align-items: center; width: 100%; }
-    .step-text { color: #ddd; font-size: 0.95rem; line-height: 1.8; text-align: justify; letter-spacing: 1px; width: 100%; }
+    .step-text { color: #ddd; font-size: 0.95rem; line-height: 1.7; text-align: justify; letter-spacing: 0.5px; width: 100%; }
     
     .agree-btn { 
         -webkit-appearance: none; appearance: none;
         background: linear-gradient(135deg, rgba(212,175,55,0.15) 0%, rgba(10,10,10,0.9) 100%); 
         border: 1px solid rgba(212,175,55,0.5); color: var(--gold); padding: 12px 35px; 
-        border-radius: 30px; text-align: center; font-weight: bold; letter-spacing: 4px; 
+        border-radius: 30px; text-align: center; font-weight: bold; letter-spacing: 2px; 
         cursor: pointer; transition: 0.3s; box-shadow: inset 0 0 10px rgba(212,175,55,0.05), 0 5px 15px rgba(0,0,0,0.5); 
-        font-family: inherit; width: auto; min-width: 180px; display: inline-block;
+        font-family: inherit; width: auto; min-width: 200px; display: inline-block;
     }
     .agree-btn:active { transform: scale(0.96); background: rgba(212,175,55,0.3); border-color: var(--solid-gold); }
 
-    /* 讓大鼓本體在虛空中產生如呼吸般的微微懸浮與定力律動 */
+    /* Meditative floating animation of the hardware core */
     #drum-hardware-group {
       transform-origin: center;
       animation: drumBreatheFloat 8s ease-in-out infinite;
       transition: transform 0.04s linear; 
     }
 
-    /* 擊鼓重擊時的震撼搖晃 */
+    /* Intense striking shake */
     #drum-hardware-group.shake {
       animation: drumStrikeShake 0.04s linear infinite;
     }
@@ -244,7 +244,7 @@
       100% { transform: translate(1px, -2px) rotate(-0.5deg); }
     }
 
-    /* 能量條刻度標籤樣式 */
+    /* Gauge Marker Styles */
     .gauge-marker {
       position: absolute;
       top: 50%;
@@ -260,7 +260,7 @@
     .marker-zero { left: -18px; }
     .marker-hundred { right: -30px; }
 
-    /* 大鼓本體容器響應式優化 */
+    /* Responsive scaling optimizations */
     #drum-hardware-group {
       transform-origin: center;
       animation: drumBreatheFloat 8s ease-in-out infinite;
@@ -272,7 +272,7 @@
       margin: 0 auto;
     }
 
-    /* 橫書清淨正圓呼吸按鈕 */
+    /* Absolute Geometric Round Breathing Button (Cross-Language Compatible) */
     #recite-done-btn {
       display: flex;
       flex-direction: column; 
@@ -298,12 +298,12 @@
       box-shadow: 0 0 15px rgba(229, 193, 88, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.05);
       
       color: #e5c158;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: bold;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       text-align: center;
-      line-height: 1.3;
-      padding: 12px; 
+      line-height: 1.2;
+      padding: 10px; 
       
       cursor: pointer;
       user-select: none;
@@ -311,18 +311,17 @@
       animation: btnNormalBreathe 4s ease-in-out infinite;
     }
 
-    /* 小螢幕行動裝置的等比例正圓縮放 */
+    /* Small Screen Dynamic Scaling */
     @media (max-width: 375px), (max-height: 667px) {
       #recite-done-btn {
         width: 90px;
         height: 90px;
-        font-size: 12px;
+        font-size: 11px;
         padding: 8px;
         margin: 12px auto 0 auto;
       }
     }
 
-    /* 滑鼠懸停與觸控焦點 */
     #recite-done-btn:hover:not(:disabled) {
       background: linear-gradient(135deg, rgba(229, 193, 88, 0.18), rgba(255, 255, 255, 0.05));
       border-color: rgba(229, 193, 88, 0.5);
@@ -330,14 +329,12 @@
       transform: scale(1.02);
     }
 
-    /* 蓄力狀態 */
     #recite-done-btn.gathering {
       color: #ffffff;
       border-color: rgba(255, 255, 255, 0.4);
       animation: btnGatheringBreathe 1.4s ease-in-out infinite;
     }
 
-    /* 停用狀態 */
     #recite-done-btn:disabled {
       opacity: 0.25;
       cursor: not-allowed;
@@ -345,14 +342,12 @@
       box-shadow: none;
     }
 
-    /* 靜態如意呼吸 */
     @keyframes btnNormalBreathe {
       0% { box-shadow: 0 0 12px rgba(229, 193, 88, 0.08); border-color: rgba(229, 193, 88, 0.2); }
       50% { box-shadow: 0 0 22px rgba(229, 193, 88, 0.22); border-color: rgba(229, 193, 88, 0.4); }
       100% { box-shadow: 0 0 12px rgba(229, 193, 88, 0.08); border-color: rgba(229, 193, 88, 0.2); }
     }
 
-    /* 蓄力緊湊呼吸 */
     @keyframes btnGatheringBreathe {
       0% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
       50% { box-shadow: 0 0 30px rgba(229, 193, 88, 0.35); }
@@ -365,8 +360,8 @@
   <canvas id="starCanvas"></canvas>
 
   <div class="nav-container">
-    <a href="index.html?screen=3" class="btn">回道場</a>
-    <button class="btn" id="ambient-toggle">真如法音：靜音</button>
+    <a href="index_en.html?screen=3" class="btn">Return</a>
+    <button class="btn" id="ambient-toggle">Tathata Sounds: Mute</button>
   </div>
 
   <div class="title-area"><h1></h1><p></p></div>
@@ -453,38 +448,43 @@
         <span class="gauge-marker marker-hundred">100</span>
       </div>
 
-      <button class="btn active" id="recite-done-btn">擊鼓</button>
+      <button class="btn active" id="recite-done-btn">Strike Drum</button>
     </div>
   </div>
 
   <div class="glass-modal" id="dharma-modal">
     <div class="glass-content">
-      <div class="modal-header" id="modal-title">大法鼓音</div>
+      <div class="modal-header" id="modal-title">Great Dharma Drum</div>
       <div class="step-container">
-        <div class="step-text" id="modal-text">正法流傳，虛空共鳴。</div>
+        <div class="step-text" id="modal-text">The Right Dharma spreads, resonating through the void.</div>
       </div>
-      <button class="agree-btn" id="modal-action">信受奉行</button>
+      <button class="agree-btn" id="modal-action">Accept with Faith</button>
     </div>
   </div>
+
   <script>
-    // ════ 雙軌資料庫整合設定 (精確對接 PX_V15.0 主系統) ════
-    const MAIN_DB_KEY = 'PX_V15.0';  
+    // ════ Dual Database Alignment (To Main English System PX_EN_V15.0) ════
+    const MAIN_DB_KEY = 'PX_EN_V15.0';  
     const RITUAL_KEY = 'drumdb';           
 
     let mainDb = JSON.parse(localStorage.getItem(MAIN_DB_KEY)) || {};
     if (mainDb.points === undefined) mainDb.points = 0;
 
+    // Security Gate 1: Default status must be idling if no session database exists
     let drumDb = JSON.parse(localStorage.getItem(RITUAL_KEY)) || { strikeCount: 0, status: 'idling' };
 
-    // 解析網址參數，防禦無限重導向死迴圈
+    // Security Gate 2: Strict authorization guard. Kick out unauthorized refresh/F5 entries
+
     const urlParams = new URLSearchParams(window.location.search);
     const currentScreen = urlParams.get('screen');
 
     if (drumDb.status !== 'auth_granted' && currentScreen !== '3') {
-        window.location.href = 'index.html?screen=3';
+        window.location.href = 'index_en.html?screen=3';
     }
+    
 
-    // ════ 繪製彩色星塵與法界星球 ════
+
+    // ════ Cosmic Stardust & Celestial Realms Canvas ════
     const canvas = document.getElementById('starCanvas');
     const ctx = canvas.getContext('2d');
     let width, height, stars = [];
@@ -551,7 +551,7 @@
     }
     drawStars();
 
-    // 卯釘透視演算法
+    // Rivet Perspective Projection Algorithm
     const rivetsContainer = document.getElementById('complete-rim-rivets-container');
     const rivetCount = 54; 
     const cx = 330, cy = 350; 
@@ -575,7 +575,7 @@
       rivetsContainer.appendChild(useTag);
     }
 
-    // Web Audio API 核心音訊
+    // Web Audio API Core Logic
     let audioCtx = null;
     let ambientOscs = [];
     let isAmbientPlaying = false;
@@ -655,7 +655,7 @@
           osc.start(now);
           ambientOscs.push({ osc, gain });
         });
-        document.getElementById('ambient-toggle').textContent = '真如法音：流轉';
+        document.getElementById('ambient-toggle').textContent = 'Tathata Sounds: Playing';
         document.getElementById('ambient-toggle').classList.add('active');
         isAmbientPlaying = true;
       } else {
@@ -664,13 +664,13 @@
           node.osc.stop(now + 1.3);
         });
         ambientOscs = [];
-        document.getElementById('ambient-toggle').textContent = '真如法音：靜音';
+        document.getElementById('ambient-toggle').textContent = 'Tathata Sounds: Mute';
         document.getElementById('ambient-toggle').classList.remove('active');
         isAmbientPlaying = false;
       }
     }
 
-    // ════ 儀軌與狀態控制核心邏輯 ════
+    // ════ Ritual Logic and State Management Core ════
     const stage = document.getElementById('stage-interact');
     const drumHardware = document.getElementById('drum-hardware-group');
     const waveLayer = document.getElementById('wave-delivery-layer');
@@ -690,22 +690,21 @@
     let totalEarnedPoints = 0;   
     let energyValue = 0;         
     let energyDirection = 1;     
-    let energySpeed = 4.5;       
+    let energySpeed = 4;       
     let energyRafId = null;
 
-    // 校正錯字：功功德隨喜 改為 功德隨喜
     const ritualSteps = [
       {
-        modalTitle: "第一擊完結 ‧ 震裂魔網",
-        modalText: "《大法鼓經》云：「一切眾生……本有清淨，等同如來」破除世間戲論，使邪見劇毒消殞。<br><br>法鼓初震，破除世間虛妄戲論，使客塵邪見之劇毒悉皆消殞。行者本有之清淨自性隨法音破暗而出。"
+        modalTitle: "First Strike Complete · Shattering Mara's Net",
+        modalText: "The Mahāberī Sutra states: 'All sentient beings... are inherently pure, equal to the Tathāgata.' Worldly sophistry is shattered, and the deadly poison of false views utterly vanishes.<br><br>As the drum first resounds, worldly illusions are broken. The practitioner's intrinsic pure nature emerges through the sacred sound, piercing the darkness."
       },
       {
-        modalTitle: "第二擊完結 ‧ 功德隨喜",
-        modalText: "《大法鼓經》云：「聽聞即解脫」眾生聽聞大乘法音，不論信解與否，皆種下斷除貪瞋癡之種子。<br><br>大鼓再震，聽聞此經乃至一念隨喜，其所得福德不可稱記。於如來藏中，已然深種永不退轉之菩提種子。"
+        modalTitle: "Second Strike Complete · Rejoicing in Merit",
+        modalText: "The Mahāberī Sutra states: 'To hear it is to be liberated.' When sentient beings hear the Mahayana Dharma sound, whether they believe and understand it or not, the seeds to sever greed, hatred, and ignorance are deeply sown.<br><br>As the drum resounds again, even a single moment of rejoicing creates incalculable merit, firmly planting an irreversible seed of Bodhi within the Tathāgatagarbha."
       },
       {
-        modalTitle: "第三擊完結 ‧ 證入真如",
-        modalText: "《大法鼓經》云：「若善男子善女人，聽聞此經……速趣無上菩提。」開發清淨佛性，證得如來藏。<br><br>三界虛空共鳴，究竟一乘正義彰顯。一切眾生本自清淨，等同如來。法音收攝，行者此番修持已圓滿化為清淨資糧。"
+        modalTitle: "Third Strike Complete · Realizing Tathatā",
+        modalText: "The Mahāberī Sutra states: 'If good men and good women hear this Sutra... they will swiftly advance toward Unsurpassed Bodhi.' Unfold the pure Buddha-nature and realize the Tathāgatagarbha.<br><br>The void of the three realms resonates as the ultimate truth of the One Vehicle manifests. The ritual concludes, and your cultivation is fully transformed into pure provisions of liberation."
       }
     ];
 
@@ -732,7 +731,7 @@
       energyValue = 0;
       energyDirection = 1;
       
-      reciteDoneBtn.textContent = "正念落槌";
+      reciteDoneBtn.textContent = "Mindful Strike";
       reciteDoneBtn.classList.add('gathering'); 
       
       runEnergyLoop();
@@ -747,108 +746,111 @@
     });
 
     function performStrikeTap() {
-      if (!isGathering) return; 
+  if (!isGathering) return; 
 
-      isGathering = false;
-      cancelAnimationFrame(energyRafId);
-      reciteDoneBtn.classList.remove('gathering');
+  isGathering = false;
+  cancelAnimationFrame(energyRafId);
+  reciteDoneBtn.classList.remove('gathering');
 
-      let finalEnergy = Math.round(energyValue);
-      let intensity = 'low';
-      let strikePoints = 0;
-      
-      if (drumDb.strikeCount > 2) drumDb.strikeCount = 2;
-      const currentStrikeIndex = drumDb.strikeCount;
+  let finalEnergy = Math.round(energyValue);
+  let intensity = 'low';
+  let strikePoints = 0;
+  
+  if (drumDb.strikeCount > 2) drumDb.strikeCount = 2;
+  const currentStrikeIndex = drumDb.strikeCount;
 
-      if (finalEnergy >= 75) {
-        intensity = 'high';
-        strikePoints = 100; 
-      } else if (finalEnergy >= 35 && finalEnergy < 75) {
-        intensity = 'mid';
-        strikePoints = 50;  
-      } else {
-        intensity = 'low';
-        strikePoints = 10;  
-      }
+  if (finalEnergy >= 75) {
+    intensity = 'high';
+    strikePoints = 100; 
+  } else if (finalEnergy >= 35 && finalEnergy < 75) {
+    intensity = 'mid';
+    strikePoints = 50;  
+  } else {
+    intensity = 'low';
+    strikePoints = 10;  
+  }
 
-      totalEarnedPoints += strikePoints;
+  totalEarnedPoints += strikePoints;
 
-      drumHardware.classList.add('shake');
-      setTimeout(() => drumHardware.classList.remove('shake'), 40);
+  drumHardware.classList.add('shake');
+  setTimeout(() => drumHardware.classList.remove('shake'), 40);
 
-      touchGlow.style.transition = 'none';
-      touchGlow.style.opacity = '0.5';
-      requestAnimationFrame(() => {
-        touchGlow.style.transition = 'opacity 0.3s ease-out';
-        touchGlow.style.opacity = '0';
-      });
+  touchGlow.style.transition = 'none';
+  touchGlow.style.opacity = '0.5';
+  requestAnimationFrame(() => {
+    touchGlow.style.transition = 'opacity 0.3s ease-out';
+    touchGlow.style.opacity = '0';
+  });
 
-      playDeepDrumSound(intensity);
+  playDeepDrumSound(intensity);
 
-      let waveScale = intensity === 'high' ? 9 : intensity === 'mid' ? 5.5 : 2.5;
-      createWave(1.0, waveScale);
+  let waveScale = intensity === 'high' ? 9 : intensity === 'mid' ? 5.5 : 2.5;
+  createWave(1.0, waveScale);
 
-      energyGaugeWrap.style.display = 'none';
-      reciteDoneBtn.disabled = true;
+  energyGaugeWrap.style.display = 'none';
+  reciteDoneBtn.disabled = true;
 
-      const stepData = ritualSteps[currentStrikeIndex];
-      modalTitle.textContent = stepData.modalTitle;
-      
-      let intensityDesc = intensity === 'high' ? '震撼重擊（妙契法理）' : intensity === 'mid' ? '沉穩中擊（心神安住）' : '微光輕擊（隨緣攝心）';
-      modalText.innerHTML = `${stepData.modalText}<br><br><span style="color:var(--gold);">本次凝聚能量：${finalEnergy}% (${intensityDesc})</span><br><span style="color:#fede6a;">獲得菩提資糧：+${strikePoints} 點</span>`;
-      
-      // 校正錯字：迴向功功德 改為 迴向功德
-      if (currentStrikeIndex === 2) {
-        modalAction.textContent = "圓滿收攝 ‧ 迴向功德";
-      } else {
-        modalAction.textContent = "承接法義 ‧ 進修下一擊";
-      }
+  const stepData = ritualSteps[currentStrikeIndex];
+  modalTitle.textContent = stepData.modalTitle;
+  
+  let intensityDesc = intensity === 'high' ? 'Powerful Strike (Perfect Resonance)' : intensity === 'mid' ? 'Steady Strike (Mindful Presence)' : 'Gentle Strike (Serene Awakening)';
+  modalText.innerHTML = `${stepData.modalText}<br><br><span style="color:var(--gold);">Energy Focused: ${finalEnergy}% (${intensityDesc})</span><br><span style="color:#fede6a;">Bodhi Provisions Gained: +${strikePoints} Points</span>`;
+  
+  if (currentStrikeIndex === 2) {
+    modalAction.textContent = "Conclude & Dedicate Merit";
+  } else {
+    modalAction.textContent = "Absorb Dharma & Proceed";
+  }
 
-      setTimeout(() => {
-        dharmaModal.classList.add('show');
-      }, 400);
+  setTimeout(() => {
+    dharmaModal.classList.add('show');
+  }, 400);
+}
+
+stage.addEventListener('mousedown', (e) => { 
+  e.preventDefault(); 
+  if (isGathering) performStrikeTap(); else startGathering(); 
+});
+stage.addEventListener('touchstart', (e) => { 
+  e.preventDefault(); 
+  if (isGathering) performStrikeTap(); else startGathering(); 
+});
+
+ambientBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleAmbient(); });
+
+modalAction.addEventListener('click', () => {
+  dharmaModal.classList.remove('show');
+  drumDb.strikeCount += 1;
+  
+  if (drumDb.strikeCount >= 3) {
+    // 1. 累加法華一乘系統總積分
+    mainDb.points = (mainDb.points || 0) + totalEarnedPoints; 
+
+    // 2. 精確寫入並更新主系統的「法鼓覺心」專屬儀軌防護欄位
+    if (!mainDb.drumData) {
+        mainDb.drumData = { totalCount: 0, lastDate: "" };
     }
+    mainDb.drumData.totalCount = (mainDb.drumData.totalCount || 0) + 1;
+    mainDb.drumData.lastDate = new Date().toDateString();
 
-    stage.addEventListener('mousedown', (e) => { 
-      e.preventDefault(); 
-      if (isGathering) performStrikeTap(); else startGathering(); 
-    });
-    stage.addEventListener('touchstart', (e) => { 
-      e.preventDefault(); 
-      if (isGathering) performStrikeTap(); else startGathering(); 
-    });
+    localStorage.setItem(MAIN_DB_KEY, JSON.stringify(mainDb));
+
+    // 3. 重置單次擊鼓資料庫狀態
+    drumDb.status = "idling";
+    drumDb.strikeCount = 0;
+    localStorage.setItem(RITUAL_KEY, JSON.stringify(drumDb));
+
+    // 4. 圓滿後安全導向英文主面板指定畫面
+    window.location.href = 'index_en.html?screen=3';
+  } else {
+    localStorage.setItem(RITUAL_KEY, JSON.stringify(drumDb));
     
-    ambientBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleAmbient(); });
+    // 未滿三擊時，重置按鈕為英文狀態以進行下一擊
+    reciteDoneBtn.textContent = "Strike Drum";
+    reciteDoneBtn.disabled = false;
+  }
+});
 
-    modalAction.addEventListener('click', () => {
-      dharmaModal.classList.remove('show');
-      drumDb.strikeCount += 1;
-      
-      if (drumDb.strikeCount >= 3) {
-        // 更新功德積分
-        mainDb.points = (mainDb.points || 0) + totalEarnedPoints; 
-
-        // 精確對接並寫入主系統的「法鼓覺心」專屬防護欄位
-        if (!mainDb.drumData) {
-            mainDb.drumData = { totalCount: 0, lastDate: "" };
-        }
-        mainDb.drumData.totalCount = (mainDb.drumData.totalCount || 0) + 1;
-        mainDb.drumData.lastDate = new Date().toDateString();
-
-        localStorage.setItem(MAIN_DB_KEY, JSON.stringify(mainDb));
-
-        drumDb.status = "idling";
-        drumDb.strikeCount = 0;
-        localStorage.setItem(RITUAL_KEY, JSON.stringify(drumDb));
-
-        window.location.href = 'index.html';
-      } else {
-        localStorage.setItem(RITUAL_KEY, JSON.stringify(drumDb));
-        
-        reciteDoneBtn.textContent = "擊鼓";
-        reciteDoneBtn.disabled = false;
-      }
-    });
 
     function createWave(initOpacity, speedScale) {
       const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
