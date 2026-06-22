@@ -463,24 +463,23 @@
   </div>
 
   <script>
-    // ════ Dual Database Alignment (To Main English System PX_EN_V15.0) ════
-    const MAIN_DB_KEY = 'PX_EN_V15.0';  
-    const RITUAL_KEY = 'drumdb';           
+     // ════ 雙軌資料庫整合設定 (精確對接 PX_EN_V15.0 主系統) ════
+  const MAIN_DB_KEY = 'PX_EN_V15.0';  
+  const RITUAL_KEY = 'drumdb';           
 
-    let mainDb = JSON.parse(localStorage.getItem(MAIN_DB_KEY)) || {};
-    if (mainDb.points === undefined) mainDb.points = 0;
+  let mainDb = JSON.parse(localStorage.getItem(MAIN_DB_KEY)) || {};
+  if (mainDb.points === undefined) mainDb.points = 0;
 
-    // Security Gate 1: Default status must be idling if no session database exists
-    let drumDb = JSON.parse(localStorage.getItem(RITUAL_KEY)) || { strikeCount: 0, status: 'idling' };
+  let drumDb = JSON.parse(localStorage.getItem(RITUAL_KEY)) || { strikeCount: 0, status: 'idling' };
 
-    // Security Gate 2: Strict authorization guard. Kick out unauthorized refresh/F5 entries
+  // 解析網址參數，防禦無限重導向死迴圈
+  const urlParams = new URLSearchParams(window.location.search);
+  const currentScreen = urlParams.get('screen');
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const currentScreen = urlParams.get('screen');
+  if (drumDb.status !== 'auth_granted' && currentScreen !== '3') {
+      window.location.href = 'index_en.html?screen=3';
+  }
 
-    if (drumDb.status !== 'auth_granted' && currentScreen !== '3') {
-        window.location.href = 'index_en.html?screen=3';
-    }
     
 
 
