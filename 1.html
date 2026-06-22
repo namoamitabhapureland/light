@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+ <link rel="manifest" href="manifest.json">
+
   <title>法華一佛乘 · 大法鼓經虛空系統</title>
   <style>
     /* 全局極簡與純淨美學設定 */
@@ -114,7 +116,7 @@
       transform: scale(1.015) translate(-1px, 1px);
     }
 
-    /* 單圈高效能法音波紋 */
+    /* 单圈高效能法音波紋 */
     .dharma-wave {
       fill: none;
       stroke-width: 3;
@@ -133,7 +135,7 @@
       z-index: 5;
     }
 
-    /* 動態幾何能量條容器（修正：移除 overflow: hidden 確保兩端數字展現） */
+    /* 動態幾何能量條容器 */
     .energy-gauge-container {
       width: 260px;
       height: 6px;
@@ -141,10 +143,10 @@
       border: 1px solid rgba(229, 193, 88, 0.2);
       border-radius: 3px;
       position: relative;
-      display: none; /* 初始隱藏，擊鼓後展現 */
+      display: none;
     }
 
-    /* 內層流體能量條（修正：自帶圓角防溢出） */
+    /* 內層流體能量條 */
     .energy-bar {
       width: 0%;
       height: 100%;
@@ -190,7 +192,7 @@
       box-shadow: none;
     }
 
-    /* ================= 各式彈框樣式 ================= */
+    /* 各式彈框樣式 */
     .glass-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.5s; }
     .glass-modal.show { opacity: 1; pointer-events: auto; }
     .glass-content { width: 90%; max-width: 420px; max-height: 85vh; background: linear-gradient(135deg, rgba(20,25,30,0.95), rgba(5,10,15,0.98)); border: 1px solid rgba(212,175,55,0.5); border-radius: 20px; padding: 30px 20px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 20px 50px rgba(0,0,0,0.9); position: relative; }
@@ -258,7 +260,7 @@
     .marker-zero { left: -18px; }
     .marker-hundred { right: -30px; }
 
-    /* ════ 大鼓本體容器響應式優化 ════ */
+    /* 大鼓本體容器響應式優化 */
     #drum-hardware-group {
       transform-origin: center;
       animation: drumBreatheFloat 8s ease-in-out infinite;
@@ -270,36 +272,31 @@
       margin: 0 auto;
     }
 
-    /* ════ 橫書清淨正圓呼吸按鈕（中英雙版本完美相容） ════ */
+    /* 橫書清淨正圓呼吸按鈕 */
     #recite-done-btn {
       display: flex;
       flex-direction: column; 
       align-items: center;
       justify-content: center;
       
-      /* 嚴格鎖定正圓幾何，寬高完全相等 */
       width: 108px;
       height: 108px;
-      border-radius: 50% !important; /* 加入重要宣告，防禦任何外部污染 */
+      border-radius: 50% !important; 
       margin: 20px auto 0 auto;
       box-sizing: border-box;
       flex-shrink: 0; 
       
-      /* 強制全網域橫書排版 */
       writing-mode: horizontal-tb !important;
       white-space: normal;
       word-break: break-word;
       
-      /* 磨砂玻璃擬態與清淨漸層背景 */
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(229, 193, 88, 0.05));
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       
-      /* 細緻金絲邊框與內斂微光 */
       border: 1px solid rgba(229, 193, 88, 0.25);
       box-shadow: 0 0 15px rgba(229, 193, 88, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.05);
       
-      /* 字體美學微調 */
       color: #e5c158;
       font-size: 14px;
       font-weight: bold;
@@ -314,7 +311,7 @@
       animation: btnNormalBreathe 4s ease-in-out infinite;
     }
 
-    /* ════ 小螢幕行動裝置的等比例正圓縮放 ════ */
+    /* 小螢幕行動裝置的等比例正圓縮放 */
     @media (max-width: 375px), (max-height: 667px) {
       #recite-done-btn {
         width: 90px;
@@ -469,27 +466,23 @@
       <button class="agree-btn" id="modal-action">信受奉行</button>
     </div>
   </div>
-    <script>
-  
+  <script>
+    // ════ 雙軌資料庫整合設定 (精確對接 PX_V15.0 主系統) ════
+    const MAIN_DB_KEY = 'PX_V15.0';  
+    const RITUAL_KEY = 'drumdb';           
 
-      // ════ 雙軌資料庫整合設定 (精確對接 PX_V15.0 主系統) ════
-const MAIN_DB_KEY = 'PX_V15.0';  
-const RITUAL_KEY = 'drumdb';           
+    let mainDb = JSON.parse(localStorage.getItem(MAIN_DB_KEY)) || {};
+    if (mainDb.points === undefined) mainDb.points = 0;
 
-let mainDb = JSON.parse(localStorage.getItem(MAIN_DB_KEY)) || {};
-if (mainDb.points === undefined) mainDb.points = 0;
+    let drumDb = JSON.parse(localStorage.getItem(RITUAL_KEY)) || { strikeCount: 0, status: 'idling' };
 
-let drumDb = JSON.parse(localStorage.getItem(RITUAL_KEY)) || { strikeCount: 0, status: 'idling' };
+    // 解析網址參數，防禦無限重導向死迴圈
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentScreen = urlParams.get('screen');
 
-// 【修正：解析網址參數，防禦無限重導向死迴圈】
-const urlParams = new URLSearchParams(window.location.search);
-const currentScreen = urlParams.get('screen');
-
-if (drumDb.status !== 'auth_granted' && currentScreen !== '3') {
-    window.location.href = 'index.html?screen=3';
-}
-
-   
+    if (drumDb.status !== 'auth_granted' && currentScreen !== '3') {
+        window.location.href = 'index.html?screen=3';
+    }
 
     // ════ 繪製彩色星塵與法界星球 ════
     const canvas = document.getElementById('starCanvas');
@@ -700,13 +693,14 @@ if (drumDb.status !== 'auth_granted' && currentScreen !== '3') {
     let energySpeed = 4.5;       
     let energyRafId = null;
 
+    // 校正錯字：功功德隨喜 改為 功德隨喜
     const ritualSteps = [
       {
         modalTitle: "第一擊完結 ‧ 震裂魔網",
         modalText: "《大法鼓經》云：「一切眾生……本有清淨，等同如來」破除世間戲論，使邪見劇毒消殞。<br><br>法鼓初震，破除世間虛妄戲論，使客塵邪見之劇毒悉皆消殞。行者本有之清淨自性隨法音破暗而出。"
       },
       {
-        modalTitle: "第二擊完結 ‧ 功功德隨喜",
+        modalTitle: "第二擊完結 ‧ 功德隨喜",
         modalText: "《大法鼓經》云：「聽聞即解脫」眾生聽聞大乘法音，不論信解與否，皆種下斷除貪瞋癡之種子。<br><br>大鼓再震，聽聞此經乃至一念隨喜，其所得福德不可稱記。於如來藏中，已然深種永不退轉之菩提種子。"
       },
       {
@@ -803,8 +797,9 @@ if (drumDb.status !== 'auth_granted' && currentScreen !== '3') {
       let intensityDesc = intensity === 'high' ? '震撼重擊（妙契法理）' : intensity === 'mid' ? '沉穩中擊（心神安住）' : '微光輕擊（隨緣攝心）';
       modalText.innerHTML = `${stepData.modalText}<br><br><span style="color:var(--gold);">本次凝聚能量：${finalEnergy}% (${intensityDesc})</span><br><span style="color:#fede6a;">獲得菩提資糧：+${strikePoints} 點</span>`;
       
+      // 校正錯字：迴向功功德 改為 迴向功德
       if (currentStrikeIndex === 2) {
-        modalAction.textContent = "圓滿收攝 ‧ 迴向功功德";
+        modalAction.textContent = "圓滿收攝 ‧ 迴向功德";
       } else {
         modalAction.textContent = "承接法義 ‧ 進修下一擊";
       }
@@ -830,7 +825,16 @@ if (drumDb.status !== 'auth_granted' && currentScreen !== '3') {
       drumDb.strikeCount += 1;
       
       if (drumDb.strikeCount >= 3) {
+        // 更新功德積分
         mainDb.points = (mainDb.points || 0) + totalEarnedPoints; 
+
+        // 精確對接並寫入主系統的「法鼓覺心」專屬防護欄位
+        if (!mainDb.drumData) {
+            mainDb.drumData = { totalCount: 0, lastDate: "" };
+        }
+        mainDb.drumData.totalCount = (mainDb.drumData.totalCount || 0) + 1;
+        mainDb.drumData.lastDate = new Date().toDateString();
+
         localStorage.setItem(MAIN_DB_KEY, JSON.stringify(mainDb));
 
         drumDb.status = "idling";
