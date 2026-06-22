@@ -470,20 +470,24 @@
     </div>
   </div>
     <script>
-    // ════ 雙軌資料庫整合設定 (精確對接 PX_V15.0 主系統) ════
-    const MAIN_DB_KEY = 'PX_V15.0';  
-    const RITUAL_KEY = 'drumdb';           
+  
 
-    let mainDb = JSON.parse(localStorage.getItem(MAIN_DB_KEY)) || {};
-    if (mainDb.points === undefined) mainDb.points = 0;
+      // ════ 雙軌資料庫整合設定 (精確對接 PX_V15.0 主系統) ════
+const MAIN_DB_KEY = 'PX_V15.0';  
+const RITUAL_KEY = 'drumdb';           
 
-    // 修正一：找不到資料時，預設狀態必須是 'idling'（閒置），絕對不能預設給予授權
-    let drumDb = JSON.parse(localStorage.getItem(RITUAL_KEY)) || { strikeCount: 0, status: 'idling' };
+let mainDb = JSON.parse(localStorage.getItem(MAIN_DB_KEY)) || {};
+if (mainDb.points === undefined) mainDb.points = 0;
 
-    // 修正二：實裝嚴格警衛。如果狀態不是 'auth_granted'，不管是按 F5 還是手動輸入網址，一律遣返主系統
-    if (drumDb.status !== 'auth_granted') {
-        window.location.href = 'index.html?screen=3';
-    }
+let drumDb = JSON.parse(localStorage.getItem(RITUAL_KEY)) || { strikeCount: 0, status: 'idling' };
+
+// 【修正：解析網址參數，防禦無限重導向死迴圈】
+const urlParams = new URLSearchParams(window.location.search);
+const currentScreen = urlParams.get('screen');
+
+if (drumDb.status !== 'auth_granted' && currentScreen !== '3') {
+    window.location.href = 'index.html?screen=3';
+}
 
    
 
@@ -693,7 +697,7 @@
     let totalEarnedPoints = 0;   
     let energyValue = 0;         
     let energyDirection = 1;     
-    let energySpeed = 4;       
+    let energySpeed = 4.5;       
     let energyRafId = null;
 
     const ritualSteps = [
