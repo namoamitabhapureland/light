@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="manifest" href="manifest_jp.json">
-    <meta name="theme-color" content="#010103">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>弥陀浄土 ‧ 荘厳なる瑠璃の金身と星空の法界</title>
+        <link rel="manifest" href="manifest.json">
+            <meta name="theme-color" content="#010103">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>彌陀淨土 ‧ 莊嚴琉璃金身與星空法界</title>
     <style>
         :root {
             --bg-deep: #010103; 
@@ -16,24 +16,26 @@
         }
         * { box-sizing: border-box; user-select: none; margin: 0; padding: 0; outline: none; }
 
-        html { 
-            background-color: var(--bg-deep); 
-            width: 100%; 
-            height: 100%; 
-        }
+html { 
+    background-color: var(--bg-deep); 
+    width: 100%; 
+    height: 100%; 
+}
 
-        body { 
-            background: radial-gradient(circle at 50% 50%, #16110a 0%, var(--bg-deep) 100%); 
-            font-family: "PingFang TC", "Microsoft JhengHei", serif;
-            overflow: hidden; touch-action: none; width: 100vw; height: 100dvh;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff;
-            transition: background 2s ease;
-        }
-
+body { 
+    background: radial-gradient(circle at 50% 50%, #16110a 0%, var(--bg-deep) 100%); 
+    font-family: "PingFang TC", "Microsoft JhengHei", serif;
+    overflow: hidden; touch-action: none; width: 100vw; height: 100dvh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff;
+    transition: background 2s ease;
+}
+        /* 背景畫布 */
         canvas { position: absolute; inset: 0; }
         #starCanvas { z-index: 1; pointer-events: none; transition: filter 2s ease; }
         #waterCanvas { z-index: 2; mix-blend-mode: screen; opacity: 0.6; pointer-events: none; transition: opacity 2s ease; }
         
+        /* ================= 頂部導航與資訊列 (徹底修復擠壓跑版問題) ================= */
+        /* 1. 左上導航：移除 max-width，強制同行不換行，微調間距完美適配手機 */
         .nav-top { position: absolute; top: max(20px, env(safe-area-inset-top)); left: 15px; z-index: 1000; display: flex; flex-wrap: nowrap; gap: 6px; }
         
         .nav-btn { 
@@ -45,6 +47,7 @@
         }
         .nav-btn:hover { opacity: 1; border-color: var(--gold-solid); }
 
+        /* 2. 華藏月相專屬：高清 SVG 參數與流光底層化 (確保不被遮擋、不變形) */
         .lunar-icon { width: 26px; height: 26px; min-width: 26px; flex-shrink: 0; animation: slowSpin 20s linear infinite; filter: drop-shadow(0 0 6px rgba(243,229,171,0.6)); display: block; }
         @keyframes slowSpin { 100% { transform: rotate(360deg); } }
 
@@ -57,16 +60,21 @@
         }
         @keyframes sweep-light { 0% { left: -100%; } 15% { left: 200%; } 100% { left: 200%; } }
 
+        /* 3. 右上資訊列：移除 max-width，保護修持天數不被切斷 */
         .info-top { position: absolute; top: max(20px, env(safe-area-inset-top)); right: 15px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
         .info-row { display: flex; gap: 8px; align-items: center; }
         
         .streak-text { font-size: clamp(0.65rem, 2vw, 0.75rem); color: var(--gold-light); letter-spacing: 1px; opacity: 0.9; text-shadow: 0 0 5px rgba(212,175,55,0.5); white-space: nowrap; font-family: "PingFang TC", "Helvetica Neue", monospace; font-variant-numeric: tabular-nums; flex-shrink: 0; }
         .info-icon { cursor: pointer; opacity: 0.8; display: flex; align-items: center; transition: 0.3s; filter: drop-shadow(0 0 5px rgba(212,175,55,0.5)); flex-shrink: 0; }
         .info-icon:hover { opacity: 1; filter: drop-shadow(0 0 10px var(--gold-solid)); }
+        /* ======================================================================= */
 
+                          
+                        
+               /* 佛尊主體層 */
         #buddha-scene {
             position: absolute; inset: 0; z-index: 10;
-            margin: 0 auto; 
+            margin: 0 auto; /* 🌟 加上這一行，讓 iPad 和大螢幕完美置中 */
             display: flex; justify-content: center; align-items: center;
             transform-origin: 50% 80%; 
             transition: transform 4s cubic-bezier(0.25, 1, 0.5, 1);
@@ -77,6 +85,8 @@
             transform: scale(1.35) translateY(5%);
         }
 
+
+                /* 萬丈金光爆發層 */
         #burst-container {
             position: absolute; inset: 0; 
             display: flex; justify-content: center; align-items: center;
@@ -90,8 +100,7 @@
             animation: flash-fade 2.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
         }
         @keyframes flash-fade { 0% { opacity: 1; transform: scale(0.8); } 100% { opacity: 0; transform: scale(1.5); } }
-        
-        .gold-ray {
+               .gold-ray {
             position: absolute; width: 3px; height: 100vh;
             background: linear-gradient(to top, transparent, #FFD700, #FFFFFF, #FFD700, transparent);
             box-shadow: 0 0 20px #FFD700, 0 0 10px #FFFFFF;
@@ -99,6 +108,7 @@
         }
         @keyframes ray-burst { 0% { transform: scaleY(0.1) rotate(var(--rot)) translateY(0); opacity: 0; } 20% { opacity: 1; } 100% { transform: scaleY(2) rotate(var(--rot)) translateY(-100vh); opacity: 0; } }
 
+        /* 佛尊優雅凌空飄浮層 */
         .buddha-breathe {
             width: 100%; height: auto;
             animation: floating 8s ease-in-out infinite alternate;
@@ -109,15 +119,20 @@
             100% { transform: translateY(-30px); filter: drop-shadow(0 35px 50px rgba(243,229,171,0.6)); }
         }
 
+        /* 光相呼吸與恆常發光 */
         .halo-pulse { transform-origin: 500px 245px; animation: halo-anim 4s infinite alternate ease-in-out; }
         @keyframes halo-anim { 0% { transform: scale(0.95); opacity: 0.6; stroke-width: 1.5; filter: drop-shadow(0 0 15px rgba(255,215,0,0.4)); } 100% { transform: scale(1.02); opacity: 1; stroke-width: 3.0; filter: drop-shadow(0 0 35px rgba(255,215,0,0.8)); } }
         
+        /* ✨ 新增：頂光背後的彩色能量圈 (6秒不同步呼吸) */
         .aura-pulse { transform-origin: 500px 245px; animation: aura-breathe 6s infinite alternate ease-in-out; }
         @keyframes aura-breathe { 
             0% { transform: scale(0.96); opacity: 0.6; } 
             100% { transform: scale(1.02); opacity: 1; } 
         }
 
+
+
+        /* 燃香點燈狀態 */
         body.incense-on #starCanvas { filter: brightness(2) drop-shadow(0 0 5px #fff); }
         body.incense-on #waterCanvas { opacity: 0.9; }
         body.incense-on #censer-group { opacity: 1; transform: translateY(0); }
@@ -126,12 +141,14 @@
         .incense-glow { animation: glow-pulse 1.5s infinite alternate ease-in-out; }
         @keyframes glow-pulse { 0% { r: 3.5px; opacity: 0.8; filter: drop-shadow(0 0 6px #ff4500); } 100% { r: 5px; opacity: 1; filter: drop-shadow(0 0 15px #ffaa00); } }
 
+        /* 雙層法界煙霧特效 */
         #smoke-container { position: absolute; inset: 0; pointer-events: none; z-index: 15; overflow: hidden; }
         .smoke-fine { position: absolute; width: 8px; height: 60px; background: linear-gradient(to top, rgba(200, 220, 240, 0.4), transparent); border-radius: 4px; filter: blur(4px); opacity: 0; animation: smoke-rise-fine 4s cubic-bezier(0.4, 0.1, 0.4, 1) forwards; }
         @keyframes smoke-rise-fine { 0% { transform: translateY(0) scaleX(1); opacity: 0; } 20% { opacity: 0.7; } 100% { transform: translateY(-40vh) scaleX(2) translateX(var(--drift)); opacity: 0; } }
         .smoke-diffused { position: absolute; width: 40px; height: 40px; background: radial-gradient(circle, rgba(180, 200, 220, 0.15) 0%, transparent 70%); border-radius: 50%; filter: blur(12px); opacity: 0; animation: smoke-rise-diffused 7s cubic-bezier(0.2, 0.1, 0.8, 1) forwards; }
         @keyframes smoke-rise-diffused { 0% { transform: translateY(0) scale(1) translateX(0); opacity: 0; } 30% { opacity: 0.6; } 100% { transform: translateY(-60vh) scale(6) translateX(var(--drift)); opacity: 0; } }
 
+        /* ✨ 底部控制區 (法語浮現 + 玻璃金框按鈕 + 常駐小字) */
         .ritual-container { position: absolute; bottom: max(30px, env(safe-area-inset-bottom)); display: flex; flex-direction: column; align-items: center; width: 100%; z-index: 100; }
         
         #blessing-text { height: 25px; margin-bottom: 20px; color: var(--gold-light); font-size: 1.1rem; letter-spacing: 8px; text-shadow: 0 0 20px rgba(243,229,171,0.9), 0 0 10px #fff; opacity: 0; pointer-events: none; white-space: nowrap; }
@@ -139,32 +156,37 @@
 
         .ritual-panel { display: flex; gap: 40px; }
         
+               /* ✨ 玻璃透明纖維淡金色框 (文字與邊框提亮) */
         .ritual-btn { color: var(--gold-light); font-size: 1rem; letter-spacing: 6px; cursor: pointer; transition: all 0.4s; padding: 12px 24px; background: rgba(255,255,255,0.05); border: 1px solid rgba(212,175,55,0.5); border-radius: 25px; backdrop-filter: blur(8px); box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-weight: bold; text-shadow: 0 0 8px rgba(243,229,171,0.6); }
         .ritual-btn:hover, .ritual-btn.active { color: #fff; text-shadow: 0 0 15px var(--gold-light); border-color: rgba(212,175,55,0.9); background: rgba(212,175,55,0.2); box-shadow: 0 0 20px rgba(212,175,55,0.4); }
 
+        /* ✨ 常駐微小提示 (提亮為淡白色) */
         .chant-hint { margin-top: 18px; font-size: 0.8rem; color: rgba(255,255,255,0.8); letter-spacing: 4px; pointer-events: none; text-shadow: 0 0 5px rgba(255,255,255,0.3); }
 
-        .modal-overlay { 
-            position: fixed; 
-            inset: 0; 
-            background: rgba(0,0,0,0.88); 
-            backdrop-filter: blur(12px); 
-            z-index: 10000; 
-            display: none; 
-            justify-content: center; 
-            align-items: center; 
-            opacity: 0; 
-            transition: opacity 0.5s ease; 
-            pointer-events: none; 
-        }
+        /* ✨ 說明與獎勵模態框：修復動畫與圖層衝突版 */
+.modal-overlay { 
+    position: fixed; 
+    inset: 0; 
+    background: rgba(0,0,0,0.88); 
+    backdrop-filter: blur(12px); 
+    z-index: 10000; 
+    display: none; 
+    justify-content: center; 
+    align-items: center; 
+    opacity: 0; 
+    transition: opacity 0.5s ease; 
+    pointer-events: none; 
+}
 
-        .modal-overlay.show { 
-            display: flex !important; 
-            opacity: 1 !important; 
-            pointer-events: auto !important; 
-        }
+/* 當加上 .show 時，強制賦予最高顯示權限與點擊權限 */
+.modal-overlay.show { 
+    display: flex !important; 
+    opacity: 1 !important; 
+    pointer-events: auto !important; 
+}
 
-      .modal-box { 
+/* ✨ 說明與獎勵模態框：修復動畫與圖層衝突版 */
+.modal-box { 
     width: 85%; 
     max-width: 340px; 
     max-height: 80vh; /* 🛑 限制最大高度為螢幕的 80%，防止超出 */
@@ -183,82 +205,90 @@
     scrollbar-color: var(--gold-solid) transparent;
 }
 
+/* Webkit 核心瀏覽器 (如 Chrome, Safari, iOS) 專用極細滾動條 */
+.modal-box::-webkit-scrollbar { width: 3px; }
+.modal-box::-webkit-scrollbar-thumb { background: var(--gold-solid); border-radius: 10px; }
+.modal-box::-webkit-scrollbar-track { background: transparent; }
 
-        .modal-box::-webkit-scrollbar { width: 3px; }
-        .modal-box::-webkit-scrollbar-thumb { background: var(--gold-solid); border-radius: 10px; }
-        .modal-box::-webkit-scrollbar-track { background: transparent; }
 
-        .modal-overlay.show .modal-box { 
-            transform: scale(1); 
-        }
+/* 彈框顯示時，內容物優雅放大 */
+.modal-overlay.show .modal-box { 
+    transform: scale(1); 
+}
 
-        .m-title { 
-            color: var(--gold-light); 
-            font-size: 1.2rem; 
-            letter-spacing: 5px; 
-            margin-bottom: 15px; 
-            text-shadow: 0 0 15px rgba(212,175,55,0.5); 
-            font-weight: bold;
-        }
+.m-title { 
+    color: var(--gold-light); 
+    font-size: 1.2rem; 
+    letter-spacing: 5px; 
+    margin-bottom: 15px; 
+    text-shadow: 0 0 15px rgba(212,175,55,0.5); 
+    font-weight: bold;
+}
 
-        .m-divider { 
-            width: 40px; 
-            height: 1px; 
-            background: var(--gold-solid); 
-            margin: 0 auto 20px; 
-            opacity: 0.5; 
-        }
+.m-divider { 
+    width: 40px; 
+    height: 1px; 
+    background: var(--gold-solid); 
+    margin: 0 auto 20px; 
+    opacity: 0.5; 
+}
 
-        .m-text { 
-            font-size: 0.95rem; 
-            line-height: 1.8; 
-            margin-bottom: 30px; 
-            letter-spacing: 2px; 
-            color: #e0e0e0; 
-            text-align: center; 
-        }
+.m-text { 
+    font-size: 0.95rem; 
+    line-height: 1.8; 
+    margin-bottom: 30px; 
+    letter-spacing: 2px; 
+    color: #e0e0e0; 
+    text-align: center; 
+}
 
-        .m-btn-prime { 
-            background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(212,175,55,0.05)); 
-            border: 1px solid var(--gold-solid); 
-            color: var(--gold-light); 
-            padding: 12px; 
-            border-radius: 20px; 
-            font-size: 0.95rem; 
-            cursor: pointer; 
-            transition: all 0.3s; 
-            letter-spacing: 3px; 
-            width: 100%; 
-            box-shadow: 0 0 15px rgba(212,175,55,0.1); 
-        }
+.m-btn-prime { 
+    background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(212,175,55,0.05)); 
+    border: 1px solid var(--gold-solid); 
+    color: var(--gold-light); 
+    padding: 12px; 
+    border-radius: 20px; 
+    font-size: 0.95rem; 
+    cursor: pointer; 
+    transition: all 0.3s; 
+    letter-spacing: 3px; 
+    width: 100%; 
+    box-shadow: 0 0 15px rgba(212,175,55,0.1); 
+}
 
-        .m-btn-prime:hover { 
-            background: rgba(212,175,55,0.2); 
-        }
+.m-btn-prime:hover { 
+    background: rgba(212,175,55,0.2); 
+}
 
-        .candle-flicker {
-            transform-origin: center bottom;
-            animation: flicker-anim 3s ease-in-out infinite alternate;
-        }
-        @keyframes flicker-anim {
-            0% { transform: scale(0.95) rotate(-1.5deg); opacity: 0.85; }
-            50% { transform: scale(1.02) rotate(1deg); opacity: 1; }
-            100% { transform: scale(0.98) rotate(0deg); opacity: 0.9; }
-        }
+/* 🕯️ 燭火微動態 */
+.candle-flicker {
+    transform-origin: center bottom;
+    animation: flicker-anim 3s ease-in-out infinite alternate;
+}
+@keyframes flicker-anim {
+    0% { transform: scale(0.95) rotate(-1.5deg); opacity: 0.85; }
+    50% { transform: scale(1.02) rotate(1deg); opacity: 1; }
+    100% { transform: scale(0.98) rotate(0deg); opacity: 0.9; }
+}
 
-        @keyframes mandala-divine-glow {
-            0% { opacity: 0.4; filter: drop-shadow(0 0 10px rgba(255,215,0,0.4)); }
-            100% { opacity: 0.9; filter: drop-shadow(0 0 35px rgba(255,215,0,0.8)); }
-        }
 
-        .mandala-static-container {
-            transform-origin: 500px 460px;
-        }
+   /* 曼陀羅靜態呼吸感：心光中心極大化 */
+@keyframes mandala-divine-glow {
+    0% { opacity: 0.4; filter: drop-shadow(0 0 10px rgba(255,215,0,0.4)); }
+    100% { opacity: 0.9; filter: drop-shadow(0 0 35px rgba(255,215,0,0.8)); }
+}
 
-        .mandala-glow-effect {
-            animation: mandala-divine-glow 8s ease-in-out infinite alternate;
-        }
+.mandala-static-container {
+    /* 核心定位：佛尊胸前中心點 */
+    transform-origin: 500px 460px;
+}
 
+.mandala-glow-effect {
+    animation: mandala-divine-glow 8s ease-in-out infinite alternate;
+}
+
+        /* ================= ✨ 大乘五供與金粉專屬樣式 ================= */
+        /* 1. 主畫面：蓮花座下的五供（放大1.2倍，下沉-120px完美對齊） */
         .altar {
             position: absolute; bottom: 140px; left: 0; width: 100%; z-index: 25; 
             display: none; opacity: 0; transition: opacity 3s ease-in-out; 
@@ -272,6 +302,7 @@
             transform: scale(1.2); transform-origin: center bottom; filter: drop-shadow(0 0 45px rgba(212, 175, 55, 0.35)); 
         }
 
+        /* 2. 第二彈框：十日圓滿觀相法界（維持物理佈局） */
         #offerings-modal .modal-box {
             width: 95%; max-width: 500px; max-height: 90vh;
             background: linear-gradient(135deg, #0a0a0f, #020205); 
@@ -296,7 +327,9 @@
             100% { transform: translateY(100vh) translateX(var(--drift)) scale(0.4); opacity: 0; }
         }
         .svg-content { width: 100%; height: 100%; overflow: visible; }
-        
+        /* ========================================================== */
+     
+        /* ✨ 寶幡專屬動態 (搖曳、呼吸、琉璃光) */
         .banner-breath { animation: b-pulse 6s ease-in-out infinite alternate; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3)); }
         @keyframes b-pulse { 0% { filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3)); } 100% { filter: drop-shadow(0 0 35px rgba(255, 215, 0, 0.7)); } }
         .sway-base { transform-origin: 150px 20px; animation: gentle-sway 8s ease-in-out infinite alternate; }
@@ -358,15 +391,16 @@
     opacity: 1.4 !important; /* 強制提升至最亮 */
 }
 
+
     </style>
 </head>
 <body>
         <div class="nav-top">
         <div class="nav-btn" onclick="returnToMainHall()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> 道場へ戻る
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> 返回道場
         </div>
         
-        <div class="nav-btn lunar-sweep-btn" onclick="location.href='lunar_jp.html'">
+        <div class="nav-btn lunar-sweep-btn" onclick="location.href='lunar.html'">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="lunar-icon">
                 <defs>
                     <radialGradient id="iconGlowBeauty" cx="50%" cy="50%" r="50%">
@@ -399,10 +433,12 @@
                 <circle cx="32" cy="32" r="12" fill="url(#iconGlowBeauty)"/>
                 <circle cx="32" cy="32" r="3.5" fill="#fff" stroke="#f3e5ab" stroke-width="1" style="filter: drop-shadow(0 0 4px #fff);"/>
             </svg>
-            華蔵月相
+            華藏月相
         </div>
 
     </div>
+
+
 
        <div class="info-top">
         <div class="info-row">
@@ -480,7 +516,8 @@
                     <stop offset="100%" style="stop-color:#8B6508;stop-opacity:1" />
                 </linearGradient>
                                   
-                                  <linearGradient id="lotusFill" x1="0%" y1="0%" x2="0%" y2="100%">
+                    
+  <linearGradient id="lotusFill" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stop-color="#FFDF00" stop-opacity="0.95"/> 
         <stop offset="50%" stop-color="#D4AF37" stop-opacity="0.95"/> 
         <stop offset="100%" stop-color="#995000" stop-opacity="1"/> 
@@ -502,7 +539,6 @@
         <stop offset="0%" stop-color="#f3e5ab" stop-opacity="0.5"/>
         <stop offset="100%" stop-color="#f3e5ab" stop-opacity="0"/>
     </radialGradient>
-
 
                 <radialGradient id="haloFillDef" cx="50%" cy="50%" r="50%">
                     <stop offset="0%" stop-color="#FFDF00" stop-opacity="0"/> 
@@ -550,6 +586,7 @@
                     <stop offset="100%" stop-color="#f3c2c4" stop-opacity="0.35"/> 
                 </linearGradient>
                
+            
                 
                 <linearGradient id="glass-base-mini" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stop-color="rgba(243, 229, 171, 0.5)"/>
@@ -604,7 +641,7 @@
                     <path d="M 500 815 Q 475 805, 465 780 C 465 730, 500 715, 500 715 C 500 715, 535 730, 535 780 Q 525 805, 500 815 Z" fill="none" />
                 </g>
             </defs>
-               <g class="mandala-static-container" mask="url(#mandala-total-mask)" style="mix-blend-mode: screen;">
+         <g class="mandala-static-container" mask="url(#mandala-total-mask)" style="mix-blend-mode: screen;">
     <g class="mandala-glow-effect">
         
         <g stroke="#FFD700" stroke-width="2" fill="url(#mandalaInnerFill)">
@@ -629,6 +666,7 @@
     </g>
 </g>
 
+
             <g class="aura-pulse" mask="url(#halo-mask)">
                 <g mask="url(#color-ring-mask)">
                     <circle cx="500" cy="245" r="225" fill="url(#colorMix1)" />
@@ -640,7 +678,7 @@
             <circle class="halo-pulse" cx="500" cy="245" r="215" fill="url(#haloFillDef)" stroke="url(#haloGlow)" stroke-width="2" opacity="0.8" mask="url(#halo-mask)" />
             <circle class="halo-pulse" cx="500" cy="245" r="160" fill="none" stroke="url(#haloGlow)" stroke-width="2" mask="url(#halo-mask)" />
 
-                     <g>
+                      <g>
                 <path d="M 500 108 C 506 108, 508 114, 508 118 C 522 118, 524 145, 510 155 C 550 155, 565 170, 565 220 C 565 250, 564 280, 561 300 C 558 315, 552 325, 548 330 C 540 332, 540 350, 550 370 C 610 370, 650 400, 670 480 C 690 560, 680 660, 650 700 C 720 680, 800 700, 830 750 C 860 800, 830 840, 770 840 L 230 840 C 170 840, 140 800, 170 750 C 200 700, 280 680, 350 700 C 320 660, 310 560, 330 480 C 350 400, 390 370, 450 370 C 460 350, 460 332, 452 330 C 448 325, 442 315, 439 300 C 436 280, 435 250, 435 220 C 435 170, 450 155, 490 155 C 476 145, 478 118, 492 118 C 492 114, 494 108, 500 108 Z" fill="rgba(1, 1, 3, 0.15)" />
                 <path d="M 500 108 C 506 108, 508 114, 508 118 C 522 118, 524 145, 510 155 C 550 155, 565 170, 565 220 C 565 250, 564 280, 561 300 C 558 315, 552 325, 548 330 C 540 332, 540 350, 550 370 C 610 370, 650 400, 670 480 C 690 560, 680 660, 650 700 C 720 680, 800 700, 830 750 C 860 800, 830 840, 770 840 L 230 840 C 170 840, 140 800, 170 750 C 200 700, 280 680, 350 700 C 320 660, 310 560, 330 480 C 350 400, 390 370, 450 370 C 460 350, 460 332, 452 330 C 448 325, 442 315, 439 300 C 436 280, 435 250, 435 220 C 435 170, 450 155, 490 155 C 476 145, 478 118, 492 118 C 492 114, 494 108, 500 108 Z" fill="url(#bodyFill)" />
                 <path d="M 500 108 C 506 108, 508 114, 508 118 C 522 118, 524 145, 510 155 C 550 155, 565 170, 565 220 C 565 250, 564 280, 561 300 C 558 315, 552 325, 548 330 C 540 332, 540 350, 550 370 C 610 370, 650 400, 670 480 C 690 560, 680 660, 650 700 C 720 680, 800 700, 830 750 C 860 800, 830 840, 770 840 L 230 840 C 170 840, 140 800, 170 750 C 200 700, 280 680, 350 700 C 320 660, 310 560, 330 480 C 350 400, 390 370, 450 370 C 460 350, 460 332, 452 330 C 448 325, 442 315, 439 300 C 436 280, 435 250, 435 220 C 435 170, 450 155, 490 155 C 476 145, 478 118, 492 118 C 492 114, 494 108, 500 108 Z" fill="url(#bodyFillPink)" style="mix-blend-mode: screen;" />
@@ -648,7 +686,7 @@
                 <g fill="none" stroke="url(#goldBody)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="1">
                     <path d="M 500 108 C 506 108, 508 114, 508 118 C 522 118, 524 145, 510 155 C 550 155, 565 170, 565 220 C 565 250, 564 280, 561 300 C 558 315, 552 325, 548 330 C 540 332, 540 350, 550 370 C 610 370, 650 400, 670 480 C 690 560, 680 660, 650 700 C 720 680, 800 700, 830 750 C 860 800, 830 840, 770 840 L 230 840 C 170 840, 140 800, 170 750 C 200 700, 280 680, 350 700 C 320 660, 310 560, 330 480 C 350 400, 390 370, 450 370 C 460 350, 460 332, 452 330 C 448 325, 442 315, 439 300 C 436 280, 435 250, 435 220 C 435 170, 450 155, 490 155 C 476 145, 478 118, 492 118 C 492 114, 494 108, 500 108 Z" stroke-width="2.1" />
 
-                   <g stroke="#8B6508" stroke-width="1.5" fill="url(#goldBody)">
+                 <g stroke="#8B6508" stroke-width="1.5" fill="url(#goldBody)">
                         <circle cx="570" cy="200" r="6" />
                         <circle cx="568" cy="187" r="6" />
                         <circle cx="563" cy="174" r="6" />
@@ -742,6 +780,7 @@
     <path d="M 585 660 Q 570 710 535 715" stroke-width="2.2" />
     <path d="M 585 660 Q 570 710 535 720" stroke-width="2.2" />
 </g>
+
 <g class="buddha-hands-closed" transform="translate(500, 610) scale(0.7) translate(-100, -155)" style="filter: drop-shadow(0 0 20px rgba(212,175,55,0.6));">
     <path d="M 100 25 C 97 18, 93 20, 92 30 L 62 165 C 55 190, 40 230, 10 245 L 30 275 C 65 265, 85 245, 100 225 C 115 245, 135 265, 170 275 L 190 245 C 160 230, 145 190, 138 165 L 108 30 C 107 20, 103 18, 100 25 Z" fill="url(#glass-base-mini)" />
     <path d="M 138 165 L 108 30 C 107 20, 103 18, 100 25 C 97 18, 93 20, 92 30 L 62 165 M 30 275 C 65 265, 85 245, 100 225 C 115 245, 135 265, 170 275" fill="none" stroke="var(--gold-solid)" stroke-width="2.5" stroke-linejoin="round"/>
@@ -816,11 +855,7 @@
 </path>
 
 
-                    
-
-
-
-<g class="buddha-eye-closed">
+                          <g class="buddha-eye-closed">
     <circle cx="500" cy="195" r="3" fill="url(#pureGoldGradient)" stroke="none" class="glow-core" />
     <path d="M 446 236 Q 462 239 478 236" />
     <path d="M 522 236 Q 538 239 554 236" />
@@ -830,8 +865,8 @@
 
 <g class="buddha-eye-open">
     <circle cx="500" cy="195" r="4.1" fill="url(#pureGoldGradient)" stroke="none" class="glow-core" />
-    <path d="M 446 236 Q 462 239 478 236 Q 462 250 446 236 Z" fill="url(#glass-base-mini)" opacity="1.8" stroke="url(#goldBody)" stroke-width="1.8" stroke-opacity="1.3" stroke-linejoin="round" /> 
-    <path d="M 522 236 Q 538 239 558 236 Q 538 250 526 236 Z" fill="url(#glass-base-mini)" opacity="1.8" stroke="url(#goldBody)" stroke-width="1.8" stroke-opacity="1.3" stroke-linejoin="round" /> 
+    <path d="M 446 236 Q 462 239 478 236 Q 462 250 446 236 Z" fill="url(#glass-base-mini)" opacity="1.2" stroke="url(#goldBody)" stroke-width="1.8" stroke-opacity="1.3" stroke-linejoin="round" /> 
+    <path d="M 522 236 Q 538 239 554 236 Q 538 250 522 236 Z" fill="url(#glass-base-mini)" opacity="1.2" stroke="url(#goldBody)" stroke-width="1.8" stroke-opacity="1.3" stroke-linejoin="round" /> 
 </g>
 
 
@@ -896,7 +931,6 @@
                     </g>
                     
                 </g>
-
 
 
                 <g id="orb-layer" style="opacity: 0; pointer-events: none;">
@@ -1003,11 +1037,11 @@
         <div id="blessing-text"></div>
         
         <div class="ritual-panel">
-            <div class="ritual-btn" id="btn-bow" onclick="toggleAction('bow')">弥陀に頂礼す</div>
-            <div class="ritual-btn" id="btn-incense" onclick="toggleIncense()">燃灯焼香</div>
+            <div class="ritual-btn" id="btn-bow" onclick="toggleAction('bow')">頂禮彌陀</div>
+            <div class="ritual-btn" id="btn-incense" onclick="toggleIncense()">燃燈燒香</div>
         </div>
         
-        <div class="chant-hint">仏号を黙念してください</div>
+        <div class="chant-hint">請默念佛號</div>
     </div>
        <div class="modal-overlay" id="milestone-modal">
         <div class="modal-box" id="milestone-box" style="padding: 30px 25px;">
@@ -1127,9 +1161,9 @@
                 </svg>
             </div>
 
-            <div id="milestone-name-display" style="color: var(--gold-solid); font-size: 1.1rem; letter-spacing: 4px; margin-bottom: 15px;">行者</div>
+            <div id="milestone-name-display" style="color: var(--gold-solid); font-size: 1.1rem; letter-spacing: 4px; margin-bottom: 15px;">行 者</div>
             <div id="milestone-text" style="color: #ccc; font-size: 0.85rem; line-height: 1.8; letter-spacing: 2px; margin-bottom: 25px;"></div>
-            <button class="m-btn-prime" onclick="closeMilestone()">合掌収摂</button>
+            <button class="m-btn-prime" onclick="closeMilestone()">合十收攝</button>
         </div>
     </div>
 
@@ -1137,7 +1171,7 @@
     <div class="modal-overlay" id="offerings-modal">
         <div class="modal-box">
             <div style="color: var(--gold-light); font-size: 1.1rem; letter-spacing: 4px; margin-bottom: 25px; text-shadow: 0 0 15px rgba(212,175,55,0.6); font-weight: bold;">
-                【 十日円満 ‧ 広修供養 】
+                【 十日圓滿 ‧ 廣修供養 】
             </div>
             <div class="modal-altar-table">
                 <div class="vessel-container water-cup"><svg class="svg-content" viewBox="0 0 100 150"><use href="#water-cup-model" /></svg></div>
@@ -1174,8 +1208,8 @@
                 <div class="vessel-container fruit-plate"><svg class="svg-content" viewBox="0 0 100 150"><use href="#fruit-plate-model" /></svg></div>
                 <div class="vessel-container water-cup"><svg class="svg-content" viewBox="0 0 100 150"><use href="#water-cup-model" /></svg></div>
             </div>
-            <div style="color: #a0a0a0; font-size: 0.85rem; line-height: 1.6; letter-spacing: 1px; margin-bottom: 25px; text-align: center;">願わくはこの清浄なる供養の資糧を以て、法界の衆生に回向し、<br>同じく安楽国に生まれ、不退転を得んことを。</div>
-            <button class="m-btn-prime" onclick="closeOfferingsModal()">合掌収摂</button>
+            <div style="color: #a0a0a0; font-size: 0.85rem; line-height: 1.6; letter-spacing: 1px; margin-bottom: 25px; text-align: center;">願以此清淨供養資糧，迴向法界眾生，<br>同生安樂國，得不退轉。</div>
+            <button class="m-btn-prime" onclick="closeOfferingsModal()">合十收攝</button>
         </div>
     </div>
     <div class="modal-overlay" id="modal">
@@ -1183,36 +1217,47 @@
             <div class="m-title" id="m-title"></div>
             <div class="m-divider" id="m-div"></div>
             <div class="m-text" id="m-text"></div>
-            <button class="m-btn-prime" id="m-btn" onclick="closeModal()">合掌収摂</button>
+            <button class="m-btn-prime" id="m-btn" onclick="closeModal()">合十收攝</button>
         </div>
     </div>
+
 <script>
+
+
+    // 🌟 1. 寫死中文版專屬資料庫真金鑰匙，拒絕任何誤判風險 🌟
+    const STORAGE_KEY = 'PX_V15.0'; // 🛑 中文版專屬金鑰
+    
     let db = null;
     try {
-        db = JSON.parse(localStorage.getItem('PX_JP_V15.0'));
+        db = JSON.parse(localStorage.getItem(STORAGE_KEY));
         if (!db || typeof db !== 'object') db = null;
         
+        // 舊行者無損防護：自動為舊資料補齊 V15 的新抽屜
         if (db && !db.dailyTasks) db.dailyTasks = [];
         if (db && !db.visitedRealms) db.visitedRealms = [];
         if (db && !db.treasures) db.treasures = { sword: 0, vase: 0, jewel: 0, lotus_lamp: 0, dharma_wheel: 0, white_lotus: 0, indra_net: 0 };
         if (db && !db.bodhiRecords) db.bodhiRecords = [];
-        if (db && !db.bowData) db.bowData = { streakCount: 0, lastLoginDate: "", lastRewardStreak: 0 }; 
+        if (db && !db.bowData) db.bowData = { streakCount: 0, lastLoginDate: "", lastRewardStreak: 0 }; // ✨ 補齊舊行者的頂禮抽屜
     } catch(e) { 
         db = null; 
     }
 
     if (!db) {
+        // 新行者創世預設值
         db = { 
             name: "", totalNian: 0, points: 0, dailyTasks: [], todayCount: 0, lastDate: new Date().toLocaleDateString(), 
             currentRank: "", streakDays: 0, lastNianDate: "",
             treasures: { sword: 0, vase: 0, jewel: 0, lotus_lamp: 0, dharma_wheel: 0, white_lotus: 0, indra_net: 0 },
             bodhiRecords: [], visitedRealms: [],
+            // ✨ 新行者的頂禮抽屜
             bowData: { streakCount: 0, lastLoginDate: "", lastRewardStreak: 0 }
         };
     }     
         
-    function saveDB() { localStorage.setItem('PX_JP_V15.0', JSON.stringify(db)); }
+        
+    function saveDB() { localStorage.setItem(STORAGE_KEY, JSON.stringify(db)); }
 
+    // 🌟 1. 關閉第一彈框，喚醒第二觀相彈框
     function closeMilestone() {
         const modal = document.getElementById('milestone-modal');
         if (!modal) return;
@@ -1227,6 +1272,7 @@
         }, 500);
     }
 
+    // 🌟 2. 開啟第二彈框 (靜態觀相)
     function triggerOfferingsModal() {
         const offeringsModal = document.getElementById('offerings-modal');
         if (!offeringsModal) return;
@@ -1235,6 +1281,7 @@
         offeringsModal.classList.add('show');
     }
 
+    // 🌟 3. 關閉第二彈框，觸發主畫面蓮花座下的真實供養
     function closeOfferingsModal() {
         const offeringsModal = document.getElementById('offerings-modal');
         if (!offeringsModal) return;
@@ -1246,6 +1293,7 @@
         }, 500);
     }
 
+    // 🌟 4. 主畫面：降下金粉，且五供伴隨 5 秒動畫生長，駐留 60 秒
     function startMainAltarOffering() {
         if (typeof spawnFlowerRain === 'function') spawnFlowerRain(250); 
         
@@ -1253,14 +1301,16 @@
         if (altar) {
             altar.style.display = 'flex'; 
             
+            // 將時間切換放入 50 毫秒緩衝區，確保渲染完成不當機
             setTimeout(() => { 
                 altar.style.opacity = '1'; 
                 const altarSvg = document.querySelector('#altar-offerings .center-vase svg');
                 if(altarSvg && typeof altarSvg.setCurrentTime === 'function') {
-                    altarSvg.setCurrentTime(5); 
+                    altarSvg.setCurrentTime(5); // 跳至第 5 秒完美接續生長動畫
                 }
             }, 50);
             
+            // 駐留 60 秒後收攝
             setTimeout(() => {
                 altar.style.opacity = '0';
                 setTimeout(() => { altar.style.display = 'none'; }, 3000); 
@@ -1269,6 +1319,7 @@
     }
 
 
+    // ✨ 海量金粉引擎 (純 CSS，極度輕量自動銷毀)
     function spawnFlowerRain(totalFlowers = 250) {
         let container = document.getElementById('gold-powder-container');
         if (!container) {
@@ -1296,6 +1347,7 @@
 
             container.appendChild(powder);
 
+            // 動畫結束自動拔除節點，不留痕跡
             setTimeout(() => {
                 if (powder.parentNode) powder.remove();
             }, (dur + delay) * 1000);
@@ -1303,60 +1355,70 @@
     }
 
 
+    // ✨ 修持邏輯：精準對接 bowData 專屬抽屜，解決資料遺失 Bug
     function handleStreak() {
         const now = new Date();
         const todayStr = now.toDateString(); 
         
+        // 🛑 防護：確保 bowData 存在
         if (!db.bowData) db.bowData = { streakCount: 0, lastLoginDate: "", lastRewardStreak: 0 };
 
+        // 判斷是否為「新的一天」
         if (db.bowData.lastLoginDate !== todayStr) {
             db.bowData.streakCount++; 
             db.bowData.lastLoginDate = todayStr;
             
+            // 觸發里程碑判定 (10, 20, 30...) 且 該里程碑尚未領取獎勵
             if (db.bowData.streakCount % 10 === 0 && db.bowData.lastRewardStreak !== db.bowData.streakCount) {
                 db.points += 100;
                 db.bowData.lastRewardStreak = db.bowData.streakCount; 
                 
-                let title = "十日 ‧ 初発心";
-                if (db.bowData.streakCount >= 100000) title = "無量 ‧ 尽未来際";
-                else if (db.bowData.streakCount >= 10000) title = "万日 ‧ 不退転";
-                else if (db.bowData.streakCount >= 1000) title = "千日 ‧ 三昧を得る";
-                else if (db.bowData.streakCount >= 100) title = "百日 ‧ 恒常念";
+                let title = "十日 ‧ 初發心";
+                if (db.bowData.streakCount >= 100000) title = "無量 ‧ 盡未來際";
+                else if (db.bowData.streakCount >= 10000) title = "萬日 ‧ 不退轉";
+                else if (db.bowData.streakCount >= 1000) title = "千日 ‧ 得三昧";
+                else if (db.bowData.streakCount >= 100) title = "百日 ‧ 恆常念";
                 
-                let currentName = "行 者";
-                if (db.name && db.name.trim() !== "") {
-                    currentName = db.name;
-                }
-                document.getElementById('milestone-name-display').innerText = currentName;
+                // 🌟 新增：純淨抓取行者名號邏輯
+let currentName = "行 者";
+if (db.name && db.name.trim() !== "") {
+    currentName = db.name;
+}
+document.getElementById('milestone-name-display').innerText = currentName;
+// 🌟 新增結束
                 
+                // 動態美學：先讓能量棒衝滿，再跳彈框
                 setTimeout(() => {
                     const bar = document.getElementById('streak-bar');
                     if (bar) bar.style.width = '100%';
                     
                     setTimeout(() => {
                         document.getElementById('milestone-title').innerText = `【 ${title} 】`;
-                        document.getElementById('milestone-text').innerHTML = `<span style="color:var(--gold-light); font-size: 0.95rem;">「懸繒然灯、散華焼香」</span><br>円満なる ${db.bowData.streakCount} 日の清浄なる観相、荘厳なる宝幡を懸く。<br><b style='color:var(--gold-solid)'>+100</b> の資糧を獲得し、主システムに振り込まれました。`;
+                        document.getElementById('milestone-text').innerHTML = `<span style="color:var(--gold-light); font-size: 0.95rem;">「懸繒然燈，散華燒香」</span><br>圓滿 ${db.bowData.streakCount} 日清淨觀相，懸掛莊嚴寶幡。<br>獲 <b style='color:var(--gold-solid)'>+100</b> 資糧匯入主系統。`;
 
                         
                         const modal = document.getElementById('milestone-modal');
                         modal.style.display = 'flex';
-                        void modal.offsetWidth; 
+                        void modal.offsetWidth; // 確保瀏覽器反應
                         modal.classList.add('show');
                     }, 800);
                 }, 500);
                 
                 saveDB();
                 document.getElementById('streak-text').innerText = `修持：第 ${db.bowData.streakCount} 日`;
-                return; 
+                return; // 里程碑日由上面的動畫接手，不執行下方一般更新
             }
             saveDB();
         }
+                // --- 一般日（或當日重複開啟）的 UI 更新 ---
         document.getElementById('streak-text').innerText = `修持：第 ${db.bowData.streakCount || 1} 日`;
         const bar = document.getElementById('streak-bar');
         if (bar) {
+            // 如果當前天數是 10 的倍數（且已領過），能量棒保持 100% 直到關閉彈框或下一天
             if (db.bowData.streakCount % 10 === 0 && db.bowData.streakCount > 0) {
                 bar.style.width = '100%';
                 
+                // 🌟 當天重複進入道場：直接觸發第二個觀相彈框！
                 setTimeout(() => {
                     triggerOfferingsModal();
                 }, 600);
@@ -1368,6 +1430,7 @@
     }
 
 
+    // 模態框操作函數
     function showModal(title, text, btnText, callback) {
         document.getElementById('m-title').innerHTML = title; 
         document.getElementById('m-text').innerHTML = text;
@@ -1379,39 +1442,40 @@
     
     function closeModal() { document.getElementById('modal').classList.remove('show'); }
     
-    function showLawInfo() {
-        const infoHtml = `
-            <div style="text-align: left; font-size: 0.85rem; line-height: 1.7; color: #ccc;">
-                <b style="color:var(--gold-light)">【三身如来 ‧ 体相用】</b><br>
-                《華厳経》の枠組みにおいて：<br>
-                ‧ <span style="color:var(--gold-light)">毘盧遮那如来 (法身)</span>：諸法の実相であり、虚空のように遍在し、万物の本体である。<br>
-                ‧ <span style="color:var(--gold-light)">阿弥陀如来 (報身)</span>：功徳が円満であり、極楽世界にて荘厳なる金身を現し、衆生を度すための勝相である。<br>
-                ‧ <span style="color:var(--gold-light)">釈迦牟尼如来 (応化身)</span>：大悲の化現であり、娑婆世界にて衆生を導く、修行の導師である。<br><br>
-                
-                <b style="color:var(--gold-light)">【常寂光 ‧ 究極の帰着点】</b><br>
-                「常」にして遷らず、「寂」にして垢なく、「光」にして世を照らす。これこそが心性が徹底的に清浄となった後の、不生不滅の究竟なる境界である。<br><br>
-                
-                <b style="color:var(--gold-light)">【弥陀に頂礼す ‧ 燃灯焼香】</b><br>
-                ‧ <span style="color:#fff">弥陀に頂礼す</span>：<br>
-                《無量寿経》に云く：三輩往生する者は「当に無上菩提の心を発し、一向に無量寿仏を専念すべし。」頂礼の時、身心を弥陀に帰命し、これを以て極楽への往生を願うよう回向する。<br><br>
-                ‧ <span style="color:#fff">燃灯焼香</span>：<br>
-                《無量寿経》に云く：三輩往生する者は「懸繒然灯、散華焼香す。」これを以て至誠に供養し、自性の光明を点し、これを以て極楽への往生を願うよう回向する。<br><br>
+            function showLawInfo() {
+    const infoHtml = `
+        <div style="text-align: left; font-size: 0.85rem; line-height: 1.7; color: #ccc;">
+            <b style="color:var(--gold-light)">【三身如來 ‧ 體相用】</b><br>
+            在《華嚴經》的架構下：<br>
+            ‧ <span style="color:var(--gold-light)">毗盧遮那如來 (法身)</span>：諸法實相，如虛空般無處不在，乃萬物之本體。<br>
+            ‧ <span style="color:var(--gold-light)">阿彌陀如來 (報身)</span>：功德圓滿，於極樂世界現莊嚴金身，為度眾生之勝相。<br>
+            ‧ <span style="color:var(--gold-light)">釋迦牟尼如來 (應化身)</span>：大悲化現，於娑婆世界教導眾生，為修行之導師。<br><br>
+            
+            <b style="color:var(--gold-light)">【常寂光 ‧ 終極歸宿】</b><br>
+            「常」而不遷，「寂」而無垢，「光」而照世。此乃心性徹底清淨後，不生不滅的究竟境界。<br><br>
+            
+            <b style="color:var(--gold-light)">【頂禮彌陀 ‧ 燃燈燒香】</b><br>
+            ‧ <span style="color:#fff">頂禮彌陀</span>：<br>
+            《無量壽經》云：三輩往生者「當發無上菩提之心，一向專念無量壽佛。」頂禮之時，將身心歸命彌陀，以此迴向願生極樂。<br><br>
+            ‧ <span style="color:#fff">燃燈燒香</span>：<br>
+            《無量壽經》云：三輩往生者「懸繒然燈，散華燒香。」以此至誠供養，點亮自性光明，以此迴向願生極樂。<br><br>
 
-                <b style="color:var(--gold-light)">【無相の相 ‧ 純浄なる金身】</b><br>
-                弥陀の荘厳なる瑠璃の金身と蓮座は、世俗によくあるいかなる画像ファイルでもなく、完全に「純粋な数学的座標」によって交織されたものである（SVGベクトルグラフィック）。<br>
-                安易な描画を捨てることは、このデジタル道場の「絶対的な純浄と無量」を達成するためである。外部の画像ファイルへの依存をゼロにし、著作権の論争を完全に絶ち、無限に拡大しても瑠璃の金身は完璧で瑕疵がなく、決して劣化しない。<br><br>
+            <b style="color:var(--gold-light)">【無相之相 ‧ 純淨金身】</b><br>
+            彌陀的莊嚴琉璃金身與蓮座，並非世俗常見的任何圖檔，而是完全由「純淨的數學座標」交織而成（SVG 向量圖形）。<br>
+            捨棄便捷的繪圖，是為了達到這座數位道場的「絕對純淨無量」——零外部圖檔依賴、徹底斷絕版權爭議，且就算無限放大，琉璃金身皆是完美無瑕，絕不失真。<br><br>
 
-                しかし、これは容易な開創の道ではない。仏身の金色のグラデーションの一筋、蓮の花びらの一枚の広がり、印を結ぶ手の一つ一つの悲智のカーブは、筆で描くことはできず、荘厳なる法相を一行の、しかし絶対に正確な数字とベジェ曲線（Bézier curve）へと化さなければならない。一つの座標の微小なずれ、一つの数値の増減が、全体の荘厳さに影響を与えるのである。<br><br>
+            然而，這是一條不容易的開創之路。佛身的每一道金光漸層、每一片蓮瓣的舒展、每一個手印的悲智弧度，都無法使用畫筆揮灑，必須將莊嚴的法相，化作一行行卻絕對精準的數字與貝茲曲線（Bézier curve）。一個座標的微小偏移、一數點的增減，都會牽動整體的莊嚴。<br><br>
 
-                弥陀の瑠璃の金身と浄土全体は、無数の試行錯誤を経て、座標を推算し、光と影をテストし続けることによって鍛え上げられたものである。これは単なる美学の彫琢ではない。この反復する試行錯誤、純粋さに対する過酷なまでのこだわりこそが、法界に対する最も至誠なる供養なのである。
-            </div>
-        `;
-        showModal("法界観想の導き", infoHtml, "合掌収摂");
-    }
-
-
+            彌陀琉璃金身與整座淨土，是經過無數次的土法煉鋼，在無數次的嘗試錯誤中，一步步推算座標、一次次測試光影所淬鍊而出。這不僅是美學的雕琢，這份反覆試錯、對純粹幾近苛求的堅持，即是對法界最至誠的供養。
+        </div>
+    `;
+    showModal("法界觀想導引", infoHtml, "合十收攝");
+}
 
 
+
+
+    // 星空與水波紋背景
     const canvas = document.getElementById('starCanvas'); 
     const ctx = canvas.getContext('2d'); 
     let width, height, stars = [], warpSpeed = 0.5, starScale = 1; 
@@ -1492,30 +1556,19 @@
     function speakWords(text) {
         if (!('speechSynthesis' in window)) return;
         window.speechSynthesis.cancel();
-        let isAndroid = /Android/i.test(navigator.userAgent);
         const msg = new SpeechSynthesisUtterance(text);
-        msg.lang = 'ja-JP'; msg.rate = 0.8; msg.pitch = 0.9;
-        
-        if (isAndroid) {
-            let voices = window.speechSynthesis.getVoices();
-            let jaVoice = voices.find(v => v.lang === 'ja-JP' && v.name.includes('Google')) || voices.find(v => v.lang.includes('ja'));
-            if (jaVoice) msg.voice = jaVoice;
-            setTimeout(() => { window.speechSynthesis.speak(msg); }, 150);
-        } else {
-            let voices = window.speechSynthesis.getVoices();
-            let jaVoice = voices.find(v => v.lang === 'ja-JP');
-            if (jaVoice) msg.voice = jaVoice;
-            window.speechSynthesis.speak(msg);
-        }
+        msg.lang = 'zh-TW'; msg.rate = 0.8; msg.pitch = 0.9;
+        window.speechSynthesis.speak(msg);
     }
 
+    // ✨ 專屬法語浮現函數 (防重疊)
     function showBlessing(text) {
         const el = document.getElementById('blessing-text');
         if(!el) return;
         el.innerText = text;
-        el.style.animation = 'none'; 
-        void el.offsetWidth; 
-        el.style.animation = 'float-blessing 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards'; 
+        el.style.animation = 'none'; // 拔除舊動畫
+        void el.offsetWidth; // 強制重繪
+        el.style.animation = 'float-blessing 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards'; // 賦予新動畫
     }
 
     function toggleAction(action) {
@@ -1530,7 +1583,7 @@
             warpSpeed = 15; starScale = 2;
             triggerGoldenBurst();
             
-            speakWords("無量光の護佑、安康ならんことを");
+            speakWords("無量光護佑安康");
             showBlessing("無量光 ‧ 護佑安康");
             
             setTimeout(() => { 
@@ -1552,8 +1605,8 @@
             document.body.classList.add('incense-on');
             btn.classList.add('active');
             
-            speakWords("無量寿、極楽に生まれんことを願う");
-            showBlessing("無量寿 ‧ 願生極楽");
+            speakWords("無量壽，願生極樂");
+            showBlessing("無量壽 ‧ 願生極樂");
             
             incenseProgress = 0;
             createDualSmoke();
@@ -1561,7 +1614,7 @@
             
             let startTime = Date.now();
             
-            function burn() {
+function burn() {
                 let elapsed = (Date.now() - startTime) / 1000;
                 incenseProgress = Math.min(elapsed / 60, 1); 
                 
@@ -1583,16 +1636,20 @@
                 document.getElementById('glow-right').setAttribute('cx', cxRight);
                 document.getElementById('glow-right').setAttribute('cy', cyRight);
                 
-                let meltAmount = 50 * incenseProgress;
+                // 🕯️ 蠟燭隨時間融化下降 
+let meltAmount = 50 * incenseProgress;
 
-                ['left', 'right'].forEach(side => {
-                    document.getElementById(`candle-body-${side}`).setAttribute('y', 970 + meltAmount);
-                    document.getElementById(`candle-body-${side}`).setAttribute('height', 60 - meltAmount);
-                    document.getElementById(`candle-wick-${side}`).setAttribute('y1', 965 + meltAmount);
-                    document.getElementById(`candle-wick-${side}`).setAttribute('y2', 975 + meltAmount);
-                    
-                    document.getElementById(`flame-move-${side}`).style.transform = `translateY(${meltAmount}px)`;
-                });
+['left', 'right'].forEach(side => {
+    document.getElementById(`candle-body-${side}`).setAttribute('y', 970 + meltAmount);
+    document.getElementById(`candle-body-${side}`).setAttribute('height', 60 - meltAmount);
+    document.getElementById(`candle-wick-${side}`).setAttribute('y1', 965 + meltAmount);
+    document.getElementById(`candle-wick-${side}`).setAttribute('y2', 975 + meltAmount);
+    
+    // ✨ 修改這裡為 flame-move
+    document.getElementById(`flame-move-${side}`).style.transform = `translateY(${meltAmount}px)`;
+});
+
+
                 
                 if (incenseProgress < 1 && document.body.classList.contains('incense-on')) {
                     incenseTimer = requestAnimationFrame(burn);
@@ -1716,16 +1773,18 @@
             document.getElementById('glow-right').setAttribute('cy', '890');
             document.getElementById('glow-right').setAttribute('r', '4');
             ['left', 'right'].forEach(side => {
-                document.getElementById(`candle-body-${side}`).setAttribute('y', '970');
-                document.getElementById(`candle-body-${side}`).setAttribute('height', '60');
-                document.getElementById(`candle-wick-${side}`).setAttribute('y1', '965');
-                document.getElementById(`candle-wick-${side}`).setAttribute('y2', '975');
-                
-                document.getElementById(`flame-move-${side}`).style.transform = `translateY(0px)`;
-            });
+    document.getElementById(`candle-body-${side}`).setAttribute('y', '970');
+    document.getElementById(`candle-body-${side}`).setAttribute('height', '60');
+    document.getElementById(`candle-wick-${side}`).setAttribute('y1', '965');
+    document.getElementById(`candle-wick-${side}`).setAttribute('y2', '975');
+    
+    // ✨ 修改這裡為 flame-move
+    document.getElementById(`flame-move-${side}`).style.transform = `translateY(0px)`;
+});
+
+
         }
     }
-
     function createDualSmoke() {
         if (!document.body.classList.contains('incense-on') || incenseProgress >= 1) return;
         const container = document.getElementById('smoke-container');
@@ -1793,9 +1852,10 @@
     }
 
     function returnToMainHall() {
-        window.location.href = 'index_jp.html?screen=3';
+        window.location.href = 'index.html?screen=3';
     }
 
+    // 初始化啟動
     handleStreak();
 
 </script>
