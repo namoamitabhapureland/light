@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <link rel="manifest" href="manifest.json">
-    <title>彌陀淨土系統 ． 七重行願</title>
+    <link rel="manifest" href="manifest_jp.json">
+    <title>阿弥陀仏浄土システム ． 七重行願</title>
     <style>
         :root {
             --bg-deep: #020203; --gold: #f3e5ab; --solid-gold: #d4af37; --cyan: #8ba89c; 
@@ -23,13 +23,12 @@
         #vignette { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: radial-gradient(circle at 50% 30%, transparent 10%, rgba(1, 1, 3, 0.95) 100%); }
 
         #mist-layer { position: absolute; bottom: -10%; left: -10%; width: 120%; height: 60%; z-index: 5; pointer-events: none; mix-blend-mode: screen; overflow: hidden; }
-        /* 移除 filter: blur(45px); 加入 translateZ 觸發 GPU 獨立圖層運算 */
-.mist-cloud { 
-    position: absolute; border-radius: 50%; 
-    animation: drift-mist 15s infinite alternate ease-in-out; 
-    will-change: transform, opacity; 
-    transform: translateZ(0); 
-}
+        .mist-cloud { 
+            position: absolute; border-radius: 50%; 
+            animation: drift-mist 15s infinite alternate ease-in-out; 
+            will-change: transform, opacity; 
+            transform: translateZ(0); 
+        }
 
         .mist-1 { width: 1000px; height: 500px; left: -10%; bottom: -50px; background: radial-gradient(ellipse, rgba(212,175,55,0.25) 0%, transparent 70%); animation-duration: 18s; }
         .mist-2 { width: 1200px; height: 600px; right: -15%; bottom: -100px; background: radial-gradient(ellipse, rgba(196,113,237,0.2) 0%, transparent 70%); animation-duration: 22s; animation-delay: -5s; }
@@ -39,7 +38,6 @@
         @keyframes drift-mist { 0% { transform: translateX(-40px) translateY(10px) scale(1); opacity: 0.6; } 100% { transform: translateX(40px) translateY(-10px) scale(1.1); opacity: 1; } }
         #flash-overlay { position: fixed; inset: 0; background: radial-gradient(circle, #fff 0%, #f3e5ab 50%, transparent 100%); opacity: 0; z-index: 9999; pointer-events: none; transition: opacity 0.8s; mix-blend-mode: screen; }
 
-        /* PAGE 1 */
         #page-1 { position: absolute; inset: 0; z-index: 10; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; }
         #ui-layer-p1 { position: absolute; top: 12%; width: 100%; text-align: center; z-index: 20; transition: opacity 0.5s; pointer-events: none; }
         .main-title-p1 { color: var(--gold); font-size: 1.3rem; letter-spacing: 8px; font-weight: bold; text-shadow: 0 0 20px rgba(212,175,55,0.6); margin-bottom: 12px; }
@@ -63,7 +61,6 @@
         .seed-heartbeat { animation: hb-pulse 1.5s infinite cubic-bezier(0.2, 0.8, 0.4, 1); }
         @keyframes hb-pulse { 0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 var(--seed-glow) var(--gold); } 50% { transform: translate(-50%, -50%) scale(1.3); box-shadow: 0 0 calc(var(--seed-glow)*2) var(--gold), 0 0 calc(var(--seed-glow)*3) #fff; } 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 var(--seed-glow) var(--gold); } }
 
-        /* PAGE 2 */
         #page-2 { position: absolute; inset: 0; z-index: 10; display: none; flex-direction: column; align-items: center; width: 100%; height: 100%; }
         .neon-flow { background: linear-gradient(90deg, #FDF5D3, #D4AF37, #E5989B, #89CFF0, #C9A0DC, #D4AF37, #FDF5D3); background-size: 200% 100%; animation: energyFlow 4s linear infinite; }
         .nav-top { width: 90%; max-width: 480px; z-index: 20; display: flex; justify-content: space-between; align-items: center; margin-top: max(20px, env(safe-area-inset-top)); padding: 12px 20px; background: rgba(5, 5, 8, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(212,175,55,0.2); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
@@ -79,7 +76,7 @@
         .track-circle.lit { border-color: #fff; background: rgba(212,175,55,0.25); box-shadow: 0 0 10px var(--gold-solid), inset 0 0 8px var(--gold-solid); }
         .track-circle.lit svg { fill: #fff; filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px var(--gold-solid)); }
 
-.task-container { 
+        .task-container { 
     position: relative; z-index: 10; margin-top: 2vh; 
     width: 95%; max-width: 450px; 
     flex: 1; min-height: 0; /* 讓容器自動填滿剩餘高度，確保小螢幕不溢出 */
@@ -93,7 +90,7 @@
     animation: breathe-frame 3s infinite alternate ease-in-out; 
 }
 
-        @keyframes breathe-frame { 0% { filter: drop-shadow(0 0 15px rgba(212,175,55,0.4)); } 100% { filter: drop-shadow(0 0 35px var(--gold-solid)) drop-shadow(0 0 20px #fff); } }
+         @keyframes breathe-frame { 0% { filter: drop-shadow(0 0 15px rgba(212,175,55,0.4)); } 100% { filter: drop-shadow(0 0 35px var(--gold-solid)) drop-shadow(0 0 20px #fff); } }
         .tusk-inner-line { fill: none; stroke: var(--gold-light); stroke-width: 1.5; opacity: 0.95; }
 
         .task-content { position: relative; z-index: 20; text-align: center; width: 75%; background: rgba(5, 5, 10, 0.85); border: 1px solid rgba(212,175,55,0.6); border-radius: 20px; padding: 25px 20px; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: inset 0 0 30px rgba(212,175,55,0.15), 0 15px 40px rgba(0,0,0,0.9); opacity: 0; transform: scale(0.9) translateY(20px); pointer-events: none; transition: opacity 1.5s ease-out, transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
@@ -127,26 +124,22 @@
         .pool-bar-fill { height: 100%; width: 0%; transition: width 1s cubic-bezier(0.2,0.8,0.2,1); }
         @keyframes slow-spin { 100% { transform: rotate(360deg); } }
 
-        /* ================= 大數據 Modal (法器收藏室) ================= */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.4s; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
         .data-card { width: 92%; max-width: 420px; border: 1px solid rgba(212,175,55,0.42); border-radius: 20px; padding: 30px 25px; box-shadow: 0 10px 55px rgba(0,0,0,0.9), inset 0 0 20px rgba(212,175,55,0.1); background: linear-gradient(180deg, rgba(20,20,20,0.95) 0%, rgba(5,5,5,0.98) 100%); }
         .data-title { color: var(--gold-solid); font-size: 1.05rem; letter-spacing: 4px; text-align: center; margin-bottom: 5px; font-weight: bold; text-shadow: 0 0 10px rgba(212,175,55,0.4); }
         .data-sub { text-align: center; font-size: 11px; color: var(--text-gold); margin-bottom: 25px; letter-spacing: 2px; opacity: 0.6; }
 
-        /* 專屬供桌佈局 */
         .trophy-shelf { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 35px; padding-bottom: 15px; border-bottom: 1px dashed rgba(212,175,55,0.3); }
         .trophy-item { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 20%; }
         .trophy-label { font-size: 0.65rem; color: rgba(243,229,171,0.6); letter-spacing: 1px; white-space: nowrap; }
 
-        /* 寶幢樣式 */
         .banner-jewel { width: 25px; height: 42px; cursor: pointer; transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); transform-origin: bottom center; }
         .banner-unlit { opacity: 0.15; filter: grayscale(100%); }
         .banner-lit { opacity: 0.95; animation: star-breathe 3s infinite alternate ease-in-out; }
         .banner-jewel:active { transform: scale(0.85); }
         @keyframes star-breathe { 0% { transform: scale(1); } 100% { transform: scale(1.08); filter: brightness(1.2); } }
 
-        /* 5階專屬顏色 */
         #banner-7 { --f1: #FFB703; --f2: #FB8500; --f3: #E85D04; --bd: #9D0208; --bs: #370617; --rb: #FFF; animation-delay: 0s; }
         #banner-7.banner-lit { filter: drop-shadow(0 0 8px rgba(251,133,0,0.8)); }
         
@@ -162,7 +155,6 @@
         #banner-9999999 { --f1: #FFFFFF; --f2: #FDFCDC; --f3: #E0E1DD; --bd: #F3E5AB; --bs: #D4AF37; --rb: #FFFFFF; animation-delay: -4s; }
         #banner-9999999.banner-lit { filter: drop-shadow(0 0 10px rgba(255,255,255,0.9)); }
 
-        /* 能量棒：恢復彩色流動 */
         .glass-energy-bar { width: 100%; margin: 8px 0 35px 0; position: relative; }
         .bar-track { width: 100%; height: 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.09); border-radius: 10px; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.55); }
         .bar-fill { height: 100%; width: 0%; opacity: 0.95; transition: width 1.2s cubic-bezier(0.2,0.8,0.2,1); border-radius: 10px;}
@@ -173,7 +165,6 @@
         .close-btn { width: 100%; padding: 12px; margin-top: 10px; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #aaa; border-radius: 10px; cursor: pointer; letter-spacing: 4px; transition: 0.3s; font-family: inherit; }
         .close-btn:active { background: rgba(212,175,55,0.2); color: var(--gold-light); border-color: var(--gold-solid); }
 
-        /* ================= 契印證書 彈框 ================= */
         .cert-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); z-index: 10000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.4s; }
         .cert-overlay.show { opacity: 1; pointer-events: auto; }
         .cert-box { background: linear-gradient(180deg, rgba(20,20,20,0.95) 0%, rgba(5,5,5,0.98) 100%); border: 1px solid rgba(212,175,55,0.4); border-radius: 20px; width: 85%; max-width: 360px; padding: 40px 25px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.9); transform: translateY(20px) scale(0.95); transition: 0.4s; }
@@ -188,7 +179,6 @@
         .cert-btn { background: transparent; color: var(--gold-light); border: 1px solid rgba(212,175,55,0.5); padding: 12px 35px; border-radius: 30px; letter-spacing: 3px; font-size: 0.9rem; cursor: pointer; transition: 0.3s; outline: none; }
         .cert-btn:active { background: rgba(212,175,55,0.2); transform: scale(0.95); }
 
-        /* 法界之光 (動畫) */
         .dharma-light {
             position: fixed; width: 20px; height: 20px; background: #fff; border-radius: 50%;
             box-shadow: 0 0 20px 10px rgba(212,175,55,0.9), 0 0 40px 20px rgba(255,255,255,0.7);
@@ -206,13 +196,12 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.2" style="width: 36px; height: 36px; margin-bottom: 15px; filter: drop-shadow(0 0 8px rgba(212,175,55,0.6));">
                 <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
             </svg>
-            <div style="color: var(--gold); font-size: 1.15rem; letter-spacing: 4px; margin-bottom: 15px; font-weight: bold; text-shadow: 0 0 10px rgba(212,175,55,0.3);">法界顯化</div>
+            <div style="color: var(--gold); font-size: 1.15rem; letter-spacing: 4px; margin-bottom: 15px; font-weight: bold; text-shadow: 0 0 10px rgba(212,175,55,0.3);">法界顕化</div>
             <div id="vow-alert-msg" style="color: #bbb; font-size: 0.95rem; line-height: 1.8; letter-spacing: 1px; margin-bottom: 25px;"></div>
-            <button onclick="closeVowAlert()" style="background: transparent; color: var(--gold); border: 1px solid rgba(212,175,55,0.5); padding: 10px 30px; border-radius: 20px; letter-spacing: 2px; font-size: 0.9rem; cursor: pointer; transition: 0.3s; outline: none;" onmouseover="this.style.background='rgba(212,175,55,0.2)'" onmouseout="this.style.background='transparent'">合十收攝</button>
+            <button onclick="closeVowAlert()" style="background: transparent; color: var(--gold); border: 1px solid rgba(212,175,55,0.5); padding: 10px 30px; border-radius: 20px; letter-spacing: 2px; font-size: 0.9rem; cursor: pointer; transition: 0.3s; outline: none;" onmouseover="this.style.background='rgba(212,175,55,0.2)'" onmouseout="this.style.background='transparent'">合掌収摂</button>
         </div>
     </div>
 
-    <!-- SVG 定義庫 (包含漸層與全新彩色寶幢) -->
     <svg style="position: absolute; width: 0; height: 0; pointer-events: none;">
         <defs>
             <linearGradient id="f-light" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#fff" stop-opacity="0.8"/><stop offset="100%" stop-color="#fff" stop-opacity="0.1"/></linearGradient>
@@ -226,7 +215,6 @@
                 <path class="tusk-inner-line" d="M 35,395 C 30,280 80,150 170,60" /><path class="tusk-inner-line" d="M 50,395 C 45,300 80,200 130,110" />
                 <path fill="none" stroke="var(--gold-light)" stroke-width="2.5" stroke-linecap="round" d="M 15,380 Q 45,395 73,380" /><path fill="none" stroke="var(--gold-light)" stroke-width="2.5" stroke-linecap="round" d="M 20,400 Q 45,415 70,400" />
             </g>
-            <!-- 彩色動態寶幢 -->
             <g id="dynamic-banner">
                 <path d="M60,10 Q65,25 60,35 Q55,25 60,10" fill="var(--f1, #E76F51)"/><path d="M60,18 Q62,26 60,30 Q58,26 60,18" fill="var(--f2, #F4A261)"/>
                 <path d="M60,25 C78,35 88,55 78,75 C68,55 63,55 60,62 C57,55 52,55 42,75 C32,55 42,35 60,25 Z" fill="var(--f3, #2A9D8F)"/>
@@ -253,11 +241,10 @@
     </div>
     <div id="flash-overlay"></div>
 
-    <!-- PAGE 1 -->
     <div id="page-1">
         <div id="ui-layer-p1">
-            <div class="main-title-p1">七日行願 ． 步步生蓮</div>
-            <div class="sub-title-p1" id="day-hint">法階凝聚中...</div>
+            <div class="main-title-p1">七日行願 ． 歩歩生蓮</div>
+            <div class="sub-title-p1" id="day-hint">法階凝集す...</div>
         </div>
         <div id="warp-container">
             <div class="warp-inner" id="warp-inner">
@@ -267,31 +254,27 @@
         </div>
     </div>
 
-    
-           <!-- PAGE 2 -->
-    <div id="page-2">
+   <div id="page-2">
         <div class="nav-top">
-            <div class="nav-btn" onclick="returnToMainHall()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> 返回道場</div>
+            <div class="nav-btn" onclick="returnToMainHall()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> 道場へ戻る</div>
             <div class="nav-divider"></div>
-            <div class="nav-btn" onclick="showVowAlert('<div style=\'text-align:left; font-size:0.9rem; line-height:1.7; color:#ddd;\'>' +
-                '<p style=\'margin-top:0; margin-bottom:12px; font-weight:bold; color:var(--gold); font-size:1rem; text-align:center;\'>普賢行願實修說明</p>' +
-                '<p style=\'margin-bottom:12px;\'>本法門將《華嚴經》中普賢菩薩的宏大願力，轉化為 <span style=\'color:var(--gold);\'>70 個生活實修定課</span>，引導行者將大願融入日常起心動念中。</p>' +
-                '<div style=\'background:rgba(255,255,255,0.05); padding:10px; border-radius:4px; margin-bottom:12px; border-left:2px solid var(--gold);\'>' +
-                '  <span style=\'color:var(--gold); font-weight:bold;\'>【普賢十願】</span><br>' +
-                '  一者禮敬諸佛 · 二者稱讚如來 · 三者廣修供養 · 四者懺悔業障 · 五者隨喜功德 · ' +
-                '  六者請轉法輪 · 七者請佛住世 · 八者常隨佛學 · 九者恆順眾生 · 十者普皆回向。' +
+            <div class="nav-btn" onclick="showVowAlert('<div style=\'text-align:left; font-size:0.85rem; line-height:1.6; color:#ddd;\'>' +
+                '<p style=\'margin-top:0; margin-bottom:8px; font-weight:bold; color:var(--gold); font-size:0.95rem; text-align:center;\'>普賢行願修持説明</p>' +
+                '<p style=\'margin-bottom:8px;\'>華厳経における普賢菩薩の宏大なる願力を、<span style=\'color:var(--gold);\'>70の日常修持の定課</span>へと転化し、日々の実践へと導きます。</p>' +
+                '<div style=\'background:rgba(255,255,255,0.05); padding:6px 8px; border-radius:4px; margin-bottom:8px; border-left:2px solid var(--gold); font-size:0.8rem; line-height:1.4;\'>' +
+                '  一者礼敬諸仏 · 二者称讃如来 · 三者広修供養 · 四者懺悔業障 · 五者随喜功徳 · ' +
+                '  六者請転法輪 · 七者請仏住世 · 八者常随仏学 · 九者恒順衆生 · 十者普皆回向。' +
                 '</div>' +
-                '<p style=\'margin-bottom:8px;\'><span style=\'color:var(--gold);\'>● 週期深觀：</span>每七日為一週期，行者於生活中深觀、實踐一願。每日長按契印圓滿後，大願資糧將暫存法界。</p>' +
-                '<p style=\'margin-bottom:0;\'><span style=\'color:var(--gold);\'>● 結算機制：</span>為維持法界週期的完整性，<span style=\'color:var(--gold); font-weight:bold;\'>系統將於「第八日」進行結算</span>。當滿七日功德圓滿，第八日系統將自動結算 <span style=\'color:var(--gold);\'>1000 點大願資糧</span>，正式匯入您的彌陀主系統。</p>' +
-                '</div>')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> 法門說明</div>
+                '<p style=\'margin-bottom:4px;\'><span style=\'color:var(--gold);\'>● 周期深観：</span>七日を一周期として一願を深く観じます。日々の円満後、資糧は法界に一時保存されます。</p>' +
+                '<p style=\'margin-bottom:0;\'><span style=\'color:var(--gold);\'>● 決算機制：</span>周期の完全性を保つため、<span style=\'color:var(--gold); font-weight:bold;\'>「第八日」に自動決算</span>され、<span style=\'color:var(--gold);\'>1000点の資糧</span>が阿弥陀メインシステムへ匯入されます。</p>' +
+                '</div>')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> 法門説明</div>
             <div class="nav-divider"></div>
-            <!-- 加入 ID 讓光芒可以飛過來 -->
-            <div class="nav-btn" id="nav-history-btn" onclick="openDataModal()"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20V14"></path></svg> 歷史大數據</div>
+            <div class="nav-btn" id="nav-history-btn" onclick="openDataModal()"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20V14"></path></svg> 歴史大乗</div>
         </div>
 
 
         <div class="tracker-container">
-            <div class="tracker-title" id="ui-week-title">【 普賢十願 ． 行願軌跡 】</div>
+            <div class="tracker-title" id="ui-week-title">【 普賢十願 ． 行願の軌跡 】</div>
             <div class="tracker-circles" id="ui-trackers"></div>
         </div>
 
@@ -302,7 +285,7 @@
             </svg>
             
             <div class="task-content" id="task-box">
-                <div class="task-subtitle" id="ui-task-sub">法界讀取中...</div>
+                <div class="task-subtitle" id="ui-task-sub">法界を読み込み中...</div>
                 <div class="task-title">
                     <span id="ui-task-title-text">...</span>
                     <svg class="tts-icon" onclick="playTTS()" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
@@ -319,22 +302,20 @@
                     <circle id="progress-circle" cx="50" cy="50" r="46" fill="none" stroke="url(#g-gold)" stroke-width="4" stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round"/>
                 </svg>
                 <div id="p2-bodhi-seed" class="seed-heartbeat" style="--seed-glow: 15px;"></div>
-                <div class="seal-text" id="seal-text">長按契印 ． 圓滿今日</div>
+                <div class="seal-text" id="seal-text">長押し契印 ． 今日を円満にす</div>
             </div>
             <div class="pool-wrap">
-                <div class="pool-label" id="ui-pool-text">法界暫存資糧 : 0 / 1000</div>
+                <div class="pool-label" id="ui-pool-text">法界に一時保存された資糧 : 0 / 1000</div>
                 <div class="pool-bar-bg"><div class="pool-bar-fill neon-flow" id="ui-pool-bar"></div></div>
             </div>
         </div>
     </div>
 
-    <!-- 大數據 Modal (全新收藏室) -->
     <div class="modal-overlay" id="dataModal">
         <div class="data-card" onclick="event.stopPropagation()">
-            <div class="data-title">十方結緣 ‧ 歷史軌跡</div>
-            <div class="data-sub">(合本願與諸佛之畢生大數據)</div>
+            <div class="data-title">十方結縁 ‧ 歴史の軌跡</div>
+            <div class="data-sub">(本願と諸仏の生涯の大データに合致す)</div>
             
-            <!-- 專屬供桌 -->
             <div class="trophy-shelf">
                 <div class="trophy-item"><svg class="banner-jewel banner-unlit" id="banner-7" viewBox="0 0 120 200" onclick="openCert(7)"><use href="#dynamic-banner"/></svg><div class="trophy-label">7 日</div></div>
                 <div class="trophy-item"><svg class="banner-jewel banner-unlit" id="banner-70" viewBox="0 0 120 200" onclick="openCert(70)"><use href="#dynamic-banner"/></svg><div class="trophy-label">70 日</div></div>
@@ -344,18 +325,17 @@
             </div>
 
             <div style="margin-bottom: 25px;">
-                <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span style="font-size:13px; color:var(--gold-light); letter-spacing:2px;">歲星軌跡 (日)</span><span style="font-size:14px; color:#fff; font-weight:bold;" id="ui-txt-365">0</span></div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span style="font-size:13px; color:var(--gold-light); letter-spacing:2px;">歳星の軌跡 (日)</span><span style="font-size:14px; color:#fff; font-weight:bold;" id="ui-txt-365">0</span></div>
                 <div class="glass-energy-bar"><div class="bar-track"><div class="bar-fill neon-flow" id="ui-bar-365"></div></div><div class="bar-labels"><span style="left:0%">0</span><span style="left:27%">100</span><span style="left:54%">200</span><span style="left:82%">300</span><span style="left:100%">365</span></div></div>
             </div>
             <div style="margin-bottom: 10px;">
-                <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span style="font-size:13px; color:var(--gold-light); letter-spacing:2px;">劫波蓮花 (年)</span><span style="font-size:14px; color:#fff; font-weight:bold;" id="ui-txt-108">0</span></div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span style="font-size:13px; color:var(--gold-light); letter-spacing:2px;">劫波の蓮華 (年)</span><span style="font-size:14px; color:#fff; font-weight:bold;" id="ui-txt-108">0</span></div>
                 <div class="glass-energy-bar"><div class="bar-track"><div class="bar-fill neon-flow" id="ui-bar-108"></div></div><div class="bar-labels"><span style="left:0%">0</span><span style="left:33%">36</span><span style="left:66%">72</span><span style="left:100%">108</span></div></div>
             </div>
-            <button class="close-btn" onclick="closeDataModal()">合十收攝</button>
+            <button class="close-btn" onclick="closeDataModal()">合掌収摂</button>
         </div>
     </div>
 
-    <!-- 契印證書 彈框 -->
       <div class="cert-overlay" id="cert-modal">
         <div class="cert-box">
             <div class="cert-header" id="cert-title">✦ 菩提契印 ✦</div>
@@ -366,19 +346,17 @@
             
             <div class="cert-divider"></div>
             <div class="cert-desc" id="cert-text">...</div>
-            <button class="cert-btn" onclick="closeCert()">歡喜功德 ． 締結契印</button>
+            <button class="cert-btn" onclick="closeCert()">歓喜の功徳 ． 契印を結ぶ</button>
         </div>
     </div>
-
 
 <script>
 // ================= 法界導航與彈框交互邏輯 =================
 
-
 function returnToMainHall() {
     document.getElementById('page-transition-curtain').style.opacity = '1';
     setTimeout(() => {
-        window.location.href = 'index.html?screen=3'; 
+        window.location.href = 'index_jp.html?screen=3'; 
     }, 800);
 }
 
@@ -389,7 +367,6 @@ function showVowAlert(msg) {
     if(alertMsg && overlay) {
         alertMsg.innerHTML = msg;
         overlay.style.display = 'flex';
-        // 強制重繪以觸發過渡動畫
         void overlay.offsetWidth; 
         overlay.style.opacity = '1';
         document.getElementById('vow-alert-box').style.transform = 'scale(1)';
@@ -407,119 +384,117 @@ function closeVowAlert() {
     }
 }
 
+
     const VOWS_DB = {
         regular: [
             [
-                { title: "敬無相佛", desc: "今日請於通勤或人群中，不拘親疏，隨機挑選三位遇見的眾生。在心中默默對他們合十，默念：「願您平安，禮敬未來的佛。」<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "敬微塵眾", desc: "今日若遇見為大眾服務之人，請在接受服務時，給予真誠的微笑與道謝，視其為菩薩化現。<br><br>【今日定課】稱念聖號 100 遍。" },
-                { title: "敬逆增上", desc: "今日若遇不順心之事或言語衝撞，請於當下深呼吸。不急於反駁，在心中默念：「感恩此境，逆增上緣。」將其視為佛菩薩的考驗。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "敬天地物", desc: "萬物皆有法性。今日請以極其輕柔、恭敬的動作，拿取與放下生活中的三樣物品，感恩它們成就您的生活。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "敬伴侶親", desc: "面對最親近的家人或伴侶，我們常忘了禮敬。今日請在對方說話時，放下手邊事物，全心全意注視對方並傾聽，不插嘴、不評判。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "敬身心器", desc: "此身為修道之法器。今日請在三餐中選一餐，進食前默念感恩，並細嚼慢嚥。以清淨心供養色身。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "普皆禮敬", desc: "第一願即將圓滿。今日臨睡前，請靜坐三分鐘。將這七日來所禮敬之無量眾生，連同諸佛菩薩，於心中作一廣大合十，身心柔軟，萬緣放下。<br><br>【今日定課】稱念佛菩薩聖號 300 遍。" }
+                { title: "無相の仏を敬う", desc: "本日は通勤時や人混みの中で、親疎を問わず無作為に三人の衆生を選び、心の中で彼らに合掌し、「あなたの平安を願います。未来の仏に礼敬します」と黙念してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "微塵の衆生を敬う", desc: "本日、大衆のために奉仕する人に出会ったならば、サービスを受ける際に真心の笑顔と感謝を伝え、その人を菩薩の化現と見なしてください。<br><br>【本日の定課】聖号を100遍称念する。" },
+                { title: "逆増上を敬う", desc: "本日、思い通りにならない事や言葉の衝突に遭遇したならば、その場で深呼吸してください。すぐに反論せず、心の中で「この境遇に感謝します。逆増上縁なり」と黙念し、それを仏菩薩からの試練と見なしてください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "天地万物を敬う", desc: "万物には皆法性があります。本日は極めて優しく恭敬な所作で、生活の中の三つの物を手に取り、そして置き、生活を成り立たせてくれるそれらに感謝してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "伴侶と親族を敬う", desc: "最も親しい家族や伴侶に対して、私たちはしばしば礼敬を忘れてしまいます。本日は相手が話している時、手元の作業を置き、全身全霊で相手を見つめて傾聴し、口を挟んだり批判したりしないでください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "身心の器を敬う", desc: "この身は修道の法器です。本日は三食のうち一食を選び、食事の前に心の中で感謝を念じ、よく噛んでゆっくりと食べてください。清浄な心で色身（肉体）を供養してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "普く皆礼敬す", desc: "第一願が間もなく円満となります。本日の就寝前、三分間静座してください。この七日間に礼敬した無量の衆生を、諸仏菩薩と共に心の中で広大な合掌を捧げ、心身を柔軟にし、万縁を放下してください。<br><br>【本日の定課】仏菩薩の聖号を300遍称念する。" }
             ],
             [
-                { title: "隱惡揚善", desc: "今日在與人交談時，請刻意隱去對他人的批評與抱怨。若聽聞他人的過失，不附和、不傳播。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "無私讚語", desc: "今日請真誠地讚美一位身邊的人。不帶任何目的，純粹讚嘆他人的善意、努力或美德。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "讚無情物", desc: "草木瓦石皆在說法。今日請在戶外停留片刻，於心中讚嘆一陣微風、一朵雲或一株行道樹的清淨與堅韌。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "網絡清淨", desc: "數位世界亦是法界。今日瀏覽數位世界時，請不留惡言，並刻意為一篇正向、勸善或有益身心的文章留下讚美與鼓勵。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "讚歎逆境", desc: "困難是打磨心性的砥石。今日若遇阻礙，請在心中對這個「困難」說聲感恩，讚嘆它提醒了您的不足與傲慢。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "覺知自性", desc: "我們常苛責自己。今日請對著鏡子，真誠地讚嘆自己願意向善、願意念佛的這份「清淨初發心」，肯定自性本自具足。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "普皆稱讚", desc: "第二願即將圓滿。今日行住坐臥間，請將「阿彌陀佛」四字視為對宇宙萬物最高的讚美，句句皆是無量光壽。<br><br>【今日定課】稱念佛菩薩聖號 300 遍。" }
+                { title: "悪を隠し善を揚ぐ", desc: "本日、人と交談する際は、意図的に他人への批判や愚痴を控えてください。他人の過ちを聞いても、同調せず、広めないでください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "無私の賛語", desc: "本日は身近な一人を心から褒めてください。いかなる目的も持たず、純粋に他人の善意、努力、または美徳を讃嘆してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "無情の物を讃う", desc: "草木や瓦石も皆法を説いています。本日は屋外で少し足を止め、そよ風、一片の雲、または街路樹の清浄さと堅靭さを心の中で讃嘆してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "網絡（ネット）の清浄", desc: "デジタル世界もまた法界です。本日デジタル世界を閲覧する際、悪言を残さず、意識的に前向きで善を勧める、または心身に有益な記事に賞賛と励ましの言葉を残してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "逆境を讃嘆す", desc: "困難は心性を磨く砥石です。本日もし障害に遭遇したなら、心の中でその「困難」に感謝し、あなたの不足と傲慢さを気づかせてくれたことを讃嘆してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "自性を覚知す", desc: "私たちはよく自分を責めてしまいます。本日は鏡に向かって、善に向かい、念仏を願うその「清浄なる初発心」を真摯に讃嘆し、自性が本来具足していることを肯定してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "普く皆称賛す", desc: "第二願が間もなく円満となります。本日の行住坐臥において、「阿弥陀仏」の四字を宇宙万物への最高の賛美と見なし、一句一句が皆無量光寿であるとしてください。<br><br>【本日の定課】仏菩薩の聖号を300遍称念する。" }
             ],
             [
-                { title: "顏面供養", desc: "布施不需花錢。今日請帶著柔和的微笑出門，將「和顏悅色」供養給每一位與您眼神交會的眾生。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "言辭供養", desc: "言語能生暖意。今日請主動對失意或疲憊之人說一句安慰、鼓勵或溫暖的話語，以善語作法供養。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "勞力供養", desc: "今日請主動為家人或同事承擔一件微小的勞務，不求回報，默默完成。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "清淨供養", desc: "環境清淨即是莊嚴道場。今日請花十分鐘，無雜念地打掃自己常處的空間，將清淨供養法界。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "心念供養", desc: "今日在享用飲食前，請先於心中默念，將此潔淨飲食供養十方三世一切佛，再以感恩心受食。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "法音供養", desc: "今日請將一句讓您受用的佛法金句、或彌陀道場的連結，以不強求的心態，分享給一位可能需要的朋友。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "普皆供養", desc: "第三願即將圓滿。諸供養中，法供養最。今日請以最純粹無染的「南無阿彌陀佛」聖號，化作無盡香華，供養虛空法界。<br><br>【今日定課】稱念佛菩薩聖號 300 遍。" }
+                { title: "顔面の供養", desc: "布施はお金を必要としません。本日は柔和な微笑みをたたえて外出り、視線を交わした全ての衆生に「和顔悦色」を供養してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "言辞の供養", desc: "言葉は暖かさを生み出します。本日は失意や疲労している人に対し、慰め、励まし、または温かい言葉を自ら進んでかけ、善語を以て法供養としてください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "労力の供養", desc: "本日は家族や同僚のために、自ら進んで些細な労務を引き受け、見返りを求めず黙々と完了させてください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "清浄の供養", desc: "環境の清浄は即ち道場を荘厳することです。本日は十分間、雑念を持たずに自分がよくいる空間を掃除し、清浄を法界に供養してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "心念の供養", desc: "本日、飲食を頂く前に、まず心の中でこの清らかな飲食を十方三世の一切の仏に供養すると黙念し、その後感謝の心で食事を受けてください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "法音の供養", desc: "本日はあなたの心に響いた仏法の金句、または弥陀道場のリンクを、押し付けない心で、必要としているかもしれない友人に一つシェアしてください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "普く皆供養す", desc: "第三願が間もなく円満となります。諸々の供養の中で、法供養が最上です。本日は最も純粋で汚れのない「南無阿弥陀仏」の聖号を無尽の香華と化し、虚空法界に供養してください。<br><br>【本日の定課】仏菩薩の聖号を300遍称念する。" }
             ],
             [
-                { title: "覺察起心", desc: "今日請專注觀察自己的「念頭」。一旦發覺生起貪婪、憤怒或嫉妒的微細念頭，立刻在心中喊「停」，並默念佛號轉化。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "懺悔口過", desc: "回想近日是否曾以言語傷人、抱怨或說長道短。今日請在心中向那位對象真誠懺悔，並誓願今日守護口業。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "寬恕釋懷", desc: "懺悔包含解開怨結。今日請在心中，對一位曾經傷害過您、讓您耿耿於懷的人說：「我原諒你，願你解脫。」<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "善待色身", desc: "熬夜、暴食皆是傷害修法之器。今日請早睡半小時，或戒除一次不健康的飲食，以實際行動向自己的色身懺悔。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "不貳之過", desc: "今日請挑選一個自己明知故犯的小惡習。誓願在今天的 24 小時內，絕不犯此過失。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "代眾生懺", desc: "今日觀看新聞若見天災人禍、造惡受苦者，不起傲慢批判心，而是於心中代其懺悔，願其早日破迷開悟。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                 { title: "普皆懺悔", desc: "第四願即將圓滿。今日定課請以至誠心懺悔：「往昔所造諸惡業，皆由無始貪瞋癡，從身語意之所生，一切我今皆懺悔。」<br><br>【今日定課】稱念佛菩薩聖號 300 遍。" }
+                { title: "起心を覚察す", desc: "本日は自分の「念（思い）」を専注して観察してください。貪欲、怒り、または嫉妬の微細な念が生じたことに気づいたら、直ちに心の中で「ストップ」と叫び、仏号を黙念して転化してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "口過を懺悔す", desc: "最近、言葉で人を傷つけたり、愚痴を言ったり、陰口を叩いたりしたことがないか思い返してください。本日は心の中でその対象に真摯に懺悔し、本日は口業を守ることを誓願してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "寛恕と釈懐", desc: "懺悔には怨みの結び目を解くことも含まれます。本日は心の中で、かつてあなたを傷つけ、気にかけている人に対し、「あなたを許します。あなたが解脱を得られますように」と伝えてください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "色身を善遇す", desc: "徹夜や暴食は皆修法の器を傷つけます。本日は30分早く寝るか、一度の不健康な食事を控えることで、実際の行動をもって自らの色身に懺悔してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "不貳の過", desc: "本日は自分がわかっていながら犯してしまう小さな悪習を一つ選んでください。今日の24時間以内は、絶対にその過ちを犯さないと誓願してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "衆生に代わりて懺ず", desc: "本日ニュースを見て天災や人災、悪を造り苦を受ける者を見たなら、傲慢な批判心を起こさず、心の中で彼らに代わって懺悔し、一日も早く迷いを破り悟りを開くことを願ってください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                 { title: "普く皆懺悔す", desc: "第四願が間もなく円満となります。本日の定課は至誠の心で懺悔してください：「我昔所造諸悪業、皆由無始貪瞋痴、従身語意之所生、一切我今皆懺悔。」<br><br>【本日の定課】仏菩薩の聖号を300遍称念する。" }
             ],
             [
-                { title: "破除嫉妒", desc: "今日若見他人受到表揚、獲得利益或展現才華，請立刻察覺自己的微細酸意，並在心中為他喝采：「太棒了，為你高興！」<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "隨喜微善", desc: "今日請刻意去發現別人做的一件小善事，在心中或當面隨喜讚嘆此善行。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "隨喜法喜", desc: "今日若見同修精進、或看見有人分享正法，請在心中隨喜其修道的善根，願其早證菩提。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "成人之美", desc: "隨喜亦是助人成事。今日請主動提供一個小協助，讓同事或家人的工作能更順利完成，隨喜他們的成就。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "隨喜冤親", desc: "今日請試去回想一個與您不合之人的優點，或是他在某件事上的成功。放下成見，在心中隨喜他那一份光明。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "隨喜逆境", desc: "看見他人正在勇敢面對病痛或挫折時，隨喜他們逆增上緣的堅韌生命力，並於心中為其祝禱。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "普皆隨喜", desc: "第五願即將圓滿。十方世界一切眾生、聲聞緣覺乃至諸佛菩薩，所有一絲一毫之善根功德，我今皆悉深心隨喜。<br><br>【今日定課】稱念佛菩薩聖號 300 遍。" }
+                { title: "嫉妬を破除す", desc: "本日もし他人が表彰されたり、利益を得たり、才能を発揮しているのを見たなら、直ちに自分の微細な嫉妬心に気づき、心の中で「素晴らしい、あなたのために喜ぶよ！」と喝采を送ってください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "微善を随喜す", desc: "本日は意識的に他人が行った小さな善行を発見し、心の中または直接その善行を随喜し讃嘆してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "法喜を随喜す", desc: "本日もし同修が精進しているのを見たり、誰かが正法をシェアしているのを見たなら、心の中でその修道の善根を随喜し、彼らが早く菩提を証することを願ってください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "人の美を成す", desc: "随喜はまた人を助け事を成すことでもあります。本日は自ら進んで小さな手助けを提供し、同僚や家族の仕事がよりスムーズに完了できるようにし、彼らの成就を随喜してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "怨親を随喜す", desc: "本日はあなたと気が合わない人の長所、またはある事におけるその人の成功を思い出してみてください。偏見を捨て、心の中でその人の光り輝く部分を随喜してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "逆境を随喜す", desc: "他人が病痛や挫折に勇敢に立ち向かっているのを見たとき、彼らの逆増上縁の堅靭な生命力を随喜し、心の中で彼らのために祈ってください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "普く皆随喜す", desc: "第五願が間もなく円満となります。十方世界の一切の衆生、声聞縁覚から諸仏菩薩に至るまで、そのいささかの善根功徳をも、我今皆悉く深心より随喜します。<br><br>【本日の定課】仏菩薩の聖号を300遍称念する。" }
             ],
             [
-                { title: "開卷有益", desc: "法輪未轉，先轉自心。今日請靜下心來，翻開任意一部佛經，哪怕只恭讀一段或一偈，讓法水潤澤心田。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "聽聞正法", desc: "今日請利用通勤或獨處的 10 分鐘，聆聽一段大德開示、梵唄或純淨的音樂，讓法音流入耳根。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "內心請法", desc: "今日若遇煩惱決斷不下，請在心中向佛菩薩請法。放下執念，問自己：「若是佛陀，會如何說法？」<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "轉身口意", desc: "轉法輪即是轉化念頭。今日請挑戰將一次原本會脫口而出的「抱怨」，硬生生吞下，轉為一句「感恩」或「阿彌陀佛」。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "分享善法", desc: "法輪需靠眾生推動。今日請將一句觸動您的智慧話語，自然地分享在社群或對話中，散播善的種子。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "實踐一教", desc: "知道十理，不如踐行一事。今日請挑選一句佛陀的教誨（如：不瞋恚、多布施），嚴格落實於今日的生活中。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "普皆請轉", desc: "第六願即將圓滿。願以今日念佛之功德，祈請十方三世一切諸佛菩薩，常轉無上妙法輪，度脫無明眾生。<br><br>【今日定課】稱念佛菩薩聖號 300 遍。" }
+                { title: "開巻有益", desc: "法輪が転ずる前に、まず自心を転じます。本日は心を静め、任意の仏典を開き、たとえ一段落や一偈だけでも恭敬に読み、法水を心の田に潤させてください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "正法を聴聞す", desc: "本日は通勤や独りの10分間を利用して、大徳の開示、梵唄、または純粋な音楽を聴き、法音を耳根に流し込んでください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "内心の請法", desc: "本日もし煩悩に遭遇し決断を下せない時は、心の中で仏菩薩に法を請うてください。執着を手放し、「もし仏陀であれば、どう説法されるだろうか？」と自問してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "身口意を転ず", desc: "法輪を転ずるとは念（思い）を転化することです。本日はつい口に出そうになった「愚痴」を一つ、無理にでも飲み込み、「感謝」または「阿弥陀仏」に転ずることに挑戦してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "善法をシェアす", desc: "法輪は衆生の推進に頼らねばなりません。本日はあなたの心を動かした智慧の言葉を一つ、自然にSNSや会話の中でシェアし、善の種を撒いてください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "一教を実践す", desc: "十の理を知るより、一事を実践するに如かず。本日は仏陀の一つの教誨（例：怒らない、多く布施するなど）を選び、本日の生活の中で厳格に実践してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "普く皆転ずるを請う", desc: "第六願が間もなく円満となります。本日の念仏の功徳を以て、十方三世一切の諸仏菩薩に、常に無上の妙なる法輪を転じ、無明の衆生を度脱させたまうことを祈請します。<br><br>【本日の定課】仏菩薩の聖号を300遍称念する。" }
             ],
             [
-                { title: "護持善念", desc: "佛即是覺，請佛住世即是請「覺性」常住。今日請努力保持正念，走路時覺知走路，吃飯時覺知吃飯。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "尊重師長", desc: "善知識即是佛的化身。今日請主動問候、關心一位曾經教導過您、提攜過您的師長或長輩。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "珍惜法寶", desc: "法寶在，如同佛在。今日請將家中的經書、佛像或這套數位道場，以恭敬心擦拭、整理或妥善備份。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "護生愛物", desc: "佛性遍滿虛空。今日請刻意避開踩踏昆蟲，或將一件即將丟棄的堪用物品修繕回收，護持萬物生機。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "視人如佛", desc: "眾生皆具如來智慧德相。今日請嘗試將遇見的最難相處之人，視為來度化您忍辱的「逆行菩薩」。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "安住當下", desc: "不追悔過去，不妄想未來。今日請給自己 5 分鐘，閉上雙眼，單純專注於鼻尖的呼吸，讓覺性常住。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "普皆請住", desc: "第七願即將圓滿。願我生生世世，皆能遇善知識、聞佛正法；祈請十方如來，不捨眾生，常住世間。<br><br>【今日定課】稱念佛菩薩聖號 300 遍。" }
+                { title: "善念を護持す", desc: "仏とは即ち覚であり、仏の住世を請うとは即ち「覚性」の常住を請うことです。本日は正念を保つよう努力し、歩く時は歩くことを覚知し、食べる時は食べることを覚知してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "師長を尊重す", desc: "善知識とは即ち仏の化身です。本日はかつてあなたを教え導き、引き立ててくれた師長や目上の方に進んで挨拶し、気遣いの言葉をかけてください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "法宝を珍惜す", desc: "法宝が在ることは、仏が在るのと同じです。本日は家にある経本、仏像、またはこのデジタル道場を、恭敬の心をもって拭き清め、整理し、あるいは適切にバックアップしてください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "護生愛物", desc: "仏性は虚空に遍満しています。本日は意識的に昆虫を踏むのを避けたり、捨てられそうなまだ使える品を修繕しリサイクルするなどして、万物の生機を護持してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "人を仏の如く視る", desc: "衆生は皆如来の智慧徳相を具えています。本日は出会った最も付き合いにくい人を、あなたの忍辱を度化しに来た「逆行菩薩」と見なすよう試みてください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "当下に安住す", desc: "過去を後悔せず、未来を妄想しません。本日は自分に5分間を与え、両眼を閉じ、ただ純粋に鼻先の呼吸に集中し、覚性を常住させてください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "普く皆住せんことを請う", desc: "第七願が間もなく円満となります。願わくは私が生生世世に皆善知識に遭い、仏の正法を聞くことができますように。十方の如来が衆生を捨てず、常に世間に住したまうことを祈請します。<br><br>【本日の定課】仏菩薩の聖号を300遍称念する。" }
             ],
             [
-                { title: "學佛柔軟", desc: "佛音和雅。今日請刻意放慢說話的速度，降低音量，用最溫和、柔軟的語氣與所有人交談。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "學佛忍辱", desc: "今日若遇排隊插隊、交通阻塞或他人無理，請不生惱怒。在心中默念佛號，練習「八風吹不動」的定力。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "學佛施捨", desc: "佛陀能捨一切。今日請清理出一件自己不需要、但尚完好的物品，捐贈或送給需要的人，練習「捨」的心。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "學佛持戒", desc: "今日請嚴格持守「不妄語」戒。不說謊、不誇大、不說言不及義的廢話，讓每一句話都真實且有益。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "學佛精進", desc: "今日請在原有的修行或工作習慣上，多跨出一步。例如：提早 10 分鐘起床靜坐，或多唸 108 聲佛號。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "學佛無相", desc: "今日做善事或幫助他人後，請立刻在心中放下「我幫了他」的念頭，不求感謝，練習三輪體空。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "普皆隨學", desc: "第八願即將圓滿。從今乃至菩提，誓願常隨釋迦本師與彌陀如來修學，行菩薩道，永不退轉。<br><br>【今日定課】稱念佛菩薩聖號 300 遍。" }
+                { title: "仏の柔軟に学ぶ", desc: "仏の音声は和雅です。本日は意識的に話す速度を落とし、音量を下げ、最も温和で柔軟な語気で全ての人と交談してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "仏の忍辱に学ぶ", desc: "本日もし列への割り込み、交通渋滞、または他人の理不尽に遭遇しても、怒りを生じないでください。心の中で仏号を黙念し、「八風吹けども動ぜず」の定力を練習してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "仏の施捨に学ぶ", desc: "仏陀は一切を捨て去ることができました。本日は自分には不要だがまだ使える物を一つ片付け、必要な人に寄付または贈り、「捨てる」心を練習してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "仏の持戒に学ぶ", desc: "本日は「不妄語」の戒を厳格に持守してください。嘘をつかず、誇張せず、的を射ない無駄話をせず、全ての話を真実で有益なものにしてください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "仏の精進に学ぶ", desc: "本日は従来の修行や仕事の習慣の上に、もう一歩踏み出してください。例えば、10分早く起きて静座する、あるいは仏号を108声多く称えるなどです。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "仏の無相に学ぶ", desc: "本日善事を行ったり他人を助けた後は、直ちに心の中から「私が彼を助けた」という念を手放し、感謝を求めず、三輪体空を練習してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "普く皆随い学ぶ", desc: "第八願が間もなく円満となります。今より菩提に至るまで、常に釈迦本師と弥陀如来に随って修学し、菩薩道を行じ、永く退転せざることを誓願します。<br><br>【本日の定課】仏菩薩の聖号を300遍称念する。" }
             ],
             [
-                { title: "放下己見", desc: "今日在非關道德底線的日常瑣事上，請完全放下自己的堅持，歡喜地順從他人的決定。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "傾聽需求", desc: "今日若有人向您訴苦，請只要專心傾聽並給予同理陪伴。除非對方主動詢問，否則絕不急著給予建議或說教。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "隨順因緣", desc: "今日若發生計畫趕不上變化的突發狀況，請不起煩惱。深深吸一口氣，告訴自己：「一切都是最好的安排。」<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "體諒難處", desc: "今日若有人服務態度不佳或出錯，請先在心中為他找一個理由（或許他今天生病或遭遇挫折），以體諒取代苛責。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "和光同塵", desc: "菩薩處俗，不離世間覺。今日參與大眾活動時，請隨眾作息，不標新立異，以和合無諍的心態融入人群。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "給予方便", desc: "今日通勤或行走時，主動退讓一步；多等後他人幾刻。以給人方便的心，實踐恆順之理。<br><br>【今日定課】稱念佛菩薩聖號 100 遍。" },
-                { title: "普皆恆順", desc: "第九願即將圓滿。視一切眾生如父如母、如如來。眾生歡喜，則諸佛歡喜。願以柔軟心，恆順法界一切有情。<br><br>【今日定課】稱念佛菩薩聖號 300 遍。" }
+                { title: "己見を放下す", desc: "本日、道徳の境界線に関わらない日常の些事において、自分のこだわりを完全に手放し、喜んで他人の決定に従ってください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "需要に傾聴す", desc: "本日もし誰かがあなたに苦情を訴えてきたら、ただ専心して傾聴し、共感をもって寄り添ってください。相手から求められない限り、絶対に焦ってアドバイスや説教をしないでください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "因縁に随順す", desc: "本日もし計画が変化に追いつかない突発的な状況が発生しても、煩悩を起こさないでください。深く深呼吸し、「全ては最高の計らいである」と自分に言い聞かせてください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "難処を体諒す", desc: "本日もし誰かの接客態度が悪かったりミスをしたりした場合は、まず心の中で彼のための理由（今日は体調が悪いのか、挫折を味わったのかも）を見つけ、厳しく責める代わりに思いやりを持って接してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "和光同塵", desc: "菩薩は俗に処して、世間の覚を離れません。本日、大衆の活動に参加する際は、皆の作息に従い、奇をてらわず、和合無諍の心態で人々に溶け込んでください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "方便を与う", desc: "本日の通勤や歩行時、自ら一歩譲り、他人のために少し長く待ってみてください。人に便宜を与える心をもって、恒順の理を実践してください。<br><br>【本日の定課】仏菩薩の聖号を100遍称念する。" },
+                { title: "普く皆恒順す", desc: "第九願が間もなく円満となります。一切の衆生を父母の如く、如来の如く視ます。衆生が歓喜すれば、則ち諸仏も歓喜します。願わくは柔軟な心で、法界の一切の有情を恒順します。<br><br>【本日の定課】仏菩薩の聖号を300遍称念する。" }
             ],
             [
-                { title: "迴向親眷", desc: "今日請將一切善行與念佛功德，首先迴向給今生的生身父母與至親眷屬，祈願他們身心安康、深信因果。<br><br>【今日定課】稱念佛菩薩聖號 1000 遍。" },
-                { title: "迴向病苦", desc: "今日請在心中觀想醫院中的病患、或世間正在受戰亂飢餓之苦的眾生，將今日功德悉數迴向，願其離苦得樂。<br><br>【今日定課】稱念佛菩薩聖號 1000 遍。" },
-                { title: "迴向冤親", desc: "解怨釋結在今日。請至誠將功德迴向給累劫以來的冤親債主、以及所有您曾傷害過的生靈，願彼此釋結，同生淨土。<br><br>【今日定課】稱念佛菩薩聖號 1000 遍。" },
-                { title: "迴向法界", desc: "心量無邊，功德無邊。今日請將心量擴大至整個虛空法界，願今日微小善行，如一滴水入海，利益無盡有情。<br><br>【今日定課】稱念佛菩薩聖號 1000 遍。" },
-                { title: "迴向菩提", desc: "所修一切善法，不求世間人天福報。今日請堅定發願，將所有資糧唯獨迴向「成就無上正等正覺」之菩提道果。<br><br>【今日定課】稱念佛菩薩聖號 1000 遍。" },
-                { title: "迴向極樂", desc: "萬川歸海，導歸極樂。今日請深切觀想阿彌陀佛金身，將十願所積功德，全數傾注於莊嚴往生極樂世界之資糧。<br><br>【今日定課】稱念佛菩薩聖號 1000 遍。" },
-                { title: "行願圓滿", desc: "七日行願，步步生蓮。今日是普賢十願圓滿之日。請在靜坐中總迴向：「願以此功德，莊嚴佛淨土，上報四重恩，下濟三途苦。」<br><br>【今日定課】稱念佛菩薩聖號 10000 遍。" }
+                { title: "親眷に回向す", desc: "本日は一切の善行と念仏の功徳を、まず今生の生身の父母と至親なる眷属に回向し、彼らの心身の安康と因果を深く信じることを祈願してください。<br><br>【本日の定課】仏菩薩の聖号を1000遍称念する。" },
+                { title: "病苦に回向す", desc: "本日は心の中で病院の患者、または世間で戦乱や飢餓の苦しみを受けている衆生を観想し、本日の功徳を悉く回向し、彼らが苦を離れ楽を得ることを願ってください。<br><br>【本日の定課】仏菩薩の聖号を1000遍称念する。" },
+                { title: "怨親に回向す", desc: "怨みを解き結び目を釈くのは本日にあります。功徳を累劫からの怨親債主、並びにあなたがかつて傷つけたことのある全ての生霊に至誠をもって回向し、互いに結び目を釈き、同じく浄土に生まれることを願ってください。<br><br>【本日の定課】仏菩薩の聖号を1000遍称念する。" },
+                { title: "法界に回向す", desc: "心量は無辺、功徳は無辺なり。本日は心量を広げて虚空法界全体に至らせ、本日の小さな善行が、一滴の水が海に入るように、無尽の有情を利益することを願ってください。<br><br>【本日の定課】仏菩薩の聖号を1000遍称念する。" },
+                { title: "菩提に回向す", desc: "修する所の一切の善法は、世間の人天の福報を求めません。本日は堅く発願し、全ての資糧をただ「無上正等正覚を成就する」菩提の道果にのみ回向してください。<br><br>【本日の定課】仏菩薩の聖号を1000遍称念する。" },
+                { title: "極楽に回向す", desc: "万川は海に帰り、極楽に導き帰す。本日は阿弥陀仏の金身を深く観想し、十願で積んだ功徳を、全数荘厳なる極楽世界往生の資糧へと注ぎ込んでください。<br><br>【本日の定課】仏菩薩の聖号を1000遍称念する。" },
+                { title: "行願円満", desc: "七日の行願、歩歩に蓮を生ず。本日は普賢十願の円満の日です。静座の中で総回向を行ってください：「願以此功徳、荘厳仏浄土、上報四重恩、下済三途苦。」<br><br>【本日の定課】仏菩薩の聖号を10000遍称念する。" }
             ]
         ],
         hidden: [
-            { title: "一日止語", desc: "今日除絕對必要外，請實行禁語。將向外的能量全數收攝於內心。<br><br>【今日定課】止語期間默念不斷。", points: 800 },
-            { title: "夜間攝心", desc: "法界感應，夜氣清明。今日入睡前，請捨棄手機等雜訊干擾，專注盤腿靜坐或靜臥稱念佛號 15 分鐘。<br><br>【今日定課】夜間攝心專注。", points: 500 }
+            { title: "一日止語", desc: "本日は絶対に必要な場合を除き、禁語を実行してください。外に向かうエネルギーを全数内心へと収摂させてください。<br><br>【本日の定課】止語の間、黙念を断たず。", points: 800 },
+            { title: "夜間摂心", desc: "法界が感応し、夜気は清明なり。本日は就寝前、スマートフォン等の雑念の干渉を捨て、胡座で静座するか、静臥して仏号を15分間専心して称念してください。<br><br>【本日の定課】夜間は心を収摂し専注する。", points: 500 }
         ]
     };
 
-    // 契印證書文案庫
     const CERT_DATA = {
-        7: { title: "✦ 初心 ． 發心契印 ✦", glow: "drop-shadow(0 0 25px rgba(251,133,0,0.8))", text: "初發菩提心，已行七日。<br>橘紅微光破除無明黑闇。<br>願此一念，相續不斷。", cssVars: "--f1: #FFB703; --f2: #FB8500; --f3: #E85D04; --bd: #9D0208; --bs: #370617; --rb: #FFF;" },
-        70: { title: "✦ 歡喜 ． 菩提契印 ✦", glow: "drop-shadow(0 0 25px rgba(233,196,106,0.8))", text: "已圓滿七十日普賢行願。<br>真金寶幢於法界初現。<br>願此生步步生蓮，永不退轉。", cssVars: "--f1: #FFF8DC; --f2: #F3E5AB; --f3: #D4AF37; --bd: #AA7900; --bs: #5C4000; --rb: #FFF;" },
-        700: { title: "✦ 遠行 ． 琉璃契印 ✦", glow: "drop-shadow(0 0 35px rgba(42,157,143,0.8))", text: "歷經七百日大願薰修。<br>煩惱漸除，青琉璃寶幢高懸法界。<br>願身心清淨，內外明徹。", cssVars: "--f1: #E0FBFC; --f2: #98C1D9; --f3: #48CAE4; --bd: #2A9D8F; --bs: #1D3557; --rb: #FFF;" },
-        7000: { title: "✦ 善慧 ． 妙法契印 ✦", glow: "drop-shadow(0 0 45px rgba(193,18,31,0.8))", text: "七千日行願，不疲不厭。<br>赤紅寶幢燃起三昧真火。<br>願大悲拔苦，普度一切有情。", cssVars: "--f1: #F4A261; --f2: #E76F51; --f3: #C1121F; --bd: #780000; --bs: #370617; --rb: #FDFCDC;" },
-        9999999: { title: "✦ 無量 ． 盡未來際 ✦", glow: "drop-shadow(0 0 60px #fff) drop-shadow(0 0 15px #E9C46A)", text: "盡未來際，行願無盡。<br>累劫功德化為無上白金佛光。<br>法界授記，十方如來同聲讚歎。", cssVars: "--f1: #FFFFFF; --f2: #FDFCDC; --f3: #E0E1DD; --bd: #F3E5AB; --bs: #D4AF37; --rb: #FFFFFF;" }
+        7: { title: "✦ 初心 ． 発心契印 ✦", glow: "drop-shadow(0 0 25px rgba(251,133,0,0.8))", text: "初めて菩提心を発し、既に七日を行ず。<br>橘紅の微光が無明の黒闇を破る。<br>願わくはこの一念、相続して断たざらんことを。", cssVars: "--f1: #FFB703; --f2: #FB8500; --f3: #E85D04; --bd: #9D0208; --bs: #370617; --rb: #FFF;" },
+        70: { title: "✦ 歓喜 ． 菩提契印 ✦", glow: "drop-shadow(0 0 25px rgba(233,196,106,0.8))", text: "既に七十日の普賢行願を円満す。<br>真金の宝幢が法界に初現す。<br>願わくは今生に歩歩蓮を生じ、永く退転せざらんことを。", cssVars: "--f1: #FFF8DC; --f2: #F3E5AB; --f3: #D4AF37; --bd: #AA7900; --bs: #5C4000; --rb: #FFF;" },
+        700: { title: "✦ 遠行 ． 琉璃契印 ✦", glow: "drop-shadow(0 0 35px rgba(42,157,143,0.8))", text: "七百日の大願薫修を経る。<br>煩悩は漸く除かれ、青琉璃の宝幢が法界に高く懸かる。<br>願わくは身心清浄にして、内外明徹ならんことを。", cssVars: "--f1: #E0FBFC; --f2: #98C1D9; --f3: #48CAE4; --bd: #2A9D8F; --bs: #1D3557; --rb: #FFF;" },
+        7000: { title: "✦ 善慧 ． 妙法契印 ✦", glow: "drop-shadow(0 0 45px rgba(193,18,31,0.8))", text: "七千日の行願、疲れず厭わず。<br>赤紅の宝幢が三昧の真火を燃やす。<br>願わくは大悲もて苦を抜き、普く一切の有情を度せんことを。", cssVars: "--f1: #F4A261; --f2: #E76F51; --f3: #C1121F; --bd: #780000; --bs: #370617; --rb: #FDFCDC;" },
+        9999999: { title: "✦ 無量 ． 尽未来際 ✦", glow: "drop-shadow(0 0 60px #fff) drop-shadow(0 0 15px #E9C46A)", text: "尽未来際まで、行願は無尽なり。<br>累劫の功徳は無上の白金仏光と化す。<br>法界より授記され、十方の如来が同声に讃嘆す。", cssVars: "--f1: #FFFFFF; --f2: #FDFCDC; --f3: #E0E1DD; --bd: #F3E5AB; --bs: #D4AF37; --rb: #FFFFFF;" }
     };
 
-    // 強大的初始化大腦 (保證無 null 報錯)
-    const MAIN_DB_KEY = 'PX_V15.0'; 
+    const MAIN_DB_KEY = 'PX_JP_V15.0'; 
     let mainDb = localStorage.getItem(MAIN_DB_KEY);
     
-    // 如果系統第一次進來，完全沒有資料，給予嚴謹的空物件
     if (!mainDb) {
         mainDb = { points: 0, puxianData: null }; 
     } else {
@@ -528,7 +503,6 @@ function closeVowAlert() {
 
     let todayStr = new Date().toDateString();
 
-    // 初始化 PuxianData (如果不存在，或被清空了)
     if (!mainDb.puxianData) {
         mainDb.puxianData = {
             startDate: new Date().setHours(0,0,0,0), 
@@ -537,15 +511,13 @@ function closeVowAlert() {
             poolPoints: 0, 
             totalDays365: 0, 
             totalYears108: 0,
-            totalPracticedDays: 0 // 新增：寶幢專用累計天數
+            totalPracticedDays: 0 
         };
-        // 立刻存檔一次，確保不會報錯
         localStorage.setItem(MAIN_DB_KEY, JSON.stringify(mainDb));
     }
 
     let db = mainDb.puxianData; 
 
-    // 1. 防呆與自我療癒：精準繼承歷史天數，確保舊大眾權益無損
     let trueDays = (db.totalYears108 * 365) + db.totalDays365;
     if (typeof db.totalPracticedDays === 'undefined' || db.totalPracticedDays < trueDays) {
         db.totalPracticedDays = trueDays;
@@ -556,7 +528,6 @@ function closeVowAlert() {
     let startMidnight = new Date(db.startDate).setHours(0,0,0,0);
     let daysPassed = Math.round((nowMidnight - startMidnight) / 86400000);
 
-    // 2. 邊界防護：防堵出國跨時區或系統時間倒流造成的白屏異常
     daysPassed = Math.max(0, daysPassed);
 
     let currentVowIndex = Math.floor(daysPassed / 7) % 10;
@@ -573,7 +544,7 @@ function closeVowAlert() {
             db.poolPoints += (successCount === 7) ? 1000 : (successCount * 100);
             
             if (db.poolPoints >= 1000) {
-                showVowAlert(`行願資糧已滿千，<br>自動匯入彌陀淨土主系統。`);
+                showVowAlert(`行願の資糧が千を満たしました。<br>自動的に阿弥陀仏浄土のメインシステムへ匯入します。`);
                 mainDb.points = (mainDb.points || 0) + db.poolPoints; 
                 db.poolPoints = 0; 
             }
@@ -610,7 +581,7 @@ function closeVowAlert() {
             if (i < steps.length) { steps[i].classList.remove('step-hidden'); steps[i].classList.add('step-lit'); i++; } 
             else {
                 clearInterval(interval);
-                document.getElementById('day-hint').innerText = "法階圓滿 ． 請輕觸螢幕入陣";
+                document.getElementById('day-hint').innerText = "法階円満 ． 画面を軽くタップして入陣してください";
                 document.getElementById('page-1').style.cursor = 'pointer';
                 document.getElementById('page-1').addEventListener('click', executeWarp, {once:true});
             }
@@ -641,7 +612,7 @@ function closeVowAlert() {
 
     function updatePageTwoUI() {
         let vowList = VOWS_DB.regular[currentVowIndex] || VOWS_DB.regular[0]; 
-        let vowData = vowList ? (vowList[currentDayOfWeek] || vowList[0]) : { title: "系統擴建中", desc: "請靜候法界更新。" };
+        let vowData = vowList ? (vowList[currentDayOfWeek] || vowList[0]) : { title: "システム拡張中", desc: "法界の更新を静かにお待ちください。" };
 
         document.getElementById('ui-task-sub').innerText = `普賢十願 ． 第 ${currentVowIndex + 1} 願 ． 軌跡 ${currentDayOfWeek + 1}/7`;
         document.getElementById('ui-task-title-text').innerText = vowData.title; 
@@ -656,30 +627,37 @@ function closeVowAlert() {
             trackersHTML += `<div class="track-circle ${isLit}">${svgIcon}</div>`;
         }
         document.getElementById('ui-trackers').innerHTML = trackersHTML;
-        document.getElementById('ui-pool-text').innerText = `法界暫存資糧 : ${db.poolPoints} / 1000`;
+        document.getElementById('ui-pool-text').innerText = `法界に一時保存された資糧 : ${db.poolPoints} / 1000`;
         document.getElementById('ui-pool-bar').style.width = `${(db.poolPoints / 1000) * 100}%`;
 
         let btnText = document.getElementById('seal-text');
         if (db.weekRecord[currentDayOfWeek]) {
-            btnText.innerText = "【 今日行願已圓滿 】"; btnText.style.color = "var(--gold-solid)";
+            btnText.innerText = "【 今日の行願は既に円満しました 】"; btnText.style.color = "var(--gold-solid)";
             document.getElementById('progress-circle').style.strokeDashoffset = 0;
         } else {
-            btnText.innerText = "長按契印 ． 圓滿今日"; btnText.style.color = "var(--cyan)";
+            btnText.innerText = "長押し契印 ． 今日を円満にす"; btnText.style.color = "var(--cyan)";
             document.getElementById('progress-circle').style.strokeDashoffset = 289;
         }
     }
 
     function playTTS() {
-        if (!('speechSynthesis' in window)) return showVowAlert("法界回饋：您的設備暫不支援語音朗讀。");
+        if (!('speechSynthesis' in window)) return showVowAlert("法界の返答：お使いの端末は音声読み上げに対応していません。");
         window.speechSynthesis.cancel(); 
         let title = document.getElementById('ui-task-title-text').innerText;
         let desc = document.getElementById('ui-task-desc').innerText; 
         let utterance = new SpeechSynthesisUtterance(title + "。" + desc);
-        utterance.lang = 'zh-TW'; utterance.rate = 0.9; 
+        utterance.lang = 'ja-JP'; 
+        
+        const voices = window.speechSynthesis.getVoices();
+        const jpVoice = voices.find(voice => voice.lang === 'ja-JP' || voice.lang === 'ja_JP' || voice.lang.includes('ja'));
+        if (jpVoice) {
+            utterance.voice = jpVoice;
+        }
+        
+        utterance.rate = 0.9; 
         window.speechSynthesis.speak(utterance);
     }
 
-    // 更新大數據面板的數值與寶幢點亮狀態
     function updateDataModal() {
         document.getElementById('ui-txt-365').innerText = db.totalDays365; 
         document.getElementById('ui-txt-108').innerText = db.totalYears108;
@@ -702,15 +680,13 @@ function closeVowAlert() {
         else { el.classList.remove('banner-lit'); el.classList.add('banner-unlit'); }
     }
 
-    // 寶幢證書控制 (加入觸發來源，判斷是否要飛光芒)
     let isAutoTriggered = false; 
 
-        function openCert(tier) {
-        if (db.totalPracticedDays < tier) return; // 未達標點擊無效
-        isAutoTriggered = false; // 手動點開的不飛光芒
+    function openCert(tier) {
+        if (db.totalPracticedDays < tier) return; 
+        isAutoTriggered = false; 
 
-        // 【最純淨的讀取邏輯】：無聲無息地去抓取主系統中行者自己設定的名號
-        let currentName = "行 者"; // 若無名號，預設顯示行者
+        let currentName = "行 者"; 
         if (mainDb && mainDb.name && mainDb.name.trim() !== "") {
             currentName = mainDb.name;
         }
@@ -727,7 +703,7 @@ function closeVowAlert() {
     function closeCert() { 
         document.getElementById('cert-modal').classList.remove('show'); 
         if (isAutoTriggered) {
-            setTimeout(flyLightToHistory, 300); // 如果是剛達標自動彈出的，關閉時飛向歷史
+            setTimeout(flyLightToHistory, 300); 
         }
     }
 
@@ -744,7 +720,7 @@ function closeVowAlert() {
         light.style.transform = 'translate(-50%, -50%) scale(1)';
         document.body.appendChild(light);
         
-        void light.offsetWidth; // 強制重繪
+        void light.offsetWidth; 
         
         light.style.left = targetX + 'px'; light.style.top = targetY + 'px';
         light.style.transform = 'translate(-50%, -50%) scale(0.1)'; light.style.opacity = '0';
@@ -756,7 +732,6 @@ function closeVowAlert() {
         }, 1200);
     }
 
-    // 修改打卡完成邏輯，加入寶幢判斷
     const btn = document.getElementById('seal-btn'); const progCircle = document.getElementById('progress-circle'); const hintText = document.getElementById('seal-text');
     let reqAnimId, startTime, DURATION = 2000;
     function drawProgress(timestamp) {
@@ -767,26 +742,25 @@ function closeVowAlert() {
 function startPress(e) { 
     if (db.weekRecord[currentDayOfWeek]) return; 
     e.preventDefault(); 
-    hintText.innerText = "能量注入中..."; 
+    hintText.innerText = "エネルギー注入中..."; 
     hintText.style.color = "#fff"; 
     
-    // 防呆：若已有動畫正在運行，先強制中止，避免事件重疊導致進度暴衝
     if (reqAnimId) { cancelAnimationFrame(reqAnimId); }
     
     startTime = null; 
     reqAnimId = requestAnimationFrame(drawProgress); 
 }
 
-    function cancelPress() { if (db.weekRecord[currentDayOfWeek]) return; cancelAnimationFrame(reqAnimId); progCircle.style.strokeDashoffset = 289; hintText.innerText = "長按契印 ． 圓滿今日"; hintText.style.color = "var(--cyan)"; }
+    function cancelPress() { if (db.weekRecord[currentDayOfWeek]) return; cancelAnimationFrame(reqAnimId); progCircle.style.strokeDashoffset = 289; hintText.innerText = "長押し契印 ． 今日を円満にす"; hintText.style.color = "var(--cyan)"; }
     
     function completeTodayTask() {
         if (db.weekRecord[currentDayOfWeek]) return;
         
         db.weekRecord[currentDayOfWeek] = true; 
         db.totalDays365++;
-        db.totalPracticedDays++; // 寶幢專屬總累計
+        db.totalPracticedDays++; 
 
-        if (db.totalDays365 >= 365) { db.totalDays365 = 0; db.totalYears108++; showVowAlert("歲星圓滿，365日行願已成，<br>劫波蓮花歲數 + 1。"); }
+        if (db.totalDays365 >= 365) { db.totalDays365 = 0; db.totalYears108++; showVowAlert("歳星円満、365日の行願已に成る。<br>劫波の蓮華の歳数 + 1。"); }
         
         saveDB(); updatePageTwoUI(); updateDataModal();
 
@@ -794,11 +768,10 @@ function startPress(e) {
         core.style.transform = "translate(-50%, -50%) scale(1.5)"; core.style.opacity = "0";
         setTimeout(() => { core.style.transform = "translate(-50%, -50%) scale(1)"; core.style.opacity = "1"; }, 500);
 
-        // 判斷是否觸發契印證書
         const triggers = [7, 70, 700, 7000, 9999999];
         if (triggers.includes(db.totalPracticedDays)) {
             setTimeout(() => { 
-                isAutoTriggered = true; // 標記為自動觸發
+                isAutoTriggered = true; 
                 openCert(db.totalPracticedDays); 
             }, 1000);
         }
@@ -828,5 +801,6 @@ function startPress(e) {
     }
     window.addEventListener('load', () => { buildStairs(); renderStars(); animateStairsSequence(); updateDataModal(); });
 </script>
+
 </body>
 </html> 
