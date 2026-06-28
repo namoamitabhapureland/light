@@ -714,16 +714,21 @@
             
 
 
-<!-- 🌟 右側接腳：完全維持您給的原始右腳代碼 (包含您在 image_3.png 中圈出的正確右腳線條) -->
-<g class="buddha-foot-line-right" transform="translate(520, 740) scale(0.75) rotate(89) translate(-100, -225)" style="filter: drop-shadow(0 0 20px rgba(212,175,55,0.6));">
+
+<!-- 🌟 右側接腳：修正旋轉錯覺，讓中軸線（第4條）末端的括弧線在視覺上精準「往下」轉彎 -->
+<g class="buddha-foot-line-right" transform="translate(510, 735) scale(0.75) rotate(89) translate(-100, -225)" style="filter: drop-shadow(0 0 20px rgba(212,175,55,0.6));">
+    <!-- 1. 保留原代碼大輪廓金線 -->
     <path d="M 100 25 C 103 18, 107 20, 108 30 L 138 165 C 145 190, 160 230, 190 245 L 178 260 Q 172 263 168 265" fill="none" stroke="var(--gold-solid)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 2. 保留原代碼外側腿部粗線 -->
     <path d="M 138 165 C 145 190, 160 230, 190 245" fill="none" stroke="var(--gold-solid)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 3. 保留原代碼指根微細光影線 -->
     <path d="M 104 23 C 102 25, 102 32, 106 34" stroke="var(--gold-solid)" stroke-width="1" fill="none" />
-    <path d="M 100 25 L 100 225 Q 97 232 88 235" stroke="var(--gold-solid)" stroke-width="1.5" stroke-linecap="round" fill="none" />
+    <!-- 4. 【精準修正】修正視覺方向，將曲線末端往局部 Y 軸上方拉，在畫面上就會呈現完美的「往下」轉彎 ( 括弧 -->
+    <path d="M 100 25 L 100 225 Q 93 222 88 215" stroke="var(--gold-solid)" stroke-width="1.5" stroke-linecap="round" fill="none" />
 </g>
 
 
-<g class="buddha-foot-line-left" transform="translate(460, 720) scale(-0.6, 0.6) rotate(89) translate(-100, -225)" style="filter: drop-shadow(0 0 20px rgba(212,175,55,0.6));">
+<g class="buddha-foot-line-left" transform="translate(475, 730) scale(-0.6, 0.6) rotate(89) translate(-100, -225)" style="filter: drop-shadow(0 0 20px rgba(212,175,55,0.6));">
     <path d="M 100 25 C 103 18, 107 20, 108 30 L 122 95" fill="none" stroke="var(--gold-solid)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M 122 95 C 125 110, 130 125, 138 140" fill="none" stroke="var(--gold-solid)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M 104 23 C 102 25, 102 32, 106 34" stroke="var(--gold-solid)" stroke-width="1" fill="none" />
