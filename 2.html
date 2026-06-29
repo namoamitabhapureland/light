@@ -219,68 +219,71 @@
     .cert-name { font-size:16px; color: #fff; letter-spacing: 1px; margin-bottom: 20px; z-index: 2; position: relative; }
     .cert-desc { color:var(--text-gold); font-size:14px; letter-spacing:1px; line-height:2.4; z-index: 2; position: relative; }
 
-    /* ── 摩尼晶簇 (通用容器與基座) ── */
-    .mani-node {
-        position: absolute; width: 90px; height: 90px; z-index: 15; cursor: pointer; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); display: none; 
-    }
-    .mani-node.active { transform: scale(1.35) translateY(-5px); z-index: 100; }
-    .cluster-base { position: absolute; inset: 5px; border-radius: 50%; pointer-events: none; transition: background 1s ease;}
-    .m-stone { position: absolute; display: flex; justify-content: center; align-items: center; }
-    .m-stone svg { width: 100%; height: 100%; overflow: visible; }
+   /* ── 摩尼晶簇 (極致收斂體積：最大 60px) ── */
+.mani-node {
+    position: absolute; 
+    width: 60px; 
+    height: 60px; 
+    z-index: 15; 
+    cursor: pointer; 
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); 
+    display: none; 
+    /* 注入行動端硬體加速 */
+    will-change: transform;
+    backface-visibility: hidden;
+}
+.mani-node.active { transform: scale(1.15) translateY(-2px); z-index: 100; }
+.cluster-base { position: absolute; inset: 4px; border-radius: 50%; pointer-events: none; transition: background 1s ease;}
+.m-stone { position: absolute; display: flex; justify-content: center; align-items: center; }
+.m-stone svg { width: 100%; height: 100%; overflow: visible; }
 
-    /* ── 摩尼晶簇 (三大方位不規則空間定位) ── */
-    #mani-br { right: 12px; bottom: 15px; }
-    #mani-tl { left: 25px; top: 10%; }
-    #mani-bl { left: 18px; bottom: 20%; }
+/* ── 三大方位微型定位 (避免擁擠) ── */
+#mani-br { right: 15px; bottom: 20px; }
+#mani-tl { left: 25px; top: 12%; }
+#mani-bl { left: 20px; bottom: 22%; }
 
-    /* 右下 (沉積型)：大左下 / 中右上 / 小右下 */
-    #mani-br .s-main { width: 45px; height: 45px; left: 0; bottom: 5px; animation: m-float1 5s infinite alternate; }
-    #mani-br .s-sub  { width: 30px; height: 30px; right: 10px; top: 5px; animation: m-float2 4s infinite alternate-reverse; }
-    #mani-br .s-tiny { width: 18px; height: 18px; right: 0; bottom: 20px; animation: m-float3 6s infinite alternate; }
+/* 右下 (沉積型)：主石僅 30px */
+#mani-br .s-main { width: 30px; height: 30px; left: 2px; bottom: 2px; animation: m-float1 5s infinite alternate; }
+#mani-br .s-sub  { width: 18px; height: 18px; right: 4px; top: 4px; animation: m-float2 4s infinite alternate-reverse; }
+#mani-br .s-tiny { width: 12px; height: 12px; right: -1px; bottom: 15px; animation: m-float3 6s infinite alternate; } /* 微調物理偏置 */
 
-    /* 左上 (散射型)：大中心 / 中左下 / 小左上 */
-    #mani-tl .s-main { width: 42px; height: 42px; left: 20px; top: 20px; animation: m-float2 5.5s infinite alternate; }
-    #mani-tl .s-sub  { width: 28px; height: 28px; left: 0; bottom: 0; animation: m-float1 4.5s infinite alternate-reverse; }
-    #mani-tl .s-tiny { width: 20px; height: 20px; left: 5px; top: 0; animation: m-float4 3.5s infinite alternate; }
+/* 左上 (散射型) */
+#mani-tl .s-main { width: 28px; height: 28px; left: 14px; top: 14px; animation: m-float2 5.5s infinite alternate; }
+#mani-tl .s-sub  { width: 18px; height: 18px; left: 0; bottom: 0; animation: m-float1 4.5s infinite alternate-reverse; }
+#mani-tl .s-tiny { width: 13px; height: 13px; left: 2px; top: -3px; animation: m-float4 3.5s infinite alternate; } /* 微調物理偏置 */
 
-    /* 左下 (聚合型)：大中心 / 中右側 / 小下方 */
-    #mani-bl .s-main { width: 48px; height: 48px; left: 10px; top: 10px; animation: m-float1 4.8s infinite alternate-reverse; }
-    #mani-bl .s-sub  { width: 26px; height: 26px; right: 0; top: 30px; animation: m-float3 4.2s infinite alternate; }
-    #mani-bl .s-tiny { width: 22px; height: 22px; left: 25px; bottom: -5px; animation: m-float4 5.2s infinite alternate-reverse; }
+/* 左下 (聚合型) */
+#mani-bl .s-main { width: 32px; height: 32px; left: 6px; top: 6px; animation: m-float1 4.8s infinite alternate-reverse; }
+#mani-bl .s-sub  { width: 18px; height: 18px; right: 0; top: 18px; animation: m-float3 4.2s infinite alternate; }
+#mani-bl .s-tiny { width: 14px; height: 14px; left: 18px; bottom: -5px; animation: m-float4 5.2s infinite alternate-reverse; } /* 微調物理偏置 */
 
-    @keyframes m-float1 { 0% { transform: translateY(5px) rotate(-3deg); } 100% { transform: translateY(-5px) rotate(3deg); } }
-    @keyframes m-float2 { 0% { transform: translateY(4px) rotate(6deg); } 100% { transform: translateY(-4px) rotate(-6deg); } }
-    @keyframes m-float3 { 0% { transform: translateY(3px); } 100% { transform: translateY(-3px); } }
-    @keyframes m-float4 { 0% { transform: translateY(2px); } 100% { transform: translateY(-2px); } }
+/* 微幅微調浮動振幅 (極輕微晃動，如水底微塵) */
+@keyframes m-float1 { 0% { transform: translateY(1.5px) rotate(-1deg); } 100% { transform: translateY(-1.5px) rotate(1deg); } }
+@keyframes m-float2 { 0% { transform: translateY(1.2px) rotate(2deg); } 100% { transform: translateY(-1.2px) rotate(-2deg); } }
+@keyframes m-float3 { 0% { transform: translateY(1px); } 100% { transform: translateY(-1px); } }
+@keyframes m-float4 { 0% { transform: translateY(0.8px); } 100% { transform: translateY(-0.8px); } }
 
-    .mani-spin svg { animation: m-spin 30s linear infinite; transform-origin: center center; }
-    @keyframes m-spin { 100% { transform: rotate(360deg); } }
-    
-/* 1. 定義極淨呼吸動畫 (不變) */
+.mani-spin svg { animation: m-spin 40s linear infinite; transform-origin: center center; will-change: transform; }
+@keyframes m-spin { 100% { transform: rotate(360deg); } }
+
+/* 極淨細微呼吸 */
 @keyframes gemPulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(0.25); opacity: 0.7; }
+    0%, 100% { transform: scale(1); opacity: 0.95; }
+    50% { transform: scale(0.95); opacity: 0.75; } 
 }
-
-/* 2. 精準分流：一二階動第一層 svg，三階動 .mani-spin 容器，完美避開旋轉衝突！ */
-.m-stone > svg, 
-.mani-spin { 
-    animation: gemPulse 8s ease-in-out infinite; 
-    transform-origin: center center;
-}
-
-/* 3. 錯開頻率：大、中、小晶石 */
+.m-stone > svg, .mani-spin { animation: gemPulse 8s ease-in-out infinite; transform-origin: center center; }
 .s-main > svg, .s-main .mani-spin { animation-delay: 0s; }
-.s-sub > svg,  .s-sub .mani-spin  { animation-delay: -3s; }
-.s-tiny > svg, .s-tiny .mani-spin { animation-delay: -6s; }
+.s-sub > svg,  .s-sub .mani-spin  { animation-delay: -2.8s; }
+.s-tiny > svg, .s-tiny .mani-spin { animation-delay: -5.6s; }
 
-/* 4. 點擊放大時暫停呼吸，配合字幕躍出 */
+/* 點擊放大時暫停呼吸 */
 .mani-node.active .m-stone > svg,
 .mani-node.active .mani-spin {
     animation: none !important;
     transform: scale(1) !important;
     opacity: 1 !important;
 }
+
 
 
 
@@ -1182,49 +1185,65 @@ function renderLotus(p) {
 // ══════════════════════════════════════════
 function getManiSVG(tier) {
     if (tier === 1) { 
-        return `<svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));">
-            <polygon points="50,10 85,50 50,90 15,50" fill="url(#pure-glass)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
-            <polygon points="50,10 85,50 50,50" fill="rgba(255,255,255,0.4)"/>
-            <polygon points="15,50 50,50 50,90" fill="rgba(212,175,55,0.1)"/>
-            <line x1="50" y1="10" x2="50" y2="90" stroke="rgba(255,255,255,0.5)" stroke-width="0.8"/>
-            <line x1="15" y1="50" x2="85" y2="50" stroke="rgba(255,255,255,0.5)" stroke-width="0.8"/>
+        // 【初階：琉璃原石】極簡四邊菱形，純淨初發心
+        return `<svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.35));">
+            <defs>
+                <linearGradient id="pure-glass" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+                    <stop offset="100%" stop-color="#f5f7fa" stop-opacity="0.4"/>
+                </linearGradient>
+            </defs>
+            <polygon points="50,15 80,50 50,85 20,50" fill="url(#pure-glass)" stroke="rgba(255,255,255,0.7)" stroke-width="0.6"/>
+            <line x1="50" y1="15" x2="50" y2="85" stroke="rgba(255,255,255,0.35)" stroke-width="0.5"/>
+            <line x1="20" y1="50" x2="80" y2="50" stroke="rgba(255,255,255,0.35)" stroke-width="0.5"/>
         </svg>`;
     } else if (tier === 2) { 
-        return `<svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 15px rgba(248, 187, 208, 0.5));">
+        // 【中階：玫瑰晶蓮寶珠】珠蘊蓮中，中心化為剔透圓潤寶珠
+        return `<svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 8px rgba(248, 187, 208, 0.4));">
             <defs>
-                <linearGradient id="rose-glass" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
-                    <stop offset="100%" stop-color="#f48fb1" stop-opacity="0.5"/>
+                <linearGradient id="rose-ball" x1="30%" y1="30%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+                    <stop offset="40%" stop-color="#fbc2eb" stop-opacity="0.6"/>
+                    <stop offset="100%" stop-color="#a6c1ee" stop-opacity="0.3"/>
                 </linearGradient>
             </defs>
-            <polygon points="50,5 90,40 50,95 10,40" fill="url(#rose-glass)" stroke="#fff" stroke-width="0.5"/>
-            <polygon points="50,5 75,40 50,95 25,40" fill="rgba(244,143,177,0.15)"/>
-            <polygon points="50,20 65,45 50,80 35,45" fill="rgba(255,255,255,0.7)"/>
-            <circle cx="50" cy="45" r="4" fill="#fff" filter="drop-shadow(0 0 5px #fff)"/>
+            <g stroke="rgba(255,255,255,0.5)" stroke-width="0.4" fill="none">
+                <polygon points="50,10 75,35 50,90 25,35" fill="rgba(244,143,177,0.08)"/>
+                <polygon points="50,10 85,50 50,90 15,50" />
+            </g>
+            <circle cx="50" cy="48" r="24" fill="url(#rose-ball)" stroke="rgba(255,255,255,0.8)" stroke-width="0.5" />
+            <circle cx="42" cy="40" r="4" fill="#ffffff" filter="drop-shadow(0 0 3px #ffffff)" opacity="0.7"/>
         </svg>`;
     } else { 
+        // 【高階：幻彩摩尼天球】萬德圓滿，化作極細光軌經緯天球
         return `<div class="mani-spin" style="width:100%; height:100%;">
-        <svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.4)) drop-shadow(0 0 15px rgba(129, 212, 250, 0.3)); overflow:visible;">
+        <svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.3)) drop-shadow(0 0 8px rgba(129, 212, 250, 0.2)); overflow:visible;">
             <defs>
-                <linearGradient id="pastel-rainbow" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
-                    <stop offset="33%" stop-color="#b3e5fc" stop-opacity="0.6"/>
-                    <stop offset="66%" stop-color="#f8bbd0" stop-opacity="0.6"/>
-                    <stop offset="100%" stop-color="#e1bee7" stop-opacity="0.5"/>
-                </linearGradient>
+                <radialGradient id="rainbow-sphere" cx="35%" cy="35%" r="65%">
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+                    <stop offset="30%" stop-color="#e0f7fa" stop-opacity="0.7"/>
+                    <stop offset="70%" stop-color="#fce4ec" stop-opacity="0.5"/>
+                    <stop offset="100%" stop-color="#fff9c4" stop-opacity="0.3"/>
+                </radialGradient>
+                <radialGradient id="core-glow-fixed" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
+                    <stop offset="100%" stop-color="#b3e5fc" stop-opacity="0"/>
+                </radialGradient>
             </defs>
-            <circle cx="50" cy="50" r="35" fill="url(#core-glow)" />
-            <g stroke="rgba(255,255,255,0.8)" stroke-width="0.5">
-                <polygon points="50,5 95,40 50,95 5,40" fill="url(#pastel-rainbow)" opacity="0.8"/>
-                <polygon points="50,5 50,40 5,40" fill="rgba(255,255,255,0.6)"/>
-                <polygon points="50,5 95,40 50,40" fill="rgba(179, 229, 252, 0.4)"/>
-                <polygon points="5,40 50,40 50,95" fill="rgba(248, 187, 208, 0.4)"/>
-                <polygon points="95,40 50,40 50,95" fill="rgba(225, 190, 231, 0.4)"/>
-                <polygon points="50,20 70,40 50,75 30,40" fill="url(#pastel-rainbow)"/>
+            <circle cx="50" cy="50" r="32" fill="url(#core-glow-fixed)" />
+            <circle cx="50" cy="50" r="30" fill="url(#rainbow-sphere)" stroke="rgba(255,255,255,0.9)" stroke-width="0.5"/>
+            <g stroke="rgba(255,255,255,0.4)" stroke-width="0.4" fill="none">
+                <path d="M 50,20 A 16,30 0 0,0 50,80" stroke-dasharray="1,1"/>
+                <path d="M 50,20 A 16,30 0 0,1 50,80" stroke-dasharray="1,1"/>
+                <path d="M 20,50 A 30,16 0 0,0 80,50" />
+                <line x1="50" y1="35" x2="50" y2="65" stroke="rgba(255,255,255,0.6)" stroke-width="0.5" />
+                <line x1="35" y1="50" x2="65" y2="50" stroke="rgba(255,255,255,0.6)" stroke-width="0.5" />
             </g>
+            <circle cx="40" cy="40" r="5" fill="#ffffff" opacity="0.5" filter="drop-shadow(0 0 2px #ffffff)"/>
         </svg></div>`;
     }
 }
+
 
 // ── 獨立節點建構器 (處理二顆變三顆的演化) ──
 function buildManiNode(nodeId, tier, nianSum) {
