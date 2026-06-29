@@ -111,7 +111,7 @@ body {
         /* 佛尊優雅凌空飄浮層 */
         .buddha-breathe {
             width: 100%; height: auto;
-            animation: floating 5s ease-in-out infinite alternate;
+            animation: floating 10s ease-in-out infinite alternate;
             position: relative; 
         }
         @keyframes floating {
@@ -120,8 +120,8 @@ body {
         }
 
         /* 光相呼吸與恆常發光 */
-        .halo-pulse { transform-origin: 500px 245px; animation: halo-anim 4s infinite alternate ease-in-out; }
-        @keyframes halo-anim { 0% { transform: scale(1); opacity: 0.6; stroke-width: 1.5; filter: drop-shadow(0 0 15px rgba(255,215,0,0.4)); } 100% { transform: scale(1.02); opacity: 1; stroke-width: 3.0; filter: drop-shadow(0 0 35px rgba(255,215,0,0.8)); } }
+        .halo-pulse { transform-origin: 500px 245px; animation: halo-anim 2s infinite alternate ease-in-out; }
+        @keyframes halo-anim { 0% { transform: scale(1.2); opacity: 0.6; stroke-width: 1.5; filter: drop-shadow(0 0 15px rgba(255,215,0,0.4)); } 100% { transform: scale(1.02); opacity: 1; stroke-width: 3.0; filter: drop-shadow(0 0 35px rgba(255,215,0,0.8)); } }
         
         /* ✨ 新增：頂光背後的彩色能量圈 (6秒不同步呼吸) */
         .aura-pulse { transform-origin: 500px 245px; animation: aura-breathe 6s infinite alternate ease-in-out; }
