@@ -1412,7 +1412,8 @@ function getManiSVG(tier) {
 }
 
 // ── 獨立節點建構器 (處理二顆變三顆的演化) ──
-function buildManiNode(nodeId, tier, nianSum) {
+// ── 獨立節點建構器 (處理二顆變三顆的演化，並分配九曜中的三顆給此節點) ──
+function buildManiNode(nodeId, tierGroup, nianSum) {
     const node = document.getElementById(nodeId);
     if (!node) return;
     const sMain = node.querySelector('.s-main');
@@ -1421,28 +1422,44 @@ function buildManiNode(nodeId, tier, nianSum) {
     const base = node.querySelector('.cluster-base');
 
     node.style.display = 'block';
-    
+
+    // tierGroup 對應一個方位要負責的三個 tier，例如 [1,2,3]
+    const [tMain, tSub, tTiny] = tierGroup;
+
     let isEvolved = false;
-    if (tier === 1) isEvolved = nianSum >= 5000;         
-    if (tier === 2) isEvolved = nianSum >= 50000;        
-    if (tier === 3) isEvolved = nianSum >= 50000000; // 5千萬時第三顆結成   
+    if (tierGroup === MANI_GROUPS[0]) isEvolved = nianSum >= 5000;
+    if (tierGroup === MANI_GROUPS[1]) isEvolved = nianSum >= 50000;
+    if (tierGroup === MANI_GROUPS[2]) isEvolved = nianSum >= 50000000;
 
     if (isEvolved) {
         sMain.style.display = 'flex'; sSub.style.display = 'flex'; sTiny.style.display = 'flex';
     } else {
-        sMain.style.display = 'flex'; sSub.style.display = 'flex'; sTiny.style.display = 'none'; 
+        sMain.style.display = 'flex'; sSub.style.display = 'flex'; sTiny.style.display = 'none';
     }
 
-    const svgContent = getManiSVG(tier);
-    sMain.innerHTML = svgContent; sSub.innerHTML = svgContent; sTiny.innerHTML = svgContent;
+    // 每顆星各自取得對應 tier 的星球 SVG，不再共用同一顆
+    sMain.innerHTML = getManiSVG(tMain);
+    sSub.innerHTML = getManiSVG(tSub);
+    sTiny.innerHTML = getManiSVG(tTiny);
 
     const glowColors = [
         'radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%)',
         'radial-gradient(circle, rgba(248,187,208,0.05) 0%, transparent 70%)',
         'radial-gradient(circle, rgba(212,175,55,0.1) 0%, rgba(129,212,250,0.05) 50%, transparent 80%)'
     ];
-    base.style.background = glowColors[tier - 1];
+    const groupIndex = MANI_GROUPS.indexOf(tierGroup);
+    base.style.background = glowColors[groupIndex];
 }
+
+// 九曜分組：依「水金地火木土天海＋太陽」順序，分配給三個方位各 3 顆
+// mani-tl: 水星、金星、地球（離太陽最近三顆）
+// mani-br: 火星、木星、土星
+// mani-bl: 天王星、海王星、太陽（收尾，太陽放在 s-main 位置最大最亮）
+const MANI_GROUPS = [
+    [1, 2, 3],   // mani-br 用，但下方呼叫順序會對應到對的 nodeId，見 renderManiCluster
+    [4, 5, 6],
+    [7, 8, 9]
+];
 
 // ── 晶簇顯化主控與彈窗觸發 (由大到小判定) ──
 function renderManiCluster(nianSum) {
@@ -1451,31 +1468,31 @@ function renderManiCluster(nianSum) {
 
     if (nianSum === 0) return;
 
-    if (nianSum > 0) buildManiNode('mani-br', 1, nianSum);
-    if (nianSum >= 10000) buildManiNode('mani-tl', 2, nianSum);
-    if (nianSum >= 100000) buildManiNode('mani-bl', 3, nianSum);
+    if (nianSum > 0) buildManiNode('mani-br', MANI_GROUPS[0], nianSum);       // 水金地
+    if (nianSum >= 10000) buildManiNode('mani-tl', MANI_GROUPS[1], nianSum);  // 火木土
+    if (nianSum >= 100000) buildManiNode('mani-bl', MANI_GROUPS[2], nianSum); // 天海日
 
     // ✨ 倒序判斷，自動補齊歷史標記
     if (nianSum >= 100000000 && !db.personalRoom.maniNotifiedT4) {
         db.personalRoom.maniNotified = true;
         db.personalRoom.maniNotifiedT2 = true;
         db.personalRoom.maniNotifiedT3 = true;
-        db.personalRoom.maniNotifiedT4 = true; 
+        db.personalRoom.maniNotifiedT4 = true;
         saveDB();
         setTimeout(() => showCertificateModal(), 1200);
     } else if (nianSum >= 100000 && !db.personalRoom.maniNotifiedT3) {
         db.personalRoom.maniNotified = true;
         db.personalRoom.maniNotifiedT2 = true;
-        db.personalRoom.maniNotifiedT3 = true; 
+        db.personalRoom.maniNotifiedT3 = true;
         saveDB();
         setTimeout(() => showCrystalModal(3), 1000);
     } else if (nianSum >= 10000 && !db.personalRoom.maniNotifiedT2) {
         db.personalRoom.maniNotified = true;
-        db.personalRoom.maniNotifiedT2 = true; 
+        db.personalRoom.maniNotifiedT2 = true;
         saveDB();
         setTimeout(() => showCrystalModal(2), 1000);
     } else if (nianSum > 0 && !db.personalRoom.maniNotified) {
-        db.personalRoom.maniNotified = true; 
+        db.personalRoom.maniNotified = true;
         saveDB();
         setTimeout(() => showCrystalModal(1), 1000);
     }
