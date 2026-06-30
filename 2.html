@@ -1183,97 +1183,122 @@ function renderLotus(p) {
 // ══════════════════════════════════════════
 //  ✨ 摩尼晶簇 SVG (絢彩寶石版) ✨
 // ══════════════════════════════════════════
+// ══════════════════════════════════════════
+//  ✨ 摩尼晶簇 SVG (立體星球版) ✨
+// ══════════════════════════════════════════
 function getManiSVG(tier) {
     if (tier === 1) {
-        return `<svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 10px rgba(186,225,255,0.6));">
+        // 藍色星球：寧靜水藍行星，薄環
+        return `<svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 10px rgba(95,184,240,0.6));">
             <defs>
-                <linearGradient id="t1-body" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff"/>
-                    <stop offset="40%" stop-color="#a8e0ff"/>
-                    <stop offset="75%" stop-color="#5fb8f0"/>
-                    <stop offset="100%" stop-color="#2e7fd6"/>
-                </linearGradient>
-                <linearGradient id="t1-shine" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
-                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                <radialGradient id="t1-planet" cx="38%" cy="35%" r="65%">
+                    <stop offset="0%" stop-color="#eaf8ff"/>
+                    <stop offset="35%" stop-color="#a8e0ff"/>
+                    <stop offset="70%" stop-color="#4fa8e8"/>
+                    <stop offset="100%" stop-color="#1c5fa8"/>
+                </radialGradient>
+                <radialGradient id="t1-shadow" cx="65%" cy="70%" r="55%">
+                    <stop offset="0%" stop-color="#0a2f5c" stop-opacity="0"/>
+                    <stop offset="100%" stop-color="#0a2f5c" stop-opacity="0.55"/>
+                </radialGradient>
+                <linearGradient id="t1-ring" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#1c5fa8" stop-opacity="0"/>
+                    <stop offset="20%" stop-color="#bfeaff" stop-opacity="0.9"/>
+                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.95"/>
+                    <stop offset="80%" stop-color="#bfeaff" stop-opacity="0.9"/>
+                    <stop offset="100%" stop-color="#1c5fa8" stop-opacity="0"/>
                 </linearGradient>
             </defs>
-            <polygon points="50,8 88,50 50,92 12,50" fill="url(#t1-body)" stroke="#ffffff" stroke-width="1.2" stroke-opacity="0.8"/>
-            <polygon points="50,8 88,50 50,50" fill="#ffffff" opacity="0.35"/>
-            <polygon points="12,50 50,50 50,92" fill="#1a5fb4" opacity="0.25"/>
-            <polygon points="50,8 65,50 50,50 35,50" fill="url(#t1-shine)" opacity="0.7"/>
-            <line x1="50" y1="8" x2="50" y2="92" stroke="#ffffff" stroke-width="0.6" stroke-opacity="0.6"/>
-            <line x1="12" y1="50" x2="88" y2="50" stroke="#ffffff" stroke-width="0.6" stroke-opacity="0.6"/>
-            <circle cx="42" cy="30" r="5" fill="#ffffff" opacity="0.85"/>
+            <ellipse cx="50" cy="54" rx="40" ry="9" fill="url(#t1-ring)" opacity="0.85"/>
+            <circle cx="50" cy="50" r="30" fill="url(#t1-planet)"/>
+            <circle cx="50" cy="50" r="30" fill="url(#t1-shadow)"/>
+            <path d="M 22 42 Q 50 48 78 40" stroke="#ffffff" stroke-width="1.2" fill="none" opacity="0.35"/>
+            <path d="M 24 58 Q 50 64 76 56" stroke="#0a3a6e" stroke-width="1.5" fill="none" opacity="0.3"/>
+            <ellipse cx="38" cy="36" rx="9" ry="5" fill="#ffffff" opacity="0.55"/>
+            <ellipse cx="50" cy="20" rx="44" ry="10" fill="url(#t1-ring)" opacity="0.5" transform="rotate(-8 50 50)"/>
         </svg>`;
     } else if (tier === 2) {
+        // 粉色星球：夢幻雲彩行星，雙環
         return `<svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 16px rgba(255,105,180,0.55));">
             <defs>
-                <linearGradient id="t2-body" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff"/>
-                    <stop offset="35%" stop-color="#ffb6e6"/>
+                <radialGradient id="t2-planet" cx="38%" cy="32%" r="65%">
+                    <stop offset="0%" stop-color="#fff5fb"/>
+                    <stop offset="35%" stop-color="#ffc2e8"/>
                     <stop offset="70%" stop-color="#ff5fa2"/>
-                    <stop offset="100%" stop-color="#c2186b"/>
-                </linearGradient>
-                <linearGradient id="t2-facet" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#fff7fb" stop-opacity="0.9"/>
-                    <stop offset="100%" stop-color="#ff8fc7" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#a8186b"/>
+                </radialGradient>
+                <radialGradient id="t2-shadow" cx="65%" cy="72%" r="55%">
+                    <stop offset="0%" stop-color="#6e0a44" stop-opacity="0"/>
+                    <stop offset="100%" stop-color="#6e0a44" stop-opacity="0.5"/>
+                </radialGradient>
+                <linearGradient id="t2-ring" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#a8186b" stop-opacity="0"/>
+                    <stop offset="20%" stop-color="#ffd6f0" stop-opacity="0.9"/>
+                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.95"/>
+                    <stop offset="80%" stop-color="#ffd6f0" stop-opacity="0.9"/>
+                    <stop offset="100%" stop-color="#a8186b" stop-opacity="0"/>
                 </linearGradient>
             </defs>
-            <polygon points="50,4 92,40 50,96 8,40" fill="url(#t2-body)" stroke="#ffffff" stroke-width="1" stroke-opacity="0.9"/>
-            <polygon points="50,4 71,40 50,96 29,40" fill="url(#t2-facet)"/>
-            <polygon points="50,18 67,42 50,78 33,42" fill="#ffffff" opacity="0.55"/>
-            <polygon points="50,4 92,40 50,40" fill="#ffffff" opacity="0.3"/>
-            <polygon points="8,40 50,40 50,96" fill="#a3145f" opacity="0.25"/>
-            <circle cx="50" cy="42" r="5" fill="#ffffff" filter="drop-shadow(0 0 6px #fff)"/>
-            <circle cx="38" cy="28" r="2.5" fill="#ffffff" opacity="0.9"/>
+            <ellipse cx="50" cy="56" rx="42" ry="10" fill="url(#t2-ring)" opacity="0.9" transform="rotate(4 50 50)"/>
+            <ellipse cx="50" cy="44" rx="38" ry="7" fill="url(#t2-ring)" opacity="0.5" transform="rotate(-6 50 50)"/>
+            <circle cx="50" cy="50" r="29" fill="url(#t2-planet)"/>
+            <circle cx="50" cy="50" r="29" fill="url(#t2-shadow)"/>
+            <path d="M 24 40 Q 50 46 76 38" stroke="#ffffff" stroke-width="1.2" fill="none" opacity="0.45"/>
+            <path d="M 26 60 Q 50 66 74 58" stroke="#6e0a44" stroke-width="1.4" fill="none" opacity="0.3"/>
+            <ellipse cx="38" cy="35" rx="9" ry="5" fill="#ffffff" opacity="0.6"/>
+            <circle cx="64" cy="62" r="2" fill="#ffffff" opacity="0.7"/>
         </svg>`;
     } else {
+        // 金彩虹星球：絢麗多環旗艦行星
         return `<div class="mani-spin" style="width:100%; height:100%;">
         <svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 22px rgba(255,215,0,0.55)) drop-shadow(0 0 18px rgba(0,200,255,0.4)); overflow:visible;">
             <defs>
-                <radialGradient id="t3-core" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
-                    <stop offset="60%" stop-color="#ffe9a8" stop-opacity="0.5"/>
-                    <stop offset="100%" stop-color="#ffd700" stop-opacity="0"/>
+                <radialGradient id="t3-planet" cx="38%" cy="32%" r="65%">
+                    <stop offset="0%" stop-color="#fffdf2"/>
+                    <stop offset="25%" stop-color="#ffe68a"/>
+                    <stop offset="50%" stop-color="#ff9ed8"/>
+                    <stop offset="75%" stop-color="#9d7bff"/>
+                    <stop offset="100%" stop-color="#3a1f8c"/>
                 </radialGradient>
-                <linearGradient id="t3-rainbow" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff"/>
-                    <stop offset="20%" stop-color="#ffe066"/>
-                    <stop offset="40%" stop-color="#7fe7ff"/>
-                    <stop offset="60%" stop-color="#ff7fd4"/>
-                    <stop offset="80%" stop-color="#b388ff"/>
-                    <stop offset="100%" stop-color="#7fffd4"/>
+                <radialGradient id="t3-shadow" cx="66%" cy="72%" r="55%">
+                    <stop offset="0%" stop-color="#1a0a4c" stop-opacity="0"/>
+                    <stop offset="100%" stop-color="#1a0a4c" stop-opacity="0.5"/>
+                </radialGradient>
+                <linearGradient id="t3-ringGold" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#ffd700" stop-opacity="0"/>
+                    <stop offset="20%" stop-color="#fff3b0" stop-opacity="0.95"/>
+                    <stop offset="50%" stop-color="#ffffff" stop-opacity="1"/>
+                    <stop offset="80%" stop-color="#fff3b0" stop-opacity="0.95"/>
+                    <stop offset="100%" stop-color="#ffd700" stop-opacity="0"/>
                 </linearGradient>
-                <linearGradient id="t3-facetA" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
-                    <stop offset="100%" stop-color="#7fe7ff" stop-opacity="0.4"/>
+                <linearGradient id="t3-ringCyan" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#00c8ff" stop-opacity="0"/>
+                    <stop offset="25%" stop-color="#7fe7ff" stop-opacity="0.85"/>
+                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.95"/>
+                    <stop offset="75%" stop-color="#7fe7ff" stop-opacity="0.85"/>
+                    <stop offset="100%" stop-color="#00c8ff" stop-opacity="0"/>
                 </linearGradient>
-                <linearGradient id="t3-facetB" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
-                    <stop offset="100%" stop-color="#ff7fd4" stop-opacity="0.4"/>
-                </linearGradient>
-                <linearGradient id="t3-facetC" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
-                    <stop offset="100%" stop-color="#b388ff" stop-opacity="0.4"/>
-                </linearGradient>
-                <linearGradient id="t3-facetD" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
-                    <stop offset="100%" stop-color="#ffe066" stop-opacity="0.4"/>
+                <linearGradient id="t3-ringMagenta" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#ff7fd4" stop-opacity="0"/>
+                    <stop offset="25%" stop-color="#ffc2ef" stop-opacity="0.8"/>
+                    <stop offset="50%" stop-color="#ffffff" stop-opacity="0.9"/>
+                    <stop offset="75%" stop-color="#ffc2ef" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="#ff7fd4" stop-opacity="0"/>
                 </linearGradient>
             </defs>
-            <circle cx="50" cy="50" r="42" fill="url(#t3-core)"/>
-            <g stroke="#ffffff" stroke-width="0.7" stroke-opacity="0.9">
-                <polygon points="50,3 97,40 50,97 3,40" fill="url(#t3-rainbow)" opacity="0.85"/>
-                <polygon points="50,3 50,40 3,40" fill="url(#t3-facetA)"/>
-                <polygon points="50,3 97,40 50,40" fill="url(#t3-facetD)"/>
-                <polygon points="3,40 50,40 50,97" fill="url(#t3-facetB)"/>
-                <polygon points="97,40 50,40 50,97" fill="url(#t3-facetC)"/>
-                <polygon points="50,18 72,40 50,82 28,40" fill="#ffffff" opacity="0.5"/>
-            </g>
-            <circle cx="50" cy="38" r="6" fill="#ffffff" filter="drop-shadow(0 0 10px #fff)"/>
-            <circle cx="34" cy="55" r="2.5" fill="#ffffff" opacity="0.8"/>
-            <circle cx="66" cy="55" r="2.5" fill="#ffffff" opacity="0.8"/>
+            <circle cx="50" cy="50" r="46" fill="url(#t3-planet)" opacity="0.12"/>
+            <ellipse cx="50" cy="58" rx="46" ry="11" fill="url(#t3-ringGold)" opacity="0.9" transform="rotate(6 50 50)"/>
+            <ellipse cx="50" cy="50" rx="44" ry="9" fill="url(#t3-ringCyan)" opacity="0.7" transform="rotate(-4 50 50)"/>
+            <ellipse cx="50" cy="42" rx="40" ry="7" fill="url(#t3-ringMagenta)" opacity="0.6" transform="rotate(10 50 50)"/>
+            <circle cx="50" cy="50" r="29" fill="url(#t3-planet)"/>
+            <circle cx="50" cy="50" r="29" fill="url(#t3-shadow)"/>
+            <path d="M 23 38 Q 50 44 77 36" stroke="#ffffff" stroke-width="1.3" fill="none" opacity="0.5"/>
+            <path d="M 25 50 Q 50 56 75 48" stroke="#fff3b0" stroke-width="1.2" fill="none" opacity="0.4"/>
+            <path d="M 27 62 Q 50 68 73 60" stroke="#1a0a4c" stroke-width="1.4" fill="none" opacity="0.3"/>
+            <ellipse cx="38" cy="34" rx="10" ry="5.5" fill="#ffffff" opacity="0.65"/>
+            <circle cx="50" cy="50" r="29" fill="none" stroke="#ffffff" stroke-width="0.6" opacity="0.4"/>
+            <circle cx="66" cy="62" r="2.2" fill="#ffffff" opacity="0.8"/>
+            <circle cx="32" cy="60" r="1.5" fill="#fff3b0" opacity="0.8"/>
         </svg></div>`;
     }
 }
