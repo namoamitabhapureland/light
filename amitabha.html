@@ -504,20 +504,17 @@ body {
     <div id="buddha-scene">
     <div class="buddha-breathe">
         <svg viewBox="0 0 1000 1100" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <radialGradient id="haloGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="80%" stop-color="#010103" stop-opacity="0"/>
-                    <stop offset="100%" stop-color="#FFD700" stop-opacity="1"/>
-                </radialGradient>
-                
-                <linearGradient id="goldBody" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
-                    <stop offset="50%" style="stop-color:#B8860B;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#8B6508;stop-opacity:1" />
-                </linearGradient>
-                                  
-                    
-  <linearGradient id="lotusFill" x1="0%" y1="0%" x2="0%" y2="100%">
+ <defs>
+    <radialGradient id="haloGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFF5CC" stop-opacity="0.5"/>  <stop offset="70%" stop-color="#FFD700" stop-opacity="0.2"/> <stop offset="100%" stop-color="#FFD700" stop-opacity="0"/>  </radialGradient>
+    
+    <linearGradient id="goldBody" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+        <stop offset="50%" style="stop-color:#B8860B;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#8B6508;stop-opacity:1" />
+    </linearGradient>
+                      
+    <linearGradient id="lotusFill" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stop-color="#FFDF00" stop-opacity="0.95"/> 
         <stop offset="50%" stop-color="#D4AF37" stop-opacity="0.95"/> 
         <stop offset="100%" stop-color="#995000" stop-opacity="1"/> 
@@ -540,53 +537,49 @@ body {
         <stop offset="100%" stop-color="#f3e5ab" stop-opacity="0"/>
     </radialGradient>
 
-                <radialGradient id="haloFillDef" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#FFDF00" stop-opacity="0"/> 
-                    <stop offset="68%" stop-color="#FFDF00" stop-opacity="0"/> 
-                    <stop offset="74%" stop-color="#FFD700" stop-opacity="0.9"/> 
-                    <stop offset="90%" stop-color="#D4AF37" stop-opacity="0.8"/> 
-                    <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/> 
-                </radialGradient>
-                
-                                <radialGradient id="ringFadeMask" cx="50%" cy="50%" r="50%">
-                    <stop offset="60%" stop-color="black" /> <stop offset="75%" stop-color="white" />
-                    <stop offset="90%" stop-color="white" />
-                    <stop offset="100%" stop-color="black" />
-                </radialGradient>
-                <mask id="color-ring-mask">
-                    <circle cx="500" cy="245" r="225" fill="url(#ringFadeMask)" />
-                </mask>
+    <radialGradient id="haloFillDef" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFDF00" stop-opacity="0"/> 
+        <stop offset="60%" stop-color="#FFDF00" stop-opacity="0.1"/> <stop offset="85%" stop-color="#FFD700" stop-opacity="0.95"/> <stop offset="95%" stop-color="#D4AF37" stop-opacity="0.8"/> 
+        <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/> 
+    </radialGradient>
+    
+    <radialGradient id="ringFadeMask" cx="50%" cy="50%" r="50%">
+        <stop offset="60%" stop-color="black" /> 
+        <stop offset="75%" stop-color="white" />
+        <stop offset="90%" stop-color="white" />
+        <stop offset="100%" stop-color="black" />
+    </radialGradient>
+    <mask id="color-ring-mask">
+        <circle cx="500" cy="245" r="225" fill="url(#ringFadeMask)" />
+    </mask>
 
-                <linearGradient id="colorMix1" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#f3e5ab" /> 
-                    <stop offset="50%" stop-color="#ffffff" /> 
-                    <stop offset="100%" stop-color="#8ba89c" /> 
-                </linearGradient>
-                <linearGradient id="colorMix2" x1="100%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff" /> 
-                    <stop offset="50%" stop-color="transparent" /> 
-                    <stop offset="100%" stop-color="#d4af37" /> 
-                </linearGradient>
-                <linearGradient id="colorMix3" x1="50%" y1="0%" x2="50%" y2="100%">
-                    <stop offset="0%" stop-color="#ffb6c1" /> 
-                    <stop offset="50%" stop-color="transparent" /> 
-                    <stop offset="100%" stop-color="#f3e5ab" /> 
-                </linearGradient>
+    <linearGradient id="colorMix1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#f3e5ab" /> 
+        <stop offset="50%" stop-color="#ffffff" /> 
+        <stop offset="100%" stop-color="#8ba89c" /> 
+    </linearGradient>
+    <linearGradient id="colorMix2" x1="100%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#ffffff" /> 
+        <stop offset="50%" stop-color="transparent" /> 
+        <stop offset="100%" stop-color="#d4af37" /> 
+    </linearGradient>
+    <linearGradient id="colorMix3" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color="#ffb6c1" /> 
+        <stop offset="50%" stop-color="transparent" /> 
+        <stop offset="100%" stop-color="#f3e5ab" /> 
+    </linearGradient>
 
-                
-                <linearGradient id="bodyFill" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#f3e5ab" stop-opacity="0.25"/>
-                    <stop offset="40%" stop-color="#f3e5ab" stop-opacity="0.12"/>
-                    <stop offset="90%" stop-color="#010103" stop-opacity="0"/> 
-                </linearGradient>
-                                  
-                <linearGradient id="bodyFillPink" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#f3c2c4" stop-opacity="0"/> 
-                    <stop offset="45%" stop-color="#f3c2c4" stop-opacity="0"/> 
-                    <stop offset="100%" stop-color="#f3c2c4" stop-opacity="0.35"/> 
-                </linearGradient>
-               
-            
+    <linearGradient id="bodyFill" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#f3e5ab" stop-opacity="0.35"/> <stop offset="50%" stop-color="#f3e5ab" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#f3e5ab" stop-opacity="0"/> </linearGradient>
+                      
+    <linearGradient id="bodyFillPink" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#f3c2c4" stop-opacity="0"/> 
+        <stop offset="45%" stop-color="#f3c2c4" stop-opacity="0"/> 
+        <stop offset="100%" stop-color="#f3c2c4" stop-opacity="0.35"/> 
+    </linearGradient>
+
+
                 
                 <linearGradient id="glass-base-mini" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stop-color="rgba(243, 229, 171, 0.5)"/>
