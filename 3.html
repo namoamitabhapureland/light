@@ -1548,7 +1548,7 @@ function updateUI() {
 
     // 2. 晶石與彈窗嚴格對應歷史總念佛數
     let nianSum = (db.totalNian||0) + Object.values(db.personalRoom.othList).reduce((a,b)=>a+b, 0);
-    renderManiCluster(nianSum);
+    updatePlanets(nianSum);
 }
 
 // ══════════════════════════════════════════
