@@ -544,18 +544,21 @@
     </div>
 </div>
 
+<!-- 修改 1：九星解鎖彈窗 -->
 <div id="crystalRewardModal" class="custom-modal" onclick="closeM('crystalRewardModal')">
     <div style="display:flex; flex-direction:column; align-items:center; width: 100%; position: relative; pointer-events: none;">
         <div class="t-svg-wrap" id="reward-crystal-svg" style="width: 200px; height: 200px; filter: drop-shadow(0 0 40px rgba(255,255,255,0.15)); margin-bottom: 10px;"></div>
         <div style="display:flex; align-items:center; gap: 12px; margin-bottom: 25px; pointer-events: auto;">
-            <div style="color:#fff; font-size:18px; font-weight:bold; letter-spacing:4px;" id="reward-crystal-title">【摩尼靈石】</div>
-            <div style="border: 1px solid rgba(212,175,55,0.5); border-radius: 20px; padding: 4px 14px; font-size: 11px; color: var(--gold); letter-spacing: 2px;" id="reward-crystal-subtitle">成長演化</div>
+            <!-- 文字改為九星主題 -->
+            <div style="color:#fff; font-size:18px; font-weight:bold; letter-spacing:4px;" id="reward-crystal-title">【九曜星石】</div>
+            <div style="border: 1px solid rgba(212,175,55,0.5); border-radius: 20px; padding: 4px 14px; font-size: 11px; color: var(--gold); letter-spacing: 2px;" id="reward-crystal-subtitle">星軌連珠</div>
         </div>
         <div style="color:var(--text-gold); font-size:14px; letter-spacing:2px; text-align:center; line-height: 2.2; padding: 0 30px; text-shadow: 0 0 10px rgba(0,0,0,0.8); pointer-events: auto;" id="reward-crystal-desc"></div>
         <div style="opacity:.4; font-size:11px; margin-top:45px; color: #fff; letter-spacing: 4px;">輕觸畫面 ‧ 收攝法喜</div>
     </div>
 </div>
 
+<!-- 修改 2：一億滿願契印彈窗 -->
 <div id="certificateModal" class="custom-modal" onclick="closeM('certificateModal')">
     <div class="cert-box" onclick="event.stopPropagation()">
         <div class="cert-glow-bg"></div>
@@ -565,7 +568,8 @@
         <div class="cert-desc">
             歷劫精進，於此淨室累計念誦達<br>
             <span style="color:var(--gold); font-size:22px; font-weight:bold; text-shadow: 0 0 15px rgba(212,175,55,0.8);">一億</span> 聖號。<br><br>
-            幻彩摩尼圓滿俱足，映徹三千大千世界。<br>
+            <!-- 這裡的文字更新 -->
+            九星連珠圓滿俱足，映徹三千大千世界。<br>
             法界回饋契印，願無量光壽，與汝同在。
         </div>
         <button class="gold-btn" style="margin-top:30px; width:70%; z-index:5; position:relative;" onclick="closeM('certificateModal')">迴向功德</button>
@@ -1188,23 +1192,31 @@ function renderLotus(p) {
     box.innerHTML = svg;
 }
 
-// ══════════════════════════════════════════
-//  ✨ 摩尼晶簇 SVG (淡色美學) ✨
-// ══════════════════════════════════════════
-// ══════════════════════════════════════════
-//  ✨ 摩尼晶簇 SVG (絢彩寶石版) ✨
-// ══════════════════════════════════════════
-// ══════════════════════════════════════════
-//  ✨ 摩尼晶簇 SVG (立體星球版) ✨
-// ══════════════════════════════════════════
-// ══════════════════════════════════════════
-//  ✨ 摩尼晶簇 SVG (金蓮版) ✨
-// ══════════════════════════════════════════
-// ══════════════════════════════════════════
-//  ✨ 摩尼九曜連珠 SVG (水金地火木土天海＋太陽) ✨
-// ══════════════════════════════════════════
 function getManiSVG(tier) {
+// 新增：九星連珠專屬文案庫
+const PLANET_DATA = {
+    1: { name: "水星 ‧ 滌淨", desc: "蘊含初發之清淨，如水洗滌塵垢，初心萌芽。" },
+    2: { name: "金星 ‧ 啟明", desc: "啟明之光，照破無明煩惱，智慧初現。" },
+    3: { name: "地球 ‧ 悲載", desc: "載育萬物，悲心如地藏般堅固，厚德載物。" },
+    4: { name: "火星 ‧ 智炬", desc: "智慧如炬，焚盡一切業障，勇猛精進。" },
+    5: { name: "木星 ‧ 菩提", desc: "廣大無礙，展現菩提生機，福慧增長。" },
+    6: { name: "土星 ‧ 禪定", desc: "禪定堅固，千劫不動如山，安忍如地。" },
+    7: { name: "天王星 ‧ 自在", desc: "清涼自在，破除世間執念，得大解脫。" },
+    8: { name: "海王星 ‧ 願海", desc: "願海無涯，包容法界眾生，慈悲普度。" },
+    9: { name: "太陽 ‧ 耀金", desc: "大圓滿耀金，自性光明普照三千大千世界。" }
+};
 
+// 替換：更新彈出視窗的觸發邏輯
+function showPlanetReward(tier) {
+    const data = PLANET_DATA[tier];
+    if (!data) return;
+    
+    document.getElementById('reward-crystal-svg').innerHTML = getManiSVG(tier);
+    document.getElementById('reward-crystal-title').innerText = `【${data.name}】`;
+    document.getElementById('reward-crystal-desc').innerText = data.desc;
+    
+    openM('crystalRewardModal');
+}
     // 共用：行星本體 + 陰影 + 高光 + 環（環為選用）
     function planetBase({ id, grad, shadowOpacity = 0.5, shadowColor = "#1a0a4c", bands = [], ring = null, glowColor = "rgba(120,180,255,0.5)" }) {
         const bandPaths = bands.map((b, i) =>
@@ -1452,6 +1464,53 @@ function buildManiNode(nodeId, tierGroup, nianSum) {
     const groupIndex = MANI_GROUPS.indexOf(tierGroup);
     base.style.background = glowColors[groupIndex];
 }
+// 替換：節點建構器 (處理九星連珠的解鎖與分配)
+function updatePlanets(pts) {
+    // 這裡設定 1~9 階星球解鎖的門檻 (可依你的需求自由調整數字)
+    const thresholds = [100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000];
+    let unlockedTier = 0;
+    
+    for (let i = 0; i < thresholds.length; i++) {
+        if (pts >= thresholds[i]) unlockedTier = i + 1;
+    }
+
+    // 觸發新星球解鎖彈窗
+    if (unlockedTier > (db.personalRoom.lastPlanetTier || 0)) {
+        db.personalRoom.lastPlanetTier = unlockedTier;
+        saveDB();
+        showPlanetReward(unlockedTier);
+    }
+
+    // 分配 9 顆星球到三個方位 (每個方位放 3 顆)
+    // 陣列順序對應 HTML 中的順序：s-main, s-sub, s-tiny
+    const nodes = [
+        { id: 'mani-br', tiers: [3, 2, 1] }, // 右下：地球、金星、水星
+        { id: 'mani-tl', tiers: [6, 5, 4] }, // 左上：土星、木星、火星
+        { id: 'mani-bl', tiers: [9, 8, 7] }  // 左下：太陽、海王星、天王星
+    ];
+
+    nodes.forEach(nodeData => {
+        const nodeEl = document.getElementById(nodeData.id);
+        const isNodeActive = nodeData.tiers.some(t => t <= unlockedTier);
+        
+        if (isNodeActive) {
+            nodeEl.style.display = 'block';
+            const stones = nodeEl.querySelectorAll('.m-stone');
+            
+            nodeData.tiers.forEach((tier, index) => {
+                if (tier <= unlockedTier) {
+                    stones[index].style.display = 'flex';
+                    stones[index].innerHTML = getManiSVG(tier);
+                } else {
+                    stones[index].style.display = 'none';
+                }
+            });
+        } else {
+            nodeEl.style.display = 'none';
+        }
+    });
+}
+
 
 // 九曜分組：依「水金地火木土天海＋太陽」順序，分配給三個方位各 3 顆
 // mani-tl: 水星、金星、地球（離太陽最近三顆）
@@ -1463,11 +1522,26 @@ const MANI_GROUPS = [
     [7, 8, 9]
 ];
 
-// ── 晶簇顯化主控與彈窗觸發 (由大到小判定) ──
-function renderManiCluster(nianSum) {
-    const nodes = ['mani-br', 'mani-tl', 'mani-bl'];
-    nodes.forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
-
+// 替換：點擊星球星系時的互動彈窗
+function resonateCluster(event, type) {
+    event.stopPropagation();
+    const node = event.currentTarget;
+    node.classList.add('active');
+    
+    playCrystalChime(); 
+    
+    // 點擊後，顯示該星系中目前解鎖的「最高階」星球文案
+    let maxTier = 1;
+    const currentUnlocked = db.personalRoom.lastPlanetTier || 1;
+    if (node.id === 'mani-br') maxTier = Math.min(3, currentUnlocked);
+    if (node.id === 'mani-tl') maxTier = Math.min(6, currentUnlocked);
+    if (node.id === 'mani-bl') maxTier = Math.min(9, currentUnlocked);
+    
+    setTimeout(() => {
+        showPlanetReward(maxTier);
+        node.classList.remove('active');
+    }, 600);
+}
     if (nianSum === 0) return;
 
     if (nianSum > 0) buildManiNode('mani-br', MANI_GROUPS[0], nianSum);       // 水金地
@@ -1487,21 +1561,21 @@ function renderManiCluster(nianSum) {
         db.personalRoom.maniNotifiedT2 = true;
         db.personalRoom.maniNotifiedT3 = true;
         saveDB();
-        setTimeout(() => showCrystalModal(3), 1000);
+        setTimeout(() => showPlanetReward(tier)(3), 1000);
     } else if (nianSum >= 10000 && !db.personalRoom.maniNotifiedT2) {
         db.personalRoom.maniNotified = true;
         db.personalRoom.maniNotifiedT2 = true;
         saveDB();
-        setTimeout(() => showCrystalModal(2), 1000);
+        setTimeout(() => showPlanetReward(tier)(2), 1000);
     } else if (nianSum > 0 && !db.personalRoom.maniNotified) {
         db.personalRoom.maniNotified = true;
         saveDB();
-        setTimeout(() => showCrystalModal(1), 1000);
+        setTimeout(() => showPlanetReward(tier)(1), 1000);
     }
 }
 
 // ── 達標彈窗 ──
-function showCrystalModal(tier) {
+function showPlanetReward(tier) {
     const svgWrap = document.getElementById('reward-crystal-svg');
     const title = document.getElementById('reward-crystal-title');
     const sub = document.getElementById('reward-crystal-subtitle');
@@ -1526,7 +1600,7 @@ function showCertificateModal() {
     const certSvg = document.getElementById('cert-svg');
     const certName = document.getElementById('cert-user-name');
     
-    certSvg.innerHTML = getManiSVG(3); 
+    certSvg.innerHTML = getManiSVG(9); 
     
     const currentName = document.getElementById('ui-name').value || db.name || '無名行者';
     certName.innerText = currentName;
@@ -1620,7 +1694,7 @@ function updateUI() {
 
     // 2. 晶石與彈窗嚴格對應歷史總念佛數
     let nianSum = (db.totalNian||0) + Object.values(db.personalRoom.othList).reduce((a,b)=>a+b, 0);
-    renderManiCluster(nianSum);
+    updatePlanets(getPts())(nianSum);
 }
 
 // ══════════════════════════════════════════
