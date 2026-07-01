@@ -1402,7 +1402,7 @@ function getManiSVG(tier) {
 
 // ── 依 pts 分配並顯示三方位九顆星球 ──
 function updatePlanets(pts) {
-    const thresholds = [100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000];
+    const thresholds = [100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 10000000];
     let unlockedTier = 0;
     for (let i = 0; i < thresholds.length; i++) {
         if (pts >= thresholds[i]) unlockedTier = i + 1;
@@ -1531,7 +1531,7 @@ if (cluster.id === 'mani-tl') maxTier = Math.min(6, currentUnlocked);
 if (cluster.id === 'mani-bl') maxTier = Math.min(8, currentUnlocked);
 if (cluster.id === 'mani-sun') maxTier = Math.min(9, currentUnlocked);
 
-    setTimeout(() => showPlanetReward(maxTier), 500);
+    setTimeout(() => showPlanetReward(maxTier), 1500);
 }
 
 // ══════════════════════════════════════════
