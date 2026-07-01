@@ -1191,7 +1191,15 @@ function renderLotus(p) {
     svg += `</svg>`;
     box.innerHTML = svg;
 }
-
+// 九曜分組：依「水金地火木土天海＋太陽」順序，分配給三個方位各 3 顆
+// mani-tl: 水星、金星、地球（離太陽最近三顆）
+// mani-br: 火星、木星、土星
+// mani-bl: 天王星、海王星、太陽（收尾，太陽放在 s-main 位置最大最亮）
+const MANI_GROUPS = [
+    [1, 2, 3],   // mani-br 用，但下方呼叫順序會對應到對的 nodeId，見 renderManiCluster
+    [4, 5, 6],
+    [7, 8, 9]
+];
 function getManiSVG(tier) {
 // 新增：九星連珠專屬文案庫
 const PLANET_DATA = {
@@ -1512,15 +1520,7 @@ function updatePlanets(pts) {
 }
 
 
-// 九曜分組：依「水金地火木土天海＋太陽」順序，分配給三個方位各 3 顆
-// mani-tl: 水星、金星、地球（離太陽最近三顆）
-// mani-br: 火星、木星、土星
-// mani-bl: 天王星、海王星、太陽（收尾，太陽放在 s-main 位置最大最亮）
-const MANI_GROUPS = [
-    [1, 2, 3],   // mani-br 用，但下方呼叫順序會對應到對的 nodeId，見 renderManiCluster
-    [4, 5, 6],
-    [7, 8, 9]
-];
+
 
 // 替換：點擊星球星系時的互動彈窗
 function resonateCluster(event, type) {
@@ -1561,16 +1561,16 @@ function resonateCluster(event, type) {
         db.personalRoom.maniNotifiedT2 = true;
         db.personalRoom.maniNotifiedT3 = true;
         saveDB();
-        setTimeout(() => showPlanetReward(tier)(3), 1000);
+setTimeout(() => showPlanetReward(3), 1000);
     } else if (nianSum >= 10000 && !db.personalRoom.maniNotifiedT2) {
         db.personalRoom.maniNotified = true;
         db.personalRoom.maniNotifiedT2 = true;
         saveDB();
-        setTimeout(() => showPlanetReward(tier)(2), 1000);
+        setTimeout(() => showPlanetReward(2), 1000);
     } else if (nianSum > 0 && !db.personalRoom.maniNotified) {
         db.personalRoom.maniNotified = true;
         saveDB();
-        setTimeout(() => showPlanetReward(tier)(1), 1000);
+        setTimeout(() => showPlanetReward(1), 1000);
     }
 }
 
@@ -1694,7 +1694,7 @@ function updateUI() {
 
     // 2. 晶石與彈窗嚴格對應歷史總念佛數
     let nianSum = (db.totalNian||0) + Object.values(db.personalRoom.othList).reduce((a,b)=>a+b, 0);
-    updatePlanets(getPts())(nianSum);
+updatePlanets(getPts());
 }
 
 // ══════════════════════════════════════════
