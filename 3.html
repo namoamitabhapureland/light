@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <link rel="manifest" href="manifest.json">
-    <title>菩提淨室 ‧ 極淨大圓滿</title>
+    <link rel="manifest" href="manifest_jp.json">
+    <title>菩提浄室 ‧ 極浄大円満</title>
     <style>
         :root {
             --bg: #010103;
@@ -48,14 +48,13 @@
         box-shadow:0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07);
     }
 
-    /* ── ✨ 等比頂部導航 (加入掃地發光) ── */
     .nav-top {
         display: flex; align-items: center; justify-content: space-between;
         background: linear-gradient(145deg, rgba(20,20,20,0.95) 0%, rgba(5,5,5,0.98) 100%);
         border: 1px solid rgba(212,175,55,0.3);
         border-radius: 20px;
         margin: max(18px, env(safe-area-inset-top)) 16px 0;
-        padding: 10px 18px 8px; /* 微調上下內距防擠壓 */
+        padding: 10px 18px 8px; 
         box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05);
     }
 
@@ -68,19 +67,14 @@
     }
     .nav-btn:active { color: var(--gold); transform: scale(0.92); }
     
-    /* 確保一般圖示方正 */
     .nav-btn svg { width: 18px; height: 18px; stroke: currentColor; opacity: 0.9; }
     
-    /* ✨ 獨立給妳的小金蓮設定正確的寬比例，防止被擠壓變形破版！ */
     .nav-btn .lotus-icon { width: 45px; height: 18px; stroke: none; opacity: 1; }
     
-    /* 第一個迴向按鈕高亮 */
     .nav-btn.highlight { color: var(--gold); text-shadow: 0 0 10px rgba(243,229,171,0.5); }
     
-    /* 分隔線 */
     .nav-v-divider { width: 1px; height: 26px; background: rgba(255,255,255,0.12); box-shadow: 0 0 5px rgba(0,0,0,0.5); }
 
-    /* ── 掃地發光效果 (Sweeping Light) ── */
     .shine-effect::after {
         content: ''; position: absolute; top: 0; left: -100%; width: 40%; height: 100%;
         background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(243,229,171,0.25) 50%, rgba(255,255,255,0) 100%);
@@ -97,7 +91,6 @@
         100% { left: 200%; }
     }
 
-    /* ── IG 排版 (多寶閣浮雕琉璃金風格) ── */
     .ig-profile { 
         background: linear-gradient(145deg, rgba(20,20,20,0.95) 0%, rgba(5,5,5,0.98) 100%);
         border: 1px solid rgba(212,175,55,0.4);
@@ -119,7 +112,6 @@
         transition:transform .3s;
     }
     .avatar-wrap:active { transform:scale(0.95); }
-    /* ✨ 微調背景讓底層的 Photo 字樣透出來 */
     .avatar-img { width:100%; height:100%; border-radius:50%; background-color:rgba(0,0,0,0.4); background-size:cover; background-position:center; position:relative; z-index:2; }
     .avatar-plus {
         position:absolute; right:0; bottom:0; width:22px; height:22px;
@@ -135,7 +127,6 @@
     .stat-lbl { font-size:10px; color:var(--cyan); letter-spacing:2px; }
     .divider { width:1px; height:32px; background:rgba(255,255,255,0.11); }
 
-    /* ✨ 當前念佛迷你能量棒 */
     .mini-session-bar-wrap {
         width: 80%; max-width: 90px; height: 3px; background: rgba(255,255,255,0.08);
         border-radius: 2px; margin-top: 6px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
@@ -147,7 +138,6 @@
         transition: width 0.4s cubic-bezier(0.2,0.8,0.2,1);
     }
 
-    /* ── 名字與備忘錄 ── */
     .bio-wrap {
         margin:11px 22px 4px; padding-bottom:11px;
         border-bottom:1px dashed rgba(255,255,255,0.07);
@@ -170,7 +160,6 @@
     .memo-input:focus { border-bottom-color:rgba(212,175,55,0.3); color:var(--text-gold); }
     .memo-input::placeholder { color:rgba(243,229,171,0.28); }
 
-    /* ── 蓮花舞台 ── */
     .stage { flex:1; position:relative; display:flex; justify-content:center; align-items:center; min-height:0; }
     
     #lotus-container {
@@ -192,7 +181,6 @@
         50%{transform:scale(1.08);}
     }
 
-    /* ✨ 專屬位階金剛印記標籤 ✨ */
     .rank-badge {
         display: flex; align-items: center; gap: 5px;
         background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.02));
@@ -205,7 +193,6 @@
         filter: drop-shadow(0 0 3px rgba(243, 229, 171, 0.8));
     }
 
-        /* ── 100M 授記證書特效 ── */
     .cert-box {
         background: linear-gradient(145deg, rgba(15,15,20,0.95), rgba(5,5,10,0.98)); border: 2px solid rgba(212,175,55,0.6);
         border-radius: 12px; padding: 40px 20px; width: 90%; max-width: 360px; text-align: center; position: relative; overflow: hidden;
@@ -219,7 +206,7 @@
     .cert-name { font-size:16px; color: #fff; letter-spacing: 1px; margin-bottom: 20px; z-index: 2; position: relative; }
     .cert-desc { color:var(--text-gold); font-size:14px; letter-spacing:1px; line-height:2.4; z-index: 2; position: relative; }
 
-  /* ── 摩尼晶簇 (通用容器與基座) ── */
+    /* ── 摩尼晶簇 (通用容器與基座) ── */
     .mani-node {
         position: absolute; width: 56px; height: 56px; z-index: 15; cursor: pointer; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); display: none; 
     }
@@ -239,7 +226,7 @@
     /* 右下 (沉積型)：地球 / 金星 / 水星，拉開間距避免三顆黏在一起 */
     #mani-br .s-main { width: 40px; height: 40px; left: -8px; bottom: 0px; animation: m-float1 5s infinite alternate; }
     #mani-br .s-sub  { width: 34px; height: 34px; right: 4px; top: -16px; animation: m-float2 4s infinite alternate-reverse; }
-    #mani-br .s-tiny { width: 22px; height: 22px; right: 15px; bottom: 75px; animation: m-float3 6s infinite alternate; }
+    #mani-br .s-tiny { width: 22px; height: 22px; right: 1px; bottom: 44px; animation: m-float3 6s infinite alternate; }
 
     /* 左上 (散射型)：大中心 / 中左下 / 小左上 */
     #mani-tl .s-main { width: 40px; height: 40px; left: 26px; top: 24px; animation: m-float2 5.5s infinite alternate; }
@@ -282,7 +269,7 @@
         transform: scale(1) !important;
         opacity: 1 !important;
     }
-    /* 蓮花自轉 */
+
     .lotus-spin { width: 100%; height: 100%; overflow: visible; animation: lotus-rotate 40s linear infinite; transform-origin: center center; }
     @keyframes lotus-rotate { 100% { transform: rotate(360deg); } }
 
@@ -307,8 +294,6 @@
         100% { opacity: 0; transform: translate(0, -80px) scale(0.9); }
     }
 
-
-    /* ── 念珠轉盤 ── */
     .footer {
         padding-bottom:max(14px,env(safe-area-inset-bottom));
         display:flex; flex-direction:column; justify-content:flex-end; align-items:center;
@@ -338,7 +323,6 @@
         box-shadow:0 0 10px var(--gold), 0 0 22px #fff;
     }
 
-    /* ── 模態框 ── */
     .custom-modal {
         position:fixed; inset:0; z-index:4000;
         background:rgba(0,0,0,0.88);
@@ -397,7 +381,6 @@
         border-color:var(--solid); box-shadow:0 0 10px rgba(212,175,55,0.3);
     }
 
-    /* ── 大數據 ── */
     #dataModal { z-index:2000; flex-direction:column; }
     .data-card {
         width:92%; max-width:400px;
@@ -462,7 +445,7 @@
             <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
         </radialGradient>
 
-          <linearGradient id="grad-10"    x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0.95)"/><stop offset="60%" stop-color="rgba(220,235,255,0.5)"/><stop offset="100%" stop-color="rgba(255,255,255,0.15)"/></linearGradient>
+         <linearGradient id="grad-10"    x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0.95)"/><stop offset="60%" stop-color="rgba(220,235,255,0.5)"/><stop offset="100%" stop-color="rgba(255,255,255,0.15)"/></linearGradient>
         <linearGradient id="grad-50"    x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#ff8fc7" stop-opacity=".95"/><stop offset="55%" stop-color="#ffc1e3" stop-opacity=".7"/><stop offset="100%" stop-color="#fff0f6" stop-opacity=".4"/></linearGradient>
         <linearGradient id="grad-100"   x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#d4af37" stop-opacity="1"/><stop offset="55%" stop-color="#ffe27a" stop-opacity=".85"/><stop offset="100%" stop-color="#fff8e0" stop-opacity=".5"/></linearGradient>
         <linearGradient id="grad-300"   x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#0fb8d4" stop-opacity=".95"/><stop offset="55%" stop-color="#7fe3f0" stop-opacity=".75"/><stop offset="100%" stop-color="#e0f7fa" stop-opacity=".4"/></linearGradient>
@@ -481,67 +464,68 @@
 
 <div id="buddhaModal" class="custom-modal" onclick="closeM('buddhaModal')">
     <div class="modal-box" onclick="event.stopPropagation()">
-        <div class="modal-title">觀照定課切換</div>
+        <div class="modal-title">観照定課の切り替え</div>
         <div class="buddha-grid">
-            <button class="b-grid-btn" onclick="setBuddha('南無阿彌陀佛')">南無阿彌陀佛</button>
-            <button class="b-grid-btn" onclick="setBuddha('觀世音菩薩')">觀世音菩薩</button>
+            <button class="b-grid-btn" onclick="setBuddha('南無阿弥陀仏')">南無阿弥陀仏</button>
+            <button class="b-grid-btn" onclick="setBuddha('観世音菩薩')">観世音菩薩</button>
             <button class="b-grid-btn" onclick="setBuddha('大勢至菩薩')">大勢至菩薩</button>
-            <button class="b-grid-btn" onclick="setBuddha('地藏王菩薩')">地藏王菩薩</button>
+            <button class="b-grid-btn" onclick="setBuddha('地蔵王菩薩')">地蔵王菩薩</button>
             <button class="b-grid-btn" onclick="setBuddha('普賢菩薩')">普賢菩薩</button>
-            <button class="b-grid-btn" onclick="setBuddha('南無本師釋迦牟尼佛')">釋迦牟尼佛</button>
-            <button class="b-grid-btn" onclick="setBuddha('彌勒尊佛')">彌勒尊佛</button>
+            <button class="b-grid-btn" onclick="setBuddha('南無本師釈迦牟尼仏')">釈迦牟尼仏</button>
+            <button class="b-grid-btn" onclick="setBuddha('弥勒尊仏')">弥勒尊仏</button>
             <button class="b-grid-btn" onclick="setBuddha('滅定業真言')">滅定業真言</button>
-            <button class="b-grid-btn" onclick="setBuddha('心經')">心經</button>
-            <button class="b-grid-btn" onclick="setBuddha('地藏經')">地藏經</button>
-            <button class="b-grid-btn" onclick="setBuddha('楞嚴咒')" style="grid-column:span 2;">楞嚴咒</button>
+            <button class="b-grid-btn" onclick="setBuddha('般若心経')">般若心経</button>
+            <button class="b-grid-btn" onclick="setBuddha('地蔵経')">地蔵経</button>
+            <button class="b-grid-btn" onclick="setBuddha('楞厳呪')" style="grid-column:span 2;">楞厳呪</button>
         </div>
-        <div style="font-size:12px;color:var(--text-gold);margin-bottom:10px;letter-spacing:2px;">或輸入自訂聖號：</div>
-        <input type="text" id="buddhaInput" class="modal-input" placeholder="清淨自訂...">
+        <div style="font-size:12px;color:var(--text-gold);margin-bottom:10px;letter-spacing:2px;">またはカスタム聖号を入力：</div>
+        <input type="text" id="buddhaInput" class="modal-input" placeholder="清浄なるカスタム...">
         <div class="modal-actions">
-            <button class="gold-btn outline" onclick="closeM('buddhaModal')">取消</button>
-            <button class="gold-btn" onclick="confirmBuddha()">自訂確認</button>
+            <button class="gold-btn outline" onclick="closeM('buddhaModal')">キャンセル</button>
+            <button class="gold-btn" onclick="confirmBuddha()">カスタム確認</button>
         </div>
     </div>
 </div>
 
 <div id="resetModal" class="custom-modal" onclick="closeM('resetModal')">
     <div class="modal-box" onclick="event.stopPropagation()">
-        <div class="modal-title">迴向功德</div>
+        <div class="modal-title">回向功徳</div>
         <div class="modal-desc" id="reset-desc"></div>
         <div class="modal-actions">
-            <button class="gold-btn outline" onclick="closeM('resetModal')">取消</button>
-            <button class="gold-btn" onclick="execReset()">圓滿迴向</button>
+            <button class="gold-btn outline" onclick="closeM('resetModal')">キャンセル</button>
+            <button class="gold-btn" onclick="execReset()">円満回向</button>
         </div>
     </div>
 </div>
 
 
 <div id="infoModal" class="custom-modal" onclick="closeM('infoModal')">
-    <div class="glass-panel" style="padding:30px;width:85%;max-width:320px;" onclick="event.stopPropagation()">
-        <div style="color:var(--solid);text-align:center;font-size:16px;letter-spacing:4px;margin-bottom:20px;">觀照說明</div>
+<div class="glass-panel" style="padding:30px; width:85%; max-width:320px; max-height:85vh; overflow-y:auto; touch-action:pan-y; overscroll-behavior:contain;" onclick="event.stopPropagation()">
+
+        <div style="color:var(--solid);text-align:center;font-size:16px;letter-spacing:4px;margin-bottom:20px;">観照の説明</div>
         
         <div style="line-height:2.2;font-size:14px;color:var(--text-gold);letter-spacing:1px;text-align:justify;">
-            一、念念彌陀，皆化菩提資糧；日發勝心神遊華藏，亦增道業。若能淨念相繼、十日不輟，法界自當傾注殊勝資糧。<br><br>
-            二、自性金蓮，依資糧而生。自初發菩提心起，七寶疊加蛻變，直至大圓滿耀金。<br><br>
-            三、行者若能每日安住靜室，迴光返照，法界自當隨順因緣，賜予無相法寶。<br><br>
-            四、此淨室乃專屬之芥子道場，法相（頭像）可隨心更易。一切境相唯存於行者自身寶具（手機）之內，不染外網。然世法無常，還望時常移步主道場妥善「封存備份」，護持修行軌跡不失。
+            一、念念の弥陀は皆菩提の資糧と化し、日に勝心を発して華蔵に神遊するもまた道業を増す。もし浄念相継ぎ、十日途絶えざれば、法界は自ずから殊勝なる資糧を傾注すべし。<br><br>
+            二、自性の金蓮は、資糧に依りて生ず。初発の菩提心より、七宝が重なりて変容し、大円満の耀金に至る。<br><br>
+            三、行者もし毎日静室に安住し、廻光返照せば、法界は自ずから因縁に随順し、無相の法宝を賜うべし。<br><br>
+            四、此の浄室は専属の芥子道場なり、法相（アイコン）は心のままに変更すべし。一切の境相は唯だ行者自身の宝具（端末）の内にのみ存し、外のネットには染まらず。然れども世法は無常なり、願わくは時折主道場へ歩みを移し、妥当に「封存バックアップ」を行い、修行の軌跡を失わざるよう護持されんことを。
         </div>
         
-        <div style="text-align:center;margin-top:25px;font-size:13px;color:var(--gold);letter-spacing:2px;cursor:pointer;font-weight:bold;" onclick="closeM('infoModal')">合十收攝</div>
+        <div style="text-align:center;margin-top:25px;font-size:13px;color:var(--gold);letter-spacing:2px;cursor:pointer;font-weight:bold;" onclick="closeM('infoModal')">合掌収摂</div>
     </div>
 </div>
+
 
 <!-- 修改 1：九星解鎖彈窗 -->
 <div id="crystalRewardModal" class="custom-modal" onclick="closeM('crystalRewardModal')">
     <div style="display:flex; flex-direction:column; align-items:center; width: 100%; position: relative; pointer-events: none;">
         <div class="t-svg-wrap" id="reward-crystal-svg" style="width: 200px; height: 200px; filter: drop-shadow(0 0 40px rgba(255,255,255,0.15)); margin-bottom: 10px;"></div>
         <div style="display:flex; align-items:center; gap: 12px; margin-bottom: 25px; pointer-events: auto;">
-            <!-- 文字改為九星主題 -->
             <div style="color:#fff; font-size:18px; font-weight:bold; letter-spacing:4px;" id="reward-crystal-title">【九曜星石】</div>
             <div style="border: 1px solid rgba(212,175,55,0.5); border-radius: 20px; padding: 4px 14px; font-size: 11px; color: var(--gold); letter-spacing: 2px;" id="reward-crystal-subtitle">星軌連珠</div>
         </div>
         <div style="color:var(--text-gold); font-size:14px; letter-spacing:2px; text-align:center; line-height: 2.2; padding: 0 30px; text-shadow: 0 0 10px rgba(0,0,0,0.8); pointer-events: auto;" id="reward-crystal-desc"></div>
-        <div style="opacity:.4; font-size:11px; margin-top:45px; color: #fff; letter-spacing: 4px;">輕觸畫面 ‧ 收攝法喜</div>
+        <div style="opacity:.4; font-size:11px; margin-top:45px; color: #fff; letter-spacing: 4px;">画面に触れ ‧ 法喜を収めん</div>
     </div>
 </div>
 
@@ -549,17 +533,16 @@
 <div id="certificateModal" class="custom-modal" onclick="closeM('certificateModal')">
     <div class="cert-box" onclick="event.stopPropagation()">
         <div class="cert-glow-bg"></div>
-        <div class="cert-title">【大圓滿 ‧ 華藏契印】</div>
+        <div class="cert-title">【大円満 ‧ 華蔵契印】</div>
         <div class="t-svg-wrap" id="cert-svg" style="width: 240px; height: 240px; z-index:2; position:relative; filter: drop-shadow(0 0 50px rgba(212,175,55,0.6)); margin-bottom: 5px;"></div>
         <div class="cert-name">行者 <span id="cert-user-name" style="color:var(--gold); font-size:22px; font-weight:bold; border-bottom: 1px solid rgba(212,175,55,0.5); padding-bottom: 2px;"></span></div>
         <div class="cert-desc">
-            歷劫精進，於此淨室累計念誦達<br>
-            <span style="color:var(--gold); font-size:22px; font-weight:bold; text-shadow: 0 0 15px rgba(212,175,55,0.8);">一億</span> 聖號。<br><br>
-            <!-- 這裡的文字更新 -->
-            九星連珠圓滿俱足，映徹三千大千世界。<br>
-            法界回饋契印，願無量光壽，與汝同在。
+            幾多の劫を経て精進し、この浄室における累計の念誦は<br>
+            <span style="color:var(--gold); font-size:22px; font-weight:bold; text-shadow: 0 0 15px rgba(212,175,55,0.8);">一億</span> 遍の聖号に達せり。<br><br>
+            九星連珠は円満に具足し、三千大千世界を照らし徹す。<br>
+            法界より契印を授く。願わくは無量光寿、汝と共に在らんことを。
         </div>
-        <button class="gold-btn" style="margin-top:30px; width:70%; z-index:5; position:relative;" onclick="closeM('certificateModal')">迴向功德</button>
+        <button class="gold-btn" style="margin-top:30px; width:70%; z-index:5; position:relative;" onclick="closeM('certificateModal')">功徳回向</button>
     </div>
 </div>
 
@@ -567,10 +550,10 @@
 
 <div id="dataModal" class="custom-modal" onclick="closeM('dataModal')">
     <div class="data-card" onclick="event.stopPropagation()">
-        <div class="data-title">十方結緣 ‧ 歷史累積</div>
-        <div style="text-align:center;font-size:11px;color:var(--text-gold);margin-bottom:30px;letter-spacing:1px;">(合本願與諸佛之畢生大數據)</div>
+        <div class="data-title">十方結縁 ‧ 歴史累積</div>
+        <div style="text-align:center;font-size:11px;color:var(--text-gold);margin-bottom:30px;letter-spacing:1px;">(本願と諸仏の生涯のビッグデータを合わす)</div>
         <div id="data-bars-container"></div>
-        <div style="text-align:center;margin-top:40px;font-size:13px;color:var(--text-gold);cursor:pointer;" onclick="closeM('dataModal')">關閉玉簡</div>
+        <div style="text-align:center;margin-top:40px;font-size:13px;color:var(--text-gold);cursor:pointer;" onclick="closeM('dataModal')">玉簡を閉じる</div>
     </div>
 </div>
 
@@ -578,14 +561,14 @@
     <div style="display:flex;flex-direction:column;align-items:center;">
         <div class="t-svg-wrap" id="t-svg-ui"></div>
         <div class="t-name" id="t-name-ui"></div>
-        <div style="color:var(--text-gold);font-size:14px;letter-spacing:2px;text-align:center;">法界感應 ‧ 迴向願力<br><span style="opacity:.5;font-size:11px;margin-top:15px;display:block;">點擊畫面收攝</span></div>
+        <div style="color:var(--text-gold);font-size:14px;letter-spacing:2px;text-align:center;">法界感応 ‧ 回向願力<br><span style="opacity:.5;font-size:11px;margin-top:15px;display:block;">画面に触れて収摂す</span></div>
     </div>
 </div>
 
 <div class="app-wrapper">
 
 <div class="nav-top">
-    <a href="amitabha.html" class="nav-btn shine-effect highlight">
+    <a href="amitabha_jp.html" class="nav-btn shine-effect highlight">
         <svg class="lotus-icon" viewBox="0 0 100 25" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="g-base" x1="50" y1="25" x2="50" y2="10" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#d4af37" stop-opacity="0.6"/><stop offset="100%" stop-color="#d4af37" stop-opacity="0"/></linearGradient>
@@ -611,21 +594,21 @@
             <circle cx="50" cy="1.3" r="1.5" fill="#ffffff" opacity="0.9"/>
             <ellipse cx="50" cy="25.3" rx="4" ry="1.4" fill="url(#g-stamen)"/>
         </svg>
-        <span>頂禮彌陀</span>
+        <span>弥陀に頂礼す</span>
     </a>
     
     <div class="nav-v-divider"></div>
     
     <div class="nav-btn shine-effect" onclick="openDataModal()">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20V14"/></svg>
-        <span>歷史數據</span>
+        <span>歴史データ</span>
     </div>
 
     <div class="nav-v-divider"></div>
     
     <div class="nav-btn shine-effect" onclick="openResetModal()">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M21 12a9 9 0 11-9-9c2.52 0 4.93 1 6.74 2.74L21 8M21 3v5h-5"/></svg>
-        <span>圓滿迴向</span>
+        <span>円満回向</span>
     </div>
 
 
@@ -633,7 +616,7 @@
     
     <div class="nav-btn shine-effect" onclick="openM('infoModal')">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01" stroke-linecap="round"/></svg>
-        <span>使用說明</span>
+        <span>使用説明</span>
     </div>
 </div>
 
@@ -646,13 +629,13 @@
     </div>
     <div class="stats-wrap">
         <div class="stat-item" onclick="openBuddhaModal()" style="cursor:pointer;flex:1;">
-            <span class="stat-num" id="ui-cur-name" style="font-size:17px;color:var(--text-gold);border-bottom:1px dashed var(--glass-border);padding-bottom:5px;">南無阿彌陀佛</span>
-            <span class="stat-lbl" style="margin-top:4px;color:var(--cyan);">當前定課 ▾</span>
+            <span class="stat-num" id="ui-cur-name" style="font-size:17px;color:var(--text-gold);border-bottom:1px dashed var(--glass-border);padding-bottom:5px;">南無阿弥陀仏</span>
+            <span class="stat-lbl" style="margin-top:4px;color:var(--cyan);">現在の定課 ▾</span>
         </div>
         <div class="divider"></div>
         <div class="stat-item" style="flex:1;">
             <span class="stat-num" id="ui-session-count">0</span>
-            <span class="stat-lbl" style="margin-top:4px;color:var(--cyan);">當前佛數</span>
+            <span class="stat-lbl" style="margin-top:4px;color:var(--cyan);">現在の仏数</span>
             <div class="mini-session-bar-wrap">
                 <div class="mini-session-bar-fill" id="ui-mini-session-bar"></div>
             </div>
@@ -668,11 +651,11 @@
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" fill="var(--gold)" opacity="0.9"/>
             </svg>
-            <span id="ui-rank-text" style="color:var(--text-gold); font-size:13px; font-weight:bold; letter-spacing:2px;">初發菩提</span>
+            <span id="ui-rank-text" style="color:var(--text-gold); font-size:13px; font-weight:bold; letter-spacing:2px;">初発菩提</span>
         </div>
     </div>
 
-    <input type="text" class="memo-input" id="ui-memo" placeholder="本地備忘錄：可記下今日法喜...">
+    <input type="text" class="memo-input" id="ui-memo" placeholder="ローカルメモ：本日の法喜を記録...">
 </div>
 
 <div class="stage">
@@ -755,16 +738,13 @@
             <rect x="0" y="0" width="380" height="168" fill="url(#mala-fade)" pointer-events="none"/>
             <rect x="0" y="0" width="380" height="168" fill="url(#mala-fade-b)" pointer-events="none"/>
         </svg>
-        <div class="mala-hint">點擊或下滑轉動念珠</div>
+        <div class="mala-hint">タップまたはスワイプで念珠を回す</div>
     </div>
 </div>
 
 </div><canvas id="starCanvas"></canvas>
 
 <script>
-// ══════════════════════════════════════════
-//  音效 
-// ══════════════════════════════════════════
 let audioCtx = null;
 function playTap() {
     if (!audioCtx) {
@@ -791,7 +771,6 @@ function playTap() {
     osc.stop(audioCtx.currentTime + 0.1);
 }
 
-// ── 水晶清音 (引磬聲) ──
 function playCrystalChime() {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -813,16 +792,13 @@ function playCrystalChime() {
 }
 
 
-// ══════════════════════════════════════════
-//  模態框
-// ══════════════════════════════════════════
 function openM(id) { document.getElementById(id).classList.add('show'); }
 function closeM(id) { document.getElementById(id).classList.remove('show'); }
 function openBuddhaModal() { document.getElementById('buddhaInput').value=''; openM('buddhaModal'); }
 function setBuddha(name) { curBuddha=name; document.getElementById('ui-cur-name').innerText=name; updateUI(); closeM('buddhaModal'); }
 function confirmBuddha() { let val=document.getElementById('buddhaInput').value.trim(); if(val) setBuddha(val); }
 function openResetModal() {
-    document.getElementById('reset-desc').innerHTML=`請於心中默念專屬迴向文，<br>將【${curBuddha}】的當前修持數普皆迴向。<br><br><span style="font-size: 0.85em; color: #aaa;">(迴向後將重啟計數，歷史總數完整保存)</span>`;
+    document.getElementById('reset-desc').innerHTML=`心の中で専用の回向文を黙念し、<br>【${curBuddha}】の現在の修持数をあまねく回向してください。<br><br><span style="font-size: 0.85em; color: #aaa;">(回向後はカウントがリセットされますが、歴史の総数は完全に保存されます)</span>`;
     openM('resetModal');
 }
 
@@ -834,18 +810,14 @@ function closeManiIntro() {
     saveDB();
 }
 
-// ══════════════════════════════════════════
-//  資料庫
-// ══════════════════════════════════════════
-// 中文版使用 PX_V15.0
-let db = JSON.parse(localStorage.getItem('PX_V15.0')) || { totalNian:0, bodhiLitCount:0 };
+let db = JSON.parse(localStorage.getItem('PX_JP_V15.0')) || { totalNian:0, bodhiLitCount:0 };
 if (!db.treasures) db.treasures = { sword:0, vase:0, jewel:0, lotus_lamp:0, dharma_wheel:0, white_lotus:0, indra_net:0 };
 if (!db.personalRoom) db.personalRoom = { sessionCounts:{}, othList:{}, avatar:"", memo:"", loginDays:0, lastLogin:"", treasureClaimed:"", maniNotified:false };
 if (!db.personalRoom.sessionCounts) db.personalRoom.sessionCounts = {};
 
-let curBuddha = "南無阿彌陀佛";
+let curBuddha = "南無阿弥陀仏";
 
-function saveDB() { localStorage.setItem('PX_V15.0', JSON.stringify(db)); }
+function saveDB() { localStorage.setItem('PX_JP_V15.0', JSON.stringify(db)); }
 
 function getPts() {
     let nianSum = (db.totalNian||0) + Object.values(db.personalRoom.othList).reduce((a,b)=>a+b, 0);
@@ -853,12 +825,10 @@ function getPts() {
     return Math.floor(nianSum/100)*10 + lit*1 + Math.floor(lit/10)*10;
 }
 
-// ── 姓名輸入 ──
 const nameInput = document.getElementById('ui-name');
 nameInput.value = db.name||'行者';
 nameInput.oninput = e => { db.name=e.target.value; saveDB(); };
 
-// ── 頭像 (Canvas 壓縮) ──
 if(db.personalRoom.avatar) document.getElementById('ui-avatar').style.backgroundImage=`url(${db.personalRoom.avatar})`;
 function handleAvatar(e) {
     const file = e.target.files[0];
@@ -892,14 +862,10 @@ function handleAvatar(e) {
     reader.readAsDataURL(file);
 }
 
-// ── 備忘錄 ──
 const memo=document.getElementById('ui-memo');
 memo.value=db.personalRoom.memo||'';
 memo.oninput=e => { db.personalRoom.memo=e.target.value; saveDB(); };
 
-// ══════════════════════════════════════════
-//  ✨ 念珠轉盤邏輯 ✨
-// ══════════════════════════════════════════
 const MALA_N   = 36;       
 const MALA_CX  = 190;      
 const MALA_CY  = 346;      
@@ -913,7 +879,6 @@ function initMala() {
     const g = document.getElementById('mala-g');
     let html = '';
 
-    // ── 繩線三層（陰影＋主繩＋高光線）──
     html += `<circle cx="${MALA_CX}" cy="${MALA_CY}" r="${MALA_R+2}" fill="none" stroke="rgba(0,0,0,0.45)" stroke-width="7" opacity="0.55"/>`;
     html += `<circle cx="${MALA_CX}" cy="${MALA_CY}" r="${MALA_R}" fill="none" stroke="url(#cord-grad)" stroke-width="4" opacity="0.82"/>`;
     html += `<circle cx="${MALA_CX}" cy="${MALA_CY}" r="${MALA_R-1.5}" fill="none" stroke="rgba(255,230,160,0.16)" stroke-width="1.2"/>`;
@@ -927,7 +892,6 @@ function initMala() {
         const isGuru   = (i === 0);
         const isMarker = !isGuru && (i % 9 === 0);
 
-        // 1. 完美幾何比例：主珠實體 23.5，記數珠 20，平珠 18
         const r      = isGuru ? 23.5 : isMarker ? 20 : 18;
 
         const fill   = isGuru   ? 'url(#bead-guru)'   :
@@ -936,15 +900,12 @@ function initMala() {
                        isMarker ? 'rgba(210,168,38,0.72)'  : 'rgba(155,78,22,0.52)';
         const sw     = isGuru ? 1.6 : isMarker ? 1.1 : 0.75;
 
-        // 2. 主珠專屬的柔和光暈：實體半徑收縮，但光暈擴張至 2.8 倍來補償亮度
         if (isGuru) {
             html += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${r * 2.8}" fill="url(#guru-halo)" pointer-events="none"/>`;
         }
 
-        // ── 珠體 ──
         html += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${r}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" filter="url(#${isGuru ? 'guru-glow' : 'bead-glow'})"/>`;
 
-        // ── 光斑：依賴變數 r 動態計算，確保放大後光澤依然正確 ──
         const hx = (x - r * 0.30).toFixed(2);
         const hy = (y - r * 0.33).toFixed(2);
         const hr = (r * 0.21).toFixed(2);
@@ -954,7 +915,6 @@ function initMala() {
         const h2y = (y - r * 0.16).toFixed(2);
         html += `<circle cx="${h2x}" cy="${h2y}" r="${(r * 0.065).toFixed(2)}" fill="rgba(255,255,255,0.92)"/>`;
 
-        // ── 裝飾線 ──
         if (isGuru) {
             html += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${(r*0.52).toFixed(1)}" fill="none" stroke="rgba(255,220,80,0.35)" stroke-width="1.2"/>`;
         }
@@ -967,7 +927,6 @@ function initMala() {
     g.innerHTML = html;
     g.setAttribute('transform', `rotate(${malaAngle}, ${MALA_CX}, ${MALA_CY})`);
 }
-
 
 function animateMala(from, to) {
     const duration = 360;
@@ -987,7 +946,6 @@ function animateMala(from, to) {
     malaAnimFrame = requestAnimationFrame(step);
 }
 
-// ── 念珠觸控與點擊（低熵極淨版）──
 const malaWrap = document.getElementById('mala-wrap');
 let malaStartY = 0;
 let nianLocked = false; 
@@ -995,7 +953,6 @@ let nianLocked = false;
 function fireMala(x, y) {
     if (nianLocked) return;
     nianLocked = true;
-    // 鎖定 120ms 阻絕硬體反彈，不阻礙行者精進
     setTimeout(() => { nianLocked = false; }, 120); 
     triggerNian(x, y);
     animateMala(malaAngle, malaAngle + MALA_STEP);
@@ -1006,29 +963,23 @@ malaWrap.addEventListener('touchstart', e => {
 }, { passive: true });
 
 malaWrap.addEventListener('touchend', e => {
-    e.preventDefault(); // 絕對阻斷行動裝置的合成 click 事件
+    e.preventDefault(); 
     const touch = e.changedTouches[0];
     const deltaY = Math.abs(touch.clientY - malaStartY);
     
-    // 容許微小位移（20px內視為點擊），超過則判定為滑動不計數
     if (deltaY < 20) {
         fireMala(touch.clientX, touch.clientY);
     }
 }, { passive: false });
 
 malaWrap.addEventListener('click', e => {
-    // 處理桌機環境
     fireMala(e.clientX, e.clientY);
 });
 
-
-// ══════════════════════════════════════════
-//  計數核心
-// ══════════════════════════════════════════
 function triggerNian(clientX, clientY) {
     playTap();
     db.personalRoom.sessionCounts[curBuddha] = (db.personalRoom.sessionCounts[curBuddha]||0) + 1;
-    if (curBuddha === "南無阿彌陀佛") {
+    if (curBuddha === "南無阿弥陀仏") {
         db.totalNian = (db.totalNian||0) + 1;
     } else {
         db.personalRoom.othList[curBuddha] = (db.personalRoom.othList[curBuddha]||0) + 1;
@@ -1047,13 +998,10 @@ function triggerNian(clientX, clientY) {
     updateUI();
 }
 
-// ══════════════════════════════════════════
-//  法寶
-// ══════════════════════════════════════════
 const treasures = [
-    { id:"sword", name:"幾何慧劍", svg:`<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 150"><g transform="translate(0, 5)"><polygon points="50,10 56,40 50,105 44,40" fill="url(#facet-light)" stroke="#fff" stroke-width="0.5"/><polygon points="50,10 56,40 50,105" fill="url(#facet-cyan)" opacity="0.8"/><polygon points="50,10 44,40 50,105" fill="url(#facet-dark)" opacity="0.6"/><polygon points="35,100 65,100 55,110 45,110" fill="url(#pure-glass)" stroke="#d4af37" stroke-width="0.8"/><polygon points="46,110 54,110 52,135 48,135" fill="url(#facet-dark)"/><polygon points="50,135 56,142 50,148 44,142" fill="url(#facet-light)" stroke="#f3e5ab" stroke-width="1"/><circle cx="50" cy="105" r="4" fill="#fff" filter="drop-shadow(0 0 8px #e0f7fa)"/></g></svg>` },
-    { id:"vase",  name:"琉璃淨瓶", svg:`<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 150"><g transform="translate(0, 10)"><polygon points="45,20 55,20 60,40 40,40" fill="url(#facet-light)" stroke="#fff" stroke-width="0.5"/><polygon points="40,40 60,40 75,90 25,90" fill="url(#facet-cyan)" opacity="0.8" stroke="#fff" stroke-width="0.5"/><polygon points="50,40 60,40 75,90 50,90" fill="url(#facet-dark)" opacity="0.6"/><polygon points="25,90 75,90 60,120 40,120" fill="url(#facet-light)" stroke="#f3e5ab" stroke-width="0.5"/><polygon points="50,90 75,90 60,120 50,120" fill="url(#facet-dark)" opacity="0.7"/><polygon points="40,25 60,25" stroke="#f3e5ab" stroke-width="1"/></g></svg>` },
-    { id:"jewel", name:"多面寶珠", svg:`<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 150"><g transform="translate(0, 25)"><polygon points="50,10 80,40 50,55 20,40" fill="url(#facet-light)" stroke="#fff" stroke-width="0.5"/><polygon points="20,40 50,55 50,100" fill="url(#facet-rose)" opacity="0.9" stroke="#fff" stroke-width="0.5"/><polygon points="80,40 50,55 50,100" fill="url(#facet-dark)" opacity="0.8" stroke="#fff" stroke-width="0.5"/><polygon points="20,40 35,25 50,55" fill="rgba(255,255,255,0.4)" stroke="#fff" stroke-width="0.3"/><polygon points="80,40 65,25 50,55" fill="rgba(255,255,255,0.2)" stroke="#fff" stroke-width="0.3"/></g></svg>` }
+    { id:"sword", name:"幾何慧剣", svg:`<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 150"><g transform="translate(0, 5)"><polygon points="50,10 56,40 50,105 44,40" fill="url(#facet-light)" stroke="#fff" stroke-width="0.5"/><polygon points="50,10 56,40 50,105" fill="url(#facet-cyan)" opacity="0.8"/><polygon points="50,10 44,40 50,105" fill="url(#facet-dark)" opacity="0.6"/><polygon points="35,100 65,100 55,110 45,110" fill="url(#pure-glass)" stroke="#d4af37" stroke-width="0.8"/><polygon points="46,110 54,110 52,135 48,135" fill="url(#facet-dark)"/><polygon points="50,135 56,142 50,148 44,142" fill="url(#facet-light)" stroke="#f3e5ab" stroke-width="1"/><circle cx="50" cy="105" r="4" fill="#fff" filter="drop-shadow(0 0 8px #e0f7fa)"/></g></svg>` },
+    { id:"vase",  name:"瑠璃浄瓶", svg:`<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 150"><g transform="translate(0, 10)"><polygon points="45,20 55,20 60,40 40,40" fill="url(#facet-light)" stroke="#fff" stroke-width="0.5"/><polygon points="40,40 60,40 75,90 25,90" fill="url(#facet-cyan)" opacity="0.8" stroke="#fff" stroke-width="0.5"/><polygon points="50,40 60,40 75,90 50,90" fill="url(#facet-dark)" opacity="0.6"/><polygon points="25,90 75,90 60,120 40,120" fill="url(#facet-light)" stroke="#f3e5ab" stroke-width="0.5"/><polygon points="50,90 75,90 60,120 50,120" fill="url(#facet-dark)" opacity="0.7"/><polygon points="40,25 60,25" stroke="#f3e5ab" stroke-width="1"/></g></svg>` },
+    { id:"jewel", name:"多面宝珠", svg:`<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 150"><g transform="translate(0, 25)"><polygon points="50,10 80,40 50,55 20,40" fill="url(#facet-light)" stroke="#fff" stroke-width="0.5"/><polygon points="20,40 50,55 50,100" fill="url(#facet-rose)" opacity="0.9" stroke="#fff" stroke-width="0.5"/><polygon points="80,40 50,55 50,100" fill="url(#facet-dark)" opacity="0.8" stroke="#fff" stroke-width="0.5"/><polygon points="20,40 35,25 50,55" fill="rgba(255,255,255,0.4)" stroke="#fff" stroke-width="0.3"/><polygon points="80,40 65,25 50,55" fill="rgba(255,255,255,0.2)" stroke="#fff" stroke-width="0.3"/></g></svg>` }
 ];
 
 function checkDailyTreasure() {
@@ -1067,16 +1015,13 @@ function checkDailyTreasure() {
         db.treasures[t.id] = (db.treasures[t.id]||0)+1;
         db.personalRoom.treasureClaimed = today; saveDB();
         document.getElementById('t-svg-ui').innerHTML = t.svg;
-        document.getElementById('t-name-ui').innerText = `獲得法寶：${t.name}`;
+        document.getElementById('t-name-ui').innerText = `法宝を獲得しました：${t.name}`;
         openM('treasureModal');
     }
 }
 
-// ══════════════════════════════════════════
-//  大數據能量棒
-// ══════════════════════════════════════════
 function openDataModal() {
-    let html = buildEnergyBar('南無阿彌陀佛', db.totalNian||0);
+    let html = buildEnergyBar('南無阿弥陀仏', db.totalNian||0);
     for (let [k,v] of Object.entries(db.personalRoom.othList)) if(v>0) html += buildEnergyBar(k,v);
     document.getElementById('data-bars-container').innerHTML = html;
     openM('dataModal');
@@ -1095,47 +1040,39 @@ function buildEnergyBar(name, count) {
         <div class="glass-energy-bar">
             <div class="bar-track"><div class="bar-fill" data-w="${w}%"></div></div>
             <div class="bar-labels">
-                <span style="left:5%">1百</span><span style="left:50%">1千</span><span style="left:60%">1萬</span>
-                <span style="left:70%">10萬</span><span style="left:80%">100萬</span><span style="left:90%">1千萬</span><span style="left:100%">1億</span>
+                <span style="left:5%">1百</span><span style="left:50%">1千</span><span style="left:60%">1万</span>
+                <span style="left:70%">10万</span><span style="left:80%">100万</span><span style="left:90%">1千万</span><span style="left:100%">1億</span>
             </div>
         </div></div>`;
 }
 
-
-    
-
-
-    // ══════════════════════════════════════════
-//  蓮花渲染
-// ══════════════════════════════════════════
 function renderLotus(p) {
     const box  = document.getElementById('lotus-container');
     const rank = document.getElementById('ui-rank-text');
-    if (p < 10) { box.innerHTML=''; rank.innerText="初發菩提"; box.style.filter="none"; return; }
+    if (p < 10) { box.innerHTML=''; rank.innerText="初発菩提"; box.style.filter="none"; return; }
 
-    let layers=1, fill="url(#grad-10)", rTxt="清淨萌芽", stroke="rgba(255,255,255,0.45)", glow="none";
+    let layers=1, fill="url(#grad-10)", rTxt="清浄萌芽", stroke="rgba(255,255,255,0.45)", glow="none";
     
     if(p>=50)     { fill="url(#grad-50)"; rTxt="粉晶初綻"; }
     if(p>=100)    { layers=2; fill="url(#grad-100)"; stroke="rgba(212,175,55,0.55)"; rTxt="聖潔初金"; }
-    if(p>=300)    { fill="url(#grad-300)"; rTxt="琉璃水月"; } 
+    if(p>=300)    { fill="url(#grad-300)"; rTxt="瑠璃水月"; } 
     if(p>=500)    { fill="url(#grad-500)"; rTxt="翡翠玉葉"; } 
     if(p>=700)    { fill="url(#grad-700)"; rTxt="紫檀雲靄"; } 
     if(p>=900)    { fill="url(#grad-900)"; rTxt="琥珀流光"; } 
     
     if(p>=1000)   { fill="url(#grad-1000)"; rTxt="初心幻彩"; } 
-    if(p>=5000)   { fill="url(#grad-5000)"; rTxt="青淨琉璃"; } 
+    if(p>=5000)   { fill="url(#grad-5000)"; rTxt="青浄瑠璃"; } 
     if(p>=10000)  { fill="url(#grad-10000)"; rTxt="無染純金"; } 
     
     if(p>=100000) { fill="url(#grad-15000)"; rTxt="紫金霞光"; }    
     if(p>=500000) { fill="url(#grad-20000)"; rTxt="晨曦玉露"; }    
     if(p>=1000000){ fill="url(#grad-25000)"; rTxt="月魄銀輝"; }    
-    if(p>=5000000){ fill="url(#grad-30000)"; rTxt="玄黃凝脂"; }    
-    if(p>=10000000){ fill="url(#grad-30000)"; stroke="#fff"; rTxt="大圓滿耀金"; glow="drop-shadow(0 0 18px rgba(212,175,55,0.8)) drop-shadow(0 0 40px rgba(212,175,55,0.4))"; }
+    if(p>=5000000){ fill="url(#grad-30000)"; rTxt="玄黄凝脂"; }    
+    if(p>=10000000){ fill="url(#grad-30000)"; stroke="#fff"; rTxt="大円満耀金"; glow="drop-shadow(0 0 18px rgba(212,175,55,0.8)) drop-shadow(0 0 40px rgba(212,175,55,0.4))"; }
 
     rank.innerText = rTxt;
     box.style.filter = glow;
 
-    // ✨ 注入蓮花自轉 class="lotus-spin"
     let svg = `<svg class="lotus-spin" xmlns="http://www.w3.org/2000/svg" viewBox="-150 -150 300 300" style="width:100%;height:100%;overflow:visible;">`;
 
     for (let l = layers; l > 0; l--) {
@@ -1181,31 +1118,31 @@ function renderLotus(p) {
     box.innerHTML = svg;
 }
 
-// ══════════════════════════════════════════
-//  ✨ 摩尼九曜連珠系統 (水金地火木土天海＋太陽) ✨
-//  單一套邏輯：pts 門檻解鎖 → 三方位各裝 3 顆星 → 點擊開彈窗
-// ══════════════════════════════════════════
+// ==========================================================================
+//  摩尼九曜連珠システム (水金地火木土天海＋太陽)
+//  単一ロジック：pts閾値で解放 → 三方位に各3つの星を配置 → クリックでポップアップ表示
+// ==========================================================================
 
-// 九曜資料庫（名稱＋文案）
+// 九曜データベース（名称＋説明文）
 const PLANET_DATA = {
-    1: { name: "水星 ‧ 滌淨", desc: "蘊含初發之清淨，如水洗滌塵垢，初心萌芽。" },
-    2: { name: "金星 ‧ 啟明", desc: "啟明之光，照破無明煩惱，智慧初現。" },
-    3: { name: "地球 ‧ 悲載", desc: "載育萬物，悲心如地藏般堅固，厚德載物。" },
-    4: { name: "火星 ‧ 智炬", desc: "智慧如炬，焚盡一切業障，勇猛精進。" },
-    5: { name: "木星 ‧ 菩提", desc: "廣大無礙，展現菩提生機，福慧增長。" },
-    6: { name: "土星 ‧ 禪定", desc: "禪定堅固，千劫不動如山，安忍如地。" },
-    7: { name: "天王星 ‧ 自在", desc: "清涼自在，破除世間執念，得大解脫。" },
-    8: { name: "海王星 ‧ 願海", desc: "願海無涯，包容法界眾生，慈悲普度。" },
-    9: { name: "太陽 ‧ 耀金", desc: "大圓滿耀金，自性光明普照三千大千世界。" }
+    1: { name: "水星 ‧ 滌浄", desc: "初発の清浄を宿し、水が塵垢を洗うが如く、初心が芽生える。" },
+    2: { name: "金星 ‧ 啓明", desc: "啓明の光、無明の煩悩を照らし破り、智慧が初めて現る。" },
+    3: { name: "地球 ‧ 悲載", desc: "万物を育み、慈悲の心は地蔵の如く堅固にして、深い徳で万物を包む。" },
+    4: { name: "火星 ‧ 智炬", desc: "智慧は炬の如く、一切の業障を焼き尽くし、勇猛精進す。" },
+    5: { name: "木星 ‧ 菩提", desc: "広大無礙にして菩提の生機を表し、福徳と智慧が増長す。" },
+    6: { name: "土星 ‧ 禅定", desc: "禅定は堅固にして、千劫を経ても山のごとく動かず、安忍は大地の如し。" },
+    7: { name: "天王星 ‧ 自在", desc: "清涼自在にして、世間の執着を打破し、大解脱を得る。" },
+    8: { name: "海王星 ‧ 願海", desc: "願海は無涯にして、法界の衆生を包容し、慈悲を以て普く度す。" },
+    9: { name: "太陽 ‧ 耀金", desc: "大円満の耀金、自性の光明は普く三千大千世界を照らす。" }
 };
 
-// ══════════════════════════════════════════
-//  ✨ 摩尼九曜連珠 SVG (水金地火木土天海＋太陽) ✨
-//  星球：純漸層立體，無外框線；太陽：不規則跳動火焰
-// ══════════════════════════════════════════
+// ==========================================================================
+//  摩尼九曜連珠 SVG (水金地火木土天海＋太陽)
+//  天体：純グラデーション立体、枠線なし；太陽：多層の光輪
+// ==========================================================================
 function getManiSVG(tier) {
 
-    // 共用：行星本體 + 陰影 + 高光（無描邊，純漸層做立體感）
+    // 共通：天体本体 + 影 + ハイライト（輪郭線なし、グラデーションのみで立体感を表現）
     function planetBase({ id, grad, shadowOpacity = 0.5, shadowColor = "#1a0a4c", bands = [], ring = null, glowColor = "rgba(120,180,255,0.5)" }) {
         const bandPaths = bands.map((b) =>
             `<path d="${b.d}" stroke="${b.color}" stroke-width="${b.w}" fill="none" opacity="${b.o}"/>`
@@ -1247,7 +1184,7 @@ function getManiSVG(tier) {
 
     switch (tier) {
 
-        case 1: // ☿ 水星
+        case 1: // 水星
             return planetBase({
                 id: "mercury", glowColor: "rgba(200,180,160,0.45)", shadowOpacity: 0.6,
                 grad: `<radialGradient id="mercury-body" cx="38%" cy="32%" r="65%">
@@ -1261,7 +1198,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        case 2: // ♀ 金星
+        case 2: // 金星
             return planetBase({
                 id: "venus", glowColor: "rgba(255,224,150,0.55)",
                 grad: `<radialGradient id="venus-body" cx="38%" cy="32%" r="65%">
@@ -1274,7 +1211,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        case 3: // 🌍 地球
+        case 3: // 地球
             return planetBase({
                 id: "earth", glowColor: "rgba(95,184,240,0.55)",
                 grad: `<radialGradient id="earth-body" cx="38%" cy="32%" r="65%">
@@ -1288,7 +1225,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        case 4: // ♂ 火星
+        case 4: // 火星
             return planetBase({
                 id: "mars", glowColor: "rgba(255,120,80,0.55)",
                 grad: `<radialGradient id="mars-body" cx="38%" cy="32%" r="65%">
@@ -1301,7 +1238,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        case 5: // ♃ 木星
+        case 5: // 木星
             return planetBase({
                 id: "jupiter", glowColor: "rgba(255,200,140,0.55)",
                 grad: `<radialGradient id="jupiter-body" cx="38%" cy="32%" r="65%">
@@ -1316,7 +1253,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        case 6: // ♄ 土星
+        case 6: // 土星
             return planetBase({
                 id: "saturn", glowColor: "rgba(255,225,150,0.55)",
                 ring: { cy: 50, rx: 46, ry: 11, o: 0.92, rot: -8, color: "#a87a1a", colorLight: "#ffe8a8", behind: false },
@@ -1330,7 +1267,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        case 7: // ♅ 天王星
+        case 7: // 天王星
             return planetBase({
                 id: "uranus", glowColor: "rgba(150,230,230,0.55)",
                 ring: { cy: 50, rx: 40, ry: 16, o: 0.5, rot: 75, color: "#5fd0d0", colorLight: "#d6fbfb", behind: true },
@@ -1343,7 +1280,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        case 8: // ♆ 海王星
+        case 8: // 海王星
             return planetBase({
                 id: "neptune", glowColor: "rgba(80,120,255,0.55)",
                 grad: `<radialGradient id="neptune-body" cx="38%" cy="32%" r="65%">
@@ -1356,7 +1293,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-                        default: // ☀ 太陽：純光球，無火焰瓣，靠多層光暈與紅橙漸層表現熱度
+        default: // 太陽：純粋な光球、多層の光輪と赤橙のグラデーションで熱量を表現
             return `<div class="mani-spin" style="width:100%; height:100%;">
             <svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 26px rgba(255,140,20,0.75)) drop-shadow(0 0 14px rgba(255,60,10,0.55)); overflow:visible;">
                 <defs>
@@ -1376,26 +1313,18 @@ function getManiSVG(tier) {
                         <stop offset="100%" stop-color="#ff5a12" stop-opacity="0"/>
                     </radialGradient>
                 </defs>
-
-                <!-- 雙層光暈：外層偏紅擴散更遠，內層偏金貼近球體 -->
                 <circle cx="50" cy="50" r="49" fill="url(#sun-halo-outer)"/>
                 <circle cx="50" cy="50" r="40" fill="url(#sun-halo-inner)"/>
-
-                <!-- 核心光球：純漸層立體，無描邊、無火焰瓣 -->
                 <circle cx="50" cy="50" r="30" fill="url(#sun-core)"/>
-
-                <!-- 表面對流色斑，增加能量感層次 -->
                 <ellipse cx="40" cy="60" rx="8" ry="5" fill="#ff7a1a" opacity="0.35" transform="rotate(-20 40 60)"/>
                 <ellipse cx="61" cy="42" rx="6" ry="4" fill="#ffde8a" opacity="0.4" transform="rotate(15 61 42)"/>
                 <ellipse cx="57" cy="63" rx="5" ry="3.5" fill="#c73408" opacity="0.3" transform="rotate(30 57 63)"/>
-
                 <ellipse cx="40" cy="38" rx="7" ry="4" fill="#ffffff" opacity="0.6"/>
             </svg></div>`;
     }
 }
 
-
-// ── 依 pts 分配並顯示三方位九顆星球 ──
+// ptsに基づき三方位九顆の星を配分・表示
 function updatePlanets(pts) {
     const thresholds = [1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000, 100000000];
     let unlockedTier = 0;
@@ -1403,8 +1332,7 @@ function updatePlanets(pts) {
         if (pts >= thresholds[i]) unlockedTier = i + 1;
     }
 
-
-    // 里程碑通知：每解鎖到新的一階就跳一次獎勵彈窗（取代舊的 maniNotified 系列旗標）
+    // マイルストーン通知
     if (unlockedTier > (db.personalRoom.lastPlanetTier || 0)) {
         db.personalRoom.lastPlanetTier = unlockedTier;
         saveDB();
@@ -1417,8 +1345,8 @@ function updatePlanets(pts) {
     const nodes = [
         { id: 'mani-br', tiers: [3, 2, 1] }, // 右下：地球、金星、水星
         { id: 'mani-tl', tiers: [6, 5, 4] }, // 左上：土星、木星、火星
-       { id: 'mani-bl', tiers: [8, 7] },    // 左下：海王星、天王星
-       { id: 'mani-sun', tiers: [9] }       // 獨立太陽節點
+        { id: 'mani-bl', tiers: [8, 7] },    // 左下：海王星、天王星
+        { id: 'mani-sun', tiers: [9] }       // 独立した太陽ノード
     ];
 
     nodes.forEach(nodeData => {
@@ -1443,7 +1371,7 @@ function updatePlanets(pts) {
     });
 }
 
-// ── 星球解鎖獎勵彈窗 ──
+// 天体解放報酬ポップアップ
 function showPlanetReward(tier) {
     const data = PLANET_DATA[tier];
     if (!data) return;
@@ -1462,17 +1390,29 @@ function showCertificateModal() {
 
     certSvg.innerHTML = getManiSVG(9);
 
-    const currentName = document.getElementById('ui-name').value || db.name || '無名行者';
+    const currentName = document.getElementById('ui-name').value || db.name || '無名の行者';
     certName.innerText = currentName;
 
     openM('certificateModal');
 }
 
-// ── 點擊晶簇互動（粒子＋法語＋開對應星球彈窗） ──
-const dharmaQuotesDictTW = {
-    'wisdom': ["凡所有相，皆是虛妄", "應無所住，而生其心", "一切有為法，如夢幻泡影"],
-    'compassion': ["無緣大慈，同體大悲", "步步生蓮，念念彌陀", "悲心遍照，利益有情"],
-    'peace': ["心如虛空，了無一物", "狂心若歇，歇即菩提", "清淨無為，平安喜樂"]
+// 群晶クリックインタラクション（粒子＋法語＋対応する天体ポップアップの起動）
+const dharmaQuotesDictJP = {
+    'wisdom': [
+        "凡て相あるものは、皆是れ虚妄なり",
+        "応に住する所無くして、その心を生ずべし",
+        "一切の有為の法は、夢幻泡影の如し"
+    ],
+    'compassion': [
+        "無縁の大慈、同体の大悲",
+        "歩歩に蓮を生じ、念念に弥陀を想う",
+        "悲心遍く照らし、有情を利益す"
+    ],
+    'peace': [
+        "心は虚空の如く、了として一物も無し",
+        "狂心若し歇まば、歇む即ち菩提なり",
+        "清浄無為、平安喜楽"
+    ]
 };
 
 let isClusterResonating = false;
@@ -1508,7 +1448,7 @@ function resonateCluster(e, type) {
         setTimeout(() => dust.remove(), 2000);
     }
 
-    const quotesArray = dharmaQuotesDictTW[type] || dharmaQuotesDictTW['wisdom'];
+    const quotesArray = dharmaQuotesDictJP[type] || dharmaQuotesDictJP['wisdom'];
     const randomQuote = quotesArray[Math.floor(Math.random() * quotesArray.length)];
     const quoteEl = document.createElement('div');
     quoteEl.className = 'dharma-quote';
@@ -1519,19 +1459,17 @@ function resonateCluster(e, type) {
     document.body.appendChild(quoteEl);
     setTimeout(() => quoteEl.remove(), 3500);
 
-    // 開啟該方位目前解鎖到的最高階星球彈窗
+    // その方位で現在解放されている最高階層の天体ポップアップを起動
     let maxTier = 1;
-const currentUnlocked = db.personalRoom.lastPlanetTier || 1;
-if (cluster.id === 'mani-br') maxTier = Math.min(3, currentUnlocked);
-if (cluster.id === 'mani-tl') maxTier = Math.min(6, currentUnlocked);
-if (cluster.id === 'mani-bl') maxTier = Math.min(8, currentUnlocked);
-if (cluster.id === 'mani-sun') maxTier = Math.min(9, currentUnlocked);
+    const currentUnlocked = db.personalRoom.lastPlanetTier || 1;
+    if (cluster.id === 'mani-br') maxTier = Math.min(3, currentUnlocked);
+    if (cluster.id === 'mani-tl') maxTier = Math.min(6, currentUnlocked);
+    if (cluster.id === 'mani-bl') maxTier = Math.min(8, currentUnlocked);
+    if (cluster.id === 'mani-sun') maxTier = Math.min(9, currentUnlocked);
 
     setTimeout(() => showPlanetReward(maxTier), 1500);
 }
-// ══════════════════════════════════════════
-//  UI 更新 (解耦 pts 與 nianSum)
-// ══════════════════════════════════════════
+
 function updateUI() {
     let currentSessionCount = db.personalRoom.sessionCounts[curBuddha] || 0;
     document.getElementById('ui-session-count').innerText = currentSessionCount.toLocaleString();
@@ -1544,18 +1482,13 @@ function updateUI() {
     const miniBar = document.getElementById('ui-mini-session-bar');
     if (miniBar) miniBar.style.width = w + '%';
 
-    // 1. 蓮花依舊吃專屬的菩提資糧
     let currentPts = getPts();
     renderLotus(currentPts);
 
-    // 2. 晶石與彈窗嚴格對應歷史總念佛數
     let nianSum = (db.totalNian||0) + Object.values(db.personalRoom.othList).reduce((a,b)=>a+b, 0);
     updatePlanets(nianSum);
 }
 
-// ══════════════════════════════════════════
-//  星空背景
-// ══════════════════════════════════════════
 const cvs = document.getElementById('starCanvas');
 const ctx  = cvs.getContext('2d');
 let stars  = [];
@@ -1578,9 +1511,6 @@ function drawS() {
 }
 window.onresize = initS;
 
-// ══════════════════════════════════════════
-//  全域防下拉刷新
-// ══════════════════════════════════════════
 document.addEventListener('touchmove', e => {
     const isScrollable = e.target.closest('.modal-box') || e.target.closest('.data-card') || e.target.closest('.glass-panel');
     if (!isScrollable && e.cancelable) {
@@ -1588,9 +1518,6 @@ document.addEventListener('touchmove', e => {
     }
 }, { passive: false });
 
-// ══════════════════════════════════════════
-//  初始化
-// ══════════════════════════════════════════
 initS();
 drawS();
 initMala();
