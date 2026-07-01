@@ -1402,6 +1402,7 @@ function updatePlanets(pts) {
         if (pts >= thresholds[i]) unlockedTier = i + 1;
     }
 
+
     // 里程碑通知：每解鎖到新的一階就跳一次獎勵彈窗（取代舊的 maniNotified 系列旗標）
     if (unlockedTier > (db.personalRoom.lastPlanetTier || 0)) {
         db.personalRoom.lastPlanetTier = unlockedTier;
