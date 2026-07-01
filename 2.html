@@ -1191,17 +1191,12 @@ function renderLotus(p) {
     svg += `</svg>`;
     box.innerHTML = svg;
 }
-// 九曜分組：依「水金地火木土天海＋太陽」順序，分配給三個方位各 3 顆
-// mani-tl: 水星、金星、地球（離太陽最近三顆）
-// mani-br: 火星、木星、土星
-// mani-bl: 天王星、海王星、太陽（收尾，太陽放在 s-main 位置最大最亮）
-const MANI_GROUPS = [
-    [1, 2, 3],   // mani-br 用，但下方呼叫順序會對應到對的 nodeId，見 renderManiCluster
-    [4, 5, 6],
-    [7, 8, 9]
-];
-function getManiSVG(tier) {
-// 新增：九星連珠專屬文案庫
+// ══════════════════════════════════════════
+//  ✨ 摩尼九曜連珠系統 (水金地火木土天海＋太陽) ✨
+//  單一套邏輯：pts 門檻解鎖 → 三方位各裝 3 顆星 → 點擊開彈窗
+// ══════════════════════════════════════════
+
+// 九曜資料庫（名稱＋文案）
 const PLANET_DATA = {
     1: { name: "水星 ‧ 滌淨", desc: "蘊含初發之清淨，如水洗滌塵垢，初心萌芽。" },
     2: { name: "金星 ‧ 啟明", desc: "啟明之光，照破無明煩惱，智慧初現。" },
@@ -1214,25 +1209,16 @@ const PLANET_DATA = {
     9: { name: "太陽 ‧ 耀金", desc: "大圓滿耀金，自性光明普照三千大千世界。" }
 };
 
-// 替換：更新彈出視窗的觸發邏輯
-function showPlanetReward(tier) {
-    const data = PLANET_DATA[tier];
-    if (!data) return;
-    
-    document.getElementById('reward-crystal-svg').innerHTML = getManiSVG(tier);
-    document.getElementById('reward-crystal-title').innerText = `【${data.name}】`;
-    document.getElementById('reward-crystal-desc').innerText = data.desc;
-    
-    openM('crystalRewardModal');
-}
-    // 共用：行星本體 + 陰影 + 高光 + 環（環為選用）
-    function planetBase({ id, grad, shadowOpacity = 0.5, shadowColor = "#1a0a4c", bands = [], ring = null, glowColor = "rgba(120,180,255,0.5)" }) {
-        const bandPaths = bands.map((b, i) =>
+// ── 取得單顆星球 SVG ──
+function getManiSVG(tier) {
+
+    function planetBase({ id, grad, shadowOpacity = 0.5, shadowColor = "#1a0a4c", bands = [], ring = null, glowColor = "rgba(120,180,255,0.5)", outline = "rgba(255,255,255,0.6)" }) {
+        const bandPaths = bands.map((b) =>
             `<path d="${b.d}" stroke="${b.color}" stroke-width="${b.w}" fill="none" opacity="${b.o}"/>`
         ).join("");
 
         const ringSVG = ring ? `
-            <ellipse cx="50" cy="${ring.cy}" rx="${ring.rx}" ry="${ring.ry}" fill="url(#${id}-ring)" opacity="${ring.o}" transform="rotate(${ring.rot} 50 50)"/>
+            <ellipse cx="50" cy="${ring.cy}" rx="${ring.rx}" ry="${ring.ry}" fill="url(#${id}-ring)" opacity="${ring.o}" transform="rotate(${ring.rot} 50 50)" stroke="${ring.colorLight}" stroke-width="0.4" stroke-opacity="0.5"/>
         ` : "";
 
         return `<svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 12px ${glowColor});">
@@ -1251,27 +1237,24 @@ function showPlanetReward(tier) {
                 </radialGradient>
             </defs>
             ${ring && ring.behind ? ringSVG : ""}
-            <circle cx="50" cy="50" r="29" fill="url(#${id}-body)"/>
+            <circle cx="50" cy="50" r="29" fill="url(#${id}-body)" stroke="${outline}" stroke-width="1"/>
             ${bandPaths}
             <circle cx="50" cy="50" r="29" fill="url(#${id}-shadow)"/>
             <ellipse cx="38" cy="35" rx="9" ry="5" fill="#ffffff" opacity="0.55"/>
-            <circle cx="50" cy="50" r="29" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+            <circle cx="50" cy="50" r="29" fill="none" stroke="${outline}" stroke-width="1" opacity="0.85"/>
             ${ring && !ring.behind ? ringSVG : ""}
         </svg>`;
     }
 
     switch (tier) {
 
-        case 1: // ☿ 水星：灰褐隕石坑表面，離太陽最近、無大氣
+        case 1: // ☿ 水星
             return planetBase({
-                id: "mercury",
-                glowColor: "rgba(200,180,160,0.45)",
-                shadowOpacity: 0.55,
+                id: "mercury", glowColor: "rgba(200,180,160,0.45)", shadowOpacity: 0.55,
+                outline: "rgba(255,240,220,0.7)",
                 grad: `<radialGradient id="mercury-body" cx="38%" cy="32%" r="65%">
-                    <stop offset="0%" stop-color="#e8ddd0"/>
-                    <stop offset="40%" stop-color="#bfa98f"/>
-                    <stop offset="75%" stop-color="#8a7256"/>
-                    <stop offset="100%" stop-color="#544432"/>
+                    <stop offset="0%" stop-color="#e8ddd0"/><stop offset="40%" stop-color="#bfa98f"/>
+                    <stop offset="75%" stop-color="#8a7256"/><stop offset="100%" stop-color="#544432"/>
                 </radialGradient>`,
                 bands: [
                     { d: "M30,30 a3,3 0 1,0 0.1,0", color: "#6b5a44", w: 1, o: 0.4 },
@@ -1280,15 +1263,13 @@ function showPlanetReward(tier) {
                 ]
             });
 
-        case 2: // ♀ 金星：濃厚乳黃硫酸雲層，渦旋紋
+        case 2: // ♀ 金星
             return planetBase({
-                id: "venus",
-                glowColor: "rgba(255,224,150,0.55)",
+                id: "venus", glowColor: "rgba(255,224,150,0.55)",
+                outline: "rgba(255,244,210,0.75)",
                 grad: `<radialGradient id="venus-body" cx="38%" cy="32%" r="65%">
-                    <stop offset="0%" stop-color="#fff6dd"/>
-                    <stop offset="40%" stop-color="#ffd98a"/>
-                    <stop offset="75%" stop-color="#e0a23f"/>
-                    <stop offset="100%" stop-color="#9c6a1c"/>
+                    <stop offset="0%" stop-color="#fff6dd"/><stop offset="40%" stop-color="#ffd98a"/>
+                    <stop offset="75%" stop-color="#e0a23f"/><stop offset="100%" stop-color="#9c6a1c"/>
                 </radialGradient>`,
                 bands: [
                     { d: "M20,42 Q50,50 80,38", color: "#fff3cf", w: 1.4, o: 0.45 },
@@ -1296,15 +1277,13 @@ function showPlanetReward(tier) {
                 ]
             });
 
-        case 3: // 🌍 地球：藍綠海陸交織，白雲帶
+        case 3: // 🌍 地球
             return planetBase({
-                id: "earth",
-                glowColor: "rgba(95,184,240,0.55)",
+                id: "earth", glowColor: "rgba(95,184,240,0.55)",
+                outline: "rgba(220,250,255,0.8)",
                 grad: `<radialGradient id="earth-body" cx="38%" cy="32%" r="65%">
-                    <stop offset="0%" stop-color="#eaffea"/>
-                    <stop offset="35%" stop-color="#7fd4ff"/>
-                    <stop offset="65%" stop-color="#2f9e6f"/>
-                    <stop offset="100%" stop-color="#13507a"/>
+                    <stop offset="0%" stop-color="#eaffea"/><stop offset="35%" stop-color="#7fd4ff"/>
+                    <stop offset="65%" stop-color="#2f9e6f"/><stop offset="100%" stop-color="#13507a"/>
                 </radialGradient>`,
                 bands: [
                     { d: "M22,38 Q40,30 56,40 Q70,46 80,36", color: "#ffffff", w: 2, o: 0.5 },
@@ -1313,15 +1292,13 @@ function showPlanetReward(tier) {
                 ]
             });
 
-        case 4: // ♂ 火星：紅褐荒漠，極冠
+        case 4: // ♂ 火星
             return planetBase({
-                id: "mars",
-                glowColor: "rgba(255,120,80,0.55)",
+                id: "mars", glowColor: "rgba(255,120,80,0.55)",
+                outline: "rgba(255,210,190,0.75)",
                 grad: `<radialGradient id="mars-body" cx="38%" cy="32%" r="65%">
-                    <stop offset="0%" stop-color="#ffd9c2"/>
-                    <stop offset="40%" stop-color="#e8784a"/>
-                    <stop offset="75%" stop-color="#b8431f"/>
-                    <stop offset="100%" stop-color="#6e220e"/>
+                    <stop offset="0%" stop-color="#ffd9c2"/><stop offset="40%" stop-color="#e8784a"/>
+                    <stop offset="75%" stop-color="#b8431f"/><stop offset="100%" stop-color="#6e220e"/>
                 </radialGradient>`,
                 bands: [
                     { d: "M40,24 Q50,20 58,25", color: "#ffffff", w: 3, o: 0.6 },
@@ -1329,15 +1306,13 @@ function showPlanetReward(tier) {
                 ]
             });
 
-        case 5: // ♃ 木星：橙白條紋＋大紅斑
+        case 5: // ♃ 木星
             return planetBase({
-                id: "jupiter",
-                glowColor: "rgba(255,200,140,0.55)",
+                id: "jupiter", glowColor: "rgba(255,200,140,0.55)",
+                outline: "rgba(255,235,210,0.75)",
                 grad: `<radialGradient id="jupiter-body" cx="38%" cy="32%" r="65%">
-                    <stop offset="0%" stop-color="#fff3df"/>
-                    <stop offset="40%" stop-color="#f0c891"/>
-                    <stop offset="75%" stop-color="#c98452"/>
-                    <stop offset="100%" stop-color="#7a4a28"/>
+                    <stop offset="0%" stop-color="#fff3df"/><stop offset="40%" stop-color="#f0c891"/>
+                    <stop offset="75%" stop-color="#c98452"/><stop offset="100%" stop-color="#7a4a28"/>
                 </radialGradient>`,
                 bands: [
                     { d: "M21,34 Q50,30 79,34", color: "#fff7ea", w: 3, o: 0.55 },
@@ -1347,16 +1322,14 @@ function showPlanetReward(tier) {
                 ]
             });
 
-        case 6: // ♄ 土星：金黃球體＋寬大行星環
+        case 6: // ♄ 土星
             return planetBase({
-                id: "saturn",
-                glowColor: "rgba(255,225,150,0.55)",
+                id: "saturn", glowColor: "rgba(255,225,150,0.55)",
+                outline: "rgba(255,240,210,0.8)",
                 ring: { cy: 50, rx: 46, ry: 11, o: 0.92, rot: -8, color: "#a87a1a", colorLight: "#ffe8a8", behind: false },
                 grad: `<radialGradient id="saturn-body" cx="38%" cy="32%" r="65%">
-                    <stop offset="0%" stop-color="#fff6da"/>
-                    <stop offset="40%" stop-color="#f0d28a"/>
-                    <stop offset="75%" stop-color="#c89b45"/>
-                    <stop offset="100%" stop-color="#8a6422"/>
+                    <stop offset="0%" stop-color="#fff6da"/><stop offset="40%" stop-color="#f0d28a"/>
+                    <stop offset="75%" stop-color="#c89b45"/><stop offset="100%" stop-color="#8a6422"/>
                 </radialGradient>`,
                 bands: [
                     { d: "M22,40 Q50,36 78,40", color: "#fff3cf", w: 1.8, o: 0.45 },
@@ -1364,31 +1337,27 @@ function showPlanetReward(tier) {
                 ]
             });
 
-        case 7: // ♅ 天王星：淡青色冰行星，細環
+        case 7: // ♅ 天王星
             return planetBase({
-                id: "uranus",
-                glowColor: "rgba(150,230,230,0.55)",
+                id: "uranus", glowColor: "rgba(150,230,230,0.55)",
+                outline: "rgba(220,255,255,0.8)",
                 ring: { cy: 50, rx: 40, ry: 16, o: 0.5, rot: 75, color: "#5fd0d0", colorLight: "#d6fbfb", behind: true },
                 grad: `<radialGradient id="uranus-body" cx="38%" cy="32%" r="65%">
-                    <stop offset="0%" stop-color="#eafffd"/>
-                    <stop offset="40%" stop-color="#aef0ee"/>
-                    <stop offset="75%" stop-color="#5fc9c9"/>
-                    <stop offset="100%" stop-color="#2c7d80"/>
+                    <stop offset="0%" stop-color="#eafffd"/><stop offset="40%" stop-color="#aef0ee"/>
+                    <stop offset="75%" stop-color="#5fc9c9"/><stop offset="100%" stop-color="#2c7d80"/>
                 </radialGradient>`,
                 bands: [
                     { d: "M24,40 Q50,37 76,40", color: "#ffffff", w: 1.2, o: 0.3 }
                 ]
             });
 
-        case 8: // ♆ 海王星：深藍風暴行星
+        case 8: // ♆ 海王星
             return planetBase({
-                id: "neptune",
-                glowColor: "rgba(80,120,255,0.55)",
+                id: "neptune", glowColor: "rgba(80,120,255,0.55)",
+                outline: "rgba(200,220,255,0.8)",
                 grad: `<radialGradient id="neptune-body" cx="38%" cy="32%" r="65%">
-                    <stop offset="0%" stop-color="#dce8ff"/>
-                    <stop offset="40%" stop-color="#5f86f0"/>
-                    <stop offset="75%" stop-color="#2c4ec4"/>
-                    <stop offset="100%" stop-color="#16266e"/>
+                    <stop offset="0%" stop-color="#dce8ff"/><stop offset="40%" stop-color="#5f86f0"/>
+                    <stop offset="75%" stop-color="#2c4ec4"/><stop offset="100%" stop-color="#16266e"/>
                 </radialGradient>`,
                 bands: [
                     { d: "M24,42 Q50,38 76,42", color: "#ffffff", w: 1.6, o: 0.4 },
@@ -1396,17 +1365,19 @@ function showPlanetReward(tier) {
                 ]
             });
 
-        default: // ☀ 太陽：核心光球＋多層輝光＋耀斑（tier 9 或其他）
+        default: // ☀ 太陽（火焰版）
             return `<div class="mani-spin" style="width:100%; height:100%;">
-            <svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 26px rgba(255,160,40,0.7)) drop-shadow(0 0 14px rgba(255,80,30,0.5)); overflow:visible;">
+            <svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 26px rgba(255,140,20,0.75)) drop-shadow(0 0 14px rgba(255,60,10,0.55)); overflow:visible;">
                 <defs>
                     <radialGradient id="sun-core" cx="42%" cy="38%" r="60%">
-                        <stop offset="0%" stop-color="#ffffff"/>
-                        <stop offset="30%" stop-color="#fff3b0"/>
-                        <stop offset="60%" stop-color="#ffb938"/>
-                        <stop offset="85%" stop-color="#ff7a1a"/>
+                        <stop offset="0%" stop-color="#ffffff"/><stop offset="28%" stop-color="#fff3b0"/>
+                        <stop offset="55%" stop-color="#ffb938"/><stop offset="80%" stop-color="#ff7a1a"/>
                         <stop offset="100%" stop-color="#d8420a"/>
                     </radialGradient>
+                    <linearGradient id="sun-flame" x1="50%" y1="0%" x2="50%" y2="100%">
+                        <stop offset="0%" stop-color="#fff3b0"/><stop offset="45%" stop-color="#ffb938"/>
+                        <stop offset="80%" stop-color="#ff7a1a"/><stop offset="100%" stop-color="#c73408"/>
+                    </linearGradient>
                     <radialGradient id="sun-halo" cx="50%" cy="50%" r="50%">
                         <stop offset="0%" stop-color="#ffd060" stop-opacity="0.55"/>
                         <stop offset="60%" stop-color="#ff8a2a" stop-opacity="0.25"/>
@@ -1414,83 +1385,44 @@ function showPlanetReward(tier) {
                     </radialGradient>
                 </defs>
                 <circle cx="50" cy="50" r="48" fill="url(#sun-halo)"/>
-                <g stroke="#ffb938" stroke-width="2" opacity="0.55" stroke-linecap="round">
-                    <line x1="50" y1="4" x2="50" y2="14"/>
-                    <line x1="50" y1="86" x2="50" y2="96"/>
-                    <line x1="4" y1="50" x2="14" y2="50"/>
-                    <line x1="86" y1="50" x2="96" y2="50"/>
-                    <line x1="16" y1="16" x2="23" y2="23"/>
-                    <line x1="77" y1="77" x2="84" y2="84"/>
-                    <line x1="84" y1="16" x2="77" y2="23"/>
-                    <line x1="23" y1="77" x2="16" y2="84"/>
+                <g stroke="#ff8a1a" stroke-width="0.8" stroke-opacity="0.9">
+                    <path d="M50,2 C54,10 58,16 50,22 C42,16 46,10 50,2 Z" fill="url(#sun-flame)"/>
+                    <path d="M50,2 C54,10 58,16 50,22 C42,16 46,10 50,2 Z" fill="url(#sun-flame)" transform="rotate(45 50 50)"/>
+                    <path d="M50,2 C54,10 58,16 50,22 C42,16 46,10 50,2 Z" fill="url(#sun-flame)" transform="rotate(90 50 50)"/>
+                    <path d="M50,2 C54,10 58,16 50,22 C42,16 46,10 50,2 Z" fill="url(#sun-flame)" transform="rotate(135 50 50)"/>
+                    <path d="M50,2 C54,10 58,16 50,22 C42,16 46,10 50,2 Z" fill="url(#sun-flame)" transform="rotate(180 50 50)"/>
+                    <path d="M50,2 C54,10 58,16 50,22 C42,16 46,10 50,2 Z" fill="url(#sun-flame)" transform="rotate(225 50 50)"/>
+                    <path d="M50,2 C54,10 58,16 50,22 C42,16 46,10 50,2 Z" fill="url(#sun-flame)" transform="rotate(270 50 50)"/>
+                    <path d="M50,2 C54,10 58,16 50,22 C42,16 46,10 50,2 Z" fill="url(#sun-flame)" transform="rotate(315 50 50)"/>
                 </g>
-                <circle cx="50" cy="50" r="30" fill="url(#sun-core)"/>
-                <path d="M50,20 C58,30 60,38 50,50 C42,40 40,30 50,20 Z" fill="#ffe27a" opacity="0.5"/>
-                <path d="M78,50 C68,56 60,58 50,50 C58,42 68,42 78,50 Z" fill="#ffcf5e" opacity="0.4"/>
-                <ellipse cx="40" cy="38" rx="7" ry="4" fill="#ffffff" opacity="0.6"/>
-                <circle cx="50" cy="50" r="30" fill="none" stroke="#fff3b0" stroke-width="1" opacity="0.5"/>
+                <circle cx="50" cy="50" r="30" fill="url(#sun-core)" stroke="#fff3b0" stroke-width="1.4" stroke-opacity="0.9"/>
+                <path d="M50,20 C58,30 60,38 50,50 C42,40 40,30 50,20 Z" fill="#ffe27a" opacity="0.55" stroke="#ffcf5e" stroke-width="0.5"/>
+                <path d="M78,50 C68,56 60,58 50,50 C58,42 68,42 78,50 Z" fill="#ffcf5e" opacity="0.45" stroke="#ff9a3a" stroke-width="0.5"/>
+                <path d="M50,80 C44,72 42,64 50,55 C56,63 58,72 50,80 Z" fill="#ff9a3a" opacity="0.4" stroke="#ff7a1a" stroke-width="0.5"/>
+                <ellipse cx="40" cy="38" rx="7" ry="4" fill="#ffffff" opacity="0.65"/>
+                <circle cx="50" cy="50" r="30" fill="none" stroke="#ffe27a" stroke-width="1" opacity="0.6"/>
             </svg></div>`;
     }
 }
 
-// ── 獨立節點建構器 (處理二顆變三顆的演化) ──
-// ── 獨立節點建構器 (處理二顆變三顆的演化，並分配九曜中的三顆給此節點) ──
-function buildManiNode(nodeId, tierGroup, nianSum) {
-    const node = document.getElementById(nodeId);
-    if (!node) return;
-    const sMain = node.querySelector('.s-main');
-    const sSub = node.querySelector('.s-sub');
-    const sTiny = node.querySelector('.s-tiny');
-    const base = node.querySelector('.cluster-base');
-
-    node.style.display = 'block';
-
-    // tierGroup 對應一個方位要負責的三個 tier，例如 [1,2,3]
-    const [tMain, tSub, tTiny] = tierGroup;
-
-    let isEvolved = false;
-    if (tierGroup === MANI_GROUPS[0]) isEvolved = nianSum >= 5000;
-    if (tierGroup === MANI_GROUPS[1]) isEvolved = nianSum >= 50000;
-    if (tierGroup === MANI_GROUPS[2]) isEvolved = nianSum >= 50000000;
-
-    if (isEvolved) {
-        sMain.style.display = 'flex'; sSub.style.display = 'flex'; sTiny.style.display = 'flex';
-    } else {
-        sMain.style.display = 'flex'; sSub.style.display = 'flex'; sTiny.style.display = 'none';
-    }
-
-    // 每顆星各自取得對應 tier 的星球 SVG，不再共用同一顆
-    sMain.innerHTML = getManiSVG(tMain);
-    sSub.innerHTML = getManiSVG(tSub);
-    sTiny.innerHTML = getManiSVG(tTiny);
-
-    const glowColors = [
-        'radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%)',
-        'radial-gradient(circle, rgba(248,187,208,0.05) 0%, transparent 70%)',
-        'radial-gradient(circle, rgba(212,175,55,0.1) 0%, rgba(129,212,250,0.05) 50%, transparent 80%)'
-    ];
-    const groupIndex = MANI_GROUPS.indexOf(tierGroup);
-    base.style.background = glowColors[groupIndex];
-}
-// 替換：節點建構器 (處理九星連珠的解鎖與分配)
+// ── 依 pts 分配並顯示三方位九顆星球 ──
 function updatePlanets(pts) {
-    // 這裡設定 1~9 階星球解鎖的門檻 (可依你的需求自由調整數字)
     const thresholds = [100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000];
     let unlockedTier = 0;
-    
     for (let i = 0; i < thresholds.length; i++) {
         if (pts >= thresholds[i]) unlockedTier = i + 1;
     }
 
-    // 觸發新星球解鎖彈窗
+    // 里程碑通知：每解鎖到新的一階就跳一次獎勵彈窗（取代舊的 maniNotified 系列旗標）
     if (unlockedTier > (db.personalRoom.lastPlanetTier || 0)) {
         db.personalRoom.lastPlanetTier = unlockedTier;
         saveDB();
-        showPlanetReward(unlockedTier);
+        setTimeout(() => showPlanetReward(unlockedTier), 1000);
+        if (unlockedTier === 9) {
+            setTimeout(() => showCertificateModal(), 1800);
+        }
     }
 
-    // 分配 9 顆星球到三個方位 (每個方位放 3 顆)
-    // 陣列順序對應 HTML 中的順序：s-main, s-sub, s-tiny
     const nodes = [
         { id: 'mani-br', tiers: [3, 2, 1] }, // 右下：地球、金星、水星
         { id: 'mani-tl', tiers: [6, 5, 4] }, // 左上：土星、木星、火星
@@ -1499,12 +1431,12 @@ function updatePlanets(pts) {
 
     nodes.forEach(nodeData => {
         const nodeEl = document.getElementById(nodeData.id);
+        if (!nodeEl) return;
         const isNodeActive = nodeData.tiers.some(t => t <= unlockedTier);
-        
+
         if (isNodeActive) {
             nodeEl.style.display = 'block';
             const stones = nodeEl.querySelectorAll('.m-stone');
-            
             nodeData.tiers.forEach((tier, index) => {
                 if (tier <= unlockedTier) {
                     stones[index].style.display = 'flex';
@@ -1519,112 +1451,36 @@ function updatePlanets(pts) {
     });
 }
 
-
-
-
-// 替換：點擊星球星系時的互動彈窗
-function resonateCluster(event, type) {
-    event.stopPropagation();
-    const node = event.currentTarget;
-    node.classList.add('active');
-    
-    playCrystalChime(); 
-    
-    // 點擊後，顯示該星系中目前解鎖的「最高階」星球文案
-    let maxTier = 1;
-    const currentUnlocked = db.personalRoom.lastPlanetTier || 1;
-    if (node.id === 'mani-br') maxTier = Math.min(3, currentUnlocked);
-    if (node.id === 'mani-tl') maxTier = Math.min(6, currentUnlocked);
-    if (node.id === 'mani-bl') maxTier = Math.min(9, currentUnlocked);
-    
-    setTimeout(() => {
-        showPlanetReward(maxTier);
-        node.classList.remove('active');
-    }, 600);
-}
-    if (nianSum === 0) return;
-
-    if (nianSum > 0) buildManiNode('mani-br', MANI_GROUPS[0], nianSum);       // 水金地
-    if (nianSum >= 10000) buildManiNode('mani-tl', MANI_GROUPS[1], nianSum);  // 火木土
-    if (nianSum >= 100000) buildManiNode('mani-bl', MANI_GROUPS[2], nianSum); // 天海日
-
-    // ✨ 倒序判斷，自動補齊歷史標記
-    if (nianSum >= 100000000 && !db.personalRoom.maniNotifiedT4) {
-        db.personalRoom.maniNotified = true;
-        db.personalRoom.maniNotifiedT2 = true;
-        db.personalRoom.maniNotifiedT3 = true;
-        db.personalRoom.maniNotifiedT4 = true;
-        saveDB();
-        setTimeout(() => showCertificateModal(), 1200);
-    } else if (nianSum >= 100000 && !db.personalRoom.maniNotifiedT3) {
-        db.personalRoom.maniNotified = true;
-        db.personalRoom.maniNotifiedT2 = true;
-        db.personalRoom.maniNotifiedT3 = true;
-        saveDB();
-setTimeout(() => showPlanetReward(3), 1000);
-    } else if (nianSum >= 10000 && !db.personalRoom.maniNotifiedT2) {
-        db.personalRoom.maniNotified = true;
-        db.personalRoom.maniNotifiedT2 = true;
-        saveDB();
-        setTimeout(() => showPlanetReward(2), 1000);
-    } else if (nianSum > 0 && !db.personalRoom.maniNotified) {
-        db.personalRoom.maniNotified = true;
-        saveDB();
-        setTimeout(() => showPlanetReward(1), 1000);
-    }
-}
-
-// ── 達標彈窗 ──
+// ── 星球解鎖獎勵彈窗 ──
 function showPlanetReward(tier) {
-    const svgWrap = document.getElementById('reward-crystal-svg');
-    const title = document.getElementById('reward-crystal-title');
-    const sub = document.getElementById('reward-crystal-subtitle');
-    const desc = document.getElementById('reward-crystal-desc');
+    const data = PLANET_DATA[tier];
+    if (!data) return;
 
-    svgWrap.innerHTML = getManiSVG(tier);
+    document.getElementById('reward-crystal-svg').innerHTML = getManiSVG(tier);
+    document.getElementById('reward-crystal-title').innerText = `【${data.name}】`;
+    document.getElementById('reward-crystal-subtitle').innerText = `第 ${tier} 曜`;
+    document.getElementById('reward-crystal-desc').innerText = data.desc;
 
-    if (tier === 1) {
-        title.innerText = "【初階：琉璃原石】"; sub.innerText = "佛號 0 ~ 1 萬";
-        desc.innerHTML = "行者初發菩提心，資糧凝聚。<br>靈石微透清淨，照見純淨初發心。";
-    } else if (tier === 2) {
-        title.innerText = "【中階：玫瑰晶蓮】"; sub.innerText = "佛號 1 萬 ~ 10 萬";
-        desc.innerHTML = "資糧日漸豐厚，靈石切面增多。<br>透出慈悲粉光，如同心中蓮花綻放。";
-    } else {
-        title.innerText = "【高階：幻彩摩尼】"; sub.innerText = "佛號 10 萬以上";
-        desc.innerHTML = "萬德莊嚴，道業圓滿自轉生光。<br>演化為幻彩摩尼，映徹十方法界。";
-    }
     openM('crystalRewardModal');
 }
 
 function showCertificateModal() {
     const certSvg = document.getElementById('cert-svg');
     const certName = document.getElementById('cert-user-name');
-    
-    certSvg.innerHTML = getManiSVG(9); 
-    
+
+    certSvg.innerHTML = getManiSVG(9);
+
     const currentName = document.getElementById('ui-name').value || db.name || '無名行者';
     certName.innerText = currentName;
 
     openM('certificateModal');
 }
 
-// ── 點擊晶簇互動 (中文法語) ──
+// ── 點擊晶簇互動（粒子＋法語＋開對應星球彈窗） ──
 const dharmaQuotesDictTW = {
-    'wisdom': [
-        "凡所有相，皆是虛妄",
-        "應無所住，而生其心",
-        "一切有為法，如夢幻泡影"
-    ],
-    'compassion': [
-        "無緣大慈，同體大悲",
-        "步步生蓮，念念彌陀",
-        "悲心遍照，利益有情"
-    ],
-    'peace': [
-        "心如虛空，了無一物",
-        "狂心若歇，歇即菩提",
-        "清淨無為，平安喜樂"
-    ]
+    'wisdom': ["凡所有相，皆是虛妄", "應無所住，而生其心", "一切有為法，如夢幻泡影"],
+    'compassion': ["無緣大慈，同體大悲", "步步生蓮，念念彌陀", "悲心遍照，利益有情"],
+    'peace': ["心如虛空，了無一物", "狂心若歇，歇即菩提", "清淨無為，平安喜樂"]
 };
 
 let isClusterResonating = false;
@@ -1633,7 +1489,7 @@ function resonateCluster(e, type) {
     isClusterResonating = true;
     setTimeout(() => isClusterResonating = false, 800);
 
-    const cluster = e.currentTarget; 
+    const cluster = e.currentTarget;
     cluster.classList.add('active');
     setTimeout(() => cluster.classList.remove('active'), 350);
 
@@ -1660,17 +1516,25 @@ function resonateCluster(e, type) {
         setTimeout(() => dust.remove(), 2000);
     }
 
-    // ✨ 文字居中於蓮花上方，防止被切掉
     const quotesArray = dharmaQuotesDictTW[type] || dharmaQuotesDictTW['wisdom'];
     const randomQuote = quotesArray[Math.floor(Math.random() * quotesArray.length)];
     const quoteEl = document.createElement('div');
     quoteEl.className = 'dharma-quote';
     quoteEl.innerText = randomQuote;
     quoteEl.style.left = `50%`;
-    quoteEl.style.transform = 'translateX(-50%)'; 
-    quoteEl.style.top = `40%`; // 畫面中上方
+    quoteEl.style.transform = 'translateX(-50%)';
+    quoteEl.style.top = `40%`;
     document.body.appendChild(quoteEl);
     setTimeout(() => quoteEl.remove(), 3500);
+
+    // 開啟該方位目前解鎖到的最高階星球彈窗
+    let maxTier = 1;
+    const currentUnlocked = db.personalRoom.lastPlanetTier || 1;
+    if (cluster.id === 'mani-br') maxTier = Math.min(3, currentUnlocked);
+    if (cluster.id === 'mani-tl') maxTier = Math.min(6, currentUnlocked);
+    if (cluster.id === 'mani-bl') maxTier = Math.min(9, currentUnlocked);
+
+    setTimeout(() => showPlanetReward(maxTier), 500);
 }
 
 // ══════════════════════════════════════════
