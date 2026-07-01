@@ -1360,65 +1360,38 @@ function getManiSVG(tier) {
                 ]
             });
 
-                default: // ☀ 太陽：雙層厚實火舌，環繞一圈，高中錯落但無短碎細齒
+                        default: // ☀ 太陽：純光球，無火焰瓣，靠多層光暈與紅橙漸層表現熱度
             return `<div class="mani-spin" style="width:100%; height:100%;">
             <svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 26px rgba(255,140,20,0.75)) drop-shadow(0 0 14px rgba(255,60,10,0.55)); overflow:visible;">
                 <defs>
                     <radialGradient id="sun-core" cx="42%" cy="38%" r="60%">
-                        <stop offset="0%" stop-color="#ffffff"/><stop offset="25%" stop-color="#fff3b0"/>
-                        <stop offset="50%" stop-color="#ffcf4a"/><stop offset="72%" stop-color="#ff9a1e"/>
-                        <stop offset="88%" stop-color="#ff5a12"/><stop offset="100%" stop-color="#c72c08"/>
+                        <stop offset="0%" stop-color="#ffffff"/><stop offset="22%" stop-color="#fff3b0"/>
+                        <stop offset="45%" stop-color="#ffcf4a"/><stop offset="68%" stop-color="#ff9a1e"/>
+                        <stop offset="85%" stop-color="#ff5a12"/><stop offset="100%" stop-color="#c72c08"/>
                     </radialGradient>
-                    <radialGradient id="sun-halo" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stop-color="#ffd060" stop-opacity="0.55"/>
-                        <stop offset="55%" stop-color="#ff8a2a" stop-opacity="0.28"/>
+                    <radialGradient id="sun-halo-outer" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#ff8a2a" stop-opacity="0.35"/>
+                        <stop offset="45%" stop-color="#ff5a12" stop-opacity="0.18"/>
+                        <stop offset="100%" stop-color="#ff2a0a" stop-opacity="0"/>
+                    </radialGradient>
+                    <radialGradient id="sun-halo-inner" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#ffd060" stop-opacity="0.6"/>
+                        <stop offset="55%" stop-color="#ff8a2a" stop-opacity="0.3"/>
                         <stop offset="100%" stop-color="#ff5a12" stop-opacity="0"/>
                     </radialGradient>
-                    <linearGradient id="flame-outer" x1="50%" y1="100%" x2="50%" y2="0%">
-                        <stop offset="0%" stop-color="#ff7a1a"/>
-                        <stop offset="55%" stop-color="#ffa62e"/>
-                        <stop offset="100%" stop-color="#ffe07a"/>
-                    </linearGradient>
-                    <linearGradient id="flame-inner" x1="50%" y1="100%" x2="50%" y2="0%">
-                        <stop offset="0%" stop-color="#ffb020"/>
-                        <stop offset="55%" stop-color="#ffd24a"/>
-                        <stop offset="100%" stop-color="#fff5c2"/>
-                    </linearGradient>
                 </defs>
 
-                <circle cx="50" cy="50" r="48" fill="url(#sun-halo)"/>
+                <!-- 雙層光暈：外層偏紅擴散更遠，內層偏金貼近球體 -->
+                <circle cx="50" cy="50" r="49" fill="url(#sun-halo-outer)"/>
+                <circle cx="50" cy="50" r="40" fill="url(#sun-halo-inner)"/>
 
-                <!-- 外層：8 片粗厚火舌，環繞一圈，高低錯落（高/中交替，無短碎） -->
-                <g opacity="0.85">
-                    <path d="M50,50 C40,42 36,26 50,3 C64,26 60,42 50,50 Z" fill="url(#flame-outer)"/>
-                    <path d="M50,50 C42,44 33,32 40,14 C50,28 52,40 50,50 Z" fill="url(#flame-outer)" transform="rotate(45 50 50)"/>
-                    <path d="M50,50 C40,42 36,26 50,3 C64,26 60,42 50,50 Z" fill="url(#flame-outer)" transform="rotate(90 50 50)"/>
-                    <path d="M50,50 C42,44 33,32 40,14 C50,28 52,40 50,50 Z" fill="url(#flame-outer)" transform="rotate(135 50 50)"/>
-                    <path d="M50,50 C40,42 36,26 50,3 C64,26 60,42 50,50 Z" fill="url(#flame-outer)" transform="rotate(180 50 50)"/>
-                    <path d="M50,50 C42,44 33,32 40,14 C50,28 52,40 50,50 Z" fill="url(#flame-outer)" transform="rotate(225 50 50)"/>
-                    <path d="M50,50 C40,42 36,26 50,3 C64,26 60,42 50,50 Z" fill="url(#flame-outer)" transform="rotate(270 50 50)"/>
-                    <path d="M50,50 C42,44 33,32 40,14 C50,28 52,40 50,50 Z" fill="url(#flame-outer)" transform="rotate(315 50 50)"/>
-                </g>
-
-                <!-- 內層：略短一階、更亮更黃，錯開 22.5 度疊出雙層層次 -->
-                <g opacity="0.9" transform="rotate(22.5 50 50)">
-                    <path d="M50,50 C43,44 39,32 50,14 C61,32 57,44 50,50 Z" fill="url(#flame-inner)"/>
-                    <path d="M50,50 C44,45 37,36 43,22 C51,33 53,42 50,50 Z" fill="url(#flame-inner)" transform="rotate(45 50 50)"/>
-                    <path d="M50,50 C43,44 39,32 50,14 C61,32 57,44 50,50 Z" fill="url(#flame-inner)" transform="rotate(90 50 50)"/>
-                    <path d="M50,50 C44,45 37,36 43,22 C51,33 53,42 50,50 Z" fill="url(#flame-inner)" transform="rotate(135 50 50)"/>
-                    <path d="M50,50 C43,44 39,32 50,14 C61,32 57,44 50,50 Z" fill="url(#flame-inner)" transform="rotate(180 50 50)"/>
-                    <path d="M50,50 C44,45 37,36 43,22 C51,33 53,42 50,50 Z" fill="url(#flame-inner)" transform="rotate(225 50 50)"/>
-                    <path d="M50,50 C43,44 39,32 50,14 C61,32 57,44 50,50 Z" fill="url(#flame-inner)" transform="rotate(270 50 50)"/>
-                    <path d="M50,50 C44,45 37,36 43,22 C51,33 53,42 50,50 Z" fill="url(#flame-inner)" transform="rotate(315 50 50)"/>
-                </g>
-
-                <!-- 核心光球：純漸層立體，無描邊 -->
-                <circle cx="50" cy="50" r="27" fill="url(#sun-core)"/>
+                <!-- 核心光球：純漸層立體，無描邊、無火焰瓣 -->
+                <circle cx="50" cy="50" r="30" fill="url(#sun-core)"/>
 
                 <!-- 表面對流色斑，增加能量感層次 -->
-                <ellipse cx="40" cy="58" rx="8" ry="5" fill="#ff7a1a" opacity="0.35" transform="rotate(-20 40 58)"/>
-                <ellipse cx="60" cy="42" rx="6" ry="4" fill="#ffde8a" opacity="0.4" transform="rotate(15 60 42)"/>
-                <ellipse cx="56" cy="62" rx="5" ry="3.5" fill="#c73408" opacity="0.3" transform="rotate(30 56 62)"/>
+                <ellipse cx="40" cy="60" rx="8" ry="5" fill="#ff7a1a" opacity="0.35" transform="rotate(-20 40 60)"/>
+                <ellipse cx="61" cy="42" rx="6" ry="4" fill="#ffde8a" opacity="0.4" transform="rotate(15 61 42)"/>
+                <ellipse cx="57" cy="63" rx="5" ry="3.5" fill="#c73408" opacity="0.3" transform="rotate(30 57 63)"/>
 
                 <ellipse cx="40" cy="38" rx="7" ry="4" fill="#ffffff" opacity="0.6"/>
             </svg></div>`;
@@ -1551,10 +1524,11 @@ function resonateCluster(e, type) {
 
     // 開啟該方位目前解鎖到的最高階星球彈窗
     let maxTier = 1;
-    const currentUnlocked = db.personalRoom.lastPlanetTier || 1;
-    if (cluster.id === 'mani-br') maxTier = Math.min(3, currentUnlocked);
-    if (cluster.id === 'mani-tl') maxTier = Math.min(6, currentUnlocked);
-    if (cluster.id === 'mani-bl') maxTier = Math.min(9, currentUnlocked);
+const currentUnlocked = db.personalRoom.lastPlanetTier || 1;
+if (cluster.id === 'mani-br') maxTier = Math.min(3, currentUnlocked);
+if (cluster.id === 'mani-tl') maxTier = Math.min(6, currentUnlocked);
+if (cluster.id === 'mani-bl') maxTier = Math.min(8, currentUnlocked);
+if (cluster.id === 'mani-sun') maxTier = Math.min(9, currentUnlocked);
 
     setTimeout(() => showPlanetReward(maxTier), 500);
 }
