@@ -1514,10 +1514,16 @@ function resonateCluster(e, type) {
     cluster.classList.add('active');
     setTimeout(() => cluster.classList.remove('active'), 350);
 
-    // 縮放動作結束後，接著播放依序點燈
+    // 縮放動作結束後，不論點的是哪個區塊，全部四區塊都依序點燈
     setTimeout(() => {
-        cluster.classList.add('lighting');
-        setTimeout(() => cluster.classList.remove('lighting'), 900);
+        ['mani-br', 'mani-tl', 'mani-bl', 'mani-sun'].forEach((id, groupIndex) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            setTimeout(() => {
+                el.classList.add('lighting');
+                setTimeout(() => el.classList.remove('lighting'), 950);
+            }, groupIndex * 150);
+        });
     }, 350);
 
     playCrystalChime();
