@@ -306,22 +306,17 @@
         80% { opacity: 1; transform: translate(0, -60px) scale(1); }
         100% { opacity: 0; transform: translate(0, -80px) scale(0.9); }
     }
-      /* ── 九曜連珠：點燈式依序發光（不需連線，星球本體逐一亮起） ── */
-    .m-stone > svg,
-    .mani-spin svg {
-        filter: brightness(1) drop-shadow(0 0 0 transparent);
-    }
-
-    .mani-node.active .s-main > svg,
-    .mani-node.active .s-main .mani-spin svg {
+         /* ── 九曜連珠：點燈式依序發光（獨立 class，避開 .active 的 !important 清空規則） ── */
+    .mani-node.lighting .s-main > svg,
+    .mani-node.lighting .s-main .mani-spin svg {
         animation: maniLightUp 0.5s ease-out 0s 1 both;
     }
-    .mani-node.active .s-sub > svg,
-    .mani-node.active .s-sub .mani-spin svg {
+    .mani-node.lighting .s-sub > svg,
+    .mani-node.lighting .s-sub .mani-spin svg {
         animation: maniLightUp 0.5s ease-out 0.22s 1 both;
     }
-    .mani-node.active .s-tiny > svg,
-    .mani-node.active .s-tiny .mani-spin svg {
+    .mani-node.lighting .s-tiny > svg,
+    .mani-node.lighting .s-tiny .mani-spin svg {
         animation: maniLightUp 0.5s ease-out 0.44s 1 both;
     }
 
@@ -331,9 +326,8 @@
         100% { filter: brightness(1) drop-shadow(0 0 0 transparent); }
     }
 
-    /* 太陽獨自更強烈的金色點燈（只有一顆，不用錯開時間） */
-    .sun-node.active .s-main > svg,
-    .sun-node.active .s-main .mani-spin svg {
+    .sun-node.lighting .s-main > svg,
+    .sun-node.lighting .s-main .mani-spin svg {
         animation: sunLightUp 0.7s ease-out 0s 1 both;
     }
     @keyframes sunLightUp {
@@ -1520,7 +1514,16 @@ function resonateCluster(e, type) {
     cluster.classList.add('active');
     setTimeout(() => cluster.classList.remove('active'), 350);
 
+    // 縮放動作結束後，接著播放依序點燈
+    setTimeout(() => {
+        cluster.classList.add('lighting');
+        setTimeout(() => cluster.classList.remove('lighting'), 900);
+    }, 350);
+
     playCrystalChime();
+
+    // ...以下你原本的粒子、法語、彈窗邏輯完全不變...
+
 
     const rect = cluster.getBoundingClientRect();
     const x = rect.left + rect.width / 2;
