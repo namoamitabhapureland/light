@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <link rel="manifest" href="manifest_en.json">
-    <title>Lotus Hall ‧ Perfect Purity</title>
+    <link rel="manifest" href="manifest_jp.json">
+    <title>菩提浄室 ‧ 極浄大円満</title>
     <style>
         :root {
             --bg: #010103;
@@ -19,7 +19,7 @@
         html { overscroll-behavior:none; height:100%; }
         body {
             margin:0; padding:0; background:var(--bg); color:var(--text-light);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; height:100dvh; overflow:hidden;
+            font-family:"PingFang TC",serif; height:100dvh; overflow:hidden;
             overscroll-behavior:none; touch-action:none;
             width:100vw; 
         }
@@ -48,14 +48,13 @@
         box-shadow:0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07);
     }
 
-    /* ── ✨ Equidistant Top Nav (with sweeping light) ── */
     .nav-top {
         display: flex; align-items: center; justify-content: space-between;
         background: linear-gradient(145deg, rgba(20,20,20,0.95) 0%, rgba(5,5,5,0.98) 100%);
         border: 1px solid rgba(212,175,55,0.3);
         border-radius: 20px;
         margin: max(18px, env(safe-area-inset-top)) 16px 0;
-        padding: 10px 18px 8px; /* padding tweak to prevent squishing */
+        padding: 10px 18px 8px; 
         box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05);
     }
 
@@ -68,19 +67,14 @@
     }
     .nav-btn:active { color: var(--gold); transform: scale(0.92); }
     
-    /* Ensure normal icons are square */
     .nav-btn svg { width: 18px; height: 18px; stroke: currentColor; opacity: 0.9; }
     
-    /* ✨ Protect Lotus Icon proportions */
     .nav-btn .lotus-icon { width: 45px; height: 18px; stroke: none; opacity: 1; }
     
-    /* Highlight first button */
     .nav-btn.highlight { color: var(--gold); text-shadow: 0 0 10px rgba(243,229,171,0.5); }
     
-    /* Divider */
     .nav-v-divider { width: 1px; height: 26px; background: rgba(255,255,255,0.12); box-shadow: 0 0 5px rgba(0,0,0,0.5); }
 
-    /* ── Sweeping Light Effect ── */
     .shine-effect::after {
         content: ''; position: absolute; top: 0; left: -100%; width: 40%; height: 100%;
         background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(243,229,171,0.25) 50%, rgba(255,255,255,0) 100%);
@@ -97,7 +91,6 @@
         100% { left: 200%; }
     }
 
-    /* ── IG Profile Card ── */
     .ig-profile { 
         background: linear-gradient(145deg, rgba(20,20,20,0.95) 0%, rgba(5,5,5,0.98) 100%);
         border: 1px solid rgba(212,175,55,0.4);
@@ -106,7 +99,7 @@
         padding: 18px 22px; 
         display: flex; 
         align-items: center; 
-        gap: 15px; 
+        gap: 18px; 
         margin: 12px 16px; 
         position: relative;
     }
@@ -119,22 +112,21 @@
         transition:transform .3s;
     }
     .avatar-wrap:active { transform:scale(0.95); }
-    .avatar-img { width:100%; height:100%; border-radius:50%; background-color:#111; background-size:cover; background-position:center; }
+    .avatar-img { width:100%; height:100%; border-radius:50%; background-color:rgba(0,0,0,0.4); background-size:cover; background-position:center; position:relative; z-index:2; }
     .avatar-plus {
         position:absolute; right:0; bottom:0; width:22px; height:22px;
         background:rgba(3,3,6,0.96); border:1px solid var(--solid); border-radius:50%;
         display:flex; justify-content:center; align-items:center;
         color:var(--gold); font-size:15px; font-weight:300; line-height:1;
-        box-shadow:0 2px 8px rgba(0,0,0,0.6);
+        box-shadow:0 2px 8px rgba(0,0,0,0.6); z-index:3;
     }
 
     .stats-wrap { flex:1; display:flex; justify-content:space-evenly; align-items:center; text-align:center; }
     .stat-item { display:flex; flex-direction:column; gap:5px; align-items:center; }
-    .stat-num { font-size:20px; font-weight:bold; color:#fff; text-shadow:0 0 14px rgba(255,255,255,0.22); }
-    .stat-lbl { font-size:10px; color:var(--cyan); letter-spacing:1px; font-weight: bold; }
+    .stat-num { font-size:24px; font-weight:300; color:#fff; text-shadow:0 0 14px rgba(255,255,255,0.22); }
+    .stat-lbl { font-size:10px; color:var(--cyan); letter-spacing:2px; }
     .divider { width:1px; height:32px; background:rgba(255,255,255,0.11); }
 
-    /* ✨ Mini Energy Bar */
     .mini-session-bar-wrap {
         width: 80%; max-width: 90px; height: 3px; background: rgba(255,255,255,0.08);
         border-radius: 2px; margin-top: 6px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
@@ -146,7 +138,6 @@
         transition: width 0.4s cubic-bezier(0.2,0.8,0.2,1);
     }
 
-    /* ── Bio & Memo ── */
     .bio-wrap {
         margin:11px 22px 4px; padding-bottom:11px;
         border-bottom:1px dashed rgba(255,255,255,0.07);
@@ -154,21 +145,21 @@
     }
     .bio-header { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; }
     .bio-name-input {
-        font-size:16px; font-weight:bold; letter-spacing:1px; color:var(--text-gold);
+        font-size:17px; font-weight:bold; letter-spacing:2px; color:var(--text-gold);
         background:transparent; border:none; border-bottom:1px dashed transparent;
-        width:130px; text-align:center; outline:none; transition:.3s;
+        width:90px; text-align:center; outline:none; transition:.3s;
+        font-family:"PingFang TC",serif;
     }
     .bio-name-input:focus { border-bottom-color:rgba(212,175,55,0.4); color:#fff; }
-    #ui-rank-text { color:var(--text-gold); font-size:14px; font-weight:bold; letter-spacing:1px; }
+    #ui-rank-text { color:var(--text-gold); font-size:15px; font-weight:bold; letter-spacing:2px; }
     .memo-input {
         width:100%; background:transparent; border:none; border-bottom:1px solid transparent;
-        color:rgba(243,229,171,0.65); font-size:12px; letter-spacing:0.5px; padding:4px 0;
-        text-align:center; transition:.3s; 
+        color:rgba(243,229,171,0.65); font-size:13px; letter-spacing:1px; padding:4px 0;
+        text-align:center; transition:.3s; font-family:"PingFang TC",serif;
     }
     .memo-input:focus { border-bottom-color:rgba(212,175,55,0.3); color:var(--text-gold); }
     .memo-input::placeholder { color:rgba(243,229,171,0.28); }
 
-        /* ── Lotus Stage ── */
     .stage { flex:1; position:relative; display:flex; justify-content:center; align-items:center; min-height:0; }
     
     #lotus-container {
@@ -187,10 +178,9 @@
     
     @keyframes breathe { 
         0%,100%{transform:scale(0.95);} 
-        50%{transform:scale(1.08);} 
+        50%{transform:scale(1.08);}
     }
 
-    /* ✨ Rank Badge ✨ */
     .rank-badge {
         display: flex; align-items: center; gap: 5px;
         background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.02));
@@ -203,7 +193,6 @@
         filter: drop-shadow(0 0 3px rgba(243, 229, 171, 0.8));
     }
 
-    /* ── 100M Achievement Certificate Effect ── */
     .cert-box {
         background: linear-gradient(145deg, rgba(15,15,20,0.95), rgba(5,5,10,0.98)); border: 2px solid rgba(212,175,55,0.6);
         border-radius: 12px; padding: 40px 20px; width: 90%; max-width: 360px; text-align: center; position: relative; overflow: hidden;
@@ -213,9 +202,9 @@
         position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150%; height: 150%;
         background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 60%); animation: m-spin 20s linear infinite; z-index: 1; pointer-events: none;
     }
-    .cert-title { color:var(--solid); font-size:18px; letter-spacing:3px; font-weight:bold; text-transform:uppercase; text-shadow:0 0 20px rgba(212,175,55,0.8); z-index: 2; position: relative; margin-bottom: 10px; }
+    .cert-title { color:var(--solid); font-size:18px; letter-spacing:3px; font-weight:bold; text-shadow:0 0 20px rgba(212,175,55,0.8); z-index: 2; position: relative; margin-bottom: 10px; }
     .cert-name { font-size:16px; color: #fff; letter-spacing: 1px; margin-bottom: 20px; z-index: 2; position: relative; }
-    .cert-desc { color:var(--text-gold); font-size:13px; letter-spacing:1px; line-height:2.4; z-index: 2; position: relative; }
+    .cert-desc { color:var(--text-gold); font-size:14px; letter-spacing:1px; line-height:2.4; z-index: 2; position: relative; }
 
     /* ── 摩尼晶簇 (通用容器與基座) ── */
     .mani-node {
@@ -280,7 +269,7 @@
         transform: scale(1) !important;
         opacity: 1 !important;
     }
-   /* ── 九曜連珠：點燈式依序發光（獨立 class，避開 .active 的 !important 清空規則） ── */
+          /* ── 九曜連珠：點燈式依序發光（獨立 class，避開 .active 的 !important 清空規則） ── */
     .mani-node.lighting .s-main > svg,
     .mani-node.lighting .s-main .mani-spin svg {
         animation: maniLightUp 0.5s ease-out 0s 1 both;
@@ -310,12 +299,9 @@
         100% { filter: brightness(1) drop-shadow(0 0 0 transparent); }
     }
 
-    /* Lotus Hardware-Accelerated Spin */
     .lotus-spin { width: 100%; height: 100%; overflow: visible; animation: lotus-rotate 40s linear infinite; transform-origin: center center; }
     @keyframes lotus-rotate { 100% { transform: rotate(360deg); } }
 
-
-    /* 光塵與法語動畫 */
     .dust-particle {
         position: fixed; border-radius: 50%; pointer-events: none; z-index: 1000;
         animation: scatter 2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
@@ -324,10 +310,11 @@
     
     .dharma-quote {
         position: fixed; z-index: 1001; pointer-events: none;
-        color: var(--text-gold); font-size: 1.5rem; letter-spacing: 2px;
+        color: var(--text-gold); font-size: 24px; letter-spacing: 2px;
         text-shadow: 0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(212,175,55,0.6);
         white-space: nowrap; font-weight: bold;
         animation: float-up-fade 3.5s ease-out forwards;
+        font-family:"PingFang TC",serif;
     }
     @keyframes float-up-fade {
         0% { opacity: 0; transform: translate(0, 0) scale(0.8); }
@@ -336,8 +323,6 @@
         100% { opacity: 0; transform: translate(0, -80px) scale(0.9); }
     }
 
-
-    /* ── Mala (Rosary) ── */
     .footer {
         padding-bottom:max(14px,env(safe-area-inset-bottom));
         display:flex; flex-direction:column; justify-content:flex-end; align-items:center;
@@ -346,14 +331,20 @@
     .mala-wrap {
         width:100%; max-width:480px;
         display:flex; flex-direction:column; align-items:center;
-        touch-action:none; cursor:pointer; position:relative;
-        user-select:none; -webkit-user-select:none;
+        touch-action:none;
+        cursor:pointer;
+        position:relative;
+        user-select:none;
+        -webkit-user-select:none;
     }
-    .mala-svg { width:100%; display:block; max-height:168px; }
+    .mala-svg {
+        width:100%; display:block;
+        max-height:168px;
+    }
     .mala-hint {
-        font-size:11px; color:var(--text-gold); letter-spacing:1px;
+        font-size:11px; color:var(--text-gold); letter-spacing:2.5px;
         opacity:.5; margin-top:2px; margin-bottom:6px;
-        text-shadow:0 0 10px rgba(243,229,171,0.35); text-transform: uppercase;
+        text-shadow:0 0 10px rgba(243,229,171,0.35);
     }
     .fly-particle {
         position:fixed; width:5px; height:5px; background:var(--gold);
@@ -361,7 +352,6 @@
         box-shadow:0 0 10px var(--gold), 0 0 22px #fff;
     }
 
-    /* ── Modals ── */
     .custom-modal {
         position:fixed; inset:0; z-index:4000;
         background:rgba(0,0,0,0.88);
@@ -379,27 +369,27 @@
         max-height:88vh; overflow-y:auto;
     }
     .modal-title {
-        color:var(--solid); font-size:15px; letter-spacing:2px; margin-bottom:20px;
-        text-shadow:0 0 20px rgba(212,175,55,0.55); font-weight: bold; text-transform: uppercase;
+        color:var(--solid); font-size:15px; letter-spacing:4px; margin-bottom:20px;
+        text-shadow:0 0 20px rgba(212,175,55,0.55);
     }
     .modal-input {
         width:100%; background:rgba(255,255,255,0.04);
         border:none; border-bottom:1px solid rgba(212,175,55,0.7);
-        color:var(--gold); font-size:14px; padding:10px 8px;
+        color:var(--gold); font-size:15px; padding:10px 8px;
         text-align:center; margin-bottom:22px; outline:none;
-        letter-spacing:1px; border-radius:4px 4px 0 0;
+        letter-spacing:2px; border-radius:4px 4px 0 0;
+        font-family:"PingFang TC",serif;
     }
-    .modal-desc { color:var(--text-gold); font-size:13px; letter-spacing:0.5px; margin-bottom:22px; line-height:1.6; }
+    .modal-desc { color:var(--text-gold); font-size:13px; letter-spacing:1.5px; margin-bottom:22px; line-height:2; }
     .modal-actions { display:flex; gap:12px; justify-content:center; }
-    
     .gold-btn {
         flex:1;
         background:linear-gradient(135deg, rgba(212,175,55,0.16), rgba(212,175,55,0.06));
         border:1px solid rgba(212,175,55,0.62);
         color:var(--gold); padding:12px; border-radius:10px;
-        font-size:12px; letter-spacing:1px; cursor:pointer; transition:.22s;
+        font-size:13px; letter-spacing:2px; cursor:pointer; transition:.22s;
         box-shadow:0 2px 12px rgba(212,175,55,0.1), inset 0 1px 0 rgba(255,255,255,0.08);
-        font-weight: bold; text-transform: uppercase;
+        font-family:"PingFang TC",serif;
     }
     .gold-btn:active {
         background:rgba(212,175,55,0.32);
@@ -407,20 +397,19 @@
         transform:scale(0.97);
     }
     .gold-btn.outline { border-color:rgba(255,255,255,0.14); color:#aaa; background:transparent; box-shadow:none; }
-    
     .buddha-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:18px; }
     .b-grid-btn {
-        padding:10px 5px; font-size:11px; letter-spacing:0.5px;
+        padding:10px 5px; font-size:12px; letter-spacing:1px;
         border:1px solid rgba(255,255,255,0.11); border-radius:10px;
         color:#bbb; background:rgba(255,255,255,0.04); cursor:pointer; transition:.2s;
         white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+        font-family:"PingFang TC",serif;
     }
     .b-grid-btn:active {
         background:rgba(212,175,55,0.22); color:var(--gold);
         border-color:var(--solid); box-shadow:0 0 10px rgba(212,175,55,0.3);
     }
 
-    /* ── Big Data ── */
     #dataModal { z-index:2000; flex-direction:column; }
     .data-card {
         width:92%; max-width:400px;
@@ -430,7 +419,7 @@
         background:rgba(2,2,5,0.96);
         max-height:82vh; overflow-y:auto;
     }
-    .data-title { color:var(--solid); font-size:15px; letter-spacing:2px; text-align:center; margin-bottom:5px; font-weight: bold; text-transform: uppercase; }
+    .data-title { color:var(--solid); font-size:15px; letter-spacing:4px; text-align:center; margin-bottom:5px; }
     .glass-energy-bar { width:100%; margin:8px 0 38px 0; position:relative; }
     .bar-track {
         width:100%; height:12px;
@@ -459,7 +448,7 @@
     .t-svg-wrap { width:140px; height:140px; display:flex; align-items:center; justify-content:center; animation:float-pulse 4s infinite ease-in-out; margin-bottom:25px; }
     .t-svg-wrap svg { width:100%; height:100%; object-fit:contain; }
     @keyframes float-pulse { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
-    .t-name { color:#fff; font-size:1.1rem; letter-spacing:2px; text-shadow:0 0 20px #fff,0 0 40px var(--solid); text-align:center; font-weight: bold; }
+    .t-name { color:#fff; font-size:1.1rem; letter-spacing:5px; text-shadow:0 0 20px #fff,0 0 40px var(--solid); text-align:center; }
 </style>
 
 </head>
@@ -504,97 +493,98 @@
 
 <div id="buddhaModal" class="custom-modal" onclick="closeM('buddhaModal')">
     <div class="modal-box" onclick="event.stopPropagation()">
-        <div class="modal-title">Select Practice</div>
+        <div class="modal-title">観照定課の切り替え</div>
         <div class="buddha-grid">
-            <button class="b-grid-btn" onclick="setBuddha('Namo Amitabha Buddha')">Amitabha</button>
-            <button class="b-grid-btn" onclick="setBuddha('Avalokitesvara Bodhisattva')">Avalokitesvara</button>
-            <button class="b-grid-btn" onclick="setBuddha('Mahasthamaprapta Bodhisattva')">Mahasthamaprapta</button>
-            <button class="b-grid-btn" onclick="setBuddha('Ksitigarbha Bodhisattva')">Ksitigarbha</button>
-            <button class="b-grid-btn" onclick="setBuddha('Samantabhadra Bodhisattva')">Samantabhadra</button>
-            <button class="b-grid-btn" onclick="setBuddha('Shakyamuni Buddha')">Shakyamuni</button>
-            <button class="b-grid-btn" onclick="setBuddha('Maitreya Buddha')">Maitreya</button>
-            <button class="b-grid-btn" onclick="setBuddha('Karma-Erasing Mantra')">Karma Mantra</button>
-            <button class="b-grid-btn" onclick="setBuddha('Heart Sutra')">Heart Sutra</button>
-            <button class="b-grid-btn" onclick="setBuddha('Ksitigarbha Sutra')">Ksitigarbha Sutra</button>
-            <button class="b-grid-btn" onclick="setBuddha('Shurangama Mantra')" style="grid-column:span 2;">Shurangama Mantra</button>
+            <button class="b-grid-btn" onclick="setBuddha('南無阿弥陀仏')">南無阿弥陀仏</button>
+            <button class="b-grid-btn" onclick="setBuddha('観世音菩薩')">観世音菩薩</button>
+            <button class="b-grid-btn" onclick="setBuddha('大勢至菩薩')">大勢至菩薩</button>
+            <button class="b-grid-btn" onclick="setBuddha('地蔵王菩薩')">地蔵王菩薩</button>
+            <button class="b-grid-btn" onclick="setBuddha('普賢菩薩')">普賢菩薩</button>
+            <button class="b-grid-btn" onclick="setBuddha('南無本師釈迦牟尼仏')">釈迦牟尼仏</button>
+            <button class="b-grid-btn" onclick="setBuddha('弥勒尊仏')">弥勒尊仏</button>
+            <button class="b-grid-btn" onclick="setBuddha('滅定業真言')">滅定業真言</button>
+            <button class="b-grid-btn" onclick="setBuddha('般若心経')">般若心経</button>
+            <button class="b-grid-btn" onclick="setBuddha('地蔵経')">地蔵経</button>
+            <button class="b-grid-btn" onclick="setBuddha('楞厳呪')" style="grid-column:span 2;">楞厳呪</button>
         </div>
-        <div style="font-size:11px;color:var(--text-gold);margin-bottom:10px;letter-spacing:1px;text-transform:uppercase;">Or enter custom practice:</div>
-        <input type="text" id="buddhaInput" class="modal-input" placeholder="Custom name...">
+        <div style="font-size:12px;color:var(--text-gold);margin-bottom:10px;letter-spacing:2px;">またはカスタム聖号を入力：</div>
+        <input type="text" id="buddhaInput" class="modal-input" placeholder="清浄なるカスタム...">
         <div class="modal-actions">
-            <button class="gold-btn outline" onclick="closeM('buddhaModal')">Cancel</button>
-            <button class="gold-btn" onclick="confirmBuddha()">Confirm</button>
+            <button class="gold-btn outline" onclick="closeM('buddhaModal')">キャンセル</button>
+            <button class="gold-btn" onclick="confirmBuddha()">カスタム確認</button>
         </div>
     </div>
 </div>
 
 <div id="resetModal" class="custom-modal" onclick="closeM('resetModal')">
     <div class="modal-box" onclick="event.stopPropagation()">
-        <div class="modal-title">Dedicate Merit</div>
+        <div class="modal-title">回向功徳</div>
         <div class="modal-desc" id="reset-desc"></div>
         <div class="modal-actions">
-            <button class="gold-btn outline" onclick="closeM('resetModal')">Cancel</button>
-            <button class="gold-btn" onclick="execReset()">Complete</button>
+            <button class="gold-btn outline" onclick="closeM('resetModal')">キャンセル</button>
+            <button class="gold-btn" onclick="execReset()">円満回向</button>
         </div>
     </div>
 </div>
 
 
 <div id="infoModal" class="custom-modal" onclick="closeM('infoModal')">
-    <div class="glass-panel" style="padding:30px; width:85%; max-width:320px; max-height:80vh; overflow-y:auto; -webkit-overflow-scrolling:touch;" onclick="event.stopPropagation()">
-        <div style="color:var(--solid); text-align:center; font-size:16px; letter-spacing:2px; margin-bottom:20px; font-weight:bold; text-transform:uppercase;">Meditation Guide</div>
+    <div class="glass-panel" style="padding:30px; width:85%; max-width:320px; max-height:85vh; overflow-y:auto; touch-action:pan-y; overscroll-behavior:contain; -webkit-overflow-scrolling:touch;" onclick="event.stopPropagation()">
+
+        <div style="color:var(--solid);text-align:center;font-size:16px;letter-spacing:4px;margin-bottom:20px;">観照の説明</div>
         
-        <div style="line-height:2.0; font-size:13px; color:var(--text-gold); letter-spacing:0.5px; text-align:justify;">
-            1. Every recitation of Amitabha transforms into Bodhi merit. Generating the supreme mind to explore the Lotus Store World also increases your spiritual progress.<br><br>
-            2. The inner golden lotus grows from this merit. From the initial Bodhicitta, it transforms layer by layer, ultimately reaching Perfect Radiant Gold.<br><br>
-            3. The Nine Luminaries manifest gradually as the practitioner accumulates the total count of sacred recitations and scriptures, interweaving their orbits until perfect completion.<br><br>
-            4. If the practitioner abides daily in this quiet room, reflecting inwardly, the Dharma Realm will bestow formless Dharma tools according to conditions.<br><br>
-            5. This quiet room is your private mustard-seed dojo. All data resides solely within your personal device, completely offline. Yet, as all things are impermanent, please remember to use "Backup Merit" in the main dojo to safeguard your spiritual journey.
+        <div style="line-height:2.2;font-size:14px;color:var(--text-gold);letter-spacing:1px;text-align:justify;">
+            一、念念の弥陀は皆菩提の資糧と化し、日に勝心を発して華蔵に神遊するもまた道業を増す。もし浄念相継ぎ、十日途絶えざれば、法界は自ずから殊勝なる資糧を傾注すべし。<br><br>
+            二、自性の金蓮は、資糧に依りて生ず。初発の菩提心より、七宝が重なりて変容し、大円満の耀金に至る。<br><br>
+            三、九曜連珠は、行者が聖号や経文の念誦総数を積み重ねるにつれて漸次化生し、星軌は交錯し、円満に具足す。<br><br>
+            四、行者もし毎日静室に安住し、廻光返照せば、法界は自ずから因縁に随順し、無相の法宝を賜うべし。<br><br>
+            五、此の浄室は専属の芥子道場なり、法相（アイコン）は心のままに変更すべし。一切の境相は唯だ行者自身の宝具（端末）の内にのみ存し、外のネットには染まらず。然れども世法は無常なり、願わくは時折主道場へ歩みを移し、妥当に「封存バックアップ」を行い、修行の軌跡を失わざるよう護持されんことを。
         </div>
         
-        <div style="text-align:center; margin-top:25px; font-size:12px; color:var(--gold); letter-spacing:2px; cursor:pointer; font-weight:bold; text-transform:uppercase;" onclick="closeM('infoModal')">Palms Together</div>
+        <div style="text-align:center;margin-top:25px;font-size:13px;color:var(--gold);letter-spacing:2px;cursor:pointer;font-weight:bold;" onclick="closeM('infoModal')">合掌収摂</div>
     </div>
 </div>
 
-<!-- Modification 1: Nine Stars Unlock Modal -->
+
+
+<!-- 修改 1：九星解鎖彈窗 -->
 <div id="crystalRewardModal" class="custom-modal" onclick="closeM('crystalRewardModal')">
     <div style="display:flex; flex-direction:column; align-items:center; width: 100%; position: relative; pointer-events: none;">
         <div class="t-svg-wrap" id="reward-crystal-svg" style="width: 200px; height: 200px; filter: drop-shadow(0 0 40px rgba(255,255,255,0.15)); margin-bottom: 10px;"></div>
         <div style="display:flex; align-items:center; gap: 12px; margin-bottom: 25px; pointer-events: auto;">
-            <div style="color:#fff; font-size:18px; font-weight:bold; letter-spacing:2px;" id="reward-crystal-title">[ Nine Luminaries ]</div>
-            <div style="border: 1px solid rgba(212,175,55,0.5); border-radius: 20px; padding: 4px 12px; font-size: 10px; color: var(--gold); letter-spacing: 1px;" id="reward-crystal-subtitle">Star Conjunction</div>
+            <div style="color:#fff; font-size:18px; font-weight:bold; letter-spacing:4px;" id="reward-crystal-title">【九曜星石】</div>
+            <div style="border: 1px solid rgba(212,175,55,0.5); border-radius: 20px; padding: 4px 14px; font-size: 11px; color: var(--gold); letter-spacing: 2px;" id="reward-crystal-subtitle">星軌連珠</div>
         </div>
-        <div style="color:var(--text-gold); font-size:14px; letter-spacing:1px; text-align:center; line-height: 2.0; padding: 0 20px; text-shadow: 0 0 10px rgba(0,0,0,0.8); pointer-events: auto;" id="reward-crystal-desc"></div>
-        <div style="opacity:.4; font-size:11px; margin-top:45px; color: #fff; letter-spacing: 2px;">Tap Screen · Embrace Dharma Joy</div>
+        <div style="color:var(--text-gold); font-size:14px; letter-spacing:2px; text-align:center; line-height: 2.2; padding: 0 30px; text-shadow: 0 0 10px rgba(0,0,0,0.8); pointer-events: auto;" id="reward-crystal-desc"></div>
+        <div style="opacity:.4; font-size:11px; margin-top:45px; color: #fff; letter-spacing: 4px;">画面に触れ ‧ 法喜を収めん</div>
     </div>
 </div>
 
-<!-- Modification 2: 100 Million Fulfilment Seal Modal -->
+<!-- 修改 2：一億滿願契印彈窗 -->
 <div id="certificateModal" class="custom-modal" onclick="closeM('certificateModal')">
     <div class="cert-box" onclick="event.stopPropagation()">
         <div class="cert-glow-bg"></div>
-        <div class="cert-title" style="font-size:18px; letter-spacing:1px;">[ Great Perfection · Avatamsaka Seal ]</div>
+        <div class="cert-title">【大円満 ‧ 華蔵契印】</div>
         <div class="t-svg-wrap" id="cert-svg" style="width: 240px; height: 240px; z-index:2; position:relative; filter: drop-shadow(0 0 50px rgba(212,175,55,0.6)); margin-bottom: 5px;"></div>
-        <div class="cert-name">Practitioner <span id="cert-user-name" style="color:var(--gold); font-size:22px; font-weight:bold; border-bottom: 1px solid rgba(212,175,55,0.5); padding-bottom: 2px;"></span></div>
-        <div class="cert-desc" style="font-size:13px; line-height:1.8;">
-            Through aeons of diligence, your total recitations<br>
-            in this pure chamber have reached<br>
-            <span style="color:var(--gold); font-size:22px; font-weight:bold; text-shadow: 0 0 15px rgba(212,175,55,0.8);">100 Million</span> Sacred Names.<br><br>
-            The nine stars align in perfect harmony, illuminating the great trichiliocosm.<br>
-            The Dharma Realm responds with this sacred seal. May Infinite Light and Life be with you.
+        <div class="cert-name">行者 <span id="cert-user-name" style="color:var(--gold); font-size:22px; font-weight:bold; border-bottom: 1px solid rgba(212,175,55,0.5); padding-bottom: 2px;"></span></div>
+        <div class="cert-desc">
+            幾多の劫を経て精進し、この浄室における累計の念誦は<br>
+            <span style="color:var(--gold); font-size:22px; font-weight:bold; text-shadow: 0 0 15px rgba(212,175,55,0.8);">一億</span> 遍の聖号に達せり。<br><br>
+            九星連珠は円満に具足し、三千大千世界を照らし徹す。<br>
+            法界より契印を授く。願わくは無量光寿、汝と共に在らんことを。
         </div>
-        <button class="gold-btn" style="margin-top:30px; width:70%; z-index:5; position:relative;" onclick="closeM('certificateModal')">Dedicate Merits</button>
+        <button class="gold-btn" style="margin-top:30px; width:70%; z-index:5; position:relative;" onclick="closeM('certificateModal')">功徳回向</button>
     </div>
 </div>
-
 
 
 
 <div id="dataModal" class="custom-modal" onclick="closeM('dataModal')">
     <div class="data-card" onclick="event.stopPropagation()">
-        <div class="data-title">Historical Merit</div>
-        <div style="text-align:center;font-size:10px;color:var(--text-gold);margin-bottom:30px;letter-spacing:1px;text-transform:uppercase;">(Lifetime Data of Vows & Recitations)</div>
+        <div class="data-title">十方結縁 ‧ 歴史累積</div>
+        <div style="text-align:center;font-size:11px;color:var(--text-gold);margin-bottom:30px;letter-spacing:1px;">(本願と諸仏の生涯のビッグデータを合わす)</div>
         <div id="data-bars-container"></div>
-        <div style="text-align:center;margin-top:40px;font-size:12px;color:var(--text-gold);cursor:pointer;font-weight:bold;text-transform:uppercase;" onclick="closeM('dataModal')">Close Scroll</div>
+        <div style="text-align:center;margin-top:40px;font-size:13px;color:var(--text-gold);cursor:pointer;" onclick="closeM('dataModal')">玉簡を閉じる</div>
     </div>
 </div>
 
@@ -602,13 +592,14 @@
     <div style="display:flex;flex-direction:column;align-items:center;">
         <div class="t-svg-wrap" id="t-svg-ui"></div>
         <div class="t-name" id="t-name-ui"></div>
-        <div style="color:var(--text-gold);font-size:13px;letter-spacing:1px;text-align:center;line-height:1.6;margin-top:10px;text-transform:uppercase;">Dharma Realm Response<br>Merit Dedication<br><span style="opacity:.5;font-size:10px;margin-top:15px;display:block;">Tap screen to collect</span></div>
+        <div style="color:var(--text-gold);font-size:14px;letter-spacing:2px;text-align:center;">法界感応 ‧ 回向願力<br><span style="opacity:.5;font-size:11px;margin-top:15px;display:block;">画面に触れて収摂す</span></div>
     </div>
 </div>
 
 <div class="app-wrapper">
+
 <div class="nav-top">
-    <a href="amitabha_en.html" class="nav-btn shine-effect highlight">
+    <a href="amitabha_jp.html" class="nav-btn shine-effect highlight">
         <svg class="lotus-icon" viewBox="0 0 100 25" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="g-base" x1="50" y1="25" x2="50" y2="10" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#d4af37" stop-opacity="0.6"/><stop offset="100%" stop-color="#d4af37" stop-opacity="0"/></linearGradient>
@@ -634,48 +625,48 @@
             <circle cx="50" cy="1.3" r="1.5" fill="#ffffff" opacity="0.9"/>
             <ellipse cx="50" cy="25.3" rx="4" ry="1.4" fill="url(#g-stamen)"/>
         </svg>
-        <span>Bow</span>
+        <span>弥陀に頂礼す</span>
     </a>
     
     <div class="nav-v-divider"></div>
     
     <div class="nav-btn shine-effect" onclick="openDataModal()">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20V14"/></svg>
-        <span>Data</span>
+        <span>歴史データ</span>
     </div>
 
     <div class="nav-v-divider"></div>
     
     <div class="nav-btn shine-effect" onclick="openResetModal()">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M21 12a9 9 0 11-9-9c2.52 0 4.93 1 6.74 2.74L21 8M21 3v5h-5"/></svg>
-        <span>Dedicate</span>
+        <span>円満回向</span>
     </div>
 
 
-        <div class="nav-v-divider"></div>
-        
-        <div class="nav-btn shine-effect" onclick="openM('infoModal')">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01" stroke-linecap="round"/></svg>
-            <span>Guide</span>
-        </div>
+    <div class="nav-v-divider"></div>
+    
+    <div class="nav-btn shine-effect" onclick="openM('infoModal')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01" stroke-linecap="round"/></svg>
+        <span>使用説明</span>
     </div>
+</div>
 
 <div class="ig-profile glass-panel">
     <div class="avatar-wrap" onclick="document.getElementById('avatarInput').click()">
-        <div style="position:absolute; inset:0; display:flex; justify-content:center; align-items:center; color:rgba(243,229,171,0.5); font-size:12px; font-weight:bold; letter-spacing:1px; z-index:1; pointer-events:none; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">Photo</div>
-        <div class="avatar-img" id="ui-avatar" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:2; background-color:rgba(0,0,0,0.2); border-radius:50%;"></div>
+        <div style="position:absolute; inset:0; display:flex; justify-content:center; align-items:center; color:rgba(243,229,171,0.5); font-size:12px; font-weight:bold; letter-spacing:1px; z-index:1; pointer-events:none; font-family:'PingFang TC',serif;">Photo</div>
+        <div class="avatar-img" id="ui-avatar"></div>
         <div class="avatar-plus" style="z-index:3;">+</div>
         <input type="file" id="avatarInput" hidden accept="image/*" onchange="handleAvatar(event)">
     </div>
     <div class="stats-wrap">
         <div class="stat-item" onclick="openBuddhaModal()" style="cursor:pointer;flex:1;">
-            <span class="stat-num" id="ui-cur-name" style="font-size:13px;color:var(--text-gold);border-bottom:1px dashed var(--glass-border);padding-bottom:5px;">Namo Amitabha Buddha</span>
-            <span class="stat-lbl" style="margin-top:4px;color:var(--cyan);">CURRENT ▾</span>
+            <span class="stat-num" id="ui-cur-name" style="font-size:17px;color:var(--text-gold);border-bottom:1px dashed var(--glass-border);padding-bottom:5px;">南無阿弥陀仏</span>
+            <span class="stat-lbl" style="margin-top:4px;color:var(--cyan);">現在の定課 ▾</span>
         </div>
         <div class="divider"></div>
         <div class="stat-item" style="flex:1;">
             <span class="stat-num" id="ui-session-count">0</span>
-            <span class="stat-lbl" style="margin-top:4px;color:var(--cyan);">CHANTS</span>
+            <span class="stat-lbl" style="margin-top:4px;color:var(--cyan);">現在の仏数</span>
             <div class="mini-session-bar-wrap">
                 <div class="mini-session-bar-fill" id="ui-mini-session-bar"></div>
             </div>
@@ -684,18 +675,18 @@
 </div>
 
 <div class="bio-wrap">
-        <div class="bio-header">
-        <input type="text" class="bio-name-input" id="ui-name" placeholder="Practitioner">
+    <div class="bio-header">
+        <input type="text" class="bio-name-input" id="ui-name" placeholder="行者">
         
         <div class="rank-badge">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" fill="var(--gold)" opacity="0.9"/>
             </svg>
-            <span id="ui-rank-text" style="color:var(--text-gold); font-size:13px; font-weight:bold; letter-spacing:1px;">Initial Bodhicitta</span>
+            <span id="ui-rank-text" style="color:var(--text-gold); font-size:13px; font-weight:bold; letter-spacing:2px;">初発菩提</span>
         </div>
     </div>
 
-    <input type="text" class="memo-input" id="ui-memo" placeholder="Local Memo: Note down today's Dharma joy...">
+    <input type="text" class="memo-input" id="ui-memo" placeholder="ローカルメモ：本日の法喜を記録...">
 </div>
 
 <div class="stage">
@@ -720,7 +711,6 @@
     <div class="mala-wrap" id="mala-wrap">
         <svg class="mala-svg" id="mala-svg" viewBox="0 0 380 168" xmlns="http://www.w3.org/2000/svg" style="overflow:hidden;">
             <defs>
-                
                 <radialGradient id="bead-main" cx="34%" cy="28%" r="68%" fx="34%" fy="28%">
     <stop offset="0%" stop-color="#fffbee" stop-opacity="1"/>
     <stop offset="25%" stop-color="#fce57a" stop-opacity="0.95"/>
@@ -740,8 +730,7 @@
     <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
 </radialGradient>
 
-
-               
+                
                 <radialGradient id="bead-guru" cx="32%" cy="26%" r="70%" fx="32%" fy="26%">
                     <stop offset="0%"   stop-color="#ffffff" stop-opacity="1"/>
                     <stop offset="12%"  stop-color="#fff8dc"/>
@@ -780,16 +769,13 @@
             <rect x="0" y="0" width="380" height="168" fill="url(#mala-fade)" pointer-events="none"/>
             <rect x="0" y="0" width="380" height="168" fill="url(#mala-fade-b)" pointer-events="none"/>
         </svg>
-        <div class="mala-hint">Tap or swipe down to rotate mala</div>
+        <div class="mala-hint">タップまたはスワイプで念珠を回す</div>
     </div>
 </div>
 
 </div><canvas id="starCanvas"></canvas>
 
 <script>
-// ══════════════════════════════════════════
-//  Audio Logic
-// ══════════════════════════════════════════
 let audioCtx = null;
 function playTap() {
     if (!audioCtx) {
@@ -816,7 +802,6 @@ function playTap() {
     osc.stop(audioCtx.currentTime + 0.1);
 }
 
-// ── 水晶清音 (引磬聲) ──
 function playCrystalChime() {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -837,16 +822,14 @@ function playCrystalChime() {
     osc1.stop(t + 3.0); osc2.stop(t + 3.0);
 }
 
-// ══════════════════════════════════════════
-//  Modals Logic
-// ══════════════════════════════════════════
+
 function openM(id) { document.getElementById(id).classList.add('show'); }
 function closeM(id) { document.getElementById(id).classList.remove('show'); }
 function openBuddhaModal() { document.getElementById('buddhaInput').value=''; openM('buddhaModal'); }
 function setBuddha(name) { curBuddha=name; document.getElementById('ui-cur-name').innerText=name; updateUI(); closeM('buddhaModal'); }
 function confirmBuddha() { let val=document.getElementById('buddhaInput').value.trim(); if(val) setBuddha(val); }
 function openResetModal() {
-    document.getElementById('reset-desc').innerHTML=`Please silently recite your dedication,<br>transferring the merit of [ ${curBuddha} ].<br><br><span style="font-size: 0.85em; color: #aaa;">(Current count will restart; historical totals are safely saved)</span>`;
+    document.getElementById('reset-desc').innerHTML=`心の中で専用の回向文を黙念し、<br>【${curBuddha}】の現在の修持数をあまねく回向してください。<br><br><span style="font-size: 0.85em; color: #aaa;">(回向後はカウントがリセットされますが、歴史の総数は完全に保存されます)</span>`;
     openM('resetModal');
 }
 
@@ -858,17 +841,14 @@ function closeManiIntro() {
     saveDB();
 }
 
-// ══════════════════════════════════════════
-//  Database
-// ══════════════════════════════════════════
-let db = JSON.parse(localStorage.getItem('PX_EN_V15.0')) || { totalNian:0, bodhiLitCount:0 };
+let db = JSON.parse(localStorage.getItem('PX_JP_V15.0')) || { totalNian:0, bodhiLitCount:0 };
 if (!db.treasures) db.treasures = { sword:0, vase:0, jewel:0, lotus_lamp:0, dharma_wheel:0, white_lotus:0, indra_net:0 };
 if (!db.personalRoom) db.personalRoom = { sessionCounts:{}, othList:{}, avatar:"", memo:"", loginDays:0, lastLogin:"", treasureClaimed:"", maniNotified:false };
 if (!db.personalRoom.sessionCounts) db.personalRoom.sessionCounts = {};
 
-let curBuddha = "Namo Amitabha Buddha";
+let curBuddha = "南無阿弥陀仏";
 
-function saveDB() { localStorage.setItem('PX_EN_V15.0', JSON.stringify(db)); }
+function saveDB() { localStorage.setItem('PX_JP_V15.0', JSON.stringify(db)); }
 
 function getPts() {
     let nianSum = (db.totalNian||0) + Object.values(db.personalRoom.othList).reduce((a,b)=>a+b, 0);
@@ -876,12 +856,10 @@ function getPts() {
     return Math.floor(nianSum/100)*10 + lit*1 + Math.floor(lit/10)*10;
 }
 
-// ── Name Input ──
 const nameInput = document.getElementById('ui-name');
-nameInput.value = db.name||'Practitioner';
+nameInput.value = db.name||'行者';
 nameInput.oninput = e => { db.name=e.target.value; saveDB(); };
 
-// ── Avatar (Canvas Compression) ──
 if(db.personalRoom.avatar) document.getElementById('ui-avatar').style.backgroundImage=`url(${db.personalRoom.avatar})`;
 function handleAvatar(e) {
     const file = e.target.files[0];
@@ -915,14 +893,10 @@ function handleAvatar(e) {
     reader.readAsDataURL(file);
 }
 
-// ── Memo ──
 const memo=document.getElementById('ui-memo');
 memo.value=db.personalRoom.memo||'';
 memo.oninput=e => { db.personalRoom.memo=e.target.value; saveDB(); };
 
-// ══════════════════════════════════════════
-//  Mala (Rosary) Animation Logic
-// ══════════════════════════════════════════
 const MALA_N   = 36;       
 const MALA_CX  = 190;      
 const MALA_CY  = 346;      
@@ -936,7 +910,6 @@ function initMala() {
     const g = document.getElementById('mala-g');
     let html = '';
 
-    // ── 繩線三層（陰影＋主繩＋高光線）──
     html += `<circle cx="${MALA_CX}" cy="${MALA_CY}" r="${MALA_R+2}" fill="none" stroke="rgba(0,0,0,0.45)" stroke-width="7" opacity="0.55"/>`;
     html += `<circle cx="${MALA_CX}" cy="${MALA_CY}" r="${MALA_R}" fill="none" stroke="url(#cord-grad)" stroke-width="4" opacity="0.82"/>`;
     html += `<circle cx="${MALA_CX}" cy="${MALA_CY}" r="${MALA_R-1.5}" fill="none" stroke="rgba(255,230,160,0.16)" stroke-width="1.2"/>`;
@@ -950,8 +923,6 @@ function initMala() {
         const isGuru   = (i === 0);
         const isMarker = !isGuru && (i % 9 === 0);
 
-               // 1. 完美幾何比例：主珠實體 23.5，記數珠 20，平珠 18
-        // 弦長計算後，主珠與平珠之間會有約 4.5px 的物理淨空，徹底阻斷濾鏡交融
         const r      = isGuru ? 23.5 : isMarker ? 20 : 18;
 
         const fill   = isGuru   ? 'url(#bead-guru)'   :
@@ -960,16 +931,12 @@ function initMala() {
                        isMarker ? 'rgba(210,168,38,0.72)'  : 'rgba(155,78,22,0.52)';
         const sw     = isGuru ? 1.6 : isMarker ? 1.1 : 0.75;
 
-        // 2. 主珠專屬的柔和光暈：實體半徑收縮，但光暈擴張至 2.8 倍來補償亮度
         if (isGuru) {
             html += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${r * 2.8}" fill="url(#guru-halo)" pointer-events="none"/>`;
         }
 
-
-        // ── 珠體 ──
         html += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${r}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" filter="url(#${isGuru ? 'guru-glow' : 'bead-glow'})"/>`;
 
-        // ── 光斑：依賴變數 r 動態計算，確保放大後光澤依然正確 ──
         const hx = (x - r * 0.30).toFixed(2);
         const hy = (y - r * 0.33).toFixed(2);
         const hr = (r * 0.21).toFixed(2);
@@ -979,7 +946,6 @@ function initMala() {
         const h2y = (y - r * 0.16).toFixed(2);
         html += `<circle cx="${h2x}" cy="${h2y}" r="${(r * 0.065).toFixed(2)}" fill="rgba(255,255,255,0.92)"/>`;
 
-        // ── 裝飾線 ──
         if (isGuru) {
             html += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${(r*0.52).toFixed(1)}" fill="none" stroke="rgba(255,220,80,0.35)" stroke-width="1.2"/>`;
         }
@@ -992,9 +958,6 @@ function initMala() {
     g.innerHTML = html;
     g.setAttribute('transform', `rotate(${malaAngle}, ${MALA_CX}, ${MALA_CY})`);
 }
-
-
-
 
 function animateMala(from, to) {
     const duration = 360;
@@ -1014,7 +977,6 @@ function animateMala(from, to) {
     malaAnimFrame = requestAnimationFrame(step);
 }
 
-// ── Touch & Click Logic (Low-Entropy Optimized) ──
 const malaWrap = document.getElementById('mala-wrap');
 let malaStartY = 0;
 let nianLocked = false; 
@@ -1022,7 +984,6 @@ let nianLocked = false;
 function fireMala(x, y) {
     if (nianLocked) return;
     nianLocked = true;
-    // 120ms lock to prevent ghost clicks without hindering rapid practice
     setTimeout(() => { nianLocked = false; }, 120); 
     triggerNian(x, y);
     animateMala(malaAngle, malaAngle + MALA_STEP);
@@ -1033,29 +994,23 @@ malaWrap.addEventListener('touchstart', e => {
 }, { passive: true });
 
 malaWrap.addEventListener('touchend', e => {
-    e.preventDefault(); // Block native synthetic clicks
+    e.preventDefault(); 
     const touch = e.changedTouches[0];
     const deltaY = Math.abs(touch.clientY - malaStartY);
     
-    // Allow minor movement (<20px) to count as tap
     if (deltaY < 20) {
         fireMala(touch.clientX, touch.clientY);
     }
 }, { passive: false });
 
 malaWrap.addEventListener('click', e => {
-    // Fallback for desktop environments
     fireMala(e.clientX, e.clientY);
 });
 
-
-// ══════════════════════════════════════════
-//  Counter Core
-// ══════════════════════════════════════════
 function triggerNian(clientX, clientY) {
     playTap();
     db.personalRoom.sessionCounts[curBuddha] = (db.personalRoom.sessionCounts[curBuddha]||0) + 1;
-    if (curBuddha === "Namo Amitabha Buddha") {
+    if (curBuddha === "南無阿弥陀仏") {
         db.totalNian = (db.totalNian||0) + 1;
     } else {
         db.personalRoom.othList[curBuddha] = (db.personalRoom.othList[curBuddha]||0) + 1;
@@ -1074,13 +1029,10 @@ function triggerNian(clientX, clientY) {
     updateUI();
 }
 
-// ══════════════════════════════════════════
-//  Dharma Tools
-// ══════════════════════════════════════════
 const treasures = [
-    { id:"sword", name:"Sword of Wisdom", svg:`<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 150"><g transform="translate(0, 5)"><polygon points="50,10 56,40 50,105 44,40" fill="url(#facet-light)" stroke="#fff" stroke-width="0.5"/><polygon points="50,10 56,40 50,105" fill="url(#facet-cyan)" opacity="0.8"/><polygon points="50,10 44,40 50,105" fill="url(#facet-dark)" opacity="0.6"/><polygon points="35,100 65,100 55,110 45,110" fill="url(#pure-glass)" stroke="#d4af37" stroke-width="0.8"/><polygon points="46,110 54,110 52,135 48,135" fill="url(#facet-dark)"/><polygon points="50,135 56,142 50,148 44,142" fill="url(#facet-light)" stroke="#f3e5ab" stroke-width="1"/><circle cx="50" cy="105" r="4" fill="#fff" filter="drop-shadow(0 0 8px #e0f7fa)"/></g></svg>` },
-    { id:"vase",  name:"Lapis Vase", svg:`<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 150"><g transform="translate(0, 10)"><polygon points="45,20 55,20 60,40 40,40" fill="url(#facet-light)" stroke="#fff" stroke-width="0.5"/><polygon points="40,40 60,40 75,90 25,90" fill="url(#facet-cyan)" opacity="0.8" stroke="#fff" stroke-width="0.5"/><polygon points="50,40 60,40 75,90 50,90" fill="url(#facet-dark)" opacity="0.6"/><polygon points="25,90 75,90 60,120 40,120" fill="url(#facet-light)" stroke="#f3e5ab" stroke-width="0.5"/><polygon points="50,90 75,90 60,120 50,120" fill="url(#facet-dark)" opacity="0.7"/><polygon points="40,25 60,25" stroke="#f3e5ab" stroke-width="1"/></g></svg>` },
-    { id:"jewel", name:"Faceted Jewel", svg:`<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 150"><g transform="translate(0, 25)"><polygon points="50,10 80,40 50,55 20,40" fill="url(#facet-light)" stroke="#fff" stroke-width="0.5"/><polygon points="20,40 50,55 50,100" fill="url(#facet-rose)" opacity="0.9" stroke="#fff" stroke-width="0.5"/><polygon points="80,40 50,55 50,100" fill="url(#facet-dark)" opacity="0.8" stroke="#fff" stroke-width="0.5"/><polygon points="20,40 35,25 50,55" fill="rgba(255,255,255,0.4)" stroke="#fff" stroke-width="0.3"/><polygon points="80,40 65,25 50,55" fill="rgba(255,255,255,0.2)" stroke="#fff" stroke-width="0.3"/></g></svg>` }
+    { id:"sword", name:"幾何慧剣", svg:`<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 150"><g transform="translate(0, 5)"><polygon points="50,10 56,40 50,105 44,40" fill="url(#facet-light)" stroke="#fff" stroke-width="0.5"/><polygon points="50,10 56,40 50,105" fill="url(#facet-cyan)" opacity="0.8"/><polygon points="50,10 44,40 50,105" fill="url(#facet-dark)" opacity="0.6"/><polygon points="35,100 65,100 55,110 45,110" fill="url(#pure-glass)" stroke="#d4af37" stroke-width="0.8"/><polygon points="46,110 54,110 52,135 48,135" fill="url(#facet-dark)"/><polygon points="50,135 56,142 50,148 44,142" fill="url(#facet-light)" stroke="#f3e5ab" stroke-width="1"/><circle cx="50" cy="105" r="4" fill="#fff" filter="drop-shadow(0 0 8px #e0f7fa)"/></g></svg>` },
+    { id:"vase",  name:"瑠璃浄瓶", svg:`<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 150"><g transform="translate(0, 10)"><polygon points="45,20 55,20 60,40 40,40" fill="url(#facet-light)" stroke="#fff" stroke-width="0.5"/><polygon points="40,40 60,40 75,90 25,90" fill="url(#facet-cyan)" opacity="0.8" stroke="#fff" stroke-width="0.5"/><polygon points="50,40 60,40 75,90 50,90" fill="url(#facet-dark)" opacity="0.6"/><polygon points="25,90 75,90 60,120 40,120" fill="url(#facet-light)" stroke="#f3e5ab" stroke-width="0.5"/><polygon points="50,90 75,90 60,120 50,120" fill="url(#facet-dark)" opacity="0.7"/><polygon points="40,25 60,25" stroke="#f3e5ab" stroke-width="1"/></g></svg>` },
+    { id:"jewel", name:"多面宝珠", svg:`<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 150"><g transform="translate(0, 25)"><polygon points="50,10 80,40 50,55 20,40" fill="url(#facet-light)" stroke="#fff" stroke-width="0.5"/><polygon points="20,40 50,55 50,100" fill="url(#facet-rose)" opacity="0.9" stroke="#fff" stroke-width="0.5"/><polygon points="80,40 50,55 50,100" fill="url(#facet-dark)" opacity="0.8" stroke="#fff" stroke-width="0.5"/><polygon points="20,40 35,25 50,55" fill="rgba(255,255,255,0.4)" stroke="#fff" stroke-width="0.3"/><polygon points="80,40 65,25 50,55" fill="rgba(255,255,255,0.2)" stroke="#fff" stroke-width="0.3"/></g></svg>` }
 ];
 
 function checkDailyTreasure() {
@@ -1094,16 +1046,13 @@ function checkDailyTreasure() {
         db.treasures[t.id] = (db.treasures[t.id]||0)+1;
         db.personalRoom.treasureClaimed = today; saveDB();
         document.getElementById('t-svg-ui').innerHTML = t.svg;
-        document.getElementById('t-name-ui').innerText = `Acquired: ${t.name}`;
+        document.getElementById('t-name-ui').innerText = `法宝を獲得しました：${t.name}`;
         openM('treasureModal');
     }
 }
 
-// ══════════════════════════════════════════
-//  Big Data Energy Bar
-// ══════════════════════════════════════════
 function openDataModal() {
-    let html = buildEnergyBar('Namo Amitabha Buddha', db.totalNian||0);
+    let html = buildEnergyBar('南無阿弥陀仏', db.totalNian||0);
     for (let [k,v] of Object.entries(db.personalRoom.othList)) if(v>0) html += buildEnergyBar(k,v);
     document.getElementById('data-bars-container').innerHTML = html;
     openM('dataModal');
@@ -1116,49 +1065,45 @@ function buildEnergyBar(name, count) {
     w=Math.min(100, Math.max(1, w));
     return `<div style="margin-bottom:35px;">
         <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
-            <span style="font-size:13px;color:var(--gold);letter-spacing:1px;font-weight:bold;">${name}</span>
-            <span style="font-size:13px;color:#fff;">${count.toLocaleString()}</span>
+            <span style="font-size:14px;color:var(--gold);letter-spacing:2px;">${name}</span>
+            <span style="font-size:14px;color:#fff;">${count.toLocaleString()}</span>
         </div>
         <div class="glass-energy-bar">
             <div class="bar-track"><div class="bar-fill" data-w="${w}%"></div></div>
             <div class="bar-labels">
-                <span style="left:5%">100</span><span style="left:50%">1K</span><span style="left:60%">10K</span>
-                <span style="left:70%">100K</span><span style="left:80%">1M</span><span style="left:90%">10M</span><span style="left:100%">100M</span>
+                <span style="left:5%">1百</span><span style="left:50%">1千</span><span style="left:60%">1万</span>
+                <span style="left:70%">10万</span><span style="left:80%">100万</span><span style="left:90%">1千万</span><span style="left:100%">1億</span>
             </div>
         </div></div>`;
 }
 
-// ══════════════════════════════════════════
-//  Lotus Rendering
-// ══════════════════════════════════════════
 function renderLotus(p) {
     const box  = document.getElementById('lotus-container');
     const rank = document.getElementById('ui-rank-text');
-    if (p < 10) { box.innerHTML=''; rank.innerText="Initial Bodhicitta"; box.style.filter="none"; return; }
+    if (p < 10) { box.innerHTML=''; rank.innerText="初発菩提"; box.style.filter="none"; return; }
 
-    let layers=1, fill="url(#grad-10)", rTxt="Pure Sprout", stroke="rgba(255,255,255,0.45)", glow="none";
+    let layers=1, fill="url(#grad-10)", rTxt="清浄萌芽", stroke="rgba(255,255,255,0.45)", glow="none";
     
-    if(p>=50)     { fill="url(#grad-50)"; rTxt="Pink Crystal Bloom"; }
-    if(p>=100)    { layers=2; fill="url(#grad-100)"; stroke="rgba(212,175,55,0.55)"; rTxt="Sacred Gold"; }
-    if(p>=300)    { fill="url(#grad-300)"; rTxt="Lapis Water Moon"; } 
-    if(p>=500)    { fill="url(#grad-500)"; rTxt="Jade Emerald Leaf"; } 
-    if(p>=700)    { fill="url(#grad-700)"; rTxt="Purple Sandalwood Cloud"; } 
-    if(p>=900)    { fill="url(#grad-900)"; rTxt="Amber Stream"; } 
+    if(p>=50)     { fill="url(#grad-50)"; rTxt="粉晶初綻"; }
+    if(p>=100)    { layers=2; fill="url(#grad-100)"; stroke="rgba(212,175,55,0.55)"; rTxt="聖潔初金"; }
+    if(p>=300)    { fill="url(#grad-300)"; rTxt="瑠璃水月"; } 
+    if(p>=500)    { fill="url(#grad-500)"; rTxt="翡翠玉葉"; } 
+    if(p>=700)    { fill="url(#grad-700)"; rTxt="紫檀雲靄"; } 
+    if(p>=900)    { fill="url(#grad-900)"; rTxt="琥珀流光"; } 
     
-    if(p>=1000)   { fill="url(#grad-1000)"; rTxt="Primal Radiant Hue"; } 
-    if(p>=5000)   { fill="url(#grad-5000)"; rTxt="Pure Lapis"; } 
-    if(p>=10000)  { fill="url(#grad-10000)"; rTxt="Flawless Pure Gold"; } 
+    if(p>=1000)   { fill="url(#grad-1000)"; rTxt="初心幻彩"; } 
+    if(p>=5000)   { fill="url(#grad-5000)"; rTxt="青浄瑠璃"; } 
+    if(p>=10000)  { fill="url(#grad-10000)"; rTxt="無染純金"; } 
     
-    if(p>=100000) { fill="url(#grad-15000)"; rTxt="Purple Gold Glow"; }    
-    if(p>=500000) { fill="url(#grad-20000)"; rTxt="Morning Dew"; }    
-    if(p>=1000000){ fill="url(#grad-25000)"; rTxt="Silver Moonbeam"; }    
-    if(p>=5000000){ fill="url(#grad-30000)"; rTxt="Golden Nectar"; }    
-    if(p>=10000000){ fill="url(#grad-30000)"; stroke="#fff"; rTxt="Perfect Radiant Gold"; glow="drop-shadow(0 0 18px rgba(212,175,55,0.8)) drop-shadow(0 0 40px rgba(212,175,55,0.4))"; }
+    if(p>=100000) { fill="url(#grad-15000)"; rTxt="紫金霞光"; }    
+    if(p>=500000) { fill="url(#grad-20000)"; rTxt="晨曦玉露"; }    
+    if(p>=1000000){ fill="url(#grad-25000)"; rTxt="月魄銀輝"; }    
+    if(p>=5000000){ fill="url(#grad-30000)"; rTxt="玄黄凝脂"; }    
+    if(p>=10000000){ fill="url(#grad-30000)"; stroke="#fff"; rTxt="大円満耀金"; glow="drop-shadow(0 0 18px rgba(212,175,55,0.8)) drop-shadow(0 0 40px rgba(212,175,55,0.4))"; }
 
     rank.innerText = rTxt;
     box.style.filter = glow;
 
-    // ✨ Added hardware-accelerated class "lotus-spin"
     let svg = `<svg class="lotus-spin" xmlns="http://www.w3.org/2000/svg" viewBox="-150 -150 300 300" style="width:100%;height:100%;overflow:visible;">`;
 
     for (let l = layers; l > 0; l--) {
@@ -1205,30 +1150,30 @@ function renderLotus(p) {
 }
 
 // ==========================================================================
-//  Mani Nine Luminaries Conjunction System (Mercury to Neptune + Sun)
-//  Single Logic: pts threshold unlock -> 3 stars per 3 directions -> click modal
+//  摩尼九曜連珠システム (水金地火木土天海＋太陽)
+//  単一ロジック：pts閾値で解放 → 三方位に各3つの星を配置 → クリックでポップアップ表示
 // ==========================================================================
 
-// Nine Luminaries Database (Name + Description)
+// 九曜データベース（名称＋説明文）
 const PLANET_DATA = {
-    1: { name: "Mercury · Purify", desc: "Holds primal purity, washing away defilements as initial bodhicitta sprouts." },
-    2: { name: "Venus · Illumine", desc: "The morning light dispels ignorance, awakening initial wisdom." },
-    3: { name: "Earth · Embrace", desc: "Sustaining all life with firm compassion, enduring and profound." },
-    4: { name: "Mars · Torch", desc: "Wisdom burns like a torch, destroying karmic obstacles with diligence." },
-    5: { name: "Jupiter · Bodhi", desc: "Vast and unobstructed, bringing forth vital bodhicitta and merit." },
-    6: { name: "Saturn · Samadhi", desc: "Unshakable samadhi, immovable through aeons, patient as the earth." },
-    7: { name: "Uranus · Liberation", desc: "Pure and unhindered, dissolving worldly attachments for ultimate freedom." },
-    8: { name: "Neptune · Vow Ocean", desc: "A boundless ocean of vows, embracing all beings with great compassion." },
-    9: { name: "Sun · Radiant Gold", desc: "Great perfection of radiant gold, illuminating the great trichiliocosm." }
+    1: { name: "水星 ‧ 滌浄", desc: "初発の清浄を宿し、水が塵垢を洗うが如く、初心が芽生える。" },
+    2: { name: "金星 ‧ 啓明", desc: "啓明の光、無明の煩悩を照らし破り、智慧が初めて現る。" },
+    3: { name: "地球 ‧ 悲載", desc: "万物を育み、慈悲の心は地蔵の如く堅固にして、深い徳で万物を包む。" },
+    4: { name: "火星 ‧ 智炬", desc: "智慧は炬の如く、一切の業障を焼き尽くし、勇猛精進す。" },
+    5: { name: "木星 ‧ 菩提", desc: "広大無礙にして菩提の生機を表し、福徳と智慧が増長す。" },
+    6: { name: "土星 ‧ 禅定", desc: "禅定は堅固にして、千劫を経ても山のごとく動かず、安忍は大地の如し。" },
+    7: { name: "天王星 ‧ 自在", desc: "清涼自在にして、世間の執着を打破し、大解脱を得る。" },
+    8: { name: "海王星 ‧ 願海", desc: "願海は無涯にして、法界の衆生を包容し、慈悲を以て普く度す。" },
+    9: { name: "太陽 ‧ 耀金", desc: "大円満の耀金、自性の光明は普く三千大千世界を照らす。" }
 };
 
 // ==========================================================================
-//  Mani Nine Luminaries SVG (Mercury to Neptune + Sun)
-//  Planets: Pure gradient 3D, no outlines; Sun: Multi-layered halo
+//  摩尼九曜連珠 SVG (水金地火木土天海＋太陽)
+//  天体：純グラデーション立体、枠線なし；太陽：多層の光輪
 // ==========================================================================
 function getManiSVG(tier) {
 
-    // Shared: Planet Body + Shadow + Highlight (No outline, pure gradient for 3D effect)
+    // 共通：天体本体 + 影 + ハイライト（輪郭線なし、グラデーションのみで立体感を表現）
     function planetBase({ id, grad, shadowOpacity = 0.5, shadowColor = "#1a0a4c", bands = [], ring = null, glowColor = "rgba(120,180,255,0.5)" }) {
         const bandPaths = bands.map((b) =>
             `<path d="${b.d}" stroke="${b.color}" stroke-width="${b.w}" fill="none" opacity="${b.o}"/>`
@@ -1270,7 +1215,7 @@ function getManiSVG(tier) {
 
     switch (tier) {
 
-        case 1: // Mercury
+        case 1: // 水星
             return planetBase({
                 id: "mercury", glowColor: "rgba(200,180,160,0.45)", shadowOpacity: 0.6,
                 grad: `<radialGradient id="mercury-body" cx="38%" cy="32%" r="65%">
@@ -1284,7 +1229,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        case 2: // Venus
+        case 2: // 金星
             return planetBase({
                 id: "venus", glowColor: "rgba(255,224,150,0.55)",
                 grad: `<radialGradient id="venus-body" cx="38%" cy="32%" r="65%">
@@ -1297,7 +1242,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        case 3: // Earth
+        case 3: // 地球
             return planetBase({
                 id: "earth", glowColor: "rgba(95,184,240,0.55)",
                 grad: `<radialGradient id="earth-body" cx="38%" cy="32%" r="65%">
@@ -1311,7 +1256,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        case 4: // Mars
+        case 4: // 火星
             return planetBase({
                 id: "mars", glowColor: "rgba(255,120,80,0.55)",
                 grad: `<radialGradient id="mars-body" cx="38%" cy="32%" r="65%">
@@ -1324,7 +1269,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        case 5: // Jupiter
+        case 5: // 木星
             return planetBase({
                 id: "jupiter", glowColor: "rgba(255,200,140,0.55)",
                 grad: `<radialGradient id="jupiter-body" cx="38%" cy="32%" r="65%">
@@ -1339,7 +1284,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        case 6: // Saturn
+        case 6: // 土星
             return planetBase({
                 id: "saturn", glowColor: "rgba(255,225,150,0.55)",
                 ring: { cy: 50, rx: 46, ry: 11, o: 0.92, rot: -8, color: "#a87a1a", colorLight: "#ffe8a8", behind: false },
@@ -1353,7 +1298,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        case 7: // Uranus
+        case 7: // 天王星
             return planetBase({
                 id: "uranus", glowColor: "rgba(150,230,230,0.55)",
                 ring: { cy: 50, rx: 40, ry: 16, o: 0.5, rot: 75, color: "#5fd0d0", colorLight: "#d6fbfb", behind: true },
@@ -1366,7 +1311,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        case 8: // Neptune
+        case 8: // 海王星
             return planetBase({
                 id: "neptune", glowColor: "rgba(80,120,255,0.55)",
                 grad: `<radialGradient id="neptune-body" cx="38%" cy="32%" r="65%">
@@ -1379,7 +1324,7 @@ function getManiSVG(tier) {
                 ]
             });
 
-        default: // Sun: Pure photosphere, multi-layered halo with red-orange gradient
+        default: // 太陽：純粋な光球、多層の光輪と赤橙のグラデーションで熱量を表現
             return `<div class="mani-spin" style="width:100%; height:100%;">
             <svg viewBox="0 0 100 100" style="filter: drop-shadow(0 0 26px rgba(255,140,20,0.75)) drop-shadow(0 0 14px rgba(255,60,10,0.55)); overflow:visible;">
                 <defs>
@@ -1410,7 +1355,7 @@ function getManiSVG(tier) {
     }
 }
 
-// Allocate and display nine stars across three directions based on pts
+// ptsに基づき三方位九顆の星を配分・表示
 function updatePlanets(pts) {
     const thresholds = [1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000, 100000000];
     let unlockedTier = 0;
@@ -1418,7 +1363,7 @@ function updatePlanets(pts) {
         if (pts >= thresholds[i]) unlockedTier = i + 1;
     }
 
-    // Milestone Notification
+    // マイルストーン通知
     if (unlockedTier > (db.personalRoom.lastPlanetTier || 0)) {
         db.personalRoom.lastPlanetTier = unlockedTier;
         saveDB();
@@ -1429,10 +1374,10 @@ function updatePlanets(pts) {
     }
 
     const nodes = [
-        { id: 'mani-br', tiers: [3, 2, 1] }, // Bottom Right: Earth, Venus, Mercury
-        { id: 'mani-tl', tiers: [6, 5, 4] }, // Top Left: Saturn, Jupiter, Mars
-        { id: 'mani-bl', tiers: [8, 7] },    // Bottom Left: Neptune, Uranus
-        { id: 'mani-sun', tiers: [9] }       // Independent Sun Node
+        { id: 'mani-br', tiers: [3, 2, 1] }, // 右下：地球、金星、水星
+        { id: 'mani-tl', tiers: [6, 5, 4] }, // 左上：土星、木星、火星
+        { id: 'mani-bl', tiers: [8, 7] },    // 左下：海王星、天王星
+        { id: 'mani-sun', tiers: [9] }       // 独立した太陽ノード
     ];
 
     nodes.forEach(nodeData => {
@@ -1457,14 +1402,14 @@ function updatePlanets(pts) {
     });
 }
 
-// Planet Unlock Reward Modal
+// 天体解放報酬ポップアップ
 function showPlanetReward(tier) {
     const data = PLANET_DATA[tier];
     if (!data) return;
 
     document.getElementById('reward-crystal-svg').innerHTML = getManiSVG(tier);
-    document.getElementById('reward-crystal-title').innerText = `[ ${data.name} ]`;
-    document.getElementById('reward-crystal-subtitle').innerText = `Luminary ${tier}`;
+    document.getElementById('reward-crystal-title').innerText = `【${data.name}】`;
+    document.getElementById('reward-crystal-subtitle').innerText = `第 ${tier} 曜`;
     document.getElementById('reward-crystal-desc').innerText = data.desc;
 
     openM('crystalRewardModal');
@@ -1476,15 +1421,15 @@ function showCertificateModal() {
 
     certSvg.innerHTML = getManiSVG(9);
 
-    const currentName = document.getElementById('ui-name').value || db.name || 'Anonymous Practitioner';
+    const currentName = document.getElementById('ui-name').value || db.name || '無名の行者';
     certName.innerText = currentName;
 
     openM('certificateModal');
 }
 
-// Cluster Click Interaction (Particles + Dharma Quote + Open Corresponding Modal)
-const dharmaQuotesDictEN = {
-    'wisdom': ["भः", "ह", "यु"],
+// 群晶クリックインタラクション（粒子＋法語＋対応する天体ポップアップの起動）
+const dharmaQuotesDictJP = {
+   'wisdom': ["भः", "ह", "यु"],
     'compassion': ["अं", "भै", "ह्रीः"],
     'peace': ["अ", "सः", "स"]
 };
@@ -1534,7 +1479,7 @@ function resonateCluster(e, type) {
         setTimeout(() => dust.remove(), 2000);
     }
 
-    const quotesArray = dharmaQuotesDictEN[type] || dharmaQuotesDictEN['wisdom'];
+    const quotesArray = dharmaQuotesDictJP[type] || dharmaQuotesDictJP['wisdom'];
     const randomQuote = quotesArray[Math.floor(Math.random() * quotesArray.length)];
     const quoteEl = document.createElement('div');
     quoteEl.className = 'dharma-quote';
@@ -1545,7 +1490,7 @@ function resonateCluster(e, type) {
     document.body.appendChild(quoteEl);
     setTimeout(() => quoteEl.remove(), 3500);
 
-    // Open the highest unlocked planet modal in that direction
+    // その方位で現在解放されている最高階層の天体ポップアップを起動
     let maxTier = 1;
     const currentUnlocked = db.personalRoom.lastPlanetTier || 1;
     if (cluster.id === 'mani-br') maxTier = Math.min(3, currentUnlocked);
@@ -1556,9 +1501,6 @@ function resonateCluster(e, type) {
     setTimeout(() => showPlanetReward(maxTier), 1500);
 }
 
-// ══════════════════════════════════════════
-//  Update UI (Decoupled pts & nianSum)
-// ══════════════════════════════════════════
 function updateUI() {
     let currentSessionCount = db.personalRoom.sessionCounts[curBuddha] || 0;
     document.getElementById('ui-session-count').innerText = currentSessionCount.toLocaleString();
@@ -1571,19 +1513,13 @@ function updateUI() {
     const miniBar = document.getElementById('ui-mini-session-bar');
     if (miniBar) miniBar.style.width = w + '%';
 
-    // 1. Lotus uses pts (Bodhi merit)
     let currentPts = getPts();
     renderLotus(currentPts);
 
-    // 2. Mani Crystals use nianSum (Total lifetime chants)
     let nianSum = (db.totalNian||0) + Object.values(db.personalRoom.othList).reduce((a,b)=>a+b, 0);
     updatePlanets(nianSum);
 }
 
-
-// ══════════════════════════════════════════
-//  Starry Background
-// ══════════════════════════════════════════
 const cvs = document.getElementById('starCanvas');
 const ctx  = cvs.getContext('2d');
 let stars  = [];
@@ -1606,9 +1542,6 @@ function drawS() {
 }
 window.onresize = initS;
 
-// ══════════════════════════════════════════
-//  Smart Scroll Protection
-// ══════════════════════════════════════════
 document.addEventListener('touchmove', e => {
     const isScrollable = e.target.closest('.modal-box') || e.target.closest('.data-card') || e.target.closest('.glass-panel');
     if (!isScrollable && e.cancelable) {
@@ -1616,9 +1549,6 @@ document.addEventListener('touchmove', e => {
     }
 }, { passive: false });
 
-// ══════════════════════════════════════════
-//  Initialization
-// ══════════════════════════════════════════
 initS();
 drawS();
 initMala();
