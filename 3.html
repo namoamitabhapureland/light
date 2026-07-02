@@ -282,31 +282,8 @@
         transform: scale(1) !important;
         opacity: 1 !important;
     }
-    /* 蓮花自轉 */
-    .lotus-spin { width: 100%; height: 100%; overflow: visible; animation: lotus-rotate 40s linear infinite; transform-origin: center center; }
-    @keyframes lotus-rotate { 100% { transform: rotate(360deg); } }
 
-    .dust-particle {
-        position: fixed; border-radius: 50%; pointer-events: none; z-index: 1000;
-        animation: scatter 2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
-    }
-    @keyframes scatter { 0% { opacity: 1; transform: translate(0,0) scale(1); } 100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); } }
-    
-    .dharma-quote {
-        position: fixed; z-index: 1001; pointer-events: none;
-        color: var(--text-gold); font-size: 14px; letter-spacing: 2px;
-        text-shadow: 0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(212,175,55,0.6);
-        white-space: nowrap; font-weight: bold;
-        animation: float-up-fade 3.5s ease-out forwards;
-        font-family:"PingFang TC",serif;
-    }
-    @keyframes float-up-fade {
-        0% { opacity: 0; transform: translate(0, 0) scale(0.8); }
-        20% { opacity: 1; transform: translate(0, -20px) scale(1.05); }
-        80% { opacity: 1; transform: translate(0, -60px) scale(1); }
-        100% { opacity: 0; transform: translate(0, -80px) scale(0.9); }
-    }
-         /* ── 九曜連珠：點燈式依序發光（獨立 class，避開 .active 的 !important 清空規則） ── */
+           /* ── 九曜連珠：點燈式依序發光（獨立 class，避開 .active 的 !important 清空規則） ── */
     .mani-node.lighting .s-main > svg,
     .mani-node.lighting .s-main .mani-spin svg {
         animation: maniLightUp 0.5s ease-out 0s 1 both;
@@ -335,6 +312,31 @@
         45%  { filter: brightness(2.2) drop-shadow(0 0 16px rgba(255,220,120,1)) drop-shadow(0 0 30px rgba(255,140,20,0.9)); }
         100% { filter: brightness(1) drop-shadow(0 0 0 transparent); }
     }
+    /* 蓮花自轉 */
+    .lotus-spin { width: 100%; height: 100%; overflow: visible; animation: lotus-rotate 40s linear infinite; transform-origin: center center; }
+    @keyframes lotus-rotate { 100% { transform: rotate(360deg); } }
+
+    .dust-particle {
+        position: fixed; border-radius: 50%; pointer-events: none; z-index: 1000;
+        animation: scatter 2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    }
+    @keyframes scatter { 0% { opacity: 1; transform: translate(0,0) scale(1); } 100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); } }
+    
+    .dharma-quote {
+        position: fixed; z-index: 1001; pointer-events: none;
+        color: var(--text-gold); font-size: 14px; letter-spacing: 2px;
+        text-shadow: 0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(212,175,55,0.6);
+        white-space: nowrap; font-weight: bold;
+        animation: float-up-fade 3.5s ease-out forwards;
+        font-family:"PingFang TC",serif;
+    }
+    @keyframes float-up-fade {
+        0% { opacity: 0; transform: translate(0, 0) scale(0.8); }
+        20% { opacity: 1; transform: translate(0, -20px) scale(1.05); }
+        80% { opacity: 1; transform: translate(0, -60px) scale(1); }
+        100% { opacity: 0; transform: translate(0, -80px) scale(0.9); }
+    }
+
 
     /* ── 念珠轉盤 ── */
     .footer {
@@ -551,8 +553,9 @@
         <div style="line-height:2.2;font-size:14px;color:var(--text-gold);letter-spacing:1px;text-align:justify;">
             一、念念彌陀，皆化菩提資糧；日發勝心神遊華藏，亦增道業。若能淨念相繼、十日不輟，法界自當傾注殊勝資糧。<br><br>
             二、自性金蓮，依資糧而生。自初發菩提心起，七寶疊加蛻變，直至大圓滿耀金。<br><br>
-            三、行者若能每日安住靜室，迴光返照，法界自當隨順因緣，賜予無相法寶。<br><br>
-            四、此淨室乃專屬之芥子道場，法相（頭像）可隨心更易。一切境相唯存於行者自身寶具（手機）之內，不染外網。然世法無常，還望時常移步主道場妥善「封存備份」，護持修行軌跡不失。
+            三、九曜連珠，隨行者累積念誦聖號與經文之總數而漸次化生，星軌交織，圓滿俱足。<br><br>
+            四、行者若能每日安住靜室，迴光返照，法界自當隨順因緣，賜予無相法寶。<br><br>
+            五、此淨室乃專屬之芥子道場，法相（頭像）可隨心更易。一切境相唯存於行者自身寶具（手機）之內，不染外網。然世法無常，還望時常移步主道場妥善「封存備份」，護持修行軌跡不失。
         </div>
         
         <div style="text-align:center;margin-top:25px;font-size:13px;color:var(--gold);letter-spacing:2px;cursor:pointer;font-weight:bold;" onclick="closeM('infoModal')">合十收攝</div>
@@ -1210,6 +1213,7 @@ function renderLotus(p) {
 }
 
 
+
 // ══════════════════════════════════════════
 //  ✨ 摩尼九曜連珠系統 (水金地火木土天海＋太陽) ✨
 //  單一套邏輯：pts 門檻解鎖 → 三方位各裝 3 顆星 → 點擊開彈窗
@@ -1527,9 +1531,6 @@ function resonateCluster(e, type) {
     }, 350);
 
     playCrystalChime();
-
-    // ...以下你原本的粒子、法語、彈窗邏輯完全不變...
-
 
     const rect = cluster.getBoundingClientRect();
     const x = rect.left + rect.width / 2;
