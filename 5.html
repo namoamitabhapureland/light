@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>彌陀淨土系統 ── 蓮花幾何交互渲染調試面板</title>
+    <style>
+        /* 基礎全域樣式與禪意暗色調 */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111214;
+            color: #e3e4e6;
+            font-family: 'Times New Roman', PMingLiU, "PingFang TC", "Microsoft JhengHei", serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .app-container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* 標題區域：極簡幾何線條 */
+        header {
+            text-align: center;
+            border-bottom: 1px solid #2a2c30;
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 20pt;
+            font-weight: 400;
+            letter-spacing: 3px;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+        }
+
+        header p {
+            font-size: 10.5pt;
+            color: #8a8e94;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* 主工作排版區：採用標準表格排版以確保單機端與各平台高度相容 */
+        .workspace-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: none;
+        }
+
+        .workspace-cell {
+            vertical-align: top;
+            padding: 10px;
+        }
+
+        .cell-left {
+            width: 40%;
+        }
+
+        .cell-right {
+            width: 60%;
+        }
+
+        /* 控制面板區樣式 */
+        .panel {
+            background-color: #18191c;
+            border: 1px solid #2a2c30;
+            border-radius: 4px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .panel-title {
+            font-size: 11pt;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #d4af37;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-left: 3px solid #d4af37;
+            padding-left: 10px;
+            font-weight: bold;
+        }
+
+        /* 滑桿組件外觀優化 */
+        .slider-group {
+            margin-bottom: 30px;
+        }
+
+        .slider-header {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 10pt;
+            color: #a1a5ac;
+        }
+
+        .slider-val-box {
+            float: right;
+            font-family: monospace;
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 11pt;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .custom-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            background: #2e3136;
+            height: 6px;
+            border-radius: 3px;
+            outline: none;
+            margin: 10px 0;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #d4af37;
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            transition: transform 0.1s ease;
+        }
+
+        .custom-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* 階位矩陣快速跳轉按鈕組 */
+        .rank-grid {
+            display: block;
+        }
+
+        .rank-btn {
+            display: block;
+            width: 100%;
+            background-color: #202226;
+            border: 1px solid #2e3136;
+            border-radius: 3px;
+            color: #c2c6cc;
+            padding: 9px 12px;
+            margin-bottom: 8px;
+            text-align: left;
+            font-size: 9.5pt;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .rank-btn:hover {
+            border-color: #d4af37;
+            background-color: #26292e;
+            color: #ffffff;
+        }
+
+        .rank-btn.active {
+            background-color: rgba(212, 175, 55, 0.12);
+            border-color: #d4af37;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .rank-btn-val {
+            float: right;
+            font-family: monospace;
+            color: #8a8e94;
+            font-size: 8.5pt;
+            padding-top: 2px;
+        }
+
+        /* 蓮花核心顯像舞台 */
+        .stage {
+            background-color: #18191c;
+            border: 1px solid #2a2c30;
+            border-radius: 4px;
+            height: 560px;
+            position: relative;
+            text-align: center;
+            padding: 40px;
+        }
+
+        /* 階位文字樣式 */
+        #ui-rank-text {
+            font-size: 20pt;
+            font-weight: 300;
+            letter-spacing: 6px;
+            color: #ffffff;
+            margin-top: 10px;
+            margin-bottom: 40px;
+            min-height: 40px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* 蓮花容器與旋轉動畫 */
+        #lotus-container {
+            width: 340px;
+            height: 340px;
+            margin: 0 auto;
+            position: relative;
+            transition: filter 0.4s ease;
+        }
+
+        @keyframes lotusRotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .lotus-spin {
+            animation: lotusRotation 60s linear infinite;
+        }
+
+        /* 頁尾版權宣告 */
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 9pt;
+            color: #5c6066;
+            border-top: 1px solid #2a2c30;
+            padding-top: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* 響應式優化：若在窄螢幕裝置上則轉為單欄 */
+        @media (max-width: 768px) {
+            .workspace-cell {
+                display: block;
+                width: 100% !important;
+                padding: 0;
+            }
+            .cell-left {
+                margin-bottom: 25px;
+            }
+            .stage {
+                height: 480px;
+                padding: 20px;
+            }
+            #lotus-container {
+                width: 280px;
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 全域純淨向量漸層資產庫，設為隱藏不佔空間 -->
+    <svg width="0" height="0" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+            <defs>
+                <linearGradient id="grad-10"    x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0.95)"/><stop offset="60%" stop-color="rgba(220,235,255,0.5)"/><stop offset="100%" stop-color="rgba(255,255,255,0.15)"/></linearGradient>
+        <linearGradient id="grad-50"    x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#ff8fc7" stop-opacity=".95"/><stop offset="55%" stop-color="#ffc1e3" stop-opacity=".7"/><stop offset="100%" stop-color="#fff0f6" stop-opacity=".4"/></linearGradient>
+        <linearGradient id="grad-100"   x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#d4af37" stop-opacity="1"/><stop offset="55%" stop-color="#ffe27a" stop-opacity=".85"/><stop offset="100%" stop-color="#fff8e0" stop-opacity=".5"/></linearGradient>
+        <linearGradient id="grad-300"   x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#0fb8d4" stop-opacity=".95"/><stop offset="55%" stop-color="#7fe3f0" stop-opacity=".75"/><stop offset="100%" stop-color="#e0f7fa" stop-opacity=".4"/></linearGradient>
+        <linearGradient id="grad-500"   x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#2fae6f" stop-opacity=".95"/><stop offset="55%" stop-color="#8ee0a8" stop-opacity=".75"/><stop offset="100%" stop-color="#e8f5e9" stop-opacity=".4"/></linearGradient>
+        <linearGradient id="grad-700"   x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#9c4fc4" stop-opacity=".95"/><stop offset="55%" stop-color="#d9a8e8" stop-opacity=".75"/><stop offset="100%" stop-color="#f3e5f5" stop-opacity=".4"/></linearGradient>
+        <linearGradient id="grad-900"   x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#e8862e" stop-opacity=".95"/><stop offset="55%" stop-color="#ffcc80" stop-opacity=".8"/><stop offset="100%" stop-color="#fff3e0" stop-opacity=".4"/></linearGradient>
+        <linearGradient id="grad-1000"  x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#ff5f8a" stop-opacity=".95"/><stop offset="50%" stop-color="#ffb199" stop-opacity=".85"/><stop offset="100%" stop-color="#7fb8ff" stop-opacity=".75"/></linearGradient>
+
+        
+        
+        <linearGradient id="grad-5000"  x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#030f26" stop-opacity=".98"/><stop offset="50%" stop-color="#0f3d8a" stop-opacity=".85"/><stop offset="100%" stop-color="#cbdff7" stop-opacity=".5"/></linearGradient>
+          <linearGradient id="grad-10000" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#4a126d" stop-opacity=".95"/><stop offset="55%" stop-color="#d4af37" stop-opacity=".90"/><stop offset="100%" stop-color="#fff8db" stop-opacity=".55"/></linearGradient>
+        <linearGradient id="grad-15000" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#7a4fc4" stop-opacity=".95"/><stop offset="100%" stop-color="#f48fd6" stop-opacity=".8"/></linearGradient>
+        <linearGradient id="grad-20000" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#0abab5" stop-opacity=".95"/><stop offset="30%" stop-color="#5fd4c8" stop-opacity=".85"/><stop offset="55%" stop-color="#a8e8d8" stop-opacity=".7"/><stop offset="75%" stop-color="#ffd9a0" stop-opacity=".6"/><stop offset="100%" stop-color="#ff9fc7" stop-opacity=".55"/></linearGradient>
+
+                
+                
+                     <linearGradient id="grad-25000" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#f6c945" stop-opacity=".95"/><stop offset="100%" stop-color="#fd7a4a" stop-opacity=".85"/></linearGradient>
+        <linearGradient id="grad-30000" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#D4AF37" stop-opacity="1"/><stop offset="50%" stop-color="#FFD700" stop-opacity=".9"/><stop offset="100%" stop-color="#fff" stop-opacity="1"/></linearGradient>
+    </defs>
+
+              
+
+
+
+
+            
+    </svg>
+
+    <div class="app-container">
+        <header>
+            <h1>彌陀淨土系統 ── 蓮花幾何動態顯像模組</h1>
+            <p>純粹向量幾何運算 · 跨平台獨立單機版交互調試活頁</p>
+        </header>
+
+        <table class="workspace-table">
+            <tr>
+                <!-- 左側控制面板 -->
+                <td class="workspace-cell cell-left">
+                    <div class="panel">
+                        <div class="panel-title">參數動態控制</div>
+                        <div class="slider-group">
+                            <div class="slider-header clearfix">
+                                <span>功德參數 (p)</span>
+                                <span id="p-val-display" class="slider-val-box">300</span>
+                            </div>
+                            <input type="range" min="0" max="10000000" step="1" value="300" class="custom-slider" id="p-slider">
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-title">法界階位跳轉</div>
+                        <div class="rank-grid" id="rank-buttons-container">
+                            <!-- 藉由 JavaScript 動態生成純文字按鈕 -->
+                        </div>
+                    </div>
+                </td>
+
+                <!-- 右側顯像舞台 -->
+                <td class="workspace-cell cell-right">
+                    <div class="stage">
+                        <div id="ui-rank-text">初發菩提</div>
+                        <div id="lotus-container"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <footer>
+            永續流傳 · 終局美學 · 共享主體性 · 完美留下百分之一供大眾批判 · Creative Commons CC0
+        </footer>
+    </div>
+
+    <script>
+        // 居士提供之原始核心渲染函數（完整封存不增不減）
+        function renderLotus(p) {
+            const box  = document.getElementById('lotus-container');
+            const rank = document.getElementById('ui-rank-text');
+            if (p < 10) { box.innerHTML=''; rank.innerText="初發菩提"; box.style.filter="none"; return; }
+
+            let layers=1, fill="url(#grad-10)", rTxt="清淨萌芽", stroke="rgba(255,255,255,0.45)", glow="none";
+            
+            if(p>=50)     { fill="url(#grad-50)"; rTxt="粉晶初綻"; }
+            if(p>=100)    { layers=2; fill="url(#grad-100)"; stroke="rgba(212,175,55,0.55)"; rTxt="聖潔初金"; }
+            if(p>=300)    { fill="url(#grad-300)"; rTxt="琉璃水月"; } 
+            if(p>=500)    { fill="url(#grad-500)"; rTxt="翡翠玉葉"; } 
+            if(p>=700)    { fill="url(#grad-700)"; rTxt="紫檀雲靄"; } 
+            if(p>=900)    { fill="url(#grad-900)"; rTxt="琥珀流光"; } 
+            
+            if(p>=1000)   { fill="url(#grad-1000)"; rTxt="初心幻彩"; } 
+            if(p>=5000)   { fill="url(#grad-5000)"; rTxt="青淨琉璃"; } 
+            if(p>=10000)  { fill="url(#grad-10000)"; rTxt="無染純金"; } 
+            
+            if(p>=100000) { fill="url(#grad-15000)"; rTxt="紫金霞光"; }    
+            if(p>=500000) { fill="url(#grad-20000)"; rTxt="晨曦玉露"; }    
+            if(p>=1000000){ fill="url(#grad-25000)"; rTxt="月魄銀輝"; }    
+            if(p>=5000000){ fill="url(#grad-30000)"; rTxt="玄黃凝脂"; }    
+            if(p>=10000000){ fill="url(#grad-30000)"; stroke="#fff"; rTxt="大圓滿耀金"; glow="drop-shadow(0 0 18px rgba(212,175,55,0.8)) drop-shadow(0 0 40px rgba(212,175,55,0.4))"; }
+
+            rank.innerText = rTxt;
+            box.style.filter = glow;
+
+            // ✨ 注入蓮花自轉 class="lotus-spin"
+            let svg = `<svg class="lotus-spin" xmlns="http://www.w3.org/2000/svg" viewBox="-150 -150 300 300" style="width:100%;height:100%;overflow:visible;">`;
+
+            for (let l = layers; l > 0; l--) {
+                const sc = 0.44 + l * 0.28;
+                const n  = (l === layers) ? 8 : 6;
+                const rotOffset = l * 22.5 + p * 0.012;
+                for (let i = 0; i < n; i++) {
+                    const rot = i * (360/n) + rotOffset;
+                    const s   = 112 * sc;
+                    const pth = `M 0 0 C ${s*.44} ${-s*.07} ${s*.54} ${-s*.62} 0 ${-s} C ${-s*.54} ${-s*.62} ${-s*.44} ${-s*.07} 0 0`;
+                    const vein = `M 0 ${-s*.08} Q 0 ${-s*.55} 0 ${-s*.88}`;
+                    svg += `<g transform="rotate(${rot})">
+                        <path d="${pth}" fill="${fill}" stroke="${stroke}" stroke-width="0.9" opacity="0.93"/>
+                        <path d="${vein}" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="0.6"/>
+                    </g>`;
+                }
+            }
+            if (p >= 300) {
+                const innerSz = 112 * 0.38;
+                for (let i = 0; i < 6; i++) {
+                    const rot = i * 60 + 18 + p * 0.018;
+                    const pth = `M 0 0 C ${innerSz*.35} ${-innerSz*.08} ${innerSz*.3} ${-innerSz*.7} 0 ${-innerSz} C ${-innerSz*.3} ${-innerSz*.7} ${-innerSz*.35} ${-innerSz*.08} 0 0`;
+                    svg += `<g transform="rotate(${rot})"><path d="${pth}" fill="${fill}" stroke="${stroke}" stroke-width="0.7" opacity="0.85"/></g>`;
+                }
+            }
+            if (p >= 50) {
+                const cr = p >= 1000 ? 20 : p >= 300 ? 16 : 12;
+                svg += `<circle cx="0" cy="0" r="${cr}" fill="${fill}" stroke="${stroke}" stroke-width="1.2" opacity="0.96"/>`;
+                if (p >= 100) {
+                    const stamens = p >= 5000 ? 12 : 8;
+                    for (let s = 0; s < stamens; s++) {
+                        const sa = (s * (360/stamens)) * Math.PI / 180;
+                        const sr = cr + 9;
+                        const ex = (sr * Math.cos(sa)).toFixed(1);
+                        const ey = (sr * Math.sin(sa)).toFixed(1);
+                        svg += `<circle cx="${ex}" cy="${ey}" r="2.8" fill="${fill}" opacity="0.82"/>
+                        <line x1="${(cr*.6*Math.cos(sa)).toFixed(1)}" y1="${(cr*.6*Math.sin(sa)).toFixed(1)}" x2="${ex}" y2="${ey}" stroke="rgba(255,255,255,0.25)" stroke-width="0.7"/>`;
+                    }
+                }
+                svg += `<circle cx="-${cr*.18}" cy="-${cr*.22}" r="${cr*.28}" fill="rgba(255,255,255,0.38)"/>`;
+            }
+            svg += `</svg>`;
+            box.innerHTML = svg;
+        }
+
+        // 定義各個法界階位的臨界參數對照，用於 UI 快速跳轉
+        const rankPresets = [
+            { value: 0, title: "初發菩提" },
+            { value: 20, title: "清淨萌芽" },
+            { value: 65, title: "粉晶初綻" },
+            { value: 150, title: "聖潔初金" },
+            { value: 350, title: "琉璃水月" },
+            { value: 550, title: "翡翠玉葉" },
+            { value: 750, title: "紫檀雲靄" },
+            { value: 950, title: "琥珀流光" },
+            { value: 1500, title: "初心幻彩" },
+            { value: 6000, title: "青淨琉璃" },
+            { value: 15000, title: "無染純金" },
+            { value: 120000, title: "紫金霞光" },
+            { value: 600000, title: "晨曦玉露" },
+            { value: 1500000, title: "月魄銀輝" },
+            { value: 6000000, title: "玄黃凝脂" },
+            { value: 10000000, title: "大圓滿耀金" }
+        ];
+
+        const slider = document.getElementById('p-slider');
+        const display = document.getElementById('p-val-display');
+        const btnContainer = document.getElementById('rank-buttons-container');
+
+        // 初始化：動態建立無表情符號的純淨文字跳轉按鈕
+        rankPresets.forEach(preset => {
+            const btn = document.createElement('button');
+            btn.className = 'rank-btn';
+            btn.innerHTML = `<span>${preset.title}</span><span class="rank-btn-val">p = ${preset.value.toLocaleString()}</span>`;
+            
+            btn.onclick = () => {
+                slider.value = preset.value;
+                updateView(preset.value);
+                setActiveButton(btn);
+            };
+            
+            btnContainer.appendChild(btn);
+        });
+
+        // 刷新視圖與渲染
+        function updateView(val) {
+            display.innerText = Number(val).toLocaleString();
+            renderLotus(Number(val));
+        }
+
+        // 設定目前作用中按鈕的高亮狀態
+        function setActiveButton(activeBtn) {
+            document.querySelectorAll('.rank-btn').forEach(b => b.classList.remove('active'));
+            if(activeBtn) activeBtn.classList.add('active');
+        }
+
+        // 綁定滑桿即時更動事件
+        slider.oninput = (e) => {
+            updateView(e.target.value);
+            setActiveButton(null); // 自行拖動時取消按鈕固定高亮
+        };
+
+        // 初始載入預設為「琉璃水月」狀態進行展示
+        slider.value = 350;
+        updateView(350);
+        
+        // 尋找對應按鈕並高亮
+        const initialBtn = btnContainer.children[4]; 
+        if(initialBtn) initialBtn.classList.add('active');
+    </script>
+</body>
+</html>
