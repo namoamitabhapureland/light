@@ -1771,10 +1771,10 @@ body {
     </div>
 
 
-    <div class="modal-overlay" id="offerings-modal">
+      <div class="modal-overlay" id="offerings-modal">
         <div class="modal-box">
-            <div style="color: var(--gold-light); font-size: 1.1rem; letter-spacing: 4px; margin-bottom: 25px; text-shadow: 0 0 15px rgba(212,175,55,0.6); font-weight: bold;">
-                【 十日圓滿 ‧ 廣修供養 】
+            <div id="today-sansen-title" style="color: var(--gold-light); font-size: 1.1rem; letter-spacing: 4px; margin-bottom: 25px; text-shadow: 0 0 15px rgba(212,175,55,0.6); font-weight: bold; text-align: center;">
+                【 恭迎西方三聖 ‧ 廣修供養 】
             </div>
             <div class="modal-altar-table">
                 <div class="vessel-container water-cup"><svg class="svg-content" viewBox="0 0 100 150"><use href="#water-cup-model" /></svg></div>
@@ -1811,16 +1811,8 @@ body {
                 <div class="vessel-container fruit-plate"><svg class="svg-content" viewBox="0 0 100 150"><use href="#fruit-plate-model" /></svg></div>
                 <div class="vessel-container water-cup"><svg class="svg-content" viewBox="0 0 100 150"><use href="#water-cup-model" /></svg></div>
             </div>
-            <div style="color: #a0a0a0; font-size: 0.85rem; line-height: 1.6; letter-spacing: 1px; margin-bottom: 25px; text-align: center;">願以此清淨供養資糧，迴向法界眾生，<br>同生安樂國，得不退轉。</div>
+            <div id="today-sansen-text" style="color: #a0a0a0; font-size: 0.85rem; line-height: 1.6; letter-spacing: 1px; margin-bottom: 25px; text-align: center;">願以此清淨供養資糧，迴向法界眾生，<br>同生安樂國，得不退轉。</div>
             <button class="m-btn-prime" onclick="closeOfferingsModal()">合十收攝</button>
-        </div>
-    </div>
-    <div class="modal-overlay" id="modal">
-        <div class="modal-box" id="modal-box">
-            <div class="m-title" id="m-title"></div>
-            <div class="m-divider" id="m-div"></div>
-            <div class="m-text" id="m-text"></div>
-            <button class="m-btn-prime" id="m-btn" onclick="closeModal()">合十收攝</button>
         </div>
     </div>
 
@@ -1916,62 +1908,63 @@ body {
 
 
 // =================================================================
-// 🌟 2026-07-09 三聖合璧 ‧ 中文版專屬區塊 (對接 db.treasures.vase)
+// 🌟 2026-07-09 三聖合璧 ‧ 今日限定 24 小時專屬區塊（明日即復原）
 // =================================================================
 
-// 1. 今日專屬：變更彈窗公告文字
-function triggerOfferingsModal() {
-    const offeringsModal = document.getElementById('offerings-modal');
-    if (!offeringsModal) return;
-
-    const titleEl = document.getElementById('offerings-title');
-    const textEl = document.getElementById('offerings-text');
-
-    if (titleEl) titleEl.innerText = "【 三聖合璧 ‧ 普天同慶 】";
-    if (textEl) textEl.innerHTML = "慶賀觀世音菩薩、大勢至菩薩兩尊脅侍金身正式安座。<br>西方三聖圓滿具足，法界同歡。<br><br><span style='color:var(--gold-solid); font-weight:bold;'>【 殊勝功德 ‧ 廣植福田 】</span><br>今日至心稱念佛號、誦讀經典、諸惡莫作、眾善奉行，<br>乃至隨喜廣修供養，其功德無量無邊。<br><br><span style='color:#70d6ff; font-weight:bold;'>✨【 聖誕法禮 ‧ 琉璃甘露 】</span><br>今日登入特別贈送：<b style='color:#70d6ff'>【 琉璃淨瓶 】× 3 瓶</b> 供養尊像，<br>並獲菩提資糧 <b style='color:var(--gold-solid)'>300 點</b>。已自動匯入您的法寶庫。<br>願此清淨功德，同向安樂剎，齊登極樂國。";
-
-    offeringsModal.style.display = 'flex';
-    void offeringsModal.offsetWidth; 
-    offeringsModal.classList.add('show');
-}
-
-// 2. 今日修持：新一天進入，精準注入 300 點菩提資糧與 3 瓶淨水，且 0.6 秒後強制彈窗 (一日僅限一次修正版)
 function handleStreak() {
+    // 確保原本的修持天數邏輯能正常運作
+    if (!db.bowData) db.bowData = { streakCount: 0, lastLoginDate: "", lastRewardStreak: 0 };
     const now = new Date();
     const todayStr = now.toDateString(); 
-    let isNewDay = false; // 🌟 宣告標記，用來精準控制彈窗時機
-    
-    if (!db.bowData) db.bowData = { streakCount: 0, lastLoginDate: "", lastRewardStreak: 0 };
-
     if (db.bowData.lastLoginDate !== todayStr) {
         db.bowData.streakCount++; 
         db.bowData.lastLoginDate = todayStr;
-        
-        // 💧 精準注入您的 V15 資料庫欄位
-        db.points = (db.points || 0) + 300;
-        if (!db.treasures) db.treasures = { sword: 0, vase: 0, jewel: 0, lotus_lamp: 0, dharma_wheel: 0, white_lotus: 0, indra_net: 0 };
-        db.treasures.vase = (db.treasures.vase || 0) + 3; 
-        
-        isNewDay = true; // 🌟 只有在真正跨日、發放獎勵時，才標記為真
-        saveDB(); // 儲存至 PX_V15.0
     }
-
     document.getElementById('streak-text').innerText = `修持：第 ${db.bowData.streakCount || 1} 日`;
-    
     const bar = document.getElementById('streak-bar');
     if (bar) {
         bar.style.width = ((db.bowData.streakCount % 10) * 10) + '%';
         if (db.bowData.streakCount % 10 === 0 && db.bowData.streakCount > 0) bar.style.width = '100%';
     }
-    
-    // 🌟 防護核心：只有在新的一天第一次進入（isNewDay 為 true）時，才在 0.6 秒後跳出慶賀彈窗。
-    // 同一天內重新整理網頁、重複進入道場時，絕對不重複觸發，不干擾三聖觀想彈窗。
-    if (isNewDay) {
-        setTimeout(() => { triggerOfferingsModal(); }, 600);
+
+    // 🌟 今日限定核心：限領一次防重複機制
+    if (!localStorage.getItem('sansen_joined_20260709')) {
+        
+        // 💧 1. 實質發放法寶（淨瓶 +3）與菩提資糧點數（+300）
+        db.points = (db.points || 0) + 300;
+        if (!db.treasures) db.treasures = { sword: 0, vase: 0, jewel: 0, lotus_lamp: 0, dharma_wheel: 0, white_lotus: 0, indra_net: 0 };
+        db.treasures.vase = (db.treasures.vase || 0) + 3; 
+        saveDB(); // 儲存至 V15 資料庫
+        
+        // 📝 2. 寫入記憶，防止今天重新整理網頁重複加點
+        localStorage.setItem('sansen_joined_20260709', 'true');
+
+        // 🌟 3. 0.6 秒後，精準對準 ID 填入三聖合璧公告，並開啟彈窗
+        setTimeout(() => {
+            const offeringsModal = document.getElementById('offerings-modal');
+            const titleZone = document.getElementById('today-sansen-title');
+            const textZone = document.getElementById('today-sansen-text');
+            
+            // 準確命中 ID，強行將文字蓋上
+            if (titleZone) {
+                titleZone.innerText = "【 三聖合璧 ‧ 普天同慶 】";
+            }
+            if (textZone) {
+                textZone.innerHTML = "慶賀觀世音菩薩、大勢至菩薩兩尊脅侍金身正式安座。<br>西方三聖圓滿具足，法界同歡。<br><br><span style='color:var(--gold-solid); font-weight:bold;'>【 殊勝功德 ‧ 廣植福田 】</span><br>今日至心稱念佛號、誦讀經典、諸惡莫作、眾善奉行，<br>乃至隨喜廣修供養，其功德無量無邊。<br><br><span style='color:#70d6ff; font-weight:bold;'>✨【 聖誕法禮 ‧ 琉璃甘露 】</span><br>今日登入特別贈送：<b style='color:#70d6ff'>【 琉璃淨瓶 】× 3 瓶</b> 供養尊像，<br>並獲菩提資糧 <b style='color:var(--gold-solid)'>300 點</b>。已自動匯入您的法寶庫。<br>願此清淨功德，同向安樂剎，齊登極樂國。";
+            }
+
+            if (offeringsModal) {
+                offeringsModal.style.display = 'flex';
+                void offeringsModal.offsetWidth; 
+                offeringsModal.classList.add('show');
+                
+                // 莊嚴漫天金粉花雨
+                spawnFlowerRain(450);
+            }
+        }, 600);
     }
 }
 
-// 3. 海量金粉引擎：450 顆飽和值，硬體加速流暢防當機
 function spawnFlowerRain(totalFlowers = 450) { 
     let container = document.getElementById('gold-powder-container');
     if (!container) {
@@ -2000,7 +1993,6 @@ function spawnFlowerRain(totalFlowers = 450) {
     }
 }
 // =================================================================
-
 
     // 模態框操作函數
     function showModal(title, text, btnText, callback) {
