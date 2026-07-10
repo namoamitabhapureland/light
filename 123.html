@@ -780,6 +780,19 @@ body {
         <!-- ================================================================== -->
     <!-- 1. 雙尊菩薩獨立白毫漸層定義 -->
     <!-- ================================================================== -->
+                 <!-- 菩薩專屬：聖潔溫潤的金銀白光暈（底色襯托） -->
+    <radialGradient id="bodhi-aura-pure" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFFDF0" stop-opacity="0.6" />
+        <stop offset="60%" stop-color="#D4AF37" stop-opacity="0.5" />
+        <stop offset="100%" stop-color="#FFF9D0" stop-opacity="0.6" />
+    </radialGradient>
+
+    <!-- 菩薩專屬：細光圈專用的柔和金絲線條 -->
+    <linearGradient id="bodhi-line-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#D4AF37" />
+        <stop offset="50%" stop-color="#D4AF37" />
+        <stop offset="100%" stop-color="#D4AF37" />
+    </linearGradient>
     <!-- 大勢至菩薩專屬：智慧紺青白毫（帶有深藍/白金漸層） -->
     <radialGradient id="shizhi-urna-glow" cx="50%" cy="50%" r="50%">
         <stop offset="0%" stop-color="#FFFFFF" />
@@ -1122,13 +1135,14 @@ body {
 ======================================================================
 -->
 <g id="bodhisattva-left" class="bodhisattva-group">
-    <!-- 佛光渲染層 (保留您原本的設計) -->
-    <circle class="bodhisattva-halo" cx="500" cy="230" r="175" fill="url(#haloFillDef)" stroke="url(#haloGlow)" stroke-width="2" opacity="0.85" mask="url(#halo-mask)" />
-    <circle class="bodhisattva-halo" cx="500" cy="230" r="130" fill="none" stroke="url(#haloGlow)" stroke-width="2" mask="url(#halo-mask)" />
-      <!-- 注入大勢至專屬白毫 -->
-    <circle cx="500" cy="200" r="4.5" fill="url(#shizhi-urna-glow)" style="filter: drop-shadow(0 0 4px rgba(100, 149, 237, 0.8));" />
-    <!-- 蓮花座 -->
-    <use href="#shizhi-lotus-bottom" /> 
+     <!-- 圓心與半徑完全獨立，呈現乾淨、不被遮罩扣亮度的聖潔感 -->
+    <circle cx="500" cy="250" r="180" fill="url(#bodhi-aura-pure)" />
+
+    <!-- ================= 2. 獨立中層：極細雙環金絲光圈 ================= -->
+    <!-- 外細圈：調細至 0.8 -->
+    <circle cx="500" cy="250" r="180" fill="none" stroke="url(#bodhi-line-gold)" stroke-width="2" opacity="0.9" />
+    <!-- 內細圈：調細至 0.5，形成精細的層次感 -->
+    <circle cx="500" cy="250" r="130" fill="none" stroke="url(#bodhi-line-gold)" stroke-width="2.5" opacity="1" />
 
     <!-- 1. 最底層實心白色：大身白底、肩披、耳朵 -->
     <use href="#bodhisattva-robe-outline" fill="url(#shizhi-luminous-fill)" stroke="none" /> 
@@ -1149,12 +1163,16 @@ body {
 
     <!-- 4. 寶石與細節框線層：注入大勢至專屬發光藍寶珠，以及頭髮外圈藍線 -->
     <use href="#crown-jewel-fill" fill="url(#shizhiCrownJewel)" stroke="url(#shizhiGoldBrightened)" stroke-width="1.2" />
-    <use href="#hair-bun-solid" fill="none" stroke="url(#shizhiGoldBrightened)" stroke-width="1.5" />
+    <use href="#hair-bun-solid" fill="none" stroke="url(#guanyinGold)" stroke-width="1.5" />
 
     <!-- 5. 最上層主框線：深藍框線，外加淡藍佛光 (fill 設為 none 確保絕不洗掉下層的白底) -->
     <use href="#bodhisattva-entity" stroke="url(#shizhiGoldBrightened)" fill="none" style="filter: drop-shadow(0 0 15px rgba(100, 149, 237, 0.6));" />
     <use href="#garment-ribbon-lines" stroke="#1E3A8A" fill="none" stroke-width="1.5" /> 
     <use href="#shizhi-lotus-top" />
+        mask)" />
+      <!-- 注入大勢至專屬白毫 -->
+    <circle cx="500" cy="200" r="5.5" fill="url(#shizhi-urna-glow)" style="filter: drop-shadow(0 0 4px rgba(100, 149, 237, 0.8));" />
+    
 </g>
 
 
@@ -1164,11 +1182,15 @@ body {
 ======================================================================
 -->
 <g id="bodhisattva-right" class="bodhisattva-group">
-    <!-- 佛光渲染層 (保留您原本的設計) -->
-    <circle class="bodhisattva-halo" cx="500" cy="230" r="175" fill="url(#haloFillDef)" stroke="url(#haloGlow)" stroke-width="2" opacity="0.85" mask="url(#halo-mask)" />
-    <circle class="bodhisattva-halo" cx="500" cy="230" r="130" fill="none" stroke="url(#haloGlow)" stroke-width="2" mask="url(#halo-mask)" />
-        <!-- 注入觀音專屬白毫 -->
-    <circle cx="500" cy="200" r="4.5" fill="url(#guanyin-urna-glow)" style="filter: drop-shadow(0 0 4px rgba(218, 165, 32, 0.8));" />
+ <!-- 圓心與半徑完全獨立，呈現乾淨、不被遮罩扣亮度的聖潔感 -->
+    <circle cx="500" cy="250" r="180" fill="url(#bodhi-aura-pure)" />
+
+    <!-- ================= 2. 獨立中層：極細雙環金絲光圈 ================= -->
+    <!-- 外細圈：調細至 0.8 -->
+    <circle cx="500" cy="250" r="180" fill="none" stroke="url(#bodhi-line-gold)" stroke-width="2" opacity="0.9" />
+    <!-- 內細圈：調細至 0.5，形成精細的層次感 -->
+    <circle cx="500" cy="250" r="130" fill="none" stroke="url(#bodhi-line-gold)" stroke-width="2.5" opacity="1" />
+
 
     <!-- 蓮花座 -->
     <use href="#guanyin-lotus-bottom" />
@@ -1198,6 +1220,8 @@ body {
     <use href="#bodhisattva-entity" stroke="url(#guanyinGold)" fill="none" style="filter: drop-shadow(0 0 15px rgba(218, 165, 32, 0.5));" />
     <use href="#garment-ribbon-lines" stroke="#B78A1B" fill="none" stroke-width="1.5" />
     <use href="#guanyin-lotus-top" />
+           <!-- 注入觀音專屬白毫 -->
+    <circle cx="500" cy="200" r="5.5" fill="url(#guanyin-urna-glow)" style="filter: drop-shadow(0 0 4px rgba(218, 165, 32, 0.8));" />
 </g>
 <!-- 觀音勢至菩薩尾 -->
          <g class="mandala-static-container" mask="url(#mandala-total-mask)" style="mix-blend-mode: screen;">
