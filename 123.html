@@ -734,16 +734,64 @@
 </div>
 
 <div class="bio-wrap">
-    <div class="bio-header">
-        <input type="text" class="bio-name-input" id="ui-name" placeholder="行者">
-        
-        <div class="rank-badge">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <div class="bio-header" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+    <input type="text" class="bio-name-input" id="ui-name" placeholder="行者">
+    
+    <div style="display: flex; align-items: center; gap: 6px;">
+        <div class="rank-badge" style="display: flex; align-items: center; height: 26px; padding: 0 10px;">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 14px; height: 14px; margin-right: 4px;">
                 <path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" fill="var(--gold)" opacity="0.9"/>
             </svg>
             <span id="ui-rank-text" style="color:var(--text-gold); font-size:13px; font-weight:bold; letter-spacing:2px;">初發菩提</span>
         </div>
+
+        <button id="buddhaMusicBtn" onclick="handleMusicBtnClick()" 
+                style="height: 26px; padding: 0 10px; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 4px 0 0 4px; border-right: none; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; outline: none; -webkit-tap-highlight-color: transparent; transition: background 0.2s, transform 0.1s;"
+                onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">
+            <svg id="musicPlaySvg" width="9" height="9" viewBox="0 0 24 24" fill="var(--gold)">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span style="color: var(--gold); font-size: 11px; font-weight: bold; letter-spacing: 1px; font-family: 'PingFang TC', sans-serif;">MUSIC</span>
+        </button>
+
+        <button onclick="openMusicModal()" 
+                style="height: 26px; width: 26px; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 0 4px 4px 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; -webkit-tap-highlight-color: transparent; transition: background 0.2s;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+        </button>
     </div>
+</div>
+
+<div id="musicModal" class="custom-modal" onclick="closeMusicModalByOverlay(event)">
+    <div class="modal-box" style="padding: 24px 20px;">
+        <p class="modal-title" style="margin-bottom: 8px;">安奉佛樂梵音</p>
+        <p style="color: rgba(243,229,171,0.5); font-size: 11px; margin: 0 0 16px 0; letter-spacing: 1px; line-height: 1.5;">
+            您可以直接選取手機本機的音訊檔，或貼上公開的網路 MP3 網址。
+        </p>
+        
+        <input type="file" id="buddhaLocalAudioInput" accept="audio/*" style="display: none;" onchange="handleLocalFileSelect(this)">
+        
+        <button class="gold-btn outline" onclick="document.getElementById('buddhaLocalAudioInput').click()" style="width: 100%; margin-bottom: 14px; height: 36px; font-size: 13px;">
+            ✦ 選擇手機 / 平板本機音檔
+        </button>
+        
+        <div style="text-align: center; color: rgba(243,229,171,0.3); font-size: 11px; margin-bottom: 14px;">─ 或 ─</div>
+
+        <input type="text" id="ytLinkInput" class="modal-input" placeholder="請貼上線上網路 MP3 網址" autocomplete="off" style="margin-bottom: 18px;">
+        
+        <div class="modal-actions" style="gap: 8px;">
+            <button class="gold-btn" onclick="saveAndPlayMusic()">開啟共振</button>
+            <button class="gold-btn outline" onclick="clearMusic()">清空關閉</button>
+            <button class="gold-btn outline" style="flex: 0.6;" onclick="closeMusicModal()">取消</button>
+        </div>
+    </div>
+</div>
+
+<audio id="buddhaAudioPlayer" loop style="display: none;"></audio>
+
+    
 
     <input type="text" class="memo-input" id="ui-memo" placeholder="本地備忘錄：可記下今日法喜...">
 </div>
@@ -886,6 +934,125 @@ function playCrystalChime() {
     gainNode.connect(audioCtx.destination);
     osc1.start(t); osc2.start(t);
     osc1.stop(t + 3.0); osc2.stop(t + 3.0);
+}
+var musicIsPlaying = false;
+var musicHasUrl = false;
+var localAudioUrl = null; // 用於儲存本地檔案的臨時記憶體路徑
+
+// ── 1. 處理本機檔案選取（核心大圓滿） ──
+function handleLocalFileSelect(input) {
+    var file = input.files[0];
+    if (!file) return;
+
+    // 如果之前有舊的本地暫存，先釋放記憶體避免耗電或溢出
+    if (localAudioUrl) {
+        URL.revokeObjectURL(localAudioUrl);
+    }
+
+    // 關鍵技術：將手機本地檔案直接轉化為安全、可被網頁讀取的虛擬網址
+    localAudioUrl = URL.createObjectURL(file);
+    document.getElementById("ytLinkInput").value = "[本地音訊檔案]: " + file.name;
+}
+
+// ── 2. 核心主按鈕單擊：純粹控制播放與暫停 ──
+function handleMusicBtnClick() {
+    if (!musicHasUrl) {
+        alert("請先點擊右側 [⚙] 齒輪按鈕安奉佛樂音訊。");
+        return;
+    }
+    
+    var audio = document.getElementById("buddhaAudioPlayer");
+    var playIcon = document.getElementById("musicPlaySvg");
+    
+    if (audio) {
+        if (musicIsPlaying) {
+            audio.pause();
+            musicIsPlaying = false; 
+            
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            playIcon.innerHTML = `<polygon points="5 3 19 12 5 21 5 3"></polygon>`;
+        } else {
+            audio.play().catch(e => console.log("音訊播放受阻:", e));
+            musicIsPlaying = true; 
+            playIcon.innerHTML = `<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>`;
+        }
+    }
+}
+
+function openMusicModal() {
+    var modal = document.getElementById("musicModal");
+    modal.style.display = "flex";
+    setTimeout(function() { modal.classList.add("show"); }, 10);
+}
+
+function closeMusicModal() {
+    var modal = document.getElementById("musicModal");
+    modal.classList.remove("show");
+    setTimeout(function() { modal.style.display = "none"; }, 350);
+}
+
+function closeMusicModalByOverlay(event) {
+    if (event.target.id === "musicModal") closeMusicModal();
+}
+
+// ── 3. 點擊開啟共振（實體點擊當下，立刻激活解鎖） ──
+function saveAndPlayMusic() {
+    var textVal = document.getElementById("ytLinkInput").value.trim();
+    var playIcon = document.getElementById("musicPlaySvg");
+    var audio = document.getElementById("buddhaAudioPlayer");
+    
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+
+    if (textVal !== "") {
+        musicHasUrl = true;
+        musicIsPlaying = true; 
+        
+        // 判斷是使用選取的手機本機檔案，還是輸入的網路網址
+        if (localAudioUrl && textVal.indexOf("[本地音訊檔案]") === 0) {
+            audio.src = localAudioUrl;
+        } else {
+            audio.src = textVal;
+        }
+        
+        audio.load();
+        audio.play().catch(e => console.log("音訊激活受阻:", e));
+        
+        playIcon.innerHTML = `<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>`;
+        closeMusicModal();
+    } else {
+        alert("請選擇本機檔案或輸入有效的音訊網址。");
+    }
+}
+
+// ── 4. 清空還原 ──
+function clearMusic() {
+    var audio = document.getElementById("buddhaAudioPlayer");
+    if (audio) {
+        audio.pause();
+        audio.src = "";
+    }
+    if (localAudioUrl) {
+        URL.revokeObjectURL(localAudioUrl);
+        localAudioUrl = null;
+    }
+    document.getElementById("ytLinkInput").value = "";
+    document.getElementById("buddhaLocalAudioInput").value = "";
+    var playIcon = document.getElementById("musicPlaySvg");
+    playIcon.innerHTML = `<polygon points="5 3 19 12 5 21 5 3"></polygon>`;
+    musicHasUrl = false;
+    musicIsPlaying = false; 
+    
+    if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    closeMusicModal();
 }
 
 
