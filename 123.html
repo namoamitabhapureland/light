@@ -593,11 +593,12 @@
         <div style="color:var(--solid); text-align:center; font-size:16px; letter-spacing:4px; margin-bottom:20px;">觀照說明</div>
         
         <div style="line-height:2.2; font-size:14px; color:var(--text-gold); letter-spacing:1px; text-align:justify;">
-            一、念念彌陀，皆化菩提資糧；日發勝心神遊華藏，亦增道業。若能淨念相繼、十日不輟，法界自當傾注殊勝資糧。<br><br>
+            一、念念彌陀，皆化菩提資糧。若能淨念相繼、十日不輟，法界自當傾注殊勝資糧。<br><br>
             二、自性金蓮，依資糧而生。自初發菩提心起，七寶疊加蛻變，直至大圓滿耀金。<br><br>
             三、九曜連珠，隨行者累積念誦聖號與經文之總數而漸次化生，星軌交織，圓滿俱足。<br><br>
-            四、行者若能每日安住靜室，迴光返照，法界自當隨順因緣，賜予無相法寶。<br><br>
-            五、此淨室乃專屬之芥子道場，法相（頭像）可隨心更易。一切境相唯存於行者自身寶具（手機）之內，不染外網。然世法無常，還望時常移步主道場妥善「封存備份」，護持修行軌跡不失。
+            四、百八念珠，隨行者指尖撥動清淨共振。每圓滿一輪百八聖號，念珠便會隨因緣蛻變色彩，洗滌塵勞。<br><br>
+            五、安奉佛樂，點擊勳章右側 [＋] 鈕，可自由選取本機音檔或安奉網路網址。點擊播放鈕即可單機隱形共振，不染畫面。<br><br>
+            六、此淨室乃專屬之芥子道場，法相可隨心更易。一切境相唯存於行者自身寶具（手機）之內，不染外網。然世法無常，還望時常移步主道場妥善「封存備份」，護持修行軌跡不失。
         </div>
         
         <div style="text-align:center; margin-top:25px; font-size:13px; color:var(--gold); letter-spacing:2px; cursor:pointer; font-weight:bold;" onclick="closeM('infoModal')">合十收攝</div>
@@ -734,10 +735,10 @@
 </div>
 
 <div class="bio-wrap">
-    <div class="bio-header" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+  <div class="bio-header" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
     <input type="text" class="bio-name-input" id="ui-name" placeholder="行者">
     
-    <div style="display: flex; align-items: center; gap: 6px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
         <div class="rank-badge" style="display: flex; align-items: center; height: 26px; padding: 0 10px;">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 14px; height: 14px; margin-right: 4px;">
                 <path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" fill="var(--gold)" opacity="0.9"/>
@@ -746,19 +747,19 @@
         </div>
 
         <button id="buddhaMusicBtn" onclick="handleMusicBtnClick()" 
-                style="height: 26px; padding: 0 10px; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 4px 0 0 4px; border-right: none; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; outline: none; -webkit-tap-highlight-color: transparent; transition: background 0.2s, transform 0.1s;"
-                onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">
-            <svg id="musicPlaySvg" width="9" height="9" viewBox="0 0 24 24" fill="var(--gold)">
-                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                style="height: 26px; width: 26px; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 50%; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; -webkit-tap-highlight-color: transparent; transition: background 0.2s, transform 0.1s;"
+                onmousedown="this.style.transform='scale(0.9)'" onmouseup="this.style.transform='scale(1)'" title="播放/暫停佛樂">
+            <svg id="musicPlaySvg" width="10" height="10" viewBox="0 0 24 24" fill="var(--gold)" style="margin-left: 1px;">
+                <polygon points="6 4 20 12 6 20 6 4"></polygon>
             </svg>
-            <span style="color: var(--gold); font-size: 11px; font-weight: bold; letter-spacing: 1px; font-family: 'PingFang TC', sans-serif;">MUSIC</span>
         </button>
 
         <button onclick="openMusicModal()" 
-                style="height: 26px; width: 26px; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 0 4px 4px 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; -webkit-tap-highlight-color: transparent; transition: background 0.2s;">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                style="height: 26px; width: 26px; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 50%; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; -webkit-tap-highlight-color: transparent; transition: background 0.2s, transform 0.1s;"
+                onmousedown="this.style.transform='scale(0.9)'" onmouseup="this.style.transform='scale(1)'" title="安奉佛樂">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
         </button>
     </div>
@@ -766,20 +767,33 @@
 
 <div id="musicModal" class="custom-modal" onclick="closeMusicModalByOverlay(event)">
     <div class="modal-box" style="padding: 24px 20px;">
-        <p class="modal-title" style="margin-bottom: 8px;">安奉佛樂梵音</p>
-        <p style="color: rgba(243,229,171,0.5); font-size: 11px; margin: 0 0 16px 0; letter-spacing: 1px; line-height: 1.5;">
-            您可以直接選取手機本機的音訊檔，或貼上公開的網路 MP3 網址。
+        <p class="modal-title" style="margin-bottom: 8px; color: var(--gold);">安奉佛樂梵音</p>
+        <p style="color: #ffffff; font-size: 12px; margin: 0 0 20px 0; letter-spacing: 1px; line-height: 1.5; opacity: 0.9;">
+            請選取本機音訊檔案，或安奉線上網路音訊網址。
         </p>
         
-        <input type="file" id="buddhaLocalAudioInput" accept="audio/*" style="display: none;" onchange="handleLocalFileSelect(this)">
+        <input type="file" id="buddhaLocalAudioInput" accept=".mp3,.m4a,.wav,.aac,audio/*" style="display: none;" onchange="handleLocalFileSelect(this)">
         
-        <button class="gold-btn outline" onclick="document.getElementById('buddhaLocalAudioInput').click()" style="width: 100%; margin-bottom: 14px; height: 36px; font-size: 13px;">
-            ✦ 選擇手機 / 平板本機音檔
+        <button class="gold-btn outline" onclick="document.getElementById('buddhaLocalAudioInput').click()" style="width: 100%; margin-bottom: 14px; height: 38px; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="12" y1="18" x2="12" y2="12"></line>
+                <line x1="9" y1="15" x2="15" y2="15"></line>
+            </svg>
+            選擇本機檔案
         </button>
         
-        <div style="text-align: center; color: rgba(243,229,171,0.3); font-size: 11px; margin-bottom: 14px;">─ 或 ─</div>
+        <div style="text-align: center; color: rgba(255,255,255,0.4); font-size: 11px; margin-bottom: 14px;">─ 或 ─</div>
 
-        <input type="text" id="ytLinkInput" class="modal-input" placeholder="請貼上線上網路 MP3 網址" autocomplete="off" style="margin-bottom: 18px;">
+        <div style="position: relative; width: 100%; margin-bottom: 18px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); pointer-events: none;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <input type="text" id="ytLinkInput" class="modal-input" placeholder="請輸入或貼上網路音訊網址" autocomplete="off" style="width: 100%; padding-left: 32px; box-sizing: border-box; margin-bottom: 0;">
+        </div>
         
         <div class="modal-actions" style="gap: 8px;">
             <button class="gold-btn" onclick="saveAndPlayMusic()">開啟共振</button>
@@ -790,8 +804,6 @@
 </div>
 
 <audio id="buddhaAudioPlayer" loop style="display: none;"></audio>
-
-    
 
     <input type="text" class="memo-input" id="ui-memo" placeholder="本地備忘錄：可記下今日法喜...">
 </div>
@@ -886,17 +898,21 @@
 </div><canvas id="starCanvas"></canvas>
 
 <script>
-// ══════════════════════════════════════════
+// ==========================================
 //  音效 
-// ══════════════════════════════════════════
+// ==========================================
 let audioCtx = null;
 function playTap() {
+    // ✦ 修正核心：必須先初始化與激活音訊環境，否則整個系統的音訊通道會鎖死
     if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
     if (audioCtx.state === 'suspended') {
         audioCtx.resume();
     }
+    
+    // ✦ 基礎環境激活後，此時再判斷：如果背景佛樂正在播放，則靜音返回
+    if (musicIsPlaying) return;
     
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
@@ -935,31 +951,49 @@ function playCrystalChime() {
     osc1.start(t); osc2.start(t);
     osc1.stop(t + 3.0); osc2.stop(t + 3.0);
 }
+
 var musicIsPlaying = false;
 var musicHasUrl = false;
-var localAudioUrl = null; // 用於儲存本地檔案的臨時記憶體路徑
+var localAudioUrl = null; 
 
-// ── 1. 處理本機檔案選取（核心大圓滿） ──
+// ── 核心 1：處理本機檔案選取 ──
 function handleLocalFileSelect(input) {
     var file = input.files[0];
     if (!file) return;
 
-    // 如果之前有舊的本地暫存，先釋放記憶體避免耗電或溢出
     if (localAudioUrl) {
         URL.revokeObjectURL(localAudioUrl);
     }
 
-    // 關鍵技術：將手機本地檔案直接轉化為安全、可被網頁讀取的虛擬網址
     localAudioUrl = URL.createObjectURL(file);
+    // 中文版使用 [本地音訊檔案]、英文版請自行對齊為 [Local Audio File]、日文版為 [ローカル音声ファイル]
     document.getElementById("ytLinkInput").value = "[本地音訊檔案]: " + file.name;
 }
 
-// ── 2. 核心主按鈕單擊：純粹控制播放與暫停 ──
-function handleMusicBtnClick() {
-    if (!musicHasUrl) {
-        alert("請先點擊右側 [⚙] 齒輪按鈕安奉佛樂音訊。");
-        return;
+// ── 核心 2：點擊 ＋ 號的彈窗控制函數 ──
+function openMusicModal() {
+    var modal = document.getElementById("musicModal");
+    if (modal) {
+        modal.style.display = "flex";
+        setTimeout(function() { modal.classList.add("show"); }, 10);
     }
+}
+
+function closeMusicModal() {
+    var modal = document.getElementById("musicModal");
+    if (modal) {
+        modal.classList.remove("show");
+        setTimeout(function() { modal.style.display = "none"; }, 350);
+    }
+}
+
+function closeMusicModalByOverlay(event) {
+    if (event.target.id === "musicModal") closeMusicModal();
+}
+
+// ── 核心 3：單擊 Play 按鈕 ──
+function handleMusicBtnClick() {
+    if (!musicHasUrl) return;
     
     var audio = document.getElementById("buddhaAudioPlayer");
     var playIcon = document.getElementById("musicPlaySvg");
@@ -972,32 +1006,16 @@ function handleMusicBtnClick() {
             if (audioCtx && audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
-            playIcon.innerHTML = `<polygon points="5 3 19 12 5 21 5 3"></polygon>`;
+            playIcon.innerHTML = `<polygon points="6 4 20 12 6 20 6 4"></polygon>`;
         } else {
             audio.play().catch(e => console.log("音訊播放受阻:", e));
             musicIsPlaying = true; 
-            playIcon.innerHTML = `<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>`;
+            playIcon.innerHTML = `<rect x="6" y="5" width="3" height="14" rx="1"></rect><rect x="15" y="5" width="3" height="14" rx="1"></rect>`;
         }
     }
 }
 
-function openMusicModal() {
-    var modal = document.getElementById("musicModal");
-    modal.style.display = "flex";
-    setTimeout(function() { modal.classList.add("show"); }, 10);
-}
-
-function closeMusicModal() {
-    var modal = document.getElementById("musicModal");
-    modal.classList.remove("show");
-    setTimeout(function() { modal.style.display = "none"; }, 350);
-}
-
-function closeMusicModalByOverlay(event) {
-    if (event.target.id === "musicModal") closeMusicModal();
-}
-
-// ── 3. 點擊開啟共振（實體點擊當下，立刻激活解鎖） ──
+// ── 核心 4：點擊開啟共振時的圖標同步 ──
 function saveAndPlayMusic() {
     var textVal = document.getElementById("ytLinkInput").value.trim();
     var playIcon = document.getElementById("musicPlaySvg");
@@ -1014,8 +1032,8 @@ function saveAndPlayMusic() {
         musicHasUrl = true;
         musicIsPlaying = true; 
         
-        // 判斷是使用選取的手機本機檔案，還是輸入的網路網址
-        if (localAudioUrl && textVal.indexOf("[本地音訊檔案]") === 0) {
+        // 此處判斷字串會隨語言版本更換（如 [本地音訊檔案]、[Local Audio File]、[ローカル音声ファイル]）
+        if (localAudioUrl && (textVal.indexOf("[本地音訊檔案]") === 0 || textVal.indexOf("[Local Audio File]") === 0 || textVal.indexOf("[ローカル音声ファイル]") === 0)) {
             audio.src = localAudioUrl;
         } else {
             audio.src = textVal;
@@ -1024,14 +1042,14 @@ function saveAndPlayMusic() {
         audio.load();
         audio.play().catch(e => console.log("音訊激活受阻:", e));
         
-        playIcon.innerHTML = `<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>`;
+        playIcon.innerHTML = `<rect x="6" y="5" width="3" height="14" rx="1"></rect><rect x="15" y="5" width="3" height="14" rx="1"></rect>`;
         closeMusicModal();
     } else {
-        alert("請選擇本機檔案或輸入有效的音訊網址。");
+        closeMusicModal();
     }
 }
 
-// ── 4. 清空還原 ──
+// ── 核心 5：清空還原時的圖標同步 ──
 function clearMusic() {
     var audio = document.getElementById("buddhaAudioPlayer");
     if (audio) {
@@ -1045,7 +1063,7 @@ function clearMusic() {
     document.getElementById("ytLinkInput").value = "";
     document.getElementById("buddhaLocalAudioInput").value = "";
     var playIcon = document.getElementById("musicPlaySvg");
-    playIcon.innerHTML = `<polygon points="5 3 19 12 5 21 5 3"></polygon>`;
+    playIcon.innerHTML = `<polygon points="6 4 20 12 6 20 6 4"></polygon>`;
     musicHasUrl = false;
     musicIsPlaying = false; 
     
@@ -1146,7 +1164,7 @@ memo.oninput=e => { db.personalRoom.memo=e.target.value; saveDB(); };
 const MALA_N   = 36;       
 const MALA_CX  = 190;      
 const MALA_CY  = 346;      
-const MALA_R   = 264;      
+const MALA_R   = 235;      // ✦ 保持縮小半徑，讓念珠不貼邊、不靠螢幕中心
 const MALA_STEP = 360/MALA_N; 
 
 let malaAngle     = 0;     
@@ -1163,9 +1181,8 @@ function initMala() {
     let currentBeadMainGradient = '';
     let beadStroke = 'rgba(155,78,22,0.52)';
 
-    // ── ✦ 1080下次第變色：每 108 下進階一色，破 1080 永久固定法界金 ──
+    // ── ✦ 1080下次第變色 ──
     if (count > 1080) {
-        // 11. ✦ 【極致法界金】1081 下以上，十乘圓滿如如不動
         currentBeadMainGradient = `
             <stop offset="0%" stop-color="#fffbee" stop-opacity="1"/>
             <stop offset="25%" stop-color="#fce57a" stop-opacity="0.95"/>
@@ -1174,7 +1191,6 @@ function initMala() {
         beadStroke = 'rgba(155,78,22,0.52)';
     } else {
         if (count === 0) {
-            // ✦ 完美保留：當計數為 0 歸零時，直接還原您在 HTML 原始寫好的那套法界金設定
             currentBeadMainGradient = `
                 <stop offset="0%" stop-color="#fffbee" stop-opacity="1"/>
                 <stop offset="25%" stop-color="#fce57a" stop-opacity="0.95"/>
@@ -1182,7 +1198,6 @@ function initMala() {
                 <stop offset="100%" stop-color="#2a1001" stop-opacity="1"/>`;
             beadStroke = 'rgba(155,78,22,0.52)';
         } else if (count > 0 && count <= 108) {
-            // 1. ✦ 【琉璃白】0 ~ 108 下
             currentBeadMainGradient = `
                 <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
                 <stop offset="30%" stop-color="#f8f9fa" stop-opacity="0.95"/>
@@ -1190,7 +1205,6 @@ function initMala() {
                 <stop offset="100%" stop-color="#455a64" stop-opacity="1"/>`;
             beadStroke = 'rgba(207,216,220,0.6)';
         } else if (count > 108 && count <= 216) {
-            // 2. ✦ 【翡翠綠】109 ~ 216 下
             currentBeadMainGradient = `
                 <stop offset="0%" stop-color="#e8f5e9" stop-opacity="1"/>
                 <stop offset="25%" stop-color="#81c784" stop-opacity="0.95"/>
@@ -1198,7 +1212,6 @@ function initMala() {
                 <stop offset="100%" stop-color="#0d5313" stop-opacity="1"/>`;
             beadStroke = 'rgba(46,125,50,0.5)';
         } else if (count > 216 && count <= 324) {
-            // 3. ✦ 【硃砂紅】217 ~ 324 下
             currentBeadMainGradient = `
                 <stop offset="0%" stop-color="#ffebee" stop-opacity="1"/>
                 <stop offset="25%" stop-color="#e57373" stop-opacity="0.95"/>
@@ -1206,7 +1219,6 @@ function initMala() {
                 <stop offset="100%" stop-color="#3e0000" stop-opacity="1"/>`;
             beadStroke = 'rgba(198,40,40,0.5)';
         } else if (count > 324 && count <= 432) {
-            // 4. ✦ 【沉香褐】325 ~ 432 下
             currentBeadMainGradient = `
                 <stop offset="0%" stop-color="#f5f5dc" stop-opacity="1"/>
                 <stop offset="30%" stop-color="#a67c52" stop-opacity="0.95"/>
@@ -1214,7 +1226,6 @@ function initMala() {
                 <stop offset="100%" stop-color="#1f1005" stop-opacity="1"/>`;
             beadStroke = 'rgba(92,58,33,0.5)';
         } else if (count > 432 && count <= 540) {
-            // 5. ✦ 【星空深藍】433 ~ 540 下
             currentBeadMainGradient = `
                 <stop offset="0%" stop-color="#e1f5fe" stop-opacity="1"/>
                 <stop offset="25%" stop-color="#0288d1" stop-opacity="0.95"/>
@@ -1222,7 +1233,6 @@ function initMala() {
                 <stop offset="100%" stop-color="#00103a" stop-opacity="1"/>`;
             beadStroke = 'rgba(13,71,161,0.55)';
         } else if (count > 540 && count <= 648) {
-            // 6. ✦ 【蓮花粉紅】541 ~ 648 下
             currentBeadMainGradient = `
                 <stop offset="0%" stop-color="#fff0f5" stop-opacity="0.7"/>
                 <stop offset="25%" stop-color="#f48fb1" stop-opacity="0.9"/>
@@ -1230,7 +1240,6 @@ function initMala() {
                 <stop offset="100%" stop-color="#4a001f" stop-opacity="0.8"/>`;
             beadStroke = 'rgba(173,20,87,0.5)';
         } else if (count > 648 && count <= 756) {
-            // 7. ✦ 【典雅紫】649 ~ 756 下
             currentBeadMainGradient = `
                 <stop offset="0%" stop-color="#f3e5f5" stop-opacity="1"/>
                 <stop offset="25%" stop-color="#ba68c8" stop-opacity="0.95"/>
@@ -1238,7 +1247,6 @@ function initMala() {
                 <stop offset="100%" stop-color="#2a004a" stop-opacity="1"/>`;
             beadStroke = 'rgba(106,27,154,0.5)';
         } else if (count > 756 && count <= 864) {
-            // 8. ✦ 【新色：澄澈蜜橘】757 ~ 864 下
             currentBeadMainGradient = `
                 <stop offset="0%" stop-color="#fff3e0" stop-opacity="1"/>
                 <stop offset="30%" stop-color="#ffb74d" stop-opacity="0.95"/>
@@ -1246,7 +1254,6 @@ function initMala() {
                 <stop offset="100%" stop-color="#3e1000" stop-opacity="0.5"/>`;
             beadStroke = 'rgba(230,81,0,0.5)';
         } else if (count > 864 && count <= 972) {
-            // 9. ✦ 【新色：朝陽黃】865 ~ 972 下
             currentBeadMainGradient = `
                 <stop offset="0%" stop-color="#fffde7" stop-opacity="0.9"/>
                 <stop offset="25%" stop-color="#fff176" stop-opacity="0.95"/>
@@ -1254,7 +1261,6 @@ function initMala() {
                 <stop offset="100%" stop-color="#ffffff" stop-opacity="0.9"/>`;
             beadStroke = 'rgba(245,127,23,0.5)';
         } else if (count > 972 && count <= 1080) {
-            // 10. ✦ 【新色：通透空心玻璃】973 ~ 1080 下
             currentBeadMainGradient = `
                 <stop offset="0%" stop-color="#fffde7" stop-opacity="0.8"/>
                 <stop offset="25%" stop-color="#fff176" stop-opacity="0.95"/>
@@ -1264,14 +1270,13 @@ function initMala() {
         }
     }
 
-    // ── ✦ 借殼灌色 ──
     if (mainGrad) {
         mainGrad.innerHTML = currentBeadMainGradient;
     }
 
     let html = '';
 
-    // ── 繩線三層 ──
+    // ── 繩線三層（依據 MALA_R 完美貼合） ──
     html += `<circle cx="${MALA_CX}" cy="${MALA_CY}" r="${MALA_R+2}" fill="none" stroke="rgba(0,0,0,0.45)" stroke-width="7" opacity="0.55"/>`;
     html += `<circle cx="${MALA_CX}" cy="${MALA_CY}" r="${MALA_R}" fill="none" stroke="url(#cord-grad)" stroke-width="4" opacity="0.82"/>`;
     html += `<circle cx="${MALA_CX}" cy="${MALA_CY}" r="${MALA_R-1.5}" fill="none" stroke="rgba(255,230,160,0.16)" stroke-width="1.2"/>`;
@@ -1283,59 +1288,60 @@ function initMala() {
         const y   = MALA_CY + MALA_R * Math.sin(rad);
 
         const isGuru   = (i === 0);
-        const isMarker = !isGuru && (i % 9 === 0); // ✦ 9, 18, 27 顆
-        const r        = isGuru ? 23.5 : isMarker ? 20 : 18;
+        const isMarker = !isGuru && (i % 9 === 0); 
+        
+        // ✦ 幾何優化尺寸：既大顆、又保證間隔，露出繩線
+        const r        = isGuru ? 22 : isMarker ? 18.5 : 16.5;
 
         const fill   = isGuru ? 'url(#bead-guru)' : 'url(#bead-main)';
         const stroke = isGuru ? 'rgba(255,215,60,0.88)' : beadStroke;
-        const sw     = isGuru ? 1.6 : isMarker ? 1.1 : 0.75;
+        const sw     = isGuru ? 1.6 : isMarker ? 1.1 : 0.85;
 
-           // ✦ ── 黃金比例·精緻版大葫蘆佛塔 ── ✦
+       // ✦ ── 黃金比例·精緻版大葫蘆佛塔 ── ✦
         if (isGuru) {
-            html += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${r * 2.5}" fill="url(#guru-halo)" pointer-events="none"/>`;
+            html += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${r * 2.3}" fill="url(#guru-halo)" pointer-events="none"/>`;
             
             const pStroke = 'rgba(255,215,60,0.65)';
             
-            // 1. 葫蘆下層 (此處已微調縮小係數，如需更小可再微調 0.45)
+            // 1. 葫蘆下層
             const h1_r = r * 0.40;             
             const h1_y = y - r - h1_r + 4;     
             html += `<circle cx="${x.toFixed(2)}" cy="${h1_y.toFixed(2)}" r="${h1_r.toFixed(2)}" fill="url(#bead-guru)" stroke="${pStroke}" stroke-width="0.85" filter="url(#guru-glow)"/>`;
             html += `<circle cx="${(x - h1_r*0.25).toFixed(2)}" cy="${(h1_y - h1_r*0.25).toFixed(2)}" r="${(h1_r*0.18).toFixed(2)}" fill="#fff" opacity="0.75"/>`;
 
-            // 2. 葫蘆上層 (此處已微調縮小係數，如需更小可再微調 0.28)
+            // 2. 葫蘆上層
             const h2_r = r * 0.25;             
             const h2_y = h1_y - h1_r - h2_r + 2; 
             html += `<circle cx="${x.toFixed(2)}" cy="${h2_y.toFixed(2)}" r="${h2_r.toFixed(2)}" fill="url(#bead-guru)" stroke="${pStroke}" stroke-width="0.65" filter="url(#guru-glow)"/>`;
             html += `<circle cx="${(x - h2_r*0.25).toFixed(2)}" cy="${(h2_y - h2_r*0.25).toFixed(2)}" r="${(h2_r*0.18).toFixed(2)}" fill="#fff" opacity="0.75"/>`;
 
-            // 3. 佛塔頂尖 (此處已微調縮小係數，如需更小可再微調 0.35)
+            // 3. 佛塔頂尖
             const top_h = r * 0.20;            
             const top_y = h2_y - h2_r - top_h;
             html += `<polygon points="${x.toFixed(2)},${top_y.toFixed(2)} ${(x - r*0.11).toFixed(2)},${(h2_y - h2_r + 0.8).toFixed(2)} ${(x + r*0.11).toFixed(2)},${(h2_y - h2_r + 0.8).toFixed(2)}" fill="url(#bead-guru)" stroke="${pStroke}" stroke-width="0.5"/>`;
 
-                   // 4. ✦ 增補：大葫蘆下層裙擺左右斜下方的小珠子（記子）
-            const side_r = 3.5// ✦ 直接指定固定大小為 15
+            // 4. ✦ 大葫蘆下層左右記子
+            const side_r = 3.5;
             
-            // 【右斜下方小珠】利用三角函數，從大葫蘆中心往右下角(35度角)延伸出去
+            // 【右斜下方小珠】
             const rx = x + (h1_r + side_r - 1) * Math.cos(35 * Math.PI / 180);
             const ry = h1_y + (h1_r + side_r - 1) * Math.sin(35 * Math.PI / 180);
             html += `<circle cx="${rx.toFixed(2)}" cy="${ry.toFixed(2)}" r="${side_r}" fill="url(#bead-guru)" stroke="${pStroke}" stroke-width="0.65" filter="url(#guru-glow)"/>`;
             html += `<circle cx="${(rx - side_r*0.25).toFixed(2)}" cy="${(ry - side_r*0.25).toFixed(2)}" r="${(side_r*0.18).toFixed(2)}" fill="#fff" opacity="0.75"/>`;
 
-            // 【左斜下方小珠】從大葫蘆中心往左下角(145度角)延伸出去
+            // 【左斜下方小珠】
             const lx = x + (h1_r + side_r - 1) * Math.cos(145 * Math.PI / 180);
             const ly = h1_y + (h1_r + side_r - 1) * Math.sin(145 * Math.PI / 180);
             html += `<circle cx="${lx.toFixed(2)}" cy="${ly.toFixed(2)}" r="${side_r}" fill="url(#bead-guru)" stroke="${pStroke}" stroke-width="0.65" filter="url(#guru-glow)"/>`;
             html += `<circle cx="${(lx - side_r*0.25).toFixed(2)}" cy="${(ly - side_r*0.25).toFixed(2)}" r="${(side_r*0.18).toFixed(2)}" fill="#fff" opacity="0.75"/>`;
+        }
 
-}
-        // ── ✦ 珠體繪製邏輯（普通圓珠 vs 酒桶形隔珠） ──
+        // ── ✦ 珠體繪製（普通圓珠 vs 酒桶形隔珠） ──
         if (isMarker) {
-            // ✦ 打造橫向圓角矩形酒桶形隔珠（寬度 26px，高度 20px）
-            const bW = 40; 
-            const bH = 24;
-            // 使用 transform 配合 (deg + 90) 讓酒桶順著圓周曲線維持正確橫向切角
-            html += `<rect x="${(x - bW/2).toFixed(2)}" y="${(y - bH/2).toFixed(2)}" width="${bW}" height="${bH}" rx="6" ry="6" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" transform="rotate(${(deg + 90).toFixed(2)}, ${x.toFixed(2)}, ${y.toFixed(2)})" filter="url(#bead-glow)"/>`;
+            // ✦ 縮小酒桶形隔珠至（寬度 34px，高度 21px）以契合間距
+            const bW = 34; 
+            const bH = 21;
+            html += `<rect x="${(x - bW/2).toFixed(2)}" y="${(y - bH/2).toFixed(2)}" width="${bW}" height="${bH}" rx="5" ry="5" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" transform="rotate(${(deg + 90).toFixed(2)}, ${x.toFixed(2)}, ${y.toFixed(2)})" filter="url(#bead-glow)"/>`;
             
             // 酒桶形專屬橫向弧線光斑
             html += `<ellipse cx="${(x - bW*0.12).toFixed(2)}" cy="${(y - bH*0.15).toFixed(2)}" rx="${(bW*0.25).toFixed(2)}" ry="${(bH*0.15).toFixed(2)}" fill="rgba(255,255,255,0.55)" transform="rotate(${(deg + 90).toFixed(2)}, ${x.toFixed(2)}, ${y.toFixed(2)})"/>`;
@@ -1358,15 +1364,17 @@ function initMala() {
         if (isGuru) {
             html += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${(r*0.52).toFixed(1)}" fill="none" stroke="rgba(255,220,80,0.35)" stroke-width="1.2"/>`;
         }
-        // 如果是酒桶型隔珠，幫它在外圍套上一層淡淡的裝飾性高亮金圈
+        
+        // 裝飾性外圍淡淡高亮金圈
         if (isMarker && count <= 1080) {
-            html += `<rect x="${(x - 29/2).toFixed(2)}" y="${(y - 23/2).toFixed(2)}" width="29" height="23" rx="7" ry="7" fill="none" stroke="rgba(212,175,55,0.25)" stroke-width="0.8" transform="rotate(${(deg + 90).toFixed(2)}, ${x.toFixed(2)}, ${y.toFixed(2)})"/>`;
+            html += `<rect x="${(x - 25/2).toFixed(2)}" y="${(y - 21/2).toFixed(2)}" width="25" height="21" rx="6" ry="6" fill="none" stroke="rgba(212,175,55,0.25)" stroke-width="0.8" transform="rotate(${(deg + 90).toFixed(2)}, ${x.toFixed(2)}, ${y.toFixed(2)})"/>`;
         }
     }
 
     g.innerHTML = html;
     g.setAttribute('transform', `rotate(${malaAngle}, ${MALA_CX}, ${MALA_CY})`);
 }
+
 
 
 
