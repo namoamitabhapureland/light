@@ -316,10 +316,10 @@
 <!-- 地藏王菩薩錫杖 (方案A：背靠背張開 - 全體向右平移20單位) -->
 <g id="khakkhara-staff" style="opacity: 0; transition: opacity 1.5s ease-in-out;">
     <!-- 杖身 (X軸由280平移至300) -->
-    <line x1="300" y1="230" x2="300" y2="1150" stroke="#d4af37" stroke-width="4" stroke-linecap="round" />
+    <line x1="300" y1="230" x2="300" y2="1150" stroke="#d4af37" stroke-width="8" stroke-linecap="round" />
     
     <!-- 錫杖頭部 -->
-    <g fill="none" stroke="#d4af37" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <g fill="none" stroke="#d4af37" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
         <!-- 頂端尖菱形 (X軸整體+20) -->
         <path d="M 300 190 L 308 205 L 300 220 L 292 205 Z" fill="#d4af37" stroke="none" />
         
@@ -349,13 +349,14 @@
 
 
 
-            <!-- 神聖背光圈 (縮小半徑範圍，凝聚光芒) -->
+       <!-- 神聖背光圈 (範圍縮小且向下平移 30 單位) -->
 <g class="halo-pulse" mask="url(#halo-cutout)">
-    <!-- 內光圈 (半徑由 200 縮小至 140) -->
-    <circle cx="500" cy="245" r="140" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="2.5" />
-    <!-- 外光圈 (半徑由 235 縮小至 175) -->
-    <circle cx="500" cy="245" r="175" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="1" />
+    <!-- 內光圈 (cy 由 245 移至 275) -->
+    <circle cx="500" cy="300" r="140" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="4.5" />
+    <!-- 外光圈 (cy 由 245 移至 275) -->
+    <circle cx="500" cy="300" r="175" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="2" />
 </g>
+
 
             <!-- 全域母群組：基準等比例縮小至 80%，留出和諧邊界 -->
             <g id="kshitigarbha-with-lotus" transform="translate(500, 675) scale(0.8) translate(-500, -675)">
@@ -817,3 +818,4 @@ function toggleAction(action) {
     </script>
 </body>
 </html>
+
