@@ -59,35 +59,40 @@
         }
         #buddha-scene.bowing { transform: scale(1.28) translateY(2%); }
 
-        /* 萬丈白毫願力金光爆發層 */
-        #burst-container { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 5; pointer-events: none; }
-        .screen-flash {
-            position: absolute; inset: 0; 
-            background: radial-gradient(circle at 50% 45%, #fff 0%, var(--amber) 50%, transparent 85%);
-            opacity: 1; pointer-events: none; z-index: 100; mix-blend-mode: screen;
-            animation: flash-fade 2.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
-        }
-        @keyframes flash-fade { 0% { opacity: 1; transform: scale(0.8); } 100% { opacity: 0; transform: scale(1.5); } }
+        /* 萬丈白毫願力地藏紫光爆發層 */
+    #burst-container { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 5; pointer-events: none; }
+    
+    .screen-flash {
+        position: absolute; inset: 0; 
+        /* 將原琥珀金改為神聖紫光 (#b388ff 聖紫、#7c4dff 梵紫) */
+        background: radial-gradient(circle at 50% 45%, #ffffff 0%, #b388ff 45%, #7c4dff 70%, transparent 90%);
+        opacity: 1; pointer-events: none; z-index: 100; mix-blend-mode: screen;
+        animation: flash-fade 2.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+    }
+    @keyframes flash-fade { 0% { opacity: 1; transform: scale(0.8); } 100% { opacity: 0; transform: scale(1.5); } }
 
-        .gold-ray {
-            position: absolute; width: 3px; height: 150vh;
-            background: linear-gradient(to top, transparent, var(--amber), #FFFFFF, var(--amber), transparent);
-            box-shadow: 0 0 15px var(--amber); opacity: 0; transform-origin: center center; will-change: transform, opacity;
-        }
-        @keyframes ray-burst { 
-            0% { transform: scaleY(0.05) rotate(var(--rot)); opacity: 0; } 
-            15% { opacity: 1; transform: scaleY(0.6) rotate(var(--rot)); } 
-            100% { transform: scaleY(2.5) rotate(var(--rot)); opacity: 0; } 
-        }
+    .gold-ray {
+        position: absolute; width: 3px; height: 150vh;
+        /* 光束核心維持純白，兩側延伸為清淨紫光 */
+        background: linear-gradient(to top, transparent, #7c4dff, #ffffff, #b388ff, transparent);
+        box-shadow: 0 0 15px #b388ff, 0 0 5px #ffffff; opacity: 0; transform-origin: center center; will-change: transform, opacity;
+    }
+    @keyframes ray-burst { 
+        0% { transform: scaleY(0.05) rotate(var(--rot)); opacity: 0; } 
+        15% { opacity: 1; transform: scaleY(0.6) rotate(var(--rot)); } 
+        100% { transform: scaleY(2.5) rotate(var(--rot)); opacity: 0; } 
+    }
 
-        .space-particle {
-            position: absolute; width: 60px; height: 40px; background: #fff; border-radius: 70%;
-            box-shadow: 0 0 12px #fff, 0 0 25px var(--gold-light); opacity: 0; pointer-events: none; will-change: transform, opacity;
-        }
-        @keyframes particle-explode {
-            0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)) scale(2.5); opacity: 0; }
-        }
+    .space-particle {
+        position: absolute; width: 60px; height: 40px; background: #ffffff; border-radius: 70%;
+        /* 粒子邊緣的外發光改為琉璃紫光 */
+        box-shadow: 0 0 12px #ffffff, 0 0 25px #e040fb; opacity: 0; pointer-events: none; will-change: transform, opacity;
+    }
+    @keyframes particle-explode {
+        0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
+        100% { transform: translate(var(--tx), var(--ty)) scale(2.5); opacity: 0; }
+    }
+
         
         /* 菩薩優雅凌空飄浮層 */
         .buddha-breathe { width: 100%; height: auto; animation: floating 7s ease-in-out infinite alternate; position: relative; }
@@ -308,11 +313,49 @@
                 </g>
             </defs>
 
-            <!-- 神聖背光圈 (已改為實線，可自由調整 r 參數與 stroke 顏色) -->
-            <g class="halo-pulse" mask="url(#halo-cutout)">
-                <circle cx="500" cy="245" r="190" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="1.5" />
-                <circle cx="500" cy="245" r="170" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="1" />
-            </g>
+<!-- 地藏王菩薩錫杖 (方案A：背靠背張開 - 全體向右平移20單位) -->
+<g id="khakkhara-staff" style="opacity: 0; transition: opacity 1.5s ease-in-out;">
+    <!-- 杖身 (X軸由280平移至300) -->
+    <line x1="300" y1="230" x2="300" y2="1150" stroke="#d4af37" stroke-width="4" stroke-linecap="round" />
+    
+    <!-- 錫杖頭部 -->
+    <g fill="none" stroke="#d4af37" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+        <!-- 頂端尖菱形 (X軸整體+20) -->
+        <path d="M 300 190 L 308 205 L 300 220 L 292 205 Z" fill="#d4af37" stroke="none" />
+        
+        <!-- 左邊開口向左的 3 (所有X座標精確+20，其餘波形完全不變) -->
+        <path d="M 300 220 
+                 C 320 220, 260 250, 300 270 
+                 C 250 290, 250 330, 300 330" />
+                 
+        <!-- 右邊開口向右的 3 (所有X座標精確+20，其餘波形完全不變) -->
+        <path d="M 300 220 
+                 C 280 220, 340 250, 300 270 
+                 C 350 290, 350 330, 300 330" />
+
+        <!-- 中央中圓 (X軸由280平移至300) -->
+        <circle cx="300" cy="295" r="16" />
+
+        <!-- 6點鐘方向垂掛金珠 (左串X由260平移至280，右串X由300平移至320) -->
+        <circle cx="280" cy="330" r="9" />
+        <circle cx="280" cy="345" r="9" />
+        <circle cx="280" cy="360" r="9" />
+        <circle cx="320" cy="330" r="9" />
+        <circle cx="320" cy="345" r="9" />
+        <circle cx="320" cy="360" r="9" />
+    </g>
+</g>
+
+
+
+
+            <!-- 神聖背光圈 (縮小半徑範圍，凝聚光芒) -->
+<g class="halo-pulse" mask="url(#halo-cutout)">
+    <!-- 內光圈 (半徑由 200 縮小至 140) -->
+    <circle cx="500" cy="245" r="140" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="2.5" />
+    <!-- 外光圈 (半徑由 235 縮小至 175) -->
+    <circle cx="500" cy="245" r="175" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="1" />
+</g>
 
             <!-- 全域母群組：基準等比例縮小至 80%，留出和諧邊界 -->
             <g id="kshitigarbha-with-lotus" transform="translate(500, 675) scale(0.8) translate(-500, -675)">
@@ -350,7 +393,7 @@
                              C 435 160, 455 125, 500 125 Z" 
                           stroke-width="2.1" />
 
-                     <!-- 耳廓 -->
+                    <!-- 耳廓 -->
                     <path d="M 435 220 Q 427 205 426 220 Q 418 270 434 320 Q 428 380 454 330" stroke-width="2" fill="none" />
                     <path d="M 565 220 Q 573 205 574 220 Q 582 270 566 320 Q 572 380 546 330" stroke-width="2" fill="none" />
                     <path d="M 435 240 Q 425 275 437 305" stroke-width="2" fill="none" />
@@ -479,7 +522,7 @@
                 </g>
 CEFFC
                 <!-- 蓮花座底座：完美承托 (已完整補回) -->
-                <g id="lotus-base" transform="translate(500, 1160) scale(0.9) translate(-500, -780)">
+                <g id="lotus-base" transform="translate(500, 1180) scale(0.9) translate(-500, -780)">
                     <ellipse cx="500" cy="780" rx="140" ry="35" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
                     <g transform="translate(0, 15)" stroke="url(#kshitigarbhaGold)" stroke-width="1.8" stroke-linejoin="round" fill="url(#lotusFill)">
                         <use href="#pure-petal" transform="translate(-135, -20) rotate(-16, 500, 840)" />
@@ -574,24 +617,35 @@ CEFFC
         }
 
         // 頂禮核心邏輯
-        function toggleAction(action) {
-            const btn = document.getElementById(`btn-${action}`);
-            if(!btn || btn.classList.contains('active')) return;
+        // 頂禮核心邏輯
+function toggleAction(action) {
+    const btn = document.getElementById(`btn-${action}`);
+    if (!btn || btn.classList.contains('active')) return;
 
-            btn.classList.add('active');
-            document.body.classList.add('bowing-active');
-            document.getElementById('buddha-scene').classList.add('bowing');
-            
-            triggerGoldenBurst();
-            speakWords("地藏大願，滅定業障");
-            showBlessing("地藏悲願 ‧ 滅罪消業");
-            
-            setTimeout(() => { 
-                document.getElementById('buddha-scene').classList.remove('bowing');
-                btn.classList.remove('active'); 
-                document.body.classList.remove('bowing-active');
-            }, 3000);
-        }
+    // 獲取錫杖元素
+    const staff = document.getElementById('khakkhara-staff');
+    
+    // 頂禮開始：浮現錫杖
+    if (staff) staff.style.opacity = '1'; 
+
+    btn.classList.add('active');
+    document.body.classList.add('bowing-active');
+    document.getElementById('buddha-scene').classList.add('bowing');
+    
+    triggerGoldenBurst();
+    speakWords("地藏大願，滅定業障");
+    showBlessing("地藏悲願 ‧ 滅罪消業");
+    
+    // 頂禮結束：恢復初始狀態
+    setTimeout(() => { 
+        document.getElementById('buddha-scene').classList.remove('bowing');
+        btn.classList.remove('active'); 
+        document.body.classList.remove('bowing-active');
+        
+        // 禮拜結束後自動收攝錫杖
+        if (staff) staff.style.opacity = '0'; 
+    }, 3000);
+}
 
         // 萬丈金光粒子特效
         function triggerGoldenBurst() {
