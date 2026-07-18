@@ -170,7 +170,7 @@
         /* --- 3. 頂禮時：寶珠與光環從原處放大數倍 --- */
         .bowing #mani-jewel-container {
             animation: none; /* 頂禮時專注於放大 */
-            transform: scale(3.5); /* 從原處放大 3.5 倍（可依畫面隨意調整此數值） */
+            transform: scale(1); /* 從原處放大 3.5 倍（可依畫面隨意調整此數值） */
         }
         .bowing #mani-jewel {
             filter: drop-shadow(0 0 25px #ffffff) drop-shadow(0 0 60px #ffd700);
@@ -268,11 +268,12 @@
                 
                 <!-- 彩色能量光環的漸層色 -->
                 <linearGradient id="rainbowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#00ffff" />
-                    <stop offset="33%" stop-color="#ff00ff" />
-                    <stop offset="66%" stop-color="#ffff00" />
-                    <stop offset="100%" stop-color="#00ffff" />
+                    <stop offset="0%" stop-color="##FFD700" />
+                    <stop offset="33%" stop-color="#C4E1FF" />
+                    <stop offset="66%" stop-color="#CEFFCE" />
+                    <stop offset="100%" stop-color="#ffffff" />
                 </linearGradient>
+                
 
                 <!-- 關鍵遮罩：自動挖除背光與法相重疊之處 -->
                 <mask id="halo-cutout">
@@ -349,11 +350,11 @@
                              C 435 160, 455 125, 500 125 Z" 
                           stroke-width="2.1" />
 
-                    <!-- 耳廓 -->
-                    <path d="M 435 220 Q 427 205 426 220 Q 418 270 434 320 Q 428 380 454 330" fill="none" />
-                    <path d="M 565 220 Q 573 205 574 220 Q 582 270 566 320 Q 572 380 546 330" fill="none" />
-                    <path d="M 435 240 Q 425 275 437 305" stroke-width="1.5" fill="none" />
-                    <path d="M 565 240 Q 575 275 563 305" stroke-width="1.5" fill="none" />
+                     <!-- 耳廓 -->
+                    <path d="M 435 220 Q 427 205 426 220 Q 418 270 434 320 Q 428 380 454 330" stroke-width="2" fill="none" />
+                    <path d="M 565 220 Q 573 205 574 220 Q 582 270 566 320 Q 572 380 546 330" stroke-width="2" fill="none" />
+                    <path d="M 435 240 Q 425 275 437 305" stroke-width="2" fill="none" />
+                    <path d="M 565 240 Q 575 275 563 305" stroke-width="2" fill="none" />
 
                     <!-- 大衣衣褶 -->
                     <path d="M 375 520 Q 365 640, 375 1020" stroke-width="2" fill="none" />
@@ -438,30 +439,36 @@
                                 <circle id="mani-rainbow-ring" cx="0" cy="0" r="38" />
                             </g>
                         </g>
-                        <g id="left-hand">
-                            <path d="M -4.0 243 C 2.0 250, 10.0 253, 16.3 255" stroke-width="2.5" />
-                            <path d="M -1.0 278 C 5.0 286, 26.0 289, 45.3 290" stroke-width="2.5" />
-                            <path d="M 7.0 245 C 4.0 259, 4.0 273, 7.0 287" stroke-width="1.5" />
-                            <circle cx="6.0" cy="250" r="4.0" fill="#333333" stroke="none" />
-                            <circle cx="4.5" cy="259" r="4.0" fill="#333333" stroke="none" />
-                            <circle cx="4.5" cy="269" r="4.0" fill="#333333" stroke="none" />
-                            <circle cx="6.0" cy="278" r="4.0" fill="#333333" stroke="none" />
-                            <path d="M 16.3 255 C 20.0 236.0, 55.0 225.0, 96.0 225.0 C 98.5 229.0, 91.5 241.0, 86.3 243.0 L 66.3 246.0 C 40.0 250.0, 50.0 285.0, 112.0 278.0" stroke-width="2.5" />
-                            <path d="M 92.5 226.0 C 96.0 227.0, 96.0 230.0, 91.5 231.0 C 87.5 228.0, 84.0 225.1, 82.0 225.1" stroke-width="2.0" />
-                            <path d="M 26.3 265 C 26.3 280, 59.3 295, 100.7 295" stroke-width="2.5" />
-                        </g>
-                        <g id="right-hand">
-                            <path d="M 183.7 255 C 190.0 253, 198.0 250, 204.0 243" stroke-width="2.5" />
-                            <path d="M 154.7 290 C 174.0 289, 195.0 286, 203.0 278" stroke-width="2.5" />
-                            <path d="M 193.0 245 C 196.0 259, 196.0 273, 193.0 287" stroke-width="1.5" />
-                            <circle cx="194.0" cy="250" r="4.0" fill="#333333" stroke="none" />
-                            <circle cx="195.5" cy="259" r="4.0" fill="#333333" stroke="none" />
-                            <circle cx="195.5" cy="269" r="4.0" fill="#333333" stroke="none" />
-                            <circle cx="194.0" cy="278" r="4.0" fill="#333333" stroke="none" />
-                            <path d="M 183.7 255 C 180.0 236.0, 145.0 225.0, 104.0 225.0 C 101.5 229.0, 108.5 241.0, 113.7 243.0 L 133.7 246.0 C 160.0 255.0, 125.0 285.0, 80.0 283.0 C 78.0 290.0, 80.0 294.0, 83.0 294.0" stroke-width="2.5" />
-                            <path d="M 107.5 226.0 C 104.0 227.0, 104.0 230.0, 108.5 231.0 C 112.5 228.0, 116.0 226.0, 118.0 225.1" stroke-width="2.0" />
-                            <path d="M 173.7 265 C 173.7 280, 140.7 295, 99.3 295" stroke-width="2.5" />
-                        </g>
+
+<g id="left-hand" fill="#0d1117">
+    <path d="M -4.0 243 C 2.0 250, 10.0 253, 16.3 255" stroke-width="2.5" />
+    <path d="M -1.0 278 C 5.0 286, 26.0 289, 45.3 290" stroke-width="2.5" />
+    <path d="M 7.0 245 C 4.0 259, 4.0 273, 7.0 287" stroke-width="1.5" />
+    <circle cx="6.0" cy="250" r="4.0" fill="#333333" stroke="none" />
+    <circle cx="4.5" cy="259" r="4.0" fill="#333333" stroke="none" />
+    <circle cx="4.5" cy="269" r="4.0" fill="#333333" stroke="none" />
+    <circle cx="6.0" cy="278" r="4.0" fill="#333333" stroke="none" />
+    <path d="M 16.3 255 C 20.0 236.0, 55.0 225.0, 96.0 225.0 C 98.5 229.0, 91.5 241.0, 86.3 243.0 L 66.3 246.0 C 40.0 250.0, 50.0 285.0, 112.0 278.0" stroke-width="2.5" />
+    <path d="M 92.5 226.0 C 96.0 227.0, 96.0 230.0, 91.5 231.0 C 87.5 228.0, 84.0 225.1, 82.0 225.1" stroke-width="2.0" />
+    <path d="M 26.3 265 C 26.3 280, 59.3 295, 100.7 295" stroke-width="2.5" />
+</g>
+
+<g id="right-hand" fill="#0d1117">
+    <path d="M 183.7 255 C 190.0 253, 198.0 250, 204.0 243" stroke-width="2.5" />
+    <path d="M 154.7 290 C 174.0 289, 195.0 286, 203.0 278" stroke-width="2.5" />
+    <path d="M 193.0 245 C 196.0 259, 196.0 273, 193.0 287" stroke-width="1.5" />
+    <circle cx="194.0" cy="250" r="4.0" fill="#333333" stroke="none" />
+    <circle cx="195.5" cy="259" r="4.0" fill="#333333" stroke="none" />
+    <circle cx="195.5" cy="269" r="4.0" fill="#333333" stroke="none" />
+    <circle cx="194.0" cy="278" r="4.0" fill="#333333" stroke="none" />
+    <path d="M 183.7 255 C 180.0 236.0, 145.0 225.0, 104.0 225.0 C 101.5 229.0, 108.5 241.0, 113.7 243.0 L 133.7 246.0 C 160.0 255.0, 125.0 285.0, 80.0 283.0 C 78.0 290.0, 80.0 294.0, 83.0 294.0" stroke-width="2.5" />
+    <path d="M 107.5 226.0 C 104.0 227.0, 104.0 230.0, 108.5 231.0 C 112.5 228.0, 116.0 226.0, 118.0 225.1" stroke-width="2.0" />
+    <path d="M 173.7 265 C 173.7 280, 140.7 295, 99.3 295" stroke-width="2.5" />
+</g>
+
+
+                        
+                     
                     </g>
 
                     <!-- 下擺扁半圓形 -->
@@ -470,9 +477,9 @@
                         <path d="M 570 1155 A 30 15 0 0 0 630 1155" />
                     </g>
                 </g>
-
+CEFFC
                 <!-- 蓮花座底座：完美承托 (已完整補回) -->
-                <g id="lotus-base" transform="translate(500, 1125) scale(0.9) translate(-500, -780)">
+                <g id="lotus-base" transform="translate(500, 1160) scale(0.9) translate(-500, -780)">
                     <ellipse cx="500" cy="780" rx="140" ry="35" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
                     <g transform="translate(0, 15)" stroke="url(#kshitigarbhaGold)" stroke-width="1.8" stroke-linejoin="round" fill="url(#lotusFill)">
                         <use href="#pure-petal" transform="translate(-135, -20) rotate(-16, 500, 840)" />
