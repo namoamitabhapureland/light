@@ -143,7 +143,7 @@
         #buddha-urna {
             transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
             transform-origin: 500px 190px;
-            fill: #ffd700 !important;
+            fill: #cc2222 !important;
         }
         .bowing #buddha-urna {
             r: 10px;
@@ -224,9 +224,9 @@
     <div class="nav-top">
         <div class="nav-btn" onclick="returnToMainHall()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            返回地藏願海
+            頂禮彌陀
         </div>
-        <div class="nav-btn" onclick="showLawInfo()">觀想導引</div>
+        <div class="nav-btn" onclick="showLawInfo()">頂禮彌勒</div>
     </div>
 
     <!-- 動態背景渲染層 -->
@@ -399,12 +399,11 @@
                     <path d="M 565 220 Q 573 205 574 220 Q 582 270 566 320 Q 572 380 546 330" stroke-width="2" fill="none" />
                     <path d="M 435 240 Q 425 275 437 305" stroke-width="2" fill="none" />
                     <path d="M 565 240 Q 575 275 563 305" stroke-width="2" fill="none" />
-
                     <!-- 大衣衣褶 -->
-                    <path d="M 375 520 Q 365 640, 375 1020" stroke-width="2" fill="none" />
-                    <path d="M 625 520 Q 635 640, 625 1020" stroke-width="2" fill="none" />
-                    <path d="M 375 520 Q 310 400, 375 1020" stroke-width="2" fill="none" />
-                    <path d="M 625 520 Q 690 360, 625 1020" stroke-width="2" fill="none" />
+                    <path d="M 375 900 Q 310 400, 375 1035" stroke-width="2" fill="none" />
+                    <path d="M 625 900 Q 690 360, 625 1035" stroke-width="2" fill="none" />
+                    <path d="M 375 800 Q 310 400, 375 1035" stroke-width="2" fill="none" />
+                    <path d="M 625 800 Q 690 360, 625 1035" stroke-width="2" fill="none" />
 
                     <!-- 肩部線條 -->
                     <path d="M 410 380 Q 482.4 708.9, 379.4 731.8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
@@ -420,9 +419,13 @@
                         <path d="M 461.5 350 Q 500 390 538.5 350" />
                         
                         <!-- 念珠圈 -->
+                        -- 念珠圈 -->
                         <g id="neck-mala-corrected" stroke="url(#kshitigarbhaGold)" fill="none" stroke-width="2.0">
                             <circle cx="500" cy="460" r="8.0" fill="url(#kshitigarbhaGold)" stroke="none" /> 
+                            <circle cx="500" cy="478" r="9.9" fill="url(#kshitigarbhaGold)" stroke="none" /> 
                             <circle cx="515" cy="457" r="6.0" fill="url(#kshitigarbhaGold)" stroke="none" />
+                            <circle cx="485" cy="467" r="6.0" fill="url(#kshitigarbhaGold)" stroke="none" />
+                            <circle cx="515" cy="467" r="6.0" fill="url(#kshitigarbhaGold)" stroke="none" />
                             <circle cx="530" cy="451" r="6.0" fill="url(#kshitigarbhaGold)" stroke="none" />
                             <circle cx="544" cy="442" r="6.0" fill="url(#kshitigarbhaGold)" stroke="none" />
                             <circle cx="557" cy="431" r="6.0" fill="url(#kshitigarbhaGold)" stroke="none" />
@@ -454,7 +457,8 @@
 
                     <!-- 五官與白毫 -->
                     <g id="buddha-face-features">
-                        <circle id="buddha-urna" cx="500" cy="190" r="3.5" fill="url(#kshitigarbhaGold)" stroke="none" />
+                       <circle id="buddha-urna" cx="500" cy="190" r="3.5" fill="#cc2222" stroke="none" />
+
                         <path d="M 440 210 Q 465 195 494 210 L 494 262" stroke-width="1.5" />
                         <path d="M 560 210 Q 535 195 506 210 L 506 262" stroke-width="1.5" />
                         <path d="M 493 266 Q 500 276 507 266" stroke-width="1.5" />
@@ -463,16 +467,16 @@
                         
                         <!-- 恢復純淨慈悲垂目 -->
                         <g class="buddhas-eye-closed">
-                            <path d="M 444 234.5 Q 462 239 478 237.5 Q 479 239 478.5 240.5" stroke-width="1.8" stroke-linecap="round" />
+                            <path d="M 444 234.5 Q 462 239 478 237.5 Q 479 239 478.5 240.5" stroke-width="2" stroke-linecap="round" />
                             <path d="M 444 234.5 Q 462 245 478.5 240.5" stroke-width="1.8" stroke-linecap="round" />
-                            <path d="M 556 234.5 Q 538 239 522 237.5 Q 521 239 521.5 240.5" stroke-width="1.8" stroke-linecap="round" />
+                            <path d="M 556 234.5 Q 538 239 522 237.5 Q 521 239 521.5 240.5" stroke-width="2" stroke-linecap="round" />
                             <path d="M 556 234.5 Q 538 245 521.5 240.5" stroke-width="1.8" stroke-linecap="round" />
                         </g>
                         
                         <path d="M 482 283.5 Q 483 284.5 484 285 Q 492 281 500 286 Q 508 281 516 285 Q 517 284.5 518 283.5" stroke-width="1.6" />
-                        <path d="M 480 283.5 Q 481 284.5 482 285 Q 500 289 518 285 Q 519 284.5 520 283.5" stroke-width="1.2" />
-                        <path d="M 486 289 Q 500 293 514 289" stroke-width="1.5" />
-                        <path d="M 486 312 Q 500 306 514 312" stroke-width="1.2" />
+                        <path d="M 480 283.5 Q 481 284.5 482 285 Q 500 289 518 285 Q 519 284.5 520 283.5" stroke-width="1.5" />
+                        <path d="M 486 289 Q 500 293 514 289" stroke-width="1.8" />
+                        <path d="M 486 312 Q 500 306 514 312" stroke-width="1.5" />
                     </g>
 
                     <!-- 雙手與摩尼明珠 -->
@@ -521,7 +525,7 @@
                         <path d="M 570 1155 A 30 15 0 0 0 630 1155" />
                     </g>
                 </g>
-CEFFC
+
                 <!-- 蓮花座底座：完美承托 (已完整補回) -->
                 <g id="lotus-base" transform="translate(500, 1180) scale(0.9) translate(-500, -780)">
                     <ellipse cx="500" cy="780" rx="140" ry="35" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
