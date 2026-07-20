@@ -171,6 +171,20 @@
                         <stop offset="100%" stop-color="#8b6508" />
                     </linearGradient>
                     
+                    <radialGradient id="flame-glow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#fff5cc" stop-opacity="1" />
+    <stop offset="30%" stop-color="#ffcc00" stop-opacity="0.8" />
+    <stop offset="70%" stop-color="#ff6600" stop-opacity="0.3" />
+    <stop offset="100%" stop-color="transparent" stop-opacity="0" />
+</radialGradient>
+<!-- 全新沉穩核桃木佛珠漸層：呈現內斂溫潤的木質琉璃感 -->
+<radialGradient id="walnutMalaFill" cx="35%" cy="35%" r="65%">
+    <stop offset="0%" stop-color="#FFD306" />
+    <stop offset="50%" stop-color="#642100" />
+    <stop offset="100%" stop-color="#642100" />
+</radialGradient>
+
+
                     <!-- 蓮花上層花瓣填充漸層 -->
                     <linearGradient id="lotusFill" x1="0%" y1="0%" x2="0%" y2="100%">
                         <stop offset="0%" stop-color="#FFDF00" stop-opacity="0.95"/> 
@@ -225,7 +239,9 @@
                 <!-- ─── 【全新萬德莊嚴縮放群組】 ─── -->
                 <!-- 透過 transform-origin 指定畫面中心，scale(0.9) 代表整體等比例縮小至 90% -->
                 <!-- 如果希望更小，可以改為 scale(0.85)；如果想往下位移，可以在裡面加上 translate(0, 30) -->
-                <g id="maitreya-scaled-wrapper" transform="scale(0.9)" transform-origin="500 550" >
+
+<g id="maitreya-scaled-wrapper" transform="scale(0.9) translate(0, 44)" transform-origin="500 550">
+
 
                     <!-- 神聖背光圈 -->
                     <g class="halo-pulse" mask="url(#halo-cutout)">
@@ -303,34 +319,35 @@
                             <circle id="chest-dot-right" cx="580" cy="455" r="3" fill="url(#guanyinGold)" stroke="none" />
                         </g>
 
-                        <!-- 【全新圓滿大佛珠群組】 -->
-                        <g id="maitreya-large-mala" stroke-width="2" stroke-linejoin="round" fill="url(#guanyinGold)" fill-opacity="0.12">
-                            <circle cx="347" cy="310" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="337" cy="340" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="333" cy="370" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="333" cy="402" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="335" cy="432" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="340" cy="462" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="347" cy="491" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="358" cy="519" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="378" cy="545" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="402" cy="568" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="430" cy="587" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="463" cy="600" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="500" cy="604" r="18" stroke="url(#guanyinGold)" stroke-width="2.2" fill-opacity="0.18" />
-                            <circle cx="537" cy="600" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="570" cy="587" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="598" cy="568" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="622" cy="545" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="642" cy="519" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="653" cy="491" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="660" cy="462" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="665" cy="432" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="667" cy="402" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="667" cy="370" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="663" cy="340" r="15" stroke="url(#guanyinGold)" />
-                            <circle cx="653" cy="310" r="15" stroke="url(#guanyinGold)" />
-                        </g>
+                <!-- 【全新圓滿大佛珠群組】 -->
+<g id="maitreya-large-mala" stroke-width="2" stroke-linejoin="round" fill="url(#walnutMalaFill)" fill-opacity="0.95">
+    <circle cx="347" cy="310" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="337" cy="340" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="333" cy="370" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="333" cy="402" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="335" cy="432" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="340" cy="462" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="347" cy="491" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="358" cy="519" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="378" cy="545" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="402" cy="568" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="430" cy="587" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="463" cy="600" r="15" stroke="url(#guanyinGold)" />
+    <!-- 中央圓滿大佛珠：加粗金框以顯莊嚴 -->
+    <circle cx="500" cy="604" r="18" stroke="url(#guanyinGold)" stroke-width="2.5" fill-opacity="1" />
+    <circle cx="537" cy="600" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="570" cy="587" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="598" cy="568" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="622" cy="545" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="642" cy="519" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="653" cy="491" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="660" cy="462" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="665" cy="432" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="667" cy="402" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="667" cy="370" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="663" cy="340" r="15" stroke="url(#guanyinGold)" />
+    <circle cx="653" cy="310" r="15" stroke="url(#guanyinGold)" />
+</g>
 
                         <!-- 【寬闊的大兜肚與法衣褶線】 -->
                         <g id="maitreya-belly-lines" stroke-width="2" stroke-linecap="round" fill="none" stroke="url(#guanyinGold)">
@@ -447,37 +464,67 @@
           
 
 
-               <g id="censer-group">
-                <line id="stick-left" x1="475" y1="1140" x2="480" y2="1270" stroke="#4a2e1b" stroke-width="5" stroke-linecap="round"/>
-                <line id="stick-center" x1="500" y1="1125" x2="500" y2="1270" stroke="#4a2e1b" stroke-width="5" stroke-linecap="round"/>
-                <line id="stick-right" x1="525" y1="1140" x2="520" y2="1270" stroke="#4a2e1b" stroke-width="5" stroke-linecap="round"/>
-                
-                <circle id="glow-left" cx="475" cy="1140" r="3.5" fill="#ff4500" class="incense-glow" />
-                <circle id="glow-center" cx="500" cy="1125" r="3.5" fill="#ff4500" class="incense-glow" />
-                <circle id="glow-right" cx="525" cy="1140" r="3.5" fill="#ff4500" class="incense-glow" />
-                
-                <path d="M 455 1270 C 455 1320, 545 1320, 545 1270 Z" fill="#0d1117" stroke="url(#guanyinGold)" stroke-width="1.8" />
-
-                <g id="candle-left-group">
-                    <rect id="candle-body-left" x="365" y="1220" width="10" height="55" rx="2" fill="url(#guanyinGold)" opacity="0.85" stroke="url(#guanyinGold)" stroke-width="0.5"/>
-                    <line id="candle-wick-left" x1="370" y1="1215" x2="370" y2="1220" stroke="#4a2e1b" stroke-width="2"/>
-                    <g id="flame-move-left">
-                        <g id="flame-group-left" class="candle-flicker" style="transform-origin: 370px 1215px;">
-                            <path d="M 370 1215 Q 375 1195 370 1185 Q 365 1195 370 1215 Z" fill="#ffaa00" />
-                        </g>
-                    </g>
-                </g>
-                
-                <g id="candle-right-group">
-                    <rect id="candle-body-right" x="625" y="1220" width="10" height="55" rx="2" fill="url(#guanyinGold)" opacity="0.85" stroke="url(#guanyinGold)" stroke-width="0.5"/>
-                    <line id="candle-wick-right" x1="630" y1="1215" x2="630" y2="1220" stroke="#4a2e1b" stroke-width="2"/>
-                    <g id="flame-move-right">
-                        <g id="flame-group-right" class="candle-flicker" style="transform-origin: 630px 1215px;">
-                            <path d="M 630 1215 Q 635 1195 630 1185 Q 625 1195 630 1215 Z" fill="#ffaa00" />
-                        </g>
-                    </g>
-                </g>
+              <!-- 實體香爐與雙火燭台座 (完美的彌陀細緻款造型，已精密平移適配彌勒系統) -->
+<g id="censer-group">
+    <!-- 三支立香 (結合精細香腳造型與對齊座標) -->
+    <line id="stick-left" x1="475" y1="1140" x2="480" y2="1270" stroke="#4a2e1b" stroke-width="6" stroke-linecap="round"/>
+    <line id="stick-center" x1="500" y1="1125" x2="500" y2="1270" stroke="#4a2e1b" stroke-width="6" stroke-linecap="round"/>
+    <line id="stick-right" x1="525" y1="1140" x2="520" y2="1270" stroke="#4a2e1b" stroke-width="6" stroke-linecap="round"/>
+    
+    <!-- 香頭紅亮光暈 -->
+    <circle id="glow-left" cx="475" cy="1140" r="4" fill="#ff4500" class="incense-glow" />
+    <circle id="glow-center" cx="500" cy="1125" r="4" fill="#ff4500" class="incense-glow" />
+    <circle id="glow-right" cx="525" cy="1140" r="4" fill="#ff4500" class="incense-glow" />
+    
+    <!-- 香爐左右雙耳流線細節 -->
+    <path d="M 455 1275 C 430 1250, 435 1300, 460 1295" fill="none" stroke="url(#guanyinGold)" stroke-width="4" stroke-linecap="round" />
+    <path d="M 545 1275 C 570 1250, 565 1300, 540 1295" fill="none" stroke="url(#guanyinGold)" stroke-width="4" stroke-linecap="round" />
+    
+    <!-- 香爐主體與頂部香灰盤 -->
+    <path d="M 455 1270 C 455 1320, 545 1320, 545 1270 Z" fill="#0d1117" stroke="url(#guanyinGold)" stroke-width="2" />
+    <ellipse cx="500" cy="1270" rx="45" ry="12" fill="#0b080a" stroke="url(#guanyinGold)" stroke-width="2" />
+    <g id="ash-layer">
+        <ellipse cx="500" cy="1270" rx="35" ry="7" fill="#333" />
+    </g>
+    
+    <!-- 香爐下方的三足鼎立基座 -->
+    <path d="M 475 1305 L 470 1325" stroke="url(#guanyinGold)" stroke-width="5" stroke-linecap="round" />
+    <path d="M 525 1305 L 530 1325" stroke="url(#guanyinGold)" stroke-width="5" stroke-linecap="round" />
+    <path d="M 500 1310 L 500 1330" stroke="url(#guanyinGold)" stroke-width="5" stroke-linecap="round" />
+    
+    <!-- 左側精緻燭台 (維持外擴 X 軸 370，融入立體托盤與雙層火焰核心) -->
+    <g id="candle-left-group">
+        <path d="M 366 1280 C 366 1295, 358 1302, 358 1305 L 382 1305 C 382 1302, 374 1295, 374 1280 Z" fill="url(#guanyinGold)" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+        <ellipse cx="370" cy="1280" rx="6" ry="1.5" fill="url(#guanyinGold)"/>
+        <ellipse cx="370" cy="1305" rx="12" ry="3" fill="#0b080a" stroke="rgba(212,175,55,0.8)" stroke-width="1.5"/>
+        <rect id="candle-body-left" x="365" y="1220" width="10" height="60" rx="3" fill="url(#guanyinGold)" stroke="rgba(212,175,55,0.5)" stroke-width="1.5" opacity="0.85"/>
+        <line id="candle-wick-left" x1="370" y1="1215" x2="370" y2="1225" stroke="#4a2e1b" stroke-width="2"/>
+        
+        <g id="flame-move-left">
+            <g id="flame-group-left" class="candle-flicker" style="transform-origin: 370px 1215px;">
+                <circle cx="370" cy="1205" r="18" fill="url(#flame-glow)" style="mix-blend-mode: screen;"/>
+                <path d="M 370 1192 Q 375 1210 370 1215 Q 365 1210 370 1192 Z" fill="#FFFFFF" style="filter: drop-shadow(0 0 4px #FFD700);"/>
             </g>
+        </g>
+    </g>
+
+    <!-- 右側精緻燭台 (維持外擴 X 軸 630，融入立體托盤與雙層火焰核心) -->
+    <g id="candle-right-group">
+        <path d="M 626 1280 C 626 1295, 618 1302, 618 1305 L 642 1305 C 642 1302, 634 1295, 634 1280 Z" fill="url(#guanyinGold)" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+        <ellipse cx="630" cy="1280" rx="6" ry="1.5" fill="url(#guanyinGold)"/>
+        <ellipse cx="630" cy="1305" rx="12" ry="3" fill="#0b080a" stroke="rgba(212,175,55,0.8)" stroke-width="1.5"/>
+        <rect id="candle-body-right" x="625" y="1220" width="10" height="60" rx="3" fill="url(#guanyinGold)" stroke="rgba(212,175,55,0.5)" stroke-width="1.5" opacity="0.85"/>
+        <line id="candle-wick-right" x1="630" y1="1215" x2="630" y2="1225" stroke="#4a2e1b" stroke-width="2"/>
+        
+        <g id="flame-move-right">
+            <g id="flame-group-right" class="candle-flicker" style="transform-origin: 630px 1215px;">
+                <circle cx="630" cy="1205" r="18" fill="url(#flame-glow)" style="mix-blend-mode: screen;"/>
+                <path d="M 630 1192 Q 635 1210 630 1215 Q 625 1210 630 1192 Z" fill="#FFFFFF" style="filter: drop-shadow(0 0 4px #FFD700);"/>
+            </g>
+        </g>
+    </g>
+</g>
+
         </svg>
     </div>
 </div>
