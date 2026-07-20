@@ -150,13 +150,37 @@
 <body>
 
     <!-- 頂部功能按鈕 -->
-    <div class="nav-top">
-        <div class="nav-btn" onclick="returnToMainHall()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            返回彌陀法界
-        </div>
-        <div class="nav-btn" onclick="showLawInfo()">觀想導引</div>
-    </div>
+  <!-- 頂部功能按鈕：左上角唯一出口連結 (加大款：圖示在上、文字在下) -->
+<div class="nav-top">
+    <a href="amitabha.html" class="nav-btn shine-effect highlight" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 16px; border-radius: 16px;">
+        <svg class="lotus-icon" viewBox="0 0 100 25" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="width: 75px; height: auto;">
+            <defs>
+              <linearGradient id="g-base" x1="50" y1="25" x2="50" y2="10" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#d4af37" stop-opacity="0.6"/><stop offset="100%" stop-color="#d4af37" stop-opacity="0"/></linearGradient>
+              <linearGradient id="g-outer" x1="50" y1="25" x2="50" y2="12" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#3a2500" stop-opacity="0.55"/><stop offset="55%" stop-color="#8a6518" stop-opacity="0.52"/><stop offset="100%" stop-color="#c8a84b" stop-opacity="0.62"/></linearGradient>
+              <linearGradient id="g-mid" x1="50" y1="25" x2="50" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#5c3d00" stop-opacity="0.6"/><stop offset="48%" stop-color="#b8890f" stop-opacity="0.62"/><stop offset="100%" stop-color="#f0d070" stop-opacity="0.88"/></linearGradient>
+              <linearGradient id="g-inner" x1="50" y1="25" x2="50" y2="2" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7a5502" stop-opacity="0.6"/><stop offset="42%" stop-color="#d4af37" stop-opacity="0.7"/><stop offset="100%" stop-color="#fffde7" stop-opacity="0.97"/></linearGradient>
+              <linearGradient id="g-center" x1="50" y1="25" x2="50" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#c8920a" stop-opacity="0.85"/><stop offset="32%" stop-color="#f3e5ab" stop-opacity="0.9"/><stop offset="68%" stop-color="#fffde7" stop-opacity="0.95"/><stop offset="100%" stop-color="#ffffff" stop-opacity="1"/></linearGradient>
+              <radialGradient id="g-stamen" cx="50" cy="25" r="6" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#fffde7" stop-opacity="0.9"/><stop offset="100%" stop-color="#d4af37" stop-opacity="0"/></radialGradient>
+            </defs>
+            <rect x="0" y="22" width="100" height="3" fill="url(#g-base)"/>
+            <ellipse cx="50" cy="25.8" rx="42" ry="5.5" fill="rgba(212,175,55,0.1)"/>
+            <path d="M 41 25 C 25 25.2 7 21.5 4 15.5 C 15 20.5 33 24.2 50 25 Z" fill="url(#g-outer)" stroke="rgba(200,165,75,0.45)" stroke-width="0.22"/>
+            <path d="M 41 25 C 27 23.5 13 20 5.5 16" fill="none" stroke="rgba(243,229,171,0.5)" stroke-width="0.18" opacity="0.6"/>
+            <path d="M 59 25 C 75 25.2 93 21.5 96 15.5 C 85 20.5 67 24.2 50 25 Z" fill="url(#g-outer)" stroke="rgba(200,165,75,0.45)" stroke-width="0.22"/>
+            <path d="M 59 25 C 73 23.5 87 20 94.5 16" fill="none" stroke="rgba(243,229,171,0.5)" stroke-width="0.18" opacity="0.6"/>
+            <path d="M 47 25 C 37 23.2 22 16.5 23.5 7.5 C 33.5 15 43 22.5 50 25 Z" fill="url(#g-mid)" stroke="rgba(212,175,55,0.55)" stroke-width="0.28"/>
+            <path d="M 47 25 C 37 21.8 26.5 15 25 8.5" fill="none" stroke="rgba(243,229,171,0.6)" stroke-width="0.2" opacity="0.65"/>
+            <path d="M 53 25 C 63 23.2 78 16.5 76.5 7.5 C 66.5 15 57 22.5 50 25 Z" fill="url(#g-mid)" stroke="rgba(212,175,55,0.55)" stroke-width="0.28"/>
+            <path d="M 53 25 C 63 21.8 73.5 15 75 8.5" fill="none" stroke="rgba(243,229,171,0.6)" stroke-width="0.2" opacity="0.65"/>
+            <path d="M 49.2 25 C 45 22.5 37.5 14 40.5 3.8 C 46.5 12.5 48.2 21.5 50 25 Z" fill="url(#g-inner)" stroke="rgba(243,229,171,0.65)" stroke-width="0.3"/>
+            <path d="M 50.8 25 C 55 22.5 62.5 14 59.5 3.8 C 53.5 12.5 51.8 21.5 50 25 Z" fill="url(#g-inner)" stroke="rgba(243,229,171,0.65)" stroke-width="0.3"/>
+            <path d="M 50 25 C 47 19.5 45.8 11.5 50 1 C 54.2 11.5 53 19.5 50 25 Z" fill="url(#g-center)" stroke="#f3e5ab" stroke-width="0.38"/>
+            <circle cx="50" cy="1.3" r="1.5" fill="#ffffff" opacity="0.9"/>
+            <ellipse cx="50" cy="25.3" rx="4" ry="1.4" fill="url(#g-stamen)"/>
+        </svg>
+        <span style="font-size: 0.85rem; letter-spacing: 2px;">頂禮彌陀</span>
+    </a>
+</div>
 
     <!-- 動態背景渲染層 -->
     <canvas id="starCanvas"></canvas>
@@ -549,20 +573,13 @@
     <div class="ritual-container">
         <div id="blessing-text"></div>
         <div class="ritual-panel">
-            <div id="btn-bow" class="ritual-btn" onclick="toggleAction('bow')">至誠頂禮</div>
-            <div id="btn-incense" class="ritual-btn" onclick="toggleIncense()">供養清香</div>
+            <div id="btn-bow" class="ritual-btn" onclick="toggleAction('bow')">頂禮彌勒</div>
+            <div id="btn-incense" class="ritual-btn" onclick="toggleIncense()">燃燈燒香</div>
         </div>
         <div class="chant-hint">南無當來下生彌勒尊佛</div>
     </div>
 
-    <!-- 觀想導引彈窗 -->
-    <div id="modal" class="modal-overlay">
-        <div class="modal-box">
-            <div id="m-title" class="m-title"></div>
-            <div id="m-text" class="m-text"></div>
-            <button id="m-btn" class="m-btn-prime">弟子信受</button>
-        </div>
-    </div>
+   
 
     <script>
         // 莊嚴語音與法語
@@ -593,8 +610,8 @@
             document.getElementById('buddha-scene').classList.add('bowing');
             
             triggerGoldenBurst();
-            speakWords("大慈彌勒尊佛，當來下生，願眾生得大歡喜");
-            showBlessing("大慈慈心 ‧ 滿腔歡喜");
+            speakWords("大慈彌勒尊佛，當來下生，願眾生龍華得度");
+            showBlessing("大慈慈心 ‧ 稱南無佛");
             
             // 頂禮結束：恢復初始狀態
             setTimeout(() => { 
@@ -646,7 +663,7 @@
         if (!isActive) {
             document.body.classList.add('incense-on');
             btn.classList.add('active');
-            speakWords("大肚能容，容天下難容之事；開口便笑，笑世間可笑之人");
+            speakWords("五體投地，誠心懺悔；是諸惡業，速得清淨");
             showBlessing("一柱清香 ‧ 普現大慈");
             
             incenseProgress = 0;
@@ -788,28 +805,7 @@
         } 
         renderStars();
 
-        // 彈窗導引機制
-        function showModal(title, text) {
-            document.getElementById('m-title').innerText = title;
-            document.getElementById('m-text').innerHTML = text;
-            document.getElementById('modal').classList.add('show');
-        }
-        document.getElementById('m-btn').onclick = () => document.getElementById('modal').classList.remove('show');
-
-        function showLawInfo() {
-            const lawHtml = `
-                <b style="color:var(--gold-light)">【大慈彌勒 ‧ 隨喜無憂】</b><br>
-                彌勒菩薩以「慈心因緣」得名，現居兜率天內院，將於未來世下生娑婆，弘傳大歡喜法門。其大肚能容，包羅萬象，教導眾生放下執著，笑迎法界。<br><br>
-                <b style="color:var(--gold-light)">【圓滿大歡喜觀想】</b><br>
-                本聖像完全由妙依居士以黃金比例幾何向量線條建構，頂禮時收攝浮躁身心，觀想大慈白毫光明與慈心大笑意象普照法界，化解憂悲苦惱，入清淨歡喜海。<br><br>
-                本系統採 CC 授權永久免費、無廣告，至誠流傳。
-            `;
-            showModal("彌勒慈心觀想導引", lawHtml);
-        }
-
-        function returnToMainHall() {
-            window.location.href = 'index.html';
-        }
+       
     </script>
 </body>
 </html>
