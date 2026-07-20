@@ -234,7 +234,6 @@
     <canvas id="waterCanvas"></canvas>
     <div id="smoke-container"></div>
     <div id="burst-container"></div>
-
 <!-- 聖像場景主體 -->
 <div id="buddha-scene">
     <div class="buddha-breathe">
@@ -273,17 +272,16 @@
                 
                 <!-- 彩色能量光環的漸層色 -->
                 <linearGradient id="rainbowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="##FFD700" />
+                    <stop offset="0%" stop-color="#FFD700" />
                     <stop offset="33%" stop-color="#C4E1FF" />
                     <stop offset="66%" stop-color="#CEFFCE" />
                     <stop offset="100%" stop-color="#ffffff" />
                 </linearGradient>
-                
 
-                <!-- 關鍵遮罩：自動挖除背光與法相重疊之處 -->
+                <!-- 關鍵遮罩：已移除內部的縮放 transform，使其與法相結構達到 1:1 的絕對同步 -->
                 <mask id="halo-cutout">
                     <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                    <g transform="translate(500, 675) scale(0.8) translate(-500, -675)" fill="black" stroke="black" stroke-width="4">
+                    <g fill="black" stroke="black" stroke-width="4">
                         <path d="M 500 125 
                                  C 545 125, 565 160, 565 220 
                                  C 565 250, 563 275, 558 295 
@@ -306,6 +304,7 @@
                         <path d="M 565 220 Q 573 205 574 220 Q 582 270 566 320 Q 572 380 546 330 Q 560 280 565 220 Z" />
                     </g>
                 </mask>
+                
 
                 <g id="pure-petal">
                     <path d="M 500 840 Q 460 830, 440 780 C 440 710, 500 690, 500 690 C 500 690, 560 710, 560 780 Q 540 830, 500 840 Z" />
@@ -313,53 +312,36 @@
                 </g>
             </defs>
 
-<!-- 地藏王菩薩錫杖 (方案A：背靠背張開 - 全體向右平移20單位) -->
-<g id="khakkhara-staff" style="opacity: 0; transition: opacity 1.5s ease-in-out;">
-    <!-- 杖身 (X軸由280平移至300) -->
-    <line x1="300" y1="230" x2="300" y2="1150" stroke="#d4af37" stroke-width="8" stroke-linecap="round" />
-    
-    <!-- 錫杖頭部 -->
-    <g fill="none" stroke="#d4af37" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
-        <!-- 頂端尖菱形 (X軸整體+20) -->
-        <path d="M 300 190 L 308 205 L 300 220 L 292 205 Z" fill="#d4af37" stroke="none" />
-        
-        <!-- 左邊開口向左的 3 (所有X座標精確+20，其餘波形完全不變) -->
-        <path d="M 300 220 
-                 C 320 220, 260 250, 300 270 
-                 C 250 290, 250 330, 300 330" />
-                 
-        <!-- 右邊開口向右的 3 (所有X座標精確+20，其餘波形完全不變) -->
-        <path d="M 300 220 
-                 C 280 220, 340 250, 300 270 
-                 C 350 290, 350 330, 300 330" />
-
-        <!-- 中央中圓 (X軸由280平移至300) -->
-        <circle cx="300" cy="295" r="16" />
-
-        <!-- 6點鐘方向垂掛金珠 (左串X由260平移至280，右串X由300平移至320) -->
-        <circle cx="280" cy="330" r="9" />
-        <circle cx="280" cy="345" r="9" />
-        <circle cx="280" cy="360" r="9" />
-        <circle cx="320" cy="330" r="9" />
-        <circle cx="320" cy="345" r="9" />
-        <circle cx="320" cy="360" r="9" />
-    </g>
-</g>
-
-
-
-
-       <!-- 神聖背光圈 (範圍縮小且向下平移 30 單位) -->
-<g class="halo-pulse" mask="url(#halo-cutout)">
-    <!-- 內光圈 (cy 由 245 移至 275) -->
-    <circle cx="500" cy="300" r="140" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="4.5" />
-    <!-- 外光圈 (cy 由 245 移至 275) -->
-    <circle cx="500" cy="300" r="175" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="2" />
-</g>
-
-
-            <!-- 全域母群組：基準等比例縮小至 80%，留出和諧邊界 -->
+            <!-- ─── 【全域母群組：在此微調整個聖像的大小與位置】 ─── -->
+            <!-- 目前基準等比例縮小至 80%，未來變動此處即可完全同步縮放、不對位問題已根除 -->
             <g id="kshitigarbha-with-lotus" transform="translate(500, 675) scale(0.8) translate(-500, -675)">
+
+                <!-- 地藏王菩薩錫杖 (已納入母群組，隨本體同歩縮放) -->
+                <g id="khakkhara-staff" style="opacity: 0; transition: opacity 1.5s ease-in-out;">
+                    <!-- 杖身 -->
+                    <line x1="300" y1="230" x2="300" y2="1150" stroke="#d4af37" stroke-width="8" stroke-linecap="round" />
+                    <!-- 錫杖頭部 -->
+                    <g fill="none" stroke="#d4af37" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+                        <path d="M 300 190 L 308 205 L 300 220 L 292 205 Z" fill="#d4af37" stroke="none" />
+                        <path d="M 300 220 C 320 220, 260 250, 300 270 C 250 290, 250 330, 300 330" />
+                        <path d="M 300 220 C 280 220, 340 250, 300 270 C 350 290, 350 330, 300 330" />
+                        <circle cx="300" cy="295" r="16" />
+                        <circle cx="280" cy="330" r="9" />
+                        <circle cx="280" cy="345" r="9" />
+                        <circle cx="280" cy="360" r="9" />
+                        <circle cx="320" cy="330" r="9" />
+                        <circle cx="320" cy="345" r="9" />
+                        <circle cx="320" cy="360" r="9" />
+                    </g>
+                </g>
+
+                <!-- 神盛背光圈 (已納入母群組，完美的相對位置永不重疊與穿透) -->
+                <g class="halo-pulse" mask="url(#halo-cutout)">
+                    <!-- 內光圈 -->
+                    <circle cx="500" cy="300" r="190" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="4.5" />
+                    <!-- 外光圈 -->
+                    <circle cx="500" cy="300" r="240" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="2" />
+                </g>
 
                 <!-- 菩薩主體 -->
                 <g id="bodhisattva-entity" stroke="url(#kshitigarbhaGold)" fill="none" stroke-linejoin="round">
@@ -399,6 +381,7 @@
                     <path d="M 565 220 Q 573 205 574 220 Q 582 270 566 320 Q 572 380 546 330" stroke-width="2" fill="none" />
                     <path d="M 435 240 Q 425 275 437 305" stroke-width="2" fill="none" />
                     <path d="M 565 240 Q 575 275 563 305" stroke-width="2" fill="none" />
+                    
                     <!-- 大衣衣褶 -->
                     <path d="M 375 900 Q 310 400, 375 1035" stroke-width="2" fill="none" />
                     <path d="M 625 900 Q 690 360, 625 1035" stroke-width="2" fill="none" />
@@ -419,7 +402,6 @@
                         <path d="M 461.5 350 Q 500 390 538.5 350" />
                         
                         <!-- 念珠圈 -->
-                        -- 念珠圈 -->
                         <g id="neck-mala-corrected" stroke="url(#kshitigarbhaGold)" fill="none" stroke-width="2.0">
                             <circle cx="500" cy="460" r="8.0" fill="url(#kshitigarbhaGold)" stroke="none" /> 
                             <circle cx="500" cy="478" r="9.9" fill="url(#kshitigarbhaGold)" stroke="none" /> 
@@ -488,35 +470,31 @@
                             </g>
                         </g>
 
-<g id="left-hand" fill="#0d1117">
-    <path d="M -4.0 243 C 2.0 250, 10.0 253, 16.3 255" stroke-width="2.5" />
-    <path d="M -1.0 278 C 5.0 286, 26.0 289, 45.3 290" stroke-width="2.5" />
-    <path d="M 7.0 245 C 4.0 259, 4.0 273, 7.0 287" stroke-width="1.5" />
-    <circle cx="6.0" cy="250" r="4.0" fill="#333333" stroke="none" />
-    <circle cx="4.5" cy="259" r="4.0" fill="#333333" stroke="none" />
-    <circle cx="4.5" cy="269" r="4.0" fill="#333333" stroke="none" />
-    <circle cx="6.0" cy="278" r="4.0" fill="#333333" stroke="none" />
-    <path d="M 16.3 255 C 20.0 236.0, 55.0 225.0, 96.0 225.0 C 98.5 229.0, 91.5 241.0, 86.3 243.0 L 66.3 246.0 C 40.0 250.0, 50.0 285.0, 112.0 278.0" stroke-width="2.5" />
-    <path d="M 92.5 226.0 C 96.0 227.0, 96.0 230.0, 91.5 231.0 C 87.5 228.0, 84.0 225.1, 82.0 225.1" stroke-width="2.0" />
-    <path d="M 26.3 265 C 26.3 280, 59.3 295, 100.7 295" stroke-width="2.5" />
-</g>
+                        <g id="left-hand" fill="#0d1117">
+                            <path d="M -4.0 243 C 2.0 250, 10.0 253, 16.3 255" stroke-width="2.5" />
+                            <path d="M -1.0 278 C 5.0 286, 26.0 289, 45.3 290" stroke-width="2.5" />
+                            <path d="M 7.0 245 C 4.0 259, 4.0 273, 7.0 287" stroke-width="1.5" />
+                            <circle cx="6.0" cy="250" r="4.0" fill="#333333" stroke="none" />
+                            <circle cx="4.5" cy="259" r="4.0" fill="#333333" stroke="none" />
+                            <circle cx="4.5" cy="269" r="4.0" fill="#333333" stroke="none" />
+                            <circle cx="6.0" cy="278" r="4.0" fill="#333333" stroke="none" />
+                            <path d="M 16.3 255 C 20.0 236.0, 55.0 225.0, 96.0 225.0 C 98.5 229.0, 91.5 241.0, 86.3 243.0 L 66.3 246.0 C 40.0 250.0, 50.0 285.0, 112.0 278.0" stroke-width="2.5" />
+                            <path d="M 92.5 226.0 C 96.0 227.0, 96.0 230.0, 91.5 231.0 C 87.5 228.0, 84.0 225.1, 82.0 225.1" stroke-width="2.0" />
+                            <path d="M 26.3 265 C 26.3 280, 59.3 295, 100.7 295" stroke-width="2.5" />
+                        </g>
 
-<g id="right-hand" fill="#0d1117">
-    <path d="M 183.7 255 C 190.0 253, 198.0 250, 204.0 243" stroke-width="2.5" />
-    <path d="M 154.7 290 C 174.0 289, 195.0 286, 203.0 278" stroke-width="2.5" />
-    <path d="M 193.0 245 C 196.0 259, 196.0 273, 193.0 287" stroke-width="1.5" />
-    <circle cx="194.0" cy="250" r="4.0" fill="#333333" stroke="none" />
-    <circle cx="195.5" cy="259" r="4.0" fill="#333333" stroke="none" />
-    <circle cx="195.5" cy="269" r="4.0" fill="#333333" stroke="none" />
-    <circle cx="194.0" cy="278" r="4.0" fill="#333333" stroke="none" />
-    <path d="M 183.7 255 C 180.0 236.0, 145.0 225.0, 104.0 225.0 C 101.5 229.0, 108.5 241.0, 113.7 243.0 L 133.7 246.0 C 160.0 255.0, 125.0 285.0, 80.0 283.0 C 78.0 290.0, 80.0 294.0, 83.0 294.0" stroke-width="2.5" />
-    <path d="M 107.5 226.0 C 104.0 227.0, 104.0 230.0, 108.5 231.0 C 112.5 228.0, 116.0 226.0, 118.0 225.1" stroke-width="2.0" />
-    <path d="M 173.7 265 C 173.7 280, 140.7 295, 99.3 295" stroke-width="2.5" />
-</g>
-
-
-                        
-                     
+                        <g id="right-hand" fill="#0d1117">
+                            <path d="M 183.7 255 C 190.0 253, 198.0 250, 204.0 243" stroke-width="2.5" />
+                            <path d="M 154.7 290 C 174.0 289, 195.0 286, 203.0 278" stroke-width="2.5" />
+                            <path d="M 193.0 245 C 196.0 259, 196.0 273, 193.0 287" stroke-width="1.5" />
+                            <circle cx="194.0" cy="250" r="4.0" fill="#333333" stroke="none" />
+                            <circle cx="195.5" cy="259" r="4.0" fill="#333333" stroke="none" />
+                            <circle cx="195.5" cy="269" r="4.0" fill="#333333" stroke="none" />
+                            <circle cx="194.0" cy="278" r="4.0" fill="#333333" stroke="none" />
+                            <path d="M 183.7 255 C 180.0 236.0, 145.0 225.0, 104.0 225.0 C 101.5 229.0, 108.5 241.0, 113.7 243.0 L 133.7 246.0 C 160.0 255.0, 125.0 285.0, 80.0 283.0 C 78.0 290.0, 80.0 294.0, 83.0 294.0" stroke-width="2.5" />
+                            <path d="M 107.5 226.0 C 104.0 227.0, 104.0 230.0, 108.5 231.0 C 112.5 228.0, 116.0 226.0, 118.0 225.1" stroke-width="2.0" />
+                            <path d="M 173.7 265 C 173.7 280, 140.7 295, 99.3 295" stroke-width="2.5" />
+                        </g>
                     </g>
 
                     <!-- 下擺扁半圓形 -->
@@ -526,17 +504,17 @@
                     </g>
                 </g>
 
-                <!-- 蓮花座底座：完美承托 (已完整補回) -->
+                <!-- 蓮花座底座：完美承托 -->
                 <g id="lotus-base" transform="translate(500, 1180) scale(0.9) translate(-500, -780)">
                     <ellipse cx="500" cy="780" rx="140" ry="35" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
-                    <g transform="translate(0, 15)" stroke="url(#kshitigarbhaGold)" stroke-width="1.8" stroke-linejoin="round" fill="url(#lotusFill)">
+                    <g transform="translate(0, 30)" stroke="url(#kshitigarbhaGold)" stroke-width="1.8" stroke-linejoin="round" fill="url(#lotusFill)">
                         <use href="#pure-petal" transform="translate(-135, -20) rotate(-16, 500, 840)" />
                         <use href="#pure-petal" transform="translate(135, -20) rotate(16, 500, 840)" />
                         <use href="#pure-petal" transform="translate(-70, -30) rotate(-7, 500, 840)" />
                         <use href="#pure-petal" transform="translate(70, -30) rotate(7, 500, 840)" />
                         <use href="#pure-petal" transform="translate(0, -40) rotate(0, 500, 840)" />
                     </g>
-                    <g transform="translate(0, 15)" stroke="url(#kshitigarbhaGold)" stroke-width="1.8" stroke-linejoin="round" fill="url(#lotusFill)">
+                    <g transform="translate(0, 70)" stroke="url(#kshitigarbhaGold)" stroke-width="1.8" stroke-linejoin="round" fill="url(#lotusFill)">
                         <use href="#pure-petal" transform="translate(-120, -10) rotate(-12, 500, 840)" />
                         <use href="#pure-petal" transform="translate(120, -10) rotate(12, 500, 840)" />
                         <use href="#pure-petal" transform="translate(-60, 0) rotate(-5, 500, 840)" />
@@ -544,40 +522,69 @@
                         <use href="#pure-petal" transform="translate(0, 5)" />
                     </g>
                 </g>
-            </g>
+            </g> <!-- ─── 【全域母群組結束】 ─── -->
 
-            <!-- 實體香爐與雙火燭台座 (燃香時下降融化) (已完整補回) -->
-            <g id="censer-group">
-                <line id="stick-left" x1="475" y1="1140" x2="480" y2="1270" stroke="#4a2e1b" stroke-width="5" stroke-linecap="round"/>
-                <line id="stick-center" x1="500" y1="1125" x2="500" y2="1270" stroke="#4a2e1b" stroke-width="5" stroke-linecap="round"/>
-                <line id="stick-right" x1="525" y1="1140" x2="520" y2="1270" stroke="#4a2e1b" stroke-width="5" stroke-linecap="round"/>
-                <circle id="glow-left" cx="475" cy="1140" r="3.5" fill="#ff4500" class="incense-glow" />
-                <circle id="glow-center" cx="500" cy="1125" r="3.5" fill="#ff4500" class="incense-glow" />
-                <circle id="glow-right" cx="525" cy="1140" r="3.5" fill="#ff4500" class="incense-glow" />
-                
-                <path d="M 455 1270 C 455 1320, 545 1320, 545 1270 Z" fill="#0d1117" stroke="url(#kshitigarbhaGold)" stroke-width="1.8" />
-
-                <!-- 左側燭台 -->
-                <g id="candle-left-group">
-                    <rect id="candle-body-left" x="405" y="1220" width="10" height="55" rx="2" fill="url(#kshitigarbhaGold)" opacity="0.85"/>
-                    <line id="candle-wick-left" x1="410" y1="1215" x2="410" y2="1220" stroke="#4a2e1b" stroke-width="2"/>
-                    <g id="flame-move-left">
-                        <g id="flame-group-left" class="candle-flicker" style="transform-origin: 410px 1215px;">
-                            <circle cx="410" cy="1205" r="15" fill="url(#flame-glow)" style="mix-blend-mode: screen;"/>
-                        </g>
-                    </g>
-                </g>
-                <!-- 右側燭台 -->
-                <g id="candle-right-group">
-                    <rect id="candle-body-right" x="585" y="1220" width="10" height="55" rx="2" fill="url(#kshitigarbhaGold)" opacity="0.85"/>
-                    <line id="candle-wick-right" x1="590" y1="1215" x2="590" y2="1220" stroke="#4a2e1b" stroke-width="2"/>
-                    <g id="flame-move-right">
-                        <g id="flame-group-right" class="candle-flicker" style="transform-origin: 590px 1215px;">
-                            <circle cx="590" cy="1205" r="15" fill="url(#flame-glow)" style="mix-blend-mode: screen;"/>
-                        </g>
-                    </g>
-                </g>
+            <!-- 實體香爐與雙火燭台座  -->
+<g id="censer-group">
+    <!-- 三支立香  -->
+    <line id="stick-left" x1="475" y1="1140" x2="480" y2="1270" stroke="#4a2e1b" stroke-width="6" stroke-linecap="round"/>
+    <line id="stick-center" x1="500" y1="1125" x2="500" y2="1270" stroke="#4a2e1b" stroke-width="6" stroke-linecap="round"/>
+    <line id="stick-right" x1="525" y1="1140" x2="520" y2="1270" stroke="#4a2e1b" stroke-width="6" stroke-linecap="round"/>
+    
+    <!-- 香頭紅亮光暈 -->
+    <circle id="glow-left" cx="475" cy="1140" r="4" fill="#ff4500" class="incense-glow" />
+    <circle id="glow-center" cx="500" cy="1125" r="4" fill="#ff4500" class="incense-glow" />
+    <circle id="glow-right" cx="525" cy="1140" r="4" fill="#ff4500" class="incense-glow" />
+    
+    <!-- 香爐左右雙耳流線細節 (精準融入地藏 Y 軸) -->
+    <path d="M 455 1275 C 430 1250, 435 1300, 460 1295" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="4" stroke-linecap="round" />
+    <path d="M 545 1275 C 570 1250, 565 1300, 540 1295" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="4" stroke-linecap="round" />
+    
+    <!-- 香爐主體與頂部香灰盤 -->
+    <path d="M 455 1270 C 455 1320, 545 1320, 545 1270 Z" fill="#0d1117" stroke="url(#kshitigarbhaGold)" stroke-width="2" />
+    <ellipse cx="500" cy="1270" rx="45" ry="12" fill="#0b080a" stroke="url(#kshitigarbhaGold)" stroke-width="2" />
+    <g id="ash-layer">
+        <ellipse cx="500" cy="1270" rx="35" ry="7" fill="#333" />
+    </g>
+    
+    <!-- 香爐下方的三足鼎立基座 (精準融入地藏 Y 軸) -->
+    <path d="M 475 1305 L 470 1325" stroke="url(#kshitigarbhaGold)" stroke-width="5" stroke-linecap="round" />
+    <path d="M 525 1305 L 530 1325" stroke="url(#kshitigarbhaGold)" stroke-width="5" stroke-linecap="round" />
+    <path d="M 500 1310 L 500 1330" stroke="url(#kshitigarbhaGold)" stroke-width="5" stroke-linecap="round" />
+    
+    <!-- 左側精緻燭台  -->
+    <g id="candle-left-group">
+        <path d="M 406 1280 C 406 1295, 398 1302, 398 1305 L 422 1305 C 422 1302, 414 1295, 414 1280 Z" fill="url(#kshitigarbhaGold)" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+        <ellipse cx="410" cy="1280" rx="6" ry="1.5" fill="url(#kshitigarbhaGold)"/>
+        <ellipse cx="410" cy="1305" rx="12" ry="3" fill="#0b080a" stroke="rgba(212,175,55,0.8)" stroke-width="1.5"/>
+        <rect id="candle-body-left" x="405" y="1220" width="10" height="60" rx="3" fill="url(#kshitigarbhaGold)" stroke="rgba(212,175,55,0.5)" stroke-width="1.5" opacity="0.85"/>
+        <line id="candle-wick-left" x1="410" y1="1215" x2="410" y2="1225" stroke="#4a2e1b" stroke-width="2"/>
+        
+        <g id="flame-move-left">
+            <g id="flame-group-left" class="candle-flicker" style="transform-origin: 410px 1215px;">
+                <circle cx="410" cy="1205" r="18" fill="url(#flame-glow)" style="mix-blend-mode: screen;"/>
+                <path d="M 410 1192 Q 415 1210 410 1215 Q 405 1210 410 1192 Z" fill="#FFFFFF" style="filter: drop-shadow(0 0 4px #FFD700);"/>
             </g>
+        </g>
+    </g>
+
+    <!-- 右側精緻燭台 (完整承襲彌陀的立體托盤與燭火焰心結構) -->
+    <g id="candle-right-group">
+        <path d="M 586 1280 C 586 1295, 578 1302, 578 1305 L 602 1305 C 602 1302, 594 1295, 594 1280 Z" fill="url(#kshitigarbhaGold)" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+        <ellipse cx="590" cy="1280" rx="6" ry="1.5" fill="url(#kshitigarbhaGold)"/>
+        <ellipse cx="590" cy="1305" rx="12" ry="3" fill="#0b080a" stroke="rgba(212,175,55,0.8)" stroke-width="1.5"/>
+        <rect id="candle-body-right" x="585" y="1220" width="10" height="60" rx="3" fill="url(#kshitigarbhaGold)" stroke="rgba(212,175,55,0.5)" stroke-width="1.5" opacity="0.85"/>
+        <line id="candle-wick-right" x1="590" y1="1215" x2="590" y2="1225" stroke="#4a2e1b" stroke-width="2"/>
+        
+        <g id="flame-move-right">
+            <g id="flame-group-right" class="candle-flicker" style="transform-origin: 590px 1215px;">
+                <circle cx="590" cy="1205" r="18" fill="url(#flame-glow)" style="mix-blend-mode: screen;"/>
+                <path d="M 590 1192 Q 595 1210 590 1215 Q 585 1210 590 1192 Z" fill="#FFFFFF" style="filter: drop-shadow(0 0 4px #FFD700);"/>
+            </g>
+        </g>
+    </g>
+</g>
+
         </svg>
     </div>
 </div>
