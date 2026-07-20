@@ -277,6 +277,19 @@
                     <stop offset="66%" stop-color="#D9B300" />
                     <stop offset="100%" stop-color="#D9B300" />
                 </linearGradient>
+                <!-- 聖潔光暈專用的強效模糊濾鏡 -->
+<filter id="halo-soft-blur" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="25" />
+</filter>
+
+<!-- 身光/頭光專用的法界金光放射漸層 -->
+<radialGradient id="haloGlowFill" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#FFF5B8" stop-opacity="1" />
+    <stop offset="50%" stop-color="#FFD700" stop-opacity="0.6" />
+    <stop offset="85%" stop-color="#B8860B" stop-opacity="0.2" />
+    <stop offset="100%" stop-color="transparent" stop-opacity="0" />
+</radialGradient>
+
 
                 <!-- 關鍵遮罩：已移除內部的縮放 transform，使其與法相結構達到 1:1 的絕對同步 -->
                 <mask id="halo-cutout">
@@ -319,10 +332,12 @@
 <!-- 神盛背光圈 (已納入母群組，完美的相對位置永不重疊與穿透) -->
                 <g class="halo-pulse" mask="url(#halo-cutout)">
                     <!-- 內光圈 -->
-                    <circle cx="500" cy="300" r="210" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="50" />
+                    <circle cx="500" cy="300" r="230" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="50" />
                     <!-- 外光圈 -->
-                    <circle cx="500" cy="300" r="240" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="2" />
+                    <circle cx="500" cy="300" r="260" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="2" />
                 </g>
+<!-- 背景身光暈染層（置於佛像與背景幾何線之間，達到完美的襯托效果） -->
+<circle cx="500" cy="1150" r="200" fill="url(#haloGlowFill)" filter="url(#halo-soft-blur)" style="mix-blend-mode: screen;" />
 
     <!-- 地藏王菩薩錫杖 (已加上全自由調整器，可直接微調下方 transform 的數值) -->
 <!-- 範例設定：放大 1.1 倍 (scale)，並往左移動 40 像素、往上抬高 50 像素 (translate) -->
@@ -793,7 +808,7 @@ function toggleAction(action) {
         function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; } 
         window.addEventListener('resize', resize); resize(); 
 
-        for (let i = 0; i < 150; i++) { 
+        for (let i = 0; i < 280; i++) { 
             stars.push({ x: (Math.random() - 0.5) * 2000, y: (Math.random() - 0.5) * 2000, z: Math.random() * 2000, s: Math.random() * 1.8 }); 
         } 
         function renderStars() { 
