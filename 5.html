@@ -175,7 +175,7 @@
         /* --- 3. 頂禮時：寶珠與光環從原處放大數倍 --- */
         .bowing #mani-jewel-container {
             animation: none; /* 頂禮時專注於放大 */
-            transform: scale(1); /* 從原處放大 3.5 倍（可依畫面隨意調整此數值） */
+            transform: scale(1.1); /* 從原處放大 3.5 倍（可依畫面隨意調整此數值） */
         }
         .bowing #mani-jewel {
             filter: drop-shadow(0 0 25px #ffffff) drop-shadow(0 0 60px #ffd700);
@@ -183,7 +183,7 @@
                /* 彩色能量光環：極高透明度、如琉璃清澈、若隱若現 */
         #mani-rainbow-ring {
             stroke: url(#rainbowGradient); /* 使用彩色漸層線條 */
-            stroke-width: 2.5; /* 稍微縮細線條，更顯精緻 */
+            stroke-width: 3.5; /* 稍微縮細線條，更顯精緻 */
             fill: none;
             transform-origin: 0px 0px;
             opacity: 0.35; /* 大幅提高透明度，平時保持清透感 */
@@ -270,12 +270,12 @@
                     <stop offset="100%" stop-color="transparent" />
                 </radialGradient>
                 
-                <!-- 彩色能量光環的漸層色 -->
+                     <!-- 彩色能量光環的漸層色 -->
                 <linearGradient id="rainbowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#FFD700" />
-                    <stop offset="33%" stop-color="#C4E1FF" />
-                    <stop offset="66%" stop-color="#CEFFCE" />
-                    <stop offset="100%" stop-color="#ffffff" />
+                    <stop offset="0%" stop-color="#00CACA" />
+                    <stop offset="33%" stop-color="#D9B300" />
+                    <stop offset="66%" stop-color="#D9B300" />
+                    <stop offset="100%" stop-color="#D9B300" />
                 </linearGradient>
 
                 <!-- 關鍵遮罩：已移除內部的縮放 transform，使其與法相結構達到 1:1 的絕對同步 -->
@@ -304,7 +304,7 @@
                         <path d="M 565 220 Q 573 205 574 220 Q 582 270 566 320 Q 572 380 546 330 Q 560 280 565 220 Z" />
                     </g>
                 </mask>
-                
+            
 
                 <g id="pure-petal">
                     <path d="M 500 840 Q 460 830, 440 780 C 440 710, 500 690, 500 690 C 500 690, 560 710, 560 780 Q 540 830, 500 840 Z" />
@@ -338,9 +338,9 @@
                 <!-- 神盛背光圈 (已納入母群組，完美的相對位置永不重疊與穿透) -->
                 <g class="halo-pulse" mask="url(#halo-cutout)">
                     <!-- 內光圈 -->
-                    <circle cx="500" cy="300" r="190" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="4.5" />
+                    <circle cx="500" cy="300" r="190" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="5" />
                     <!-- 外光圈 -->
-                    <circle cx="500" cy="300" r="240" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="2" />
+                    <circle cx="500" cy="300" r="240" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="2.9" />
                 </g>
 
                 <!-- 菩薩主體 -->
