@@ -48,49 +48,37 @@
             z-index: 1;
             pointer-events: none;
         }
+      
+        /* 萬丈白毫願力淡綠光爆發層 */
+    #burst-container { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 5; pointer-events: none; }
+    
+    .screen-flash {
+        position: absolute; inset: 0; 
+        background: radial-gradient(circle at 50% 45%, #ffffff 0%, #b9f6ca 45%, #69f0ae 70%, transparent 90%);
+        opacity: 1; pointer-events: none; z-index: 100; mix-blend-mode: screen;
+        animation: flash-fade 2.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+    }
+    @keyframes flash-fade { 0% { opacity: 1; transform: scale(0.8); } 100% { opacity: 0; transform: scale(1.5); } }
 
-        #burst-container {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 5;
-            pointer-events: none;
-        }
+    .gold-ray {
+        position: absolute; width: 3px; height: 200vh;
+        background: linear-gradient(to top, transparent, #69f0ae, #ffffff, #b9f6ca, transparent);
+        box-shadow: 0 0 15px #b9f6ca, 0 0 5px #ffffff; opacity: 0; transform-origin: center center; will-change: transform, opacity;
+    }
+    @keyframes ray-burst { 
+        0% { transform: scaleY(0.05) rotate(var(--rot)); opacity: 0; } 
+        15% { opacity: 1; transform: scaleY(0.6) rotate(var(--rot)); } 
+        100% { transform: scaleY(2.5) rotate(var(--rot)); opacity: 0; } 
+    }
 
-        .screen-flash {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 50% 45%, #ffffff 0%, #f6d365 40%, #fda085 70%, transparent 95%);
-            opacity: 1;
-            pointer-events: none;
-            z-index: 100;
-            mix-blend-mode: screen;
-            animation: flash-fade 2.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
-        }
-
-        @keyframes flash-fade {
-            0% { opacity: 1; transform: scale(0.8); }
-            100% { opacity: 0; transform: scale(1.5); }
-        }
-
-        .gold-ray {
-            position: absolute;
-            width: 3px;
-            height: 150vh;
-            background: linear-gradient(to top, transparent, #f6d365, #ffffff, #80deea, transparent);
-            box-shadow: 0 0 15px #f6d365, 0 0 5px #ffffff;
-            opacity: 0;
-            transform-origin: center center;
-            will-change: transform, opacity;
-        }
-
-        @keyframes ray-burst {
-            0% { transform: scaleY(0.05) rotate(var(--rot)); opacity: 0; }
-            15% { opacity: 1; transform: scaleY(0.6) rotate(var(--rot)); }
-            100% { transform: scaleY(2.5) rotate(var(--rot)); opacity: 0; }
-        }
+    .space-particle {
+        position: absolute; width: 60px; height: 40px; background: #ffffff; border-radius: 70%;
+        box-shadow: 0 0 12px #ffffff, 0 0 25px #69f0ae; opacity: 0; pointer-events: none; will-change: transform, opacity;
+    }
+    @keyframes particle-explode {
+        0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
+        100% { transform: translate(var(--tx), var(--ty)) scale(2.5); opacity: 0; }
+    }
 
         #buddha-scene {
             position: absolute;
@@ -108,7 +96,7 @@
         }
 
         #buddha-scene.bowing {
-            transform: scale(1.15) translateY(2%);
+            transform: scale(1.3) translateY(2%);
         }
 
         .buddha-breathe {
@@ -133,14 +121,15 @@
             100% { transform: scale(1.05); opacity: 0.95; }
         }
 
-        .weapon-highlight {
-            transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 1.5s ease;
-        }
-        
-        .weapon-active {
-            transform: scale(1.45) !important;
-            filter: drop-shadow(0 0 25px #f6d365) drop-shadow(0 0 10px #ffffff) !important;
-        }
+
+.weapon-highlight {
+    transition: filter 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.weapon-active {
+    filter: drop-shadow(0 0 30px #f6d365) drop-shadow(0 0 10px #ffffff) brightness(1.3) !important;
+}
+
 
         #smoke-container { position: absolute; inset: 0; pointer-events: none; z-index: 15; overflow: hidden; }
         
@@ -164,7 +153,7 @@
         .candle-flicker { transform-origin: center bottom; animation: flicker-anim 2.5s ease-in-out infinite alternate; }
         @keyframes flicker-anim { 0% { transform: scale(0.93) rotate(-1.2deg); opacity: 0.8; } 100% { transform: scale(1.04) rotate(1.2deg); opacity: 1; } }
 
-        .ritual-container { position: absolute; bottom: max(30px, env(safe-area-inset-bottom)); display: flex; flex-direction: column; align-items: center; width: 100%; z-index: 100; }
+
         
         #blessing-text { 
             height: 30px; 
@@ -185,14 +174,86 @@
             100% { opacity: 0; transform: translateY(-15px); } 
         }
 
-        /* 按鈕分層設計：燃燈在上，頂禮在下 */
-        .ritual-panel { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .btn-group-bottom { display: flex; gap: 40px; }
-        
-        .ritual-btn { color: var(--gold-light); font-size: 1rem; letter-spacing: 6px; cursor: pointer; transition: all 0.4s; padding: 12px 24px; background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.35); border-radius: 25px; backdrop-filter: blur(8px); font-weight: bold; text-shadow: 0 0 8px rgba(243,229,171,0.4); }
-        .ritual-btn:hover, .ritual-btn.active { color: #fff; text-shadow: 0 0 15px var(--gold-light); border-color: rgba(212,175,55,0.85); background: rgba(212,175,55,0.15); box-shadow: 0 0 20px rgba(212,175,55,0.25); }
-        .chant-hint { margin-top: 18px; font-size: 0.8rem; color: rgba(255,255,255,0.6); letter-spacing: 4px; pointer-events: none; }
+       .ritual-container { 
+    position: absolute; 
+    bottom: max(10px, env(safe-area-inset-bottom)); /* 移至螢幕可放的最低位置 */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    width: 100%; 
+    z-index: 100; 
+    padding: 0 10px; /* 避免極窄螢幕貼邊 */
+    box-sizing: border-box;
+}
 
+/* 按鈕並排面板 */
+.ritual-panel { 
+    width: 100%;
+    max-width: 480px; /* 限制最大寬度，保持平板與大螢幕的美感 */
+    display: flex; 
+    justify-content: center;
+}
+
+.btn-group-row { 
+    display: flex; 
+    gap: 8px; /* 縮小按鈕間距以容納三個按鈕 */
+    width: 100%;
+    justify-content: center;
+    align-items: stretch; /* 讓長度折行的按鈕高度一致 */
+}
+
+/* 扁平精致按鈕設計 */
+.ritual-btn { 
+    flex: 1; /* 三個按鈕均分寬度 */
+    min-width: 0; /* 允許 Flex 子項目縮小 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    color: var(--gold-light); 
+    font-size: 0.85rem; /* 中日文微縮，保持一行放得下 */
+    line-height: 1.2;
+    letter-spacing: 2px; /* 降低字距避免擠壓 */
+    
+    cursor: pointer; 
+    transition: all 0.4s; 
+    padding: 10px 6px; /* 內距縮減，讓英文折行時按鈕優雅變高 */
+    background: rgba(255,255,255,0.03); 
+    border: 1px solid rgba(212,175,55,0.35); 
+    border-radius: 20px; 
+    backdrop-filter: blur(8px); 
+    font-weight: bold; 
+    text-shadow: 0 0 8px rgba(243,229,171,0.4); 
+    
+    word-break: break-word; /* 英文長單字折行支援 */
+    hyphens: auto;
+}
+
+.ritual-btn:hover, .ritual-btn.active { 
+    color: #fff; 
+    text-shadow: 0 0 15px var(--gold-light); 
+    border-color: rgba(212,175,55,0.85); 
+    background: rgba(212,175,55,0.15); 
+    box-shadow: 0 0 20px rgba(212,175,55,0.25); 
+}
+
+/* 底部提示文字 */
+.chant-hint { 
+    margin-top: 8px; 
+    font-size: 0.75rem; 
+    color: rgba(255,255,255,0.6); 
+    letter-spacing: 2px; 
+    pointer-events: none; 
+    text-align: center;
+}
+
+/* 針對英文版的微調（可在 <html> 或 <body> 加上 lang="en"） */
+:lang(en) .ritual-btn {
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    padding: 8px 4px;
+}
         /* 預設隱藏時：停留在較低的位置 */
 #censer-group { 
     opacity: 0; 
@@ -203,7 +264,7 @@
 /* 顯示時：整體往上抬升（例如 -80px），避開文字重疊 */
 body.incense-on #censer-group { 
     opacity: 1; 
-    transform: translate(20px, -170px) scale(0.95); 
+    transform: translate(20px, -150px) scale(0.95); 
 }
 
 .incense-glow { 
@@ -758,16 +819,17 @@ body.incense-on #censer-group {
         </div>
     </div>
     <div class="ritual-container">
-        <div id="blessing-text"></div>
-        <div class="ritual-panel">
-            <div class="ritual-btn top-btn" id="btn-incense" onclick="toggleIncense()">燃燈燒香</div>
-            <div class="btn-group-bottom">
-                <div class="ritual-btn" id="btn-samantabhadra" onclick="toggleAction('samantabhadra')">頂禮普賢</div>
-                <div class="ritual-btn" id="btn-manjusri" onclick="toggleAction('manjusri')">頂禮文殊</div>
-            </div>
+    <div id="blessing-text"></div>
+    <div class="ritual-panel">
+        <div class="btn-group-row">
+            <div class="ritual-btn" id="btn-samantabhadra" onclick="toggleAction('samantabhadra')">頂禮普賢</div>
+            <div class="ritual-btn" id="btn-incense" onclick="toggleIncense()">燃燈燒香</div>
+            <div class="ritual-btn" id="btn-manjusri" onclick="toggleAction('manjusri')">頂禮文殊</div>
         </div>
-        <div class="chant-hint">大行普賢菩薩 ‧ 大智文殊菩薩</div>
     </div>
+    <div class="chant-hint">大行普賢菩薩 ‧ 大智文殊菩薩</div>
+</div>
+
 
     <script>
         function speakWords(text) {
@@ -796,7 +858,7 @@ body.incense-on #censer-group {
             btn.classList.add('active');
             document.getElementById('buddha-scene').classList.add('bowing');
             
-            triggerGoldBurst();
+            triggerGoldenBurst();
 
             if (type === 'samantabhadra') {
                 const weapon = document.getElementById('samantabhadra-weapon');
@@ -823,24 +885,36 @@ body.incense-on #censer-group {
             }, 3200);
         }
 
-        function triggerGoldBurst() {
-            const container = document.getElementById('burst-container');
-            if(!container) return;
-            container.innerHTML = '';
-
-            const flash = document.createElement('div');
-            flash.className = 'screen-flash';
-            container.appendChild(flash);
-
-            for(let i = 0; i < 36; i++) {
-                const angle = i * 10;
-                const ray = document.createElement('div');
-                ray.className = 'gold-ray';
-                ray.style.setProperty('--rot', `${angle}deg`);
-                ray.style.animation = `ray-burst 2.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards`;
-                container.appendChild(ray);
-            }
+            // 萬丈淡綠光粒子特效
+    function triggerGoldenBurst() {
+        const container = document.getElementById('burst-container');
+        if(!container) return;
+        container.innerHTML = '';
+        
+        const flash = document.createElement('div');
+        flash.className = 'screen-flash';
+        container.appendChild(flash);
+        
+        for(let i=0; i<48; i++) {
+            const angle = i * 7.5;
+            const ray = document.createElement('div');
+            ray.className = 'gold-ray';
+            ray.style.setProperty('--rot', `${angle}deg`);
+            ray.style.animation = `ray-burst 2.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards`;
+            container.appendChild(ray);
+            
+            const particle = document.createElement('div');
+            particle.className = 'space-particle';
+            const distance = 70 + Math.random() * 50; 
+            const rad = (angle * Math.PI) / 180;
+            const tx = Math.cos(rad) * distance + "vw";
+            const ty = Math.sin(rad) * distance + "vh";
+            particle.style.setProperty('--tx', tx);
+            particle.style.setProperty('--ty', ty);
+            particle.style.animation = `particle-explode ${1.4 + Math.random() * 1}s cubic-bezier(0.1, 0.8, 0.3, 1) forwards`;
+            container.appendChild(particle);
         }
+    }
 
         let smokeTimer;
         
@@ -904,7 +978,7 @@ body.incense-on #censer-group {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
             stars = [];
-            for(let i = 0; i < 60; i++) {
+            for(let i = 0; i < 300; i++) {
                 stars.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
