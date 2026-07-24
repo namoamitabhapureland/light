@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">⁠
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0d1117">
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest_en.json">
 
     <title>華嚴雙聖‧ 文殊普賢聖像</title>
     <style>
@@ -33,14 +33,15 @@
         }
 
         body {
-            background: radial-gradient(circle at 50% 45%, #121a29 0%, var(--bg-deep) 100%);
-            font-family: "PingFang TC", "Microsoft JhengHei", serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-        }
+    background: radial-gradient(circle at 50% 45%, #121a29 0%, var(--bg-deep) 100%);
+    font-family: "PingFang TC", "Yu Mincho", "YuMincho", "Shippori Mincho", "Times New Roman", serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
 
         canvas {
             position: absolute;
@@ -230,6 +231,7 @@ body.bow-right #bow-anim-left {
             white-space: nowrap; 
         }
         
+        
         @keyframes float-blessing { 
             0% { opacity: 0; transform: translateY(15px); } 
             20% { opacity: 1; transform: translateY(0); } 
@@ -387,7 +389,7 @@ body.incense-on #censer-group {
 
 <!-- 左邊：直接前往 amitabha.html (頂禮彌陀) -->
 <div class="nav-top-left" style="position: absolute; top: max(20px, env(safe-area-inset-top)); left: 20px; z-index: 1000;">
-    <a href="amitabha.html" class="shine-effect highlight" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; background: none; border: none; padding: 0; outline: none;">
+    <a href="amitabha_en.html" class="shine-effect highlight" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; background: none; border: none; padding: 0; outline: none;">
         <svg class="lotus-icon" viewBox="0 0 100 25" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="width: 80px; height: auto; display: block; filter: drop-shadow(0 0 8px rgba(212,175,55,0.3));">
             <defs>
               <linearGradient id="g-base-l" x1="50" y1="25" x2="50" y2="10" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#d4af37" stop-opacity="0.6"/><stop offset="100%" stop-color="#d4af37" stop-opacity="0"/></linearGradient>
@@ -413,7 +415,7 @@ body.incense-on #censer-group {
             <circle cx="50" cy="1.3" r="1.5" fill="#ffffff" opacity="0.9"/>
             <ellipse cx="50" cy="25.3" rx="4" ry="1.4" fill="url(#g-stamen-l)"/>
         </svg>
-        <span style="color: #fbeba5; font-size: 0.8rem; letter-spacing: 3px; margin-top: 6px; opacity: 0.75; text-shadow: 0 0 4px rgba(212,175,55,0.4); font-weight: 300;">頂禮彌陀</span>
+        <span style="color: #fbeba5; font-size: 0.8rem; letter-spacing: 3px; margin-top: 6px; opacity: 0.75; text-shadow: 0 0 4px rgba(212,175,55,0.4); font-weight: 300;">Amitabha</span>
     </a>
 </div>
 
@@ -445,57 +447,57 @@ body.incense-on #censer-group {
             <circle cx="50" cy="1.3" r="1.5" fill="#ffffff" opacity="0.9"/>
             <ellipse cx="50" cy="25.3" rx="4" ry="1.4" fill="url(#g-stamen-r)"/>
         </svg>
-        <span style="color: #fbeba5; font-size: 0.8rem; letter-spacing: 3px; margin-top: 6px; opacity: 0.75; text-shadow: 0 0 4px rgba(212,175,55,0.4); font-weight: 300;">頂禮佛菩薩</span>
+        <span style="color: #fbeba5; font-size: 0.8rem; letter-spacing: 3px; margin-top: 6px; opacity: 0.75; text-shadow: 0 0 4px rgba(212,175,55,0.4); font-weight: 300;">Prostrations</span>
     </button>
 </div>
 
-<!-- 3. 彈框組件結構 -->
+<!-- 3. Modal Component (English) -->
 <div id="realmSelectModal" class="custom-modal" onclick="closeM('realmSelectModal')">
     <div class="modal-box" onclick="event.stopPropagation()">
         
-        <!-- 標題：調整為 14px 金色 -->
-        <div class="modal-title" style="color: var(--gold, #fbeba5); font-size: 14px; letter-spacing: 4px; margin-bottom: 8px; text-shadow: 0 0 15px rgba(212,175,55,0.4);">
-            【 頂禮諸佛菩薩 】
+        <!-- Title -->
+        <div class="modal-title" style="color: var(--gold, #fbeba5); font-size: 13px; letter-spacing: 1.5px; margin-bottom: 8px; text-shadow: 0 0 15px rgba(212,175,55,0.4);">
+            【 Prostrations to the Buddhas 】
         </div>
         
-        <!-- 副標題：縮小為 11px 柔金色 -->
-        <div class="modal-desc" style="color: #e0c878; font-size: 12px; letter-spacing: 1.5px; opacity: 0.8; margin-bottom: 20px; font-weight: 300;">
-            至心前往禮拜 ‧ 廣植無量福田
+        <!-- Subtitle -->
+        <div class="modal-desc" style="color: #e0c878; font-size: 11px; letter-spacing: 0.5px; opacity: 0.8; margin-bottom: 20px; font-weight: 300;">
+            Pay Homage with Sincerity ‧ Cultivate Merit Unbounded
         </div>
 
-        <!-- 按鈕垂直排列容器 -->
+        <!-- Buttons Vertical Stack -->
         <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
             
-            <!-- 地藏菩薩 -->
-            <button class="gold-btn" onclick="navigateWithWarp('ksitigarbha.html')" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+            <!-- Ksitigarbha Bodhisattva -->
+            <button class="gold-btn" onclick="navigateWithWarp('ksitigarbha_en.html')" style="display:flex; align-items:center; justify-content:center; gap:8px;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.85;">
                     <circle cx="12" cy="12" r="9"/>
                     <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/>
                 </svg>
-                頂禮地藏菩薩
+                 Ksitigarbha
             </button>
 
-            <!-- 彌勒尊佛 -->
-            <button class="gold-btn" onclick="navigateWithWarp('mile.html')" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+            <!-- Maitreya Buddha -->
+            <button class="gold-btn" onclick="navigateWithWarp('mile_en.html')" style="display:flex; align-items:center; justify-content:center; gap:8px;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.85;">
                     <path d="M12 2C9.5 6 4 10 4 15c0 3.3 2.7 6 6 6 1.1 0 2.1-.3 3-.8.9.5 1.9.8 3 .8 3.3 0 6-2.7 6-6 0-5-5.5-9-8-13z" opacity="0.6"/>
                     <circle cx="12" cy="12" r="2"/>
                 </svg>
-                頂禮彌勒尊佛
+                Maitreya
             </button>
 
-            <!-- 華嚴雙聖 -->
-            <button class="gold-btn" onclick="navigateWithWarp('manju-samanta.html')" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+            <!-- Two Great Sages of Avatamsaka -->
+            <button class="gold-btn" onclick="navigateWithWarp('manju-samanta_en.html')" style="display:flex; align-items:center; justify-content:center; gap:8px;">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.9;">
                     <path d="M12 0L15 9L24 12L15 15L12 24L9 15L0 12L9 9Z"/>
                 </svg>
-                頂禮華嚴雙聖
+                The Two Avatamsaka Sages
             </button>
 
         </div>
 
-        <div style="text-align: center; margin-top: 22px; font-size: 11px; color: #888; letter-spacing: 2px; cursor: pointer; opacity: 0.7;" onclick="closeM('realmSelectModal')">
-            合十收攝
+        <div style="text-align: center; margin-top: 22px; font-size: 11px; color: #888; letter-spacing: 1px; cursor: pointer; opacity: 0.7;" onclick="closeM('realmSelectModal')">
+            Close Modal
         </div>
     </div>
 </div>
@@ -1002,27 +1004,28 @@ body.incense-on #censer-group {
         </div>
     </div>
                                         
-    <div class="ritual-container">
+  <div class="ritual-container">
     <div id="blessing-text"></div>
     <div class="ritual-panel">
         <div class="btn-group-row">
-            <div class="ritual-btn" id="btn-samantabhadra" onclick="toggleAction('samantabhadra')">頂禮普賢</div>
-            <div class="ritual-btn" id="btn-incense" onclick="toggleIncense()">燃燈燒香</div>
-            <div class="ritual-btn" id="btn-manjusri" onclick="toggleAction('manjusri')">頂禮文殊</div>
+            <div class="ritual-btn" id="btn-samantabhadra" onclick="toggleAction('samantabhadra')">Samantabhadra</div>
+            <div class="ritual-btn" id="btn-incense" onclick="toggleIncense()">Offer Incense</div>
+            <div class="ritual-btn" id="btn-manjusri" onclick="toggleAction('manjusri')">Manjusri</div>
         </div>
     </div>
-    <div class="chant-hint">大行普賢菩薩 ‧ 大智文殊菩薩</div>
+    <div class="chant-hint">Two Avatamsaka Sages</div>
 </div>
 
 
-  <script>
+
+<script>
     function speakWords(text) {
         if (!('speechSynthesis' in window)) return;
         window.speechSynthesis.cancel();
         const msg = new SpeechSynthesisUtterance(text);
-        msg.lang = 'zh-TW';
-        msg.rate = 0.82;
-        msg.pitch = 0.85;
+        msg.lang = 'en-US';
+        msg.rate = 0.85;
+        msg.pitch = 0.9;
         window.speechSynthesis.speak(msg);
     }
 
@@ -1051,8 +1054,8 @@ body.incense-on #censer-group {
             const weapon = document.getElementById('samantabhadra-weapon');
             if(weapon) weapon.classList.add('weapon-active');
             
-            speakWords("願海廣大，十願無盡");
-            showBlessing("普賢願海 ‧ 萬行菩提");
+            speakWords("Vast as the ocean of vows, ten vows endless");
+            showBlessing("Samantabhadra's Vows ‧ Bodhi in Practice");
         } else if (type === 'manjusri') {
             document.body.classList.add('bow-right');
             document.body.classList.remove('bow-left');
@@ -1060,8 +1063,8 @@ body.incense-on #censer-group {
             const weapon = document.getElementById('manjusri-weapon');
             if(weapon) weapon.classList.add('weapon-active');
 
-            speakWords("波若智慧，斷除無明");
-            showBlessing("文殊般若 ‧ 斷盡煩惱");
+            speakWords("Prajna wisdom severs all ignorance");
+            showBlessing("Manjusri's Wisdom ‧ Severing Afflictions");
         }
 
         setTimeout(() => {
@@ -1119,8 +1122,8 @@ body.incense-on #censer-group {
             document.body.classList.add('incense-on');
             btn.classList.add('active');
             
-            speakWords("智形合一，導歸極楽"); 
-            showBlessing("智行合一 ‧ 導歸極樂");
+            speakWords("Wisdom and Practice United, Rebirth in Pure Land"); 
+            showBlessing("Wisdom & Practice ‧ Rebirth in Pure Land");
             
             incenseProgress = 0;
             createThreeSmoke();
@@ -1128,9 +1131,8 @@ body.incense-on #censer-group {
             let startTime = Date.now();
             function burn() {
                 let elapsed = (Date.now() - startTime) / 1000;
-                incenseProgress = Math.min(elapsed / 60, 1); // 60秒完全燃盡
+                incenseProgress = Math.min(elapsed / 60, 1);
                 
-                // 1. 三支願力香同步向下平穩燃燒
                 document.getElementById('stick-center')?.setAttribute('y1', 1125 + (145 * incenseProgress));
                 document.getElementById('glow-center')?.setAttribute('cy', 1125 + (145 * incenseProgress));
                 
@@ -1140,7 +1142,6 @@ body.incense-on #censer-group {
                 document.getElementById('stick-right')?.setAttribute('y1', 1140 + (130 * incenseProgress));
                 document.getElementById('glow-right')?.setAttribute('cy', 1140 + (130 * incenseProgress));
                 
-                // 2. 兩側實體蠟燭高度與火苗同步向下融化
                 let meltAmount = 55 * incenseProgress;
                 ['left', 'right'].forEach(side => {
                     const candleBody = document.getElementById(`candle-body-${side}`);
@@ -1182,7 +1183,6 @@ body.incense-on #censer-group {
 
     function restoreIncensePosition() {
         if(!document.body.classList.contains('incense-on')) {
-            // 完美復原三支香與香頭
             document.getElementById('stick-center')?.setAttribute('y1', '1125');
             document.getElementById('glow-center')?.setAttribute('cy', '1125');
             document.getElementById('stick-left')?.setAttribute('y1', '1140');
@@ -1190,7 +1190,6 @@ body.incense-on #censer-group {
             document.getElementById('stick-right')?.setAttribute('y1', '1140');
             document.getElementById('glow-right')?.setAttribute('cy', '1140');
             
-            // 完美復原兩側蠟燭與火苗
             ['left', 'right'].forEach(side => {
                 const candleBody = document.getElementById(`candle-body-${side}`);
                 const candleWick = document.getElementById(`candle-wick-${side}`);
@@ -1211,7 +1210,6 @@ body.incense-on #censer-group {
         }
     }
 
-    // 萬德莊嚴：三支香頭隨燃燒位置動態釋放裊裊清煙
     function createThreeSmoke() {
         if (!document.body.classList.contains('incense-on') || incenseProgress >= 1) return;
         const container = document.getElementById('smoke-container');
@@ -1236,25 +1234,24 @@ body.incense-on #censer-group {
         
         smokeTimer = setTimeout(createThreeSmoke, 450);
     }
-      function openM(id) { 
+
+    function openM(id) { 
         document.getElementById(id).classList.add('show'); 
     }
     function closeM(id) { 
         document.getElementById(id).classList.remove('show'); 
     }
 
-        /* 華嚴琉璃金光星空動態 */
     const canvas = document.getElementById('starCanvas');
     const ctx = canvas.getContext('2d');
     let width, height, stars = [];
 
-    // 莊嚴配色庫：琥珀金、琉璃綠、白蓮光、溫潤金
     const starColors = [
-        'rgba(246, 211, 101, ',  // 暖金色
-        'rgba(255, 236, 179, ',  // 淡金光
-        'rgba(180, 230, 200, ',  // 翡翠琉璃光
-        'rgba(255, 255, 255, ',  // 淨白微光
-        'rgba(220, 180, 100, '   // 琥珀光
+        'rgba(246, 211, 101, ',
+        'rgba(255, 236, 179, ',
+        'rgba(180, 230, 200, ',
+        'rgba(255, 255, 255, ',
+        'rgba(220, 180, 100, '
     ];
 
     function initCanvas() {
@@ -1262,14 +1259,13 @@ body.incense-on #censer-group {
         height = canvas.height = window.innerHeight;
         stars = [];
         
-        // 數量升級至 480 顆，營造密多華嚴世界
         for(let i = 0; i < 160; i++) {
             stars.push({
                 x: Math.random() * width,
                 y: Math.random() * height,
                 r: Math.random() * 1.8 + 0.3,
                 vx: (Math.random() - 0.5) * 0.15,
-                vy: (Math.random() - 0.5) * 0.15 - 0.05, // 微弱向上緩慢升騰
+                vy: (Math.random() - 0.5) * 0.15 - 0.05,
                 color: starColors[Math.floor(Math.random() * starColors.length)],
                 alpha: Math.random(),
                 pulseSpeed: Math.random() * 0.02 + 0.005,
@@ -1282,17 +1278,14 @@ body.incense-on #censer-group {
         ctx.clearRect(0, 0, width, height);
         
         stars.forEach(s => {
-            // 位置飄移
             s.x += s.vx;
             s.y += s.vy;
             
-            // 邊界循環重置
             if(s.x < 0) s.x = width;
             if(s.x > width) s.x = 0;
             if(s.y < 0) s.y = height;
             if(s.y > height) s.y = 0;
             
-            // 呼吸閃爍邏輯
             s.alpha += s.pulseSpeed * s.pulseDir;
             if(s.alpha >= 0.85) {
                 s.alpha = 0.85;
@@ -1302,7 +1295,6 @@ body.incense-on #censer-group {
                 s.pulseDir = 1;
             }
             
-            // 繪製光芒（較大顆的帶有柔和暈光）
             ctx.beginPath();
             ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
             ctx.fillStyle = `${s.color}${s.alpha})`;
@@ -1323,7 +1315,7 @@ body.incense-on #censer-group {
     window.addEventListener('resize', initCanvas);
     initCanvas();
     drawStars();
-
 </script>
+
 </body>
 </html>
