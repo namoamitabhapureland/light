@@ -1186,6 +1186,71 @@ body {
           d="M 446 195 Q 473 175, 500 185 Q 527 175, 554 195 Q 555 140, 500 135 Q 445 140, 446 195 Z" />
 
    </g>
+              <!-- 天衣與披風：精準對齊輪廓 + 最外圍線條感波浪 -->
+<g id="celestial-ribbon-drapes">
+    
+    <!-- 1. 左側披風區域 -->
+    <!-- (1) 最外圍獨立波浪封閉線條 (純線條不填色，修飾外圍弧度) -->
+    <path id="cape-left-outer-wave-line" fill="none" stroke-linecap="round" stroke-linejoin="round"
+          d="M 335 470 
+             C 305 500, 265 555, 230 625 
+             C 195 690, 185 735, 205 760 
+             C 225 750, 255 710, 285 655 
+             C 315 590, 335 520, 335 470 Z" />
+
+    <!-- (2) 左披風主體實心填色 (精準對齊 robe-outline) -->
+    <path id="cape-left-main-fill" 
+          d="M 350 480 
+             C 330 480, 310 560, 280 680 
+             C 250 715, 200 700, 170 750 
+             C 220 800, 270 800, 310 750 
+             C 330 700, 335 600, 350 480 Z" />
+    
+    <!-- (3) 左披風內部折疊立體層 -->
+    <path id="cape-left-fold-fill" 
+          d="M 340 510 
+             C 315 570, 290 660, 260 710 
+             C 220 735, 190 730, 180 750 
+             C 215 780, 255 775, 290 735 
+             C 315 690, 325 600, 340 510 Z" />
+
+    <!-- (4) 左披風依循外輪廓的動態波浪折紋線 -->
+    <path id="cape-left-fold-lines" fill="none" stroke-linecap="round" stroke-linejoin="round"
+          d="M 345 495 C 320 560, 295 660, 270 705
+             M 330 550 C 305 620, 280 680, 240 730" />
+
+
+    <!-- 2. 右側披風區域 (以 x=500 精準軸對稱) -->
+    <!-- (1) 最外圍獨立波浪封閉線條 -->
+    <path id="cape-right-outer-wave-line" fill="none" stroke-linecap="round" stroke-linejoin="round"
+          d="M 665 470 
+             C 695 500, 735 555, 770 625 
+             C 805 690, 815 735, 795 760 
+             C 775 750, 745 710, 715 655 
+             C 685 590, 665 520, 665 470 Z" />
+
+    <!-- (2) 右披風主體實心填色 (精準對齊 robe-outline) -->
+    <path id="cape-right-main-fill" 
+          d="M 650 480 
+             C 670 480, 690 560, 720 680 
+             C 750 715, 800 700, 830 750 
+             C 780 800, 730 800, 690 750 
+             C 670 700, 665 600, 650 480 Z" />
+    
+    <!-- (3) 右披風內部折疊立體層 -->
+    <path id="cape-right-fold-fill" 
+          d="M 660 510 
+             C 685 570, 710 660, 740 710 
+             C 780 735, 810 730, 820 750 
+             C 785 780, 745 775, 710 735 
+             C 685 690, 675 600, 660 510 Z" />
+
+    <!-- (4) 右披風依循外輪廓的動態波浪折紋線 -->
+    <path id="cape-right-fold-lines" fill="none" stroke-linecap="round" stroke-linejoin="round"
+          d="M 655 495 C 680 560, 705 660, 730 705
+             M 670 550 C 695 620, 720 680, 760 730" />
+
+</g>
 
    </defs>
      <!-- 
@@ -1220,6 +1285,20 @@ body {
     <use href="#heavenly-garment-left-solid" fill="#FFFFFF" stroke="url(#shizhiGoldBrightened)" stroke-width="1.2" stroke-linecap="round" />
     <use href="#heavenly-garment-right-solid" fill="#FFFFFF" stroke="url(#shizhiGoldBrightened)" stroke-width="1.2" stroke-linecap="round" />
 
+    <g id="shizhi-cape-group">
+    <!-- 披風主體與內層 -->
+    <use href="#cape-left-main-fill" fill="url(#shizhiLotusFill)" stroke="url(#shizhiGoldBrightened)" stroke-width="1.5" opacity="0.95" />
+    <use href="#cape-right-main-fill" fill="url(#shizhiLotusFill)" stroke="url(#shizhiGoldBrightened)" stroke-width="1.5" opacity="0.95" />
+    <use href="#cape-left-fold-fill" fill="#93C5FD" opacity="0.6" />
+    <use href="#cape-right-fold-fill" fill="#93C5FD" opacity="0.6" />
+
+    <!-- 最外圍與內側之金屬波浪折紋線條 -->
+    <use href="#cape-left-outer-wave-line" stroke="url(#shizhiGoldBrightened)" stroke-width="1.5" opacity="0.9" />
+    <use href="#cape-right-outer-wave-line" stroke="url(#shizhiGoldBrightened)" stroke-width="1.5" opacity="0.9" />
+    <use href="#cape-left-fold-lines" stroke="url(#shizhiGoldBrightened)" stroke-width="1.2" opacity="0.8" />
+    <use href="#cape-right-fold-lines" stroke="url(#shizhiGoldBrightened)" stroke-width="1.2" opacity="0.8" />
+</g>
+
     <!-- 4. 寶石與細節框線層：注入大勢至專屬發光藍寶珠，以及頭髮外圈藍線 -->
     <use href="#crown-jewel-fill" fill="url(#shizhiCrownJewel)" stroke="url(#shizhiGoldBrightened)" stroke-width="1.2" />
     <use href="#hair-bun-solid" fill="none" stroke="url(#guanyinGold)" stroke-width="1.5" />
@@ -1228,7 +1307,7 @@ body {
     <use href="#bodhisattva-entity" stroke="url(#shizhiGoldBrightened)" fill="none" style="filter: drop-shadow(0 0 15px rgba(100, 149, 237, 0.6));" />
     <use href="#garment-ribbon-lines" stroke="#1E3A8A" fill="none" stroke-width="1.5" /> 
     <use href="#shizhi-lotus-top" />
-        mask)" />
+    
       <!-- 注入大勢至專屬白毫 -->
     <circle cx="500" cy="200" r="5.5" fill="url(#shizhi-urna-glow)" style="filter: drop-shadow(0 0 4px rgba(100, 149, 237, 0.8));" />
     
@@ -1270,6 +1349,20 @@ body {
     <use href="#headscarf-solid" fill="#FFFFFF" stroke="url(#guanyinGold)" stroke-width="1.8" />
     <use href="#heavenly-garment-left-solid" fill="#FFFFFF" stroke="url(#guanyinGold)" stroke-width="1.2" stroke-linecap="round" />
     <use href="#heavenly-garment-right-solid" fill="#FFFFFF" stroke="url(#guanyinGold)" stroke-width="1.2" stroke-linecap="round" />
+        <g id="guanyin-cape-group">
+    <!-- 披風主體與內層 -->
+    <use href="#cape-left-main-fill" fill="url(#bead-amber-grad)" stroke="url(#guanyinGold)" stroke-width="1.5" opacity="0.9" />
+    <use href="#cape-right-main-fill" fill="url(#bead-amber-grad)" stroke="url(#guanyinGold)" stroke-width="1.5" opacity="0.9" />
+    <use href="#cape-left-fold-fill" fill="#FDE047" opacity="0.65" />
+    <use href="#cape-right-fold-fill" fill="#FDE047" opacity="0.65" />
+
+    <!-- 最外圍與內側之金屬波浪折紋線條 -->
+    <use href="#cape-left-outer-wave-line" stroke="url(#guanyinGold)" stroke-width="1.5" opacity="0.9" />
+    <use href="#cape-right-outer-wave-line" stroke="url(#guanyinGold)" stroke-width="1.5" opacity="0.9" />
+    <use href="#cape-left-fold-lines" stroke="url(#guanyinGold)" stroke-width="1.2" opacity="0.85" />
+    <use href="#cape-right-fold-lines" stroke="url(#guanyinGold)" stroke-width="1.2" opacity="0.85" />
+</g>
+
 
     <!-- 4. 寶石與細節框線層：注入觀音專屬璀璨燙金/紅寶珠，以及頭髮外圈金線 -->
     <use href="#crown-jewel-fill" fill="url(#guanyinCrownJewel)" stroke="url(#guanyinGold)" stroke-width="1.2" />
@@ -1540,20 +1633,28 @@ body {
 </path>
 
 
-                         <!-- 眉心白毫與眼睛（閉眼） -->
+                     <!-- 眉心白毫與眼睛（閉眼） -->
 <g class="buddha-eye-closed">
-    <circle cx="500" cy="202" r="3" fill="url(#pureGoldGradient)" stroke="none" class="glow-core" />
-    <path d="M 446 243 Q 462 246 478 243" />
-    <path d="M 522 243 Q 538 246 554 243" />
-    <path d="M 446 243 Q 462 252 478 243" fill="none" stroke="url(#goldBody)" stroke-width="1.5" stroke-opacity="1.3" />
-    <path d="M 522 243 Q 538 252 554 243" fill="none" stroke="url(#goldBody)" stroke-width="1.5" stroke-opacity="1.3" />
+    <circle cx="500" cy="202" r="5" fill="url(#pureGoldGradient)" stroke="none" class="glow-core" />
+    <!-- 左眼弧線 -->
+    <path d="M 444 234.5 Q 462 239 478 237.5 Q 479 239 478.5 240.5" stroke="url(#goldBody)" stroke-width="2.0" stroke-linecap="round" fill="none" />
+    <path d="M 444 234.5 Q 462 245 478.5 240.5" stroke="url(#goldBody)" stroke-width="2.0" stroke-linecap="round" fill="none" />
+    <!-- 右眼弧線 (對稱) -->
+    <path d="M 556 234.5 Q 538 239 522 237.5 Q 521 239 521.5 240.5" stroke="url(#goldBody)" stroke-width="2.0" stroke-linecap="round" fill="none" />
+    <path d="M 556 234.5 Q 538 245 521.5 240.5" stroke="url(#goldBody)" stroke-width="2.0" stroke-linecap="round" fill="none" />
 </g>
 
-<!-- 眉心白毫與眼睛（張眼） -->
+<!-- 眉心白毫與眼睛（張眼：由閉眼線條衍生，稍微大一點點，精準對稱） -->
 <g class="buddha-eye-open">
-    <circle cx="500" cy="202" r="4.1" fill="url(#pureGoldGradient)" stroke="none" class="glow-core" />
-    <path d="M 446 243 Q 462 246 478 243 Q 462 257 446 243 Z" fill="url(#glass-base-mini)" opacity="1.2" stroke="url(#goldBody)" stroke-width="2" stroke-opacity="1.5" stroke-linejoin="round" /> 
-    <path d="M 522 243 Q 538 246 554 243 Q 538 257 522 243 Z" fill="url(#glass-base-mini)" opacity="1.2" stroke="url(#goldBody)" stroke-width="2" stroke-opacity="1.5" stroke-linejoin="round" /> 
+    <circle cx="500" cy="202" r="7" fill="url(#pureGoldGradient)" stroke="none" class="glow-core" />
+    
+    <!-- 左眼 (長度微增至 39 單位) -->
+    <path d="M 441 234 Q 462 239.5 480 238 Q 479 239.5 478.5 241" stroke="url(#goldBody)" stroke-width="3" stroke-linecap="round" fill="none" />
+    <path d="M 441 234 Q 462 246 480 241" stroke="url(#goldBody)" stroke-width="2.5" stroke-linecap="round" fill="none" />
+    
+    <!-- 右眼 (對稱，x = 1000 - 左眼x) -->
+    <path d="M 559 234 Q 538 239.5 520 238 Q 521 239.5 521.5 241" stroke="url(#goldBody)" stroke-width="3" stroke-linecap="round" fill="none" />
+    <path d="M 559 234 Q 538 246 520 241" stroke="url(#goldBody)" stroke-width="2.5" stroke-linecap="round" fill="none" />
 </g>
 
 
@@ -2119,21 +2220,6 @@ document.getElementById('milestone-name-display').innerText = currentName;
             }
         }
     }
-           // =================================================================
-        // 🌟 臨時限定：奇偶日自動分流導引（隨時可由舊版代碼整份覆蓋還原）
-        // =================================================================
-        setTimeout(() => {
-            const todayDate = new Date().getDate(); // 取得今天是幾號 (1~31)
-            
-            if (todayDate % 2 !== 0) {
-                // ☉ 奇數日（例如 1, 3, 5... 號）：進入即自動送往地藏專頁
-                window.location.href = '5.html';
-            } else {
-                // ☉ 偶數日（例如 2, 4, 6... 號）：進入即自動送往彌勒專頁
-                window.location.href = '6.html';
-            }
-        }, 1200); // 給予 1.2 秒的緩衝，讓行者在畫面上看到金粉或修持天數更新後，隨即莊嚴轉址
- 
 
 
     // 模態框操作函數
