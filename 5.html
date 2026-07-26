@@ -218,7 +218,7 @@
         .bowing #mani-rainbow-ring {
             animation: none;
             opacity: 0.6; /* 頂禮放大時稍微增強，但依然保持剔透 */
-            stroke-width: 1.2; 
+            stroke-width: 3; 
             filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
         }
 
@@ -1035,18 +1035,18 @@ window.addEventListener('resize', resW);
 resW(); 
 
 const hellSeaThemes = [
-    { h: 350, s: 75, l: 18 }, // 深紫紅底浪
-    { h: 10,  s: 85, l: 28 }, // 血赤大浪
-    { h: 35,  s: 90, l: 45 }  // 業火金赤表浪
+    { h: 40, s: 75, l: 79 }, // 深紫紅底浪
+    { h: 18,  s: 85, l: 60 }, // 血赤大浪
+    { h: 35,  s: 150, l: 45 }  // 業火金赤表浪
 ];
 
 function drawW() { 
     wCtx.clearRect(0, 0, ww, wh); 
-    wTime += 0.008; // 業海翻騰速度略為提升，展現動能
+    wTime += 0.006; // 業海翻騰速度略為提升，展現動能
 
     for (let i = 0; i < 3; i++) { 
         wCtx.beginPath(); 
-        let shift = i * 3; 
+        let shift = i * 1.8; 
         let grad = wCtx.createLinearGradient(0, wh * 0.55, 0, wh); 
         let t = hellSeaThemes[i]; 
         
@@ -1061,10 +1061,10 @@ grad.addColorStop(1,   `hsla(${t.h}, ${t.s}%, ${t.l}%, 0.85)`);
         
         // 業海多重正弦波計算
         for (let x = 0; x <= ww; x += 5) { 
-            let y = Math.sin(x * 0.004 + wTime + shift) * 35 
-                  + Math.sin(x * 0.009 - wTime * 1.5) * 22 
+            let y = Math.sin(x * 0.06+ wTime + shift) * 35 
+                  + Math.sin(x * 0.05- wTime * 1.5) * 22 
                   + (wh * 0.68) 
-                  + Math.cos(wTime * 0.8 + i) * 18; 
+                  + Math.cos(wTime * 2 + i) * 18; 
                   
             if (x === 0) wCtx.moveTo(x, y); 
             else wCtx.lineTo(x, y); 
