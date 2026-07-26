@@ -677,7 +677,9 @@ body {
                     <stop offset="100%" stop-color="#f3c2c4" stop-opacity="0.35"/> 
                 </linearGradient>
                
-            
+                <filter id="halo-soft-blur" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="25" />
+                    </filter>
                 
                 <linearGradient id="glass-base-mini" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stop-color="rgba(243, 229, 171, 0.5)"/>
@@ -723,8 +725,7 @@ body {
     <path d="M 500 108 C 506 108, 508 114, 508 118 C 522 118, 524 145, 510 155 C 550 155, 565 170, 565 220 C 565 250, 565 280, 560 310 C 555 320, 550 325, 550 330 C 540 330, 540 350, 550 370 C 610 370, 650 400, 670 480 C 690 560, 680 660, 650 700 C 720 680, 800 700, 830 750 C 860 800, 830 840, 770 840 L 230 840 C 170 840, 140 800, 170 750 C 200 700, 280 680, 350 700 C 320 660, 310 560, 330 480 C 350 400, 390 370, 450 370 C 460 350, 460 330, 450 330 C 450 325, 445 320, 440 310 C 435 280, 435 250, 435 220 C 435 170, 450 155, 490 155 C 476 145, 478 118, 492 118 C 492 114, 494 108, 500 108 Z" fill="black" />
     <circle cx="500" cy="245" r="215" fill="black" />
 </mask>
-            
-                
+             
                 <g id="pure-petal">
                     <path d="M 500 840 Q 460 830, 440 780 C 440 710, 500 690, 500 690 C 500 690, 560 710, 560 780 Q 540 830, 500 840 Z" />
                     <path d="M 500 815 Q 475 805, 465 780 C 465 730, 500 715, 500 715 C 500 715, 535 730, 535 780 Q 525 805, 500 815 Z" fill="none" />
@@ -1305,8 +1306,8 @@ body {
 
     <!-- 觀音披風組 (已修正無效引用) -->
     <g id="guanyin-cape-group">
-        <use href="#cape-left-main-fill" fill="url(#bead-amber-grad)" stroke="url(#guanyinGold)" stroke-width="1.5" opacity="0.9" />
-        <use href="#cape-right-main-fill" fill="url(#bead-amber-grad)" stroke="url(#guanyinGold)" stroke-width="1.5" opacity="0.9" />
+        <use href="#cape-left-main-fill" fill="url(#bodhi-aura-pure)" stroke="url(#guanyinGold)" stroke-width="1.5" opacity="0.9" />
+        <use href="#cape-right-main-fill" fill="url(#bodhi-aura-pure)" stroke="url(#guanyinGold)" stroke-width="1.5" opacity="0.9" />
         <use href="#cape-left-fold-lines" stroke="url(#guanyinGold)" stroke-width="1.2" opacity="0.85" />
         <use href="#cape-right-fold-lines" stroke="url(#guanyinGold)" stroke-width="1.2" opacity="0.85" />
     </g>
@@ -1349,6 +1350,13 @@ body {
         
     </g>
 </g>
+
+<g style="isolation: isolate;">
+    <circle cx="300" cy="820" r="150" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
+    <circle cx="700" cy="820" r="150" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
+    <circle cx="500" cy="800" r="250" fill="url(#junctionGlow)" filter="url(#halo-soft-blur)" style="mix-blend-mode: screen;" />
+</g>
+
 
 
             <g class="aura-pulse" mask="url(#halo-mask)">
@@ -1609,8 +1617,8 @@ body {
 
 
 <!-- 鼻樑後半段骨架（左 493 / 右 507）依然連貫 -->
-<path d="M 440 222 Q 462 209 493 219 C 494.5 230, 494 248, 493 274.5" fill="none" stroke-width="1.5" />
-<path d="M 560 222 Q 538 209 507 219 C 505.5 230, 506 248, 507 274.5" fill="none" stroke-width="1.5" />
+<path d="M 440 222 Q 462 209 493 219 C 494.5 230, 494 248, 493 274.5" fill="none" stroke-width="2.5" />
+<path d="M 560 222 Q 538 209 507 219 C 505.5 230, 506 248, 507 274.5" fill="none" stroke-width="2.5" />
 
 <!-- ✨ 圓潤無瑕微笑線 -->
 <path d="M 493 274.5 Q 500 281.5 507 274.5" fill="none" stroke-width="1" stroke-linecap="round" />
@@ -1623,10 +1631,10 @@ body {
 
 
 /* 嘴三層次線 */
-<path d="M 482 293.5 Q 483 294.5 484 295 Q 492 291 500 296 Q 508 291 516 295 Q 517 294.5 518 293.5" stroke-width="1.6" fill="none" />
-<path d="M 480 293.5 Q 481 294.5 482 295 Q 500 299 518 295 Q 519 294.5 520 293.5" stroke-width="1.2" fill="none" stroke-opacity="0.8" />
+<path d="M 482 293.5 Q 483 294.5 484 295 Q 492 291 500 296 Q 508 291 516 295 Q 517 294.5 518 293.5" stroke-width="2" fill="none" />
+<path d="M 480 293.5 Q 481 294.5 482 295 Q 500 299 518 295 Q 519 294.5 520 293.5" stroke-width="1.5" fill="none" stroke-opacity="0.8" />
 <path d="M 486 299 Q 500 303 514 299" stroke-width="1.5" fill="none" />
-<path d="M 486 322 Q 500 316 514 322" stroke-width="1.2" />
+<path d="M 486 322 Q 500 316 514 322" stroke-width="1.5" />
 
 <!-- 脖子線 -->
 <path d="M 460 325 Q 500 360 540 325" fill="none" stroke-width="1" />
@@ -1672,7 +1680,7 @@ body {
                     </g>
                     
                 </g>
-
+  
 
                 <g id="orb-layer" style="opacity: 0; pointer-events: none;">
                     <path id="beam-left-glow" fill="none" stroke="#FFD700" stroke-width="15" stroke-linecap="round" style="filter: blur(8px); opacity: 0.3;" />
