@@ -492,10 +492,10 @@
                     <circle cx="500" cy="300" r="260" fill="none" stroke="url(#kshitigarbhaGold)" stroke-width="2" />
                 </g>
 <!-- 背景身光暈染層（置於佛像與背景幾何線之間，達到完美的襯托效果） -->
-<circle cx="500" cy="1150" r="200" fill="url(#haloGlowFill)" filter="url(#halo-soft-blur)" style="mix-blend-mode: screen;" />
-<circle cx="500" cy="1100" r="200" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
-<circle cx="450" cy="1100" r="400" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
-<circle cx="550" cy="1100" r="400" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
+<circle cx="500" cy="1150" r="250" fill="url(#haloGlowFill)" filter="url(#halo-soft-blur)" style="mix-blend-mode: screen;" />
+
+<circle cx="350" cy="1130" r="100" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
+<circle cx="650" cy="1130" r="100" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
         
 
     <!-- 地藏王菩薩錫杖 (已加上全自由調整器，可直接微調下方 transform 的數值) -->
@@ -968,7 +968,7 @@ function toggleAction(action) {
           // --- 1. 幽冥星空/業塵畫布 (starCanvas) ---
 const canvas = document.getElementById('starCanvas'); 
 const ctx = canvas.getContext('2d'); 
-let width, height, stars = [], warpSpeed = 1, starScale = 1.5; 
+let width, height, stars = [], warpSpeed = 1, starScale = 1.2; 
 
 function resize() { 
     width = window.innerWidth; 
@@ -980,7 +980,7 @@ window.addEventListener('resize', resize);
 resize(); 
 
 // 幽冥業塵色彩：金赤、血紅、暗赭、幽火綠、冷金
-const STAR_COLORS = ['#d4b106', '#d4b106', '#C48888', '#C48888', '#d4b106', '#EA0000', '#EA0000']; 
+const STAR_COLORS = ['#4A1515', '#4A1515', '#FF5500', '#FF5500', '#4A1515', '#AA0000', '#AA0000']; 
 for (let i = 0; i < 300; i++) { 
     stars.push({ 
         x: (Math.random() - 0.5) * 2000, 
@@ -1046,7 +1046,7 @@ function drawW() {
 
     for (let i = 0; i < 3; i++) { 
         wCtx.beginPath(); 
-        let shift = i * 2.5; 
+        let shift = i * 3; 
         let grad = wCtx.createLinearGradient(0, wh * 0.55, 0, wh); 
         let t = hellSeaThemes[i]; 
         
