@@ -1053,18 +1053,18 @@ window.addEventListener('resize', resW);
 resW(); 
 
 const hellSeaThemes = [
-    { h: 134, s: 55, l: 18 }, 
-    { h: 110,  s: 85, l: 28 }, 
-    { h: 120,  s: 90, l: 45 }  
+    { h: 30, s: 55, l: 18 }, 
+    { h: 60,  s: 85, l: 28 }, 
+    { h: 59,  s: 90, l: 45 }  
 ];
 
 function drawW() { 
     wCtx.clearRect(0, 0, ww, wh); 
-    wTime += 0.008; // 速度略為提升，展現動能
+    wTime += 0.001; // 速度略為提升，展現動能
 
     for (let i = 0; i < 3; i++) { 
         wCtx.beginPath(); 
-        let shift = i * 2.5; 
+        let shift = i * 2; 
         let grad = wCtx.createLinearGradient(0, wh * 0.55, 0, wh); 
         let t = hellSeaThemes[i]; 
         
