@@ -984,6 +984,8 @@
 
 
        
+
+       
 const canvas = document.getElementById('starCanvas'); 
 const ctx = canvas.getContext('2d'); 
 let width, height, stars = [], warpSpeed = 1.8, starScale = 0.8; 
@@ -1053,19 +1055,19 @@ window.addEventListener('resize', resW);
 resW(); 
 
 const hellSeaThemes = [
-    { h: 30, s: 55, l: 18 }, 
-    { h: 60,  s: 85, l: 28 }, 
-    { h: 59,  s: 90, l: 45 }  
+    { h: 30, s: 55, l: 49 }, 
+    { h: 60,  s: 85, l: 50 }, 
+    { h: 55,  s: 90, l: 45 }  
 ];
 
 function drawW() { 
     wCtx.clearRect(0, 0, ww, wh); 
-    wTime += 0.001; // 速度略為提升，展現動能
+    wTime += 0.009; // 速度略為提升，展現動能
 
     for (let i = 0; i < 3; i++) { 
         wCtx.beginPath(); 
         let shift = i * 2; 
-        let grad = wCtx.createLinearGradient(0, wh * 0.55, 0, wh); 
+        let grad = wCtx.createLinearGradient(0, wh * 0.1, 0, wh); 
         let t = hellSeaThemes[i]; 
         
 
@@ -1079,10 +1081,10 @@ grad.addColorStop(1,   `hsla(${t.h}, ${t.s}%, ${t.l}%, 0.85)`);
         
         // 海多重正弦波計算
         for (let x = 0; x <= ww; x += 5) { 
-            let y = Math.sin(x * 0.004 + wTime + shift) * 35 
-                  + Math.sin(x * 0.009 - wTime * 1.5) * 22 
+            let y = Math.sin(x * 0.001 + wTime + shift) * 35 
+                  + Math.sin(x * 0.01- wTime * 1.5) * 22 
                   + (wh * 0.68) 
-                  + Math.cos(wTime * 0.8 + i) * 18; 
+                  + Math.cos(wTime * 0.3 + i) * 18; 
                   
             if (x === 0) wCtx.moveTo(x, y); 
             else wCtx.lineTo(x, y); 
