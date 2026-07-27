@@ -56,9 +56,9 @@
         }
         
     /* 將原本的 body.bowing-active 改為 body.bow-left 與 body.bow-right */
-body.bow-left #waterCanvas,
-body.bow-right #waterCanvas,
-body.incense-on #waterCanvas { 
+body.bow-left #starCanvas,
+body.bow-right #starCanvas,
+body.incense-on #starCanvas { 
     opacity: 0 !important; 
 }
 
@@ -550,6 +550,20 @@ body.incense-on #censer-group {
                         <stop offset="0%" stop-color="#98fb98" />
                         <stop offset="100%" stop-color="#006400" />
                     </linearGradient>
+                    <linearGradient id="2crownJewelGradientLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+    <!-- 頂端：亮透青藍 -->
+    <stop offset="0%" stop-color="#E0FFFF" stop-opacity="0.85" />
+    <!-- 底端：柔和天藍（不沉重，帶自然透明度） -->
+    <stop offset="100%" stop-color="#87CEFA" stop-opacity="0.35" />
+</linearGradient>
+                    <linearGradient id="2crownJewelGradientRight" x1="0%" y1="0%" x2="100%" y2="100%">
+    <!-- 頂端：清透薄荷白綠 -->
+    <stop offset="0%" stop-color="#F0FFF0" stop-opacity="0.85" />
+    <!-- 底端：柔和翡翠淡綠 -->
+    <stop offset="100%" stop-color="#98FB98" stop-opacity="0.35" />
+</linearGradient>
+
+
                     <linearGradient id="facet-light" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stop-color="#ffffff" />
                         <stop offset="100%" stop-color="#e0f7fa" />
@@ -725,8 +739,8 @@ body.incense-on #censer-group {
                                             <path class="crown-body-left" d="M 455 133 C 500 142, 500 142, 550 133 L 560 102 L 540 110 L 520 65 L 508 100 L 500 45 L 492 100 L 480 65 L 460 110 L 440 102 Z" stroke-width="1.8" />
                                             <circle cx="500" cy="92" r="10" stroke-width="1.2" fill="url(#crownJewelGradientLeft)" />
 <g id="left-jewel-connect-group" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-  <path id="left-jewel-connect-part" d="M 440 102 L 480 65 L 500 31 Z" fill="url(#crownJewelGradientLeft)" opacity="0.75" />
-  <path id="right-jewel-connect-part" d="M 500 31 L 520 65 L 560 102 Z" fill="url(#crownJewelGradientLeft)" opacity="0.75" />
+  <path id="left-jewel-connect-part" d="M 440 102 L 480 65 L 500 31 Z" fill="url(#2crownJewelGradientLeft)" opacity="0.75" />
+  <path id="right-jewel-connect-part" d="M 500 31 L 520 65 L 560 102 Z" fill="url(#2crownJewelGradientLeft)" opacity="0.75" />
 </g>
 
                                             <circle cx="480" cy="65" r="5" stroke-width="1" fill="url(#crownJewelGradientLeft)" />
@@ -787,7 +801,7 @@ body.incense-on #censer-group {
              C 328 1040, 335 1010, 332 970 
              C 325 870, 348 770, 338 660 
              C 328 550, 345 450, 375 370 Z" 
-          fill="url(#crownJewelGradientLeft)" opacity="0.85" />
+          fill="url(#2crownJewelGradientLeft)" opacity="0.85" />
 
     <!-- 右側 - 內側緞帶 -->
     <path id="cape-right-inner"
@@ -798,7 +812,7 @@ body.incense-on #censer-group {
              C 672 1040, 665 1010, 668 970 
              C 675 870, 652 770, 662 660 
              C 672 550, 655 450, 625 370 Z" 
-          fill="url(#crownJewelGradientLeft)" opacity="0.85" />
+          fill="url(#2crownJewelGradientLeft)" opacity="0.85" />
 
 
     <!-- ========================================================= -->
@@ -889,8 +903,8 @@ body.incense-on #censer-group {
                                         </g>
                                        <!-- 右側外層天衣飄帶（左右各自獨立封閉） -->
 <g id="right-outer-heavenly-drape" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M 440 102 C 425 125, 410 180, 420 220 C 430 260, 375 290, 370 400 Z" fill="url(#crownJewelGradientRight)" opacity="0.75" />
-    <path d="M 560 102 C 575 125, 590 180, 580 220 C 570 260, 625 290, 630 400 Z" fill="url(#crownJewelGradientRight)" opacity="0.75" />
+    <path d="M 440 102 C 425 125, 410 180, 420 220 C 430 260, 375 290, 370 400 Z" fill="url(#2crownJewelGradientRight)" opacity="0.75" />
+    <path d="M 560 102 C 575 125, 590 180, 580 220 C 570 260, 625 290, 630 400 Z" fill="url(#2crownJewelGradientRight)" opacity="0.75" />
 </g>  
                                         <g id="right-heavenly-garment-streamers" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
     <path d="M 490 108 
@@ -1037,7 +1051,7 @@ body.incense-on #censer-group {
              C 328 1040, 335 1010, 332 970 
              C 325 870, 348 770, 338 660 
              C 328 550, 345 450, 375 370 Z" 
-          fill="url(#crownJewelGradientRight)" opacity="0.85" />
+          fill="url(#2crownJewelGradientRight)" opacity="0.85" />
 
     <!-- 右側 - 內側緞帶 -->
     <path id="cape-right-inner"
@@ -1048,7 +1062,7 @@ body.incense-on #censer-group {
              C 672 1040, 665 1010, 668 970 
              C 675 870, 652 770, 662 660 
              C 672 550, 655 450, 625 370 Z" 
-          fill="url(#crownJewelGradientRight)" opacity="0.85" />
+          fill="url(#2crownJewelGradientRight)" opacity="0.85" />
 
 
     <!-- ========================================================= -->
@@ -1422,116 +1436,141 @@ body.incense-on #censer-group {
 }
 
 
-       
-const canvas = document.getElementById('starCanvas'); 
-const ctx = canvas.getContext('2d'); 
-let width, height, stars = [], warpSpeed = 2, starScale = 1; 
+       /* 華嚴琉璃金光 - 精準時間控制煙火動態 */
+const canvas = document.getElementById('starCanvas');
+const ctx = canvas.getContext('2d');
+let width, height, particles = [];
 
-function resize() { 
-    width = window.innerWidth; 
-    height = window.innerHeight; 
-    canvas.width = width; 
-    canvas.height = height; 
-} 
-window.addEventListener('resize', resize); 
-resize(); 
+// 莊嚴配色庫
+const particleColors = [
+    { r: 246, g: 211, b: 101 }, 
+    { r: 255, g: 236, b: 179 }, 
+    { r: 180, g: 230, b: 200 }, 
+    { r: 255, g: 255, b: 255 }, 
+    { r: 135, g: 206, b: 250 }  
+];
 
+// 時間與計時器控制變數
+let burstTimer = null; // 獨立的時間定時器
+const BURST_INTERVAL = 4200; // 精準的 4.2 秒間隔 (毫秒)
+const BURST_PARTICLE_COUNT = 160;
 
-const STAR_COLORS = ['#EAC100', '#EAC100', '#C4E1FF', '#C4E1FF', '#02DF82', '#7373B9', '#FFF4C1']; 
-for (let i = 0; i < 200; i++) { 
-    stars.push({ 
-        x: (Math.random() - 0.5) * 2000, 
-        y: (Math.random() - 0.5) * 2000, 
-        z: Math.random() * 2000, 
-        color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)], 
-        s: Math.random() * 2.2 + 0.5 
-    }); 
-} 
+// 觸發一波全新的煙火綻放
+function triggerFireworkBurst() {
+    // 檢查 Canvas 是否處於隱藏狀態，若是隱藏則不運算生成粒子（節省效能與時間錯亂）
+    const canvasStyle = window.getComputedStyle(canvas);
+    if (canvasStyle.opacity === '0' || canvasStyle.display === 'none') {
+        return;
+    }
 
-function renderStars() { 
-   
-    ctx.fillStyle = 'rgba(5, 2, 4, 0.35)'; 
-    ctx.fillRect(0, 0, width, height); 
-    ctx.globalCompositeOperation = 'screen'; 
+    const centerX = width / 2;
+    const centerY = height * 0.55; 
+
+    for (let i = 0; i < BURST_PARTICLE_COUNT; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 5.0 + 1.5;
+
+        particles.push({
+            x: centerX,
+            y: centerY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            r: Math.random() * 2.2 + 1.0,
+            alpha: 1.0,
+            decay: Math.random() * 0.012 + 0.008,
+            friction: 0.972,
+            gravity: 0.015,
+            color: particleColors[Math.floor(Math.random() * particleColors.length)],
+            isSparkle: Math.random() < 0.35
+        });
+    }
+}
+
+// 啟動精準定時器
+function startBurstTimer() {
+    if (burstTimer) clearInterval(burstTimer);
     
-    stars.forEach(s => { 
-        s.z -= warpSpeed; 
-        if (s.z <= 0) { 
-            s.z = 2000; 
-            s.x = (Math.random() - 0.5) * 2000; 
-            s.y = (Math.random() - 0.5) * 2000; 
-        } 
-        let sc = 400 / (400 + s.z); 
-        let drawY = (height / 2) + s.y * sc; 
-        
-     
-        if (drawY > height * 0.72) return; 
-        
-        ctx.beginPath(); 
-        ctx.arc((width / 2) + s.x * sc, drawY, s.s * sc * starScale, 0, Math.PI * 2); 
-        ctx.fillStyle = s.color; 
-        ctx.globalAlpha = Math.min(0.85, sc * 2.2); 
-        ctx.fill(); 
-        ctx.globalAlpha = 1; 
-    }); 
+    // 立即觸發第一波
+    triggerFireworkBurst();
     
-    ctx.globalCompositeOperation = 'source-over'; 
-    requestAnimationFrame(renderStars); 
-} 
-renderStars();
+    // 使用獨立時間軸，精準每 4.2 秒執行一次，不受 requestAnimationFrame 暫停影響
+    burstTimer = setInterval(() => {
+        triggerFireworkBurst();
+    }, BURST_INTERVAL);
+}
 
+function initCanvas() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    particles = [];
+    
+    startBurstTimer();
+}
 
-const wCvs = document.getElementById('waterCanvas'), wCtx = wCvs.getContext('2d'); 
-let ww, wh, wTime = 0; 
+function drawFireworks() {
+    // 1. 畫布塗覆背景
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = 'rgba(10, 12, 18, 0.12)'; 
+    ctx.fillRect(0, 0, width, height);
 
-function resW() { 
-    ww = wCvs.width = window.innerWidth; 
-    wh = wCvs.height = window.innerHeight; 
-} 
-window.addEventListener('resize', resW); 
-resW(); 
+    // 2. 開啟光芒重疊模式
+    ctx.globalCompositeOperation = 'screen';
 
-const SeaThemes= [ { h: 333, s: 100, l: 222 }, { h: 333, s: 275, l: 132}, { h: 211, s: 210, l: 22 } ];
+    // 3. 遍歷與更新粒子
+    for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
 
+        p.vx *= p.friction;
+        p.vy *= p.friction;
+        p.vy += p.gravity;
+        p.x += p.vx;
+        p.y += p.vy;
 
-function drawW() { 
-    wCtx.clearRect(0, 0, ww, wh); 
-    wTime += 0.001; // 速度略為提升，展現動能
+        p.alpha -= p.decay;
 
-    for (let i = 0; i < 3; i++) { 
-        wCtx.beginPath(); 
-        let shift = i * 3; 
-        let grad = wCtx.createLinearGradient(0, wh * 0.1, 0, wh); 
-        let t = SeaThemes[i]; 
-        
+        if (p.alpha <= 0 || p.x < 0 || p.x > width || p.y < 0 || p.y > height) {
+            particles.splice(i, 1);
+            continue;
+        }
 
-// 樣板字串改為：
-grad.addColorStop(0,   `hsla(${t.h}, ${t.s}%, ${t.l}%, 0.15)`); 
-grad.addColorStop(0.4, `hsla(${t.h}, ${t.s}%, ${t.l}%, 0.45)`); 
-grad.addColorStop(1,   `hsla(${t.h}, ${t.s}%, ${t.l}%, 0.70)`); 
+        const colorStr = `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, `;
 
-        
-        wCtx.fillStyle = grad; 
-        
-        // 海多重正弦波計算
-        for (let x = 0; x <= ww; x += 5) { 
-            let y = Math.sin(x * 0.01+ wTime + shift) * 1
-                  + Math.sin(x * 0.008- wTime * 0.9) * 23
-                  + (wh * 1) 
-                  + Math.cos(wTime * 2+ i) * 39; 
-                  
-            if (x === 0) wCtx.moveTo(x, y); 
-            else wCtx.lineTo(x, y); 
-        } 
-        
-        wCtx.lineTo(ww, wh); 
-        wCtx.lineTo(0, wh); 
-        wCtx.fill(); 
-    } 
-    requestAnimationFrame(drawW); 
-} 
-drawW();
-   
+        if (p.r > 1.8) {
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = `${colorStr}${p.alpha * 0.7})`;
+        } else {
+            ctx.shadowBlur = 0;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `${colorStr}${p.alpha})`;
+        ctx.fill();
+
+        if (p.isSparkle && p.alpha > 0.4) {
+            ctx.strokeStyle = `${colorStr}${p.alpha * 0.5})`;
+            ctx.lineWidth = 0.6;
+
+            ctx.beginPath();
+            ctx.moveTo(p.x - p.r * 2.5, p.y);
+            ctx.lineTo(p.x + p.r * 2.5, p.y);
+            ctx.moveTo(p.x, p.y - p.r * 2.5);
+            ctx.lineTo(p.x, p.y + p.r * 2.5);
+            ctx.stroke();
+        }
+    }
+
+    ctx.shadowBlur = 0;
+    ctx.globalCompositeOperation = 'source-over';
+    
+    requestAnimationFrame(drawFireworks);
+}
+
+// 初始化與監聽
+window.addEventListener('resize', initCanvas);
+initCanvas();
+requestAnimationFrame(drawFireworks);
+
 
 </script>
 </body>
