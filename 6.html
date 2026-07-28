@@ -714,10 +714,12 @@ body.incense-on #censer-group {
                                                 <path d="M 556 234.5 Q 538 239 522 237.5 Q 521 239 521.5 240.5" stroke-width="4" />
                                                 <path d="M 556 234.5 Q 538 245 521.5 240.5" stroke-width="2" />
                                             </g>
-                                            <path d="M 482 283.5 Q 483 284.5 484 285 Q 492 281 500 286 Q 508 281 516 285 Q 517 284.5 518 283.5" stroke-width="1.6" />
-                                            <path d="M 480 283.5 Q 481 284.5 482 285 Q 500 289 518 285 Q 519 284.5 520 283.5" stroke-width="2" />
-                                            <path d="M 486 289 Q 500 293 514 289" stroke-width="2" />
-                                            <path d="M 486 312 Q 500 306 514 312" stroke-width="2" />
+                                           <!-- 嘴唇（紅色線條） -->
+                                            <path d="M 482 283.5 Q 483 284.5 484 285 Q 492 281 500 286 Q 508 281 516 285 Q 517 284.5 518 283.5" stroke="#FFC1E0" stroke-width="1.6" />
+                                            <path d="M 480 283.5 Q 481 284.5 482 285 Q 500 289 518 285 Q 519 284.5 520 283.5" stroke="#FFC1E0" stroke-width="2" />
+                                            <path d="M 486 289 Q 500 293 514 289" stroke="#FFC1E0" stroke-width="2" />
+                                            <path d="M 486 312 Q 500 306 514 312" stroke="#FFC1E0" stroke-width="2" />
+
                                             <path d="M 440 376 C 440 425, 560 425, 560 376" stroke-width="1.5" stroke-linecap="round" fill="none" />
                                             <path d="M 432 388 C 432 450, 568 450, 568 388" stroke-width="1.5" stroke-linecap="round" fill="none" />
                                             <path d="M 430 435 C 450 575, 550 575, 570 435" stroke-width="1.5" stroke-linecap="round" fill="none" />
@@ -739,8 +741,8 @@ body.incense-on #censer-group {
                                             <path class="crown-body-left" d="M 455 133 C 500 142, 500 142, 550 133 L 560 102 L 540 110 L 520 65 L 508 100 L 500 45 L 492 100 L 480 65 L 460 110 L 440 102 Z" stroke-width="1.8" />
                                             <circle cx="500" cy="92" r="10" stroke-width="1.2" fill="url(#crownJewelGradientLeft)" />
 <g id="left-jewel-connect-group" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-  <path id="left-jewel-connect-part" d="M 440 102 L 480 65 L 500 31 Z" fill="url(#2crownJewelGradientLeft)" opacity="0.75" />
-  <path id="right-jewel-connect-part" d="M 500 31 L 520 65 L 560 102 Z" fill="url(#2crownJewelGradientLeft)" opacity="0.75" />
+  <path id="left-jewel-connect-part" d="M 440 102 L 480 65 L 500 31 Z" fill="url(#crownJewelGradientLeft)" opacity="0.75" />
+  <path id="right-jewel-connect-part" d="M 500 31 L 520 65 L 560 102 Z" fill="url(#crownJewelGradientLeft)" opacity="0.75" />
 </g>
 
                                             <circle cx="480" cy="65" r="5" stroke-width="1" fill="url(#crownJewelGradientLeft)" />
@@ -888,7 +890,7 @@ body.incense-on #censer-group {
                                     <circle cx="500" cy="1150" r="200" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
                                     <circle cx="500" cy="680" r="200" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
                                     <circle cx="500" cy="450" r="200" fill="url(#junctionGlow)" style="mix-blend-mode: screen;" />
-                                    <circle cx="500" cy="1100" r="250" fill="url(#haloGlowFill)" filter="url(#halo-soft-blur)" style="mix-blend-mode: screen;" />
+                                    <circle cx="500" cy="300" r="60" fill="url(#haloGlowFill)" filter="url(#halo-soft-blur)" style="mix-blend-mode: screen;" />
 
                                     <g id="right-bodhisattva-entity" stroke="url(#kshitigarbhaGold)" fill="none" stroke-linejoin="round" stroke-linecap="round">
                                         <g id="right-undergarment-skirt" stroke-width="2.1">
@@ -903,8 +905,8 @@ body.incense-on #censer-group {
                                         </g>
                                        <!-- 右側外層天衣飄帶（左右各自獨立封閉） -->
 <g id="right-outer-heavenly-drape" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M 440 102 C 425 125, 410 180, 420 220 C 430 260, 375 290, 370 400 Z" fill="url(#2crownJewelGradientRight)" opacity="0.75" />
-    <path d="M 560 102 C 575 125, 590 180, 580 220 C 570 260, 625 290, 630 400 Z" fill="url(#2crownJewelGradientRight)" opacity="0.75" />
+    <path d="M 440 102 C 425 125, 410 180, 420 220 C 430 260, 375 290, 370 400 Z" fill="url(#crownJewelGradientRight)" opacity="0.75" />
+    <path d="M 560 102 C 575 125, 590 180, 580 220 C 570 260, 625 290, 630 400 Z" fill="url(#crownJewelGradientRight)" opacity="0.75" />
 </g>  
                                         <g id="right-heavenly-garment-streamers" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
     <path d="M 490 108 
@@ -958,15 +960,17 @@ body.incense-on #censer-group {
 
 
                                             <g class="buddhas-eye-closed">
-                                                <path d="M 444 234.5 Q 462 239 478 237.5 Q 479 239 478.5 240.5" stroke-width="4" />
+                                                <path d="M 444 234.5 Q 462 239 478 237.5 Q 479 239 478.5 240.5" stroke-width="3" />
                                                 <path d="M 444 234.5 Q 462 245 478.5 240.5" stroke-width="2" />
-                                                <path d="M 556 234.5 Q 538 239 522 237.5 Q 521 239 521.5 240.5" stroke-width="4" />
+                                                <path d="M 556 234.5 Q 538 239 522 237.5 Q 521 239 521.5 240.5" stroke-width="3" />
                                                 <path d="M 556 234.5 Q 538 245 521.5 240.5" stroke-width="2" />
                                             </g>
-                                            <path d="M 482 283.5 Q 483 284.5 484 285 Q 492 281 500 286 Q 508 281 516 285 Q 517 284.5 518 283.5" stroke-width="1.6" />
-                                            <path d="M 480 283.5 Q 481 284.5 482 285 Q 500 289 518 285 Q 519 284.5 520 283.5" stroke-width="2" />
-                                            <path d="M 486 289 Q 500 293 514 289" stroke-width="2" />
+                                              <!-- 嘴唇（紅色線條） -->
+                                            <path d="M 482 283.5 Q 483 284.5 484 285 Q 492 281 500 286 Q 508 281 516 285 Q 517 284.5 518 283.5" stroke="#FFC1E0" stroke-width="1.6" />
+                                            <path d="M 480 283.5 Q 481 284.5 482 285 Q 500 289 518 285 Q 519 284.5 520 283.5" stroke="#FFC1E0" stroke-width="2" />
+                                            <path d="M 486 289 Q 500 293 514 289" stroke="#FFC1E0" stroke-width="2" />
                                             <path d="M 486 312 Q 500 306 514 312" stroke-width="2" />
+
                                             <path d="M 440 376 C 440 425, 560 425, 560 376" stroke-width="1.5" stroke-linecap="round" fill="none" />
                                             <path d="M 432 388 C 432 450, 568 450, 568 388" stroke-width="1.5" stroke-linecap="round" fill="none" />
                                             <path d="M 430 435 C 450 575, 550 575, 570 435" stroke-width="1.5" stroke-linecap="round" fill="none" />
@@ -1436,35 +1440,37 @@ body.incense-on #censer-group {
 }
 
 
-       /* 華嚴琉璃金光 - 精準時間控制煙火動態 */
+     /* 華嚴琉璃金光 - 流光軌跡煙火 (無殘影版) */
 const canvas = document.getElementById('starCanvas');
 const ctx = canvas.getContext('2d');
 let width, height, particles = [];
 
 // 莊嚴配色庫
 const particleColors = [
-    { r: 246, g: 211, b: 101 }, 
-    { r: 255, g: 236, b: 179 }, 
-    { r: 180, g: 230, b: 200 }, 
-    { r: 255, g: 255, b: 255 }, 
-    { r: 135, g: 206, b: 250 }  
+    { r: 246, g: 211, b: 101 }, // 暖金色
+    { r: 255, g: 236, b: 179 }, // 淡金光
+    { r: 180, g: 230, b: 200 }, // 翡翠琉璃光
+    { r: 255, g: 255, b: 255 }, // 淨白微光
+    { r: 135, g: 206, b: 250 }  // 清透寶藍
 ];
 
-// 時間與計時器控制變數
-let burstTimer = null; // 獨立的時間定時器
-const BURST_INTERVAL = 4200; // 精準的 4.2 秒間隔 (毫秒)
-const BURST_PARTICLE_COUNT = 160;
+let burstTimer = null;
+const BURST_INTERVAL = 5000; 
+const BURST_PARTICLE_COUNT = 700; 
+let isHidden = false;
 
-// 觸發一波全新的煙火綻放
+// 徹底物理清空畫布
+function cleanCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles = [];
+}
+
+// 觸發一波煙火
 function triggerFireworkBurst() {
-    // 檢查 Canvas 是否處於隱藏狀態，若是隱藏則不運算生成粒子（節省效能與時間錯亂）
-    const canvasStyle = window.getComputedStyle(canvas);
-    if (canvasStyle.opacity === '0' || canvasStyle.display === 'none') {
-        return;
-    }
+    if (isHidden) return;
 
-    const centerX = width / 2;
-    const centerY = height * 0.55; 
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height * 0.65; 
 
     for (let i = 0; i < BURST_PARTICLE_COUNT; i++) {
         const angle = Math.random() * Math.PI * 2;
@@ -1475,7 +1481,8 @@ function triggerFireworkBurst() {
             y: centerY,
             vx: Math.cos(angle) * speed,
             vy: Math.sin(angle) * speed,
-            r: Math.random() * 2.2 + 1.0,
+            history: [], // 記錄最近運動軌跡，實現無印子拖尾
+            r: Math.random() * 2.0 + 1.0,
             alpha: 1.0,
             decay: Math.random() * 0.012 + 0.008,
             friction: 0.972,
@@ -1486,57 +1493,90 @@ function triggerFireworkBurst() {
     }
 }
 
-// 啟動精準定時器
 function startBurstTimer() {
     if (burstTimer) clearInterval(burstTimer);
-    
-    // 立即觸發第一波
     triggerFireworkBurst();
-    
-    // 使用獨立時間軸，精準每 4.2 秒執行一次，不受 requestAnimationFrame 暫停影響
-    burstTimer = setInterval(() => {
-        triggerFireworkBurst();
-    }, BURST_INTERVAL);
+    burstTimer = setInterval(triggerFireworkBurst, BURST_INTERVAL);
+}
+
+function updateCanvasState() {
+    const canvasStyle = window.getComputedStyle(canvas);
+    const currentlyHidden = (canvasStyle.opacity === '0' || canvasStyle.display === 'none');
+
+    if (currentlyHidden) {
+        isHidden = true;
+        if (burstTimer) clearInterval(burstTimer);
+        cleanCanvas();
+    } else if (!currentlyHidden && isHidden) {
+        isHidden = false;
+        cleanCanvas();
+        startBurstTimer();
+    }
 }
 
 function initCanvas() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-    particles = [];
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    cleanCanvas();
     
-    startBurstTimer();
+    const observer = new MutationObserver(updateCanvasState);
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    const initialStyle = window.getComputedStyle(canvas);
+    isHidden = (initialStyle.opacity === '0' || initialStyle.display === 'none');
+    if (!isHidden) startBurstTimer();
 }
 
 function drawFireworks() {
-    // 1. 畫布塗覆背景
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.fillStyle = 'rgba(10, 12, 18, 0.12)'; 
-    ctx.fillRect(0, 0, width, height);
+    // 【核心】每一幀徹底清空畫布，物理上杜絕任何黑印與快取殘影
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // 2. 開啟光芒重疊模式
+    if (isHidden) {
+        requestAnimationFrame(drawFireworks);
+        return;
+    }
+
     ctx.globalCompositeOperation = 'screen';
 
-    // 3. 遍歷與更新粒子
     for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
 
+        // 保存歷史位置用於繪製流光軌跡（維持最近 4 點）
+        p.history.push({ x: p.x, y: p.y });
+        if (p.history.length > 4) {
+            p.history.shift();
+        }
+
+        // 物理運動
         p.vx *= p.friction;
         p.vy *= p.friction;
         p.vy += p.gravity;
         p.x += p.vx;
         p.y += p.vy;
-
         p.alpha -= p.decay;
 
-        if (p.alpha <= 0 || p.x < 0 || p.x > width || p.y < 0 || p.y > height) {
+        if (p.alpha <= 0 || p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
             particles.splice(i, 1);
             continue;
         }
 
         const colorStr = `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, `;
 
+        // 1. 繪製流光軌跡尾巴 (Path Trail)
+        if (p.history.length > 1) {
+            ctx.beginPath();
+            ctx.moveTo(p.history[0].x, p.history[0].y);
+            for (let j = 1; j < p.history.length; j++) {
+                ctx.lineTo(p.history[j].x, p.history[j].y);
+            }
+            ctx.strokeStyle = `${colorStr}${p.alpha * 0.4})`;
+            ctx.lineWidth = p.r * 0.8;
+            ctx.stroke();
+        }
+
+        // 2. 繪製微光陰影與粒子頭部
         if (p.r > 1.8) {
-            ctx.shadowBlur = 8;
+            ctx.shadowBlur = 6;
             ctx.shadowColor = `${colorStr}${p.alpha * 0.7})`;
         } else {
             ctx.shadowBlur = 0;
@@ -1547,10 +1587,10 @@ function drawFireworks() {
         ctx.fillStyle = `${colorStr}${p.alpha})`;
         ctx.fill();
 
+        // 3. 閃爍四芒光
         if (p.isSparkle && p.alpha > 0.4) {
             ctx.strokeStyle = `${colorStr}${p.alpha * 0.5})`;
             ctx.lineWidth = 0.6;
-
             ctx.beginPath();
             ctx.moveTo(p.x - p.r * 2.5, p.y);
             ctx.lineTo(p.x + p.r * 2.5, p.y);
@@ -1566,11 +1606,14 @@ function drawFireworks() {
     requestAnimationFrame(drawFireworks);
 }
 
-// 初始化與監聽
-window.addEventListener('resize', initCanvas);
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    cleanCanvas();
+});
+
 initCanvas();
 requestAnimationFrame(drawFireworks);
-
 
 </script>
 </body>
