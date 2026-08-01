@@ -328,40 +328,45 @@ body {
 }
 
 
-   /* 曼陀羅靜態呼吸感：心光中心極大化 */
-
+  /* 曼陀羅靜態呼吸感：心光中心極大化（外框，維持不變） */
 @keyframes mandala-divine-glow {
     0% { opacity: 0.4; filter: drop-shadow(0 0 10px rgba(255,215,0,0.4)); }
     100% { opacity: 0.8; filter: drop-shadow(0 0 35px rgba(255,215,0,0.8)); }
 }
 
+/* 花瓣呼吸波形：暗→停留數秒→緩慢轉亮→頂峰→緩慢轉暗→停留 */
 @keyframes mandala-petal-glow-gold {
-    0%   { opacity: 0.1; filter: drop-shadow(0 0 8px rgba(255,215,0,0.4)); }
-    50%  { opacity: 0.7; filter: drop-shadow(0 0 30px rgba(255,215,0,0.8)); }
-    100% { opacity: 0.1; filter: drop-shadow(0 0 8px rgba(255,215,0,0.4)); }
+    0%   { opacity: 0.02; filter: drop-shadow(0 0 4px rgba(255,215,0,0.15)); }
+    15%  { opacity: 0.02; filter: drop-shadow(0 0 4px rgba(255,215,0,0.15)); }
+    50%  { opacity: 0.85; filter: drop-shadow(0 0 32px rgba(255,215,0,0.85)); }
+    85%  { opacity: 0.02; filter: drop-shadow(0 0 4px rgba(255,215,0,0.15)); }
+    100% { opacity: 0.02; filter: drop-shadow(0 0 4px rgba(255,215,0,0.15)); }
 }
 
 @keyframes mandala-petal-glow-glass {
-    0%   { opacity: 0.7; filter: drop-shadow(0 0 30px rgba(210,235,255,0.8)); }
-    50%  { opacity: 0.1; filter: drop-shadow(0 0 8px rgba(210,235,255,0.4)); }
-    100% { opacity: 0.5; filter: drop-shadow(0 0 30px rgba(210,235,255,0.8)); }
+    0%   { opacity: 0.02; filter: drop-shadow(0 0 4px rgba(210,235,255,0.15)); }
+    15%  { opacity: 0.02; filter: drop-shadow(0 0 4px rgba(210,235,255,0.15)); }
+    50%  { opacity: 0.85; filter: drop-shadow(0 0 32px rgba(210,235,255,0.85)); }
+    85%  { opacity: 0.02; filter: drop-shadow(0 0 4px rgba(210,235,255,0.15)); }
+    100% { opacity: 0.02; filter: drop-shadow(0 0 4px rgba(210,235,255,0.15)); }
 }
 
 .mandala-static-container {
     transform-origin: 500px 460px;
 }
 
-/* 整體外框、蓮花座維持你原本的固定呼吸感，或直接拿掉不呼吸都行 */
+/* 整體外框、蓮花座維持你原本的固定呼吸感 */
 .mandala-glow-effect {
     animation: mandala-divine-glow 4s ease-in-out infinite alternate;
 }
 
-/* 只有花瓣交替 */
+/* 花瓣交替：同週期 10s，玻璃層錯開半個週期(-5s)，兩者永遠互補不打架 */
 .mandala-petal-gold {
-    animation: mandala-petal-glow-gold 4s ease-in-out infinite;
+    animation: mandala-petal-glow-gold 10s ease-in-out infinite;
 }
 .mandala-petal-glass {
-    animation: mandala-petal-glow-glass 2s ease-in-out infinite;
+    animation: mandala-petal-glow-glass 10s ease-in-out infinite;
+    animation-delay: -5s;
 }
 
         /* ================= ✨ 大乘五供與金粉專屬樣式 ================= */
@@ -1117,10 +1122,10 @@ body {
                <path d="M 556 234.5 Q 538 239 522 237.5 Q 521 239 521.5 240.5" stroke-width="1.8" stroke-linecap="round" />
                <path d="M 556 234.5 Q 538 245 521.5 240.5" stroke-width="1.8" stroke-linecap="round" />
            </g>
-                    <!-- 嘴唇（紅色線條） -->
-                                            <path d="M 482 283.5 Q 483 284.5 484 285 Q 492 281 500 286 Q 508 281 516 285 Q 517 284.5 518 283.5" stroke="#FF359A" stroke-width="1.6" />
-                                            <path d="M 480 283.5 Q 481 284.5 482 285 Q 500 289 518 285 Q 519 284.5 520 283.5" stroke="#FF359A" stroke-width="2" />
-                                            <path d="M 486 289 Q 500 293 514 289" stroke="#FF359A" stroke-width="2" />   <path d="M 486 312 Q 500 306 514 312" stroke-width="1.2" />
+                           <!-- 嘴唇（紅色線條） -->
+                                            <path d="M 482 283.5 Q 483 284.5 484 285 Q 492 281 500 286 Q 508 281 516 285 Q 517 284.5 518 283.5" stroke="#FFD0FF" stroke-width="5.6" />
+                                            <path d="M 480 283.5 Q 481 284.5 482 285 Q 500 289 518 285 Q 519 284.5 520 283.5" stroke="#FFA6FF" stroke-width="5" />
+                                            <path d="M 486 289 Q 500 293 514 289" stroke="#FFA6FF" stroke-width="5" />   <path d="M 486 312 Q 500 306 514 312" stroke-width="1.2" />
        </g>
        <path d="M 491 265 Q 488.5 268.5 491 271" stroke-width="1" fill="none" />
        <path d="M 509 265 Q 511.5 268.5 509 271" stroke-width="1" fill="none" />
@@ -1473,6 +1478,7 @@ body {
         </g>
     </g>
 </g>
+
 
         <circle cx="500" cy="460" r="450" fill="none" stroke="#FFD700" stroke-width="2" opacity="0.8" />
         <circle cx="500" cy="460" r="462" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.3" />
