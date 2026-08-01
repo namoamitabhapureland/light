@@ -334,13 +334,31 @@ body {
     100% { opacity: 0.9; filter: drop-shadow(0 0 35px rgba(255,215,0,0.8)); }
 }
 
+
+
+/* 曼陀羅雙重光感：金色與玻璃光交替浮現 */
+@keyframes mandala-glow-gold {
+    0%   { opacity: 0.15; filter: drop-shadow(0 0 10px rgba(255,215,0,0.4)); }
+    50%  { opacity: 0.9;  filter: drop-shadow(0 0 35px rgba(255,215,0,0.8)); }
+    100% { opacity: 0.15; filter: drop-shadow(0 0 10px rgba(255,215,0,0.4)); }
+}
+
+@keyframes mandala-glow-glass {
+    0%   { opacity: 0.9;  filter: drop-shadow(0 0 35px rgba(210,235,255,0.8)); }
+    50%  { opacity: 0.15; filter: drop-shadow(0 0 10px rgba(210,235,255,0.4)); }
+    100% { opacity: 0.9;  filter: drop-shadow(0 0 35px rgba(210,235,255,0.8)); }
+}
+
 .mandala-static-container {
-    /* 核心定位：佛尊胸前中心點 */
     transform-origin: 500px 460px;
 }
 
 .mandala-glow-effect {
-    animation: mandala-divine-glow 4s ease-in-out infinite alternate;
+    animation: mandala-glow-gold 8s ease-in-out infinite;
+}
+
+.mandala-glow-effect-alt {
+    animation: mandala-glow-glass 8s ease-in-out infinite;
 }
 
         /* ================= ✨ 大乘五供與金粉專屬樣式 ================= */
@@ -1353,50 +1371,43 @@ body {
 </g>
 <!-- 觀音勢至菩薩尾 -->
          <g class="mandala-static-container" mask="url(#mandala-total-mask)" style="mix-blend-mode: screen;">
+
+    <!-- 第一層：金色版本（原始結構，id 完全不變） -->
     <g class="mandala-glow-effect">
         
         <g stroke="#FFD700" stroke-width="2" fill="url(#mandalaInnerFill)">
-            <!-- 原始多角形結構，完全保留 -->
             <path d="M500 10 L764.5 95.9 L928 320.9 L928 599.1 L764.5 824.1 L500 910 L235.5 824.1 L72 599.1 L72 320.9 L235.5 95.9 Z" opacity="0.6" />
             <path d="M500 10 L928 320.9 L764.5 824.1 L235.5 824.1 L72 320.9 L500 10" opacity="0.6" />
             <path d="M764.5 95.9 L928 599.1 L500 910 L72 599.1 L235.5 95.9" fill="none" opacity="0.6" />
             <path d="M500 10 L928 599.1 L235.5 824.1 M235.5 95.9 L928 320.9 L500 910 L72 320.9 L764.5 95.9" fill="none" opacity="0.4" stroke-width="1" />
             <path d="M764.5 824.1 L72 599.1 L500 10 M928 599.1 L72 320.9 M928 320.9 L72 599.1" fill="none" opacity="0.4" stroke-width="1" />
 
-            <!-- 中央同心圓（僅此一圈，作為花心） -->
             <circle cx="500" cy="460" r="150" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.45" />
 
-          <!-- 十朵蓮花瓣：從圓心連接到十個頂點，水滴狀飽滿花瓣 -->
-<g id="mandala-lotus-outer" opacity="0.55">
-    <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(0,500,460)" />
-    <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(36,500,460)" />
-    <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(72,500,460)" />
-    <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(108,500,460)" />
-    <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(144,500,460)" />
-    <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(180,500,460)" />
-    <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(216,500,460)" />
-    <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(252,500,460)" />
-    <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(288,500,460)" />
-    <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(324,500,460)" />
-</g>
+            <g id="mandala-lotus-outer" opacity="0.55">
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(0,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(36,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(72,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(108,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(144,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(180,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(216,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(252,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(288,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(324,500,460)" />
+            </g>
 
-            <!-- 頂點小蓮花座裝飾 -->
             <defs>
                 <g id="mandala-lotus-seat">
                     <g transform="scale(0.6)">
-                        <!-- 底座 -->
                         <path d="M-16,4 C-16,-2 16,-2 16,4 C10,10 -10,10 -16,4 Z" 
                               fill="url(#mandalaInnerFill)" stroke="#FFD700" stroke-width="1" opacity="0.85" />
-                        <!-- 中央瓣 -->
                         <path d="M-3,4 C-5,-8 -3,-22 0,-30 C3,-22 5,-8 3,4 Z" 
                               fill="url(#mandalaInnerFill)" stroke="#FFD700" stroke-width="1.3" opacity="0.95" />
-                        <!-- 左瓣 -->
                         <path d="M-3,4 C-10,-6 -12,-16 -9,-23 C-6,-15 -4,-6 -3,4 Z" 
                               fill="url(#mandalaInnerFill)" stroke="#FFD700" stroke-width="1.1" opacity="0.85" />
-                        <!-- 右瓣 -->
                         <path d="M3,4 C10,-6 12,-16 9,-23 C6,-15 4,-6 3,4 Z" 
                               fill="url(#mandalaInnerFill)" stroke="#FFD700" stroke-width="1.1" opacity="0.85" />
-                        <!-- 花心光點 -->
                         <circle cx="0" cy="-10" r="2" fill="#FFD700" opacity="0.9" />
                     </g>
                 </g>
@@ -1424,6 +1435,71 @@ body {
                 repeatCount="indefinite" />
         </g>
     </g>
+
+    <!-- 第二層：玻璃版本（結構完全相同，fill 換成 glass-base-mini，id 加 -alt 避免衝突） -->
+    <g class="mandala-glow-effect-alt">
+        
+        <g stroke="#FFD700" stroke-width="2" fill="url(#glass-base-mini)">
+            <path d="M500 10 L764.5 95.9 L928 320.9 L928 599.1 L764.5 824.1 L500 910 L235.5 824.1 L72 599.1 L72 320.9 L235.5 95.9 Z" opacity="0.6" />
+            <path d="M500 10 L928 320.9 L764.5 824.1 L235.5 824.1 L72 320.9 L500 10" opacity="0.6" />
+            <path d="M764.5 95.9 L928 599.1 L500 910 L72 599.1 L235.5 95.9" fill="none" opacity="0.6" />
+            <path d="M500 10 L928 599.1 L235.5 824.1 M235.5 95.9 L928 320.9 L500 910 L72 320.9 L764.5 95.9" fill="none" opacity="0.4" stroke-width="1" />
+            <path d="M764.5 824.1 L72 599.1 L500 10 M928 599.1 L72 320.9 M928 320.9 L72 599.1" fill="none" opacity="0.4" stroke-width="1" />
+
+            <circle cx="500" cy="460" r="150" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.45" />
+
+            <g id="mandala-lotus-outer-alt" opacity="0.55">
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(0,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(36,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(72,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(108,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(144,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(180,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(216,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(252,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(288,500,460)" />
+                <path d="M500,460 C350,390 340,190 500,10 C660,190 650,390 500,460 Z" transform="rotate(324,500,460)" />
+            </g>
+
+            <defs>
+                <g id="mandala-lotus-seat-alt">
+                    <g transform="scale(0.6)">
+                        <path d="M-16,4 C-16,-2 16,-2 16,4 C10,10 -10,10 -16,4 Z" 
+                              fill="url(#glass-base-mini)" stroke="#FFD700" stroke-width="1" opacity="0.85" />
+                        <path d="M-3,4 C-5,-8 -3,-22 0,-30 C3,-22 5,-8 3,4 Z" 
+                              fill="url(#glass-base-mini)" stroke="#FFD700" stroke-width="1.3" opacity="0.95" />
+                        <path d="M-3,4 C-10,-6 -12,-16 -9,-23 C-6,-15 -4,-6 -3,4 Z" 
+                              fill="url(#glass-base-mini)" stroke="#FFD700" stroke-width="1.1" opacity="0.85" />
+                        <path d="M3,4 C10,-6 12,-16 9,-23 C6,-15 4,-6 3,4 Z" 
+                              fill="url(#glass-base-mini)" stroke="#FFD700" stroke-width="1.1" opacity="0.85" />
+                        <circle cx="0" cy="-10" r="2" fill="#FFD700" opacity="0.9" />
+                    </g>
+                </g>
+            </defs>
+
+            <g id="mandala-gourd-perimeter-alt">
+                <use href="#mandala-lotus-seat-alt" transform="translate(500, 10)" />
+                <use href="#mandala-lotus-seat-alt" transform="rotate(36, 500, 460) translate(500, 10)" />
+                <use href="#mandala-lotus-seat-alt" transform="rotate(72, 500, 460) translate(500, 10)" />
+                <use href="#mandala-lotus-seat-alt" transform="rotate(108, 500, 460) translate(500, 10)" />
+                <use href="#mandala-lotus-seat-alt" transform="rotate(144, 500, 460) translate(500, 10)" />
+                <use href="#mandala-lotus-seat-alt" transform="rotate(180, 500, 460) translate(500, 10)" />
+                <use href="#mandala-lotus-seat-alt" transform="rotate(216, 500, 460) translate(500, 10)" />
+                <use href="#mandala-lotus-seat-alt" transform="rotate(252, 500, 460) translate(500, 10)" />
+                <use href="#mandala-lotus-seat-alt" transform="rotate(288, 500, 460) translate(500, 10)" />
+                <use href="#mandala-lotus-seat-alt" transform="rotate(324, 500, 460) translate(500, 10)" />
+            </g>
+
+            <animateTransform 
+                attributeName="transform" 
+                type="rotate" 
+                from="0 500 460" 
+                to="360 500 460" 
+                dur="120s" 
+                repeatCount="indefinite" />
+        </g>
+    </g>
+
 </g>
 
 
