@@ -329,23 +329,22 @@ body {
 
 
    /* 曼陀羅靜態呼吸感：心光中心極大化 */
+
 @keyframes mandala-divine-glow {
     0% { opacity: 0.4; filter: drop-shadow(0 0 10px rgba(255,215,0,0.4)); }
-    100% { opacity: 0.9; filter: drop-shadow(0 0 35px rgba(255,215,0,0.8)); }
+    100% { opacity: 0.8; filter: drop-shadow(0 0 35px rgba(255,215,0,0.8)); }
 }
-
-
 
 @keyframes mandala-petal-glow-gold {
     0%   { opacity: 0.1; filter: drop-shadow(0 0 8px rgba(255,215,0,0.4)); }
-    50%  { opacity: 0.8; filter: drop-shadow(0 0 30px rgba(255,215,0,0.8)); }
+    50%  { opacity: 0.7; filter: drop-shadow(0 0 30px rgba(255,215,0,0.8)); }
     100% { opacity: 0.1; filter: drop-shadow(0 0 8px rgba(255,215,0,0.4)); }
 }
 
 @keyframes mandala-petal-glow-glass {
-    0%   { opacity: 0.8; filter: drop-shadow(0 0 30px rgba(210,235,255,0.8)); }
+    0%   { opacity: 0.7; filter: drop-shadow(0 0 30px rgba(210,235,255,0.8)); }
     50%  { opacity: 0.1; filter: drop-shadow(0 0 8px rgba(210,235,255,0.4)); }
-    100% { opacity: 0.8; filter: drop-shadow(0 0 30px rgba(210,235,255,0.8)); }
+    100% { opacity: 0.5; filter: drop-shadow(0 0 30px rgba(210,235,255,0.8)); }
 }
 
 .mandala-static-container {
@@ -359,10 +358,10 @@ body {
 
 /* 只有花瓣交替 */
 .mandala-petal-gold {
-    animation: mandala-petal-glow-gold 6s ease-in-out infinite;
+    animation: mandala-petal-glow-gold 4s ease-in-out infinite;
 }
 .mandala-petal-glass {
-    animation: mandala-petal-glow-glass 6s ease-in-out infinite;
+    animation: mandala-petal-glow-glass 2s ease-in-out infinite;
 }
 
         /* ================= ✨ 大乘五供與金粉專屬樣式 ================= */
@@ -1118,10 +1117,10 @@ body {
                <path d="M 556 234.5 Q 538 239 522 237.5 Q 521 239 521.5 240.5" stroke-width="1.8" stroke-linecap="round" />
                <path d="M 556 234.5 Q 538 245 521.5 240.5" stroke-width="1.8" stroke-linecap="round" />
            </g>
-           <path d="M 482 283.5 Q 483 284.5 484 285 Q 492 281 500 286 Q 508 281 516 285 Q 517 284.5 518 283.5" stroke-width="1.6" />
-           <path d="M 480 283.5 Q 481 284.5 482 285 Q 500 289 518 285 Q 519 284.5 520 283.5" stroke-width="1.2" />
-           <path d="M 486 289 Q 500 293 514 289" stroke-width="1.5" />
-           <path d="M 486 312 Q 500 306 514 312" stroke-width="1.2" />
+                    <!-- 嘴唇（紅色線條） -->
+                                            <path d="M 482 283.5 Q 483 284.5 484 285 Q 492 281 500 286 Q 508 281 516 285 Q 517 284.5 518 283.5" stroke="#FF359A" stroke-width="1.6" />
+                                            <path d="M 480 283.5 Q 481 284.5 482 285 Q 500 289 518 285 Q 519 284.5 520 283.5" stroke="#FF359A" stroke-width="2" />
+                                            <path d="M 486 289 Q 500 293 514 289" stroke="#FF359A" stroke-width="2" />   <path d="M 486 312 Q 500 306 514 312" stroke-width="1.2" />
        </g>
        <path d="M 491 265 Q 488.5 268.5 491 271" stroke-width="1" fill="none" />
        <path d="M 509 265 Q 511.5 268.5 509 271" stroke-width="1" fill="none" />
@@ -1190,12 +1189,30 @@ body {
            </g>
        </g>
        <g id="widows-peak-lines" stroke-width="1.6" stroke-linecap="round">
-           <path d="M 500 185 L 500 142" /> <path d="M 486 180 L 485 146" />
-           <path d="M 473 180 L 471 154" /> <path d="M 461 185 L 458 165" />
-           <path d="M 451 195 L 446 179" /> <path d="M 514 180 L 515 146" />
-           <path d="M 527 180 L 529 154" /> <path d="M 539 185 L 542 165" />
-           <path d="M 549 195 L 554 179" />
-       </g>
+          <path d="M 451 195 L 446 179" />
+        <path d="M 456 190 L 452 172" />
+        <path d="M 461 185 L 458 165" />
+        <path d="M 467 183.5 L 464.5 159.5" />
+        <path d="M 473 180 L 471 154" />
+        <path d="M 479.5 180 L 478 150" />
+        <path d="M 486 180 L 485 146" />
+        <path d="M 493 182.5 L 492.5 144" />
+        <path d="M 496.5 183.8 L 496.2 143" />
+        <!-- 正中心髮絲 -->
+        <path d="M 500 185 L 500 142" />
+        <path d="M 503.5 183.8 L 503.8 143" />
+        <path d="M 507 182.5 L 507.5 144" />
+        <path d="M 514 180 L 515 146" />
+        <path d="M 520.5 180 L 522 150" />
+        <path d="M 527 180 L 529 154" />
+        <path d="M 533 183.5 L 535.5 159.5" />
+        <path d="M 539 185 L 542 165" />
+        <path d="M 544 190 L 548 172" />
+        <path d="M 549 195 L 554 179" />
+    </g>
+    <path d="M 446 195 Q 473 175, 500 185 Q 527 175, 554 195 Q 555 140, 500 135 Q 445 140, 446 195 Z" />
+</g>
+      
          <!-- 1. 封閉的實心天衣 (完美縫合內外側曲線) -->
     <path id="heavenly-garment-left-solid" 
           d="M 500 118 C 445 125, 400 200, 412 280 C 416 310, 414 345, 412 370 L 427 377 C 427 348, 429 310, 426 280 C 415 205, 455 140, 500 133 Z" />
