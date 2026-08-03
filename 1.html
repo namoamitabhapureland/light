@@ -54,15 +54,23 @@
             pointer-events: none; 
             transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1); /* 優化過渡時間至 1.2 秒 */
         }
-        
-  body.bow-left #starCanvas,
+   /* ==================================================
+   頂禮與燃香時隱藏區域（包含左右兩條龍）
+   ================================================== */
+body.bow-left #starCanvas,
 body.bow-right #starCanvas,
 body.incense-on #starCanvas,
 body.bow-left #vertical-dragon-container,
 body.bow-right #vertical-dragon-container,
-body.incense-on #vertical-dragon-container { 
+body.incense-on #vertical-dragon-container,
+body.bow-left .dragon-corner,
+body.bow-right .dragon-corner,
+body.incense-on .dragon-corner { 
     opacity: 0 !important; 
+    pointer-events: none !important;
 }
+
+
 
 
 
@@ -424,42 +432,94 @@ body.bow-right #right-buddha-face-features circle {
     
 
 
-  /* ==================================================
-     兩條龍的共用漂浮動畫
-     ================================================== */
-  @keyframes dragon-float {
-      0%   { transform: translateY(6px);  filter: drop-shadow(0 0 10px rgba(246,211,101,0.35)); }
-      100% { transform: translateY(-6px); filter: drop-shadow(0 0 22px rgba(246,211,101,0.75)); }
-  }
+ /* ==================================================
+   兩條龍動態動畫（純位移與縮放，不加點陣化濾鏡）
+   ================================================== */
+@keyframes dragon-float {
+    0%   { transform: translate(6px, 6px) scale(0.8); }
+    100% { transform: translate(-10px, 10px) scale(1.1); }
+}
 
-  /* ==================================================
-     位置控制區：想調整龍的位置/大小，改這裡的數字就好
-     ================================================== */
-  .dragon-corner {
-      position: absolute;
-      pointer-events: none;
-      z-index: 9;
-      animation: dragon-float 5s ease-in-out infinite alternate;
-  }
-  .dragon-corner svg { display: block; width: 100%; height: auto; }
+/* ==================================================
+   位置與整體大小控制區
+   ================================================== */
+.dragon-corner {
+    position: absolute;
+    pointer-events: none;
+    z-index: 9;
+    /* 淡出淡入過渡，確保隱藏時順暢 */
+    transition: opacity 0.8s ease-in-out;
+    animation: dragon-float 5.1s ease-in-out infinite alternate;
+}
 
-  #dragon-blue-container {
-      width: 340px;      /* ← 調整藍金龍的大小 */
-      left: -20px;       /* ← 調整藍金龍的水平位置（負值可以貼更邊） */
-      bottom: 20px;       /* ← 調整藍金龍的垂直位置 */
-  }
+.dragon-corner svg { 
+    display: block; 
+    width: 100%; 
+    height: auto; 
+}
 
-  #dragon-green-container {
-      width: 340px;      /* ← 調整綠金龍的大小 */
-      right: -20px;      /* ← 調整綠金龍的水平位置 */
-      bottom: 20px;       /* ← 調整綠金龍的垂直位置 */
-  }
+#dragon-blue-container {
+    width: 270px;
+    max-width: 180vw;
+    left: -25px;
+    bottom: 30px;      
+}
 
-  .dragon-scales path,
-  #dragon-blue-container .dragon-scales,
-  #dragon-green-container .dragon-scales {
-      opacity: 0.9;
-  }
+#dragon-green-container {
+    width: 270px;
+    max-width: 180vw;
+    right: -25px;
+    bottom: 30px;      
+}
+
+/* ==================================================
+   龍鱗金屬高光呈現（保持高對比度光澤）
+   ================================================== */
+.dragon-scales path,
+#dragon-blue-container .dragon-scales,
+#dragon-green-container .dragon-scales {
+    opacity: 1; /* 恢復 1.0 確保金屬漸層對比度 */
+}
+
+/* ==================================================
+   龍頭獨立控制區
+   ================================================== */
+#blue-dragon-head,
+#green-dragon-head {
+    transform-origin: 500px 290px;
+}
+
+#blue-dragon-head {
+    transform: rotate(-90deg) scale(1.53);
+}
+
+#green-dragon-head {
+    transform: rotate(90deg) scale(1.53);
+}
+
+/* ==================================================
+   輕量細節微律動
+   ================================================== */
+/* 龍鬚微幅飄動 */
+.dragon-whiskers {
+    transform-origin: center top;
+    animation: whisker-sway 3.8s ease-in-out infinite alternate;
+}
+
+@keyframes whisker-sway {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(2.5deg); }
+}
+
+/* 額珠白芯微閃 */
+.dragon-head-top circle[fill="#ffffff"] {
+    animation: jewel-pulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes jewel-pulse {
+    0%   { opacity: 0.6; }
+    100% { opacity: 2.0; }
+}
 
 
 
@@ -620,7 +680,7 @@ body.bow-right #right-buddha-face-features circle {
             </filter>
         </defs>
         <g filter="url(#vDragonGlowBlue)">
-            <g transform="rotate(90,500,417.5)">
+            <g transform="rotate(80,500,417.5)">
 
 
             <!-- ================= 龍身輪廓 + 連續鱗片鋪滿 (Continuous Scale Coverage) ================= -->
@@ -977,7 +1037,7 @@ body.bow-right #right-buddha-face-features circle {
             </filter>
         </defs>
         <g filter="url(#vDragonGlowGreen)">
-            <g transform="rotate(-90,500,417.5)">
+            <g transform="rotate(-80,500,417.5)">
 
 
             <!-- ================= 龍身輪廓 + 連續鱗片鋪滿 (Continuous Scale Coverage) ================= -->
@@ -1301,10 +1361,6 @@ body.bow-right #right-buddha-face-features circle {
         </g>
     </svg>
 </div>
-
-
-
-
 
 
     <div id="buddha-scene">
@@ -2189,7 +2245,10 @@ body.bow-right #right-buddha-face-features circle {
             </svg>
         </div>
     </div>
-                                        
+
+
+
+                                   
     <div class="ritual-container">
     <div id="blessing-text"></div>
     <div class="ritual-panel">
