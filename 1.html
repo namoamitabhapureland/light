@@ -422,62 +422,44 @@ body.bow-right #right-buddha-face-features circle {
       
         
     
-        #vertical-dragon-container {
-    position: absolute;
-    inset: 0;
-    z-index: 9;
-    pointer-events: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: scale(0.5);   /* 加這行，0.7 = 縮到 70% */
-  transition: opacity 1s ease;   /* 加這行，讓消失/出現有淡入淡出 */
-}
 
-  .vertical-dragon-svg {
-      width: 100%;
-      height: 100%;
-      max-width: 1000px;
-      animation: dragon-vertical-float 5s ease-in-out infinite alternate;
+
+  /* ==================================================
+     兩條龍的共用漂浮動畫
+     ================================================== */
+  @keyframes dragon-float {
+      0%   { transform: translateY(6px);  filter: drop-shadow(0 0 10px rgba(246,211,101,0.35)); }
+      100% { transform: translateY(-6px); filter: drop-shadow(0 0 22px rgba(246,211,101,0.75)); }
   }
 
-  @keyframes dragon-vertical-float {
-      0% {
-          transform: translateY(12px);
-          filter: drop-shadow(0 0 12px rgba(246, 211, 101, 0.4));
-      }
-      100% {
-          transform: translateY(-12px);
-          filter: drop-shadow(0 0 28px rgba(246, 211, 101, 0.85)) drop-shadow(0 0 8px #ffffff);
-      }
+  /* ==================================================
+     位置控制區：想調整龍的位置/大小，改這裡的數字就好
+     ================================================== */
+  .dragon-corner {
+      position: absolute;
+      pointer-events: none;
+      z-index: 9;
+      animation: dragon-float 5s ease-in-out infinite alternate;
+  }
+  .dragon-corner svg { display: block; width: 100%; height: auto; }
+
+  #dragon-blue-container {
+      width: 340px;      /* ← 調整藍金龍的大小 */
+      left: -20px;       /* ← 調整藍金龍的水平位置（負值可以貼更邊） */
+      bottom: 20px;       /* ← 調整藍金龍的垂直位置 */
   }
 
-  .dragon-scales path {
-      animation: scale-glow 3s ease-in-out infinite alternate;
+  #dragon-green-container {
+      width: 340px;      /* ← 調整綠金龍的大小 */
+      right: -20px;      /* ← 調整綠金龍的水平位置 */
+      bottom: 20px;       /* ← 調整綠金龍的垂直位置 */
   }
 
-  @keyframes scale-glow {
-      0% { opacity: 0.55; }
-      100% { opacity: 0.95; }
+  .dragon-scales path,
+  #dragon-blue-container .dragon-scales,
+  #dragon-green-container .dragon-scales {
+      opacity: 0.9;
   }
-
-  .dragon-whiskers path,
-  .dragon-mane path {
-      animation: whisker-sway 4s ease-in-out infinite alternate;
-      transform-origin: 500px 220px;
-  }
-  @keyframes whisker-sway {
-      0% { transform: rotate(-2deg); }
-      100% { transform: rotate(2deg); }
-  }
-        .dragon-head-top {
-    transform-box: fill-box;
-    transform-origin: center;
-    transform: scale(1.3);   /* 數字自己調 */
-}
-
-        
-
 
 
 
@@ -607,279 +589,608 @@ body.bow-right #right-buddha-face-features circle {
     <canvas id="waterCanvas"></canvas>
     <div id="smoke-container"></div>
     <div id="burst-container"></div>
-<!-- 垂直昇龍 (Vertical Gold Dragon) -->
-<div id="vertical-dragon-container">
-    <svg class="vertical-dragon-svg" viewBox="0 0 1000 950" xmlns="http://www.w3.org/2000/svg">
+<!-- ===================== 藍金龍：左下，頭朝右（面向中央） ===================== -->
+<div id="dragon-blue-container" class="dragon-corner">
+    <svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
         <defs>
-            <!-- 左：金藍龍 -->
-            <linearGradient id="vDragonGold" x1="0%" y1="0%" x2="0%" y2="100%">
+            <linearGradient id="vDragonGoldBlue" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
                 <stop offset="22%" stop-color="#f6d365" stop-opacity="0.98"/>
                 <stop offset="48%" stop-color="#d9ecff" stop-opacity="0.95"/>
                 <stop offset="75%" stop-color="#6fa8dc" stop-opacity="0.88"/>
                 <stop offset="100%" stop-color="#1f3a5f" stop-opacity="0.3"/>
             </linearGradient>
-
-            <linearGradient id="vScaleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id="vScaleGradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#ffffff" stop-opacity="0.75"/>
                 <stop offset="40%" stop-color="#f6d365" stop-opacity="0.5"/>
                 <stop offset="75%" stop-color="#6fa8dc" stop-opacity="0.4"/>
                 <stop offset="100%" stop-color="#1f3a5f" stop-opacity="0.15"/>
             </linearGradient>
-
-            <radialGradient id="vJewelGlow" cx="50%" cy="50%" r="50%">
+            <radialGradient id="vJewelGlowBlue" cx="50%" cy="50%" r="50%">
                 <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
                 <stop offset="45%" stop-color="#f6d365" stop-opacity="0.7"/>
                 <stop offset="100%" stop-color="#6fa8dc" stop-opacity="0"/>
             </radialGradient>
-
-            <filter id="vDragonGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <filter id="vDragonGlowBlue" x="-50%" y="-50%" width="200%" height="200%">
                 <feGaussianBlur stdDeviation="6" result="blur1"/>
                 <feGaussianBlur stdDeviation="15" result="blur2"/>
                 <feMerge>
-                    <feMergeNode in="blur2"/>
-                    <feMergeNode in="blur1"/>
-                    <feMergeNode in="SourceGraphic"/>
+                    <feMergeNode in="blur2"/><feMergeNode in="blur1"/><feMergeNode in="SourceGraphic"/>
                 </feMerge>
             </filter>
+        </defs>
+        <g filter="url(#vDragonGlowBlue)">
+            <g transform="rotate(90,500,417.5)">
 
-            <!-- 右：金綠龍 -->
-            <linearGradient id="vDragonGold2" x1="0%" y1="0%" x2="0%" y2="100%">
+
+            <!-- ================= 龍身輪廓 + 連續鱗片鋪滿 (Continuous Scale Coverage) ================= -->
+            <defs>
+                <path id="scaleUnitBlue" d="M-10,-8 Q-11,1 0,10 Q11,1 10,-8 Q0,-14 -10,-8 Z"/>
+                <clipPath id="bodyClipBlue">
+                    <path d="M 554.8,262.0 L 552.7,266.0 L 550.4,270.0 L 548.0,274.0 L 545.5,278.0 L 542.7,282.0 L 539.9,286.0 L 537.0,290.0 L 534.1,294.0 L 531.1,298.0 L 528.0,302.0 L 525.0,306.0 L 522.0,310.0 L 519.1,314.0 L 516.2,318.0 L 513.5,322.0 L 510.8,326.0 L 508.3,330.0 L 505.9,334.0 L 503.7,338.0 L 501.8,342.0 L 500.0,346.0 L 498.4,350.0 L 497.1,354.0 L 496.0,358.0 L 495.2,362.0 L 494.6,366.0 L 494.3,370.0 L 494.3,374.0 L 494.5,378.0 L 495.0,382.0 L 495.8,386.0 L 496.9,390.0 L 498.2,394.0 L 499.7,398.0 L 501.5,402.0 L 503.6,406.0 L 505.8,410.0 L 508.2,414.0 L 510.8,418.0 L 513.6,422.0 L 516.6,426.0 L 519.6,430.0 L 522.8,434.0 L 526.0,438.0 L 529.3,442.0 L 532.6,446.0 L 536.0,450.0 L 539.3,454.0 L 542.7,458.0 L 545.9,462.0 L 549.1,466.0 L 552.1,470.0 L 555.1,474.0 L 557.9,478.0 L 560.5,482.0 L 563.0,486.0 L 565.2,490.0 L 567.3,494.0 L 569.1,498.0 L 570.6,502.0 L 571.9,506.0 L 573.0,510.0 L 573.7,514.0 L 574.2,518.0 L 574.4,522.0 L 574.3,526.0 L 573.9,530.0 L 573.2,534.0 L 572.2,538.0 L 571.0,542.0 L 569.5,546.0 L 567.7,550.0 L 565.7,554.0 L 563.4,558.0 L 560.9,562.0 L 558.2,566.0 L 555.3,570.0 L 552.2,574.0 L 549.0,578.0 L 545.7,582.0 L 542.2,586.0 L 538.7,590.0 L 535.1,594.0 L 531.4,598.0 L 527.7,602.0 L 524.0,606.0 L 520.4,610.0 L 516.8,614.0 L 513.3,618.0 L 509.9,622.0 L 506.6,626.0 L 503.4,630.0 L 500.4,634.0 L 497.6,638.0 L 495.0,642.0 L 492.6,646.0 L 490.4,650.0 L 488.4,654.0 L 486.7,658.0 L 485.3,662.0 L 484.1,666.0 L 483.2,670.0 L 482.5,674.0 L 482.2,678.0 L 482.1,682.0 L 482.3,686.0 L 482.8,690.0 L 483.5,694.0 L 484.5,698.0 L 485.7,702.0 L 487.2,706.0 L 488.8,710.0 L 490.7,714.0 L 492.8,718.0 L 495.1,722.0 L 497.5,726.0 L 500.0,730.0 L 502.7,734.0 L 505.4,738.0 L 508.3,742.0 L 511.1,746.0 L 514.0,750.0 L 486.0,750.0 L 482.2,746.0 L 478.4,742.0 L 474.7,738.0 L 471.0,734.0 L 467.4,730.0 L 464.0,726.0 L 460.7,722.0 L 457.5,718.0 L 454.5,714.0 L 451.7,710.0 L 449.1,706.0 L 446.8,702.0 L 444.6,698.0 L 442.8,694.0 L 441.2,690.0 L 439.8,686.0 L 438.8,682.0 L 438.0,678.0 L 437.5,674.0 L 437.3,670.0 L 437.3,666.0 L 437.7,662.0 L 438.3,658.0 L 439.2,654.0 L 440.4,650.0 L 441.8,646.0 L 443.4,642.0 L 445.2,638.0 L 447.3,634.0 L 449.6,630.0 L 452.0,626.0 L 454.5,622.0 L 457.3,618.0 L 460.1,614.0 L 463.0,610.0 L 465.9,606.0 L 468.9,602.0 L 472.0,598.0 L 475.0,594.0 L 478.0,590.0 L 480.9,586.0 L 483.8,582.0 L 486.5,578.0 L 489.2,574.0 L 491.7,570.0 L 494.1,566.0 L 496.3,562.0 L 498.2,558.0 L 500.0,554.0 L 501.6,550.0 L 502.9,546.0 L 504.0,542.0 L 504.8,538.0 L 505.4,534.0 L 505.7,530.0 L 505.7,526.0 L 505.5,522.0 L 505.0,518.0 L 504.2,514.0 L 503.1,510.0 L 501.8,506.0 L 500.3,502.0 L 498.5,498.0 L 496.4,494.0 L 494.2,490.0 L 491.8,486.0 L 489.2,482.0 L 486.4,478.0 L 483.4,474.0 L 480.4,470.0 L 477.2,466.0 L 474.0,462.0 L 470.7,458.0 L 467.4,454.0 L 464.0,450.0 L 460.7,446.0 L 457.3,442.0 L 454.1,438.0 L 450.9,434.0 L 447.9,430.0 L 444.9,426.0 L 442.1,422.0 L 439.5,418.0 L 437.0,414.0 L 434.8,410.0 L 432.7,406.0 L 430.9,402.0 L 429.4,398.0 L 428.1,394.0 L 427.0,390.0 L 426.3,386.0 L 425.8,382.0 L 425.6,378.0 L 425.7,374.0 L 426.1,370.0 L 426.8,366.0 L 427.8,362.0 L 429.0,358.0 L 430.5,354.0 L 432.3,350.0 L 434.3,346.0 L 436.6,342.0 L 439.1,338.0 L 441.8,334.0 L 444.7,330.0 L 447.8,326.0 L 451.0,322.0 L 454.3,318.0 L 457.8,314.0 L 461.3,310.0 L 464.9,306.0 L 468.6,302.0 L 472.3,298.0 L 476.0,294.0 L 479.6,290.0 L 483.2,286.0 L 486.7,282.0 L 490.1,278.0 L 493.4,274.0 L 496.6,270.0 L 499.6,266.0 L 502.4,262.0 Z"/>
+                </clipPath>
+            </defs>
+
+            <!-- 身體底色 (避免鱗片間露出背景) -->
+            <path d="M 554.8,262.0 L 552.7,266.0 L 550.4,270.0 L 548.0,274.0 L 545.5,278.0 L 542.7,282.0 L 539.9,286.0 L 537.0,290.0 L 534.1,294.0 L 531.1,298.0 L 528.0,302.0 L 525.0,306.0 L 522.0,310.0 L 519.1,314.0 L 516.2,318.0 L 513.5,322.0 L 510.8,326.0 L 508.3,330.0 L 505.9,334.0 L 503.7,338.0 L 501.8,342.0 L 500.0,346.0 L 498.4,350.0 L 497.1,354.0 L 496.0,358.0 L 495.2,362.0 L 494.6,366.0 L 494.3,370.0 L 494.3,374.0 L 494.5,378.0 L 495.0,382.0 L 495.8,386.0 L 496.9,390.0 L 498.2,394.0 L 499.7,398.0 L 501.5,402.0 L 503.6,406.0 L 505.8,410.0 L 508.2,414.0 L 510.8,418.0 L 513.6,422.0 L 516.6,426.0 L 519.6,430.0 L 522.8,434.0 L 526.0,438.0 L 529.3,442.0 L 532.6,446.0 L 536.0,450.0 L 539.3,454.0 L 542.7,458.0 L 545.9,462.0 L 549.1,466.0 L 552.1,470.0 L 555.1,474.0 L 557.9,478.0 L 560.5,482.0 L 563.0,486.0 L 565.2,490.0 L 567.3,494.0 L 569.1,498.0 L 570.6,502.0 L 571.9,506.0 L 573.0,510.0 L 573.7,514.0 L 574.2,518.0 L 574.4,522.0 L 574.3,526.0 L 573.9,530.0 L 573.2,534.0 L 572.2,538.0 L 571.0,542.0 L 569.5,546.0 L 567.7,550.0 L 565.7,554.0 L 563.4,558.0 L 560.9,562.0 L 558.2,566.0 L 555.3,570.0 L 552.2,574.0 L 549.0,578.0 L 545.7,582.0 L 542.2,586.0 L 538.7,590.0 L 535.1,594.0 L 531.4,598.0 L 527.7,602.0 L 524.0,606.0 L 520.4,610.0 L 516.8,614.0 L 513.3,618.0 L 509.9,622.0 L 506.6,626.0 L 503.4,630.0 L 500.4,634.0 L 497.6,638.0 L 495.0,642.0 L 492.6,646.0 L 490.4,650.0 L 488.4,654.0 L 486.7,658.0 L 485.3,662.0 L 484.1,666.0 L 483.2,670.0 L 482.5,674.0 L 482.2,678.0 L 482.1,682.0 L 482.3,686.0 L 482.8,690.0 L 483.5,694.0 L 484.5,698.0 L 485.7,702.0 L 487.2,706.0 L 488.8,710.0 L 490.7,714.0 L 492.8,718.0 L 495.1,722.0 L 497.5,726.0 L 500.0,730.0 L 502.7,734.0 L 505.4,738.0 L 508.3,742.0 L 511.1,746.0 L 514.0,750.0 L 486.0,750.0 L 482.2,746.0 L 478.4,742.0 L 474.7,738.0 L 471.0,734.0 L 467.4,730.0 L 464.0,726.0 L 460.7,722.0 L 457.5,718.0 L 454.5,714.0 L 451.7,710.0 L 449.1,706.0 L 446.8,702.0 L 444.6,698.0 L 442.8,694.0 L 441.2,690.0 L 439.8,686.0 L 438.8,682.0 L 438.0,678.0 L 437.5,674.0 L 437.3,670.0 L 437.3,666.0 L 437.7,662.0 L 438.3,658.0 L 439.2,654.0 L 440.4,650.0 L 441.8,646.0 L 443.4,642.0 L 445.2,638.0 L 447.3,634.0 L 449.6,630.0 L 452.0,626.0 L 454.5,622.0 L 457.3,618.0 L 460.1,614.0 L 463.0,610.0 L 465.9,606.0 L 468.9,602.0 L 472.0,598.0 L 475.0,594.0 L 478.0,590.0 L 480.9,586.0 L 483.8,582.0 L 486.5,578.0 L 489.2,574.0 L 491.7,570.0 L 494.1,566.0 L 496.3,562.0 L 498.2,558.0 L 500.0,554.0 L 501.6,550.0 L 502.9,546.0 L 504.0,542.0 L 504.8,538.0 L 505.4,534.0 L 505.7,530.0 L 505.7,526.0 L 505.5,522.0 L 505.0,518.0 L 504.2,514.0 L 503.1,510.0 L 501.8,506.0 L 500.3,502.0 L 498.5,498.0 L 496.4,494.0 L 494.2,490.0 L 491.8,486.0 L 489.2,482.0 L 486.4,478.0 L 483.4,474.0 L 480.4,470.0 L 477.2,466.0 L 474.0,462.0 L 470.7,458.0 L 467.4,454.0 L 464.0,450.0 L 460.7,446.0 L 457.3,442.0 L 454.1,438.0 L 450.9,434.0 L 447.9,430.0 L 444.9,426.0 L 442.1,422.0 L 439.5,418.0 L 437.0,414.0 L 434.8,410.0 L 432.7,406.0 L 430.9,402.0 L 429.4,398.0 L 428.1,394.0 L 427.0,390.0 L 426.3,386.0 L 425.8,382.0 L 425.6,378.0 L 425.7,374.0 L 426.1,370.0 L 426.8,366.0 L 427.8,362.0 L 429.0,358.0 L 430.5,354.0 L 432.3,350.0 L 434.3,346.0 L 436.6,342.0 L 439.1,338.0 L 441.8,334.0 L 444.7,330.0 L 447.8,326.0 L 451.0,322.0 L 454.3,318.0 L 457.8,314.0 L 461.3,310.0 L 464.9,306.0 L 468.6,302.0 L 472.3,298.0 L 476.0,294.0 L 479.6,290.0 L 483.2,286.0 L 486.7,282.0 L 490.1,278.0 L 493.4,274.0 L 496.6,270.0 L 499.6,266.0 L 502.4,262.0 Z" fill="url(#vDragonGoldBlue)" opacity="0.35"/>
+            <path d="M 554.8,262.0 L 552.7,266.0 L 550.4,270.0 L 548.0,274.0 L 545.5,278.0 L 542.7,282.0 L 539.9,286.0 L 537.0,290.0 L 534.1,294.0 L 531.1,298.0 L 528.0,302.0 L 525.0,306.0 L 522.0,310.0 L 519.1,314.0 L 516.2,318.0 L 513.5,322.0 L 510.8,326.0 L 508.3,330.0 L 505.9,334.0 L 503.7,338.0 L 501.8,342.0 L 500.0,346.0 L 498.4,350.0 L 497.1,354.0 L 496.0,358.0 L 495.2,362.0 L 494.6,366.0 L 494.3,370.0 L 494.3,374.0 L 494.5,378.0 L 495.0,382.0 L 495.8,386.0 L 496.9,390.0 L 498.2,394.0 L 499.7,398.0 L 501.5,402.0 L 503.6,406.0 L 505.8,410.0 L 508.2,414.0 L 510.8,418.0 L 513.6,422.0 L 516.6,426.0 L 519.6,430.0 L 522.8,434.0 L 526.0,438.0 L 529.3,442.0 L 532.6,446.0 L 536.0,450.0 L 539.3,454.0 L 542.7,458.0 L 545.9,462.0 L 549.1,466.0 L 552.1,470.0 L 555.1,474.0 L 557.9,478.0 L 560.5,482.0 L 563.0,486.0 L 565.2,490.0 L 567.3,494.0 L 569.1,498.0 L 570.6,502.0 L 571.9,506.0 L 573.0,510.0 L 573.7,514.0 L 574.2,518.0 L 574.4,522.0 L 574.3,526.0 L 573.9,530.0 L 573.2,534.0 L 572.2,538.0 L 571.0,542.0 L 569.5,546.0 L 567.7,550.0 L 565.7,554.0 L 563.4,558.0 L 560.9,562.0 L 558.2,566.0 L 555.3,570.0 L 552.2,574.0 L 549.0,578.0 L 545.7,582.0 L 542.2,586.0 L 538.7,590.0 L 535.1,594.0 L 531.4,598.0 L 527.7,602.0 L 524.0,606.0 L 520.4,610.0 L 516.8,614.0 L 513.3,618.0 L 509.9,622.0 L 506.6,626.0 L 503.4,630.0 L 500.4,634.0 L 497.6,638.0 L 495.0,642.0 L 492.6,646.0 L 490.4,650.0 L 488.4,654.0 L 486.7,658.0 L 485.3,662.0 L 484.1,666.0 L 483.2,670.0 L 482.5,674.0 L 482.2,678.0 L 482.1,682.0 L 482.3,686.0 L 482.8,690.0 L 483.5,694.0 L 484.5,698.0 L 485.7,702.0 L 487.2,706.0 L 488.8,710.0 L 490.7,714.0 L 492.8,718.0 L 495.1,722.0 L 497.5,726.0 L 500.0,730.0 L 502.7,734.0 L 505.4,738.0 L 508.3,742.0 L 511.1,746.0 L 514.0,750.0 L 486.0,750.0 L 482.2,746.0 L 478.4,742.0 L 474.7,738.0 L 471.0,734.0 L 467.4,730.0 L 464.0,726.0 L 460.7,722.0 L 457.5,718.0 L 454.5,714.0 L 451.7,710.0 L 449.1,706.0 L 446.8,702.0 L 444.6,698.0 L 442.8,694.0 L 441.2,690.0 L 439.8,686.0 L 438.8,682.0 L 438.0,678.0 L 437.5,674.0 L 437.3,670.0 L 437.3,666.0 L 437.7,662.0 L 438.3,658.0 L 439.2,654.0 L 440.4,650.0 L 441.8,646.0 L 443.4,642.0 L 445.2,638.0 L 447.3,634.0 L 449.6,630.0 L 452.0,626.0 L 454.5,622.0 L 457.3,618.0 L 460.1,614.0 L 463.0,610.0 L 465.9,606.0 L 468.9,602.0 L 472.0,598.0 L 475.0,594.0 L 478.0,590.0 L 480.9,586.0 L 483.8,582.0 L 486.5,578.0 L 489.2,574.0 L 491.7,570.0 L 494.1,566.0 L 496.3,562.0 L 498.2,558.0 L 500.0,554.0 L 501.6,550.0 L 502.9,546.0 L 504.0,542.0 L 504.8,538.0 L 505.4,534.0 L 505.7,530.0 L 505.7,526.0 L 505.5,522.0 L 505.0,518.0 L 504.2,514.0 L 503.1,510.0 L 501.8,506.0 L 500.3,502.0 L 498.5,498.0 L 496.4,494.0 L 494.2,490.0 L 491.8,486.0 L 489.2,482.0 L 486.4,478.0 L 483.4,474.0 L 480.4,470.0 L 477.2,466.0 L 474.0,462.0 L 470.7,458.0 L 467.4,454.0 L 464.0,450.0 L 460.7,446.0 L 457.3,442.0 L 454.1,438.0 L 450.9,434.0 L 447.9,430.0 L 444.9,426.0 L 442.1,422.0 L 439.5,418.0 L 437.0,414.0 L 434.8,410.0 L 432.7,406.0 L 430.9,402.0 L 429.4,398.0 L 428.1,394.0 L 427.0,390.0 L 426.3,386.0 L 425.8,382.0 L 425.6,378.0 L 425.7,374.0 L 426.1,370.0 L 426.8,366.0 L 427.8,362.0 L 429.0,358.0 L 430.5,354.0 L 432.3,350.0 L 434.3,346.0 L 436.6,342.0 L 439.1,338.0 L 441.8,334.0 L 444.7,330.0 L 447.8,326.0 L 451.0,322.0 L 454.3,318.0 L 457.8,314.0 L 461.3,310.0 L 464.9,306.0 L 468.6,302.0 L 472.3,298.0 L 476.0,294.0 L 479.6,290.0 L 483.2,286.0 L 486.7,282.0 L 490.1,278.0 L 493.4,274.0 L 496.6,270.0 L 499.6,266.0 L 502.4,262.0 Z" fill="none" stroke="url(#vDragonGoldBlue)" stroke-width="2" opacity="0.7"/>
+
+            <!-- 頸部銜接 (讓下巴與身體之間無縫過渡) -->
+            <path d="M494,220 C476,234 480,252 500,264 L556,264 C548,244 522,224 494,220 Z"
+                  fill="url(#vDragonGoldBlue)" opacity="0.5"/>
+            <path d="M494,220 C476,234 480,252 500,264 L556,264 C548,244 522,224 494,220 Z"
+                  fill="none" stroke="url(#vDragonGoldBlue)" stroke-width="1.5" opacity="0.6"/>
+
+            <!-- 鱗片群組：以身體輪廓裁切，確保完全貼合、無破空 -->
+            <g class="dragon-scales" clip-path="url(#bodyClipBlue)" stroke="url(#vDragonGoldBlue)" stroke-width="1" fill="url(#vScaleGradBlue)">
+                <use href="#scaleUnitBlue" transform="translate(498.1,268.0) rotate(-20.0) scale(1.05)"/>
+                <use href="#scaleUnitBlue" transform="translate(514.5,268.0) rotate(-20.0) scale(1.05)"/>
+                <use href="#scaleUnitBlue" transform="translate(530.9,268.0) rotate(-20.0) scale(1.05)"/>
+                <use href="#scaleUnitBlue" transform="translate(547.3,268.0) rotate(-20.0) scale(1.05)"/>
+                <use href="#scaleUnitBlue" transform="translate(498.4,277.9) rotate(-22.1) scale(1.06)"/>
+                <use href="#scaleUnitBlue" transform="translate(514.8,277.9) rotate(-22.1) scale(1.06)"/>
+                <use href="#scaleUnitBlue" transform="translate(531.2,277.9) rotate(-22.1) scale(1.06)"/>
+                <use href="#scaleUnitBlue" transform="translate(481.6,287.7) rotate(-23.4) scale(1.06)"/>
+                <use href="#scaleUnitBlue" transform="translate(498.0,287.7) rotate(-23.4) scale(1.06)"/>
+                <use href="#scaleUnitBlue" transform="translate(514.4,287.7) rotate(-23.4) scale(1.06)"/>
+                <use href="#scaleUnitBlue" transform="translate(530.8,287.7) rotate(-23.4) scale(1.06)"/>
+                <use href="#scaleUnitBlue" transform="translate(480.9,297.6) rotate(-24.0) scale(1.07)"/>
+                <use href="#scaleUnitBlue" transform="translate(497.3,297.6) rotate(-24.0) scale(1.07)"/>
+                <use href="#scaleUnitBlue" transform="translate(513.7,297.6) rotate(-24.0) scale(1.07)"/>
+                <use href="#scaleUnitBlue" transform="translate(530.1,297.6) rotate(-24.0) scale(1.07)"/>
+                <use href="#scaleUnitBlue" transform="translate(463.6,307.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(480.0,307.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(496.4,307.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(512.8,307.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(463.1,317.3) rotate(-22.8) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(479.5,317.3) rotate(-22.8) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(495.9,317.3) rotate(-22.8) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(512.3,317.3) rotate(-22.8) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(446.8,327.2) rotate(-21.1) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(463.2,327.2) rotate(-21.1) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(479.6,327.2) rotate(-21.1) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(496.0,327.2) rotate(-21.1) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(447.9,337.0) rotate(-18.5) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(464.3,337.0) rotate(-18.5) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(480.7,337.0) rotate(-18.5) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(497.1,337.0) rotate(-18.5) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(433.9,346.9) rotate(-15.0) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(450.3,346.9) rotate(-15.0) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(466.7,346.9) rotate(-15.0) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(483.1,346.9) rotate(-15.0) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(499.5,346.9) rotate(-15.0) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(437.7,356.7) rotate(-10.4) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(454.1,356.7) rotate(-10.4) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(470.5,356.7) rotate(-10.4) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(486.9,356.7) rotate(-10.4) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(426.7,366.6) rotate(-5.0) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(443.1,366.6) rotate(-5.0) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(459.5,366.6) rotate(-5.0) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(475.9,366.6) rotate(-5.0) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(492.3,366.6) rotate(-5.0) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(433.8,376.5) rotate(0.9) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(450.2,376.5) rotate(0.9) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(466.6,376.5) rotate(0.9) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(483.0,376.5) rotate(0.9) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(426.3,386.3) rotate(6.7) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(442.7,386.3) rotate(6.7) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(459.1,386.3) rotate(6.7) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(475.5,386.3) rotate(6.7) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(491.9,386.3) rotate(6.7) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(436.9,396.2) rotate(11.9) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(453.3,396.2) rotate(11.9) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(469.7,396.2) rotate(11.9) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(486.1,396.2) rotate(11.9) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(432.7,406.0) rotate(16.1) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(449.1,406.0) rotate(16.1) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(465.5,406.0) rotate(16.1) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(481.9,406.0) rotate(16.1) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(498.3,406.0) rotate(16.1) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(446.3,415.9) rotate(19.4) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(462.7,415.9) rotate(19.4) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(479.1,415.9) rotate(19.4) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(495.5,415.9) rotate(19.4) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(444.7,425.8) rotate(21.7) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(461.1,425.8) rotate(21.7) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(477.5,425.8) rotate(21.7) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(493.9,425.8) rotate(21.7) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(510.3,425.8) rotate(21.7) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(460.4,435.6) rotate(23.2) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(476.8,435.6) rotate(23.2) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(493.2,435.6) rotate(23.2) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(509.6,435.6) rotate(23.2) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(460.2,445.5) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(476.6,445.5) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(493.0,445.5) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(509.4,445.5) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(525.8,445.5) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(476.7,455.3) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(493.1,455.3) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(509.5,455.3) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(525.9,455.3) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(476.6,465.2) rotate(23.1) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(493.0,465.2) rotate(23.1) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(509.4,465.2) rotate(23.1) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(525.8,465.2) rotate(23.1) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(542.2,465.2) rotate(23.1) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(492.4,475.1) rotate(21.6) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(508.8,475.1) rotate(21.6) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(525.2,475.1) rotate(21.6) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(541.6,475.1) rotate(21.6) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(491.1,484.9) rotate(19.2) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(507.5,484.9) rotate(19.2) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(523.9,484.9) rotate(19.2) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(540.3,484.9) rotate(19.2) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(556.7,484.9) rotate(19.2) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(505.1,494.8) rotate(15.8) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(521.5,494.8) rotate(15.8) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(537.9,494.8) rotate(15.8) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(554.3,494.8) rotate(15.8) scale(1.12)"/>
+                <use href="#scaleUnitBlue" transform="translate(501.3,504.6) rotate(11.5) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(517.7,504.6) rotate(11.5) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(534.1,504.6) rotate(11.5) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(550.5,504.6) rotate(11.5) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(566.9,504.6) rotate(11.5) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(512.5,514.5) rotate(6.2) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(528.9,514.5) rotate(6.2) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(545.3,514.5) rotate(6.2) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(561.7,514.5) rotate(6.2) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(505.6,524.4) rotate(0.4) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(522.0,524.4) rotate(0.4) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(538.4,524.4) rotate(0.4) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(554.8,524.4) rotate(0.4) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(571.2,524.4) rotate(0.4) scale(1.11)"/>
+                <use href="#scaleUnitBlue" transform="translate(513.6,534.2) rotate(-5.5) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(530.0,534.2) rotate(-5.5) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(546.4,534.2) rotate(-5.5) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(562.8,534.2) rotate(-5.5) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(503.5,544.1) rotate(-10.8) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(519.9,544.1) rotate(-10.8) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(536.3,544.1) rotate(-10.8) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(552.7,544.1) rotate(-10.8) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(569.1,544.1) rotate(-10.8) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(508.3,553.9) rotate(-15.3) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(524.7,553.9) rotate(-15.3) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(541.1,553.9) rotate(-15.3) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(557.5,553.9) rotate(-15.3) scale(1.10)"/>
+                <use href="#scaleUnitBlue" transform="translate(495.3,563.8) rotate(-18.8) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(511.7,563.8) rotate(-18.8) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(528.1,563.8) rotate(-18.8) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(544.5,563.8) rotate(-18.8) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(497.6,573.7) rotate(-21.3) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(514.0,573.7) rotate(-21.3) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(530.4,573.7) rotate(-21.3) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(546.8,573.7) rotate(-21.3) scale(1.09)"/>
+                <use href="#scaleUnitBlue" transform="translate(482.7,583.5) rotate(-23.0) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(499.1,583.5) rotate(-23.0) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(515.5,583.5) rotate(-23.0) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(531.9,583.5) rotate(-23.0) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(483.6,593.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(500.0,593.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(516.4,593.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(532.8,593.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitBlue" transform="translate(468.0,603.2) rotate(-23.9) scale(1.07)"/>
+                <use href="#scaleUnitBlue" transform="translate(484.4,603.2) rotate(-23.9) scale(1.07)"/>
+                <use href="#scaleUnitBlue" transform="translate(500.8,603.2) rotate(-23.9) scale(1.07)"/>
+                <use href="#scaleUnitBlue" transform="translate(517.2,603.2) rotate(-23.9) scale(1.07)"/>
+                <use href="#scaleUnitBlue" transform="translate(468.9,613.1) rotate(-23.3) scale(1.06)"/>
+                <use href="#scaleUnitBlue" transform="translate(485.3,613.1) rotate(-23.3) scale(1.06)"/>
+                <use href="#scaleUnitBlue" transform="translate(501.7,613.1) rotate(-23.3) scale(1.06)"/>
+                <use href="#scaleUnitBlue" transform="translate(453.9,623.0) rotate(-22.0) scale(1.06)"/>
+                <use href="#scaleUnitBlue" transform="translate(470.3,623.0) rotate(-22.0) scale(1.06)"/>
+                <use href="#scaleUnitBlue" transform="translate(486.7,623.0) rotate(-22.0) scale(1.06)"/>
+                <use href="#scaleUnitBlue" transform="translate(503.1,623.0) rotate(-22.0) scale(1.06)"/>
+                <use href="#scaleUnitBlue" transform="translate(456.2,632.8) rotate(-19.8) scale(1.05)"/>
+                <use href="#scaleUnitBlue" transform="translate(472.6,632.8) rotate(-19.8) scale(1.05)"/>
+                <use href="#scaleUnitBlue" transform="translate(489.0,632.8) rotate(-19.8) scale(1.05)"/>
+                <use href="#scaleUnitBlue" transform="translate(443.1,642.7) rotate(-16.6) scale(1.04)"/>
+                <use href="#scaleUnitBlue" transform="translate(459.5,642.7) rotate(-16.6) scale(1.04)"/>
+                <use href="#scaleUnitBlue" transform="translate(475.9,642.7) rotate(-16.6) scale(1.04)"/>
+                <use href="#scaleUnitBlue" transform="translate(492.3,642.7) rotate(-16.6) scale(1.04)"/>
+                <use href="#scaleUnitBlue" transform="translate(447.8,652.5) rotate(-12.5) scale(1.04)"/>
+                <use href="#scaleUnitBlue" transform="translate(464.2,652.5) rotate(-12.5) scale(1.04)"/>
+                <use href="#scaleUnitBlue" transform="translate(480.6,652.5) rotate(-12.5) scale(1.04)"/>
+                <use href="#scaleUnitBlue" transform="translate(437.6,662.4) rotate(-7.4) scale(1.03)"/>
+                <use href="#scaleUnitBlue" transform="translate(454.0,662.4) rotate(-7.4) scale(1.03)"/>
+                <use href="#scaleUnitBlue" transform="translate(470.4,662.4) rotate(-7.4) scale(1.03)"/>
+                <use href="#scaleUnitBlue" transform="translate(445.6,672.3) rotate(-1.7) scale(1.02)"/>
+                <use href="#scaleUnitBlue" transform="translate(462.0,672.3) rotate(-1.7) scale(1.02)"/>
+                <use href="#scaleUnitBlue" transform="translate(478.4,672.3) rotate(-1.7) scale(1.02)"/>
+                <use href="#scaleUnitBlue" transform="translate(438.8,682.1) rotate(4.3) scale(1.01)"/>
+                <use href="#scaleUnitBlue" transform="translate(455.2,682.1) rotate(4.3) scale(1.01)"/>
+                <use href="#scaleUnitBlue" transform="translate(471.6,682.1) rotate(4.3) scale(1.01)"/>
+                <use href="#scaleUnitBlue" transform="translate(450.1,692.0) rotate(9.8) scale(1.00)"/>
+                <use href="#scaleUnitBlue" transform="translate(466.5,692.0) rotate(9.8) scale(1.00)"/>
+                <use href="#scaleUnitBlue" transform="translate(482.9,692.0) rotate(9.8) scale(1.00)"/>
+                <use href="#scaleUnitBlue" transform="translate(446.7,701.8) rotate(14.4) scale(1.00)"/>
+                <use href="#scaleUnitBlue" transform="translate(463.1,701.8) rotate(14.4) scale(1.00)"/>
+                <use href="#scaleUnitBlue" transform="translate(479.5,701.8) rotate(14.4) scale(1.00)"/>
+                <use href="#scaleUnitBlue" transform="translate(461.1,711.7) rotate(18.1) scale(0.99)"/>
+                <use href="#scaleUnitBlue" transform="translate(477.5,711.7) rotate(18.1) scale(0.99)"/>
+                <use href="#scaleUnitBlue" transform="translate(460.3,721.6) rotate(20.8) scale(0.98)"/>
+                <use href="#scaleUnitBlue" transform="translate(476.7,721.6) rotate(20.8) scale(0.98)"/>
+                <use href="#scaleUnitBlue" transform="translate(493.1,721.6) rotate(20.8) scale(0.98)"/>
+                <use href="#scaleUnitBlue" transform="translate(476.9,731.4) rotate(22.7) scale(0.97)"/>
+                <use href="#scaleUnitBlue" transform="translate(493.3,731.4) rotate(22.7) scale(0.97)"/>
+                <use href="#scaleUnitBlue" transform="translate(477.7,741.3) rotate(23.7) scale(0.96)"/>
+                <use href="#scaleUnitBlue" transform="translate(494.1,741.3) rotate(23.7) scale(0.96)"/>
+            </g>
+
+            <!-- 龍脊亮線 (置於鱗片之上，作為中軸高光) -->
+            <path d="M528,262 Q515,285 500,300 C465,325 460,350 460,375 C460,400 465,425 500,450
+                     C535,475 540,500 540,525 C540,550 535,575 500,600
+                     C465,625 460,650 460,675 C460,700 465,725 500,750"
+                  fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+
+            <!-- ================= 龍爪 (Simple clean claws, attached at the body edge) ================= -->
+            <g class="dragon-claws" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <!-- 前右腿 -->
+                <path d="M500.4,345 C515.6,342.3 530.4,337.9 543.1,328.5" stroke="url(#vDragonGoldBlue)" stroke-width="3.5"/>
+                <path d="M543.1,328.5 l11,-4 M543.1,328.5 l12,3 M543.1,328.5 l8,9 M543.1,328.5 l1,12" stroke="url(#vDragonGoldBlue)" stroke-width="2.2"/>
+                <!-- 前左腿 -->
+                <path d="M434.8,345 C419.5,342.3 404.7,337.9 392.0,328.5" stroke="url(#vDragonGoldBlue)" stroke-width="3.5"/>
+                <path d="M392.0,328.5 l-11,-4 M392.0,328.5 l-12,3 M392.0,328.5 l-8,9 M392.0,328.5 l-1,12" stroke="url(#vDragonGoldBlue)" stroke-width="2.2"/>
+                <!-- 後右腿 -->
+                <path d="M555.3,570 C570.5,573.3 585.4,579.9 596.4,590.9" stroke="url(#vDragonGoldBlue)" stroke-width="3.5"/>
+                <path d="M596.4,590.9 l12,-2 M596.4,590.9 l12,5 M596.4,590.9 l7,10 M596.4,590.9 l0,12" stroke="url(#vDragonGoldBlue)" stroke-width="2.2"/>
+                <!-- 後左腿 -->
+                <path d="M491.7,570 C476.5,573.3 461.6,579.9 450.6,590.9" stroke="url(#vDragonGoldBlue)" stroke-width="3.5"/>
+                <path d="M450.6,590.9 l-12,-2 M450.6,590.9 l-12,5 M450.6,590.9 l-7,10 M450.6,590.9 l0,12" stroke="url(#vDragonGoldBlue)" stroke-width="2.2"/>
+            </g>
+
+            <!-- ================= 藍金龍頭部 (轉向 12 點鐘方向) ================= -->
+<g id="blue-dragon-head" transform="rotate(-90, 500, 270)">
+    <g class="dragon-head-top">
+
+        <!-- 頂冠火焰 -->
+        <path d="M500,112 Q494,88 500,58 Q506,88 500,112 Z" fill="url(#vDragonGoldBlue)" opacity="0.85"/>
+
+        <!-- 龍角 (分叉鹿角式) -->
+        <path d="M492,150 C475,130 455,110 434,84 C440,96 460,122 480,146 Z" fill="url(#vDragonGoldBlue)"/>
+        <path d="M465,115 C455,107 445,104 437,108" fill="none" stroke="#fff3c4" stroke-width="2" stroke-linecap="round"/>
+        <path d="M508,150 C525,130 545,110 566,84 C560,96 540,122 520,146 Z" fill="url(#vDragonGoldBlue)"/>
+        <path d="M535,115 C545,107 555,104 563,108" fill="none" stroke="#fff3c4" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- ================= 側鬃耳鰭 (太陽光芒造型：由上至下遞減縮短變細) ================= -->
+<g class="dragon-ear-fins" fill="url(#vDragonGoldBlue)" stroke="#ffffff" stroke-width="0.4" opacity="0.4">
+    <!-- 左側刺鬃 (最上層最長最寬，向下依次縮短變細) -->
+    <path d="M465,145 Q420,125 390,125 Q425,152 465,168 Z"/>
+    <path d="M462,166 Q422,152 402,158 Q428,178 462,185 Z"/>
+    <path d="M460,183 Q430,180 415,188 Q432,200 460,198 Z"/>
+    <path d="M462,196 Q438,206 428,215 Q442,220 462,208 Z"/>
+    <path d="M465,206 Q448,222 440,235 Q452,232 465,215 Z"/>
+
+    <!-- 右側刺鬃 (對稱鏡像) -->
+    <path d="M535,145 Q580,125 610,125 Q575,152 535,168 Z"/>
+    <path d="M538,166 Q578,152 598,158 Q572,178 538,185 Z"/>
+    <path d="M540,183 Q570,180 585,188 Q568,200 540,198 Z"/>
+    <path d="M538,196 Q562,206 572,215 Q558,220 538,208 Z"/>
+    <path d="M535,206 Q552,222 560,235 Q548,232 535,215 Z"/>
+</g>
+
+
+        <!-- 額珠 -->
+        <circle cx="500" cy="172" r="16" fill="url(#vJewelGlowBlue)"/>
+        <circle cx="500" cy="172" r="6" fill="#ffffff"/>
+
+        <!-- 火焰眉 -->
+        <path d="M470,186 Q450,177 434,184 Q450,192 468,193 Z" fill="url(#vDragonGoldBlue)" stroke="#fff3c4" stroke-width="1"/>
+        <path d="M530,186 Q550,177 566,184 Q550,192 532,193 Z" fill="url(#vDragonGoldBlue)" stroke="#fff3c4" stroke-width="1"/>
+
+        <!-- 龍眼 -->
+        <path d="M483,194 Q472,188 461,194 Q472,201 483,194 Z" fill="#ffffff"/>
+        <circle cx="472" cy="194" r="2.6" fill="#7a3b00"/>
+        <path d="M517,194 Q528,188 539,194 Q528,201 517,194 Z" fill="#ffffff"/>
+        <circle cx="528" cy="194" r="2.6" fill="#7a3b00"/>
+
+        <!-- 臉部輪廓 -->
+        <path d="M478,206 Q500,196 522,206 Q516,226 500,231 Q484,226 478,206 Z" fill="none" stroke="url(#vDragonGoldBlue)" stroke-width="2"/>
+
+        <!-- 鼻孔 -->
+        <ellipse cx="493" cy="223" rx="3" ry="2" fill="#5a2c00" opacity="0.8"/>
+        <ellipse cx="507" cy="223" rx="3" ry="2" fill="#5a2c00" opacity="0.8"/>
+
+        <!-- 張口與獠牙 -->
+        <path d="M478,229 Q500,239 522,229" fill="none" stroke="url(#vDragonGoldBlue)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M481,233 Q500,257 519,233" fill="none" stroke="url(#vDragonGoldBlue)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M491,231 L489,239 L494,232 Z" fill="#ffffff"/>
+        <path d="M509,231 L511,239 L506,232 Z" fill="#ffffff"/>
+        <path d="M498,236 Q500,246 502,236" fill="none" stroke="#fda085" stroke-width="1.5" opacity="0.8"/>
+
+        <!-- 龍鬚 (四條飄逸) -->
+        <g class="dragon-whiskers" fill="none" stroke="#f6d365" stroke-width="1.6" stroke-linecap="round">
+            <path d="M478,222 C455,225 425,205 395,180"/>
+            <path d="M480,236 C460,246 435,251 405,256"/>
+            <path d="M522,222 C545,225 575,205 605,180"/>
+            <path d="M520,236 C540,246 565,251 595,256"/>
+        </g>
+
+        <!-- 頸後飄鬃 -->
+        <g class="dragon-mane" fill="url(#vDragonGoldBlue)" opacity="0.55">
+            <path d="M470,250 Q440,270 445,300 Q460,285 472,265 Z"/>
+            <path d="M460,265 Q430,290 438,320 Q452,300 465,278 Z"/>
+            <path d="M530,250 Q560,270 555,300 Q540,285 528,265 Z"/>
+            <path d="M540,265 Q570,290 562,320 Q548,300 535,278 Z"/>
+        </g>
+    </g>
+</g>
+
+
+            <!-- ================= 龍尾 (Layered Flame Tail) ================= -->
+            <path d="M492,752 Q465,770 478,788 Q495,775 492,752 Z" fill="url(#vDragonGoldBlue)" opacity="0.6"/>
+            <path d="M508,752 Q535,770 522,788 Q505,775 508,752 Z" fill="url(#vDragonGoldBlue)" opacity="0.6"/>
+            <path d="M500,750 Q480,775 500,795 Q520,775 500,750 Z" fill="url(#vDragonGoldBlue)" opacity="0.9"/>
+        
+            </g>
+        </g>
+    </svg>
+</div>
+
+<!-- ===================== 綠金龍：右下，頭朝左（面向中央） ===================== -->
+<div id="dragon-green-container" class="dragon-corner">
+    <svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="vDragonGoldGreen" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
                 <stop offset="22%" stop-color="#f6d365" stop-opacity="0.98"/>
                 <stop offset="48%" stop-color="#dcf0c0" stop-opacity="0.95"/>
                 <stop offset="75%" stop-color="#7bb85a" stop-opacity="0.88"/>
                 <stop offset="100%" stop-color="#25501a" stop-opacity="0.3"/>
             </linearGradient>
-
-            <linearGradient id="vScaleGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id="vScaleGradGreen" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#ffffff" stop-opacity="0.75"/>
                 <stop offset="40%" stop-color="#f6d365" stop-opacity="0.5"/>
                 <stop offset="75%" stop-color="#7bb85a" stop-opacity="0.4"/>
                 <stop offset="100%" stop-color="#25501a" stop-opacity="0.15"/>
             </linearGradient>
-
-            <radialGradient id="vJewelGlow2" cx="50%" cy="50%" r="50%">
+            <radialGradient id="vJewelGlowGreen" cx="50%" cy="50%" r="50%">
                 <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
                 <stop offset="45%" stop-color="#dcf0c0" stop-opacity="0.7"/>
                 <stop offset="100%" stop-color="#7bb85a" stop-opacity="0"/>
             </radialGradient>
+            <filter id="vDragonGlowGreen" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="6" result="blur1"/>
+                <feGaussianBlur stdDeviation="15" result="blur2"/>
+                <feMerge>
+                    <feMergeNode in="blur2"/><feMergeNode in="blur1"/><feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
         </defs>
+        <g filter="url(#vDragonGlowGreen)">
+            <g transform="rotate(-90,500,417.5)">
 
-        <g filter="url(#vDragonGlow)">
-<g class="dragonA" transform="translate(-70,0)">
 
             <!-- ================= 龍身輪廓 + 連續鱗片鋪滿 (Continuous Scale Coverage) ================= -->
             <defs>
-                <path id="scaleUnit" d="M-10,-8 Q-11,1 0,10 Q11,1 10,-8 Q0,-14 -10,-8 Z"/>
-                <clipPath id="bodyClip">
+                <path id="scaleUnitGreen" d="M-10,-8 Q-11,1 0,10 Q11,1 10,-8 Q0,-14 -10,-8 Z"/>
+                <clipPath id="bodyClipGreen">
                     <path d="M 554.8,262.0 L 552.7,266.0 L 550.4,270.0 L 548.0,274.0 L 545.5,278.0 L 542.7,282.0 L 539.9,286.0 L 537.0,290.0 L 534.1,294.0 L 531.1,298.0 L 528.0,302.0 L 525.0,306.0 L 522.0,310.0 L 519.1,314.0 L 516.2,318.0 L 513.5,322.0 L 510.8,326.0 L 508.3,330.0 L 505.9,334.0 L 503.7,338.0 L 501.8,342.0 L 500.0,346.0 L 498.4,350.0 L 497.1,354.0 L 496.0,358.0 L 495.2,362.0 L 494.6,366.0 L 494.3,370.0 L 494.3,374.0 L 494.5,378.0 L 495.0,382.0 L 495.8,386.0 L 496.9,390.0 L 498.2,394.0 L 499.7,398.0 L 501.5,402.0 L 503.6,406.0 L 505.8,410.0 L 508.2,414.0 L 510.8,418.0 L 513.6,422.0 L 516.6,426.0 L 519.6,430.0 L 522.8,434.0 L 526.0,438.0 L 529.3,442.0 L 532.6,446.0 L 536.0,450.0 L 539.3,454.0 L 542.7,458.0 L 545.9,462.0 L 549.1,466.0 L 552.1,470.0 L 555.1,474.0 L 557.9,478.0 L 560.5,482.0 L 563.0,486.0 L 565.2,490.0 L 567.3,494.0 L 569.1,498.0 L 570.6,502.0 L 571.9,506.0 L 573.0,510.0 L 573.7,514.0 L 574.2,518.0 L 574.4,522.0 L 574.3,526.0 L 573.9,530.0 L 573.2,534.0 L 572.2,538.0 L 571.0,542.0 L 569.5,546.0 L 567.7,550.0 L 565.7,554.0 L 563.4,558.0 L 560.9,562.0 L 558.2,566.0 L 555.3,570.0 L 552.2,574.0 L 549.0,578.0 L 545.7,582.0 L 542.2,586.0 L 538.7,590.0 L 535.1,594.0 L 531.4,598.0 L 527.7,602.0 L 524.0,606.0 L 520.4,610.0 L 516.8,614.0 L 513.3,618.0 L 509.9,622.0 L 506.6,626.0 L 503.4,630.0 L 500.4,634.0 L 497.6,638.0 L 495.0,642.0 L 492.6,646.0 L 490.4,650.0 L 488.4,654.0 L 486.7,658.0 L 485.3,662.0 L 484.1,666.0 L 483.2,670.0 L 482.5,674.0 L 482.2,678.0 L 482.1,682.0 L 482.3,686.0 L 482.8,690.0 L 483.5,694.0 L 484.5,698.0 L 485.7,702.0 L 487.2,706.0 L 488.8,710.0 L 490.7,714.0 L 492.8,718.0 L 495.1,722.0 L 497.5,726.0 L 500.0,730.0 L 502.7,734.0 L 505.4,738.0 L 508.3,742.0 L 511.1,746.0 L 514.0,750.0 L 486.0,750.0 L 482.2,746.0 L 478.4,742.0 L 474.7,738.0 L 471.0,734.0 L 467.4,730.0 L 464.0,726.0 L 460.7,722.0 L 457.5,718.0 L 454.5,714.0 L 451.7,710.0 L 449.1,706.0 L 446.8,702.0 L 444.6,698.0 L 442.8,694.0 L 441.2,690.0 L 439.8,686.0 L 438.8,682.0 L 438.0,678.0 L 437.5,674.0 L 437.3,670.0 L 437.3,666.0 L 437.7,662.0 L 438.3,658.0 L 439.2,654.0 L 440.4,650.0 L 441.8,646.0 L 443.4,642.0 L 445.2,638.0 L 447.3,634.0 L 449.6,630.0 L 452.0,626.0 L 454.5,622.0 L 457.3,618.0 L 460.1,614.0 L 463.0,610.0 L 465.9,606.0 L 468.9,602.0 L 472.0,598.0 L 475.0,594.0 L 478.0,590.0 L 480.9,586.0 L 483.8,582.0 L 486.5,578.0 L 489.2,574.0 L 491.7,570.0 L 494.1,566.0 L 496.3,562.0 L 498.2,558.0 L 500.0,554.0 L 501.6,550.0 L 502.9,546.0 L 504.0,542.0 L 504.8,538.0 L 505.4,534.0 L 505.7,530.0 L 505.7,526.0 L 505.5,522.0 L 505.0,518.0 L 504.2,514.0 L 503.1,510.0 L 501.8,506.0 L 500.3,502.0 L 498.5,498.0 L 496.4,494.0 L 494.2,490.0 L 491.8,486.0 L 489.2,482.0 L 486.4,478.0 L 483.4,474.0 L 480.4,470.0 L 477.2,466.0 L 474.0,462.0 L 470.7,458.0 L 467.4,454.0 L 464.0,450.0 L 460.7,446.0 L 457.3,442.0 L 454.1,438.0 L 450.9,434.0 L 447.9,430.0 L 444.9,426.0 L 442.1,422.0 L 439.5,418.0 L 437.0,414.0 L 434.8,410.0 L 432.7,406.0 L 430.9,402.0 L 429.4,398.0 L 428.1,394.0 L 427.0,390.0 L 426.3,386.0 L 425.8,382.0 L 425.6,378.0 L 425.7,374.0 L 426.1,370.0 L 426.8,366.0 L 427.8,362.0 L 429.0,358.0 L 430.5,354.0 L 432.3,350.0 L 434.3,346.0 L 436.6,342.0 L 439.1,338.0 L 441.8,334.0 L 444.7,330.0 L 447.8,326.0 L 451.0,322.0 L 454.3,318.0 L 457.8,314.0 L 461.3,310.0 L 464.9,306.0 L 468.6,302.0 L 472.3,298.0 L 476.0,294.0 L 479.6,290.0 L 483.2,286.0 L 486.7,282.0 L 490.1,278.0 L 493.4,274.0 L 496.6,270.0 L 499.6,266.0 L 502.4,262.0 Z"/>
                 </clipPath>
             </defs>
 
             <!-- 身體底色 (避免鱗片間露出背景) -->
-            <path d="M 554.8,262.0 L 552.7,266.0 L 550.4,270.0 L 548.0,274.0 L 545.5,278.0 L 542.7,282.0 L 539.9,286.0 L 537.0,290.0 L 534.1,294.0 L 531.1,298.0 L 528.0,302.0 L 525.0,306.0 L 522.0,310.0 L 519.1,314.0 L 516.2,318.0 L 513.5,322.0 L 510.8,326.0 L 508.3,330.0 L 505.9,334.0 L 503.7,338.0 L 501.8,342.0 L 500.0,346.0 L 498.4,350.0 L 497.1,354.0 L 496.0,358.0 L 495.2,362.0 L 494.6,366.0 L 494.3,370.0 L 494.3,374.0 L 494.5,378.0 L 495.0,382.0 L 495.8,386.0 L 496.9,390.0 L 498.2,394.0 L 499.7,398.0 L 501.5,402.0 L 503.6,406.0 L 505.8,410.0 L 508.2,414.0 L 510.8,418.0 L 513.6,422.0 L 516.6,426.0 L 519.6,430.0 L 522.8,434.0 L 526.0,438.0 L 529.3,442.0 L 532.6,446.0 L 536.0,450.0 L 539.3,454.0 L 542.7,458.0 L 545.9,462.0 L 549.1,466.0 L 552.1,470.0 L 555.1,474.0 L 557.9,478.0 L 560.5,482.0 L 563.0,486.0 L 565.2,490.0 L 567.3,494.0 L 569.1,498.0 L 570.6,502.0 L 571.9,506.0 L 573.0,510.0 L 573.7,514.0 L 574.2,518.0 L 574.4,522.0 L 574.3,526.0 L 573.9,530.0 L 573.2,534.0 L 572.2,538.0 L 571.0,542.0 L 569.5,546.0 L 567.7,550.0 L 565.7,554.0 L 563.4,558.0 L 560.9,562.0 L 558.2,566.0 L 555.3,570.0 L 552.2,574.0 L 549.0,578.0 L 545.7,582.0 L 542.2,586.0 L 538.7,590.0 L 535.1,594.0 L 531.4,598.0 L 527.7,602.0 L 524.0,606.0 L 520.4,610.0 L 516.8,614.0 L 513.3,618.0 L 509.9,622.0 L 506.6,626.0 L 503.4,630.0 L 500.4,634.0 L 497.6,638.0 L 495.0,642.0 L 492.6,646.0 L 490.4,650.0 L 488.4,654.0 L 486.7,658.0 L 485.3,662.0 L 484.1,666.0 L 483.2,670.0 L 482.5,674.0 L 482.2,678.0 L 482.1,682.0 L 482.3,686.0 L 482.8,690.0 L 483.5,694.0 L 484.5,698.0 L 485.7,702.0 L 487.2,706.0 L 488.8,710.0 L 490.7,714.0 L 492.8,718.0 L 495.1,722.0 L 497.5,726.0 L 500.0,730.0 L 502.7,734.0 L 505.4,738.0 L 508.3,742.0 L 511.1,746.0 L 514.0,750.0 L 486.0,750.0 L 482.2,746.0 L 478.4,742.0 L 474.7,738.0 L 471.0,734.0 L 467.4,730.0 L 464.0,726.0 L 460.7,722.0 L 457.5,718.0 L 454.5,714.0 L 451.7,710.0 L 449.1,706.0 L 446.8,702.0 L 444.6,698.0 L 442.8,694.0 L 441.2,690.0 L 439.8,686.0 L 438.8,682.0 L 438.0,678.0 L 437.5,674.0 L 437.3,670.0 L 437.3,666.0 L 437.7,662.0 L 438.3,658.0 L 439.2,654.0 L 440.4,650.0 L 441.8,646.0 L 443.4,642.0 L 445.2,638.0 L 447.3,634.0 L 449.6,630.0 L 452.0,626.0 L 454.5,622.0 L 457.3,618.0 L 460.1,614.0 L 463.0,610.0 L 465.9,606.0 L 468.9,602.0 L 472.0,598.0 L 475.0,594.0 L 478.0,590.0 L 480.9,586.0 L 483.8,582.0 L 486.5,578.0 L 489.2,574.0 L 491.7,570.0 L 494.1,566.0 L 496.3,562.0 L 498.2,558.0 L 500.0,554.0 L 501.6,550.0 L 502.9,546.0 L 504.0,542.0 L 504.8,538.0 L 505.4,534.0 L 505.7,530.0 L 505.7,526.0 L 505.5,522.0 L 505.0,518.0 L 504.2,514.0 L 503.1,510.0 L 501.8,506.0 L 500.3,502.0 L 498.5,498.0 L 496.4,494.0 L 494.2,490.0 L 491.8,486.0 L 489.2,482.0 L 486.4,478.0 L 483.4,474.0 L 480.4,470.0 L 477.2,466.0 L 474.0,462.0 L 470.7,458.0 L 467.4,454.0 L 464.0,450.0 L 460.7,446.0 L 457.3,442.0 L 454.1,438.0 L 450.9,434.0 L 447.9,430.0 L 444.9,426.0 L 442.1,422.0 L 439.5,418.0 L 437.0,414.0 L 434.8,410.0 L 432.7,406.0 L 430.9,402.0 L 429.4,398.0 L 428.1,394.0 L 427.0,390.0 L 426.3,386.0 L 425.8,382.0 L 425.6,378.0 L 425.7,374.0 L 426.1,370.0 L 426.8,366.0 L 427.8,362.0 L 429.0,358.0 L 430.5,354.0 L 432.3,350.0 L 434.3,346.0 L 436.6,342.0 L 439.1,338.0 L 441.8,334.0 L 444.7,330.0 L 447.8,326.0 L 451.0,322.0 L 454.3,318.0 L 457.8,314.0 L 461.3,310.0 L 464.9,306.0 L 468.6,302.0 L 472.3,298.0 L 476.0,294.0 L 479.6,290.0 L 483.2,286.0 L 486.7,282.0 L 490.1,278.0 L 493.4,274.0 L 496.6,270.0 L 499.6,266.0 L 502.4,262.0 Z" fill="url(#vDragonGold)" opacity="0.35"/>
-            <path d="M 554.8,262.0 L 552.7,266.0 L 550.4,270.0 L 548.0,274.0 L 545.5,278.0 L 542.7,282.0 L 539.9,286.0 L 537.0,290.0 L 534.1,294.0 L 531.1,298.0 L 528.0,302.0 L 525.0,306.0 L 522.0,310.0 L 519.1,314.0 L 516.2,318.0 L 513.5,322.0 L 510.8,326.0 L 508.3,330.0 L 505.9,334.0 L 503.7,338.0 L 501.8,342.0 L 500.0,346.0 L 498.4,350.0 L 497.1,354.0 L 496.0,358.0 L 495.2,362.0 L 494.6,366.0 L 494.3,370.0 L 494.3,374.0 L 494.5,378.0 L 495.0,382.0 L 495.8,386.0 L 496.9,390.0 L 498.2,394.0 L 499.7,398.0 L 501.5,402.0 L 503.6,406.0 L 505.8,410.0 L 508.2,414.0 L 510.8,418.0 L 513.6,422.0 L 516.6,426.0 L 519.6,430.0 L 522.8,434.0 L 526.0,438.0 L 529.3,442.0 L 532.6,446.0 L 536.0,450.0 L 539.3,454.0 L 542.7,458.0 L 545.9,462.0 L 549.1,466.0 L 552.1,470.0 L 555.1,474.0 L 557.9,478.0 L 560.5,482.0 L 563.0,486.0 L 565.2,490.0 L 567.3,494.0 L 569.1,498.0 L 570.6,502.0 L 571.9,506.0 L 573.0,510.0 L 573.7,514.0 L 574.2,518.0 L 574.4,522.0 L 574.3,526.0 L 573.9,530.0 L 573.2,534.0 L 572.2,538.0 L 571.0,542.0 L 569.5,546.0 L 567.7,550.0 L 565.7,554.0 L 563.4,558.0 L 560.9,562.0 L 558.2,566.0 L 555.3,570.0 L 552.2,574.0 L 549.0,578.0 L 545.7,582.0 L 542.2,586.0 L 538.7,590.0 L 535.1,594.0 L 531.4,598.0 L 527.7,602.0 L 524.0,606.0 L 520.4,610.0 L 516.8,614.0 L 513.3,618.0 L 509.9,622.0 L 506.6,626.0 L 503.4,630.0 L 500.4,634.0 L 497.6,638.0 L 495.0,642.0 L 492.6,646.0 L 490.4,650.0 L 488.4,654.0 L 486.7,658.0 L 485.3,662.0 L 484.1,666.0 L 483.2,670.0 L 482.5,674.0 L 482.2,678.0 L 482.1,682.0 L 482.3,686.0 L 482.8,690.0 L 483.5,694.0 L 484.5,698.0 L 485.7,702.0 L 487.2,706.0 L 488.8,710.0 L 490.7,714.0 L 492.8,718.0 L 495.1,722.0 L 497.5,726.0 L 500.0,730.0 L 502.7,734.0 L 505.4,738.0 L 508.3,742.0 L 511.1,746.0 L 514.0,750.0 L 486.0,750.0 L 482.2,746.0 L 478.4,742.0 L 474.7,738.0 L 471.0,734.0 L 467.4,730.0 L 464.0,726.0 L 460.7,722.0 L 457.5,718.0 L 454.5,714.0 L 451.7,710.0 L 449.1,706.0 L 446.8,702.0 L 444.6,698.0 L 442.8,694.0 L 441.2,690.0 L 439.8,686.0 L 438.8,682.0 L 438.0,678.0 L 437.5,674.0 L 437.3,670.0 L 437.3,666.0 L 437.7,662.0 L 438.3,658.0 L 439.2,654.0 L 440.4,650.0 L 441.8,646.0 L 443.4,642.0 L 445.2,638.0 L 447.3,634.0 L 449.6,630.0 L 452.0,626.0 L 454.5,622.0 L 457.3,618.0 L 460.1,614.0 L 463.0,610.0 L 465.9,606.0 L 468.9,602.0 L 472.0,598.0 L 475.0,594.0 L 478.0,590.0 L 480.9,586.0 L 483.8,582.0 L 486.5,578.0 L 489.2,574.0 L 491.7,570.0 L 494.1,566.0 L 496.3,562.0 L 498.2,558.0 L 500.0,554.0 L 501.6,550.0 L 502.9,546.0 L 504.0,542.0 L 504.8,538.0 L 505.4,534.0 L 505.7,530.0 L 505.7,526.0 L 505.5,522.0 L 505.0,518.0 L 504.2,514.0 L 503.1,510.0 L 501.8,506.0 L 500.3,502.0 L 498.5,498.0 L 496.4,494.0 L 494.2,490.0 L 491.8,486.0 L 489.2,482.0 L 486.4,478.0 L 483.4,474.0 L 480.4,470.0 L 477.2,466.0 L 474.0,462.0 L 470.7,458.0 L 467.4,454.0 L 464.0,450.0 L 460.7,446.0 L 457.3,442.0 L 454.1,438.0 L 450.9,434.0 L 447.9,430.0 L 444.9,426.0 L 442.1,422.0 L 439.5,418.0 L 437.0,414.0 L 434.8,410.0 L 432.7,406.0 L 430.9,402.0 L 429.4,398.0 L 428.1,394.0 L 427.0,390.0 L 426.3,386.0 L 425.8,382.0 L 425.6,378.0 L 425.7,374.0 L 426.1,370.0 L 426.8,366.0 L 427.8,362.0 L 429.0,358.0 L 430.5,354.0 L 432.3,350.0 L 434.3,346.0 L 436.6,342.0 L 439.1,338.0 L 441.8,334.0 L 444.7,330.0 L 447.8,326.0 L 451.0,322.0 L 454.3,318.0 L 457.8,314.0 L 461.3,310.0 L 464.9,306.0 L 468.6,302.0 L 472.3,298.0 L 476.0,294.0 L 479.6,290.0 L 483.2,286.0 L 486.7,282.0 L 490.1,278.0 L 493.4,274.0 L 496.6,270.0 L 499.6,266.0 L 502.4,262.0 Z" fill="none" stroke="url(#vDragonGold)" stroke-width="2" opacity="0.7"/>
+            <path d="M 554.8,262.0 L 552.7,266.0 L 550.4,270.0 L 548.0,274.0 L 545.5,278.0 L 542.7,282.0 L 539.9,286.0 L 537.0,290.0 L 534.1,294.0 L 531.1,298.0 L 528.0,302.0 L 525.0,306.0 L 522.0,310.0 L 519.1,314.0 L 516.2,318.0 L 513.5,322.0 L 510.8,326.0 L 508.3,330.0 L 505.9,334.0 L 503.7,338.0 L 501.8,342.0 L 500.0,346.0 L 498.4,350.0 L 497.1,354.0 L 496.0,358.0 L 495.2,362.0 L 494.6,366.0 L 494.3,370.0 L 494.3,374.0 L 494.5,378.0 L 495.0,382.0 L 495.8,386.0 L 496.9,390.0 L 498.2,394.0 L 499.7,398.0 L 501.5,402.0 L 503.6,406.0 L 505.8,410.0 L 508.2,414.0 L 510.8,418.0 L 513.6,422.0 L 516.6,426.0 L 519.6,430.0 L 522.8,434.0 L 526.0,438.0 L 529.3,442.0 L 532.6,446.0 L 536.0,450.0 L 539.3,454.0 L 542.7,458.0 L 545.9,462.0 L 549.1,466.0 L 552.1,470.0 L 555.1,474.0 L 557.9,478.0 L 560.5,482.0 L 563.0,486.0 L 565.2,490.0 L 567.3,494.0 L 569.1,498.0 L 570.6,502.0 L 571.9,506.0 L 573.0,510.0 L 573.7,514.0 L 574.2,518.0 L 574.4,522.0 L 574.3,526.0 L 573.9,530.0 L 573.2,534.0 L 572.2,538.0 L 571.0,542.0 L 569.5,546.0 L 567.7,550.0 L 565.7,554.0 L 563.4,558.0 L 560.9,562.0 L 558.2,566.0 L 555.3,570.0 L 552.2,574.0 L 549.0,578.0 L 545.7,582.0 L 542.2,586.0 L 538.7,590.0 L 535.1,594.0 L 531.4,598.0 L 527.7,602.0 L 524.0,606.0 L 520.4,610.0 L 516.8,614.0 L 513.3,618.0 L 509.9,622.0 L 506.6,626.0 L 503.4,630.0 L 500.4,634.0 L 497.6,638.0 L 495.0,642.0 L 492.6,646.0 L 490.4,650.0 L 488.4,654.0 L 486.7,658.0 L 485.3,662.0 L 484.1,666.0 L 483.2,670.0 L 482.5,674.0 L 482.2,678.0 L 482.1,682.0 L 482.3,686.0 L 482.8,690.0 L 483.5,694.0 L 484.5,698.0 L 485.7,702.0 L 487.2,706.0 L 488.8,710.0 L 490.7,714.0 L 492.8,718.0 L 495.1,722.0 L 497.5,726.0 L 500.0,730.0 L 502.7,734.0 L 505.4,738.0 L 508.3,742.0 L 511.1,746.0 L 514.0,750.0 L 486.0,750.0 L 482.2,746.0 L 478.4,742.0 L 474.7,738.0 L 471.0,734.0 L 467.4,730.0 L 464.0,726.0 L 460.7,722.0 L 457.5,718.0 L 454.5,714.0 L 451.7,710.0 L 449.1,706.0 L 446.8,702.0 L 444.6,698.0 L 442.8,694.0 L 441.2,690.0 L 439.8,686.0 L 438.8,682.0 L 438.0,678.0 L 437.5,674.0 L 437.3,670.0 L 437.3,666.0 L 437.7,662.0 L 438.3,658.0 L 439.2,654.0 L 440.4,650.0 L 441.8,646.0 L 443.4,642.0 L 445.2,638.0 L 447.3,634.0 L 449.6,630.0 L 452.0,626.0 L 454.5,622.0 L 457.3,618.0 L 460.1,614.0 L 463.0,610.0 L 465.9,606.0 L 468.9,602.0 L 472.0,598.0 L 475.0,594.0 L 478.0,590.0 L 480.9,586.0 L 483.8,582.0 L 486.5,578.0 L 489.2,574.0 L 491.7,570.0 L 494.1,566.0 L 496.3,562.0 L 498.2,558.0 L 500.0,554.0 L 501.6,550.0 L 502.9,546.0 L 504.0,542.0 L 504.8,538.0 L 505.4,534.0 L 505.7,530.0 L 505.7,526.0 L 505.5,522.0 L 505.0,518.0 L 504.2,514.0 L 503.1,510.0 L 501.8,506.0 L 500.3,502.0 L 498.5,498.0 L 496.4,494.0 L 494.2,490.0 L 491.8,486.0 L 489.2,482.0 L 486.4,478.0 L 483.4,474.0 L 480.4,470.0 L 477.2,466.0 L 474.0,462.0 L 470.7,458.0 L 467.4,454.0 L 464.0,450.0 L 460.7,446.0 L 457.3,442.0 L 454.1,438.0 L 450.9,434.0 L 447.9,430.0 L 444.9,426.0 L 442.1,422.0 L 439.5,418.0 L 437.0,414.0 L 434.8,410.0 L 432.7,406.0 L 430.9,402.0 L 429.4,398.0 L 428.1,394.0 L 427.0,390.0 L 426.3,386.0 L 425.8,382.0 L 425.6,378.0 L 425.7,374.0 L 426.1,370.0 L 426.8,366.0 L 427.8,362.0 L 429.0,358.0 L 430.5,354.0 L 432.3,350.0 L 434.3,346.0 L 436.6,342.0 L 439.1,338.0 L 441.8,334.0 L 444.7,330.0 L 447.8,326.0 L 451.0,322.0 L 454.3,318.0 L 457.8,314.0 L 461.3,310.0 L 464.9,306.0 L 468.6,302.0 L 472.3,298.0 L 476.0,294.0 L 479.6,290.0 L 483.2,286.0 L 486.7,282.0 L 490.1,278.0 L 493.4,274.0 L 496.6,270.0 L 499.6,266.0 L 502.4,262.0 Z" fill="url(#vDragonGoldGreen)" opacity="0.35"/>
+            <path d="M 554.8,262.0 L 552.7,266.0 L 550.4,270.0 L 548.0,274.0 L 545.5,278.0 L 542.7,282.0 L 539.9,286.0 L 537.0,290.0 L 534.1,294.0 L 531.1,298.0 L 528.0,302.0 L 525.0,306.0 L 522.0,310.0 L 519.1,314.0 L 516.2,318.0 L 513.5,322.0 L 510.8,326.0 L 508.3,330.0 L 505.9,334.0 L 503.7,338.0 L 501.8,342.0 L 500.0,346.0 L 498.4,350.0 L 497.1,354.0 L 496.0,358.0 L 495.2,362.0 L 494.6,366.0 L 494.3,370.0 L 494.3,374.0 L 494.5,378.0 L 495.0,382.0 L 495.8,386.0 L 496.9,390.0 L 498.2,394.0 L 499.7,398.0 L 501.5,402.0 L 503.6,406.0 L 505.8,410.0 L 508.2,414.0 L 510.8,418.0 L 513.6,422.0 L 516.6,426.0 L 519.6,430.0 L 522.8,434.0 L 526.0,438.0 L 529.3,442.0 L 532.6,446.0 L 536.0,450.0 L 539.3,454.0 L 542.7,458.0 L 545.9,462.0 L 549.1,466.0 L 552.1,470.0 L 555.1,474.0 L 557.9,478.0 L 560.5,482.0 L 563.0,486.0 L 565.2,490.0 L 567.3,494.0 L 569.1,498.0 L 570.6,502.0 L 571.9,506.0 L 573.0,510.0 L 573.7,514.0 L 574.2,518.0 L 574.4,522.0 L 574.3,526.0 L 573.9,530.0 L 573.2,534.0 L 572.2,538.0 L 571.0,542.0 L 569.5,546.0 L 567.7,550.0 L 565.7,554.0 L 563.4,558.0 L 560.9,562.0 L 558.2,566.0 L 555.3,570.0 L 552.2,574.0 L 549.0,578.0 L 545.7,582.0 L 542.2,586.0 L 538.7,590.0 L 535.1,594.0 L 531.4,598.0 L 527.7,602.0 L 524.0,606.0 L 520.4,610.0 L 516.8,614.0 L 513.3,618.0 L 509.9,622.0 L 506.6,626.0 L 503.4,630.0 L 500.4,634.0 L 497.6,638.0 L 495.0,642.0 L 492.6,646.0 L 490.4,650.0 L 488.4,654.0 L 486.7,658.0 L 485.3,662.0 L 484.1,666.0 L 483.2,670.0 L 482.5,674.0 L 482.2,678.0 L 482.1,682.0 L 482.3,686.0 L 482.8,690.0 L 483.5,694.0 L 484.5,698.0 L 485.7,702.0 L 487.2,706.0 L 488.8,710.0 L 490.7,714.0 L 492.8,718.0 L 495.1,722.0 L 497.5,726.0 L 500.0,730.0 L 502.7,734.0 L 505.4,738.0 L 508.3,742.0 L 511.1,746.0 L 514.0,750.0 L 486.0,750.0 L 482.2,746.0 L 478.4,742.0 L 474.7,738.0 L 471.0,734.0 L 467.4,730.0 L 464.0,726.0 L 460.7,722.0 L 457.5,718.0 L 454.5,714.0 L 451.7,710.0 L 449.1,706.0 L 446.8,702.0 L 444.6,698.0 L 442.8,694.0 L 441.2,690.0 L 439.8,686.0 L 438.8,682.0 L 438.0,678.0 L 437.5,674.0 L 437.3,670.0 L 437.3,666.0 L 437.7,662.0 L 438.3,658.0 L 439.2,654.0 L 440.4,650.0 L 441.8,646.0 L 443.4,642.0 L 445.2,638.0 L 447.3,634.0 L 449.6,630.0 L 452.0,626.0 L 454.5,622.0 L 457.3,618.0 L 460.1,614.0 L 463.0,610.0 L 465.9,606.0 L 468.9,602.0 L 472.0,598.0 L 475.0,594.0 L 478.0,590.0 L 480.9,586.0 L 483.8,582.0 L 486.5,578.0 L 489.2,574.0 L 491.7,570.0 L 494.1,566.0 L 496.3,562.0 L 498.2,558.0 L 500.0,554.0 L 501.6,550.0 L 502.9,546.0 L 504.0,542.0 L 504.8,538.0 L 505.4,534.0 L 505.7,530.0 L 505.7,526.0 L 505.5,522.0 L 505.0,518.0 L 504.2,514.0 L 503.1,510.0 L 501.8,506.0 L 500.3,502.0 L 498.5,498.0 L 496.4,494.0 L 494.2,490.0 L 491.8,486.0 L 489.2,482.0 L 486.4,478.0 L 483.4,474.0 L 480.4,470.0 L 477.2,466.0 L 474.0,462.0 L 470.7,458.0 L 467.4,454.0 L 464.0,450.0 L 460.7,446.0 L 457.3,442.0 L 454.1,438.0 L 450.9,434.0 L 447.9,430.0 L 444.9,426.0 L 442.1,422.0 L 439.5,418.0 L 437.0,414.0 L 434.8,410.0 L 432.7,406.0 L 430.9,402.0 L 429.4,398.0 L 428.1,394.0 L 427.0,390.0 L 426.3,386.0 L 425.8,382.0 L 425.6,378.0 L 425.7,374.0 L 426.1,370.0 L 426.8,366.0 L 427.8,362.0 L 429.0,358.0 L 430.5,354.0 L 432.3,350.0 L 434.3,346.0 L 436.6,342.0 L 439.1,338.0 L 441.8,334.0 L 444.7,330.0 L 447.8,326.0 L 451.0,322.0 L 454.3,318.0 L 457.8,314.0 L 461.3,310.0 L 464.9,306.0 L 468.6,302.0 L 472.3,298.0 L 476.0,294.0 L 479.6,290.0 L 483.2,286.0 L 486.7,282.0 L 490.1,278.0 L 493.4,274.0 L 496.6,270.0 L 499.6,266.0 L 502.4,262.0 Z" fill="none" stroke="url(#vDragonGoldGreen)" stroke-width="2" opacity="0.7"/>
 
             <!-- 頸部銜接 (讓下巴與身體之間無縫過渡) -->
             <path d="M494,220 C476,234 480,252 500,264 L556,264 C548,244 522,224 494,220 Z"
-                  fill="url(#vDragonGold)" opacity="0.5"/>
+                  fill="url(#vDragonGoldGreen)" opacity="0.5"/>
             <path d="M494,220 C476,234 480,252 500,264 L556,264 C548,244 522,224 494,220 Z"
-                  fill="none" stroke="url(#vDragonGold)" stroke-width="1.5" opacity="0.6"/>
+                  fill="none" stroke="url(#vDragonGoldGreen)" stroke-width="1.5" opacity="0.6"/>
 
             <!-- 鱗片群組：以身體輪廓裁切，確保完全貼合、無破空 -->
-            <g class="dragon-scales" clip-path="url(#bodyClip)" stroke="url(#vDragonGold)" stroke-width="1" fill="url(#vScaleGrad)">
-                <use href="#scaleUnit" transform="translate(498.1,268.0) rotate(-20.0) scale(1.05)"/>
-                <use href="#scaleUnit" transform="translate(514.5,268.0) rotate(-20.0) scale(1.05)"/>
-                <use href="#scaleUnit" transform="translate(530.9,268.0) rotate(-20.0) scale(1.05)"/>
-                <use href="#scaleUnit" transform="translate(547.3,268.0) rotate(-20.0) scale(1.05)"/>
-                <use href="#scaleUnit" transform="translate(498.4,277.9) rotate(-22.1) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(514.8,277.9) rotate(-22.1) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(531.2,277.9) rotate(-22.1) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(481.6,287.7) rotate(-23.4) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(498.0,287.7) rotate(-23.4) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(514.4,287.7) rotate(-23.4) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(530.8,287.7) rotate(-23.4) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(480.9,297.6) rotate(-24.0) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(497.3,297.6) rotate(-24.0) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(513.7,297.6) rotate(-24.0) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(530.1,297.6) rotate(-24.0) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(463.6,307.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(480.0,307.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(496.4,307.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(512.8,307.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(463.1,317.3) rotate(-22.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(479.5,317.3) rotate(-22.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(495.9,317.3) rotate(-22.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(512.3,317.3) rotate(-22.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(446.8,327.2) rotate(-21.1) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(463.2,327.2) rotate(-21.1) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(479.6,327.2) rotate(-21.1) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(496.0,327.2) rotate(-21.1) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(447.9,337.0) rotate(-18.5) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(464.3,337.0) rotate(-18.5) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(480.7,337.0) rotate(-18.5) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(497.1,337.0) rotate(-18.5) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(433.9,346.9) rotate(-15.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(450.3,346.9) rotate(-15.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(466.7,346.9) rotate(-15.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(483.1,346.9) rotate(-15.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(499.5,346.9) rotate(-15.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(437.7,356.7) rotate(-10.4) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(454.1,356.7) rotate(-10.4) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(470.5,356.7) rotate(-10.4) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(486.9,356.7) rotate(-10.4) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(426.7,366.6) rotate(-5.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(443.1,366.6) rotate(-5.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(459.5,366.6) rotate(-5.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(475.9,366.6) rotate(-5.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(492.3,366.6) rotate(-5.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(433.8,376.5) rotate(0.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(450.2,376.5) rotate(0.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(466.6,376.5) rotate(0.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(483.0,376.5) rotate(0.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(426.3,386.3) rotate(6.7) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(442.7,386.3) rotate(6.7) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(459.1,386.3) rotate(6.7) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(475.5,386.3) rotate(6.7) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(491.9,386.3) rotate(6.7) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(436.9,396.2) rotate(11.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(453.3,396.2) rotate(11.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(469.7,396.2) rotate(11.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(486.1,396.2) rotate(11.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(432.7,406.0) rotate(16.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(449.1,406.0) rotate(16.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(465.5,406.0) rotate(16.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(481.9,406.0) rotate(16.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(498.3,406.0) rotate(16.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(446.3,415.9) rotate(19.4) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(462.7,415.9) rotate(19.4) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(479.1,415.9) rotate(19.4) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(495.5,415.9) rotate(19.4) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(444.7,425.8) rotate(21.7) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(461.1,425.8) rotate(21.7) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(477.5,425.8) rotate(21.7) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(493.9,425.8) rotate(21.7) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(510.3,425.8) rotate(21.7) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(460.4,435.6) rotate(23.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(476.8,435.6) rotate(23.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(493.2,435.6) rotate(23.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(509.6,435.6) rotate(23.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(460.2,445.5) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(476.6,445.5) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(493.0,445.5) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(509.4,445.5) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(525.8,445.5) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(476.7,455.3) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(493.1,455.3) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(509.5,455.3) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(525.9,455.3) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(476.6,465.2) rotate(23.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(493.0,465.2) rotate(23.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(509.4,465.2) rotate(23.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(525.8,465.2) rotate(23.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(542.2,465.2) rotate(23.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(492.4,475.1) rotate(21.6) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(508.8,475.1) rotate(21.6) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(525.2,475.1) rotate(21.6) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(541.6,475.1) rotate(21.6) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(491.1,484.9) rotate(19.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(507.5,484.9) rotate(19.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(523.9,484.9) rotate(19.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(540.3,484.9) rotate(19.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(556.7,484.9) rotate(19.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(505.1,494.8) rotate(15.8) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(521.5,494.8) rotate(15.8) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(537.9,494.8) rotate(15.8) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(554.3,494.8) rotate(15.8) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(501.3,504.6) rotate(11.5) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(517.7,504.6) rotate(11.5) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(534.1,504.6) rotate(11.5) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(550.5,504.6) rotate(11.5) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(566.9,504.6) rotate(11.5) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(512.5,514.5) rotate(6.2) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(528.9,514.5) rotate(6.2) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(545.3,514.5) rotate(6.2) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(561.7,514.5) rotate(6.2) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(505.6,524.4) rotate(0.4) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(522.0,524.4) rotate(0.4) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(538.4,524.4) rotate(0.4) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(554.8,524.4) rotate(0.4) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(571.2,524.4) rotate(0.4) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(513.6,534.2) rotate(-5.5) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(530.0,534.2) rotate(-5.5) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(546.4,534.2) rotate(-5.5) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(562.8,534.2) rotate(-5.5) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(503.5,544.1) rotate(-10.8) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(519.9,544.1) rotate(-10.8) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(536.3,544.1) rotate(-10.8) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(552.7,544.1) rotate(-10.8) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(569.1,544.1) rotate(-10.8) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(508.3,553.9) rotate(-15.3) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(524.7,553.9) rotate(-15.3) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(541.1,553.9) rotate(-15.3) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(557.5,553.9) rotate(-15.3) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(495.3,563.8) rotate(-18.8) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(511.7,563.8) rotate(-18.8) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(528.1,563.8) rotate(-18.8) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(544.5,563.8) rotate(-18.8) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(497.6,573.7) rotate(-21.3) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(514.0,573.7) rotate(-21.3) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(530.4,573.7) rotate(-21.3) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(546.8,573.7) rotate(-21.3) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(482.7,583.5) rotate(-23.0) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(499.1,583.5) rotate(-23.0) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(515.5,583.5) rotate(-23.0) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(531.9,583.5) rotate(-23.0) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(483.6,593.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(500.0,593.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(516.4,593.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(532.8,593.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(468.0,603.2) rotate(-23.9) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(484.4,603.2) rotate(-23.9) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(500.8,603.2) rotate(-23.9) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(517.2,603.2) rotate(-23.9) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(468.9,613.1) rotate(-23.3) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(485.3,613.1) rotate(-23.3) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(501.7,613.1) rotate(-23.3) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(453.9,623.0) rotate(-22.0) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(470.3,623.0) rotate(-22.0) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(486.7,623.0) rotate(-22.0) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(503.1,623.0) rotate(-22.0) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(456.2,632.8) rotate(-19.8) scale(1.05)"/>
-                <use href="#scaleUnit" transform="translate(472.6,632.8) rotate(-19.8) scale(1.05)"/>
-                <use href="#scaleUnit" transform="translate(489.0,632.8) rotate(-19.8) scale(1.05)"/>
-                <use href="#scaleUnit" transform="translate(443.1,642.7) rotate(-16.6) scale(1.04)"/>
-                <use href="#scaleUnit" transform="translate(459.5,642.7) rotate(-16.6) scale(1.04)"/>
-                <use href="#scaleUnit" transform="translate(475.9,642.7) rotate(-16.6) scale(1.04)"/>
-                <use href="#scaleUnit" transform="translate(492.3,642.7) rotate(-16.6) scale(1.04)"/>
-                <use href="#scaleUnit" transform="translate(447.8,652.5) rotate(-12.5) scale(1.04)"/>
-                <use href="#scaleUnit" transform="translate(464.2,652.5) rotate(-12.5) scale(1.04)"/>
-                <use href="#scaleUnit" transform="translate(480.6,652.5) rotate(-12.5) scale(1.04)"/>
-                <use href="#scaleUnit" transform="translate(437.6,662.4) rotate(-7.4) scale(1.03)"/>
-                <use href="#scaleUnit" transform="translate(454.0,662.4) rotate(-7.4) scale(1.03)"/>
-                <use href="#scaleUnit" transform="translate(470.4,662.4) rotate(-7.4) scale(1.03)"/>
-                <use href="#scaleUnit" transform="translate(445.6,672.3) rotate(-1.7) scale(1.02)"/>
-                <use href="#scaleUnit" transform="translate(462.0,672.3) rotate(-1.7) scale(1.02)"/>
-                <use href="#scaleUnit" transform="translate(478.4,672.3) rotate(-1.7) scale(1.02)"/>
-                <use href="#scaleUnit" transform="translate(438.8,682.1) rotate(4.3) scale(1.01)"/>
-                <use href="#scaleUnit" transform="translate(455.2,682.1) rotate(4.3) scale(1.01)"/>
-                <use href="#scaleUnit" transform="translate(471.6,682.1) rotate(4.3) scale(1.01)"/>
-                <use href="#scaleUnit" transform="translate(450.1,692.0) rotate(9.8) scale(1.00)"/>
-                <use href="#scaleUnit" transform="translate(466.5,692.0) rotate(9.8) scale(1.00)"/>
-                <use href="#scaleUnit" transform="translate(482.9,692.0) rotate(9.8) scale(1.00)"/>
-                <use href="#scaleUnit" transform="translate(446.7,701.8) rotate(14.4) scale(1.00)"/>
-                <use href="#scaleUnit" transform="translate(463.1,701.8) rotate(14.4) scale(1.00)"/>
-                <use href="#scaleUnit" transform="translate(479.5,701.8) rotate(14.4) scale(1.00)"/>
-                <use href="#scaleUnit" transform="translate(461.1,711.7) rotate(18.1) scale(0.99)"/>
-                <use href="#scaleUnit" transform="translate(477.5,711.7) rotate(18.1) scale(0.99)"/>
-                <use href="#scaleUnit" transform="translate(460.3,721.6) rotate(20.8) scale(0.98)"/>
-                <use href="#scaleUnit" transform="translate(476.7,721.6) rotate(20.8) scale(0.98)"/>
-                <use href="#scaleUnit" transform="translate(493.1,721.6) rotate(20.8) scale(0.98)"/>
-                <use href="#scaleUnit" transform="translate(476.9,731.4) rotate(22.7) scale(0.97)"/>
-                <use href="#scaleUnit" transform="translate(493.3,731.4) rotate(22.7) scale(0.97)"/>
-                <use href="#scaleUnit" transform="translate(477.7,741.3) rotate(23.7) scale(0.96)"/>
-                <use href="#scaleUnit" transform="translate(494.1,741.3) rotate(23.7) scale(0.96)"/>
+            <g class="dragon-scales" clip-path="url(#bodyClipGreen)" stroke="url(#vDragonGoldGreen)" stroke-width="1" fill="url(#vScaleGradGreen)">
+                <use href="#scaleUnitGreen" transform="translate(498.1,268.0) rotate(-20.0) scale(1.05)"/>
+                <use href="#scaleUnitGreen" transform="translate(514.5,268.0) rotate(-20.0) scale(1.05)"/>
+                <use href="#scaleUnitGreen" transform="translate(530.9,268.0) rotate(-20.0) scale(1.05)"/>
+                <use href="#scaleUnitGreen" transform="translate(547.3,268.0) rotate(-20.0) scale(1.05)"/>
+                <use href="#scaleUnitGreen" transform="translate(498.4,277.9) rotate(-22.1) scale(1.06)"/>
+                <use href="#scaleUnitGreen" transform="translate(514.8,277.9) rotate(-22.1) scale(1.06)"/>
+                <use href="#scaleUnitGreen" transform="translate(531.2,277.9) rotate(-22.1) scale(1.06)"/>
+                <use href="#scaleUnitGreen" transform="translate(481.6,287.7) rotate(-23.4) scale(1.06)"/>
+                <use href="#scaleUnitGreen" transform="translate(498.0,287.7) rotate(-23.4) scale(1.06)"/>
+                <use href="#scaleUnitGreen" transform="translate(514.4,287.7) rotate(-23.4) scale(1.06)"/>
+                <use href="#scaleUnitGreen" transform="translate(530.8,287.7) rotate(-23.4) scale(1.06)"/>
+                <use href="#scaleUnitGreen" transform="translate(480.9,297.6) rotate(-24.0) scale(1.07)"/>
+                <use href="#scaleUnitGreen" transform="translate(497.3,297.6) rotate(-24.0) scale(1.07)"/>
+                <use href="#scaleUnitGreen" transform="translate(513.7,297.6) rotate(-24.0) scale(1.07)"/>
+                <use href="#scaleUnitGreen" transform="translate(530.1,297.6) rotate(-24.0) scale(1.07)"/>
+                <use href="#scaleUnitGreen" transform="translate(463.6,307.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(480.0,307.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(496.4,307.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(512.8,307.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(463.1,317.3) rotate(-22.8) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(479.5,317.3) rotate(-22.8) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(495.9,317.3) rotate(-22.8) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(512.3,317.3) rotate(-22.8) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(446.8,327.2) rotate(-21.1) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(463.2,327.2) rotate(-21.1) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(479.6,327.2) rotate(-21.1) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(496.0,327.2) rotate(-21.1) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(447.9,337.0) rotate(-18.5) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(464.3,337.0) rotate(-18.5) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(480.7,337.0) rotate(-18.5) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(497.1,337.0) rotate(-18.5) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(433.9,346.9) rotate(-15.0) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(450.3,346.9) rotate(-15.0) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(466.7,346.9) rotate(-15.0) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(483.1,346.9) rotate(-15.0) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(499.5,346.9) rotate(-15.0) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(437.7,356.7) rotate(-10.4) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(454.1,356.7) rotate(-10.4) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(470.5,356.7) rotate(-10.4) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(486.9,356.7) rotate(-10.4) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(426.7,366.6) rotate(-5.0) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(443.1,366.6) rotate(-5.0) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(459.5,366.6) rotate(-5.0) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(475.9,366.6) rotate(-5.0) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(492.3,366.6) rotate(-5.0) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(433.8,376.5) rotate(0.9) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(450.2,376.5) rotate(0.9) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(466.6,376.5) rotate(0.9) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(483.0,376.5) rotate(0.9) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(426.3,386.3) rotate(6.7) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(442.7,386.3) rotate(6.7) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(459.1,386.3) rotate(6.7) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(475.5,386.3) rotate(6.7) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(491.9,386.3) rotate(6.7) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(436.9,396.2) rotate(11.9) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(453.3,396.2) rotate(11.9) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(469.7,396.2) rotate(11.9) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(486.1,396.2) rotate(11.9) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(432.7,406.0) rotate(16.1) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(449.1,406.0) rotate(16.1) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(465.5,406.0) rotate(16.1) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(481.9,406.0) rotate(16.1) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(498.3,406.0) rotate(16.1) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(446.3,415.9) rotate(19.4) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(462.7,415.9) rotate(19.4) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(479.1,415.9) rotate(19.4) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(495.5,415.9) rotate(19.4) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(444.7,425.8) rotate(21.7) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(461.1,425.8) rotate(21.7) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(477.5,425.8) rotate(21.7) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(493.9,425.8) rotate(21.7) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(510.3,425.8) rotate(21.7) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(460.4,435.6) rotate(23.2) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(476.8,435.6) rotate(23.2) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(493.2,435.6) rotate(23.2) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(509.6,435.6) rotate(23.2) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(460.2,445.5) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(476.6,445.5) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(493.0,445.5) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(509.4,445.5) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(525.8,445.5) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(476.7,455.3) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(493.1,455.3) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(509.5,455.3) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(525.9,455.3) rotate(23.9) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(476.6,465.2) rotate(23.1) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(493.0,465.2) rotate(23.1) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(509.4,465.2) rotate(23.1) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(525.8,465.2) rotate(23.1) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(542.2,465.2) rotate(23.1) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(492.4,475.1) rotate(21.6) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(508.8,475.1) rotate(21.6) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(525.2,475.1) rotate(21.6) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(541.6,475.1) rotate(21.6) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(491.1,484.9) rotate(19.2) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(507.5,484.9) rotate(19.2) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(523.9,484.9) rotate(19.2) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(540.3,484.9) rotate(19.2) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(556.7,484.9) rotate(19.2) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(505.1,494.8) rotate(15.8) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(521.5,494.8) rotate(15.8) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(537.9,494.8) rotate(15.8) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(554.3,494.8) rotate(15.8) scale(1.12)"/>
+                <use href="#scaleUnitGreen" transform="translate(501.3,504.6) rotate(11.5) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(517.7,504.6) rotate(11.5) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(534.1,504.6) rotate(11.5) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(550.5,504.6) rotate(11.5) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(566.9,504.6) rotate(11.5) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(512.5,514.5) rotate(6.2) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(528.9,514.5) rotate(6.2) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(545.3,514.5) rotate(6.2) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(561.7,514.5) rotate(6.2) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(505.6,524.4) rotate(0.4) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(522.0,524.4) rotate(0.4) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(538.4,524.4) rotate(0.4) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(554.8,524.4) rotate(0.4) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(571.2,524.4) rotate(0.4) scale(1.11)"/>
+                <use href="#scaleUnitGreen" transform="translate(513.6,534.2) rotate(-5.5) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(530.0,534.2) rotate(-5.5) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(546.4,534.2) rotate(-5.5) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(562.8,534.2) rotate(-5.5) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(503.5,544.1) rotate(-10.8) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(519.9,544.1) rotate(-10.8) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(536.3,544.1) rotate(-10.8) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(552.7,544.1) rotate(-10.8) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(569.1,544.1) rotate(-10.8) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(508.3,553.9) rotate(-15.3) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(524.7,553.9) rotate(-15.3) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(541.1,553.9) rotate(-15.3) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(557.5,553.9) rotate(-15.3) scale(1.10)"/>
+                <use href="#scaleUnitGreen" transform="translate(495.3,563.8) rotate(-18.8) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(511.7,563.8) rotate(-18.8) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(528.1,563.8) rotate(-18.8) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(544.5,563.8) rotate(-18.8) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(497.6,573.7) rotate(-21.3) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(514.0,573.7) rotate(-21.3) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(530.4,573.7) rotate(-21.3) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(546.8,573.7) rotate(-21.3) scale(1.09)"/>
+                <use href="#scaleUnitGreen" transform="translate(482.7,583.5) rotate(-23.0) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(499.1,583.5) rotate(-23.0) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(515.5,583.5) rotate(-23.0) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(531.9,583.5) rotate(-23.0) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(483.6,593.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(500.0,593.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(516.4,593.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(532.8,593.4) rotate(-23.8) scale(1.08)"/>
+                <use href="#scaleUnitGreen" transform="translate(468.0,603.2) rotate(-23.9) scale(1.07)"/>
+                <use href="#scaleUnitGreen" transform="translate(484.4,603.2) rotate(-23.9) scale(1.07)"/>
+                <use href="#scaleUnitGreen" transform="translate(500.8,603.2) rotate(-23.9) scale(1.07)"/>
+                <use href="#scaleUnitGreen" transform="translate(517.2,603.2) rotate(-23.9) scale(1.07)"/>
+                <use href="#scaleUnitGreen" transform="translate(468.9,613.1) rotate(-23.3) scale(1.06)"/>
+                <use href="#scaleUnitGreen" transform="translate(485.3,613.1) rotate(-23.3) scale(1.06)"/>
+                <use href="#scaleUnitGreen" transform="translate(501.7,613.1) rotate(-23.3) scale(1.06)"/>
+                <use href="#scaleUnitGreen" transform="translate(453.9,623.0) rotate(-22.0) scale(1.06)"/>
+                <use href="#scaleUnitGreen" transform="translate(470.3,623.0) rotate(-22.0) scale(1.06)"/>
+                <use href="#scaleUnitGreen" transform="translate(486.7,623.0) rotate(-22.0) scale(1.06)"/>
+                <use href="#scaleUnitGreen" transform="translate(503.1,623.0) rotate(-22.0) scale(1.06)"/>
+                <use href="#scaleUnitGreen" transform="translate(456.2,632.8) rotate(-19.8) scale(1.05)"/>
+                <use href="#scaleUnitGreen" transform="translate(472.6,632.8) rotate(-19.8) scale(1.05)"/>
+                <use href="#scaleUnitGreen" transform="translate(489.0,632.8) rotate(-19.8) scale(1.05)"/>
+                <use href="#scaleUnitGreen" transform="translate(443.1,642.7) rotate(-16.6) scale(1.04)"/>
+                <use href="#scaleUnitGreen" transform="translate(459.5,642.7) rotate(-16.6) scale(1.04)"/>
+                <use href="#scaleUnitGreen" transform="translate(475.9,642.7) rotate(-16.6) scale(1.04)"/>
+                <use href="#scaleUnitGreen" transform="translate(492.3,642.7) rotate(-16.6) scale(1.04)"/>
+                <use href="#scaleUnitGreen" transform="translate(447.8,652.5) rotate(-12.5) scale(1.04)"/>
+                <use href="#scaleUnitGreen" transform="translate(464.2,652.5) rotate(-12.5) scale(1.04)"/>
+                <use href="#scaleUnitGreen" transform="translate(480.6,652.5) rotate(-12.5) scale(1.04)"/>
+                <use href="#scaleUnitGreen" transform="translate(437.6,662.4) rotate(-7.4) scale(1.03)"/>
+                <use href="#scaleUnitGreen" transform="translate(454.0,662.4) rotate(-7.4) scale(1.03)"/>
+                <use href="#scaleUnitGreen" transform="translate(470.4,662.4) rotate(-7.4) scale(1.03)"/>
+                <use href="#scaleUnitGreen" transform="translate(445.6,672.3) rotate(-1.7) scale(1.02)"/>
+                <use href="#scaleUnitGreen" transform="translate(462.0,672.3) rotate(-1.7) scale(1.02)"/>
+                <use href="#scaleUnitGreen" transform="translate(478.4,672.3) rotate(-1.7) scale(1.02)"/>
+                <use href="#scaleUnitGreen" transform="translate(438.8,682.1) rotate(4.3) scale(1.01)"/>
+                <use href="#scaleUnitGreen" transform="translate(455.2,682.1) rotate(4.3) scale(1.01)"/>
+                <use href="#scaleUnitGreen" transform="translate(471.6,682.1) rotate(4.3) scale(1.01)"/>
+                <use href="#scaleUnitGreen" transform="translate(450.1,692.0) rotate(9.8) scale(1.00)"/>
+                <use href="#scaleUnitGreen" transform="translate(466.5,692.0) rotate(9.8) scale(1.00)"/>
+                <use href="#scaleUnitGreen" transform="translate(482.9,692.0) rotate(9.8) scale(1.00)"/>
+                <use href="#scaleUnitGreen" transform="translate(446.7,701.8) rotate(14.4) scale(1.00)"/>
+                <use href="#scaleUnitGreen" transform="translate(463.1,701.8) rotate(14.4) scale(1.00)"/>
+                <use href="#scaleUnitGreen" transform="translate(479.5,701.8) rotate(14.4) scale(1.00)"/>
+                <use href="#scaleUnitGreen" transform="translate(461.1,711.7) rotate(18.1) scale(0.99)"/>
+                <use href="#scaleUnitGreen" transform="translate(477.5,711.7) rotate(18.1) scale(0.99)"/>
+                <use href="#scaleUnitGreen" transform="translate(460.3,721.6) rotate(20.8) scale(0.98)"/>
+                <use href="#scaleUnitGreen" transform="translate(476.7,721.6) rotate(20.8) scale(0.98)"/>
+                <use href="#scaleUnitGreen" transform="translate(493.1,721.6) rotate(20.8) scale(0.98)"/>
+                <use href="#scaleUnitGreen" transform="translate(476.9,731.4) rotate(22.7) scale(0.97)"/>
+                <use href="#scaleUnitGreen" transform="translate(493.3,731.4) rotate(22.7) scale(0.97)"/>
+                <use href="#scaleUnitGreen" transform="translate(477.7,741.3) rotate(23.7) scale(0.96)"/>
+                <use href="#scaleUnitGreen" transform="translate(494.1,741.3) rotate(23.7) scale(0.96)"/>
             </g>
 
             <!-- 龍脊亮線 (置於鱗片之上，作為中軸高光) -->
@@ -891,396 +1202,106 @@ body.bow-right #right-buddha-face-features circle {
             <!-- ================= 龍爪 (Simple clean claws, attached at the body edge) ================= -->
             <g class="dragon-claws" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <!-- 前右腿 -->
-                <path d="M500.4,345 C528,340 555,332 578,315" stroke="url(#vDragonGold)" stroke-width="3.5"/>
-                <path d="M578,315 l11,-4 M578,315 l12,3 M578,315 l8,9 M578,315 l1,12" stroke="url(#vDragonGold)" stroke-width="2.2"/>
+                <path d="M500.4,345 C515.6,342.3 530.4,337.9 543.1,328.5" stroke="url(#vDragonGoldGreen)" stroke-width="3.5"/>
+                <path d="M543.1,328.5 l11,-4 M543.1,328.5 l12,3 M543.1,328.5 l8,9 M543.1,328.5 l1,12" stroke="url(#vDragonGoldGreen)" stroke-width="2.2"/>
                 <!-- 前左腿 -->
-                <path d="M434.8,345 C407,340 380,332 357,315" stroke="url(#vDragonGold)" stroke-width="3.5"/>
-                <path d="M357,315 l-11,-4 M357,315 l-12,3 M357,315 l-8,9 M357,315 l-1,12" stroke="url(#vDragonGold)" stroke-width="2.2"/>
+                <path d="M434.8,345 C419.5,342.3 404.7,337.9 392.0,328.5" stroke="url(#vDragonGoldGreen)" stroke-width="3.5"/>
+                <path d="M392.0,328.5 l-11,-4 M392.0,328.5 l-12,3 M392.0,328.5 l-8,9 M392.0,328.5 l-1,12" stroke="url(#vDragonGoldGreen)" stroke-width="2.2"/>
                 <!-- 後右腿 -->
-                <path d="M555.3,570 C583,576 610,588 630,608" stroke="url(#vDragonGold)" stroke-width="3.5"/>
-                <path d="M630,608 l12,-2 M630,608 l12,5 M630,608 l7,10 M630,608 l0,12" stroke="url(#vDragonGold)" stroke-width="2.2"/>
+                <path d="M555.3,570 C570.5,573.3 585.4,579.9 596.4,590.9" stroke="url(#vDragonGoldGreen)" stroke-width="3.5"/>
+                <path d="M596.4,590.9 l12,-2 M596.4,590.9 l12,5 M596.4,590.9 l7,10 M596.4,590.9 l0,12" stroke="url(#vDragonGoldGreen)" stroke-width="2.2"/>
                 <!-- 後左腿 -->
-                <path d="M491.7,570 C464,576 437,588 417,608" stroke="url(#vDragonGold)" stroke-width="3.5"/>
-                <path d="M417,608 l-12,-2 M417,608 l-12,5 M417,608 l-7,10 M417,608 l0,12" stroke="url(#vDragonGold)" stroke-width="2.2"/>
+                <path d="M491.7,570 C476.5,573.3 461.6,579.9 450.6,590.9" stroke="url(#vDragonGoldGreen)" stroke-width="3.5"/>
+                <path d="M450.6,590.9 l-12,-2 M450.6,590.9 l-12,5 M450.6,590.9 l-7,10 M450.6,590.9 l0,12" stroke="url(#vDragonGoldGreen)" stroke-width="2.2"/>
             </g>
 
-            <!-- ================= 龍首 (Detailed Dragon Head) ================= -->
-            <g class="dragon-head-top">
+         <!-- ================= 綠金龍頭部 (轉向 12 點鐘方向) ================= -->
+<g id="green-dragon-head" transform="rotate(90, 500, 270)">
+    <g class="dragon-head-top">
 
-                <!-- 頂冠火焰 -->
-                <path d="M500,112 Q494,88 500,58 Q506,88 500,112 Z" fill="url(#vDragonGold)" opacity="0.85"/>
+        <!-- 頂冠火焰 -->
+        <path d="M500,112 Q494,88 500,58 Q506,88 500,112 Z" fill="url(#vDragonGoldGreen)" opacity="0.85"/>
 
-                <!-- 龍角 (分叉鹿角式) -->
-                <path d="M492,150 C475,130 455,110 434,84 C440,96 460,122 480,146 Z" fill="url(#vDragonGold)"/>
-                <path d="M465,115 C455,107 445,104 437,108" fill="none" stroke="#fff3c4" stroke-width="2" stroke-linecap="round"/>
-                <path d="M508,150 C525,130 545,110 566,84 C560,96 540,122 520,146 Z" fill="url(#vDragonGold)"/>
-                <path d="M535,115 C545,107 555,104 563,108" fill="none" stroke="#fff3c4" stroke-width="2" stroke-linecap="round"/>
+        <!-- 龍角 (分叉鹿角式) -->
+        <path d="M492,150 C475,130 455,110 434,84 C440,96 460,122 480,146 Z" fill="url(#vDragonGoldGreen)"/>
+        <path d="M465,115 C455,107 445,104 437,108" fill="none" stroke="#e8ffd9" stroke-width="2" stroke-linecap="round"/>
+        <path d="M508,150 C525,130 545,110 566,84 C560,96 540,122 520,146 Z" fill="url(#vDragonGoldGreen)"/>
+        <path d="M535,115 C545,107 555,104 563,108" fill="none" stroke="#e8ffd9" stroke-width="2" stroke-linecap="round"/>
 
-                <!-- 耳鰭輪廓 (左右三角大中小) -->
-                <g class="dragon-ear-fins" fill="url(#vDragonGold)" stroke="#ffffff" stroke-width="0.8" opacity="0.75">
-                    <path d="M430,160 Q385,175 375,215 Q400,205 425,180 Z"/>
-                    <path d="M425,175 Q395,185 390,212 Q408,204 424,188 Z"/>
-                    <path d="M420,190 Q402,196 400,210 Q410,205 419,196 Z"/>
-                    <path d="M570,160 Q615,175 625,215 Q600,205 575,180 Z"/>
-                    <path d="M575,175 Q605,185 610,212 Q592,204 576,188 Z"/>
-                    <path d="M580,190 Q598,196 600,210 Q590,205 581,196 Z"/>
-                </g>
+    <!-- ================= 側鬃耳鰭 (太陽光芒造型：由上至下遞減縮短變細) ================= -->
+<g class="dragon-ear-fins" fill="url(#vDragonGoldGreen)" stroke="#ffffff" stroke-width="0.4" opacity="0.4">
+    <!-- 左側刺鬃 (最上層最長最寬，向下依次縮短變細) -->
+    <path d="M465,145 Q420,125 390,125 Q425,152 465,168 Z"/>
+    <path d="M462,166 Q422,152 402,158 Q428,178 462,185 Z"/>
+    <path d="M460,183 Q430,180 415,188 Q432,200 460,198 Z"/>
+    <path d="M462,196 Q438,206 428,215 Q442,220 462,208 Z"/>
+    <path d="M465,206 Q448,222 440,235 Q452,232 465,215 Z"/>
 
-                <!-- 額珠 -->
-                <circle cx="500" cy="172" r="16" fill="url(#vJewelGlow)"/>
-                <circle cx="500" cy="172" r="6" fill="#ffffff"/>
+    <!-- 右側刺鬃 (對稱鏡像) -->
+    <path d="M535,145 Q580,125 610,125 Q575,152 535,168 Z"/>
+    <path d="M538,166 Q578,152 598,158 Q572,178 538,185 Z"/>
+    <path d="M540,183 Q570,180 585,188 Q568,200 540,198 Z"/>
+    <path d="M538,196 Q562,206 572,215 Q558,220 538,208 Z"/>
+    <path d="M535,206 Q552,222 560,235 Q548,232 535,215 Z"/>
+</g>
 
-                <!-- 火焰眉 -->
-                <path d="M470,186 Q450,177 434,184 Q450,192 468,193 Z" fill="url(#vDragonGold)" stroke="#fff3c4" stroke-width="1"/>
-                <path d="M530,186 Q550,177 566,184 Q550,192 532,193 Z" fill="url(#vDragonGold)" stroke="#fff3c4" stroke-width="1"/>
 
-                <!-- 龍眼 -->
-                <path d="M483,194 Q472,188 461,194 Q472,201 483,194 Z" fill="#ffffff"/>
-                <circle cx="472" cy="194" r="2.6" fill="#7a3b00"/>
-                <path d="M517,194 Q528,188 539,194 Q528,201 517,194 Z" fill="#ffffff"/>
-                <circle cx="528" cy="194" r="2.6" fill="#7a3b00"/>
+        <!-- 額珠 -->
+        <circle cx="500" cy="172" r="16" fill="url(#vJewelGlowGreen)"/>
+        <circle cx="500" cy="172" r="6" fill="#ffffff"/>
 
-                <!-- 臉部輪廓 -->
-                <path d="M478,206 Q500,196 522,206 Q516,226 500,231 Q484,226 478,206 Z" fill="none" stroke="url(#vDragonGold)" stroke-width="2"/>
+        <!-- 火焰眉 -->
+        <path d="M470,186 Q450,177 434,184 Q450,192 468,193 Z" fill="url(#vDragonGoldGreen)" stroke="#e8ffd9" stroke-width="1"/>
+        <path d="M530,186 Q550,177 566,184 Q550,192 532,193 Z" fill="url(#vDragonGoldGreen)" stroke="#e8ffd9" stroke-width="1"/>
 
-                <!-- 鼻孔 -->
-                <ellipse cx="493" cy="223" rx="3" ry="2" fill="#5a2c00" opacity="0.8"/>
-                <ellipse cx="507" cy="223" rx="3" ry="2" fill="#5a2c00" opacity="0.8"/>
+        <!-- 龍眼 -->
+        <path d="M483,194 Q472,188 461,194 Q472,201 483,194 Z" fill="#ffffff"/>
+        <circle cx="472" cy="194" r="2.6" fill="#1f4d0a"/>
+        <path d="M517,194 Q528,188 539,194 Q528,201 517,194 Z" fill="#ffffff"/>
+        <circle cx="528" cy="194" r="2.6" fill="#1f4d0a"/>
 
-                <!-- 張口與獠牙 -->
-                <path d="M478,229 Q500,239 522,229" fill="none" stroke="url(#vDragonGold)" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M481,233 Q500,257 519,233" fill="none" stroke="url(#vDragonGold)" stroke-width="3" stroke-linecap="round"/>
-                <path d="M491,231 L489,239 L494,232 Z" fill="#ffffff"/>
-                <path d="M509,231 L511,239 L506,232 Z" fill="#ffffff"/>
-                <path d="M498,236 Q500,246 502,236" fill="none" stroke="#fda085" stroke-width="1.5" opacity="0.8"/>
+        <!-- 臉部輪廓 -->
+        <path d="M478,206 Q500,196 522,206 Q516,226 500,231 Q484,226 478,206 Z" fill="none" stroke="url(#vDragonGoldGreen)" stroke-width="2"/>
 
-                <!-- 龍鬚 (四條飄逸) -->
-                <g class="dragon-whiskers" fill="none" stroke="#f6d365" stroke-width="1.6" stroke-linecap="round">
-                    <path d="M478,222 C455,225 425,205 395,180"/>
-                    <path d="M480,236 C460,246 435,251 405,256"/>
-                    <path d="M522,222 C545,225 575,205 605,180"/>
-                    <path d="M520,236 C540,246 565,251 595,256"/>
-                </g>
+        <!-- 鼻孔 -->
+        <ellipse cx="493" cy="223" rx="3" ry="2" fill="#5a2c00" opacity="0.8"/>
+        <ellipse cx="507" cy="223" rx="3" ry="2" fill="#5a2c00" opacity="0.8"/>
 
-                <!-- 頸後飄鬃 -->
-                <g class="dragon-mane" fill="url(#vDragonGold)" opacity="0.55">
-                    <path d="M470,250 Q440,270 445,300 Q460,285 472,265 Z"/>
-                    <path d="M460,265 Q430,290 438,320 Q452,300 465,278 Z"/>
-                    <path d="M530,250 Q560,270 555,300 Q540,285 528,265 Z"/>
-                    <path d="M540,265 Q570,290 562,320 Q548,300 535,278 Z"/>
-                </g>
-            </g>
+        <!-- 張口與獠牙 -->
+        <path d="M478,229 Q500,239 522,229" fill="none" stroke="url(#vDragonGoldGreen)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M481,233 Q500,257 519,233" fill="none" stroke="url(#vDragonGoldGreen)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M491,231 L489,239 L494,232 Z" fill="#ffffff"/>
+        <path d="M509,231 L511,239 L506,232 Z" fill="#ffffff"/>
+        <path d="M498,236 Q500,246 502,236" fill="none" stroke="#a8d888" stroke-width="1.5" opacity="0.8"/>
 
-            <!-- ================= 龍尾 (Layered Flame Tail) ================= -->
-            <path d="M492,752 Q465,770 478,788 Q495,775 492,752 Z" fill="url(#vDragonGold)" opacity="0.6"/>
-            <path d="M508,752 Q535,770 522,788 Q505,775 508,752 Z" fill="url(#vDragonGold)" opacity="0.6"/>
-            <path d="M500,750 Q480,775 500,795 Q520,775 500,750 Z" fill="url(#vDragonGold)" opacity="0.9"/>
+        <!-- 龍鬚 (四條飄逸) -->
+        <g class="dragon-whiskers" fill="none" stroke="#8fc76a" stroke-width="1.6" stroke-linecap="round">
+            <path d="M478,222 C455,225 425,205 395,180"/>
+            <path d="M480,236 C460,246 435,251 405,256"/>
+            <path d="M522,222 C545,225 575,205 605,180"/>
+            <path d="M520,236 C540,246 565,251 595,256"/>
         </g>
 
-<g class="dragonB" transform="translate(140,0)"><g transform="rotate(180,500,528.5)">
-
-            <!-- ================= 龍身輪廓 + 連續鱗片鋪滿 (Continuous Scale Coverage) ================= -->
-            <!-- 身體底色 (避免鱗片間露出背景) -->
-            <path d="M 554.8,262.0 L 552.7,266.0 L 550.4,270.0 L 548.0,274.0 L 545.5,278.0 L 542.7,282.0 L 539.9,286.0 L 537.0,290.0 L 534.1,294.0 L 531.1,298.0 L 528.0,302.0 L 525.0,306.0 L 522.0,310.0 L 519.1,314.0 L 516.2,318.0 L 513.5,322.0 L 510.8,326.0 L 508.3,330.0 L 505.9,334.0 L 503.7,338.0 L 501.8,342.0 L 500.0,346.0 L 498.4,350.0 L 497.1,354.0 L 496.0,358.0 L 495.2,362.0 L 494.6,366.0 L 494.3,370.0 L 494.3,374.0 L 494.5,378.0 L 495.0,382.0 L 495.8,386.0 L 496.9,390.0 L 498.2,394.0 L 499.7,398.0 L 501.5,402.0 L 503.6,406.0 L 505.8,410.0 L 508.2,414.0 L 510.8,418.0 L 513.6,422.0 L 516.6,426.0 L 519.6,430.0 L 522.8,434.0 L 526.0,438.0 L 529.3,442.0 L 532.6,446.0 L 536.0,450.0 L 539.3,454.0 L 542.7,458.0 L 545.9,462.0 L 549.1,466.0 L 552.1,470.0 L 555.1,474.0 L 557.9,478.0 L 560.5,482.0 L 563.0,486.0 L 565.2,490.0 L 567.3,494.0 L 569.1,498.0 L 570.6,502.0 L 571.9,506.0 L 573.0,510.0 L 573.7,514.0 L 574.2,518.0 L 574.4,522.0 L 574.3,526.0 L 573.9,530.0 L 573.2,534.0 L 572.2,538.0 L 571.0,542.0 L 569.5,546.0 L 567.7,550.0 L 565.7,554.0 L 563.4,558.0 L 560.9,562.0 L 558.2,566.0 L 555.3,570.0 L 552.2,574.0 L 549.0,578.0 L 545.7,582.0 L 542.2,586.0 L 538.7,590.0 L 535.1,594.0 L 531.4,598.0 L 527.7,602.0 L 524.0,606.0 L 520.4,610.0 L 516.8,614.0 L 513.3,618.0 L 509.9,622.0 L 506.6,626.0 L 503.4,630.0 L 500.4,634.0 L 497.6,638.0 L 495.0,642.0 L 492.6,646.0 L 490.4,650.0 L 488.4,654.0 L 486.7,658.0 L 485.3,662.0 L 484.1,666.0 L 483.2,670.0 L 482.5,674.0 L 482.2,678.0 L 482.1,682.0 L 482.3,686.0 L 482.8,690.0 L 483.5,694.0 L 484.5,698.0 L 485.7,702.0 L 487.2,706.0 L 488.8,710.0 L 490.7,714.0 L 492.8,718.0 L 495.1,722.0 L 497.5,726.0 L 500.0,730.0 L 502.7,734.0 L 505.4,738.0 L 508.3,742.0 L 511.1,746.0 L 514.0,750.0 L 486.0,750.0 L 482.2,746.0 L 478.4,742.0 L 474.7,738.0 L 471.0,734.0 L 467.4,730.0 L 464.0,726.0 L 460.7,722.0 L 457.5,718.0 L 454.5,714.0 L 451.7,710.0 L 449.1,706.0 L 446.8,702.0 L 444.6,698.0 L 442.8,694.0 L 441.2,690.0 L 439.8,686.0 L 438.8,682.0 L 438.0,678.0 L 437.5,674.0 L 437.3,670.0 L 437.3,666.0 L 437.7,662.0 L 438.3,658.0 L 439.2,654.0 L 440.4,650.0 L 441.8,646.0 L 443.4,642.0 L 445.2,638.0 L 447.3,634.0 L 449.6,630.0 L 452.0,626.0 L 454.5,622.0 L 457.3,618.0 L 460.1,614.0 L 463.0,610.0 L 465.9,606.0 L 468.9,602.0 L 472.0,598.0 L 475.0,594.0 L 478.0,590.0 L 480.9,586.0 L 483.8,582.0 L 486.5,578.0 L 489.2,574.0 L 491.7,570.0 L 494.1,566.0 L 496.3,562.0 L 498.2,558.0 L 500.0,554.0 L 501.6,550.0 L 502.9,546.0 L 504.0,542.0 L 504.8,538.0 L 505.4,534.0 L 505.7,530.0 L 505.7,526.0 L 505.5,522.0 L 505.0,518.0 L 504.2,514.0 L 503.1,510.0 L 501.8,506.0 L 500.3,502.0 L 498.5,498.0 L 496.4,494.0 L 494.2,490.0 L 491.8,486.0 L 489.2,482.0 L 486.4,478.0 L 483.4,474.0 L 480.4,470.0 L 477.2,466.0 L 474.0,462.0 L 470.7,458.0 L 467.4,454.0 L 464.0,450.0 L 460.7,446.0 L 457.3,442.0 L 454.1,438.0 L 450.9,434.0 L 447.9,430.0 L 444.9,426.0 L 442.1,422.0 L 439.5,418.0 L 437.0,414.0 L 434.8,410.0 L 432.7,406.0 L 430.9,402.0 L 429.4,398.0 L 428.1,394.0 L 427.0,390.0 L 426.3,386.0 L 425.8,382.0 L 425.6,378.0 L 425.7,374.0 L 426.1,370.0 L 426.8,366.0 L 427.8,362.0 L 429.0,358.0 L 430.5,354.0 L 432.3,350.0 L 434.3,346.0 L 436.6,342.0 L 439.1,338.0 L 441.8,334.0 L 444.7,330.0 L 447.8,326.0 L 451.0,322.0 L 454.3,318.0 L 457.8,314.0 L 461.3,310.0 L 464.9,306.0 L 468.6,302.0 L 472.3,298.0 L 476.0,294.0 L 479.6,290.0 L 483.2,286.0 L 486.7,282.0 L 490.1,278.0 L 493.4,274.0 L 496.6,270.0 L 499.6,266.0 L 502.4,262.0 Z" fill="url(#vDragonGold2)" opacity="0.35"/>
-            <path d="M 554.8,262.0 L 552.7,266.0 L 550.4,270.0 L 548.0,274.0 L 545.5,278.0 L 542.7,282.0 L 539.9,286.0 L 537.0,290.0 L 534.1,294.0 L 531.1,298.0 L 528.0,302.0 L 525.0,306.0 L 522.0,310.0 L 519.1,314.0 L 516.2,318.0 L 513.5,322.0 L 510.8,326.0 L 508.3,330.0 L 505.9,334.0 L 503.7,338.0 L 501.8,342.0 L 500.0,346.0 L 498.4,350.0 L 497.1,354.0 L 496.0,358.0 L 495.2,362.0 L 494.6,366.0 L 494.3,370.0 L 494.3,374.0 L 494.5,378.0 L 495.0,382.0 L 495.8,386.0 L 496.9,390.0 L 498.2,394.0 L 499.7,398.0 L 501.5,402.0 L 503.6,406.0 L 505.8,410.0 L 508.2,414.0 L 510.8,418.0 L 513.6,422.0 L 516.6,426.0 L 519.6,430.0 L 522.8,434.0 L 526.0,438.0 L 529.3,442.0 L 532.6,446.0 L 536.0,450.0 L 539.3,454.0 L 542.7,458.0 L 545.9,462.0 L 549.1,466.0 L 552.1,470.0 L 555.1,474.0 L 557.9,478.0 L 560.5,482.0 L 563.0,486.0 L 565.2,490.0 L 567.3,494.0 L 569.1,498.0 L 570.6,502.0 L 571.9,506.0 L 573.0,510.0 L 573.7,514.0 L 574.2,518.0 L 574.4,522.0 L 574.3,526.0 L 573.9,530.0 L 573.2,534.0 L 572.2,538.0 L 571.0,542.0 L 569.5,546.0 L 567.7,550.0 L 565.7,554.0 L 563.4,558.0 L 560.9,562.0 L 558.2,566.0 L 555.3,570.0 L 552.2,574.0 L 549.0,578.0 L 545.7,582.0 L 542.2,586.0 L 538.7,590.0 L 535.1,594.0 L 531.4,598.0 L 527.7,602.0 L 524.0,606.0 L 520.4,610.0 L 516.8,614.0 L 513.3,618.0 L 509.9,622.0 L 506.6,626.0 L 503.4,630.0 L 500.4,634.0 L 497.6,638.0 L 495.0,642.0 L 492.6,646.0 L 490.4,650.0 L 488.4,654.0 L 486.7,658.0 L 485.3,662.0 L 484.1,666.0 L 483.2,670.0 L 482.5,674.0 L 482.2,678.0 L 482.1,682.0 L 482.3,686.0 L 482.8,690.0 L 483.5,694.0 L 484.5,698.0 L 485.7,702.0 L 487.2,706.0 L 488.8,710.0 L 490.7,714.0 L 492.8,718.0 L 495.1,722.0 L 497.5,726.0 L 500.0,730.0 L 502.7,734.0 L 505.4,738.0 L 508.3,742.0 L 511.1,746.0 L 514.0,750.0 L 486.0,750.0 L 482.2,746.0 L 478.4,742.0 L 474.7,738.0 L 471.0,734.0 L 467.4,730.0 L 464.0,726.0 L 460.7,722.0 L 457.5,718.0 L 454.5,714.0 L 451.7,710.0 L 449.1,706.0 L 446.8,702.0 L 444.6,698.0 L 442.8,694.0 L 441.2,690.0 L 439.8,686.0 L 438.8,682.0 L 438.0,678.0 L 437.5,674.0 L 437.3,670.0 L 437.3,666.0 L 437.7,662.0 L 438.3,658.0 L 439.2,654.0 L 440.4,650.0 L 441.8,646.0 L 443.4,642.0 L 445.2,638.0 L 447.3,634.0 L 449.6,630.0 L 452.0,626.0 L 454.5,622.0 L 457.3,618.0 L 460.1,614.0 L 463.0,610.0 L 465.9,606.0 L 468.9,602.0 L 472.0,598.0 L 475.0,594.0 L 478.0,590.0 L 480.9,586.0 L 483.8,582.0 L 486.5,578.0 L 489.2,574.0 L 491.7,570.0 L 494.1,566.0 L 496.3,562.0 L 498.2,558.0 L 500.0,554.0 L 501.6,550.0 L 502.9,546.0 L 504.0,542.0 L 504.8,538.0 L 505.4,534.0 L 505.7,530.0 L 505.7,526.0 L 505.5,522.0 L 505.0,518.0 L 504.2,514.0 L 503.1,510.0 L 501.8,506.0 L 500.3,502.0 L 498.5,498.0 L 496.4,494.0 L 494.2,490.0 L 491.8,486.0 L 489.2,482.0 L 486.4,478.0 L 483.4,474.0 L 480.4,470.0 L 477.2,466.0 L 474.0,462.0 L 470.7,458.0 L 467.4,454.0 L 464.0,450.0 L 460.7,446.0 L 457.3,442.0 L 454.1,438.0 L 450.9,434.0 L 447.9,430.0 L 444.9,426.0 L 442.1,422.0 L 439.5,418.0 L 437.0,414.0 L 434.8,410.0 L 432.7,406.0 L 430.9,402.0 L 429.4,398.0 L 428.1,394.0 L 427.0,390.0 L 426.3,386.0 L 425.8,382.0 L 425.6,378.0 L 425.7,374.0 L 426.1,370.0 L 426.8,366.0 L 427.8,362.0 L 429.0,358.0 L 430.5,354.0 L 432.3,350.0 L 434.3,346.0 L 436.6,342.0 L 439.1,338.0 L 441.8,334.0 L 444.7,330.0 L 447.8,326.0 L 451.0,322.0 L 454.3,318.0 L 457.8,314.0 L 461.3,310.0 L 464.9,306.0 L 468.6,302.0 L 472.3,298.0 L 476.0,294.0 L 479.6,290.0 L 483.2,286.0 L 486.7,282.0 L 490.1,278.0 L 493.4,274.0 L 496.6,270.0 L 499.6,266.0 L 502.4,262.0 Z" fill="none" stroke="url(#vDragonGold2)" stroke-width="2" opacity="0.7"/>
-
-            <!-- 鱗片群組：以身體輪廓裁切，確保完全貼合、無破空 -->
-            <g class="dragon-scales" clip-path="url(#bodyClip)" stroke="url(#vDragonGold2)" stroke-width="1" fill="url(#vScaleGrad2)">
-                <use href="#scaleUnit" transform="translate(498.1,268.0) rotate(-20.0) scale(1.05)"/>
-                <use href="#scaleUnit" transform="translate(514.5,268.0) rotate(-20.0) scale(1.05)"/>
-                <use href="#scaleUnit" transform="translate(530.9,268.0) rotate(-20.0) scale(1.05)"/>
-                <use href="#scaleUnit" transform="translate(547.3,268.0) rotate(-20.0) scale(1.05)"/>
-                <use href="#scaleUnit" transform="translate(498.4,277.9) rotate(-22.1) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(514.8,277.9) rotate(-22.1) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(531.2,277.9) rotate(-22.1) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(481.6,287.7) rotate(-23.4) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(498.0,287.7) rotate(-23.4) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(514.4,287.7) rotate(-23.4) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(530.8,287.7) rotate(-23.4) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(480.9,297.6) rotate(-24.0) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(497.3,297.6) rotate(-24.0) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(513.7,297.6) rotate(-24.0) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(530.1,297.6) rotate(-24.0) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(463.6,307.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(480.0,307.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(496.4,307.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(512.8,307.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(463.1,317.3) rotate(-22.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(479.5,317.3) rotate(-22.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(495.9,317.3) rotate(-22.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(512.3,317.3) rotate(-22.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(446.8,327.2) rotate(-21.1) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(463.2,327.2) rotate(-21.1) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(479.6,327.2) rotate(-21.1) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(496.0,327.2) rotate(-21.1) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(447.9,337.0) rotate(-18.5) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(464.3,337.0) rotate(-18.5) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(480.7,337.0) rotate(-18.5) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(497.1,337.0) rotate(-18.5) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(433.9,346.9) rotate(-15.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(450.3,346.9) rotate(-15.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(466.7,346.9) rotate(-15.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(483.1,346.9) rotate(-15.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(499.5,346.9) rotate(-15.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(437.7,356.7) rotate(-10.4) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(454.1,356.7) rotate(-10.4) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(470.5,356.7) rotate(-10.4) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(486.9,356.7) rotate(-10.4) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(426.7,366.6) rotate(-5.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(443.1,366.6) rotate(-5.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(459.5,366.6) rotate(-5.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(475.9,366.6) rotate(-5.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(492.3,366.6) rotate(-5.0) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(433.8,376.5) rotate(0.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(450.2,376.5) rotate(0.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(466.6,376.5) rotate(0.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(483.0,376.5) rotate(0.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(426.3,386.3) rotate(6.7) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(442.7,386.3) rotate(6.7) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(459.1,386.3) rotate(6.7) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(475.5,386.3) rotate(6.7) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(491.9,386.3) rotate(6.7) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(436.9,396.2) rotate(11.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(453.3,396.2) rotate(11.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(469.7,396.2) rotate(11.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(486.1,396.2) rotate(11.9) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(432.7,406.0) rotate(16.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(449.1,406.0) rotate(16.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(465.5,406.0) rotate(16.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(481.9,406.0) rotate(16.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(498.3,406.0) rotate(16.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(446.3,415.9) rotate(19.4) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(462.7,415.9) rotate(19.4) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(479.1,415.9) rotate(19.4) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(495.5,415.9) rotate(19.4) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(444.7,425.8) rotate(21.7) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(461.1,425.8) rotate(21.7) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(477.5,425.8) rotate(21.7) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(493.9,425.8) rotate(21.7) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(510.3,425.8) rotate(21.7) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(460.4,435.6) rotate(23.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(476.8,435.6) rotate(23.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(493.2,435.6) rotate(23.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(509.6,435.6) rotate(23.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(460.2,445.5) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(476.6,445.5) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(493.0,445.5) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(509.4,445.5) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(525.8,445.5) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(476.7,455.3) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(493.1,455.3) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(509.5,455.3) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(525.9,455.3) rotate(23.9) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(476.6,465.2) rotate(23.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(493.0,465.2) rotate(23.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(509.4,465.2) rotate(23.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(525.8,465.2) rotate(23.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(542.2,465.2) rotate(23.1) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(492.4,475.1) rotate(21.6) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(508.8,475.1) rotate(21.6) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(525.2,475.1) rotate(21.6) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(541.6,475.1) rotate(21.6) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(491.1,484.9) rotate(19.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(507.5,484.9) rotate(19.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(523.9,484.9) rotate(19.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(540.3,484.9) rotate(19.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(556.7,484.9) rotate(19.2) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(505.1,494.8) rotate(15.8) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(521.5,494.8) rotate(15.8) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(537.9,494.8) rotate(15.8) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(554.3,494.8) rotate(15.8) scale(1.12)"/>
-                <use href="#scaleUnit" transform="translate(501.3,504.6) rotate(11.5) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(517.7,504.6) rotate(11.5) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(534.1,504.6) rotate(11.5) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(550.5,504.6) rotate(11.5) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(566.9,504.6) rotate(11.5) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(512.5,514.5) rotate(6.2) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(528.9,514.5) rotate(6.2) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(545.3,514.5) rotate(6.2) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(561.7,514.5) rotate(6.2) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(505.6,524.4) rotate(0.4) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(522.0,524.4) rotate(0.4) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(538.4,524.4) rotate(0.4) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(554.8,524.4) rotate(0.4) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(571.2,524.4) rotate(0.4) scale(1.11)"/>
-                <use href="#scaleUnit" transform="translate(513.6,534.2) rotate(-5.5) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(530.0,534.2) rotate(-5.5) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(546.4,534.2) rotate(-5.5) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(562.8,534.2) rotate(-5.5) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(503.5,544.1) rotate(-10.8) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(519.9,544.1) rotate(-10.8) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(536.3,544.1) rotate(-10.8) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(552.7,544.1) rotate(-10.8) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(569.1,544.1) rotate(-10.8) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(508.3,553.9) rotate(-15.3) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(524.7,553.9) rotate(-15.3) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(541.1,553.9) rotate(-15.3) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(557.5,553.9) rotate(-15.3) scale(1.10)"/>
-                <use href="#scaleUnit" transform="translate(495.3,563.8) rotate(-18.8) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(511.7,563.8) rotate(-18.8) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(528.1,563.8) rotate(-18.8) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(544.5,563.8) rotate(-18.8) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(497.6,573.7) rotate(-21.3) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(514.0,573.7) rotate(-21.3) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(530.4,573.7) rotate(-21.3) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(546.8,573.7) rotate(-21.3) scale(1.09)"/>
-                <use href="#scaleUnit" transform="translate(482.7,583.5) rotate(-23.0) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(499.1,583.5) rotate(-23.0) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(515.5,583.5) rotate(-23.0) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(531.9,583.5) rotate(-23.0) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(483.6,593.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(500.0,593.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(516.4,593.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(532.8,593.4) rotate(-23.8) scale(1.08)"/>
-                <use href="#scaleUnit" transform="translate(468.0,603.2) rotate(-23.9) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(484.4,603.2) rotate(-23.9) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(500.8,603.2) rotate(-23.9) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(517.2,603.2) rotate(-23.9) scale(1.07)"/>
-                <use href="#scaleUnit" transform="translate(468.9,613.1) rotate(-23.3) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(485.3,613.1) rotate(-23.3) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(501.7,613.1) rotate(-23.3) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(453.9,623.0) rotate(-22.0) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(470.3,623.0) rotate(-22.0) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(486.7,623.0) rotate(-22.0) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(503.1,623.0) rotate(-22.0) scale(1.06)"/>
-                <use href="#scaleUnit" transform="translate(456.2,632.8) rotate(-19.8) scale(1.05)"/>
-                <use href="#scaleUnit" transform="translate(472.6,632.8) rotate(-19.8) scale(1.05)"/>
-                <use href="#scaleUnit" transform="translate(489.0,632.8) rotate(-19.8) scale(1.05)"/>
-                <use href="#scaleUnit" transform="translate(443.1,642.7) rotate(-16.6) scale(1.04)"/>
-                <use href="#scaleUnit" transform="translate(459.5,642.7) rotate(-16.6) scale(1.04)"/>
-                <use href="#scaleUnit" transform="translate(475.9,642.7) rotate(-16.6) scale(1.04)"/>
-                <use href="#scaleUnit" transform="translate(492.3,642.7) rotate(-16.6) scale(1.04)"/>
-                <use href="#scaleUnit" transform="translate(447.8,652.5) rotate(-12.5) scale(1.04)"/>
-                <use href="#scaleUnit" transform="translate(464.2,652.5) rotate(-12.5) scale(1.04)"/>
-                <use href="#scaleUnit" transform="translate(480.6,652.5) rotate(-12.5) scale(1.04)"/>
-                <use href="#scaleUnit" transform="translate(437.6,662.4) rotate(-7.4) scale(1.03)"/>
-                <use href="#scaleUnit" transform="translate(454.0,662.4) rotate(-7.4) scale(1.03)"/>
-                <use href="#scaleUnit" transform="translate(470.4,662.4) rotate(-7.4) scale(1.03)"/>
-                <use href="#scaleUnit" transform="translate(445.6,672.3) rotate(-1.7) scale(1.02)"/>
-                <use href="#scaleUnit" transform="translate(462.0,672.3) rotate(-1.7) scale(1.02)"/>
-                <use href="#scaleUnit" transform="translate(478.4,672.3) rotate(-1.7) scale(1.02)"/>
-                <use href="#scaleUnit" transform="translate(438.8,682.1) rotate(4.3) scale(1.01)"/>
-                <use href="#scaleUnit" transform="translate(455.2,682.1) rotate(4.3) scale(1.01)"/>
-                <use href="#scaleUnit" transform="translate(471.6,682.1) rotate(4.3) scale(1.01)"/>
-                <use href="#scaleUnit" transform="translate(450.1,692.0) rotate(9.8) scale(1.00)"/>
-                <use href="#scaleUnit" transform="translate(466.5,692.0) rotate(9.8) scale(1.00)"/>
-                <use href="#scaleUnit" transform="translate(482.9,692.0) rotate(9.8) scale(1.00)"/>
-                <use href="#scaleUnit" transform="translate(446.7,701.8) rotate(14.4) scale(1.00)"/>
-                <use href="#scaleUnit" transform="translate(463.1,701.8) rotate(14.4) scale(1.00)"/>
-                <use href="#scaleUnit" transform="translate(479.5,701.8) rotate(14.4) scale(1.00)"/>
-                <use href="#scaleUnit" transform="translate(461.1,711.7) rotate(18.1) scale(0.99)"/>
-                <use href="#scaleUnit" transform="translate(477.5,711.7) rotate(18.1) scale(0.99)"/>
-                <use href="#scaleUnit" transform="translate(460.3,721.6) rotate(20.8) scale(0.98)"/>
-                <use href="#scaleUnit" transform="translate(476.7,721.6) rotate(20.8) scale(0.98)"/>
-                <use href="#scaleUnit" transform="translate(493.1,721.6) rotate(20.8) scale(0.98)"/>
-                <use href="#scaleUnit" transform="translate(476.9,731.4) rotate(22.7) scale(0.97)"/>
-                <use href="#scaleUnit" transform="translate(493.3,731.4) rotate(22.7) scale(0.97)"/>
-                <use href="#scaleUnit" transform="translate(477.7,741.3) rotate(23.7) scale(0.96)"/>
-                <use href="#scaleUnit" transform="translate(494.1,741.3) rotate(23.7) scale(0.96)"/>
-            </g>
-
-            <!-- 龍脊亮線 (置於鱗片之上，作為中軸高光) -->
-            <path d="M528,262 Q515,285 500,300 C465,325 460,350 460,375 C460,400 465,425 500,450
-                     C535,475 540,500 540,525 C540,550 535,575 500,600
-                     C465,625 460,650 460,675 C460,700 465,725 500,750"
-                  fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
-
-            <!-- ================= 龍爪 (Simple clean claws, attached at the body edge) ================= -->
-            <g class="dragon-claws" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <!-- 前右腿 -->
-                <path d="M500.4,345 C528,340 555,332 578,315" stroke="url(#vDragonGold2)" stroke-width="3.5"/>
-                <path d="M578,315 l11,-4 M578,315 l12,3 M578,315 l8,9 M578,315 l1,12" stroke="url(#vDragonGold2)" stroke-width="2.2"/>
-                <!-- 前左腿 -->
-                <path d="M434.8,345 C407,340 380,332 357,315" stroke="url(#vDragonGold2)" stroke-width="3.5"/>
-                <path d="M357,315 l-11,-4 M357,315 l-12,3 M357,315 l-8,9 M357,315 l-1,12" stroke="url(#vDragonGold2)" stroke-width="2.2"/>
-                <!-- 後右腿 -->
-                <path d="M555.3,570 C583,576 610,588 630,608" stroke="url(#vDragonGold2)" stroke-width="3.5"/>
-                <path d="M630,608 l12,-2 M630,608 l12,5 M630,608 l7,10 M630,608 l0,12" stroke="url(#vDragonGold2)" stroke-width="2.2"/>
-                <!-- 後左腿 -->
-                <path d="M491.7,570 C464,576 437,588 417,608" stroke="url(#vDragonGold2)" stroke-width="3.5"/>
-                <path d="M417,608 l-12,-2 M417,608 l-12,5 M417,608 l-7,10 M417,608 l0,12" stroke="url(#vDragonGold2)" stroke-width="2.2"/>
-            </g>
+        <!-- 頸後飄鬃 -->
+        <g class="dragon-mane" fill="url(#vDragonGoldGreen)" opacity="0.55">
+            <path d="M470,250 Q440,270 445,300 Q460,285 472,265 Z"/>
+            <path d="M460,265 Q430,290 438,320 Q452,300 465,278 Z"/>
+            <path d="M530,250 Q560,270 555,300 Q540,285 528,265 Z"/>
+            <path d="M540,265 Q570,290 562,320 Q548,300 535,278 Z"/>
+        </g>
+    </g>
+</g>
 
             <!-- ================= 龍尾 (Layered Flame Tail) ================= -->
-            <path d="M492,752 Q465,770 478,788 Q495,775 492,752 Z" fill="url(#vDragonGold2)" opacity="0.6"/>
-            <path d="M508,752 Q535,770 522,788 Q505,775 508,752 Z" fill="url(#vDragonGold2)" opacity="0.6"/>
-            <path d="M500,750 Q480,775 500,795 Q520,775 500,750 Z" fill="url(#vDragonGold2)" opacity="0.9"/>
-        </g>            <!-- 頸部銜接 (龍B專用，銜接翻轉後的身體與正立的頭) -->
-            <path d="M445.2,795 L497.6,795 L490,840 L452,840 Z"
-                  fill="url(#vDragonGold2)" opacity="0.5"/>
-            <path d="M445.2,795 L497.6,795 L490,840 L452,840 Z"
-                  fill="none" stroke="url(#vDragonGold2)" stroke-width="1.5" opacity="0.6"/>
-<g transform="translate(-29,583)">            <!-- ================= 龍首 (Detailed Dragon Head) ================= -->
-            <g class="dragon-head-top">
-
-                <!-- 頂冠火焰 -->
-                <path d="M500,112 Q494,88 500,58 Q506,88 500,112 Z" fill="url(#vDragonGold2)" opacity="0.85"/>
-
-                <!-- 龍角 (分叉鹿角式) -->
-                <path d="M492,150 C475,130 455,110 434,84 C440,96 460,122 480,146 Z" fill="url(#vDragonGold2)"/>
-                <path d="M465,115 C455,107 445,104 437,108" fill="none" stroke="#e8ffd9" stroke-width="2" stroke-linecap="round"/>
-                <path d="M508,150 C525,130 545,110 566,84 C560,96 540,122 520,146 Z" fill="url(#vDragonGold2)"/>
-                <path d="M535,115 C545,107 555,104 563,108" fill="none" stroke="#e8ffd9" stroke-width="2" stroke-linecap="round"/>
-
-                <!-- 耳鰭輪廓 (左右三角大中小) -->
-                <g class="dragon-ear-fins" fill="url(#vDragonGold2)" stroke="#ffffff" stroke-width="0.8" opacity="0.75">
-                    <path d="M430,160 Q385,175 375,215 Q400,205 425,180 Z"/>
-                    <path d="M425,175 Q395,185 390,212 Q408,204 424,188 Z"/>
-                    <path d="M420,190 Q402,196 400,210 Q410,205 419,196 Z"/>
-                    <path d="M570,160 Q615,175 625,215 Q600,205 575,180 Z"/>
-                    <path d="M575,175 Q605,185 610,212 Q592,204 576,188 Z"/>
-                    <path d="M580,190 Q598,196 600,210 Q590,205 581,196 Z"/>
-                </g>
-
-                <!-- 額珠 -->
-                <path d="M500,157 A15,15 0 1 0 500,187 A10.5,15 0 1 1 500,157 Z" fill="url(#vJewelGlow2)"/>
-                <circle cx="500" cy="172" r="3.5" fill="#ffffff" opacity="0.95"/>
-
-                <!-- 火焰眉 -->
-                <path d="M470,186 Q450,177 434,184 Q450,192 468,193 Z" fill="url(#vDragonGold2)" stroke="#e8ffd9" stroke-width="1"/>
-                <path d="M530,186 Q550,177 566,184 Q550,192 532,193 Z" fill="url(#vDragonGold2)" stroke="#e8ffd9" stroke-width="1"/>
-
-                <!-- 龍眼 -->
-                <path d="M483,194 Q472,188 461,194 Q472,201 483,194 Z" fill="#ffffff"/>
-                <circle cx="472" cy="194" r="2.6" fill="#1f4d0a"/>
-                <path d="M517,194 Q528,188 539,194 Q528,201 517,194 Z" fill="#ffffff"/>
-                <circle cx="528" cy="194" r="2.6" fill="#1f4d0a"/>
-
-                <!-- 臉部輪廓 -->
-                <path d="M478,206 Q500,196 522,206 Q516,226 500,231 Q484,226 478,206 Z" fill="none" stroke="url(#vDragonGold2)" stroke-width="2"/>
-
-                <!-- 鼻孔 -->
-                <ellipse cx="493" cy="223" rx="3" ry="2" fill="#5a2c00" opacity="0.8"/>
-                <ellipse cx="507" cy="223" rx="3" ry="2" fill="#5a2c00" opacity="0.8"/>
-
-                <!-- 張口與獠牙 -->
-                <path d="M478,229 Q500,239 522,229" fill="none" stroke="url(#vDragonGold2)" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M481,233 Q500,257 519,233" fill="none" stroke="url(#vDragonGold2)" stroke-width="3" stroke-linecap="round"/>
-                <path d="M491,231 L489,239 L494,232 Z" fill="#ffffff"/>
-                <path d="M509,231 L511,239 L506,232 Z" fill="#ffffff"/>
-                <path d="M498,236 Q500,246 502,236" fill="none" stroke="#a8d888" stroke-width="1.5" opacity="0.8"/>
-
-                <!-- 龍鬚 (四條飄逸) -->
-                <g class="dragon-whiskers" fill="none" stroke="#8fc76a" stroke-width="1.6" stroke-linecap="round">
-                    <path d="M478,222 C455,225 425,205 395,180"/>
-                    <path d="M480,236 C460,246 435,251 405,256"/>
-                    <path d="M522,222 C545,225 575,205 605,180"/>
-                    <path d="M520,236 C540,246 565,251 595,256"/>
-                </g>
-
-                <!-- 頸後飄鬃 -->
-                <g class="dragon-mane" fill="url(#vDragonGold2)" opacity="0.55">
-                    <path d="M470,250 Q440,270 445,300 Q460,285 472,265 Z"/>
-                    <path d="M460,265 Q430,290 438,320 Q452,300 465,278 Z"/>
-                    <path d="M530,250 Q560,270 555,300 Q540,285 528,265 Z"/>
-                    <path d="M540,265 Q570,290 562,320 Q548,300 535,278 Z"/>
-                </g>
+            <path d="M492,752 Q465,770 478,788 Q495,775 492,752 Z" fill="url(#vDragonGoldGreen)" opacity="0.6"/>
+            <path d="M508,752 Q535,770 522,788 Q505,775 508,752 Z" fill="url(#vDragonGoldGreen)" opacity="0.6"/>
+            <path d="M500,750 Q480,775 500,795 Q520,775 500,750 Z" fill="url(#vDragonGoldGreen)" opacity="0.9"/>
+        
             </g>
-
-</g></g>
         </g>
     </svg>
 </div>
+
 
 
 
