@@ -54,13 +54,7 @@
             pointer-events: none; 
             transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1); /* 優化過渡時間至 1.2 秒 */
         }
-   /* ==================================================
-   頂禮與燃香時隱藏區域（包含左右兩條龍）
-   ================================================== */
-/* ==================================================
-   頂禮與燃香時隱藏區域（包含星空與上下龍身橫條）
-   ================================================== */
-
+  
 /* 1. 為目標元素加入平滑淡出過渡效果 */
 #starCanvas,
 .dragon-banner-top,
@@ -459,7 +453,7 @@ body.bow-right #right-buddha-face-features circle {
 
 /* 1. 藍色龍 (0s ~ 8s 登場與發亮) */
 .dragon-banner-bottom {
-    z-index: 11;
+    z-index: 8;
     /* 同時執行波動動畫與發亮/隱藏動畫 */
     animation: 
         dragonWaveBottom 16s ease-in-out infinite,
@@ -468,7 +462,7 @@ body.bow-right #right-buddha-face-features circle {
 
 /* 2. 紫色龍 (8s ~ 16s 登場與發亮) */
 .dragon-banner-top {
-    z-index: 12;
+    z-index: 9;
     mix-blend-mode: screen;
     /* 同時執行波動動畫與發亮/隱藏動畫 */
     animation: 
@@ -486,63 +480,25 @@ body.bow-right #right-buddha-face-features circle {
     25% { transform: translateY(-16px) scaleY(1.04); }
 }
 
-/* --- 藍龍：發亮與替換順序 --- */
 @keyframes dragonGlowBottom {
-    /* 0%~5%: 漸顯登場 (標準亮度) */
-    0% { opacity: 0; filter: brightness(1) drop-shadow(0 0 0 rgba(246, 211, 101, 0)); }
-    5% { opacity: 1; filter: brightness(1) drop-shadow(0 0 5px rgba(246, 211, 101, 0.5)); }
-    
-    /* 5%~35%: 標準波動狀態 */
-    35% { opacity: 1; filter: brightness(1) drop-shadow(0 0 5px rgba(246, 211, 101, 0.5)); }
-
-    /* 35%~46%: 劇烈發亮 (能量聚集) */
-    42% {
-        opacity: 1;
-        /* 亮度提升 3 倍，並加入強烈金色發光底影 */
-        filter: brightness(3) drop-shadow(0 0 30px rgba(246, 211, 101, 1)) drop-shadow(0 0 15px white);
-    }
-
-    /* 46%~50%: 淨光化消失 */
-    46% { opacity: 0; filter: brightness(5); } /* 亮度極致化並透明 */
-    50%, 100% { opacity: 0; }
-}
-
-/* --- 紫龍：波動 (僅在 50%~100% 時間起伏) --- */
-@keyframes dragonWaveTop {
-    0%, 50%, 100% { transform: translateY(0px) scaleY(1); }
-    75% { transform: translateY(-8px) scaleY(1.02); }
-}
-
-/* --- 紫龍：發亮與替換順序 --- */
-@keyframes dragonGlowTop {
-    0%, 50% { opacity: 0; }
-
-    /* 50%~55%: 漸顯登場 (標準亮度) */
-    50% { opacity: 0; filter: brightness(1) drop-shadow(0 0 0 rgba(192, 132, 252, 0)); }
-    55% { opacity: 0.9; filter: brightness(1) drop-shadow(0 0 5px rgba(192, 132, 252, 0.5)); }
-
-    /* 55%~85%: 標準波動狀態 */
-    85% { opacity: 0.9; filter: brightness(1) drop-shadow(0 0 5px rgba(192, 132, 252, 0.5)); }
-
-    /* 85%~96%: 劇烈發亮 (能量聚集) */
-    92% {
-        opacity: 1;
-        /* 亮度提升 3 倍，並加入紫光與白光底影 */
-        filter: brightness(3) drop-shadow(0 0 30px rgba(192, 132, 252, 1)) drop-shadow(0 0 15px white);
-    }
-
-    /* 96%~100%: 淨光化消失 */
-    96% { opacity: 0; filter: brightness(5); }
+    0%   { opacity: 0; filter: brightness(1) drop-shadow(0 0 0 rgba(246,211,101,0)); }
+    6%   { opacity: 1; filter: brightness(1) drop-shadow(0 0 5px rgba(246,211,101,0.5)); }
+    32%  { opacity: 1; filter: brightness(1) drop-shadow(0 0 5px rgba(246,211,101,0.5)); }
+    40%  { opacity: 1; filter: brightness(1.6) drop-shadow(0 0 25px rgba(246,211,101,0.9)) drop-shadow(0 0 12px #ffffff); }
+    46%  { opacity: 0.5; filter: brightness(1.2) drop-shadow(0 0 15px rgba(246,211,101,0.6)); }
+    52%  { opacity: 0; filter: brightness(1); }
     100% { opacity: 0; }
 }
 
-
-
-       
-
-
-
-
+@keyframes dragonGlowTop {
+    0%, 48%  { opacity: 0; }
+    48%  { opacity: 0; filter: brightness(1) drop-shadow(0 0 0 rgba(192,132,252,0)); }
+    54%  { opacity: 0.9; filter: brightness(1) drop-shadow(0 0 5px rgba(192,132,252,0.5)); }
+    82%  { opacity: 0.9; filter: brightness(1) drop-shadow(0 0 5px rgba(192,132,252,0.5)); }
+    90%  { opacity: 1; filter: brightness(1.6) drop-shadow(0 0 25px rgba(192,132,252,0.9)) drop-shadow(0 0 12px #ffffff); }
+    96%  { opacity: 0.5; filter: brightness(1.2) drop-shadow(0 0 15px rgba(192,132,252,0.6)); }
+    100% { opacity: 0; filter: brightness(1); }
+}
 
     </style>
 </head>
@@ -896,6 +852,20 @@ body.bow-right #right-buddha-face-features circle {
                         <use href="#scaleUnitGreen" transform="translate(484,705) rotate(18) scale(1.04)"/>
                         <use href="#scaleUnitGreen" transform="translate(500,705) rotate(18) scale(1.04)"/>
                     </g>
+                    <g class="dragon-fins" fill="url(#vDragonGlowGreen)" stroke="#ffffff" stroke-width="1" stroke-linejoin="round" opacity="0.9">
+    <polygon points="468,412 448,422 472,430"/>
+    <polygon points="490,442 478,458 504,454"/>
+    <polygon points="518,470 542,474 522,488"/>
+    <polygon points="536,500 562,506 538,518"/>
+    <polygon points="540,530 566,538 538,548"/>
+    <polygon points="532,560 556,572 526,578"/>
+    <polygon points="508,590 526,608 498,602"/>
+    <polygon points="478,614 452,622 472,632"/>
+    <polygon points="460,642 434,650 458,658"/>
+    <polygon points="460,670 436,680 462,688"/>
+    <polygon points="470,700 450,714 476,716"/>
+    <polygon points="488,725 474,740 496,736"/>
+</g>
 
                     <!-- 龍脊亮線 -->
                     <path d="M528,262 Q515,285 500,300 C465,325 460,350 460,375 C460,400 465,425 500,450 C535,475 540,500 540,525 C540,550 535,575 500,600 C465,625 460,650 460,675 C460,700 465,725 500,750" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
@@ -1146,6 +1116,20 @@ body.bow-right #right-buddha-face-features circle {
                         <use href="#scaleUnitBlue" transform="translate(500,705) rotate(18) scale(1.04)"/>
                     </g>
 
+<g class="dragon-fins" fill="url(#vDragonGlowBlue)" stroke="#ffffff" stroke-width="1" stroke-linejoin="round" opacity="0.9">
+    <polygon points="468,412 448,422 472,430"/>
+    <polygon points="490,442 478,458 504,454"/>
+    <polygon points="518,470 542,474 522,488"/>
+    <polygon points="536,500 562,506 538,518"/>
+    <polygon points="540,530 566,538 538,548"/>
+    <polygon points="532,560 556,572 526,578"/>
+    <polygon points="508,590 526,608 498,602"/>
+    <polygon points="478,614 452,622 472,632"/>
+    <polygon points="460,642 434,650 458,658"/>
+    <polygon points="460,670 436,680 462,688"/>
+    <polygon points="470,700 450,714 476,716"/>
+    <polygon points="488,725 474,740 496,736"/>
+</g>
                     <!-- 龍脊亮線 -->
                     <path d="M528,262 Q515,285 500,300 C465,325 460,350 460,375 C460,400 465,425 500,450 C535,475 540,500 540,525 C540,550 535,575 500,600 C465,625 460,650 460,675 C460,700 465,725 500,750" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
                 </g>
