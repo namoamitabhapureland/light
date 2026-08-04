@@ -432,13 +432,6 @@ body.bow-right #right-buddha-face-features circle {
     
 
 
- /* ==================================================
-   兩條龍動態動畫（純位移與縮放，不加點陣化濾鏡）
-   ================================================== */
-@keyframes dragon-float {
-    0%   { transform: translate(6px, 6px) scale(0.99); }
-    100% { transform: translate(-10px, 10px) scale(1.2); }
-}
 
 /* ==================================================
    位置與整體大小控制區
@@ -449,7 +442,7 @@ body.bow-right #right-buddha-face-features circle {
     z-index: 11;
     /* 淡出淡入過渡，確保隱藏時順暢 */
     transition: opacity 0.8s ease-in-out;
-    animation: dragon-float 5.1s ease-in-out infinite alternate;
+    
 }
 
 .dragon-corner svg { 
@@ -459,16 +452,16 @@ body.bow-right #right-buddha-face-features circle {
 }
 
 #dragon-blue-container {
-    width: 290px;
-    max-width: 180vw;
-    left: -35px;
+    width: 340px;
+    max-width: 300vw;
+    left: -30px;
     bottom: 30px;      
 }
 
 #dragon-green-container {
-    width: 290px;
-    max-width: 180vw;
-    right: -35px;
+    width: 340px;
+    max-width: 300vw;
+    right: -30px;
     bottom: 30px;      
 }
 
@@ -520,15 +513,7 @@ body.bow-right #right-buddha-face-features circle {
     0%   { opacity: 0.6; }
     100% { opacity: 2.0; }
 }
-        /* 藍龍身體獨立微調 (X軸位移, Y軸位移) */
-#dragon-blue-container .dragon-body {
-    transform: translate(0px, 15px); /* 正數：向右/向下；負數：向左/向上 */
-}
-
-/* 綠龍身體獨立微調 (X軸位移, Y軸位移) */
-#dragon-green-container .dragon-body {
-    transform: translate(0px, 15px);
-}
+       
 
 
 
@@ -935,17 +920,16 @@ body.bow-right #right-buddha-face-features circle {
 
                         <!-- 側鬃耳鰭 -->
                         <g class="dragon-ear-fins" fill="url(#vDragonGoldBlue)" stroke="#ffffff" stroke-width="0.4" opacity="0.4">
+
                             <path d="M465,145 Q420,125 390,125 Q425,152 465,168 Z"/>
                             <path d="M462,166 Q422,152 402,158 Q428,178 462,185 Z"/>
                             <path d="M460,183 Q430,180 415,188 Q432,200 460,198 Z"/>
-                            <path d="M462,196 Q438,206 428,215 Q442,220 462,208 Z"/>
-                            <path d="M465,206 Q448,222 440,235 Q452,232 465,215 Z"/>
+                           
 
                             <path d="M535,145 Q580,125 610,125 Q575,152 535,168 Z"/>
                             <path d="M538,166 Q578,152 598,158 Q572,178 538,185 Z"/>
                             <path d="M540,183 Q570,180 585,188 Q568,200 540,198 Z"/>
-                            <path d="M538,196 Q562,206 572,215 Q558,220 538,208 Z"/>
-                            <path d="M535,206 Q552,222 560,235 Q548,232 535,215 Z"/>
+    
                         </g>
 
                         <!-- 額珠 -->
@@ -1283,14 +1267,12 @@ body.bow-right #right-buddha-face-features circle {
                             <path d="M465,145 Q420,125 390,125 Q425,152 465,168 Z"/>
                             <path d="M462,166 Q422,152 402,158 Q428,178 462,185 Z"/>
                             <path d="M460,183 Q430,180 415,188 Q432,200 460,198 Z"/>
-                            <path d="M462,196 Q438,206 428,215 Q442,220 462,208 Z"/>
-                            <path d="M465,206 Q448,222 440,235 Q452,232 465,215 Z"/>
+                           
 
                             <path d="M535,145 Q580,125 610,125 Q575,152 535,168 Z"/>
                             <path d="M538,166 Q578,152 598,158 Q572,178 538,185 Z"/>
                             <path d="M540,183 Q570,180 585,188 Q568,200 540,198 Z"/>
-                            <path d="M538,196 Q562,206 572,215 Q558,220 538,208 Z"/>
-                            <path d="M535,206 Q552,222 560,235 Q548,232 535,215 Z"/>
+                            
                         </g>
 
                         <!-- 額珠 -->
