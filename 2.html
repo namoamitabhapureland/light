@@ -433,8 +433,8 @@ body.bow-right #right-buddha-face-features circle {
         .dragon-banner-bottom {
             position: fixed;
             left: 0;
-            bottom: -20px;
-            width: 100vw;
+            bottom: 15px;
+            width: 110vw;
             height: 260px;
             pointer-events: none;
             overflow: hidden;
@@ -2262,180 +2262,40 @@ body.bow-right #right-buddha-face-features circle {
 }
 
 
-     /* 華嚴琉璃金光 - 流光軌跡煙火 (無殘影版) */
-const canvas = document.getElementById('starCanvas');
-const ctx = canvas.getContext('2d');
-let width, height, particles = [];
+  // 星空與水波紋背景
+    const canvas = document.getElementById('starCanvas'); 
+    const ctx = canvas.getContext('2d'); 
+    let width, height, stars = [], warpSpeed = 1.5, starScale = 1.5; 
 
-// 莊嚴配色庫
-const particleColors = [
-    { r: 246, g: 211, b: 101 }, // 暖金色
-    { r: 255, g: 236, b: 179 }, // 淡金光
-    { r: 180, g: 230, b: 200 }, // 翡翠琉璃光
-    { r: 255, g: 255, b: 255 }, // 淨白微光
-    { r: 135, g: 206, b: 250 }  // 清透寶藍
-];
+    function resize() { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; } 
+    window.addEventListener('resize', resize); resize(); 
 
-let burstTimer = null;
-const BURST_INTERVAL = 15000; 
-const BURST_PARTICLE_COUNT = 600; 
-let isHidden = false;
+    const STAR_COLORS = ['#8ba89c', '#53FF53', '#f3e5ab', '#ff9a9e', '#b2dfdb', '#C9A0DC', '#ffeb3b']; 
+    for (let i = 0; i < 350; i++) { 
+        stars.push({ x: (Math.random() - 0.5) * 2000, y: (Math.random() - 0.5) * 2000, z: Math.random() * 2000, color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)], s: Math.random() * 2.5 + 0.5 }); 
+    } 
 
-// 徹底物理清空畫布
-function cleanCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles = [];
-}
-
-// 觸發一波煙火
-function triggerFireworkBurst() {
-    if (isHidden) return;
-
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height * 0.65; 
-
-    for (let i = 0; i < BURST_PARTICLE_COUNT; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 5.0 + 1.5;
-
-        particles.push({
-            x: centerX,
-            y: centerY,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed,
-            history: [], // 記錄最近運動軌跡，實現無印子拖尾
-            r: Math.random() * 2.0 + 1.0,
-            alpha: 1.0,
-            decay: Math.random() * 0.012 + 0.008,
-            friction: 0.972,
-            gravity: 0.015,
-            color: particleColors[Math.floor(Math.random() * particleColors.length)],
-            isSparkle: Math.random() < 0.35
-        });
-    }
-}
-
-function startBurstTimer() {
-    if (burstTimer) clearInterval(burstTimer);
-    triggerFireworkBurst();
-    burstTimer = setInterval(triggerFireworkBurst, BURST_INTERVAL);
-}
-
-function updateCanvasState() {
-    const canvasStyle = window.getComputedStyle(canvas);
-    const currentlyHidden = (canvasStyle.opacity === '0' || canvasStyle.display === 'none');
-
-    if (currentlyHidden) {
-        isHidden = true;
-        if (burstTimer) clearInterval(burstTimer);
-        cleanCanvas();
-    } else if (!currentlyHidden && isHidden) {
-        isHidden = false;
-        cleanCanvas();
-        startBurstTimer();
-    }
-}
-
-function initCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    cleanCanvas();
-    
-    const observer = new MutationObserver(updateCanvasState);
-    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-
-    const initialStyle = window.getComputedStyle(canvas);
-    isHidden = (initialStyle.opacity === '0' || initialStyle.display === 'none');
-    if (!isHidden) startBurstTimer();
-}
-
-function drawFireworks() {
-    // 【核心】每一幀徹底清空畫布，物理上杜絕任何黑印與快取殘影
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    if (isHidden) {
-        requestAnimationFrame(drawFireworks);
-        return;
-    }
-
-    ctx.globalCompositeOperation = 'screen';
-
-    for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i];
-
-        // 保存歷史位置用於繪製流光軌跡（維持最近 4 點）
-        p.history.push({ x: p.x, y: p.y });
-        if (p.history.length > 4) {
-            p.history.shift();
-        }
-
-        // 物理運動
-        p.vx *= p.friction;
-        p.vy *= p.friction;
-        p.vy += p.gravity;
-        p.x += p.vx;
-        p.y += p.vy;
-        p.alpha -= p.decay;
-
-        if (p.alpha <= 0 || p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
-            particles.splice(i, 1);
-            continue;
-        }
-
-        const colorStr = `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, `;
-
-        // 1. 繪製流光軌跡尾巴 (Path Trail)
-        if (p.history.length > 1) {
-            ctx.beginPath();
-            ctx.moveTo(p.history[0].x, p.history[0].y);
-            for (let j = 1; j < p.history.length; j++) {
-                ctx.lineTo(p.history[j].x, p.history[j].y);
-            }
-            ctx.strokeStyle = `${colorStr}${p.alpha * 0.4})`;
-            ctx.lineWidth = p.r * 0.8;
-            ctx.stroke();
-        }
-
-        // 2. 繪製微光陰影與粒子頭部
-        if (p.r > 1.8) {
-            ctx.shadowBlur = 6;
-            ctx.shadowColor = `${colorStr}${p.alpha * 0.7})`;
-        } else {
-            ctx.shadowBlur = 0;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `${colorStr}${p.alpha})`;
-        ctx.fill();
-
-        // 3. 閃爍四芒光
-        if (p.isSparkle && p.alpha > 0.4) {
-            ctx.strokeStyle = `${colorStr}${p.alpha * 0.5})`;
-            ctx.lineWidth = 0.6;
-            ctx.beginPath();
-            ctx.moveTo(p.x - p.r * 2.5, p.y);
-            ctx.lineTo(p.x + p.r * 2.5, p.y);
-            ctx.moveTo(p.x, p.y - p.r * 2.5);
-            ctx.lineTo(p.x, p.y + p.r * 2.5);
-            ctx.stroke();
-        }
-    }
-
-    ctx.shadowBlur = 0;
-    ctx.globalCompositeOperation = 'source-over';
-    
-    requestAnimationFrame(drawFireworks);
-}
-
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    cleanCanvas();
-});
-
-initCanvas();
-requestAnimationFrame(drawFireworks);
+    function renderStars() { 
+        ctx.fillStyle = 'rgba(1, 1, 3, 0.4)'; 
+        ctx.fillRect(0, 0, width, height); 
+        ctx.globalCompositeOperation = 'screen'; 
+        stars.forEach(s => { 
+            s.z -= warpSpeed; 
+            if (s.z <= 0) { s.z = 2000; s.x = (Math.random() - 0.5) * 2000; s.y = (Math.random() - 0.5) * 2000; } 
+            let sc = 400 / (400 + s.z); 
+            let drawY = (height / 2) + s.y * sc; 
+            if (drawY > height * 0.75) return; 
+            ctx.beginPath(); 
+            ctx.arc((width / 2) + s.x * sc, drawY, s.s * sc * starScale, 0, Math.PI * 2); 
+            ctx.fillStyle = s.color; 
+            ctx.globalAlpha = Math.min(1, sc * 2.5); 
+            ctx.fill(); 
+            ctx.globalAlpha = 1; 
+        }); 
+        ctx.globalCompositeOperation = 'source-over'; 
+        requestAnimationFrame(renderStars); 
+    } 
+    renderStars();
 
 </script>
 </body>
