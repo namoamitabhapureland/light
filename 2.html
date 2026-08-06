@@ -54,7 +54,7 @@
             pointer-events: none; 
             transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1); /* 優化過渡時間至 1.2 秒 */
         }
-  
+        
 /* 1. 為目標元素加入平滑淡出過渡效果 */
 #starCanvas,
 .dragon-banner-top,
@@ -63,12 +63,10 @@
 }
 
 /* 2. 頂禮與燃香狀態時進行隱藏 */
-body:is(.bow-left, .bow-right, .incense-on) :is(#starCanvas, .dragon-banner-top, .dragon-banner-bottom) {
+body:is(.bow-left, .bow-right, .incense-on) :is(.dragon-banner-top, .dragon-banner-bottom) {
     opacity: 0 !important;
     pointer-events: none !important;
 }
-
-
 
 
 
@@ -425,29 +423,21 @@ body.bow-right #right-buddha-face-features circle {
     transform: scale(2) !important;
     filter: drop-shadow(0 0 10px #ff3333) drop-shadow(0 0 20px #ffffff) !important;
 }
-   
-
-   
+               /* ==================================================
+           龍圖騰容器基本設定
+           ================================================== */
+  /* ==================================================
+   龍圖騰容器基本設定
+   ================================================== */
 .dragon-banner-top,
 .dragon-banner-bottom {
     position: fixed;
     left: 0;
-    bottom: 15px;
-    width: 100vw;
-    height: 260px;
+    bottom: 20px;
+    width: 90vw;
+    height: 300px;
     pointer-events: none;
-    overflow: hidden; /* 關鍵：切齊身體前段，只露出尾巴 */
-    will-change: transform, opacity;
-}
-.dragon-banner-top,
-.dragon-banner-bottom {
-    position: fixed;
-    left: 0;
-    bottom: 15px;
-    width: 100vw;
-    height: 260px;
-    pointer-events: none;
-    overflow: visible; /* 確保容器邊緣不會切斷圖形 */
+    overflow: visible; /* 允許加長的龍身超出容器邊界 */
     will-change: transform, opacity;
 }
 
@@ -456,24 +446,26 @@ body.bow-right #right-buddha-face-features circle {
     width: 100%;
     height: 100%;
     display: block;
+    /* 關鍵：強制 SVG 不等比裁切，確保水平方向能完整顯示加長的身軀 */
+    overflow: visible; 
 }
 
-/* ── 龍一：原地淡入 ➔ 停留 ➔ 往右側滑出 ── */
+/* ── 龍一：原地淡入 ➔ 停留 ➔ 往 2 點鐘方向（右上）仰角升空滑出 ── */
 .dragon-banner-bottom {
     z-index: 8;
     animation: dragonFadeSlideLTR 16s cubic-bezier(0.45, 0, 0.3, 1) infinite;
 }
 
 @keyframes dragonFadeSlideLTR {
-    0%   { opacity: 0; transform: translateX(0); }     /* 0~5%: 在原點不動，直接淡入 */
-    5%   { opacity: 1; transform: translateX(0); }     /* 5~30%: 原地停留展示 */
-    30%  { opacity: 1; transform: translateX(0); }     /* 準備開始移動 */
-    45%  { opacity: 0; transform: translateX(100%); }  /* 30~45%: 往右側滑出，同時漸隱消失 */
-    50%  { opacity: 0; transform: translateX(100%); }  /* 前半段結束，保持隱藏 */
-    100% { opacity: 0; transform: translateX(100%); }
+    0%   { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+    5%   { opacity: 1; transform: translate(0, 0) rotate(0deg); }            /* 0~5%: 原地淡入 */
+    30%  { opacity: 1; transform: translate(0, 0) rotate(0deg); }            /* 5~30%: 原地停留展示 */
+    45%  { opacity: 0; transform: translate(80vw, -120px) rotate(-12deg); }  /* 30~45%: 往右上（2點鐘）抬頭飛升並漸隱 */
+    50%  { opacity: 0; transform: translate(80vw, -120px) rotate(-12deg); }
+    100% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
 }
 
-/* ── 龍二：原地淡入 ➔ 停留 ➔ 往左側滑出 ── */
+/* ── 龍二：原地淡入 ➔ 停留 ➔ 往 11 點鐘方向（左上）仰角升空滑出 ── */
 .dragon-banner-top {
     z-index: 9;
     mix-blend-mode: screen;
@@ -481,12 +473,13 @@ body.bow-right #right-buddha-face-features circle {
 }
 
 @keyframes dragonFadeSlideRTL {
-    0%, 50% { opacity: 0; transform: translateX(0) scaleX(-1); }    /* 前半段完全隱藏，等待龍一結束 */
-    55%     { opacity: 1; transform: translateX(0) scaleX(-1); }    /* 50~55%: 在原點不動，直接淡入 */
-    80%     { opacity: 1; transform: translateX(0) scaleX(-1); }    /* 55~80%: 原地停留展示 */
-    95%     { opacity: 0; transform: translateX(-100%) scaleX(-1);} /* 80~95%: 往左側滑出，同時漸隱消失 */
-    100%    { opacity: 0; transform: translateX(-100%) scaleX(-1);}
+    0%, 50% { opacity: 0; transform: translate(0, 0) scaleX(-1) rotate(0deg); }
+    55%     { opacity: 1; transform: translate(0, 0) scaleX(-1) rotate(0deg); }            /* 50~55%: 原地淡入 */
+    80%     { opacity: 1; transform: translate(0, 0) scaleX(-1) rotate(0deg); }            /* 55~80%: 原地停留展示 */
+    95%     { opacity: 0; transform: translate(-80vw, -120px) scaleX(-1) rotate(-12deg); } /* 80~95%: 往左上（11點鐘）抬頭飛升並漸隱 */
+    100%    { opacity: 0; transform: translate(0, 0) scaleX(-1) rotate(0deg); }
 }
+
 
 
 
@@ -616,7 +609,7 @@ body.bow-right #right-buddha-face-features circle {
     <canvas id="waterCanvas"></canvas>
     <div id="smoke-container"></div>
     <div id="burst-container"></div>
-<!-- ===================== 上方：淡綠金細長龍身（鏡像橫跨螢幕） ===================== -->
+  <!-- ===================== 上方：淡綠金細長龍身（鏡像橫跨螢幕） ===================== -->
 <div class="dragon-banner-top">
     <svg viewBox="0 0 2000 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -1231,7 +1224,6 @@ body.bow-right #right-buddha-face-features circle {
         </g>
     </svg>
 </div>
-
 
     <div id="buddha-scene">
         <div class="buddha-breathe">
@@ -2115,10 +2107,7 @@ body.bow-right #right-buddha-face-features circle {
             </svg>
         </div>
     </div>
-
-
-
-                                   
+                                        
     <div class="ritual-container">
     <div id="blessing-text"></div>
     <div class="ritual-panel">
@@ -2363,7 +2352,6 @@ body.bow-right #right-buddha-face-features circle {
      function navigateWithWarp(url) {
     window.location.href = url;
 }
-
 
   // 星空與水波紋背景
     const canvas = document.getElementById('starCanvas'); 
