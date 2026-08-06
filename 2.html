@@ -423,16 +423,17 @@ body.bow-right #right-buddha-face-features circle {
     transform: scale(2) !important;
     filter: drop-shadow(0 0 10px #ff3333) drop-shadow(0 0 20px #ffffff) !important;
 }
-      /* ==================================================
+      我比較過了 如果用這個但一開始的位置要往上移動是否將高280改成300或是320
+/* ==================================================
    龍圖騰容器基本設定
    ================================================== */
 .dragon-banner-top,
 .dragon-banner-bottom {
     position: fixed;
     left: 0;
-    bottom: 15px;
+    bottom: 50px;
     width: 100vw;
-    height: 300px;
+    height: 280px;
     pointer-events: none;
     overflow: visible; /* 允許加長的龍身超出容器邊界 */
     will-change: transform, opacity;
@@ -447,7 +448,7 @@ body.bow-right #right-buddha-face-features circle {
     overflow: visible; 
 }
 
-/* ── 龍一（底層）：同步淡入 ➔ 原地昂首蓄力 ➔ 往 2 點鐘方向飛升 ── */
+/* ── 龍一（底層）：同步淡入 ➔ 原地大幅昂首 ➔ 衝刺往 2 點鐘方向飛升 ── */
 .dragon-banner-bottom {
     z-index: 8;
     animation: dragonFadeSlideLTR 12s cubic-bezier(0.45, 0, 0.3, 1) infinite;
@@ -455,14 +456,14 @@ body.bow-right #right-buddha-face-features circle {
 
 @keyframes dragonFadeSlideLTR {
     0%   { opacity: 0; transform: translate(0, 0) rotate(0deg); }
-    10%  { opacity: 1; transform: translate(0, 0) rotate(0deg); }            /* 0~10%: 同步淡入 */
-    60%  { opacity: 1; transform: translate(0, 0) rotate(0deg); }            /* 10~60%: 原地靜止展示 */
-    70%  { opacity: 1; transform: translate(2vw, -30px) rotate(-15deg); }    /* 60~70%: 原地小幅拉起角度（昂首預備） */
-    85%  { opacity: 0; transform: translate(85vw, -350px) rotate(-18deg); }  /* 70~85%: 順著仰角往 2 點鐘方向迅速飛升漸隱 */
-    100% { opacity: 0; transform: translate(0, 0) rotate(0deg); }            /* 85~100%: 歸位等待下一輪 */
+    10%  { opacity: 1; transform: translate(0, 0) rotate(0deg); }             /* 0~10%: 同步淡入 */
+    60%  { opacity: 1; transform: translate(0, 0) rotate(0deg); }             /* 10~60%: 原地展示 */
+    70%  { opacity: 1; transform: translate(5vw, -40px) rotate(-32deg); }     /* 60~70%: 【關鍵】原地向上拉起大幅角度（昂首蓄力） */
+    85%  { opacity: 0; transform: translate(90vw, -300px) rotate(-35deg); }   /* 70~85%: 沿著仰角往 2 點鐘方向迅速飛升漸隱 */
+    100% { opacity: 0; transform: translate(0, 0) rotate(0deg); }             /* 85~100%: 歸位等待下一輪 */
 }
 
-/* ── 龍二（頂層）：同步淡入 ➔ 原地昂首蓄力 ➔ 往 11 點鐘方向飛升 ── */
+/* ── 龍二（頂層）：同步淡入 ➔ 原地大幅昂首 ➔ 衝刺往 11 點鐘方向飛升 ── */
 .dragon-banner-top {
     z-index: 9;
     mix-blend-mode: screen;
@@ -471,13 +472,12 @@ body.bow-right #right-buddha-face-features circle {
 
 @keyframes dragonFadeSlideRTL {
     0%   { opacity: 0; transform: translate(0, 0) scaleX(-1) rotate(0deg); }
-    10%  { opacity: 1; transform: translate(0, 0) scaleX(-1) rotate(0deg); }            /* 0~10%: 同步淡入 */
-    60%  { opacity: 1; transform: translate(0, 0) scaleX(-1) rotate(0deg); }            /* 10~60%: 原地靜止展示 */
-    70%  { opacity: 1; transform: translate(-2vw, -30px) scaleX(-1) rotate(-15deg); }  /* 60~70%: 原地小幅拉起角度（昂首預備） */
-    85%  { opacity: 0; transform: translate(-85vw, -350px) scaleX(-1) rotate(-18deg); }/* 70~85%: 順著仰角往 11 點鐘方向迅速飛升漸隱 */
-    100% { opacity: 0; transform: translate(0, 0) scaleX(-1) rotate(0deg); }            /* 85~100%: 歸位等待下一輪 */
+    10%  { opacity: 1; transform: translate(0, 0) scaleX(-1) rotate(0deg); }             /* 0~10%: 同步淡入 */
+    60%  { opacity: 1; transform: translate(0, 0) scaleX(-1) rotate(0deg); }             /* 10~60%: 原地展示 */
+    70%  { opacity: 1; transform: translate(-5vw, -40px) scaleX(-1) rotate(-32deg); }   /* 60~70%: 【關鍵】原地向上拉起大幅角度（昂首蓄力） */
+    85%  { opacity: 0; transform: translate(-90vw, -300px) scaleX(-1) rotate(-35deg); } /* 70~85%: 沿著仰角往 11 點鐘方向迅速飛升漸隱 */
+    100% { opacity: 0; transform: translate(0, 0) scaleX(-1) rotate(0deg); }             /* 85~100%: 歸位等待下一輪 */
 }
-
 
     </style>
 </head>
