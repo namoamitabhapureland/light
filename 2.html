@@ -431,7 +431,7 @@ body.bow-right #right-buddha-face-features circle {
 .dragon-banner-bottom {
     position: fixed;
     left: 0;
-    bottom: 15px; /* 維持 15px，確保 SVG 比例不被瀏覽器自動壓縮變短 */
+    bottom: 25px;
     width: 100vw;
     height: 280px;
     pointer-events: none;
@@ -448,23 +448,22 @@ body.bow-right #right-buddha-face-features circle {
     overflow: visible; 
 }
 
-/* ── 龍一（底層）：保持 15px 原始大比例，整體向上浮空 40px 避開按鈕 ── */
+/* ── 龍一（底層）：同步淡入 ➔ 原地大幅昂首 ➔ 衝刺往 2 點鐘方向飛升 ── */
 .dragon-banner-bottom {
     z-index: 8;
     animation: dragonFadeSlideLTR 12s cubic-bezier(0.45, 0, 0.3, 1) infinite;
 }
 
 @keyframes dragonFadeSlideLTR {
-    /* translate Y 從 -40px 開始：保持原始長龍體型，同時整體向上避開按鈕 */
-    0%   { opacity: 0; transform: translate(0, -40px) rotate(0deg); }
-    10%  { opacity: 1; transform: translate(0, -40px) rotate(0deg); }             /* 0~10%: 同步淡入 */
-    60%  { opacity: 1; transform: translate(0, -40px) rotate(0deg); }             /* 10~60%: 原地展示（已往上浮空40px） */
-    70%  { opacity: 1; transform: translate(5vw, -80px) rotate(-32deg); }     /* 60~70%: 原地向上拉起角度昂首蓄力 */
-    85%  { opacity: 0; transform: translate(90vw, -340px) rotate(-35deg); }   /* 70~85%: 沿著仰角往 2 點鐘方向飛升漸隱 */
-    100% { opacity: 0; transform: translate(0, -40px) rotate(0deg); }             /* 85~100%: 歸位等待下一輪 */
+    0%   { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+    10%  { opacity: 1; transform: translate(0, 0) rotate(0deg); }             /* 0~10%: 同步淡入 */
+    60%  { opacity: 1; transform: translate(0, 0) rotate(0deg); }             /* 10~60%: 原地展示 */
+    70%  { opacity: 1; transform: translate(5vw, -40px) rotate(-32deg); }     /* 60~70%: 【關鍵】原地向上拉起大幅角度（昂首蓄力） */
+    85%  { opacity: 0; transform: translate(90vw, -300px) rotate(-35deg); }   /* 70~85%: 沿著仰角往 2 點鐘方向迅速飛升漸隱 */
+    100% { opacity: 0; transform: translate(0, 0) rotate(0deg); }             /* 85~100%: 歸位等待下一輪 */
 }
 
-/* ── 龍二（頂層）：保持 15px 原始大比例，整體向上浮空 40px 避開按鈕 ── */
+/* ── 龍二（頂層）：同步淡入 ➔ 原地大幅昂首 ➔ 衝刺往 11 點鐘方向飛升 ── */
 .dragon-banner-top {
     z-index: 9;
     mix-blend-mode: screen;
@@ -472,12 +471,12 @@ body.bow-right #right-buddha-face-features circle {
 }
 
 @keyframes dragonFadeSlideRTL {
-    0%   { opacity: 0; transform: translate(0, -40px) scaleX(-1) rotate(0deg); }
-    10%  { opacity: 1; transform: translate(0, -40px) scaleX(-1) rotate(0deg); }             /* 0~10%: 同步淡入 */
-    60%  { opacity: 1; transform: translate(0, -40px) scaleX(-1) rotate(0deg); }             /* 10~60%: 原地展示（已往上浮空40px） */
-    70%  { opacity: 1; transform: translate(-5vw, -80px) scaleX(-1) rotate(-32deg); }   /* 60~70%: 原地向上拉起角度昂首蓄力 */
-    85%  { opacity: 0; transform: translate(-90vw, -340px) scaleX(-1) rotate(-35deg); } /* 70~85%: 沿著仰角往 11 點鐘方向飛升漸隱 */
-    100% { opacity: 0; transform: translate(0, -40px) scaleX(-1) rotate(0deg); }             /* 85~100%: 歸位等待下一輪 */
+    0%   { opacity: 0; transform: translate(0, 0) scaleX(-1) rotate(0deg); }
+    10%  { opacity: 1; transform: translate(0, 0) scaleX(-1) rotate(0deg); }             /* 0~10%: 同步淡入 */
+    60%  { opacity: 1; transform: translate(0, 0) scaleX(-1) rotate(0deg); }             /* 10~60%: 原地展示 */
+    70%  { opacity: 1; transform: translate(-5vw, -40px) scaleX(-1) rotate(-32deg); }   /* 60~70%: 【關鍵】原地向上拉起大幅角度（昂首蓄力） */
+    85%  { opacity: 0; transform: translate(-90vw, -300px) scaleX(-1) rotate(-35deg); } /* 70~85%: 沿著仰角往 11 點鐘方向迅速飛升漸隱 */
+    100% { opacity: 0; transform: translate(0, 0) scaleX(-1) rotate(0deg); }             /* 85~100%: 歸位等待下一輪 */
 }
 
     </style>
