@@ -1716,9 +1716,10 @@ body.bow-right #right-buddha-face-features circle {
     <!-- 定義腮紅的放射狀漸層，實現中心向外擴散、邊緣淡出的效果 -->
     <radialGradient id="blushGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
         <!-- 中心顏色：原本的粉色，不透明度設為 1 (完全不透明) -->
-        <stop offset="0%" stop-color="#FFA6FF" stop-opacity="0.3" />
+        <stop offset="0%" stop-color="#FFA6FF" stop-opacity="0.2" />
+        <stop offset="30%" stop-color="#FFF7FF" stop-opacity="0.1" />
         <!-- 邊緣顏色：原本的粉色，不透明度設為 0 (完全透明) -->
-        <stop offset="100%" stop-color="#FFA6FF" stop-opacity="0" />
+        <stop offset="100%" stop-color="#FFE6D9" stop-opacity="0.2" />
     </radialGradient>
 </defs>
 
@@ -2042,31 +2043,45 @@ body.bow-right #right-buddha-face-features circle {
                                             <path d="M 435 760 L 500 960 L 565 760" stroke-width="1.5" />
                                             <path d="M 450 760 L 500 860 L 550 760" stroke-width="1.4" />
                                         </g>
-                                        <g id="right-hair-and-scalp-group">
-    <g id="right-widows-peak-lines" stroke-width="4">
-        <path d="M 451 195 L 446 179" />
-        <path d="M 456 190 L 452 172" />
-        <path d="M 461 185 L 458 165" />
-        <path d="M 467 183.5 L 464.5 159.5" />
-        <path d="M 473 180 L 471 154" />
-        <path d="M 479.5 180 L 478 150" />
-        <path d="M 486 180 L 485 146" />
-        <path d="M 493 182.5 L 492.5 144" />
-        <path d="M 496.5 183.8 L 496.2 143" />
-        <!-- 正中心髮絲 -->
-        <path d="M 500 185 L 500 142" />
-        <path d="M 503.5 183.8 L 503.8 143" />
-        <path d="M 507 182.5 L 507.5 144" />
-        <path d="M 514 180 L 515 146" />
-        <path d="M 520.5 180 L 522 150" />
-        <path d="M 527 180 L 529 154" />
-        <path d="M 533 183.5 L 535.5 159.5" />
-        <path d="M 539 185 L 542 165" />
-        <path d="M 544 190 L 548 172" />
-        <path d="M 549 195 L 554 179" />
+                                      <g id="left-hair-and-scalp-group">
+    <!-- 15 條等比放射狀弧線（以正中心 500 為對稱軸，使用 Q 二次貝茲曲線呈現自然向外擴散與延伸至頭頂） -->
+    <g id="left-widows-peak-lines" stroke-width="3" fill="none">
+        <!-- 最外側弧線（左7 / 右7） -->
+        <path d="M 447.5 192 Q 438 165 446 151" />
+        <path d="M 552.5 192 Q 562 165 554 151" />
+
+        <!-- 弧線（左6 / 右6） -->
+        <path d="M 455 186.5 Q 446 160 452 144.5" />
+        <path d="M 545 186.5 Q 554 160 548 144.5" />
+
+        <!-- 弧線（左5 / 右5） -->
+        <path d="M 462.5 182.5 Q 455 158 460 140.5" />
+        <path d="M 537.5 182.5 Q 545 158 540 140.5" />
+
+        <!-- 弧線（左4 / 右4） -->
+        <path d="M 470 180.5 Q 464 157 468 138.2" />
+        <path d="M 530 180.5 Q 536 157 532 138.2" />
+
+        <!-- 弧線（左3 / 右3） -->
+        <path d="M 477.5 180 Q 473 157 476 136.8" />
+        <path d="M 522.5 180 Q 527 157 524 136.8" />
+
+        <!-- 弧線（左2 / 右2） -->
+        <path d="M 485 181.5 Q 482 158 484 135.8" />
+        <path d="M 515 181.5 Q 518 158 516 135.8" />
+
+        <!-- 弧線（左1 / 右1） -->
+        <path d="M 492.5 183.5 Q 491 159 492 135.2" />
+        <path d="M 507.5 183.5 Q 509 159 508 135.2" />
+
+        <!-- 正中心髮絲（1條） -->
+        <path d="M 500 185 Q 500 160 500 135" />
     </g>
-    <path d="M 446 195 Q 473 175, 500 185 Q 527 175, 554 195 Q 555 140, 500 135 Q 445 140, 446 195 Z" />
+
+    <!-- 頭圍外廓髮際線邊界 -->
+    <path d="M 446 195 Q 473 175, 500 185 Q 527 175, 554 195 Q 555 140, 500 135 Q 445 140, 446 195 Z" fill="none" />
 </g>
+
 
                                         <g id="right-buddha-ears" stroke-width="2">
                                             <path d="M 435 220 Q 427 205 426 220 Q 418 270 434 320 Q 428 380 454 330" />
@@ -2079,6 +2094,20 @@ body.bow-right #right-buddha-face-features circle {
                                             <path d="M 560 210 Q 535 195 506 210 L 506 262" stroke-width="3" />
                                             <path d="M 492 262 Q 500 276 508 262" stroke-width="2" />
 
+    <defs>
+    <!-- 定義腮紅的放射狀漸層，實現中心向外擴散、邊緣淡出的效果 -->
+    <radialGradient id="blushGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+        <!-- 中心顏色：原本的粉色，不透明度設為 1 (完全不透明) -->
+        <stop offset="0%" stop-color="#FFA6FF" stop-opacity="0.2" />
+        <stop offset="30%" stop-color="#FFF7FF" stop-opacity="0.1" />
+        <!-- 邊緣顏色：原本的粉色，不透明度設為 0 (完全透明) -->
+        <stop offset="100%" stop-color="#FFE6D9" stop-opacity="0.2" />
+    </radialGradient>
+</defs>
+
+<!-- 明確設置 stroke="none" -->
+<ellipse cx="460" cy="272" rx="30" ry="40" fill="url(#blushGradient)" stroke="none" />
+<ellipse cx="540" cy="272" rx="30" ry="40" fill="url(#blushGradient)" stroke="none" />
 
                                             <g class="buddhas-eye-closed">
                                                 <path d="M 444 234.5 Q 462 239 478 237.5 Q 479 239 478.5 240.5" stroke-width="4" />
