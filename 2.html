@@ -477,9 +477,7 @@ body.bow-right #right-buddha-face-features circle {
     85%  { opacity: 0; transform: translate(-90vw, -300px) scaleX(-1) rotate(-35deg); } /* 70~85%: 沿著仰角往 11 點鐘方向迅速飛升漸隱 */
     100% { opacity: 0; transform: translate(0, 0) scaleX(-1) rotate(0deg); }             /* 85~100%: 歸位等待下一輪 */
 }
-        
-
-     #chang-ji-guang-scene {
+            #chang-ji-guang-scene {
     position: absolute;
     inset: 0;
     margin: auto;
@@ -498,7 +496,6 @@ body.bow-right #right-buddha-face-features circle {
         .fashen-breathe-container {
             width: 100%;
             height: 100%;
-            /* 7s 深沉緩慢的法界呼吸 */
             animation: fashenRespiration 10s infinite ease-in-out;
             transform-origin: 50% 50%;
             opacity: 1; /* 永久常駐完全可見 */
@@ -506,7 +503,7 @@ body.bow-right #right-buddha-face-features circle {
 
         @keyframes fashenRespiration {
             0%, 100% { 
-                transform: translateY(0px) scale(0.9); 
+                transform: translateY(0px) scale(0.8); 
                 opacity: 0.93;
             }
             50% { 
@@ -537,6 +534,7 @@ body.bow-right #right-buddha-face-features circle {
             50% { stop-color: #e6c666; stop-opacity: 0.6; }
             100% { stop-color: #cd7f32; stop-opacity: 0.55; }
         }
+
 
 
 
@@ -665,9 +663,6 @@ body.bow-right #right-buddha-face-features circle {
     <canvas id="waterCanvas"></canvas>
     <div id="smoke-container"></div>
     <div id="burst-container"></div>
- 
-
-    
 <div id="chang-ji-guang-scene">
     <div class="fashen-breathe-container">
         <svg viewBox="0 0 1000 1450" width="100%" height="100%" style="overflow: visible;">
@@ -870,9 +865,7 @@ body.bow-right #right-buddha-face-features circle {
                 </g> </g> </svg>
     </div>
 </div>
-
-
-
+    
   <!-- ===================== 上方：淡綠金細長龍身（鏡像橫跨螢幕） ===================== -->
 <div class="dragon-banner-top">
     <svg viewBox="0 0 2000 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -1657,29 +1650,42 @@ body.bow-right #right-buddha-face-features circle {
                                             <path d="M 450 760 L 500 860 L 550 760" stroke-width="1.4" />
                                         </g>
                                         <g id="left-hair-and-scalp-group">
-    <g id="left-widows-peak-lines" stroke-width="4">
-        <path d="M 451 195 L 446 179" />
-        <path d="M 456 190 L 452 172" />
-        <path d="M 461 185 L 458 165" />
-        <path d="M 467 183.5 L 464.5 159.5" />
-        <path d="M 473 180 L 471 154" />
-        <path d="M 479.5 180 L 478 150" />
-        <path d="M 486 180 L 485 146" />
-        <path d="M 493 182.5 L 492.5 144" />
-        <path d="M 496.5 183.8 L 496.2 143" />
-        <!-- 正中心髮絲 -->
-        <path d="M 500 185 L 500 142" />
-        <path d="M 503.5 183.8 L 503.8 143" />
-        <path d="M 507 182.5 L 507.5 144" />
-        <path d="M 514 180 L 515 146" />
-        <path d="M 520.5 180 L 522 150" />
-        <path d="M 527 180 L 529 154" />
-        <path d="M 533 183.5 L 535.5 159.5" />
-        <path d="M 539 185 L 542 165" />
-        <path d="M 544 190 L 548 172" />
-        <path d="M 549 195 L 554 179" />
+    <!-- 15 條等比放射狀弧線（以正中心 500 為對稱軸，使用 Q 二次貝茲曲線呈現自然向外擴散與延伸至頭頂） -->
+    <g id="left-widows-peak-lines" stroke-width="3" fill="none">
+        <!-- 最外側弧線（左7 / 右7） -->
+        <path d="M 447.5 192 Q 438 165 446 151" />
+        <path d="M 552.5 192 Q 562 165 554 151" />
+
+        <!-- 弧線（左6 / 右6） -->
+        <path d="M 455 186.5 Q 446 160 452 144.5" />
+        <path d="M 545 186.5 Q 554 160 548 144.5" />
+
+        <!-- 弧線（左5 / 右5） -->
+        <path d="M 462.5 182.5 Q 455 158 460 140.5" />
+        <path d="M 537.5 182.5 Q 545 158 540 140.5" />
+
+        <!-- 弧線（左4 / 右4） -->
+        <path d="M 470 180.5 Q 464 157 468 138.2" />
+        <path d="M 530 180.5 Q 536 157 532 138.2" />
+
+        <!-- 弧線（左3 / 右3） -->
+        <path d="M 477.5 180 Q 473 157 476 136.8" />
+        <path d="M 522.5 180 Q 527 157 524 136.8" />
+
+        <!-- 弧線（左2 / 右2） -->
+        <path d="M 485 181.5 Q 482 158 484 135.8" />
+        <path d="M 515 181.5 Q 518 158 516 135.8" />
+
+        <!-- 弧線（左1 / 右1） -->
+        <path d="M 492.5 183.5 Q 491 159 492 135.2" />
+        <path d="M 507.5 183.5 Q 509 159 508 135.2" />
+
+        <!-- 正中心髮絲（1條） -->
+        <path d="M 500 185 Q 500 160 500 135" />
     </g>
-    <path d="M 446 195 Q 473 175, 500 185 Q 527 175, 554 195 Q 555 140, 500 135 Q 445 140, 446 195 Z" />
+
+    <!-- 頭圍外廓髮際線邊界 -->
+    <path d="M 446 195 Q 473 175, 500 185 Q 527 175, 554 195 Q 555 140, 500 135 Q 445 140, 446 195 Z" fill="none" />
 </g>
 
                                         <g id="left-buddha-ears" stroke-width="2">
@@ -1687,22 +1693,47 @@ body.bow-right #right-buddha-face-features circle {
                                             <path d="M 565 220 Q 573 205 574 220 Q 582 270 566 320 Q 572 380 546 330" />
                                             <path d="M 435 240 Q 425 275 437 305" /> <path d="M 565 240 Q 575 275 563 305" />
                                         </g>
-                                        <g id="left-buddha-face-features" transform="translate(0, 10)">
+                                                     <g id="left-buddha-face-features" transform="translate(0, 10)">
                                             <circle cx="500" cy="190" r="4.5" fill="#cc2222" stroke="none" />
-                                            <path d="M 440 210 Q 465 195 494 210 L 494 262" stroke-width="3" />
-                                            <path d="M 560 210 Q 535 195 506 210 L 506 262" stroke-width="3" />
-                                            <path d="M 493 266 Q 500 276 507 266" stroke-width="2" />
+                                            <path d="M 440 200 Q 465 195 494 210 L 494 262" stroke-width="3" />
+                                            <path d="M 560 200 Q 535 195 506 210 L 506 262" stroke-width="3" />
+                                            <path d="M 492 262 Q 500 276 508 262" stroke-width="2" />
 
 
                                             <g class="buddhas-eye-closed">
-                                                <path d="M 444 234.5 Q 462 239 478 237.5 Q 479 239 478.5 240.5" stroke-width="4" />
-                                                <path d="M 444 234.5 Q 462 245 478.5 240.5" stroke-width="2" />
-                                                <path d="M 556 234.5 Q 538 239 522 237.5 Q 521 239 521.5 240.5" stroke-width="4" />
-                                                <path d="M 556 234.5 Q 538 245 521.5 240.5" stroke-width="2" />
+                                                <path d="M 444 230.5 Q 462 239 478 237.5 Q 479 239 478.5 240.5" stroke-width="4" />
+                                                <path d="M 444 230.5 Q 462 245 478.5 240.5" stroke-width="2" />
+
+                                                    <path d="M 444 210.5 Q 472 200 480.5 228.5" stroke-width="0.5" />
+
+                                                <path d="M 556 230.5 Q 538 239 522 237.5 Q 521 239 521.5 240.5" stroke-width="4" />
+                                                <path d="M 556 230.5 Q 538 245 521.5 240.5" stroke-width="2" />
+
+<path d="M 556 210.5 Q 528 200 519.5 228.5" stroke-width="0.5" />
+
                                             </g>
-                                            <path d="M 482 283.5 Q 483 284.5 484 285 Q 492 281 500 286 Q 508 281 516 285 Q 517 284.5 518 283.5" stroke-width="1.6" />
-                                            <path d="M 480 283.5 Q 481 284.5 482 285 Q 500 289 518 285 Q 519 284.5 520 283.5" stroke-width="2" />
-                                            <path d="M 486 289 Q 500 293 514 289" stroke-width="2" />
+                                                             <defs>
+    <!-- 定義腮紅的放射狀漸層，實現中心向外擴散、邊緣淡出的效果 -->
+    <radialGradient id="blushGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+        <!-- 中心顏色：原本的粉色，不透明度設為 1 (完全不透明) -->
+        <stop offset="0%" stop-color="#FFA6FF" stop-opacity="0.3" />
+        <!-- 邊緣顏色：原本的粉色，不透明度設為 0 (完全透明) -->
+        <stop offset="100%" stop-color="#FFA6FF" stop-opacity="0" />
+    </radialGradient>
+</defs>
+
+<!-- 明確設置 stroke="none" -->
+<ellipse cx="460" cy="272" rx="30" ry="40" fill="url(#blushGradient)" stroke="none" />
+<ellipse cx="540" cy="272" rx="30" ry="40" fill="url(#blushGradient)" stroke="none" />
+
+<!-- 調整嘴巴整體縮小一點，並略帶微笑 -->
+<path d="M 488 284 Q 489 285 490 285 Q 494 282 500 285 Q 506 282 510 285 Q 511 285 512 284" stroke-width="1.6" stroke="#FF69B4" />
+
+<path d="M 486 284 Q 487 285 488 285 Q 500 288 512 285 Q 513 285 514 284" stroke-width="2.5" stroke="#FF69B4" />
+
+<path d="M 492 288 Q 500 291 508 288" stroke-width="2" stroke="#FF69B4" />
+
+
                                             <path d="M 486 312 Q 500 306 514 312" stroke-width="2" />
                                             <path d="M 440 376 C 440 425, 560 425, 560 376" stroke-width="1.5" stroke-linecap="round" fill="none" />
                                             <path d="M 432 388 C 432 450, 568 450, 568 388" stroke-width="1.5" stroke-linecap="round" fill="none" />
@@ -2042,11 +2073,11 @@ body.bow-right #right-buddha-face-features circle {
                                             <path d="M 565 220 Q 573 205 574 220 Q 582 270 566 320 Q 572 380 546 330" />
                                             <path d="M 435 240 Q 425 275 437 305" /> <path d="M 565 240 Q 575 275 563 305" />
                                         </g>
-                                        <g id="right-buddha-face-features" transform="translate(0, 10)">
+                                                                            <g id="right-buddha-face-features" transform="translate(0, 10)">
                                             <circle cx="500" cy="190" r="4.5" fill="#cc2222" stroke="none" />
                                             <path d="M 440 210 Q 465 195 494 210 L 494 262" stroke-width="3" />
                                             <path d="M 560 210 Q 535 195 506 210 L 506 262" stroke-width="3" />
-                                            <path d="M 493 266 Q 500 276 507 266" stroke-width="2" />
+                                            <path d="M 492 262 Q 500 276 508 262" stroke-width="2" />
 
 
                                             <g class="buddhas-eye-closed">
@@ -2055,9 +2086,14 @@ body.bow-right #right-buddha-face-features circle {
                                                 <path d="M 556 234.5 Q 538 239 522 237.5 Q 521 239 521.5 240.5" stroke-width="4" />
                                                 <path d="M 556 234.5 Q 538 245 521.5 240.5" stroke-width="2" />
                                             </g>
-                                            <path d="M 482 283.5 Q 483 284.5 484 285 Q 492 281 500 286 Q 508 281 516 285 Q 517 284.5 518 283.5" stroke-width="1.6" />
-                                            <path d="M 480 283.5 Q 481 284.5 482 285 Q 500 289 518 285 Q 519 284.5 520 283.5" stroke-width="2" />
-                                            <path d="M 486 289 Q 500 293 514 289" stroke-width="2" />
+                                            <!-- 調整嘴巴整體縮小一點，並略帶微笑 -->
+<path d="M 488 284 Q 489 285 490 285 Q 494 282 500 285 Q 506 282 510 285 Q 511 285 512 284" stroke-width="1.6" stroke="#FF69B4" />
+
+<path d="M 486 284 Q 487 285 488 285 Q 500 288 512 285 Q 513 285 514 284" stroke-width="2.5" stroke="#FF69B4" />
+
+<path d="M 492 288 Q 500 291 508 288" stroke-width="2" stroke="#FF69B4" />
+
+
                                             <path d="M 486 312 Q 500 306 514 312" stroke-width="2" />
                                             <path d="M 440 376 C 440 425, 560 425, 560 376" stroke-width="1.5" stroke-linecap="round" fill="none" />
                                             <path d="M 432 388 C 432 450, 568 450, 568 388" stroke-width="1.5" stroke-linecap="round" fill="none" />
@@ -2620,7 +2656,7 @@ body.bow-right #right-buddha-face-features circle {
   // 星空與水波紋背景
     const canvas = document.getElementById('starCanvas'); 
     const ctx = canvas.getContext('2d'); 
-    let width, height, stars = [], warpSpeed = 1.5, starScale = 1.5; 
+    let width, height, stars = [], warpSpeed = 1.9, starScale = 1.2; 
 
     function resize() { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; } 
     window.addEventListener('resize', resize); resize(); 
