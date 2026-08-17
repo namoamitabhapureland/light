@@ -560,7 +560,7 @@
     /* z-index 必須設定為 10002，才能完美覆蓋在原本的彈窗（10001）之上 */
     z-index: 10002;
 }
-    /* 能量匯聚 Canvas */
+   /* 能量匯聚 Canvas */
 #realmCanvas {
     position: fixed;
     top: 0;
@@ -576,7 +576,7 @@
 /* 寶塔中央主視覺圖層（獨立定位於畫面中心偏上） */
 #meditator-layer {
     position: fixed;
-    top: 42%;
+    top: 46%;
     left: 50%;
     transform: translate(-50%, -50%); /* 精確絕對置中 */
     width: 28vw;
@@ -602,7 +602,7 @@
     width: 100%;
     height: 100%;
     overflow: visible;
-    opacity: 0.5; 
+    opacity: 0.9; 
     filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
 }
 
@@ -632,6 +632,62 @@
     letter-spacing: 3px;
 }
 
+/* 1. Body 確保全螢幕居中呈現 */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* 2. 簡化控制面板（偏移回歸 0px） */
+:root {
+  --ruyi-scale: 0.9;
+  --ruyi-scale-x: 2.4; /* 橫向拉伸 1.5 倍 */
+  --ruyi-offset-y: -12px;
+  --ruyi-offset-x: 0px; /* 修正坐標系後，設為 0px 即可精準居中 */
+}
+
+/* 3. 雲托動態控制容器 (修正中心基準點) */
+.ruyi-adjustable-group {
+  transform: translate(var(--ruyi-offset-x), var(--ruyi-offset-y)) 
+             scale(var(--ruyi-scale-x), var(--ruyi-scale));
+  transform-origin: 100px 225px;
+}
+
+/* ==========================================
+   雲霧左右飄動動畫
+   ========================================== */
+.stupa-cloud {
+  /* 套用動畫：名稱 8秒週期 無限循環 雙向平滑 */
+  animation: cloudFloat 1s ease-in-out infinite alternate;
+  
+  /* 確保動畫以中央為基準，避免失真 */
+  transform-origin: 100px 200px;
+  transform-box: fill-box;
+}
+
+@keyframes cloudFloat {
+  0% {
+    /* 起始位置：原位偏移 ( translate(0, 20) ) */
+    transform: translate(0px, 20px);
+  }
+  50% {
+    /* 向右緩慢微飄 15px */
+    transform: translate(15px, 20px);
+  }
+  100% {
+    /* 向左緩慢微飄 -15px */
+    transform: translate(-15px, 20px);
+  }
+}
+
+
+
     </style>
 </head>
 
@@ -653,13 +709,14 @@
                         <stop offset="100%" stop-color="#bf9e48" />
                     </linearGradient>
 
+
                     <linearGradient id="cloudGrad" x1="0%" y1="50%" x2="100%" y2="50%">
-                        <stop offset="0%" stop-color="#bf9e48" stop-opacity="0"/>
-                        <stop offset="10%" stop-color="#FFD700" stop-opacity="0.2"/> 
+                        <stop offset="0%" stop-color="#bf9e48" stop-opacity="0.2"/>
+                        <stop offset="10%" stop-color="#FFD700" stop-opacity="0.5"/> 
                         <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0.5"/> 
                         <stop offset="50%" stop-color="#FFB6C1" stop-opacity="0.4"/> 
-                        <stop offset="65%" stop-color="#b0dfdb" stop-opacity="0.3"/> 
-                        <stop offset="100%" stop-color="#b0dfdb" stop-opacity="0"/>
+                        <stop offset="65%" stop-color="#E5A853" stop-opacity="0.5"/> 
+                        <stop offset="100%" stop-color="#E5A853" stop-opacity="0.5"/>
                     </linearGradient>
 
                     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
@@ -669,6 +726,7 @@
                             <feMergeNode in="SourceGraphic" />
                         </feMerge>
                     </filter>
+
 
                     <!-- 法輪圖騰 -->
                     <g id="stupa-totem-model" stroke="url(#paleGold3DGrad)" stroke-width="0.8">
@@ -687,10 +745,10 @@
                     <!-- 單門模組 -->
                     <g id="eaved-gate">
                         <path d="M -16,35 L -16,10 L 0,-8 L 16,10 L 16,35 Z" fill="url(#paleGold3DGrad)" stroke="#ffffff" stroke-width="0.8" filter="url(#glow)"/>
-                        <path d="M -11,35 L -11,12 L 0,-2 L 11,12 L 11,35 Z" fill="#000000" stroke="#ffffff" stroke-width="0.5"/>
+                        <path d="M -11,35 L -11,12 L 0,-2 L 11,12 L 11,35 Z" fill="#ffffff" stroke="#ffffff" stroke-width="0.5"/>
                         <path d="M -6,35 L -6,15 L 0,4 L 6,15 L 6,35 Z" fill="#000000" stroke="none"/>
-                        <path d="M -16,10 Q -18,7 -19,4 Q -17,6 -15,9 Z" fill="#000000" stroke="#ffffff" stroke-width="0.4"/>
-                        <path d="M 16,10 Q 18,7 19,4 Q 17,6 15,9 Z" fill="#000000" stroke="#ffffff" stroke-width="0.4"/>
+                        <path d="M -16,10 Q -18,7 -19,4 Q -17,6 -15,9 Z" fill="#ffffff" stroke="#ffffff" stroke-width="0.4"/>
+                        <path d="M 16,10 Q 18,7 19,4 Q 17,6 15,9 Z" fill="#ffffff" stroke="#ffffff" stroke-width="0.4"/>
                     </g>
 
                     <!-- 完整寶塔主體結構 -->
@@ -760,12 +818,80 @@
                     </g>
                 </defs>
 
+
                 <ellipse cx="100" cy="130" rx="60" ry="70" fill="url(#paleGold3DGrad)" opacity="0.1" style="filter: blur(12px);" />
+                <use href="#stupa-side" transform="translate(0, -70) scale(1.9)" transform-origin="100 130" opacity="0.2" />
                 <use href="#stupa-side" transform="translate(-130, -55) scale(1.7)" transform-origin="100 130" opacity="0.85" />
-                <use href="#stupa-side" transform="translate(130, -40) scale(1.5)" transform-origin="100 130" opacity="0.6" />
-                <use href="#stupa-side" transform="translate(-250, 35) scale(0.6)" transform-origin="100 130" opacity="0.9" />
+
+                <use href="#stupa-side" transform="translate(130, -20) scale(1.2)" transform-origin="100 130" opacity="0.8" />
+
+                <use href="#stupa-side" transform="translate(-220, 20) scale(0.8)" transform-origin="100 130" opacity="0.99" />
+
+                <use href="#stupa-side" transform="translate(220, 20) scale(0.7)" transform-origin="100 130" opacity="0.99" />
+
                 <use href="#stupa-side" transform="translate(75, 40) scale(0.5)" transform-origin="100 130" opacity="0.9" />
+
                 <use href="#stupa-side" transform="translate(0, 0)" />
+
+<!-- 雲霧層 -->
+<g class="stupa-cloud" transform="translate(0, 30)" style="filter: blur(12px);" opacity="0.6">
+    <!-- 主雲霧層：左右大幅擴充，高低落差拉大 -->
+    <path d="M -200,202 C -20,178 20,172 60,195 C 100,218 140,172 180,192 C 220,208 240,180 400,202 L 260,225 C 220,238 180,218 140,232 C 100,240 60,218 15,230 C -20,238 -45,218 -60,225 Z" fill="url(#cloudGrad)"/>
+    <!-- 次雲霧層：波浪與主層交錯，增添虛實層次 -->
+    <path d="M -130,210 C 10,188 50,212 90,198 C 130,182 170,215 210,200 C 225,192 235,208 300,212 L 240,228 C 200,236 160,218 120,230 C 80,238 40,218 -30,228 Z" fill="url(#cloudGrad)" opacity="0.3"/> 
+</g>
+
+<!-- 修正中心點後之雙層如意雲托 -->
+<g class="ruyi-adjustable-group">
+    <defs>
+        <!-- 前景金光漸層 -->
+        <linearGradient id="ruyiLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#E5A853" stop-opacity="0.2"/>
+            <stop offset="20%" stop-color="#FCEBB6" stop-opacity="0.95"/>
+            <stop offset="50%" stop-color="#FFF8E7" stop-opacity="1"/>
+            <stop offset="80%" stop-color="#FCEBB6" stop-opacity="0.95"/>
+            <stop offset="100%" stop-color="#E5A853" stop-opacity="0.2"/>
+        </linearGradient>
+    </defs>
+
+    <!-- 以 (100, 225) 為中心基準點 -->
+    <g transform="translate(100, -15)">
+        <g fill="none" stroke-linecap="round">
+
+            <!-- ===== 第一層：柔和暗金襯邊 ===== -->
+            <g stroke="#3a2e18" stroke-width="4" opacity="0.65">
+                <!-- 1. 貫穿底部的長雲托線 -->
+                <path d="M -160,225 C -80,235 80,235 160,225"/>
+                <path d="M -130,231 C -60,238 60,238 130,231"/>
+
+                <!-- === 左側雙層如意捲 === -->
+                <path d="M -110,225 C -122.5,225 -130,215 -125,205 C -120,195 -110,200 -112.5,207.5 C -115,212.5 -120,210 -117.5,205"/>
+                <path d="M -115,225 C -145,225 -165,190 -150,155 C -130,120 -105,135 -110,165 C -115,185 -130,180 -125,165"/>
+
+                <!-- === 右側雙層如意捲 === -->
+                <path d="M 110,225 C 122.5,225 130,215 125,205 C 120,195 110,200 112.5,207.5 C 115,212.5 120,210 117.5,205"/>
+                <path d="M 115,225 C 145,225 165,190 150,155 C 130,120 105,135 110,165 C 115,185 130,180 125,165"/>
+            </g>
+
+            <!-- ===== 第二層：金色發光主線 ===== -->
+            <g stroke="url(#ruyiLineGrad)" style="filter: drop-shadow(0px 0px 4px rgba(252, 235, 182, 0.6));">
+                <!-- 1. 貫穿底部的長雲托線 -->
+                <path d="M -160,225 C -80,235 80,235 160,225" stroke-width="2"/>
+                <path d="M -130,231 C -60,238 60,238 130,231" stroke-width="2" opacity="0.9"/>
+
+                <!-- === 左側雙層如意捲 === -->
+                <path d="M -110,225 C -122.5,225 -130,215 -125,205 C -120,195 -110,200 -112.5,207.5 C -115,212.5 -120,210 -117.5,205" stroke-width="1.8"/>
+                <path d="M -115,225 C -145,225 -165,190 -150,155 C -130,120 -105,135 -110,165 C -115,185 -130,180 -125,165" stroke-width="2.2"/>
+
+                <!-- === 右側雙層如意捲 === -->
+                <path d="M 110,225 C 122.5,225 130,215 125,205 C 120,195 110,200 112.5,207.5 C 115,212.5 120,210 117.5,205" stroke-width="1.8"/>
+                <path d="M 115,225 C 145,225 165,190 150,155 C 130,120 105,135 110,165 C 115,185 130,180 125,165" stroke-width="2.2"/>
+            </g>
+
+        </g>
+    </g> <!-- 補齊：對應 <g transform="translate(0, 5)"> -->
+</g> <!-- 補齊：對應 <g class="ruyi-adjustable-group"> -->
+
             </svg>
         </div>
     </div>
@@ -776,8 +902,6 @@
         <div>一真法界 ． 本自如如</div>
         <div id="sub-profound">萬行莊嚴 ． 功不唐捐</div>
     </div>
-
-   
 
 
     <div id="page-transition-curtain" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 999999; opacity: 0; pointer-events: none; transition: opacity 0.8s ease-in-out;"></div>
