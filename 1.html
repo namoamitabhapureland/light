@@ -638,34 +638,35 @@
   transform-box: fill-box;
 }
 
-/* 1. 金光底層：慢速穩重飄移 */
+/* 1. 金光底層：慢速穩重左右飄移 */
 .cloud-layer-1 {
-  animation: cloudFloat1 1s ease-in-out infinite alternate;
+  animation: cloudFloat1 2s ease-in-out infinite alternate;
 }
 
-/* 2. 翡翠藍綠中層：中速錯向飄移 */
+/* 2. 冰藍中層：中速錯向左右飄移 */
 .cloud-layer-2 {
-  animation: cloudFloat2 1s ease-in-out infinite alternate;
+  animation: cloudFloat2 3s ease-in-out infinite alternate;
 }
 
-/* 3. 紫霞表層：輕盈快速飄移 */
+/* 3. 紫霞表層：輕盈快速左右飄移 */
 .cloud-layer-3 {
-  animation: cloudFloat3 1s ease-in-out infinite alternate;
+  animation: cloudFloat3 2s ease-in-out infinite alternate;
 }
 
+/* 動畫改為相對位移 (translateX)，避免干擾 Y 軸高度與 HTML 的 translate 設定 */
 @keyframes cloudFloat1 {
-  0% { transform: translate(-10px, 15px); }
-  100% { transform: translate(15px, 25px); }
+  0% { transform: translateX(-25px); }
+  100% { transform: translateX(65px); }
 }
 
 @keyframes cloudFloat2 {
-  0% { transform: translate(20px, 20px); }
-  100% { transform: translate(-15px, 15px); }
+  0% { transform: translateX(25px); }
+  100% { transform: translateX(-65px); }
 }
 
 @keyframes cloudFloat3 {
-  0% { transform: translate(-15px, 25px); }
-  100% { transform: translate(10px, 10px); }
+  0% { transform: translateX(-35px); }
+  100% { transform: translateX(70px); }
 }
 
 /* 雲托托線控制容器（保持原樣即可） */
@@ -687,8 +688,9 @@
     <!-- 中央寶塔主視覺 -->
     <div id="meditator-layer">
         <div class="meditator-container" id="meditator-btn">
-            <svg viewBox="0 0 200 230" class="meditator-svg">
+            <svg viewBox="0 0 200 230" class="meditator-svg" style="overflow: visible;">
                 <defs>
+                    <!-- 寶塔主體漸層 -->
                     <linearGradient id="paleGold3DGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                         <stop offset="0%" stop-color="#bf9e48" />
                         <stop offset="25%" stop-color="#f5eabf" />
@@ -697,44 +699,41 @@
                         <stop offset="100%" stop-color="#bf9e48" />
                     </linearGradient>
 
+                    <!-- 1. 白金金光漸層（底層雲霧專用） -->
+                    <linearGradient id="cloudGradGold" x1="0%" y1="50%" x2="100%" y2="50%">
+                        <stop offset="0%" stop-color="#bf9e48" stop-opacity="0.2"/>
+                        <stop offset="20%" stop-color="#FCEBB6" stop-opacity="0.6"/>
+                        <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+                        <stop offset="80%" stop-color="#E5A853" stop-opacity="0.5"/>
+                        <stop offset="100%" stop-color="#bf9e48" stop-opacity="0.2"/>
+                    </linearGradient>
 
-                
-    <!-- 1. 白金金光漸層（底層雲霧專用） -->
-    <linearGradient id="cloudGradGold" x1="0%" y1="50%" x2="100%" y2="50%">
-        <stop offset="0%" stop-color="#bf9e48" stop-opacity="0.2"/>
-        <stop offset="20%" stop-color="#FCEBB6" stop-opacity="0.6"/>
-        <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.8"/>
-        <stop offset="80%" stop-color="#E5A853" stop-opacity="0.5"/>
-        <stop offset="100%" stop-color="#bf9e48" stop-opacity="0.2"/>
-    </linearGradient>
+                    <!-- 2. 極淡冰藍漸層（中層雲霧專用） -->
+                    <linearGradient id="cloudGradBlue" x1="0%" y1="50%" x2="100%" y2="50%">
+                        <stop offset="0%" stop-color="#8ba89c" stop-opacity="0.1"/>
+                        <stop offset="30%" stop-color="#E0F2FE" stop-opacity="0.7"/>
+                        <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.85"/>
+                        <stop offset="70%" stop-color="#BAE6FD" stop-opacity="0.6"/>
+                        <stop offset="100%" stop-color="#8ba89c" stop-opacity="0.1"/>
+                    </linearGradient>
 
-    <!-- 2. 極淡冰藍漸層（中層雲霧專用） -->
-    <linearGradient id="cloudGradBlue" x1="0%" y1="50%" x2="100%" y2="50%">
-        <stop offset="0%" stop-color="#8ba89c" stop-opacity="0.1"/>
-        <stop offset="30%" stop-color="#E0F2FE" stop-opacity="0.7"/>
-        <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.85"/>
-        <stop offset="70%" stop-color="#BAE6FD" stop-opacity="0.6"/>
-        <stop offset="100%" stop-color="#8ba89c" stop-opacity="0.1"/>
-    </linearGradient>
+                    <!-- 3. 霓光紫霞漸層（表層雲霧專用） -->
+                    <linearGradient id="cloudGradPurple" x1="0%" y1="50%" x2="100%" y2="50%">
+                        <stop offset="0%" stop-color="#C9A0DC" stop-opacity="0.1"/>
+                        <stop offset="25%" stop-color="#F472B6" stop-opacity="0.4"/>
+                        <stop offset="50%" stop-color="#E9D5FF" stop-opacity="0.75"/>
+                        <stop offset="75%" stop-color="#C9A0DC" stop-opacity="0.5"/>
+                        <stop offset="100%" stop-color="#818CF8" stop-opacity="0.1"/>
+                    </linearGradient>
 
-    <!-- 3. 霓光紫霞漸層（表層雲霧專用） -->
-    <linearGradient id="cloudGradPurple" x1="0%" y1="50%" x2="100%" y2="50%">
-        <stop offset="0%" stop-color="#C9A0DC" stop-opacity="0.1"/>
-        <stop offset="25%" stop-color="#F472B6" stop-opacity="0.4"/>
-        <stop offset="50%" stop-color="#E9D5FF" stop-opacity="0.75"/>
-        <stop offset="75%" stop-color="#C9A0DC" stop-opacity="0.5"/>
-        <stop offset="100%" stop-color="#818CF8" stop-opacity="0.1"/>
-    </linearGradient>
-
-    <!-- 貫穿底線漸層 -->
-    <linearGradient id="ruyiLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#E5A853" stop-opacity="0.1"/>
-        <stop offset="20%" stop-color="#FCEBB6" stop-opacity="0.95"/>
-        <stop offset="50%" stop-color="#FFF8E7" stop-opacity="1"/>
-        <stop offset="80%" stop-color="#FCEBB6" stop-opacity="0.95"/>
-        <stop offset="100%" stop-color="#E5A853" stop-opacity="0.1"/>
-    </linearGradient>
-
+                    <!-- 貫穿底線漸層 -->
+                    <linearGradient id="ruyiLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#E5A853" stop-opacity="0.1"/>
+                        <stop offset="20%" stop-color="#FCEBB6" stop-opacity="0.95"/>
+                        <stop offset="50%" stop-color="#FFF8E7" stop-opacity="1"/>
+                        <stop offset="80%" stop-color="#FCEBB6" stop-opacity="0.95"/>
+                        <stop offset="100%" stop-color="#E5A853" stop-opacity="0.1"/>
+                    </linearGradient>
 
                     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
                         <feGaussianBlur stdDeviation="1.8" result="blur" />
@@ -743,7 +742,6 @@
                             <feMergeNode in="SourceGraphic" />
                         </feMerge>
                     </filter>
-
 
                     <!-- 法輪圖騰 -->
                     <g id="stupa-totem-model" stroke="url(#paleGold3DGrad)" stroke-width="0.8">
@@ -826,8 +824,6 @@
                             <use href="#eaved-gate" transform="translate(96, 55) scale(0.09)" />
                             <use href="#eaved-gate" transform="translate(104, 55) scale(0.09)" />
                             <use href="#eaved-gate" transform="translate(110, 55) scale(0.09)" />
-                            <use href="#eaved-gate" transform="translate(38, 185) scale(0.7)" />
-                            <use href="#eaved-gate" transform="translate(162, 185) scale(0.7)" />
                             <use href="#eaved-gate" transform="translate(100, 152) scale(1.7)" />
                         </g>
                         
@@ -835,55 +831,56 @@
                     </g>
                 </defs>
 
-
+                <!-- 背景光暈與多重寶塔陣列 -->
                 <ellipse cx="100" cy="130" rx="60" ry="70" fill="url(#paleGold3DGrad)" opacity="0.1" style="filter: blur(12px);" />
                 <use href="#stupa-side" transform="translate(0, -70) scale(1.9)" transform-origin="100 130" opacity="0.2" />
                 <use href="#stupa-side" transform="translate(-130, -55) scale(1.7)" transform-origin="100 130" opacity="0.85" />
-
                 <use href="#stupa-side" transform="translate(130, -20) scale(1.2)" transform-origin="100 130" opacity="0.8" />
-
                 <use href="#stupa-side" transform="translate(-220, 15) scale(0.8)" transform-origin="100 130" opacity="0.99" />
-
                 <use href="#stupa-side" transform="translate(220, 25) scale(0.7)" transform-origin="100 130" opacity="0.99" />
-
                 <use href="#stupa-side" transform="translate(75, 40) scale(0.5)" transform-origin="100 130" opacity="0.9" />
-
                 <use href="#stupa-side" transform="translate(0, 0)" />
 
-<!-- 3層多色彩雲霧層 -->
-<!-- 1. 白金金光雲霧層（底層） -->
-<g class="stupa-cloud cloud-layer-1" transform="translate(0, 30)" style="filter: blur(14px);" opacity="0.55">
-    <path d="M -200,202 C -20,178 20,172 60,195 C 100,218 140,172 180,192 C 220,208 240,180 400,202 L 260,225 C 220,238 180,218 140,232 C 100,240 60,218 15,230 C -20,238 -45,218 -60,225 Z" fill="url(#cloudGradGold)"/>
-</g>
+                <!-- 3層多色彩雲霧層（採用雙層結構：外層可隨意調整 translate/scale，內層獨立執行 CSS 動畫） -->
+                <!-- 1. 白金金光雲霧層（底層） -->
+                <g transform="translate(0, 15) scale(1.0)" style="filter: blur(14px);" opacity="0.55">
+                    <g class="stupa-cloud cloud-layer-1">
+                        <path d="M -200,202 C -20,178 20,172 60,195 C 100,218 140,172 180,192 C 220,208 240,180 400,202 L 260,225 C 220,238 180,218 140,232 C 100,240 60,218 15,230 C -20,238 -45,218 -60,225 Z" fill="url(#cloudGradGold)"/>
+                    </g>
+                </g>
 
-<!-- 2. 極淡冰藍雲霧層（中層） -->
-<g class="stupa-cloud cloud-layer-2" transform="translate(0, 25)" style="filter: blur(10px);" opacity="0.5">
-    <path d="M -160,205 C -30,185 30,200 80,180 C 130,160 170,195 230,185 C 280,175 310,195 380,205 L 280,228 C 210,235 150,210 90,228 C 30,235 -30,210 -80,222 Z" fill="url(#cloudGradBlue)"/>
-</g>
+                <!-- 2. 極淡冰藍雲霧層（中層） -->
+                <g transform="translate(0, 15) scale(1.0)" style="filter: blur(10px);" opacity="0.5">
+                    <g class="stupa-cloud cloud-layer-2">
+                        <path d="M -160,205 C -30,185 30,200 80,180 C 130,160 170,195 230,185 C 280,175 310,195 380,205 L 280,228 C 210,235 150,210 90,228 C 30,235 -30,210 -80,222 Z" fill="url(#cloudGradBlue)"/>
+                    </g>
+                </g>
 
-<!-- 3. 霓光紫霞雲霧層（表層） -->
-<g class="stupa-cloud cloud-layer-3" transform="translate(0, 35)" style="filter: blur(8px);" opacity="0.45">
-    <path d="M -130,210 C 10,188 50,212 90,198 C 130,182 170,215 210,200 C 225,192 235,208 300,212 L 240,228 C 200,236 160,218 120,230 C 80,238 40,218 -30,228 Z" fill="url(#cloudGradPurple)"/>
-</g>
+                <!-- 3. 霓光紫霞雲霧層（表層） -->
+                <g transform="translate(0, 20) scale(1.0)" style="filter: blur(8px);" opacity="0.45">
+                    <g class="stupa-cloud cloud-layer-3">
+                        <path d="M -130,210 C 10,188 50,212 90,198 C 130,182 170,215 210,200 C 225,192 235,208 300,212 L 240,228 C 200,236 160,218 120,230 C 80,238 40,218 -30,228 Z" fill="url(#cloudGradPurple)"/>
+                    </g>
+                </g>
 
-<!-- 貫穿底部雙線托架（無如意捲） -->
-<g class="ruyi-adjustable-group">
-    <g transform="translate(100, -5)">
-        <g fill="none" stroke-linecap="round">
-            <!-- 第一層：柔和暗金襯底線 -->
-            <g stroke="#3a2e18" stroke-width="4" opacity="0.65">
-                <path d="M -160,225 C -80,235 80,235 160,225"/>
-                <path d="M -130,231 C -60,238 60,238 130,231"/>
-            </g>
+                <!-- 貫穿底部雙線托架 -->
+                <g class="ruyi-adjustable-group">
+                    <g transform="translate(100, -5)">
+                        <g fill="none" stroke-linecap="round">
+                            <!-- 第一層：柔和暗金襯底線 -->
+                            <g stroke="#3a2e18" stroke-width="6" opacity="0.65">
+                                <path d="M -160,225 C -80,235 80,235 160,225"/>
+                                <path d="M -130,231 C -60,238 60,238 130,231"/>
+                            </g>
 
-            <!-- 第二層：金色發光主托線 -->
-            <g stroke="url(#ruyiLineGrad)" style="filter: drop-shadow(0px 0px 4px rgba(252, 235, 182, 0.6));">
-                <path d="M -160,225 C -80,235 80,235 160,225" stroke-width="2"/>
-                <path d="M -130,231 C -60,238 60,238 130,231" stroke-width="2" opacity="0.9"/>
-            </g>
-        </g>
-    </g>
-</g>
+                            <!-- 第二層：金色發光主托線 -->
+                            <g stroke="url(#ruyiLineGrad)" style="filter: drop-shadow(0px 0px 4px rgba(252, 235, 182, 0.6));">
+                                <path d="M -160,225 C -80,235 80,235 160,225" stroke-width="2"/>
+                                <path d="M -130,231 C -60,238 60,238 130,231" stroke-width="2" opacity="0.9"/>
+                            </g>
+                        </g>
+                    </g>
+                </g>
 
             </svg>
         </div>
