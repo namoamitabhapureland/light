@@ -626,68 +626,54 @@
     filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
 }
 
-/* 底部偈語文字 */
-#profound-text {
-    position: fixed;
-    bottom: 10%;
-    left: 0;
-    width: 100%;
-    color: #f3e5ab;
-    font-size: 1.05rem;
-    letter-spacing: 5px;
-    opacity: 0;
-    transition: opacity 1.5s ease;
-    text-align: center;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9), 0 0 15px #d4af37;
-    line-height: 2.2;
-    font-weight: 300;
-    z-index: 100000;
-    pointer-events: none;
-    font-family: serif;
-}
 
-#sub-profound {
-    font-size: 0.75rem;
-    color: #8ba89c;
-    letter-spacing: 3px;
-}
 
  
 
-/* 3. 雲托動態控制容器 (修正中心基準點) */
+/* ==========================================
+   三層雲霧獨立飄動動畫
+   ========================================== */
+.stupa-cloud {
+  transform-origin: 100px 200px;
+  transform-box: fill-box;
+}
+
+/* 1. 金光底層：慢速穩重飄移 */
+.cloud-layer-1 {
+  animation: cloudFloat1 1s ease-in-out infinite alternate;
+}
+
+/* 2. 翡翠藍綠中層：中速錯向飄移 */
+.cloud-layer-2 {
+  animation: cloudFloat2 1s ease-in-out infinite alternate;
+}
+
+/* 3. 紫霞表層：輕盈快速飄移 */
+.cloud-layer-3 {
+  animation: cloudFloat3 1s ease-in-out infinite alternate;
+}
+
+@keyframes cloudFloat1 {
+  0% { transform: translate(-10px, 15px); }
+  100% { transform: translate(15px, 25px); }
+}
+
+@keyframes cloudFloat2 {
+  0% { transform: translate(20px, 20px); }
+  100% { transform: translate(-15px, 15px); }
+}
+
+@keyframes cloudFloat3 {
+  0% { transform: translate(-15px, 25px); }
+  100% { transform: translate(10px, 10px); }
+}
+
+/* 雲托托線控制容器（保持原樣即可） */
 .ruyi-adjustable-group {
   transform: translate(var(--ruyi-offset-x), var(--ruyi-offset-y)) 
              scale(var(--ruyi-scale-x), var(--ruyi-scale));
   transform-origin: 100px 225px;
 }
-
-/* ==========================================
-   雲霧左右飄動動畫
-   ========================================== */
-.stupa-cloud {
-  /* 套用動畫：名稱 8秒週期 無限循環 雙向平滑 */
-  animation: cloudFloat 1s ease-in-out infinite alternate;
-  
-  /* 確保動畫以中央為基準，避免失真 */
-  transform-origin: 100px 200px;
-  transform-box: fill-box;
-}
-
-@keyframes cloudFloat {
-  0% {
-    /* 起始位置：原位偏移 ( translate(0, 20) ) */
-    transform: translate(0px, 20px);
-  }
-  50% {
-    /* 向右緩慢微飄 15px */
-    transform: translate(15px, 20px);
-  }
-  100% {
-    /* 向左緩慢微飄 -15px */
-    transform: translate(-15px, 20px);
-  }
-}
-
 
 
     </style>
@@ -712,14 +698,43 @@
                     </linearGradient>
 
 
-                    <linearGradient id="cloudGrad" x1="0%" y1="50%" x2="100%" y2="50%">
-                        <stop offset="0%" stop-color="#bf9e48" stop-opacity="0.2"/>
-                        <stop offset="10%" stop-color="#FFD700" stop-opacity="0.5"/> 
-                        <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0.5"/> 
-                        <stop offset="50%" stop-color="#FFB6C1" stop-opacity="0.4"/> 
-                        <stop offset="65%" stop-color="#E5A853" stop-opacity="0.5"/> 
-                        <stop offset="100%" stop-color="#E5A853" stop-opacity="0.5"/>
-                    </linearGradient>
+                
+    <!-- 1. 白金金光漸層（底層雲霧專用） -->
+    <linearGradient id="cloudGradGold" x1="0%" y1="50%" x2="100%" y2="50%">
+        <stop offset="0%" stop-color="#bf9e48" stop-opacity="0.2"/>
+        <stop offset="20%" stop-color="#FCEBB6" stop-opacity="0.6"/>
+        <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+        <stop offset="80%" stop-color="#E5A853" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#bf9e48" stop-opacity="0.2"/>
+    </linearGradient>
+
+    <!-- 2. 極淡冰藍漸層（中層雲霧專用） -->
+    <linearGradient id="cloudGradBlue" x1="0%" y1="50%" x2="100%" y2="50%">
+        <stop offset="0%" stop-color="#8ba89c" stop-opacity="0.1"/>
+        <stop offset="30%" stop-color="#E0F2FE" stop-opacity="0.7"/>
+        <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.85"/>
+        <stop offset="70%" stop-color="#BAE6FD" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="#8ba89c" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <!-- 3. 霓光紫霞漸層（表層雲霧專用） -->
+    <linearGradient id="cloudGradPurple" x1="0%" y1="50%" x2="100%" y2="50%">
+        <stop offset="0%" stop-color="#C9A0DC" stop-opacity="0.1"/>
+        <stop offset="25%" stop-color="#F472B6" stop-opacity="0.4"/>
+        <stop offset="50%" stop-color="#E9D5FF" stop-opacity="0.75"/>
+        <stop offset="75%" stop-color="#C9A0DC" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#818CF8" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <!-- 貫穿底線漸層 -->
+    <linearGradient id="ruyiLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#E5A853" stop-opacity="0.1"/>
+        <stop offset="20%" stop-color="#FCEBB6" stop-opacity="0.95"/>
+        <stop offset="50%" stop-color="#FFF8E7" stop-opacity="1"/>
+        <stop offset="80%" stop-color="#FCEBB6" stop-opacity="0.95"/>
+        <stop offset="100%" stop-color="#E5A853" stop-opacity="0.1"/>
+    </linearGradient>
+
 
                     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
                         <feGaussianBlur stdDeviation="1.8" result="blur" />
@@ -827,83 +842,53 @@
 
                 <use href="#stupa-side" transform="translate(130, -20) scale(1.2)" transform-origin="100 130" opacity="0.8" />
 
-                <use href="#stupa-side" transform="translate(-220, 20) scale(0.8)" transform-origin="100 130" opacity="0.99" />
+                <use href="#stupa-side" transform="translate(-220, 15) scale(0.8)" transform-origin="100 130" opacity="0.99" />
 
-                <use href="#stupa-side" transform="translate(220, 20) scale(0.7)" transform-origin="100 130" opacity="0.99" />
+                <use href="#stupa-side" transform="translate(220, 25) scale(0.7)" transform-origin="100 130" opacity="0.99" />
 
                 <use href="#stupa-side" transform="translate(75, 40) scale(0.5)" transform-origin="100 130" opacity="0.9" />
 
                 <use href="#stupa-side" transform="translate(0, 0)" />
 
-<!-- 雲霧層 -->
-<g class="stupa-cloud" transform="translate(0, 30)" style="filter: blur(12px);" opacity="0.6">
-    <!-- 主雲霧層：左右大幅擴充，高低落差拉大 -->
-    <path d="M -200,202 C -20,178 20,172 60,195 C 100,218 140,172 180,192 C 220,208 240,180 400,202 L 260,225 C 220,238 180,218 140,232 C 100,240 60,218 15,230 C -20,238 -45,218 -60,225 Z" fill="url(#cloudGrad)"/>
-    <!-- 次雲霧層：波浪與主層交錯，增添虛實層次 -->
-    <path d="M -130,210 C 10,188 50,212 90,198 C 130,182 170,215 210,200 C 225,192 235,208 300,212 L 240,228 C 200,236 160,218 120,230 C 80,238 40,218 -30,228 Z" fill="url(#cloudGrad)" opacity="0.3"/> 
+<!-- 3層多色彩雲霧層 -->
+<!-- 1. 白金金光雲霧層（底層） -->
+<g class="stupa-cloud cloud-layer-1" transform="translate(0, 30)" style="filter: blur(14px);" opacity="0.55">
+    <path d="M -200,202 C -20,178 20,172 60,195 C 100,218 140,172 180,192 C 220,208 240,180 400,202 L 260,225 C 220,238 180,218 140,232 C 100,240 60,218 15,230 C -20,238 -45,218 -60,225 Z" fill="url(#cloudGradGold)"/>
 </g>
 
-<!-- 修正中心點後之雙層如意雲托 -->
+<!-- 2. 極淡冰藍雲霧層（中層） -->
+<g class="stupa-cloud cloud-layer-2" transform="translate(0, 25)" style="filter: blur(10px);" opacity="0.5">
+    <path d="M -160,205 C -30,185 30,200 80,180 C 130,160 170,195 230,185 C 280,175 310,195 380,205 L 280,228 C 210,235 150,210 90,228 C 30,235 -30,210 -80,222 Z" fill="url(#cloudGradBlue)"/>
+</g>
+
+<!-- 3. 霓光紫霞雲霧層（表層） -->
+<g class="stupa-cloud cloud-layer-3" transform="translate(0, 35)" style="filter: blur(8px);" opacity="0.45">
+    <path d="M -130,210 C 10,188 50,212 90,198 C 130,182 170,215 210,200 C 225,192 235,208 300,212 L 240,228 C 200,236 160,218 120,230 C 80,238 40,218 -30,228 Z" fill="url(#cloudGradPurple)"/>
+</g>
+
+<!-- 貫穿底部雙線托架（無如意捲） -->
 <g class="ruyi-adjustable-group">
-    <defs>
-        <!-- 前景金光漸層 -->
-        <linearGradient id="ruyiLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#E5A853" stop-opacity="0.2"/>
-            <stop offset="20%" stop-color="#FCEBB6" stop-opacity="0.95"/>
-            <stop offset="50%" stop-color="#FFF8E7" stop-opacity="1"/>
-            <stop offset="80%" stop-color="#FCEBB6" stop-opacity="0.95"/>
-            <stop offset="100%" stop-color="#E5A853" stop-opacity="0.2"/>
-        </linearGradient>
-    </defs>
-
-    <!-- 以 (100, 225) 為中心基準點 -->
-    <g transform="translate(100, -15)">
+    <g transform="translate(100, -5)">
         <g fill="none" stroke-linecap="round">
-
-            <!-- ===== 第一層：柔和暗金襯邊 ===== -->
+            <!-- 第一層：柔和暗金襯底線 -->
             <g stroke="#3a2e18" stroke-width="4" opacity="0.65">
-                <!-- 1. 貫穿底部的長雲托線 -->
                 <path d="M -160,225 C -80,235 80,235 160,225"/>
                 <path d="M -130,231 C -60,238 60,238 130,231"/>
-
-                <!-- === 左側雙層如意捲 === -->
-                <path d="M -110,225 C -122.5,225 -130,215 -125,205 C -120,195 -110,200 -112.5,207.5 C -115,212.5 -120,210 -117.5,205"/>
-                <path d="M -115,225 C -145,225 -165,190 -150,155 C -130,120 -105,135 -110,165 C -115,185 -130,180 -125,165"/>
-
-                <!-- === 右側雙層如意捲 === -->
-                <path d="M 110,225 C 122.5,225 130,215 125,205 C 120,195 110,200 112.5,207.5 C 115,212.5 120,210 117.5,205"/>
-                <path d="M 115,225 C 145,225 165,190 150,155 C 130,120 105,135 110,165 C 115,185 130,180 125,165"/>
             </g>
 
-            <!-- ===== 第二層：金色發光主線 ===== -->
+            <!-- 第二層：金色發光主托線 -->
             <g stroke="url(#ruyiLineGrad)" style="filter: drop-shadow(0px 0px 4px rgba(252, 235, 182, 0.6));">
-                <!-- 1. 貫穿底部的長雲托線 -->
                 <path d="M -160,225 C -80,235 80,235 160,225" stroke-width="2"/>
                 <path d="M -130,231 C -60,238 60,238 130,231" stroke-width="2" opacity="0.9"/>
-
-                <!-- === 左側雙層如意捲 === -->
-                <path d="M -110,225 C -122.5,225 -130,215 -125,205 C -120,195 -110,200 -112.5,207.5 C -115,212.5 -120,210 -117.5,205" stroke-width="1.8"/>
-                <path d="M -115,225 C -145,225 -165,190 -150,155 C -130,120 -105,135 -110,165 C -115,185 -130,180 -125,165" stroke-width="2.2"/>
-
-                <!-- === 右側雙層如意捲 === -->
-                <path d="M 110,225 C 122.5,225 130,215 125,205 C 120,195 110,200 112.5,207.5 C 115,212.5 120,210 117.5,205" stroke-width="1.8"/>
-                <path d="M 115,225 C 145,225 165,190 150,155 C 130,120 105,135 110,165 C 115,185 130,180 125,165" stroke-width="2.2"/>
             </g>
-
         </g>
-    </g> <!-- 補齊：對應 <g transform="translate(0, 5)"> -->
-</g> <!-- 補齊：對應 <g class="ruyi-adjustable-group"> -->
+    </g>
+</g>
 
             </svg>
         </div>
     </div>
 
-    <!-- 底部偈語文字 -->
-    <div id="profound-text">
-        <div>菩提之心 ． 歷劫不滅</div>
-        <div>一真法界 ． 本自如如</div>
-        <div id="sub-profound">萬行莊嚴 ． 功不唐捐</div>
-    </div>
 
 
     <div id="page-transition-curtain" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 999999; opacity: 0; pointer-events: none; transition: opacity 0.8s ease-in-out;"></div>
@@ -1774,20 +1759,17 @@ function startIntroEffect() {
     drawGatheringing();
     playGatherSound();
 
-    const textEl = document.getElementById('profound-text');
     const meditatorEl = document.getElementById('meditator-layer');
-    const pageMainEl = document.getElementById('page-main'); // 👈 1. 抓取主頁元素
+    const pageMainEl = document.getElementById('page-main');
 
-    if (textEl) textEl.style.opacity = '1';
     if (meditatorEl) meditatorEl.style.opacity = '1';
 
     setTimeout(() => {
         isGathering = false;
-        if (textEl) textEl.style.opacity = '0';
         if (meditatorEl) meditatorEl.style.opacity = '0';
         if (realmCanvas) realmCanvas.style.opacity = '0';
 
-        // 👈 2. 新增：動畫結束時顯示主介面並淡入
+        // 動畫結束時顯示主介面並淡入
         if (pageMainEl) {
             pageMainEl.style.display = 'flex';
             setTimeout(() => { pageMainEl.style.opacity = '1'; }, 50);
@@ -1798,8 +1780,9 @@ function startIntroEffect() {
             realmCanvas.style.display = 'none';
             if (meditatorEl) meditatorEl.style.display = 'none';
         }, 1000);
-    }, 6000); // 這裡請維持您原本設定的時間（如 6000 或其他毫秒數）
+    }, 6000);
 }
+
 
 
 window.addEventListener('click', initAudio, { once: true });
