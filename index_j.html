@@ -2768,13 +2768,14 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
     speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
 }
      
-     // ══════════════════════════════════════════════
+      // ══════════════════════════════════════════════
   //  左上角位階與升等圖示（蓮花 + 修行者尊像 安全整合版）
-  //  ※ 更新重點：
-  //    1) 中心圓盤放大並改為「燙金」雙層金圈，尊像重新置中縮放，避免與花瓣重疊
-  //    2) 十階蓮花花瓣配色移除灰／白色，改為通透感較強的柔和色系（花瓣形狀完全未動）
-  //    3) 尊像改為「重金→越來越金」的五種金色放射狀漸層（personGrad 改為 radialGradient）
-  //    4) 所有原有 id（svg-, lA, lB, personGrad-, rg-void, rg-center-base-, glo, sof）完全保留未動
+  //  ※ v4 更新重點：
+  //    1) 圓盤半徑 25 → 27，花瓣起始半徑 27 → 30，間距再拉開，解決腳頂出圓圈的問題
+  //    2) 移除人像正中央的白色光點裝飾圓
+  //    3) 人像本體與耳朵移除外框線（stroke），呈現乾淨實色剪影
+  //    4) 十階配色全面改為統一的「玻璃水晶」通透色系，並重新設計原本第 3、6、8 階的配色
+  //    5) 所有原有 id（svg-, lA, lB, personGrad-, rg-void, rg-center-base-, glo, sof）完全保留未動
   // ══════════════════════════════════════════════
   function getLotusSVG(rankType, nianCount = 0, overrideLevel = null) {
     // 【加固 1】確保資料尚未讀取完成時，系統不會崩潰
@@ -2800,12 +2801,13 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
     const cx = 50, cy = 50;
     const id = `svg-${Math.random().toString(36).substr(2, 5)}`; 
 
-    // ── 花瓣路徑生成器 (5-5 交錯十瓣比例)：形狀完全保留未動 ──
+    // ── 花瓣路徑生成器：形狀公式保留未動 ──
     function P(r0, r1, hw, bulge, shape) {
         const bx = cx, by = cy - r0, tx = cx, ty = cy - r1;
         const my = cy - (r0 + r1) / 2;
         if (shape === 'slim') return `M${bx - hw * .7} ${by} C${bx - bulge * .75} ${my} ${tx - 1.5} ${ty + 3} ${tx} ${ty} C${tx + 1.5} ${ty + 3} ${bx + bulge * .75} ${my} ${bx + hw * .7} ${by}Z`;
         if (shape === 'wide') return `M${bx - hw} ${by} C${bx - bulge * 1.35} ${my + 4} ${tx - bulge * .45} ${ty + 7} ${tx} ${ty} C${tx + bulge * .45} ${ty + 7} ${bx + bulge * 1.35} ${my + 4} ${bx + hw} ${by}Z`;
+        if (shape === 'point') return `M${bx - hw} ${by} C${bx - bulge * .6} ${my} ${tx - bulge * .2} ${ty + 4} ${tx} ${ty} C${tx + bulge * .2} ${ty + 4} ${bx + bulge * .6} ${my} ${bx + hw} ${by}Z`;
         return `M${bx - hw} ${by} C${bx - bulge} ${my} ${tx - bulge * .3} ${ty + 5} ${tx} ${ty} C${tx + bulge * .3} ${ty + 5} ${bx + bulge} ${my} ${bx + hw} ${by}Z`;
     }
 
@@ -2819,7 +2821,6 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
     }
 
     // ── 五位階色彩主題配置（供尊像與金圈使用）──
-    // 需求 3：從「重金色」開始，五種顏色皆屬金色系，但依序越來越金、越來越明亮通透
     const isRank = (t) => safeRank.includes(t);
     let themeColor = { main: '#8a6d1e', light: '#c9a227', dark: '#3a2c08' }; // 願(預設／重金色起點)
 
@@ -2840,14 +2841,14 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
         <filter id="glo${id}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         <filter id="sof${id}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.1" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         
-        <!-- 尊像：改為放射狀漸層，中心偏上（胸口／面容處）最亮，向外擴散至深金，模擬金光放射 -->
+        <!-- 尊像：放射狀漸層，中心偏上（胸口／面容處）最亮，向外擴散至深金，模擬金光放射 -->
         <radialGradient id="personGrad-${id}" cx="50%" cy="38%" r="75%">
             <stop offset="0%" stop-color="${c.light}"/>
             <stop offset="55%" stop-color="${c.main}"/>
             <stop offset="100%" stop-color="${c.dark}"/>
         </radialGradient>
 
-        <!-- 新增：燙金圓盤外框漸層（不影響任何原有 id） -->
+        <!-- 燙金圓盤外框漸層 -->
         <linearGradient id="goldRing-${id}" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#fff6d0"/>
             <stop offset="50%" stop-color="#ffd700"/>
@@ -2862,60 +2863,115 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
         </radialGradient>
     </defs>`;
 
-    const voidBg = `<circle cx="50" cy="50" r="42" fill="url(#rg-void)"><animate attributeName="r" values="41;43;41" dur="6s" repeatCount="indefinite"/></circle>`;
+    const voidBg = `<circle cx="50" cy="50" r="48" fill="url(#rg-void)"><animate attributeName="r" values="47;49;47" dur="6s" repeatCount="indefinite"/></circle>`;
 
-    // ── 中心圓底盤（放大＋燙金雙層外框）與修行者尊像（重新置中縮放，避免與花瓣重疊）──
-    // 說明：圓盤半徑由 21.8 放大到 23，並加上一層細金邊；尊像 scale 由 0.065 調整為 0.058、
-    // translate 重新計算讓人像視覺中心對齊圓心，頭頂與衣擺都能完整收在金圈內。
+    // ── 中心圓底盤（燙金雙層外框，半徑加大到 27）與修行者尊像（移除外框線）──
     const bgContent = `
-    <circle cx="${cx}" cy="${cy}" r="23.6" fill="none" stroke="#ffefb0" stroke-width="0.5" opacity="0.7"/>
-    <circle cx="${cx}" cy="${cy}" r="23" fill="url(#rg-center-base-${id})" stroke="url(#goldRing-${id})" stroke-width="1.4"/>
-    <g transform="translate(${cx - 29}, ${cy - 27.5}) scale(0.058)" opacity="0.97" filter="url(#glo${id})">
-        <!-- 尊像主體 -->
+    <circle cx="${cx}" cy="${cy}" r="27.7" fill="none" stroke="#ffefb0" stroke-width="0.5" opacity="0.7"/>
+    <circle cx="${cx}" cy="${cy}" r="27" fill="url(#rg-center-base-${id})" stroke="url(#goldRing-${id})" stroke-width="1.4"/>
+    <g transform="translate(${cx - 30}, ${cy - 31.6}) scale(0.06)" opacity="0.97" filter="url(#glo${id})">
+        <!-- 尊像主體（無外框線） -->
         <path d="M 500 108 C 506 108, 508 114, 508 118 C 522 118, 524 145, 510 155 C 550 155, 565 170, 565 220 C 565 250, 563 275, 558 295 C 553 312, 549 324, 544 330 C 542 336, 544 352, 550 370 C 610 370, 650 400, 670 480 C 690 560, 680 660, 650 700 C 720 680, 800 700, 830 750 C 860 800, 830 840, 770 840 L 230 840 C 170 840, 140 800, 170 750 C 200 700, 280 680, 350 700 C 320 660, 310 560, 330 480 C 350 400, 390 370, 450 370 C 456 352, 458 336, 456 330 C 451 324, 447 312, 442 295 C 437 275, 435 250, 435 220 C 435 170, 450 155, 490 155 C 476 145, 478 118, 492 118 C 492 114, 494 108, 500 108 Z" 
-              fill="url(#personGrad-${id})" stroke="${c.light}" stroke-width="7" />
-        <!-- 耳朵細節 -->
-        <path d="M 435 220 Q 427 205 426 220 Q 418 270 434 320 Q 428 380 454 330" fill="url(#personGrad-${id})" stroke="${c.light}" stroke-width="6" />
-        <path d="M 565 220 Q 573 205 574 220 Q 582 270 566 320 Q 572 380 546 330" fill="url(#personGrad-${id})" stroke="${c.light}" stroke-width="6" />
+              fill="url(#personGrad-${id})" stroke="none" />
+        <!-- 耳朵細節（無外框線） -->
+        <path d="M 435 220 Q 427 205 426 220 Q 418 270 434 320 Q 428 380 454 330" fill="url(#personGrad-${id})" stroke="none" />
+        <path d="M 565 220 Q 573 205 574 220 Q 582 270 566 320 Q 572 380 546 330" fill="url(#personGrad-${id})" stroke="none" />
     </g>
-    <circle cx="${cx}" cy="${cy}" r="23" fill="none" stroke="#000000" stroke-width="0.4" opacity="0.5"/>
+    <circle cx="${cx}" cy="${cy}" r="27" fill="none" stroke="#000000" stroke-width="0.4" opacity="0.5"/>
     `;
 
-    // ── 十階蓮花演化：花瓣「形狀」完全保留未動，僅將配色中的灰／白改為通透柔色系 ──
+    // ── 十階蓮花演化：統一「玻璃水晶」通透色系，花瓣起始半徑統一改為 30（往外推，與圓盤留出更大間隙）──
     let lotusContent = '';
 
-    if (nLevel === 1) { // [0] 初發心 → 柔霧薄粉（原白瓷銀，移除灰白）
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#ffe9f2" stop-opacity="0.85"/><stop offset="100%" stop-color="#ffc2d9" stop-opacity="0.5"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="65%" r="100%"><stop offset="0%" stop-color="#fff0f7" stop-opacity="0.8"/><stop offset="100%" stop-color="#ffd6e8" stop-opacity="0.55"/></radialGradient></defs>
-        ${rotatedPetals(8,22,46,7,11,'round',`url(#lA${id})`,.85)}${rotatedPetals(8,22,38,5.5,8,'round',`url(#lB${id})`,.6,22.5)}`;
-    } else if (nLevel === 2) { // [10] 十念圓滿 → 玫瑰金（降低泛白）
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#ffd9d9" stop-opacity="0.85"/><stop offset="100%" stop-color="#e28a8a" stop-opacity="0.6"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="65%" r="100%"><stop offset="0%" stop-color="#ffe6e6" stop-opacity="0.8"/><stop offset="100%" stop-color="#f0a8a8" stop-opacity="0.65"/></radialGradient></defs>
-        ${rotatedPetals(8,22,46,7,11,'round',`url(#lA${id})`,.85)}${rotatedPetals(8,22,38,5.5,8,'round',`url(#lB${id})`,.65,22.5)}`;
-    } else if (nLevel === 3) { // [500] 一念清淨 → 琉璃粉
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#ffd6e6"/><stop offset="100%" stop-color="#f48fb1" stop-opacity=".7"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="65%" r="100%"><stop offset="0%" stop-color="#ffe0ee"/><stop offset="100%" stop-color="#f8bbd0" stop-opacity=".8"/></radialGradient></defs>
-        ${rotatedPetals(8,22,46,7,11,'round',`url(#lA${id})`,.9)}${rotatedPetals(8,22,38,5.5,8,'round',`url(#lB${id})`,.68,22.5)}`;
-    } else if (nLevel === 4) { // [5000] 淨念相繼 → 冰晶藍
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="72%" r="100%"><stop offset="0%" stop-color="#dff6ff" stop-opacity="0.85"/><stop offset="100%" stop-color="#7dcdfb" stop-opacity="0.65"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="58%" r="100%"><stop offset="0%" stop-color="#e3f7ff" stop-opacity="0.8"/><stop offset="100%" stop-color="#a9def7" stop-opacity="0.7"/></radialGradient></defs>
-        ${rotatedPetals(8,22,46,9,14,'wide',`url(#lA${id})`,.85)}${rotatedPetals(8,22,37,6,9,'wide',`url(#lB${id})`,.58,22.5)}`;
-    } else if (nLevel === 5) { // [1萬] 信願具足 → 翡翠玉
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="78%" r="100%"><stop offset="0%" stop-color="#dff5f2"/><stop offset="100%" stop-color="#78c4bc" stop-opacity=".75"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="62%" r="100%"><stop offset="0%" stop-color="#e0f7fa"/><stop offset="100%" stop-color="#a7dcd7" stop-opacity=".8"/></radialGradient></defs>
-        ${rotatedPetals(10,22,46,6,9,'point',`url(#lA${id})`,.88)}${rotatedPetals(10,22,36,4,6,'slim',`url(#lB${id})`,.58,18)}`;
-    } else if (nLevel === 6) { // [10萬] 一心專念 → 月光琉璃
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="78%" r="100%"><stop offset="0%" stop-color="#e1f5fe"/><stop offset="100%" stop-color="#7fb8f5" stop-opacity=".65"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="62%" r="100%"><stop offset="0%" stop-color="#eef6c8" stop-opacity="0.4"/><stop offset="100%" stop-color="#a3d6d0" stop-opacity=".7"/></radialGradient></defs>
-        ${rotatedPetals(10,22,47,6.5,10,'point',`url(#lA${id})`,.88)}${rotatedPetals(10,22,38,4.5,7,'slim',`url(#lB${id})`,.72,18)}`;
-    } else if (nLevel === 7) { // [50萬] 都攝六根 → 珍珠彩虹（移除淺灰）
-        const cols = ['#ffcdd2','#ffe0b2','#fff9c4','#dcedc8','#b2dfdb','#b3e5fc','#c5cae9','#e1bee7','#f8bbd0','#e0d4ff'];
-        let out = Array.from({length:10}, (_, i) => `<path d="${P(22,46,7.5,11,'round')}" fill="${cols[i]}" opacity=".82" transform="rotate(${i*36} ${cx} ${cy})"/>`).join('');
-        let inv = Array.from({length:10}, (_, i) => `<path d="${P(22,38,5.5,8,'round')}" fill="${cols[(i+5)%10]}" opacity=".6" transform="rotate(${i*36 + 18} ${cx} ${cy})"/>`).join('');
-        lotusContent = out + inv;
-    } else if (nLevel === 8) { // [100萬] 潛通佛智 → 紫霞仙金
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#fff9c4" stop-opacity="0.88"/><stop offset="100%" stop-color="#ce93d8" stop-opacity=".78"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="65%" r="100%"><stop offset="0%" stop-color="#fdeaff" stop-opacity="0.78"/><stop offset="100%" stop-color="#e1bee7" stop-opacity=".82"/></radialGradient></defs>
-        ${rotatedPetals(10,22,47,7,12,'wide',`url(#lA${id})`,.92)}${rotatedPetals(10,22,38,5,8,'round',`url(#lB${id})`,.72,18)}`;
-    } else if (nLevel === 9) { // [1000萬] 機法深信 → 耀眼純金（移除純白）
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="73%" r="100%"><stop offset="0%" stop-color="#fffbe0"/><stop offset="100%" stop-color="#ffd54f" stop-opacity=".88"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="63%" r="100%"><stop offset="0%" stop-color="#fff8dc"/><stop offset="100%" stop-color="#ffe082" stop-opacity=".85"/></radialGradient></defs>
-        ${rotatedPetals(8,22,47,8.5,12,'round',`url(#lA${id})`,.92)}${rotatedPetals(8,22,44,8,11,'round',`url(#lB${id})`,.85,22.5)}`;
-    } else { // [1億] 至心歸命 → 圓滿琉璃金（移除純白）
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#fff4c2"/><stop offset="100%" stop-color="#ffca28" stop-opacity=".9"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="65%" r="100%"><stop offset="0%" stop-color="#fff3c4"/><stop offset="100%" stop-color="#ffb300" stop-opacity=".85"/></radialGradient></defs>
-        ${rotatedPetals(12,22,48,7,10,'round',`url(#lA${id})`,.96)}${rotatedPetals(12,22,42,6,8.5,'round',`url(#lB${id})`,.88,15)}${rotatedPetals(12,22,34,4.5,6.5,'round',`url(#lA${id})`,.78,7.5)}`;
+    if (nLevel === 1) { // [0] 初發心 → 玫瑰水晶玻璃
+        lotusContent = `<defs>
+        <radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#fff5f8" stop-opacity="0.7"/><stop offset="50%" stop-color="#ffc2d6" stop-opacity="0.55"/><stop offset="100%" stop-color="#ff9fc0" stop-opacity="0.4"/></radialGradient>
+        <radialGradient id="lB${id}" cx="50%" cy="62%" r="100%"><stop offset="0%" stop-color="#fff0f5" stop-opacity="0.65"/><stop offset="100%" stop-color="#ffb8d0" stop-opacity="0.45"/></radialGradient>
+        <radialGradient id="lC-${id}" cx="50%" cy="50%" r="100%"><stop offset="0%" stop-color="#fff8fb" stop-opacity="0.8"/><stop offset="100%" stop-color="#ff7fa8" stop-opacity="0.6"/></radialGradient>
+        </defs>
+        ${rotatedPetals(10,30,49,8.5,13,'round',`url(#lA${id})`,.85)}
+        ${rotatedPetals(10,30,41,6.5,10,'wide',`url(#lB${id})`,.7,18)}
+        ${rotatedPetals(8,30,35,4,6,'point',`url(#lC-${id})`,.8,22.5)}`;
+    } else if (nLevel === 2) { // [10] 十念圓滿 → 珊瑚玻璃
+        lotusContent = `<defs>
+        <radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#fff6f0" stop-opacity="0.7"/><stop offset="50%" stop-color="#ffceb0" stop-opacity="0.55"/><stop offset="100%" stop-color="#ff9d73" stop-opacity="0.42"/></radialGradient>
+        <radialGradient id="lB${id}" cx="50%" cy="62%" r="100%"><stop offset="0%" stop-color="#fff0e6" stop-opacity="0.65"/><stop offset="100%" stop-color="#ffb98f" stop-opacity="0.48"/></radialGradient>
+        <radialGradient id="lC-${id}" cx="50%" cy="50%" r="100%"><stop offset="0%" stop-color="#fff9f2" stop-opacity="0.8"/><stop offset="100%" stop-color="#ff7a45" stop-opacity="0.62"/></radialGradient>
+        </defs>
+        ${rotatedPetals(10,30,49,8.5,13,'round',`url(#lA${id})`,.85)}
+        ${rotatedPetals(10,30,41,6.5,10,'round',`url(#lB${id})`,.7,18)}
+        ${rotatedPetals(8,30,35,4,6,'slim',`url(#lC-${id})`,.8,22.5)}`;
+    } else if (nLevel === 3) { // [500] 一念清淨 → 紫水晶玻璃（重新設計）
+        lotusContent = `<defs>
+        <radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#f8f0ff" stop-opacity="0.7"/><stop offset="50%" stop-color="#d6b3f0" stop-opacity="0.55"/><stop offset="100%" stop-color="#b280e0" stop-opacity="0.45"/></radialGradient>
+        <radialGradient id="lB${id}" cx="50%" cy="62%" r="100%"><stop offset="0%" stop-color="#f3e8ff" stop-opacity="0.65"/><stop offset="100%" stop-color="#c9a0e8" stop-opacity="0.48"/></radialGradient>
+        <radialGradient id="lC-${id}" cx="50%" cy="50%" r="100%"><stop offset="0%" stop-color="#faf3ff" stop-opacity="0.8"/><stop offset="100%" stop-color="#9955cc" stop-opacity="0.62"/></radialGradient>
+        </defs>
+        ${rotatedPetals(12,30,49,7.5,12,'point',`url(#lA${id})`,.86)}
+        ${rotatedPetals(12,30,42,5.5,9,'wide',`url(#lB${id})`,.7,15)}
+        ${rotatedPetals(8,30,36,4,6,'slim',`url(#lC-${id})`,.8,22.5)}`;
+    } else if (nLevel === 4) { // [5000] 淨念相繼 → 藍冰玻璃
+        lotusContent = `<defs>
+        <radialGradient id="lA${id}" cx="50%" cy="72%" r="100%"><stop offset="0%" stop-color="#f0faff" stop-opacity="0.7"/><stop offset="50%" stop-color="#b3e0f7" stop-opacity="0.55"/><stop offset="100%" stop-color="#7cc6ec" stop-opacity="0.42"/></radialGradient>
+        <radialGradient id="lB${id}" cx="50%" cy="58%" r="100%"><stop offset="0%" stop-color="#eaf7ff" stop-opacity="0.65"/><stop offset="100%" stop-color="#9fd8f0" stop-opacity="0.48"/></radialGradient>
+        <radialGradient id="lC-${id}" cx="50%" cy="50%" r="100%"><stop offset="0%" stop-color="#f5fbff" stop-opacity="0.8"/><stop offset="100%" stop-color="#5cb8e0" stop-opacity="0.62"/></radialGradient>
+        </defs>
+        ${rotatedPetals(10,30,49,9.5,15,'wide',`url(#lA${id})`,.84)}
+        ${rotatedPetals(10,30,41,6.5,10,'wide',`url(#lB${id})`,.68,18)}
+        ${rotatedPetals(8,30,35,4,6,'point',`url(#lC-${id})`,.8,22.5)}`;
+    } else if (nLevel === 5) { // [1萬] 信願具足 → 翡翠玻璃
+        lotusContent = `<defs>
+        <radialGradient id="lA${id}" cx="50%" cy="78%" r="100%"><stop offset="0%" stop-color="#f0fff5" stop-opacity="0.7"/><stop offset="50%" stop-color="#b3ecc9" stop-opacity="0.55"/><stop offset="100%" stop-color="#7ed9a3" stop-opacity="0.42"/></radialGradient>
+        <radialGradient id="lB${id}" cx="50%" cy="62%" r="100%"><stop offset="0%" stop-color="#eafff2" stop-opacity="0.65"/><stop offset="100%" stop-color="#9fe6bb" stop-opacity="0.48"/></radialGradient>
+        <radialGradient id="lC-${id}" cx="50%" cy="50%" r="100%"><stop offset="0%" stop-color="#f6fff9" stop-opacity="0.8"/><stop offset="100%" stop-color="#5cc98a" stop-opacity="0.62"/></radialGradient>
+        </defs>
+        ${rotatedPetals(12,30,49,6.5,10,'point',`url(#lA${id})`,.85)}
+        ${rotatedPetals(12,30,41,4.5,7,'slim',`url(#lB${id})`,.68,15)}
+        ${rotatedPetals(10,30,36,3.5,5,'slim',`url(#lC-${id})`,.78,18)}`;
+    } else if (nLevel === 6) { // [10萬] 一心專念 → 星空藍紫玻璃（重新設計）
+        lotusContent = `<defs>
+        <radialGradient id="lA${id}" cx="50%" cy="78%" r="100%"><stop offset="0%" stop-color="#f2f2ff" stop-opacity="0.7"/><stop offset="50%" stop-color="#b8bdf0" stop-opacity="0.55"/><stop offset="100%" stop-color="#8890e0" stop-opacity="0.45"/></radialGradient>
+        <radialGradient id="lB${id}" cx="50%" cy="62%" r="100%"><stop offset="0%" stop-color="#ecedff" stop-opacity="0.65"/><stop offset="100%" stop-color="#a3a9ec" stop-opacity="0.48"/></radialGradient>
+        <radialGradient id="lC-${id}" cx="50%" cy="50%" r="100%"><stop offset="0%" stop-color="#f7f7ff" stop-opacity="0.8"/><stop offset="100%" stop-color="#6b73cc" stop-opacity="0.62"/></radialGradient>
+        </defs>
+        ${rotatedPetals(12,30,49,7,11,'point',`url(#lA${id})`,.85)}
+        ${rotatedPetals(12,30,42,5,7.5,'slim',`url(#lB${id})`,.72,15)}
+        ${rotatedPetals(10,30,36,3.5,5,'slim',`url(#lC-${id})`,.8,18)}`;
+    } else if (nLevel === 7) { // [50萬] 都攝六根 → 彩虹玻璃
+        const cols = ['#ffd6da','#ffe6c2','#fff6c2','#d7f3d0','#c6f0ee','#c9e3fb','#ded1f7','#f6d3f5','#ffd3e6','#ffe0cf'];
+        const cols2 = ['#ffb3ba','#ffd08a','#fff08a','#a8e6a0','#9fe4e0','#a3cdf5','#c3aef2','#eeaeee','#ffaecb','#ffc09e'];
+        let out = Array.from({length:10}, (_, i) => `<path d="${P(30,49,8,12,'round')}" fill="${cols[i]}" opacity=".68" transform="rotate(${i*36} ${cx} ${cy})"/>`).join('');
+        let mid = Array.from({length:10}, (_, i) => `<path d="${P(30,41,6,9,'wide')}" fill="${cols2[i]}" opacity=".55" transform="rotate(${i*36 + 18} ${cx} ${cy})"/>`).join('');
+        let inv = Array.from({length:8}, (_, i) => `<path d="${P(30,35,3.5,5,'point')}" fill="${cols[(i+4)%10]}" opacity=".7" transform="rotate(${i*45 + 9} ${cx} ${cy})"/>`).join('');
+        lotusContent = out + mid + inv;
+    } else if (nLevel === 8) { // [100萬] 潛通佛智 → 紫金玻璃（重新設計）
+        lotusContent = `<defs>
+        <radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#fff8e8" stop-opacity="0.7"/><stop offset="50%" stop-color="#e6c98a" stop-opacity="0.55"/><stop offset="100%" stop-color="#cfa347" stop-opacity="0.45"/></radialGradient>
+        <radialGradient id="lB${id}" cx="50%" cy="62%" r="100%"><stop offset="0%" stop-color="#f5eaff" stop-opacity="0.65"/><stop offset="100%" stop-color="#c9a0e8" stop-opacity="0.5"/></radialGradient>
+        <radialGradient id="lC-${id}" cx="50%" cy="50%" r="100%"><stop offset="0%" stop-color="#fff6d8" stop-opacity="0.82"/><stop offset="100%" stop-color="#ffcf40" stop-opacity="0.62"/></radialGradient>
+        </defs>
+        ${rotatedPetals(12,30,49,7.5,12,'wide',`url(#lA${id})`,.86)}
+        ${rotatedPetals(12,30,42,5.5,8.5,'round',`url(#lB${id})`,.7,15)}
+        ${rotatedPetals(10,30,36,3.5,5.5,'point',`url(#lC-${id})`,.8,18)}`;
+    } else if (nLevel === 9) { // [1000萬] 機法深信 → 橙金玻璃
+        lotusContent = `<defs>
+        <radialGradient id="lA${id}" cx="50%" cy="73%" r="100%"><stop offset="0%" stop-color="#fff6e0" stop-opacity="0.72"/><stop offset="50%" stop-color="#ffce85" stop-opacity="0.58"/><stop offset="100%" stop-color="#ffa53d" stop-opacity="0.46"/></radialGradient>
+        <radialGradient id="lB${id}" cx="50%" cy="60%" r="100%"><stop offset="0%" stop-color="#fff1d0" stop-opacity="0.68"/><stop offset="100%" stop-color="#ffbc63" stop-opacity="0.5"/></radialGradient>
+        <radialGradient id="lC-${id}" cx="50%" cy="50%" r="100%"><stop offset="0%" stop-color="#fff9e6" stop-opacity="0.82"/><stop offset="100%" stop-color="#ff9d1f" stop-opacity="0.64"/></radialGradient>
+        </defs>
+        ${rotatedPetals(10,30,49,8.5,13,'round',`url(#lA${id})`,.88)}
+        ${rotatedPetals(10,30,42,7,11,'round',`url(#lB${id})`,.72,18)}
+        ${rotatedPetals(10,30,36,4.5,6.5,'point',`url(#lC-${id})`,.8,18)}`;
+    } else { // [1億] 至心歸命 → 焰金玻璃圓滿
+        lotusContent = `<defs>
+        <radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#fffbe0" stop-opacity="0.78"/><stop offset="50%" stop-color="#ffe082" stop-opacity="0.62"/><stop offset="100%" stop-color="#ffb300" stop-opacity="0.5"/></radialGradient>
+        <radialGradient id="lB${id}" cx="50%" cy="63%" r="100%"><stop offset="0%" stop-color="#fff6c8" stop-opacity="0.72"/><stop offset="100%" stop-color="#ffc94d" stop-opacity="0.55"/></radialGradient>
+        <radialGradient id="lC-${id}" cx="50%" cy="50%" r="100%"><stop offset="0%" stop-color="#fffde6" stop-opacity="0.85"/><stop offset="100%" stop-color="#ffab00" stop-opacity="0.68"/></radialGradient>
+        </defs>
+        ${rotatedPetals(14,30,49,7,10.5,'round',`url(#lA${id})`,.9)}
+        ${rotatedPetals(14,30,42,5.5,8,'round',`url(#lB${id})`,.78,12.86)}
+        ${rotatedPetals(10,30,36,4,6,'point',`url(#lC-${id})`,.82,18)}
+        ${rotatedPetals(8,30,33,2.5,4,'slim',`#fff9c4`,.6,22.5)}`;
     }
 
     return `
@@ -2924,9 +2980,11 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
         <g filter="url(#sof${id})" style="transform-origin: 50px 50px; animation: lotus-overall-breathing 4s infinite ease-in-out;">
             ${lotusContent}
         </g>
-        <circle cx="50" cy="50" r="1.8" fill="#ffffff" opacity=".95" filter="url(#glo${id})"/>
     </svg>`;
 }
+
+
+
 
   
 // 🌟 獨立沙盒：天數蓮花生成引擎 (中文版專用 - 無量金光加強版)
