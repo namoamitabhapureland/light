@@ -2777,7 +2777,7 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
   //    4) 十階配色全面改為統一的「玻璃水晶」通透色系，並重新設計原本第 3、6、8 階的配色
   //    5) 所有原有 id（svg-, lA, lB, personGrad-, rg-void, rg-center-base-, glo, sof）完全保留未動
   // ══════════════════════════════════════════════
-  function getLotusSVG(rankType, nianCount = 0, overrideLevel = null) {
+   function getLotusSVG(rankType, nianCount = 0, overrideLevel = null) {
     const safeRank = rankType || ""; 
     
     let nLevel = 1;
@@ -2816,14 +2816,27 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
         return s;
     }
 
-    // 主題尊像色調
+    // 五階尊像色調微調 (信/願/行/善/德)
     const isRank = (t) => safeRank.includes(t);
-    let themeColor = { main: '#8a6d1e', light: '#c9a227', dark: '#3a2c08' };
+    
+  
 
-    if (isRank('信') || isRank('Faith')) themeColor = { main: '#b8860b', light: '#d9b54a', dark: '#4a3606' };
-    else if (isRank('行') || isRank('Practice')) themeColor = { main: '#daa520', light: '#f0c952', dark: '#5c4310' };
-    else if (isRank('善') || isRank('Goodness')) themeColor = { main: '#ffc72c', light: '#ffe066', dark: '#7a5c00' };
-    else if (isRank('德') || isRank('Virtue')) themeColor = { main: '#ffd700', light: '#fffbe6', dark: '#9c7600' };
+    if (isRank('信') || isRank('Faith')) {
+        // 信：白色多的白金 (純潔光采)
+        themeColor = { top: '#FFF0AC', mid: '#FFBB77', bot: '#000000' };
+    } else if (isRank('願') || isRank('Vow')) {
+        // 願：藍色白金 (深邃湛藍帶白金光)
+        themeColor = { top: '#e6f2ff', mid: '#FF9D6F', bot: '#0b2545' };
+    } else if (isRank('行') || isRank('Practice')) {
+        // 行：白紅金 (小白紅金、勇猛活力)
+        themeColor = { top: '#fff0f0', mid: '#FF8000', bot: '#FFAF60' };
+    } else if (isRank('善') || isRank('Goodness')) {
+        // 善：明亮黃金 (溫暖輝煌)
+        themeColor = { top: '#fffbe6', mid: '#ffd700', bot: '#FFE153' };
+    } else if (isRank('德') || isRank('Virtue')) {
+        // 德：至尊燙金 (重金質感)
+        themeColor = { top: '#C6A300', mid: '#EAC100', bot: '#FFDC35' };
+    }
     const c = themeColor;
 
     // 精緻調色盤
@@ -2834,13 +2847,13 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
         lv4:  { t: "#f3e5f5", m: "#ba68c8", b: "#7b1fa2", o: 0.9 },
         lv5:  { t: "#e1f5fe", m: "#29b6f6", b: "#0277bd", o: 0.9 },
         lv6:  { t: "#ffebee", m: "#e53935", b: "#b71c1c", o: 0.9 },
-        // Lv.7 摩尼幻彩：高透光玻璃質感漸層調色板 (整體降低透明度)
-        lv7_1: { t: "#ffffff", m: "#ff4081", b: "#c2185b", o: 0.60 }, // 粉紅 (清透)
-        lv7_2: { t: "#ffffff", m: "#00e5ff", b: "#00838f", o: 0.45 }, // 天藍 (極透)
-        lv7_3: { t: "#ffffff", m: "#b388ff", b: "#6200ea", o: 0.55 }, // 紫羅蘭 (半透)
-        lv7_4: { t: "#ffffff", m: "#00e676", b: "#008744", o: 0.40 }, // 翡翠綠 (極透)
-        lv7_5: { t: "#ffffff", m: "#ffd700", b: "#ff8f00", o: 0.65 }, // 璀璨金 (軟實)
-        lv7_6: { t: "#ffffff", m: "#ff6e40", b: "#d84315", o: 0.50 }, // 琥珀橙 (半透)
+        // Lv.7 摩尼幻彩：高透光玻璃質感漸層調色板
+        lv7_1: { t: "#ffffff", m: "#ff4081", b: "#c2185b", o: 0.60 },
+        lv7_2: { t: "#ffffff", m: "#00e5ff", b: "#00838f", o: 0.45 },
+        lv7_3: { t: "#ffffff", m: "#b388ff", b: "#6200ea", o: 0.55 },
+        lv7_4: { t: "#ffffff", m: "#00e676", b: "#008744", o: 0.40 },
+        lv7_5: { t: "#ffffff", m: "#ffd700", b: "#ff8f00", o: 0.65 },
+        lv7_6: { t: "#ffffff", m: "#ff6e40", b: "#d84315", o: 0.50 },
         lv8:  { t: "#f3e5f5", m: "#ab47bc", b: "#fbc02d", o: 0.9 },
         lv9:  { t: "#ffffff", m: "#fff9c4", b: "#fbc02d", o: 0.95 },
         lv10: { t: "#ffffff", m: "#ffd700", b: "#ff6f00", o: 1.0 }
@@ -2861,9 +2874,9 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
         <filter id="sof${id}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.1" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         
         <radialGradient id="personGrad-${id}" cx="50%" cy="38%" r="75%">
-            <stop offset="0%" stop-color="${c.light}"/>
-            <stop offset="55%" stop-color="${c.main}"/>
-            <stop offset="100%" stop-color="${c.dark}"/>
+            <stop offset="0%" stop-color="${c.top}"/>
+            <stop offset="50%" stop-color="${c.mid}"/>
+            <stop offset="100%" stop-color="${c.bot}"/>
         </radialGradient>
 
         <linearGradient id="goldRing-${id}" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -2914,16 +2927,13 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
     let lotusContent = '';
 
     if (nLevel === 1) { 
-        // Lv.1: 胖胖水滴雙層包覆 (10+10)
         lotusContent = rotatedPetals(10, 34.5, 48.5, 6.8, 9.5, `url(#g-lv1-${id})`, .92) +
                        rotatedPetals(10, 34.5, 42.0, 5.2, 7.5, `url(#g-lv1-${id})`, .75, 18);
     } else if (nLevel === 2) { 
-        // Lv.2 升級：增加為 3 層包覆感 (10+10+8)
         lotusContent = rotatedPetals(10, 34.5, 48.5, 6.0, 8.5, `url(#g-lv2-${id})`, .90) +
                        rotatedPetals(10, 34.5, 43.0, 4.8, 6.8, `url(#g-lv2-${id})`, .78, 18) +
                        rotatedPetals(8, 34.5, 38.5, 3.5, 5.0, `url(#g-lv2-${id})`, .65, 0);
     } else if (nLevel === 3) { 
-        // Lv.3 升級：增加為 3 層更密的包覆結構 (12+12+10)
         lotusContent = rotatedPetals(12, 34.5, 48.8, 5.8, 8.0, `url(#g-lv3-${id})`, .90) +
                        rotatedPetals(12, 34.5, 43.5, 4.5, 6.2, `url(#g-lv3-${id})`, .80, 15) +
                        rotatedPetals(10, 34.5, 39.0, 3.2, 4.6, `url(#g-lv3-${id})`, .70, 0);
@@ -2940,7 +2950,6 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
                        rotatedPetals(14, 34.5, 43.5, 3.8, 5.2, `url(#g-lv6-${id})`, .82, 12.85) +
                        rotatedPetals(10, 34.5, 39.0, 3.2, 4.2, `url(#g-lv6-${id})`, .8, 0);
     } else if (nLevel === 7) { 
-        // Lv.7 升級：大幅增加透明度，減少硬實感，展現琉璃疊光效果
         lotusContent = rotatedPetals(4, 34.5, 49.5, 4.8, 6.8, `url(#g-lv7_1-${id})`, .60, 0) +
                        rotatedPetals(4, 34.5, 49.5, 4.8, 6.8, `url(#g-lv7_2-${id})`, .45, 30) +
                        rotatedPetals(4, 34.5, 49.5, 4.8, 6.8, `url(#g-lv7_3-${id})`, .55, 60) +
