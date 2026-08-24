@@ -1200,9 +1200,10 @@
         </div>
     </div>
 
+
     <div class="gold-divider"></div>
 
-     <div class="section-header">
+    <div class="section-header">
         <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
             <!-- 塔基底座 -->
             <path d="M4 21H20 M5.5 19.5H18.5 M7 18H17" stroke-width="1"/>
@@ -1218,7 +1219,8 @@
         每日定課 ． 動態行持
     </div>
 
-       <div class="scroll-rail" style="justify-content: center;">
+    <!-- 上方三張單卡滾動軌道 -->
+    <div class="scroll-rail" style="justify-content: center;">
         <div class="rail-card" id="realm-wheel" onclick="visitRealm('wheel.html', 'wheel')">
             <svg class="card-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="jade-wheel" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f3e5ab"/><stop offset="100%" stop-color="#d4af37"/></linearGradient></defs><circle cx="12" cy="12" r="10" fill="none" stroke="url(#jade-wheel)" stroke-width="1.5"/><circle cx="12" cy="12" r="8.5" fill="none" stroke="url(#jade-wheel)" stroke-width="0.5" stroke-dasharray="2 2"/><g stroke="url(#jade-wheel)" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="19.07" y2="4.93"/></g><circle cx="12" cy="12" r="3" fill="#111" stroke="url(#jade-wheel)" stroke-width="1.5"/><circle cx="12" cy="12" r="1" fill="#f3e5ab"/></svg>
             <div class="card-title">三轉法輪</div><div class="card-sub">轉心轉境</div>
@@ -1231,11 +1233,14 @@
             <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><defs><linearGradient id="jade-prajna" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#f3e5ab"/><stop offset="100%" stop-color="#d4af37"/></linearGradient></defs><path d="M12 2 C 16 8 20 12 12 22 C 4 12 8 8 12 2 Z" fill="rgba(212,175,55,0.12)" stroke="url(#jade-prajna)"/><path d="M12 22 C 16 18 18 14 12 8 C 6 14 8 18 12 22 Z" fill="none" stroke="url(#jade-prajna)" stroke-width="1" opacity="0.5"/><circle cx="12" cy="16" r="2" fill="#f3e5ab" stroke="none" filter="drop-shadow(0 0 4px #f3e5ab)"/></svg>
             <div class="card-title">般若智慧</div><div class="card-sub">破迷開悟</div>
         </div>
-    </div>     <div style="display: flex; gap: 12px; width: 92%; max-width: 450px; margin: 0 auto 15px auto;">
-        
-<div class="portal-btn" id="realm-water" style="flex: 1; margin: 0; padding: 15px 5px; flex-direction: column; justify-content: center; gap: 10px; text-align: center; background: linear-gradient(135deg, rgba(15,25,30,0.92), rgba(5,10,12,0.98)); border: 1px solid rgba(139,168,156,0.35);" onclick="visitRealm('water.html', 'water')">
+    </div>
 
-            <svg class="portal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px rgba(212,175,55,0.4));">
+    <!-- 雙欄平行卡片容器 (琉璃淨水 & 八十八佛) -->
+    <div style="display: flex; gap: 12px; width: 92%; max-width: 450px; margin: 0 auto 15px auto;">
+        
+        <!-- 左邊：琉璃淨水 -->
+        <div class="portal-btn" id="realm-water" style="flex: 1; margin: 0; padding: 15px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; background: linear-gradient(135deg, rgba(15,25,30,0.92), rgba(5,10,12,0.98)); border: 1px solid rgba(139,168,156,0.35); border-radius: 16px;" onclick="visitRealm('water.html', 'water')">
+            <svg class="portal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width: 28px; height: 28px; filter: drop-shadow(0 0 8px rgba(212,175,55,0.4));">
                 <defs>
                     <linearGradient id="lapis-water" x1="0%" y1="0%" x2="0%" y2="100%">
                         <stop offset="0%" stop-color="#8ba89c" stop-opacity="0.9"/>
@@ -1256,107 +1261,98 @@
             </div>
         </div>
 
-<!-- 八十八佛入口卡片 -->
-    <div class="portal-btn" id="realm-88buddhas" onclick="alert('點擊：八十八佛大懺悔文')">
+        <!-- 右邊：八十八佛 -->
+        <div class="portal-btn" id="realm-88buddhas" style="flex: 1; margin: 0; padding: 15px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; background: linear-gradient(135deg, rgba(15,25,30,0.92), rgba(5,10,12,0.98)); border: 1px solid rgba(139,168,156,0.35); border-radius: 16px;" onclick="visitRealm('88buddhas.html', '88buddhas')">
+            <svg class="portal-icon" viewBox="0 0 200 240" style="width: 32px; height: 38px; filter: drop-shadow(0 0 8px rgba(212,175,55,0.5));">
+                <defs>
+                    <linearGradient id="changJiGuangGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="30%" stop-color="#f3e5ab"/>
+                        <stop offset="100%" stop-color="#d4af37"/>
+                    </linearGradient>
+                    <radialGradient id="ushnishaGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="rgba(243,229,171,0.35)"/>
+                        <stop offset="100%" stop-color="rgba(212,175,55,0)"/>
+                    </radialGradient>
+                    <radialGradient id="baihaoGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="40%" stop-color="rgba(243,229,171,0.8)"/>
+                        <stop offset="100%" stop-color="rgba(212,175,55,0)"/>
+                    </radialGradient>
+                </defs>
 
+                <!-- 底層智慧慧光暈 -->
+                <circle cx="100" cy="110" r="85" fill="url(#ushnishaGlow)"/>
 
-<!-- 保持 1:1 的正方形 viewBox 與 32px * 32px 尺寸，圖案完美等比例不扭曲 -->
-<svg class="portal-icon" viewBox="0 0 200 200" style="width: 32px; height: 32px; filter: drop-shadow(0 0 8px rgba(212,175,55,0.5));">
+                <!-- 莊嚴肉髻螺發群 -->
+                <g id="fashen-ushnisha" transform="translate(-400, -25)" fill="url(#changJiGuangGold)" stroke="none">
+                    <circle cx="570" cy="200" r="6" />
+                    <circle cx="568" cy="187" r="6" />
+                    <circle cx="563" cy="174" r="6" />
+                    <circle cx="554" cy="162" r="7" />     
+                    <circle cx="543" cy="151" r="8.5" />   
+                    <circle cx="526" cy="144" r="10" />    
+                    <circle cx="430" cy="200" r="6" />
+                    <circle cx="432" cy="187" r="6" />
+                    <circle cx="437" cy="174" r="6" />
+                    <circle cx="446" cy="162" r="7" />     
+                    <circle cx="457" cy="151" r="8.5" />   
+                    <circle cx="526" cy="130" r="8" />    
+                    <circle cx="474" cy="144" r="10" />    
+                    <circle cx="474" cy="130" r="8" />    
+                    <circle cx="515" cy="118" r="8" />    
+                    <circle cx="485" cy="118" r="8" />    
+                    <circle cx="514" cy="175" r="7" />
+                    <circle cx="528" cy="179" r="8" />
+                    <circle cx="541" cy="184" r="8" />
+                    <circle cx="553" cy="189" r="8" />
+                    <circle cx="486" cy="175" r="7" />
+                    <circle cx="472" cy="179" r="8" />
+                    <circle cx="459" cy="184" r="8" />
+                    <circle cx="445" cy="189" r="8" />
+                    <circle cx="513" cy="164" r="7" />
+                    <circle cx="526" cy="168" r="6.5" />
+                    <circle cx="538" cy="174" r="6" />
+                    <circle cx="549" cy="182" r="6" />
+                    <circle cx="489" cy="164" r="7" />
+                    <circle cx="474" cy="168" r="6.5" />
+                    <circle cx="462" cy="174" r="6" />
+                    <circle cx="451" cy="182" r="6" />
+                    <circle cx="511" cy="155" r="7" />
+                    <circle cx="523" cy="155" r="6" />
+                    <circle cx="534" cy="161" r="6" />
+                    <circle cx="544" cy="169" r="6" />
+                    <circle cx="489" cy="155" r="7" />
+                    <circle cx="477" cy="155" r="6" />
+                    <circle cx="466" cy="161" r="6" />
+                    <circle cx="456" cy="169" r="6" />
+                    <circle cx="558" cy="185" r="6" /> 
+                    <circle cx="553" cy="172" r="6" /> 
+                    <circle cx="442" cy="185" r="6" /> 
+                    <circle cx="447" cy="172" r="6" /> 
+                    <circle cx="500" cy="135" r="20.5" fill="url(#changJiGuangGold)" stroke="#8B6508" stroke-width="0.5" />
+                    <circle cx="500" cy="108" r="9" fill="url(#changJiGuangGold)" stroke="#8B6508" stroke-width="0.5" />
+                    <circle cx="500" cy="155" r="8" />
+                    <circle cx="500" cy="164" r="7" />
+                    <circle cx="500" cy="175" r="7" />
+                    <circle cx="500" cy="184" r="4.1" />
+                    <circle cx="510" cy="182" r="4.3" />
+                    <circle cx="490" cy="182" r="4.3" />
+                    <circle cx="436" cy="199" r="5.8" />
+                    <circle cx="560" cy="199" r="5.8" />
+                    <circle cx="433" cy="207" r="3" />
+                    <circle cx="565" cy="207" r="3" />
+                    <circle cx="433" cy="212" r="2.7" />
+                    <circle cx="565" cy="212" r="2.7" />
+                </g>
 
-            <defs>
-                <!-- 佛頂常寂光金流色 -->
-                <linearGradient id="changJiGuangGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff"/>
-                    <stop offset="30%" stop-color="#f3e5ab"/>
-                    <stop offset="100%" stop-color="#d4af37"/>
-                </linearGradient>
-
-                <!-- 頂光柔和暈染 -->
-                <radialGradient id="ushnishaGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="rgba(243,229,171,0.35)"/>
-                    <stop offset="100%" stop-color="rgba(212,175,55,0)"/>
-                </radialGradient>
-
-                <!-- 白毫金光放射暈 -->
-                <radialGradient id="baihaoGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#ffffff"/>
-                    <stop offset="40%" stop-color="rgba(243,229,171,0.8)"/>
-                    <stop offset="100%" stop-color="rgba(212,175,55,0)"/>
-                </radialGradient>
-            </defs>
-
-            <!-- 底層智慧慧光暈 -->
-            <circle cx="100" cy="75" r="75" fill="url(#ushnishaGlow)"/>
-
-            <!-- 莊嚴肉髻螺發群 (位移精準垂直居中) -->
-            <g id="fashen-ushnisha" transform="translate(-400, -60)" fill="url(#changJiGuangGold)" stroke="none">
-                <circle cx="570" cy="200" r="6" />
-                <circle cx="568" cy="187" r="6" />
-                <circle cx="563" cy="174" r="6" />
-                <circle cx="554" cy="162" r="7" />     
-                <circle cx="543" cy="151" r="8.5" />   
-                <circle cx="526" cy="144" r="10" />    
-                <circle cx="430" cy="200" r="6" />
-                <circle cx="432" cy="187" r="6" />
-                <circle cx="437" cy="174" r="6" />
-                <circle cx="446" cy="162" r="7" />     
-                <circle cx="457" cy="151" r="8.5" />   
-                <circle cx="526" cy="130" r="8" />    
-                <circle cx="474" cy="144" r="10" />    
-                <circle cx="474" cy="130" r="8" />    
-                <circle cx="515" cy="118" r="8" />    
-                <circle cx="485" cy="118" r="8" />    
-                <circle cx="514" cy="175" r="7" />
-                <circle cx="528" cy="179" r="8" />
-                <circle cx="541" cy="184" r="8" />
-                <circle cx="553" cy="189" r="8" />
-                <circle cx="486" cy="175" r="7" />
-                <circle cx="472" cy="179" r="8" />
-                <circle cx="459" cy="184" r="8" />
-                <circle cx="445" cy="189" r="8" />
-                <circle cx="513" cy="164" r="7" />
-                <circle cx="526" cy="168" r="6.5" />
-                <circle cx="538" cy="174" r="6" />
-                <circle cx="549" cy="182" r="6" />
-                <circle cx="489" cy="164" r="7" />
-                <circle cx="474" cy="168" r="6.5" />
-                <circle cx="462" cy="174" r="6" />
-                <circle cx="451" cy="182" r="6" />
-                <circle cx="511" cy="155" r="7" />
-                <circle cx="523" cy="155" r="6" />
-                <circle cx="534" cy="161" r="6" />
-                <circle cx="544" cy="169" r="6" />
-                <circle cx="489" cy="155" r="7" />
-                <circle cx="477" cy="155" r="6" />
-                <circle cx="466" cy="161" r="6" />
-                <circle cx="456" cy="169" r="6" />
-                <circle cx="558" cy="185" r="6" /> 
-                <circle cx="553" cy="172" r="6" /> 
-                <circle cx="442" cy="185" r="6" /> 
-                <circle cx="447" cy="172" r="6" /> 
-                <circle cx="500" cy="135" r="20.5" fill="url(#changJiGuangGold)" stroke="#8B6508" stroke-width="0.5" />
-                <circle cx="500" cy="108" r="9" fill="url(#changJiGuangGold)" stroke="#8B6508" stroke-width="0.5" />
-                <circle cx="500" cy="155" r="8" />
-                <circle cx="500" cy="164" r="7" />
-                <circle cx="500" cy="175" r="7" />
-                <circle cx="500" cy="184" r="4.1" />
-                <circle cx="510" cy="182" r="4.3" />
-                <circle cx="490" cy="182" r="4.3" />
-                <circle cx="436" cy="199" r="5.8" />
-                <circle cx="560" cy="199" r="5.8" />
-                <circle cx="433" cy="207" r="3" />
-                <circle cx="565" cy="207" r="3" />
-                <circle cx="433" cy="212" r="2.7" />
-                <circle cx="565" cy="212" r="2.7" />
-            </g>
-
-            <!-- 眉間白毫金相 (調整 Y 軸至肉髻下方最佳對齊點) -->
-            <g id="baihao-group">
-                <circle cx="100" cy="158" r="11" fill="url(#baihaoGlow)"/>
-                <circle cx="100" cy="158" r="5" fill="none" stroke="var(--gold)" stroke-width="1" />
-                <circle cx="100" cy="158" r="3.2" fill="#ffffff" filter="drop-shadow(0 0 3px #fff)"/>
-            </g>
-        </svg>
+                <!-- 眉間白毫金相 (完美居中於肉髻下方) -->
+                <g id="baihao-group">
+                    <circle cx="100" cy="200" r="14" fill="url(#baihaoGlow)"/>
+                    <circle cx="100" cy="200" r="6" fill="none" stroke="var(--gold)" stroke-width="1.2" />
+                    <circle cx="100" cy="200" r="3.8" fill="#ffffff" filter="drop-shadow(0 0 4px #fff)"/>
+                </g>
+            </svg>
             <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; line-height: 1.2;">
                 <span style="color: var(--gold); letter-spacing: 2px; font-size: 0.95rem; text-shadow: 0 0 5px rgba(212,175,55,0.3); font-weight: bold;">八十八佛</span>
                 <span style="font-size: 0.65rem; color: rgba(243,229,171,0.7); letter-spacing: 1px;">大懺悔文</span>
@@ -1365,8 +1361,9 @@
 
     </div>
 
-
     <div class="gold-divider"></div>
+
+
 
        <div class="section-header">
         <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
