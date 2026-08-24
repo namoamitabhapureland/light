@@ -1259,8 +1259,10 @@
 <!-- 八十八佛入口卡片 -->
     <div class="portal-btn" id="realm-88buddhas" onclick="alert('點擊：八十八佛大懺悔文')">
 
-        <!-- 佛頂肉髻與眉間白毫 SVG (已為您將 ViewBox 及位移微調至完美中心) -->
-        <svg class="portal-icon" viewBox="0 0 200 170" style="width: 52px; height: 44px; filter: drop-shadow(0 0 8px rgba(212,175,55,0.5));">
+
+<!-- 保持 1:1 的正方形 viewBox 與 32px * 32px 尺寸，圖案完美等比例不扭曲 -->
+<svg class="portal-icon" viewBox="0 0 200 200" style="width: 32px; height: 32px; filter: drop-shadow(0 0 8px rgba(212,175,55,0.5));">
+
             <defs>
                 <!-- 佛頂常寂光金流色 -->
                 <linearGradient id="changJiGuangGold" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1345,7 +1347,6 @@
                 <circle cx="433" cy="207" r="3" />
                 <circle cx="565" cy="207" r="3" />
                 <circle cx="433" cy="212" r="2.7" />
-                <!-- 已修正漏掉的 r=" -->
                 <circle cx="565" cy="212" r="2.7" />
             </g>
 
