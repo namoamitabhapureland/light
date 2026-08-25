@@ -3525,20 +3525,21 @@ let lastBigSeedSVG = "";
         save(); 
         triggerLevelUpEffect(rank.l, rank.i);
     }
+// ✨【修復重點】：將五塔徽章亮起邏輯正確放回 updateUI 內部
+    const badgeTargets = [
+        { id: 'mb-信', active: currentDays >= 0 },
+        { id: 'mb-願', active: currentDays >= 100 },
+        { id: 'mb-行', active: currentDays >= 1100 },
+        { id: 'mb-善', active: currentDays >= 11100 },
+        { id: 'mb-德', active: currentDays >= 111100 }
+    ];
+
+    badgeTargets.forEach(item => {
+        const el = document.getElementById(item.id);
+        if (el) el.classList.toggle('active', item.active);
+    });
 }
 
-const badgeTargets = [
-    { id: 'mb-信', active: currentDays >= 0 },
-    { id: 'mb-願', active: currentDays >= 100 },
-    { id: 'mb-行', active: currentDays >= 1100 },
-    { id: 'mb-善', active: currentDays >= 11100 },
-    { id: 'mb-德', active: currentDays >= 111100 }
-];
-
-badgeTargets.forEach(item => {
-    const el = document.getElementById(item.id);
-    if (el) el.classList.toggle('active', item.active);
-});
 
 
 function save() { localStorage.setItem('PX_V15.0', JSON.stringify(db)); }
