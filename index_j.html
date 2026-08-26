@@ -632,6 +632,71 @@
 .bar-labels span { position:absolute; font-size:9px; color:rgba(243,229,171,0.6); letter-spacing:1px; transform:translateX(-50%); white-space:nowrap; }
 .bar-labels span::before { content:''; position:absolute; top:-8px; left:50%; transform:translateX(-50%); width:3px; height:3px; background:rgba(255,255,255,0.5); border-radius:50%; }
 
+     .tower-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    color: rgba(212, 175, 55, 0.25);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+}
+
+.tower-svg {
+    width: 26px;
+    height: 36px;
+    overflow: visible;
+}
+
+.t-text {
+    font-size: 9px;
+    font-weight: 800;
+    margin-top: 3px;
+    color: rgba(212, 175, 55, 0.55);
+    text-align: center;
+    transition: all 0.5s;
+    line-height: 1;
+}
+
+/* --- 亮起通用樣式 (光芒與相輪線條) --- */
+.tower-badge.active {
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.65));
+}
+
+.tower-badge.active .t-struct { 
+    stroke: #ffe58f; 
+}
+
+.tower-badge.active .t-jewel { 
+    fill: #ffffff; 
+    filter: drop-shadow(0 0 4px #ffd700); 
+}
+
+.tower-badge.active .t-text {
+    color: #ffffff;
+    font-weight: 900;
+    text-shadow: 0 0 4px rgba(212, 175, 55, 0.9);
+}
+
+/* --- 亮起時：依各塔呈現白、黃、金專屬填充色 --- */
+/* 1. 信塔 & 2. 願塔：淨白半透明 */
+#mb-信.active .t-struct[fill], 
+#mb-願.active .t-struct[fill] {
+    fill: rgba(255, 255, 255, 0.45) !important;
+}
+
+/* 3. 行塔：明黃色 */
+#mb-行.active .t-struct[fill] {
+    fill: rgba(255, 223, 0, 0.65) !important;
+}
+
+/* 4. 善塔 & 5. 德塔：莊嚴金色 */
+#mb-善.active .t-struct[fill], 
+#mb-德.active .t-struct[fill] {
+    fill: rgba(212, 175, 55, 0.7) !important;
+}
+
+
 /* 底部透明微型按鈕與掃光特效 */
 .btn-transparent-small { position: relative; overflow: hidden; background: transparent; border: 1px solid rgba(212,175,55,0.3); color: rgba(243,229,171,0.7); padding: 10px 15px; border-radius: 20px; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 6px; }
 .btn-transparent-small:active { background: rgba(212,175,55,0.15); color: var(--gold); border-color: var(--solid-gold); }
@@ -840,70 +905,7 @@
     transform: translateY(-12px) scale(0.95) !important;
     box-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 25px rgba(212,175,55,0.8) !important;
 }
-   .tower-badge {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    color: rgba(212, 175, 55, 0.25);
-    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
-}
-
-.tower-svg {
-    width: 26px;
-    height: 36px;
-    overflow: visible;
-}
-
-.t-text {
-    font-size: 9px;
-    font-weight: 800;
-    margin-top: 3px;
-    color: rgba(212, 175, 55, 0.55);
-    text-align: center;
-    transition: all 0.5s;
-    line-height: 1;
-}
-
-/* --- 亮起通用樣式 (光芒與相輪線條) --- */
-.tower-badge.active {
-    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.65));
-}
-
-.tower-badge.active .t-struct { 
-    stroke: #ffe58f; 
-}
-
-.tower-badge.active .t-jewel { 
-    fill: #ffffff; 
-    filter: drop-shadow(0 0 4px #ffd700); 
-}
-
-.tower-badge.active .t-text {
-    color: #ffffff;
-    font-weight: 900;
-    text-shadow: 0 0 4px rgba(212, 175, 55, 0.9);
-}
-
-/* --- 亮起時：依各塔呈現白、黃、金專屬填充色 --- */
-/* 1. 信塔 & 2. 願塔：淨白半透明 */
-#mb-信.active .t-struct[fill], 
-#mb-願.active .t-struct[fill] {
-    fill: rgba(255, 255, 255, 0.45) !important;
-}
-
-/* 3. 行塔：明黃色 */
-#mb-行.active .t-struct[fill] {
-    fill: rgba(255, 223, 0, 0.65) !important;
-}
-
-/* 4. 善塔 & 5. 德塔：莊嚴金色 */
-#mb-善.active .t-struct[fill], 
-#mb-德.active .t-struct[fill] {
-    fill: rgba(212, 175, 55, 0.7) !important;
-}
-
+  
 
 </style>
 
@@ -2881,7 +2883,7 @@ function triggerLevelUpEffect(rankName, svgHtml) {
                 navigateTo('realm_en.html'); 
             }
         }, 200);
-    }, 400);
+    }, 500);
 }
 
 
