@@ -599,7 +599,7 @@
         .bar-labels span::before { content:''; position:absolute; top:-8px; left:50%; transform:translateX(-50%); width:3px; height:3px; background:rgba(255,255,255,0.5); border-radius:50%; }
       
         /* 5badge */
-  .tower-badge {
+.tower-badge {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -625,55 +625,49 @@
     line-height: 1;
 }
 
-/* --- 點亮時的文字與頂珠通用 --- */
+/* --- 所有塔點亮時的通用金色光芒、線條與頂珠 --- */
+.tower-badge.active {
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.65));
+}
+
+.tower-badge.active .t-struct { 
+    stroke: #ffe58f; /* 塔尖線條、相輪、基底維持金色 */
+}
+
 .tower-badge.active .t-jewel { 
     fill: #ffffff; 
-    filter: drop-shadow(0 0 4px #ffffff); 
+    filter: drop-shadow(0 0 4px #ffd700); 
 }
 
 .tower-badge.active .t-text {
     color: #ffffff;
     font-weight: 900;
-    text-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 4px rgba(212, 175, 55, 0.9);
 }
 
 /* ==============================================
-   ✨ 核心修復：各塔點亮時的獨立顏色（光芒、線條、填充）
+   ✨ 僅中間塔身（帶 fill 屬性者）依階梯呈現專屬色彩
    ============================================== */
 
-/* 1. 信塔 & 2. 願塔：純淨白光＋白線＋白色半透明身 */
-#mb-信.active, #mb-願.active {
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
-}
-#mb-信.active .t-struct, #mb-願.active .t-struct {
-    stroke: #ffffff !important;
-}
-#mb-信.active path[fill], #mb-願.active path[fill] {
-    fill: rgba(255, 255, 255, 0.6) !important;
+/* 1. 信塔 & 2. 願塔：僅中間半圓弧呈現「淨白光」（線條白＋內色白） */
+#mb-信.active path[fill], 
+#mb-願.active path[fill] {
+    stroke: #fff275 !important;
+    fill: rgba(255, 255, 255, 0.8) !important;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.9));
 }
 
-/* 3. 行塔：明黃光＋黃線＋明黃色身 */
-#mb-行.active {
-    filter: drop-shadow(0 0 6px rgba(255, 223, 0, 0.8));
-}
-#mb-行.active .t-struct {
+/* 3. 行塔：僅中間矩形身呈現明黃色 */
+#mb-行.active rect[fill] {
     stroke: #fff275 !important;
-}
-#mb-行.active rect[fill], #mb-行.active path[fill] {
     fill: rgba(255, 223, 0, 0.65) !important;
 }
 
-/* 4. 善塔 & 5. 德塔：輝煌金光＋金線＋金色身 */
-#mb-善.active, #mb-德.active {
-    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.8));
-}
-#mb-善.active .t-struct, #mb-德.active .t-struct {
-    stroke: #ffe58f !important;
-}
-#mb-善.active path[fill], #mb-德.active path[fill] {
+/* 4. 善塔 & 5. 德塔：中間塔身呈現金色 */
+#mb-善.active path[fill], 
+#mb-德.active path[fill] {
     fill: rgba(212, 175, 55, 0.75) !important;
 }
-
 
 
         /* 底部透明微型按鈕與掃光 */
