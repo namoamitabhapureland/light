@@ -604,9 +604,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    color: rgba(212, 175, 55, 0.25);
+    color: rgba(212, 175, 55, 0.15); /* 暗態線條更暗 */
+    opacity: 0.35; /* 整座塔暗態更幽微 */
     transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+    filter: none;
 }
 
 .tower-svg {
@@ -615,23 +616,25 @@
     overflow: visible;
 }
 
+/* --- 1. 未亮起（暗態）文字為白色 --- */
 .t-text {
     font-size: 9px;
-    font-weight: 800;
+    font-weight: 700;
     margin-top: 3px;
-    color: rgba(212, 175, 55, 0.55);
+    color: rgba(255, 255, 255, 0.45); /* 暗態字體白色 */
     text-align: center;
     transition: all 0.5s;
     line-height: 1;
 }
 
-/* --- 所有塔點亮時的通用金色光芒、線條與頂珠 --- */
+/* --- 亮態通用提升 --- */
 .tower-badge.active {
+    opacity: 1;
     filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.65));
 }
 
 .tower-badge.active .t-struct { 
-    stroke: #ffe58f; /* 塔尖線條、相輪、基底維持金色 */
+    stroke: #ffe58f; 
 }
 
 .tower-badge.active .t-jewel { 
@@ -639,35 +642,37 @@
     filter: drop-shadow(0 0 4px #ffd700); 
 }
 
+/* --- 1. 亮起時文字為金色 --- */
 .tower-badge.active .t-text {
-    color: #ffffff;
+    color: #ffd700;
     font-weight: 900;
-    text-shadow: 0 0 4px rgba(212, 175, 55, 0.9);
+    text-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
 }
 
 /* ==============================================
-   ✨ 僅中間塔身（帶 fill 屬性者）依階梯呈現專屬色彩
+   各塔亮起時中間塔身專屬色彩
    ============================================== */
 
-/* 1. 信塔 & 2. 願塔：僅中間半圓弧呈現「淨白光」（線條白＋內色白） */
+/* 1. 信塔 & 2. 願塔：僅中間半圓弧呈現淨白光 */
 #mb-信.active path[fill], 
 #mb-願.active path[fill] {
-    stroke: #fff275 !important;
-    fill: rgba(255, 255, 255, 0.8) !important;
-    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.9));
+    stroke: #ffffff !important;
+    fill: rgba(255, 255, 255, 0.85) !important;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9));
 }
 
 /* 3. 行塔：僅中間矩形身呈現明黃色 */
 #mb-行.active rect[fill] {
     stroke: #fff275 !important;
-    fill: rgba(255, 223, 0, 0.65) !important;
+    fill: rgba(255, 223, 0, 0.7) !important;
 }
 
 /* 4. 善塔 & 5. 德塔：中間塔身呈現金色 */
 #mb-善.active path[fill], 
 #mb-德.active path[fill] {
-    fill: rgba(212, 175, 55, 0.75) !important;
+    fill: rgba(212, 175, 55, 0.8) !important;
 }
+
 
 
         /* 底部透明微型按鈕與掃光 */
