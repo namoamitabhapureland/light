@@ -599,7 +599,7 @@
         .bar-labels span::before { content:''; position:absolute; top:-8px; left:50%; transform:translateX(-50%); width:3px; height:3px; background:rgba(255,255,255,0.5); border-radius:50%; }
       
         /* 5badge */
-    .tower-badge {
+  .tower-badge {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -625,43 +625,55 @@
     line-height: 1;
 }
 
-/* --- 亮起通用樣式 (光芒與相輪線條) --- */
-.tower-badge.active {
-    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.65));
-}
-
-.tower-badge.active .t-struct { 
-    stroke: #ffe58f; 
-}
-
+/* --- 點亮時的文字與頂珠通用 --- */
 .tower-badge.active .t-jewel { 
     fill: #ffffff; 
-    filter: drop-shadow(0 0 4px #ffd700); 
+    filter: drop-shadow(0 0 4px #ffffff); 
 }
 
 .tower-badge.active .t-text {
     color: #ffffff;
     font-weight: 900;
-    text-shadow: 0 0 4px rgba(212, 175, 55, 0.9);
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
 }
 
-/* --- 亮起時：依各塔呈現白、黃、金專屬填充色 --- */
-/* 1. 信塔 & 2. 願塔：淨白半透明 */
-#mb-信.active .t-struct[fill], 
-#mb-願.active .t-struct[fill] {
-    fill: rgba(255, 255, 255, 0.45) !important;
+/* ==============================================
+   ✨ 核心修復：各塔點亮時的獨立顏色（光芒、線條、填充）
+   ============================================== */
+
+/* 1. 信塔 & 2. 願塔：純淨白光＋白線＋白色半透明身 */
+#mb-信.active, #mb-願.active {
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+}
+#mb-信.active .t-struct, #mb-願.active .t-struct {
+    stroke: #ffffff !important;
+}
+#mb-信.active path[fill], #mb-願.active path[fill] {
+    fill: rgba(255, 255, 255, 0.6) !important;
 }
 
-/* 3. 行塔：明黃色 */
-#mb-行.active .t-struct[fill] {
+/* 3. 行塔：明黃光＋黃線＋明黃色身 */
+#mb-行.active {
+    filter: drop-shadow(0 0 6px rgba(255, 223, 0, 0.8));
+}
+#mb-行.active .t-struct {
+    stroke: #fff275 !important;
+}
+#mb-行.active rect[fill], #mb-行.active path[fill] {
     fill: rgba(255, 223, 0, 0.65) !important;
 }
 
-/* 4. 善塔 & 5. 德塔：莊嚴金色 */
-#mb-善.active .t-struct[fill], 
-#mb-德.active .t-struct[fill] {
-    fill: rgba(212, 175, 55, 0.7) !important;
+/* 4. 善塔 & 5. 德塔：輝煌金光＋金線＋金色身 */
+#mb-善.active, #mb-德.active {
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.8));
 }
+#mb-善.active .t-struct, #mb-德.active .t-struct {
+    stroke: #ffe58f !important;
+}
+#mb-善.active path[fill], #mb-德.active path[fill] {
+    fill: rgba(212, 175, 55, 0.75) !important;
+}
+
 
 
         /* 底部透明微型按鈕與掃光 */
