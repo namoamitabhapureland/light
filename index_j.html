@@ -1179,8 +1179,10 @@
             <circle class="t-jewel" cx="12" cy="3.5" r="1.4" fill="currentColor"/>
         </svg>
         <div class="t-text">V</div>
-    </div>
+   </div>
 </div>
+    </div>
+
 
 
 
@@ -3424,8 +3426,7 @@ function updateUI() {
         save(); 
         triggerLevelUpEffect(rank.l, rank.i);
     }
-    // ✨ 英文版五塔徽章（Faith=F, Vows=V, Practice=P, Goodness=G, Virtue=V）
-    const badgeKeys = ['F', 'V', 'P', 'G', 'V'];
+   // ✨ 五塔徽章點亮狀態控制 (Faith, Vows, Action, Goodness, Virtue)
     const badgeTargets = [
         { id: 'mb-信', active: currentDays >= 0 },
         { id: 'mb-願', active: currentDays >= 100 },
@@ -3434,14 +3435,12 @@ function updateUI() {
         { id: 'mb-德', active: currentDays >= 111100 }
     ];
 
-    badgeTargets.forEach((item, idx) => {
+    badgeTargets.forEach(item => {
         const el = document.getElementById(item.id);
-        if (el) {
-            el.classList.toggle('active', item.active);
-            const textEl = el.querySelector('.t-text');
-            if (textEl) textEl.textContent = badgeKeys[idx];
-        }
+        if (el) el.classList.toggle('active', item.active);
     });
+}
+
 
 
 
