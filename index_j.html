@@ -3452,11 +3452,15 @@ function updateUI() {
     if (!db.currentRank) {
         db.currentRank = rank.l; 
         save(); 
-    } else if (db.currentRank !== rank.l) {
+  
+        } else if (db.currentRank !== rank.l) {
         db.currentRank = rank.l;
         save(); 
-        triggerLevelUpEffect(rank.l, rank.i);
+        // 🌟 只需要改這裡：第四個參數傳入 true (isModal)，生成透明無黑底的蓮花
+        const modalSVG = getLotusSVG(rank.l, total, null, true);
+        triggerLevelUpEffect(rank.l, modalSVG);
     }
+
    // ✨ 五塔徽章點亮狀態控制 (Faith, Vows, Action, Goodness, Virtue)
     const badgeTargets = [
         { id: 'mb-信', active: currentDays >= 0 },
