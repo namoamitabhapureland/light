@@ -621,7 +621,7 @@
     overflow: visible;
 }
 
-/* --- 1. 未亮起（暗態）：套用漸層流光（偏柔和半透明白） --- */
+/* --- 1. 未亮起（暗態）：純淨靜態半透明白字（徹底解決變色閃爍問題） --- */
 .t-text {
     font-size: 9px;
     font-weight: 800;
@@ -629,16 +629,15 @@
     text-align: center;
     transition: all 0.5s;
     line-height: 1;
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.7), rgba(255,255,255,0.3));
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: textShine 3s linear infinite;
+    color: rgba(255, 255, 255, 0.45);
+    /* 清除暗態下的流光與背景裁切 */
+    background: none;
+    -webkit-background-clip: border-box;
+    -webkit-text-fill-color: initial;
+    animation: none;
 }
 
-/* --- 2. 亮起（亮態）：切換為金白高亮流光＋金光外發散 --- */
+/* --- 2. 亮起（亮態）：啟動金白高亮流光動態 --- */
 .tower-badge.active {
     opacity: 1;
     filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.65));
@@ -686,7 +685,6 @@
 #mb-德.active path[fill] {
     fill: rgba(212, 175, 55, 0.8) !important;
 }
-
 
         /* 底部透明微型按鈕與掃光 */
         .btn-transparent-small { position: relative; overflow: hidden; background: transparent; border: 1px solid rgba(212,175,55,0.3); color: rgba(243,229,171,0.7); padding: 10px 15px; border-radius: 20px; font-size: 0.75rem; letter-spacing: 1px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.3s; }
