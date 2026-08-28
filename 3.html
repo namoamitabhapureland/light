@@ -63,10 +63,7 @@
         .modal-title { text-align: center; color: #fff; font-size: 1.1rem; letter-spacing: 4px; margin-bottom: 15px; text-shadow: 0 0 15px rgba(243, 229, 171, 0.5); }
         .modal-desc { color: #8ba89c; font-size: 0.85rem; letter-spacing: 2px; line-height: 1.6; margin-bottom: 20px; text-align: center; }
         
-        #dedicate-input-wrap { display: none; margin-bottom: 20px; width: 100%; }
-        #dedicate-target { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid #d4af37; border-radius: 8px; color: #fff; padding: 12px; font-size: 0.95rem; text-align: center; outline: none; letter-spacing: 2px; box-shadow: inset 0 0 10px rgba(212,175,55,0.1); transition: 0.3s; }
-        #dedicate-target:focus { box-shadow: inset 0 0 15px rgba(212,175,55,0.3), 0 0 10px rgba(212,175,55,0.3); }
-
+       
         .modal-warning { color: #ef5350; font-size: 0.75rem; letter-spacing: 1px; text-align: center; margin-bottom: 20px; background: rgba(239, 83, 80, 0.1); padding: 8px; border-radius: 5px; border: 1px solid rgba(239, 83, 80, 0.3); display: none; }
         
         .checkbox-container { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 20px; cursor: pointer; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(139, 168, 156, 0.2); }
@@ -99,6 +96,23 @@
         #toast { position: fixed; top: 40%; left: 50%; transform: translate(-50%, -50%); background: rgba(21, 13, 31, 0.95); border: 1px solid #d4af37; color: #f3e5ab; padding: 15px 25px; border-radius: 12px; font-size: 0.85rem; letter-spacing: 2px; text-align: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.4s; box-shadow: 0 0 30px rgba(212, 175, 55, 0.2); width: 80%; line-height: 1.6; }
         #toast.show { opacity: 1; }
         .global-defs { position: absolute; width: 0; height: 0; pointer-events: none; left: -9999px; }
+
+        /* ✨ 起用護念輸入框與照片選擇優化 */
+#dedicate-input-wrap { display: none; margin-bottom: 20px; width: 100%; text-align: center; }
+#dedicate-target { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid #d4af37; border-radius: 8px; color: #fff; padding: 12px; font-size: 0.9rem; text-align: center; outline: none; letter-spacing: 2px; box-shadow: inset 0 0 10px rgba(212,175,55,0.1); transition: 0.3s; margin-bottom: 12px; }
+#dedicate-target:focus { box-shadow: inset 0 0 15px rgba(212,175,55,0.3), 0 0 10px rgba(212,175,55,0.3); }
+
+.photo-upload-label { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px; border: 1px dashed rgba(243, 229, 171, 0.4); border-radius: 8px; background: rgba(255,255,255,0.03); color: #8ba89c; font-size: 0.8rem; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; }
+.photo-upload-label:hover { border-color: #d4af37; color: #f3e5ab; background: rgba(212,175,55,0.05); }
+#dedicate-photo { display: none; }
+#photo-preview-wrap { display: none; margin-top: 10px; position: relative; width: 64px; height: 64px; margin-left: auto; margin-right: auto; }
+#photo-preview { width: 64px; height: 64px; border-radius: 50%; border: 1px solid #d4af37; object-fit: cover; box-shadow: 0 0 12px rgba(212,175,55,0.4); }
+.remove-photo-btn { position: absolute; top: -5px; right: -5px; background: rgba(1,1,3,0.9); border: 1px solid #d4af37; color: #d4af37; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+
+/* ✨ 動畫觀想相片框 */
+.anim-photo-box { width: 100px; height: 100px; border-radius: 50%; border: 2px solid #d4af37; box-shadow: 0 0 30px rgba(212,175,55,0.6); overflow: hidden; margin: 0 auto 15px auto; opacity: 0; transition: opacity 1s ease; }
+.anim-photo-box img { width: 100%; height: 100%; object-fit: cover; }
+
     </style>
 </head>
 <body>
