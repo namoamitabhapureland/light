@@ -228,6 +228,7 @@
         <div class="modal-close" onclick="closeModal()">✕</div>
         <div class="modal-title" id="m-title">標題</div>
         
+        <!-- 主要內容區 -->
         <div id="m-content-wrap">
             <div class="modal-desc" id="m-desc">描述</div>
             
@@ -255,32 +256,31 @@
                 <div class="checkbox-box" id="m-checkbox"></div>
                 <div class="checkbox-text" id="m-check-text">內容</div>
             </div>
+            
+            <!-- ✨ 將按鈕放回 m-content-wrap 內部最後方，確保跟著內容一起顯示 -->
+            <button class="modal-confirm-btn" id="m-confirm-btn" onclick="executeAction()">啟動</button>
+        </div>
+
+        <!-- 說明頁面專用區 -->
+        <div id="m-info-wrap" style="display: none; text-align: justify; color: #aaa; font-size: 0.85rem; line-height: 1.8; letter-spacing: 1px;">
+            《法華經》有云：「化城喻」。行者向極樂寶所之途，路險且長。佛憫眾生疲倦，或可化作一城以暫息。<br><br>
+            此多寶閣，即為入世之化城。閣中法相，皆為隨順引導行者發起「別迴向」之慈悲方便，以護念親友。<br>
+            <span style="color:#d4af37;">祈勿生起搜集、貪愛之俗念。</span>相滅願生，每一次的歸零，皆是無相佈施。<br>
+            <hr style="border: 0; border-top: 1px dashed rgba(243, 229, 171, 0.3); margin: 15px 0;">
+            <div style="color: #f3e5ab; font-weight: bold; margin-bottom: 5px; text-align: center;">【法相交織法則】</div>
+            一、<b>暗格指引</b>：輕觸未顯化之「空龕」，可知交織配方。<br>
+            二、<b>願力共鳴</b>：若您具備相應之法相，選中其一時，另一尊將閃爍金光引導。<br>
+            三、<b>昇華階梯</b>：兩尊小法相可和合為大法相；兩尊大法相可交織為終極結界。
+            
+            <div class="voice-btn" onclick="playInfoVoice()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                聆聽說明
+            </div>
         </div>
     </div>
 </div>
 
-            <div id="m-info-wrap" style="display: none; text-align: justify; color: #aaa; font-size: 0.85rem; line-height: 1.8; letter-spacing: 1px;">
-                《法華經》有云：「化城喻」。行者向極樂寶所之途，路險且長。佛憫眾生疲倦，或可化作一城以暫息。<br><br>
-                此多寶閣，即為入世之化城。閣中法相，皆為隨順引導行者發起「別迴向」之慈悲方便，以護念親友。<br>
-                <span style="color:#d4af37;">祈勿生起搜集、貪愛之俗念。</span>相滅願生，每一次的歸零，皆是無相佈施。<br>
-                <hr style="border: 0; border-top: 1px dashed rgba(243, 229, 171, 0.3); margin: 15px 0;">
-                <div style="color: #f3e5ab; font-weight: bold; margin-bottom: 5px; text-align: center;">【法相交織法則】</div>
-                一、<b>暗格指引</b>：輕觸未顯化之「空龕」，可知交織配方。<br>
-                二、<b>願力共鳴</b>：若您具備相應之法相，選中其一時，另一尊將閃爍金光引導。<br>
-                三、<b>昇華階梯</b>：兩尊小法相可和合為大法相；兩尊大法相可交織為終極結界。
-                
-                <div class="voice-btn" onclick="playInfoVoice()">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-                    聆聽說明
-                </div>
-            </div>
-            
-            <button class="modal-confirm-btn" id="m-confirm-btn" onclick="executeAction()">啟動</button>
-
-            
-        </div>
-    </div>
-
+        
     <div id="anim-overlay" onclick="closeAnim()">
         <div class="anim-flash" id="anim-flash"></div>
         <div id="anim-svg-container" style="width: 150px; height: 150px; margin-bottom: 40px; opacity: 0; transition: opacity 1s; position: relative; z-index: 5;"></div>
@@ -439,12 +439,17 @@
                     cell.className = classes;
                                         if (item.id === 'indra_net') {
                         // ✨ 點擊因陀羅網，彈出專屬 Modal，準備觸發原地紫金昇華
-                        cell.onclick = () => {
+                                                cell.onclick = () => {
                             currentAction = 'go_dedicate';
+                            selectedItems = ['indra_net']; // 確保選中項為大獎
                             document.getElementById('m-title').innerText = "【 蓮華因陀羅網 ． 終極大迴向 】";
-                            document.getElementById('m-desc').innerHTML = "此乃常駐法界之網，重重無盡。<br><br>啟動大迴向，將清空此相，化作無盡功德遍滿虛空。是否立即昇華？";
+                            document.getElementById('m-desc').innerHTML = "此乃常駐法界之網，重重無盡。<br><br>請輸入護念對象並可上傳照片，啟動大迴向將清空此相，化作無盡功德遍滿虛空。";
                             
-                            document.getElementById('dedicate-input-wrap').style.display = 'none';
+                            // ✨ 開啟照片與文字輸入框
+                            dedicateInputWrap.style.display = 'flex';
+                            dedicateTarget.value = '';
+                            resetPhotoUpload();
+
                             document.getElementById('m-warning').style.display = 'none';
                             document.getElementById('m-check-wrap').style.display = 'none';
                             document.getElementById('m-info-wrap').style.display = 'none';
@@ -453,12 +458,15 @@
                             const btn = document.getElementById('m-confirm-btn');
                             btn.innerText = "相滅願生 ． 啟動昇華";
                             btn.style.display = 'block';
+                            btn.style.opacity = '1';
+                            btn.style.pointerEvents = 'auto';
                             btn.classList.add('ready'); 
                             isChecked = true; 
                             
-                            document.getElementById('dev-panel').style.display = 'none';
                             document.getElementById('modal-overlay').classList.add('show');
                         };
+
+                        
                         cell.innerHTML = `<div class="t-svg">${item.svg}</div><div class="t-info"><div class="t-name" style="color:#d4af37;">${item.name}</div><div class="t-lvl">常駐結界</div><span class="t-tag">【${item.tag}】</span></div>`;
                     } else {
                         // ✨ 保留給其他一般法相的點擊功能，絕對不動它！
@@ -562,7 +570,6 @@ function resetPhotoUpload() {
     if (inputEl) { inputEl.value = ''; }
 }
 
-// 開啟彈窗邏輯
 function openDedicateModal() {
     currentAction = 'dedicate';
     const item = allTreasures.find(i => i.id === selectedItems[0]);
@@ -571,9 +578,14 @@ function openDedicateModal() {
     document.getElementById('m-title').innerText = `【 起用護念 ． ${item.name} 】`;
     document.getElementById('m-desc').innerHTML = item.desc;
     
-    dedicateInputWrap.style.display = 'flex'; // 保持 flex 佈局
+    // ✨ 確保外層包裹與按鈕明確顯示
+    mContentWrap.style.display = 'block';
+    mInfoWrap.style.display = 'none';
+    mConfirmBtn.style.display = 'block';
+    
+    dedicateInputWrap.style.display = 'flex';
     dedicateTarget.value = '';
-    resetPhotoUpload(); // 每次打開清空上次圖片
+    resetPhotoUpload();
 
     document.getElementById('m-check-text').innerHTML = `我已如實完成下方一項或全部願行：<br>${reqText}`;
     mConfirmBtn.innerText = "相滅願生 ． 迴向祈福";
@@ -632,10 +644,19 @@ function openDedicateModal() {
             }
         }
 
-        // ✨ 終極執行樞紐
+            // ✨ 終極執行樞紐
         function executeAction(forceResult = null) {
-                                 // ✨ 終極大迴向：震撼法界級「虛空粉碎」動畫
+            // ✨ 終極大迴向：震撼法界級「虛空粉碎」動畫（包含照片與護念對象）
             if (currentAction === 'go_dedicate') {
+                let targetName = dedicateTarget.value.trim();
+                if (targetName === '') {
+                    targetName = "十方眾生";
+                }
+
+                // 取得上傳的照片 Preview src
+                const photoImg = document.getElementById('dedicate-photo-preview');
+                const hasPhoto = photoImg && photoImg.style.display !== 'none' && photoImg.src;
+
                 closeModal();
                 const animOverlay = document.getElementById('anim-overlay');
                 const animText = document.getElementById('anim-text');
@@ -651,13 +672,26 @@ function openDedicateModal() {
                 document.getElementById('anim-subtext').style.opacity = '0';
 
                 // 扣除一尊大獎，並確保不會變成負數
-inventory['indra_net'] = Math.max(0, inventory['indra_net'] - 1);
-saveDB();
-
+                inventory['indra_net'] = Math.max(0, inventory['indra_net'] - 1);
+                saveDB();
 
                 setTimeout(() => {
                     const targetObj = allTreasures.find(i => i.id === 'indra_net');
-                    animSvg.innerHTML = targetObj.svg; 
+                    
+                    // 若有照片，則一併呈顯護念照片與法相
+                    if (hasPhoto) {
+                        animSvg.innerHTML = `
+                            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                                <div style="width:100px; height:100px; border-radius:50%; border:2px solid #d4af37; overflow:hidden; margin-bottom:15px; box-shadow:0 0 20px #d4af37;">
+                                    <img src="${photoImg.src}" style="width:100%; height:100%; object-fit:cover;" />
+                                </div>
+                                ${targetObj.svg}
+                            </div>
+                        `;
+                    } else {
+                        animSvg.innerHTML = targetObj.svg; 
+                    }
+                    
                     animSvg.style.opacity = '1';
                     
                     // ✨ 階段一：法相極限放大並緩慢旋轉，匯聚能量
@@ -665,7 +699,7 @@ saveDB();
                     animSvg.style.filter = 'drop-shadow(0 0 80px #d4af37) drop-shadow(0 0 150px #9c27b0)';
                     animSvg.style.transition = 'all 3s cubic-bezier(0.4, 0, 0.2, 1)';
                     
-                    speak("因陀羅網，重重無盡。相滅願生，功德悉皆迴向法界。", 0.85);
+                    speak(`因陀羅網，重重無盡。相滅願生，功德悉皆迴向${targetName}。`, 0.85);
                     
                     // ✨ 階段二：全螢幕超新星金光大爆發！
                     setTimeout(() => {
@@ -689,7 +723,7 @@ saveDB();
                                 flash.style.opacity = '0';
                                 flash.style.transition = 'opacity 3.5s ease-out'; // 極度緩慢、莊嚴地退去強光
                                 
-                                animText.innerHTML = `【 虛空粉碎 ． 願力昇華 】<br><br><span style='color:#d4af37; font-size:1.5rem; letter-spacing: 12px; line-height:2.5; text-shadow: 0 0 30px #d4af37, 0 0 60px #fff;'>化城已空 ． 蓮池在前</span><br><br><span style='font-size:0.9rem; color:#f3e5ab; letter-spacing: 5px;'>無量功德化作微塵，遍滿十方</span>`;
+                                animText.innerHTML = `【 虛空粉碎 ． 願力昇華 】<br><br><span style='color:#d4af37; font-size:1.5rem; letter-spacing: 12px; line-height:2.5; text-shadow: 0 0 30px #d4af37, 0 0 60px #fff;'>祈願 ${targetName}</span><br><span style='color:#f3e5ab; font-size:1.2rem; letter-spacing: 8px;'>化城已空 ． 蓮池在前</span><br><br><span style='font-size:0.9rem; color:#f3e5ab; letter-spacing: 5px;'>無量功德化作微塵，遍滿十方</span>`;
                                 animText.style.opacity = '1';
                                 
                                 setTimeout(() => { 
@@ -727,15 +761,29 @@ saveDB();
             setTimeout(() => {
                 document.getElementById('anim-flash').style.opacity = '0'; 
                 
-                                if (currentAction === 'dedicate') {
+                if (currentAction === 'dedicate') {
                     inventory[selectedItems[0]] -= 1;
                     const usedItem = allTreasures.find(i => i.id === selectedItems[0]);
                     
-                    // ✨ 1. 圖示歸圖示，保持絕對乾淨
-                    animSvg.innerHTML = usedItem.svg; 
+                    const photoImg = document.getElementById('dedicate-photo-preview');
+                    const hasPhoto = photoImg && photoImg.style.display !== 'none' && photoImg.src;
+
+                    // ✨ 1. 若有照片，呈顯照片與圖示
+                    if (hasPhoto) {
+                        animSvg.innerHTML = `
+                            <div style="display:flex; flex-direction:column; align-items:center;">
+                                <div style="width:80px; height:80px; border-radius:50%; border:2px solid #d4af37; overflow:hidden; margin-bottom:10px;">
+                                    <img src="${photoImg.src}" style="width:100%; height:100%; object-fit:cover;" />
+                                </div>
+                                ${usedItem.svg}
+                            </div>
+                        `;
+                    } else {
+                        animSvg.innerHTML = usedItem.svg; 
+                    }
                     animSvg.style.opacity = '1';
                     
-                    // ✨ 2. 人名直接放進下方的文字區塊，物理空間徹底分開，絕不重疊！
+                    // ✨ 2. 人名直接放進下方的文字區塊
                     animText.innerHTML = `<div style="margin-top: 40px;"><span style='color:#d4af37; font-size:1.4rem; letter-spacing: 5px; font-weight: bold; text-shadow: 0 0 20px #fff, 0 0 10px #d4af37;'>${targetName}</span></div>`;
                     animText.style.opacity = '1';
                     
@@ -752,18 +800,17 @@ saveDB();
                             speak("相滅願生，功德迴施。祈願" + targetName + "，平安順遂。", 0.8);
                             animText.innerHTML = `<div style="margin-top: 40px;">【 相滅願生 ． 功德迴施 】<br><span style='color:#d4af37; font-size:1.4rem; display:inline-block; margin: 12px 0;'>祈願 ${targetName}</span><br><span style='font-size:0.9rem; color:#8ba89c;'>平安順遂，業障消除</span></div>`;
                             animText.style.opacity = '1';
-                        }, 500); // 緩衝半秒鐘讓文字淡出，再浮現祈福文
+                        }, 500); 
                         
-                    }, 2200); // 讓法相與人名多停留一會兒，供行者觀想 (原 1800 -> 2200)
+                    }, 2200); 
                     
                 } else if (currentAction === 'merge') {
                     let isSuccess = false;
                     if (forceResult !== null) { isSuccess = forceResult; } 
                     else { isSuccess = (Math.random() * 100) < currentMergeProb; }
                     
-                    // 這是只消耗 5 尊，並保留其餘資糧的新邏輯
-inventory[selectedItems[0]] = Math.max(0, inventory[selectedItems[0]] - 5);
-inventory[selectedItems[1]] = Math.max(0, inventory[selectedItems[1]] - 5);
+                    inventory[selectedItems[0]] = Math.max(0, inventory[selectedItems[0]] - 5);
+                    inventory[selectedItems[1]] = Math.max(0, inventory[selectedItems[1]] - 5);
 
                     if (isSuccess) {
                         inventory[currentMergeTarget] = (inventory[currentMergeTarget] || 0) + 1;
@@ -772,7 +819,6 @@ inventory[selectedItems[1]] = Math.max(0, inventory[selectedItems[1]] - 5);
                         animSvg.innerHTML = targetObj.svg; 
                         animSvg.style.opacity = '1';
 
-                        // ✨ 2. 合成大獎：原地顯現並留存，不再跳出
                         if (currentMergeTarget === 'indra_net') {
                             saveDB(); 
                             speak("因緣具足，一真法界，重重無盡", 0.85);
@@ -794,6 +840,7 @@ inventory[selectedItems[1]] = Math.max(0, inventory[selectedItems[1]] - 5);
                 setTimeout(() => { document.getElementById('anim-subtext').style.opacity = '1'; }, 3500);
             }, 800);
         }
+
 
                 function closeAnim() {
             if (document.getElementById('anim-subtext').style.opacity === '1') {
