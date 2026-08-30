@@ -516,6 +516,15 @@ body {
         if (db && db.lastSettledMonth === undefined) db.lastSettledMonth = "";
         if (db && (!db.lunar || !db.lunar.snapshot)) db.lunar = { snapshot: { bodhi: 0, puxian: 0, bow: 0 } };
 
+        /* ══════════════════════════════════════════════════════════════
+           🆕【V2 新增】db.dailyLog：逐日記錄結構
+           格式：{ "2026-09-01": { bodhi: 3, puxian: 1, bow: 2 }, ... }
+           從今以後，每次三個項目的數字增加，都要同時呼叫 window.logPractice()
+           把「今天」的量記下來。結算月份時直接加總「日期落在那個月」的所有
+           記錄，不再需要用累積總數回推猜測，每個月天生獨立、互不汙染。
+        ══════════════════════════════════════════════════════════════ */
+        if (db && !db.dailyLog) db.dailyLog = {};
+
     } catch(e) {
         console.error("法寶數據讀取異常", e);
     }
@@ -555,7 +564,10 @@ body {
             mandalaVault: [0, 0, 0, 0, 0],
             totalMerit: 0,
             lastSettledMonth: "",
-            lunar: { snapshot: { bodhi: 0, puxian: 0, bow: 0 } }
+            lunar: { snapshot: { bodhi: 0, puxian: 0, bow: 0 } },
+
+            // 🆕 新行者預設值：逐日記錄（V2 精準月結算用）
+            dailyLog: {}
         };
     }
 
@@ -578,10 +590,8 @@ body {
     const now = new Date();
 
     /* ══════════════════════════════════════════════════════════════
-       🔧【修改點 1】新增 monthIndex() / daysInMonthOf()
-       用「年*12+月」的整數索引取代原本的 "YYYY-M" 字串比對，
-       這樣才能用數字大小關係判斷「還有幾個月沒結算」，
-       而且交給原生 Date 物件算天數，閏年/大小月都不用自己煩惱。
+       monthIndex() / daysInMonthOf()：用「年*12+月」整數索引比較月份，
+       daysInMonthOf 交給原生 Date 物件算天數，大小月、閏年全自動正確。
     ══════════════════════════════════════════════════════════════ */
     function monthIndex(y, m) { return y * 12 + m; } // m 為 0-based (0=一月)
     function daysInMonthOf(idx) {
@@ -589,52 +599,77 @@ body {
         return new Date(y, m + 1, 0).getDate(); // 該月最後一天 = 該月總天數
     }
 
-    const currentMonthIdx = monthIndex(now.getFullYear(), now.getMonth());
-
     /* ══════════════════════════════════════════════════════════════
-       🔧【修改點 2】用 db.lastSettledMonthIdx（數字）取代 db.lastSettledMonth（字串）
-       - 第一次啟用時，如果偵測到舊版留下的 lastSettledMonth 字串，自動轉換，資料不會遺失。
-       - 若完全是新資料，預設「已結算到帳號建立月份的前一個月」，
-         這樣帳號建立當月不會被誤判成漏結算。
+       🆕【V2 核心改版】放棄「累積總數回推猜測」，改用「逐日記錄直接加總」
+       ------------------------------------------------------------------
+       舊版問題：bodhiLitCount 等只存「從帳號建立以來的總數」，不知道哪
+       一天做了多少，結算時只能用「配額桶」近似分配到月份，永遠無法區分
+       7月和8月各自真正做了什麼。
+
+       新版做法：從 CUTOVER（2026-09-01）開始，每次數字增加時，同時呼叫
+       window.logPractice() 把「今天」的量寫進 db.dailyLog。結算某個月時，
+       直接把日期落在那個月範圍內的記錄加總——不用回推、不用猜、不用配
+       額桶，每個月天生獨立，永遠不會互相汙染，也不會有殘值需要留到下
+       個月，是精準等於「萬年曆」的邏輯。
+
+       按照你的決定：不追溯 9/1 之前的舊資料。db.lastSettledMonthIdx 在
+       這次改版時會被強制校正為「CUTOVER 的前一個月」，等於宣告舊制正式
+       封存，未結算的舊池子不再處理。從 9 月開始，才是第一個會被精準結
+       算的月份（要等 10/1 以後、9月完整結束了才能結算）。
     ══════════════════════════════════════════════════════════════ */
-    if (db.lastSettledMonthIdx === undefined) {
-        db.lastSettledMonthIdx = monthIndex(createDateObj.getFullYear(), createDateObj.getMonth()) - 1;
-        if (db.lastSettledMonth) {
-            const p = String(db.lastSettledMonth).split("-");
-            if (p.length === 2) {
-                db.lastSettledMonthIdx = monthIndex(parseInt(p[0], 10), parseInt(p[1], 10) - 1);
-            }
-        }
+    const CUTOVER_MONTH_IDX = monthIndex(2026, 8); // 8 = 九月（0-based：0=一月）
+
+    if (db.lastSettledMonthIdx === undefined || db.lastSettledMonthIdx < CUTOVER_MONTH_IDX - 1) {
+        db.lastSettledMonthIdx = CUTOVER_MONTH_IDX - 1; // 舊制封存，不追溯
+        localStorage.setItem('PX_V15.0', JSON.stringify(db));
     }
 
-    /* ══════════════════════════════════════════════════════════════
-       🔧【修改點 3】核心邏輯改變：
-       - targetMonthIdx = 下一個「還沒結算」的月份。
-       - canSettle：只要那個月已經完整過完（targetMonthIdx < 本月），任何一天都能按，
-         不再限定「今天必須是1號」。
-       - maxScore：用「目標那個月」的天數 × 3 當滿分分母（原本永遠用「上個月」，
-         現在改用「真正要結算的那個月」，缺補多個月時每個月的分母才會正確）。
-       - usedDelta：每次「只吃掉一個月的滿分額度」，其餘留到下一次點擊，
-         這樣分數不會一次超過100%，也就不會少拿一個圖騰。
-    ══════════════════════════════════════════════════════════════ */
-    const targetMonthIdx = db.lastSettledMonthIdx + 1;
-    const canSettle = targetMonthIdx < currentMonthIdx;   // 目標月份已完整結束才能按
-    const hasSettledThisMonth = !canSettle;               // 沿用舊變數名，避免其他地方要改
+    /* 🆕 window.logPractice()：供「拜佛計數頁」「持咒頁」「十願頁」等其他
+       功能頁面呼叫。在原本讓 bodhiLitCount / totalPracticedDays /
+       streakCount 等數字 +1 的那一行旁邊，加一行呼叫這個函式，把「今天」
+       的量記下來即可。type 對應 'bodhi' | 'puxian' | 'bow'。 */
+    window.logPractice = function(type, amount = 1) {
+        const key = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"（本地日期建議自行換算時區）
+        if (!db.dailyLog[key]) db.dailyLog[key] = { bodhi: 0, puxian: 0, bow: 0 };
+        db.dailyLog[key][type] = (db.dailyLog[key][type] || 0) + amount;
+        localStorage.setItem('PX_V15.0', JSON.stringify(db));
+    };
 
-    const daysInLastMonth = daysInMonthOf(canSettle ? targetMonthIdx : currentMonthIdx - 1);
+    /* 加總「某個月份」在 dailyLog 裡的所有記錄，日期用真實西元月份判斷，
+       完全不會跨月汙染。 */
+    function sumMonthFromLog(idx) {
+        const y = Math.floor(idx / 12), m = idx % 12;
+        let sum = 0;
+        for (const dateStr in db.dailyLog) {
+            const d = new Date(dateStr + "T00:00:00");
+            if (d.getFullYear() === y && d.getMonth() === m) {
+                const e = db.dailyLog[dateStr];
+                sum += (e.bodhi || 0) + (e.puxian || 0) + (e.bow || 0);
+            }
+        }
+        return sum;
+    }
 
-    const curB = db.bodhiLitCount || 0;
-    const curP = (db.puxianData && db.puxianData.totalPracticedDays) ? db.puxianData.totalPracticedDays : 0;
-    const curW = (db.bowData && db.bowData.streakCount) ? db.bowData.streakCount : 0;
+    let targetMonthIdx, canSettle, hasSettledThisMonth, daysInLastMonth;
+    let monthSum, maxScore, calcScore, totalDelta; // totalDelta 保留變數名以兼容其他地方的顯示用法
 
-    const delB = Math.max(0, curB - db.lunar.snapshot.bodhi);
-    const delP = Math.max(0, curP - db.lunar.snapshot.puxian);
-    const delW = Math.max(0, curW - db.lunar.snapshot.bow);
-    const totalDelta = delB + delP + delW;
+    function recomputeSettlement() {
+        const nowLocal = new Date();
+        const curMonthIdx = monthIndex(nowLocal.getFullYear(), nowLocal.getMonth());
 
-    const maxScore = daysInLastMonth * 3;
-    const usedDelta = Math.min(totalDelta, maxScore);     // 🔧 只消耗一個月的份量，避免爆表
-    let calcScore = maxScore > 0 ? Math.min(100, Math.floor((usedDelta / maxScore) * 100)) : 0;
+        targetMonthIdx = db.lastSettledMonthIdx + 1;
+        canSettle = targetMonthIdx < curMonthIdx;   // 目標月份已完整結束才能按，不限定1號
+        hasSettledThisMonth = !canSettle;
+
+        daysInLastMonth = daysInMonthOf(canSettle ? targetMonthIdx : curMonthIdx - 1);
+        maxScore = daysInLastMonth * 3;
+
+        monthSum = sumMonthFromLog(canSettle ? targetMonthIdx : curMonthIdx - 1);
+        totalDelta = monthSum; // 顯示用，等同「這個月實際記錄到的量」
+        calcScore = maxScore > 0 ? Math.min(100, Math.floor((monthSum / maxScore) * 100)) : 0;
+    }
+
+    recomputeSettlement(); // 頁面載入時先算一次（供初始畫面顯示用）
 
 
 
@@ -649,7 +684,12 @@ body {
 
     function startIntroCharge() {
     if (isCharging) return;
-    
+
+    /* 🔧【修改點 7 續】每次要開始結算流程前，先重新計算最新狀態，
+       這樣結完一個欠款月份、回道場再點一次時，才能正確抓到「還有沒有
+       下一個欠款月份」，不需要重新整理頁面。 */
+    recomputeSettlement();
+
     // 算出當前應顯化的圖騰位階（由你的分母數學自動決定）
     const tier = Math.ceil(calcScore / 20) || 1;
 
@@ -798,37 +838,14 @@ body {
         document.getElementById('t-desc-display').innerHTML = finalDesc;
 
         /* ══════════════════════════════════════════════════════════════
-           🔧【修改點 5】入庫與快照更新邏輯改為「只推進本次實際消耗的量」。
-           - 原本：把當下三項的「全部差額」整包塞回快照，導致差額一旦超過
-             maxScore，多出來的部分會被憑空吃掉（=多存的功德蒸發，
-             而且這個月分數被硬壓在100%，浪費了應該分給下個月的量）。
-           - 現在：依序從 bodhi → puxian → bow 扣抵，恰好扣到 usedDelta 為止，
-             沒扣完的部分留在「快照與現值的差」裡，下一次點擊（下個月）
-             會自動被算進去，逐月結清、分毫不浪費、也不會超過100%。
+           🆕【V2】入庫邏輯大幅簡化：因為 monthSum 是直接從 dailyLog 精準
+           加總「這個月」的記錄算出來的，不是用累積總數回推猜測，所以完
+           全不需要「快照扣抵」「留殘值到下個月」這些補救機制——每個月結
+           算完就是結算完，乾淨俐落，沒有殘留、沒有汙染下個月的疑慮。
         ══════════════════════════════════════════════════════════════ */
-        const nowB = db.bodhiLitCount || 0;
-        const nowP = (db.puxianData && db.puxianData.totalPracticedDays) ? db.puxianData.totalPracticedDays : 0;
-        const nowW = (db.bowData && db.bowData.streakCount) ? db.bowData.streakCount : 0;
+        db.totalMerit = (db.totalMerit || 0) + monthSum;
 
-        const availB = Math.max(0, nowB - db.lunar.snapshot.bodhi);
-        const availP = Math.max(0, nowP - db.lunar.snapshot.puxian);
-        const availW = Math.max(0, nowW - db.lunar.snapshot.bow);
-
-        let remain = usedDelta;
-        const consumedB = Math.min(availB, remain); remain -= consumedB;
-        const consumedP = Math.min(availP, remain); remain -= consumedP;
-        const consumedW = Math.min(availW, remain); remain -= consumedW;
-
-        db.totalMerit = (db.totalMerit || 0) + usedDelta;
-        db.lunar.snapshot = {
-            bodhi: db.lunar.snapshot.bodhi + consumedB,
-            puxian: db.lunar.snapshot.puxian + consumedP,
-            bow: db.lunar.snapshot.bow + consumedW
-        };
-
-        /* 🔧【修改點 6】用數字索引記錄「已結算到哪個月」，
-           取代原本的 db.lastSettledMonth 字串（該欄位保留於初始化區塊做相容，
-           但正式判斷一律改用 lastSettledMonthIdx）。 */
+        // 用數字索引記錄「已結算到哪個月」
         db.lastSettledMonthIdx = targetMonthIdx;
 
         db.mandalaVault[tier-1]++;
