@@ -2909,32 +2909,37 @@ function checkNewDay() {
     let d = new Date();
     let mmdd = String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
     
-   // 🌟 升級版大聲公邏輯 🌟
-    // index.html 主系統裡的邏輯
-
-if (festivalMap[mmdd]) {
-    let banner = document.getElementById('festival-banner');
-    let item = festivalMap[mmdd];
-    
-    // 判斷傳入的是物件還是純字串
-    let rawText = (typeof item === 'object') ? item.text : item;
-    let url = (typeof item === 'object') ? item.url : null;
-    
-    // 組合最終顯示文字
-    let displayText = (rawText.startsWith("【公告】") || rawText.startsWith("【系統】")) 
-        ? rawText 
-        : `今日 ${rawText}，宜齋戒念佛`;
+ 
+    // 🌟 升級版大聲公邏輯（含 SVG 向量箭頭） 🌟
+    if (festivalMap[mmdd]) {
+        let banner = document.getElementById('festival-banner');
+        let item = festivalMap[mmdd];
         
-    // 渲染：若有 URL 則包覆超連結標籤，否則僅顯示純文字
-    if (url) {
-        banner.innerHTML = `<a href="${url}" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">${displayText}</a>`;
-    } else {
-        banner.innerText = displayText;
-    }
-    
-    banner.style.display = 'block';
+        let rawText = (typeof item === 'object') ? item.text : item;
+        let url = (typeof item === 'object') ? item.url : null;
+        
+        let displayText;
+        
+        // 只要有 url，或是文字帶有【公告】/【系統】，就不加「宜齋戒念佛」
+        if (url || rawText.startsWith("【公告】") || rawText.startsWith("【系統】")) {
+            displayText = rawText;
+        } else {
+            displayText = `今日 ${rawText}，宜齋戒念佛 `;
+        }
+            
+        // 渲染畫面：若有 URL 則加上極簡 SVG 向量右箭頭
+        if (url) {
+            const arrowSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 4px; display: inline-block;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`;
+            
+            banner.innerHTML = `<a href="${url}" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; justify-content: center;"><span style="text-decoration: underline;">${displayText}</span>${arrowSvg}</a>`;
+        } else {
+            banner.innerText = displayText;
+        }
+        
+        banner.style.display = 'block';
     }
 }
+
 
 
 
