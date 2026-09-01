@@ -361,7 +361,7 @@
             display: flex; align-items: center; justify-content: center; gap: 10px;
         }
         .header-icon {
-            width: 22px; height: 22px;
+            width: 28px; height: 28px;
             filter: drop-shadow(0 0 6px rgba(243,229,171,0.5));
         }
 
@@ -581,6 +581,10 @@
     transform: scale(0.95); 
     transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); 
 }
+        .hands-svg {
+  overflow: visible; /* 讓超出 viewBox 邊界外的霧氣不會被剪裁裁切 */
+}
+
 
         /* 爆發粒子與特效文字 */
         .burst-particle { position: fixed; width: 3px; height: 3px; border-radius: 50%; background: #fff; pointer-events: none; z-index: 9999; box-shadow: 0 0 8px var(--gold), 0 0 12px var(--solid-gold); }
@@ -597,6 +601,96 @@
         .bar-labels { position:absolute; width:100%; height:20px; top:12px; }
         .bar-labels span { position:absolute; font-size:9px; color:rgba(243,229,171,0.6); letter-spacing:1px; transform:translateX(-50%); white-space:nowrap; }
         .bar-labels span::before { content:''; position:absolute; top:-8px; left:50%; transform:translateX(-50%); width:3px; height:3px; background:rgba(255,255,255,0.5); border-radius:50%; }
+      
+        /* 5badge */
+ @keyframes textShine { 
+    0% { background-position: 200% center; } 
+    100% { background-position: -200% center; } 
+}
+
+.tower-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    color: rgba(212, 175, 55, 0.15);
+    opacity: 0.35;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    filter: none;
+}
+
+.tower-svg {
+    width: 26px;
+    height: 36px;
+    overflow: visible;
+}
+
+/* --- 1. 未亮起（暗態）：純淨靜態半透明白字（徹底解決變色閃爍問題） --- */
+.t-text {
+    font-size: 9px;
+    font-weight: 800;
+    margin-top: 3px;
+    text-align: center;
+    transition: all 0.5s;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.45);
+    /* 清除暗態下的流光與背景裁切 */
+    background: none;
+    -webkit-background-clip: border-box;
+    -webkit-text-fill-color: initial;
+    animation: none;
+}
+
+/* --- 2. 亮起（亮態）：啟動金白高亮流光動態 --- */
+.tower-badge.active {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.65));
+}
+
+.tower-badge.active .t-struct { 
+    stroke: #ffe58f; 
+}
+
+.tower-badge.active .t-jewel { 
+    fill: #ffffff; 
+    filter: drop-shadow(0 0 4px #ffd700); 
+}
+
+.tower-badge.active .t-text {
+    font-weight: 900;
+    background: linear-gradient(90deg, #f3e5ab, #ffffff, #f3e5ab);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.8));
+    animation: textShine 3s linear infinite;
+}
+
+/* ==============================================
+   各塔亮起時中間塔身專屬色彩
+   ============================================== */
+
+/* 1. 信塔 & 2. 願塔：僅中間半圓弧呈現淨白光 */
+#mb-信.active path[fill], 
+#mb-願.active path[fill] {
+    stroke: #ffffff !important;
+    fill: rgba(255, 255, 255, 0.85) !important;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9));
+}
+
+/* 3. 行塔：僅中間矩形身呈現明黃色 */
+#mb-行.active rect[fill] {
+    stroke: #fff275 !important;
+    fill: rgba(255, 223, 0, 0.7) !important;
+}
+
+/* 4. 善塔 & 5. 德塔：中間塔身呈現金色 */
+#mb-善.active path[fill], 
+#mb-德.active path[fill] {
+    fill: rgba(212, 175, 55, 0.8) !important;
+}
+
+
 
         /* 底部透明微型按鈕與掃光 */
         .btn-transparent-small { position: relative; overflow: hidden; background: transparent; border: 1px solid rgba(212,175,55,0.3); color: rgba(243,229,171,0.7); padding: 10px 15px; border-radius: 20px; font-size: 0.75rem; letter-spacing: 1px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.3s; }
@@ -955,108 +1049,204 @@
 <div id="screen-1" class="container active">
     <input type="hidden" id="user-name" value="">
 
-    <div class="scene" id="handsBtn" onclick="handleConnectClick(event)">
-        <div class="hands-wrap">
-           
-             <svg class="hands-svg" viewBox="-20 -20 240 380" width="180" height="288" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="glass-base" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="rgba(243, 229, 171, 0.35)"/>
-                  <stop offset="50%" stop-color="rgba(212, 175, 55, 0.20)"/>
-                  <stop offset="100%" stop-color="rgba(212, 175, 55, 0.08)"/>
-                </linearGradient>
+  <div class="scene" id="handsBtn" onclick="handleConnectClick(event)">
+  <div class="hands-wrap">
+    <svg class="hands-svg" viewBox="0 0 200 320" width="180" height="288" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="glass-base" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="rgba(243, 229, 171, 0.35)"/>
+          <stop offset="50%" stop-color="rgba(212, 175, 55, 0.20)"/>
+          <stop offset="100%" stop-color="rgba(212, 175, 55, 0.08)"/>
+        </linearGradient>
 
-                <radialGradient id="burst-glow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="rgba(255,255,255,0.9)"/>
-                  <stop offset="30%" stop-color="rgba(212,175,55,0.6)"/>
-                  <stop offset="100%" stop-color="rgba(212,175,55,0)"/>
-                </radialGradient>
+        <radialGradient id="burst-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.9)"/>
+          <stop offset="30%" stop-color="rgba(212,175,55,0.6)"/>
+          <stop offset="100%" stop-color="rgba(212,175,55,0)"/>
+        </radialGradient>
 
-                <filter id="mist-blur" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="12" />
-                </filter>
-              </defs>
+        <linearGradient id="gold-petal-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#FFE57F"/>
+          <stop offset="60%" stop-color="#D4AF37"/>
+          <stop offset="100%" stop-color="#996515"/>
+        </linearGradient>
 
-              <ellipse id="burst-el" cx="100" cy="180" rx="0" ry="0" fill="url(#burst-glow)" opacity="0"/>
+        <filter id="mist-blur" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="12" />
+        </filter>
+      </defs>
 
-              <path id="hand-silhouette" d="
-                M 100 25 
-                C 97 18, 93 20, 92 30 
-                L 62 165 
-                C 55 190, 40 230, 10 245
-                L 30 275
-                C 65 265, 85 245, 100 225 
-                C 115 245, 135 265, 170 275 
-                L 190 245
-                C 160 230, 145 190, 138 165
-                L 108 30 
-                C 107 20, 103 18, 100 25 Z" 
-                fill="url(#glass-base)" />
+      <ellipse id="burst-el" cx="100" cy="180" rx="0" ry="0" fill="url(#burst-glow)" opacity="0"/>
 
-              <path d="
-                M 138 165 
-                L 108 30 
-                C 107 20, 103 18, 100 25 
-                C 97 18, 93 20, 92 30 
-                L 62 165 
-                M 30 275 
-                C 65 265, 85 245, 100 225 
-                C 115 245, 135 265, 170 275" 
-                fill="none" 
-                stroke="var(--solid-gold)" stroke-width="1.5" stroke-linejoin="round"/>
-                
-              <path d="M 62 165 C 55 190, 40 230, 10 245" 
-                    fill="none" 
-                    stroke="var(--solid-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              
-              <path d="M 138 165 C 145 190, 160 230, 190 245" 
-                    fill="none" 
-                    stroke="var(--solid-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- === 1. 合十雙手主體 === -->
+      <path id="hand-silhouette" d="
+        M 100 25 
+        C 97 18, 93 20, 92 30 
+        L 62 165 
+        C 55 190, 40 230, 10 245
+        L 30 275
+        C 65 265, 85 245, 100 225 
+        C 115 245, 135 265, 170 275 
+        L 190 245
+        C 160 230, 145 190, 138 165
+        L 108 30 
+        C 107 20, 103 18, 100 25 Z" 
+        fill="url(#glass-base)" />
 
-              <path d="M 0 240 Q 37.5 265, 75 240" fill="none" stroke="var(--solid-gold)" stroke-width="3" stroke-linecap="round" transform="rotate(40, 37.5, 240)"/>
-              <path d="M 5 232 Q 41.5 257, 78 232" fill="none" stroke="var(--solid-gold)" stroke-width="3" stroke-linecap="round" transform="rotate(40, 37.5, 240)"/>
-              <path d="M 200 240 Q 162.5 265, 125 240" fill="none" stroke="var(--solid-gold)" stroke-width="3" stroke-linecap="round" transform="rotate(-40, 162.5, 240)"/>
-              <path d="M 195 232 Q 158.5 257, 122 232" fill="none" stroke="var(--solid-gold)" stroke-width="3" stroke-linecap="round" transform="rotate(-40, 162.5, 240)"/>
+      <path d="
+        M 138 165 
+        L 108 30 
+        C 107 20, 103 18, 100 25 
+        C 97 18, 93 20, 92 30 
+        L 62 165 
+        M 30 275 
+        C 65 265, 85 245, 100 225 
+        C 115 245, 135 265, 170 275" 
+        fill="none" 
+        stroke="var(--solid-gold)" stroke-width="1.5" stroke-linejoin="round"/>
+        
+      <path d="M 62 165 C 55 190, 40 230, 10 245" fill="none" stroke="var(--solid-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 138 165 C 145 190, 160 230, 190 245" fill="none" stroke="var(--solid-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 
-              <path d="M 96 23 C 98 25, 98 32, 94 34" stroke="var(--solid-gold)" stroke-width="1" fill="none" />
-              <path d="M 104 23 C 102 25, 102 32, 106 34" stroke="var(--solid-gold)" stroke-width="1" fill="none" />
+      <!-- === 2. 金色雙環 === -->
+      <path d="M 0 240 Q 37.5 265, 75 240" fill="none" stroke="var(--solid-gold)" stroke-width="3" stroke-linecap="round" transform="rotate(40, 37.5, 240)"/>
+      <path d="M 5 232 Q 41.5 257, 78 232" fill="none" stroke="var(--solid-gold)" stroke-width="3" stroke-linecap="round" transform="rotate(40, 37.5, 240)"/>
+      <path d="M 200 240 Q 162.5 265, 125 240" fill="none" stroke="var(--solid-gold)" stroke-width="3" stroke-linecap="round" transform="rotate(-40, 162.5, 240)"/>
+      <path d="M 195 232 Q 158.5 257, 122 232" fill="none" stroke="var(--solid-gold)" stroke-width="3" stroke-linecap="round" transform="rotate(-40, 162.5, 240)"/>
 
-              <path d="M 100 25 L 100 160" stroke="var(--solid-gold)" stroke-width="1.5" stroke-linecap="round" fill="none" />
-              <path d="M 100 195 L 100 225" stroke="var(--solid-gold)" stroke-width="1.5" stroke-linecap="round" fill="none" />
-              <path d="M 136 175 C 125 155, 110 152, 102 155" stroke="rgba(212,175,55,0.8)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <!-- 手部細節金線 -->
+      <path d="M 96 23 C 98 25, 98 32, 94 34" stroke="var(--solid-gold)" stroke-width="1" fill="none" />
+      <path d="M 104 23 C 102 25, 102 32, 106 34" stroke="var(--solid-gold)" stroke-width="1" fill="none" />
+      <path d="M 100 25 L 100 160" stroke="var(--solid-gold)" stroke-width="1.5" stroke-linecap="round" fill="none" />
+      <path d="M 100 195 L 100 225" stroke="var(--solid-gold)" stroke-width="1.5" stroke-linecap="round" fill="none" />
+      <path d="M 136 175 C 125 155, 110 152, 102 155" stroke="rgba(212,175,55,0.8)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M 63 170 C 80 155, 95 152, 112 158 C 118 160, 120 170, 115 175 C 95 188, 75 198, 63 215" stroke="var(--solid-gold)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+      <path d="M 103 162 C 109 159, 113 161, 113 166 C 109 169, 103 167, 103 162 Z" stroke="var(--solid-gold)" stroke-width="1" fill="none" />
+      <path d="M 105 182 Q 125 218 138 210" stroke="var(--solid-gold)" stroke-width="1.5" stroke-linecap="round" fill="none" />
 
-              
-              <path d="M 63 170 C 80 155, 95 152, 112 158 C 118 160, 120 170, 115 175 C 95 188, 75 198, 63 215" stroke="var(--solid-gold)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
-                    
-              <path d="M 103 162 C 109 159, 113 161, 113 166 C 109 169, 103 167, 103 162 Z" stroke="var(--solid-gold)" stroke-width="1" fill="none" />
-              <path d="M 105 182 Q 125 218 138 210" stroke="var(--solid-gold)" stroke-width="1.5" stroke-linecap="round" fill="none" />
+      <!-- === 3. 前景花朵群＋葉片點綴＋金蓮 === -->
+      <g id="flower-garland-fg">
+        <!-- 【左側手環區域花群】 -->
+        <path d="M 22 235 C 16 230, 15 220, 24 222 C 30 224, 28 233, 22 235 Z" fill="#6A9955" opacity="0.9"/>
+        <path d="M 45 238 C 48 231, 56 231, 52 239 C 48 243, 43 241, 45 238 Z" fill="#88B04B" opacity="0.85"/>
 
-              <path d="M 40 260 Q 70 250, 95 230" stroke="rgba(212,175,55,0.7)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-              <path d="M 45 250 Q 70 240, 90 225" stroke="rgba(212,175,55,0.4)" stroke-width="1" fill="none" stroke-linecap="round"/>
-              <path d="M 160 260 Q 130 250, 105 230" stroke="rgba(212,175,55,0.7)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-              <path d="M 155 250 Q 130 240, 110 225" stroke="rgba(212,175,55,0.4)" stroke-width="1" fill="none" stroke-linecap="round"/>
+        <!-- 下移的黃花與花苞 -->
+        <g transform="translate(28, 236) rotate(-20) scale(0.85)">
+          <path d="M0 -11 C-3 -13 -3 -17 0 -19 C3 -17 3 -13 0 -11 M11 0 C13 -3 17 -3 19 0 C17 3 13 3 11 0 M0 11 C-3 13 -3 17 0 19 C3 17 3 13 0 11 M-11 0 C-13 -3 -17 -3 -19 0 C-17 3 -13 3 -11 0 M8 -8 C10 -11 13 -10 12 -7 C9 -4 7 -5 8 -8 M-8 8 C-10 11 -13 10 -12 7 C-9 4 -7 5 -8 8 M8 8 C11 10 10 13 7 12 C4 9 5 7 8 8 M-8 -8 C-11 -10 -10 -13 -7 -12 C-4 -9 -5 -7 -8 -8" fill="#FFDC33"/>
+          <circle cx="0" cy="0" r="5.5" fill="#8B5A2B"/>
+        </g>
+        <!-- 下移的紫花 -->
+        <g transform="translate(42, 230) rotate(-15)" fill="#B5179E">
+          <ellipse cx="0" cy="0" rx="3" ry="5"/><ellipse cx="-4" cy="7" rx="2.5" ry="4"/>
+        </g>
+        <g transform="translate(42, 242) rotate(-10) scale(0.8)" fill="#FF99C8">
+          <circle cx="0" cy="-7" r="4"/><circle cx="7" cy="-2" r="4"/><circle cx="4" cy="6" r="4"/><circle cx="-4" cy="6" r="4"/><circle cx="-7" cy="-2" r="4"/>
+          <circle cx="0" cy="0" r="2.5" fill="#FFE5EC"/>
+        </g>
 
-              <g filter="url(#mist-blur)" style="pointer-events: none;">
-                <ellipse cx="60" cy="280" rx="60" ry="25" fill="rgba(243,229,171,0.25)">
-                  <animate attributeName="cx" values="50; 70; 50" dur="8s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.4; 0.8; 0.4" dur="6s" repeatCount="indefinite" />
-                </ellipse>
-                <ellipse cx="140" cy="275" rx="60" ry="25" fill="rgba(139,168,156,0.25)">
-                  <animate attributeName="cx" values="150; 130; 150" dur="10s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.4; 0.8; 0.4" dur="7s" repeatCount="indefinite" />
-                </ellipse>
-                <ellipse cx="100" cy="300" rx="80" ry="30" fill="rgba(212,175,55,0.2)">
-                  <animate attributeName="cy" values="305; 295; 305" dur="7s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.4; 0.7; 0.4" dur="9s" repeatCount="indefinite" />
-                </ellipse>
-                <ellipse cx="100" cy="245" rx="50" ry="20" fill="rgba(255,255,255,0.15)">
-                  <animate attributeName="cx" values="110; 90; 110" dur="9s" repeatCount="indefinite" />
-                  <animate attributeName="cy" values="248; 240; 248" dur="8s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.3; 0.6; 0.3" dur="5s" repeatCount="indefinite" />
-                </ellipse>
-              </g>
-            </svg>
+        <g transform="translate(32, 245) rotate(-15) scale(0.9)" fill="#1E90FF">
+          <circle cx="0" cy="-6" r="3.5"/><circle cx="6" cy="-2" r="3.5"/><circle cx="4" cy="5" r="3.5"/><circle cx="-4" cy="5" r="3.5"/><circle cx="-6" cy="-2" r="3.5"/>
+          <circle cx="0" cy="0" r="2.5" fill="#FFDC33"/>
+        </g>
+        <g transform="translate(15, 238) scale(0.7)">
+          <circle cx="0" cy="0" r="8" fill="#FFDC33"/><circle cx="0" cy="0" r="3" fill="#8B5A2B"/>
+        </g>
+        <g transform="translate(18, 255) rotate(-40) scale(0.85)" fill="#FF99C8">
+          <circle cx="0" cy="-7" r="4"/><circle cx="7" cy="-2" r="4"/><circle cx="4" cy="6" r="4"/><circle cx="-4" cy="6" r="4"/><circle cx="-7" cy="-2" r="4"/>
+          <circle cx="0" cy="0" r="2.5" fill="#FFE5EC"/>
+        </g>
 
+        <g fill="#FFC6FF">
+          <circle cx="20" cy="225" r="2.5"/><circle cx="10" cy="235" r="2.5"/><circle cx="28" cy="262" r="3"/>
+        </g>
+
+        <!-- 左側手環下緣區域 -->
+        <path d="M 52 258 C 45 262, 48 270, 56 266 C 60 262, 57 256, 52 258 Z" fill="#558B2F" opacity="0.9"/>
+        <path d="M 68 266 C 62 272, 68 278, 74 272 C 76 268, 72 264, 68 266 Z" fill="#7CB342" opacity="0.85"/>
+        <g transform="translate(56, 254) scale(0.8)" fill="#FF99C8">
+          <circle cx="0" cy="-5" r="3"/><circle cx="5" cy="-1" r="3"/><circle cx="3" cy="4" r="3"/><circle cx="-3" cy="4" r="3"/><circle cx="-5" cy="-1" r="3"/>
+          <circle cx="0" cy="0" r="2" fill="#FFE5EC"/>
+        </g>
+        <g transform="translate(68, 262) scale(0.75)" fill="#1E90FF">
+          <circle cx="0" cy="-5" r="3"/><circle cx="5" cy="-1" r="3"/><circle cx="3" cy="4" r="3"/><circle cx="-3" cy="4" r="3"/><circle cx="-5" cy="-1" r="3"/>
+          <circle cx="0" cy="0" r="1.8" fill="#FFDC33"/>
+        </g>
+        <circle cx="62" cy="268" r="2.5" fill="#FFC6FF"/>
+        <circle cx="74" cy="260" r="2" fill="#FFDC33"/>
+
+        <!-- 【右側手環區域花群】 -->
+        <path d="M 178 235 C 184 230, 185 220, 176 222 C 170 224, 172 233, 178 235 Z" fill="#6A9955" opacity="0.9"/>
+        <path d="M 155 238 C 152 231, 144 231, 148 239 C 152 243, 157 241, 155 238 Z" fill="#88B04B" opacity="0.85"/>
+
+        <!-- 下移的黃花與花苞 -->
+        <g transform="translate(172, 236) rotate(20) scale(0.85)">
+          <path d="M0 -11 C-3 -13 -3 -17 0 -19 C3 -17 3 -13 0 -11 M11 0 C13 -3 17 -3 19 0 C17 3 13 3 11 0 M0 11 C-3 13 -3 17 0 19 C3 17 3 13 0 11 M-11 0 C-13 -3 -17 -3 -19 0 C-17 3 -13 3 -11 0 M8 -8 C10 -11 13 -10 12 -7 C9 -4 7 -5 8 -8 M-8 8 C-10 11 -13 10 -12 7 C-9 4 -7 5 -8 8 M8 8 C11 10 10 13 7 12 C4 9 5 7 8 8 M-8 -8 C-11 -10 -10 -13 -7 -12 C-4 -9 -5 -7 -8 -8" fill="#FFDC33"/>
+          <circle cx="0" cy="0" r="5.5" fill="#8B5A2B"/>
+        </g>
+        <!-- 下移的紫花 -->
+        <g transform="translate(158, 230) rotate(15)" fill="#B5179E">
+          <ellipse cx="0" cy="0" rx="3" ry="5"/><ellipse cx="4" cy="7" rx="2.5" ry="4"/>
+        </g>
+        <g transform="translate(158, 242) rotate(10) scale(0.8)" fill="#FF99C8">
+          <circle cx="0" cy="-7" r="4"/><circle cx="7" cy="-2" r="4"/><circle cx="4" cy="6" r="4"/><circle cx="-4" cy="6" r="4"/><circle cx="-7" cy="-2" r="4"/>
+          <circle cx="0" cy="0" r="2.5" fill="#FFE5EC"/>
+        </g>
+
+        <g transform="translate(168, 245) rotate(15) scale(0.9)" fill="#1E90FF">
+          <circle cx="0" cy="-6" r="3.5"/><circle cx="6" cy="-2" r="3.5"/><circle cx="4" cy="5" r="3.5"/><circle cx="-4" cy="5" r="3.5"/><circle cx="-6" cy="-2" r="3.5"/>
+          <circle cx="0" cy="0" r="2.5" fill="#FFDC33"/>
+        </g>
+        <g transform="translate(185, 238) scale(0.7)">
+          <circle cx="0" cy="0" r="8" fill="#FFDC33"/><circle cx="0" cy="0" r="3" fill="#8B5A2B"/>
+        </g>
+        <g transform="translate(182, 255) rotate(40) scale(0.85)" fill="#FF99C8">
+          <circle cx="0" cy="-7" r="4"/><circle cx="7" cy="-2" r="4"/><circle cx="4" cy="6" r="4"/><circle cx="-4" cy="6" r="4"/><circle cx="-7" cy="-2" r="4"/>
+          <circle cx="0" cy="0" r="2.5" fill="#FFE5EC"/>
+        </g>
+
+        <g fill="#FFC6FF">
+          <circle cx="180" cy="225" r="2.5"/><circle cx="190" cy="235" r="2.5"/><circle cx="172" cy="262" r="3"/>
+        </g>
+
+        <!-- 右側手環下緣區域 -->
+        <path d="M 148 258 C 155 262, 152 270, 144 266 C 140 262, 143 256, 148 258 Z" fill="#558B2F" opacity="0.9"/>
+        <path d="M 132 266 C 138 272, 132 278, 126 272 C 124 268, 128 264, 132 266 Z" fill="#7CB342" opacity="0.85"/>
+        <g transform="translate(144, 254) scale(0.8)" fill="#FF99C8">
+          <circle cx="0" cy="-5" r="3"/><circle cx="5" cy="-1" r="3"/><circle cx="3" cy="4" r="3"/><circle cx="-3" cy="4" r="3"/><circle cx="-5" cy="-1" r="3"/>
+          <circle cx="0" cy="0" r="2" fill="#FFE5EC"/>
+        </g>
+        <g transform="translate(132, 262) scale(0.75)" fill="#1E90FF">
+          <circle cx="0" cy="-5" r="3"/><circle cx="5" cy="-1" r="3"/><circle cx="3" cy="4" r="3"/><circle cx="-3" cy="4" r="3"/><circle cx="-5" cy="-1" r="3"/>
+          <circle cx="0" cy="0" r="1.8" fill="#FFDC33"/>
+        </g>
+        <circle cx="138" cy="268" r="2.5" fill="#FFC6FF"/>
+        <circle cx="126" cy="260" r="2" fill="#FFDC33"/>
+
+      
+
+      <!-- === 霧氣光暈效果 === -->
+      <g filter="url(#mist-blur)" style="pointer-events: none;">
+        <ellipse cx="60" cy="280" rx="60" ry="25" fill="rgba(243,229,171,0.25)">
+          <animate attributeName="cx" values="50; 70; 50" dur="8s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.4; 0.8; 0.4" dur="6s" repeatCount="indefinite" />
+        </ellipse>
+        <ellipse cx="140" cy="275" rx="60" ry="25" fill="rgba(139,168,156,0.25)">
+          <animate attributeName="cx" values="150; 130; 150" dur="10s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.4; 0.8; 0.4" dur="7s" repeatCount="indefinite" />
+        </ellipse>
+        <ellipse cx="100" cy="300" rx="80" ry="30" fill="rgba(212,175,55,0.2)">
+          <animate attributeName="cy" values="305; 295; 305" dur="7s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.4; 0.7; 0.4" dur="9s" repeatCount="indefinite" />
+        </ellipse>
+        <ellipse cx="100" cy="245" rx="50" ry="20" fill="rgba(255,255,255,0.15)">
+          <animate attributeName="cx" values="110; 90; 110" dur="9s" repeatCount="indefinite" />
+          <animate attributeName="cy" values="248; 240; 248" dur="8s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.3; 0.6; 0.3" dur="5s" repeatCount="indefinite" />
+        </ellipse>
+      </g>
+    </svg>
+  </div>
+</div>
 
         </div>
         <div class="connect-text">輕 按 合 十</div>
@@ -1065,23 +1255,93 @@
     </div>
 
     <div class="info-glass-box">
-        <div style="display:flex; justify-content:space-between; margin-bottom:8px; align-items: flex-end;">
-<span id="label-container" style="font-size:0.75rem; color:#888; letter-spacing: 0.5px;">信位進度：<span id="streak-val" style="color:var(--gold);">0.0</span> / 100</span>
+    <!-- 上半部：位階進度與五金剛塔徽章 -->
+    <div style="display:flex; justify-content:space-between; margin-bottom:10px; align-items:flex-end;">
+        <span id="label-container" style="font-size:0.75rem; color:#888; letter-spacing:0.5px; padding-bottom:4px;">
+            信位進度：<span id="streak-val" style="color:var(--gold);">0.0</span> / 10
+        </span>
 
-        </div>
-        <div style="width:100%; height:6px; background:rgba(255,255,255,0.07); border-radius:4px; overflow:hidden; border: 0.5px solid rgba(255,255,255,0.09); margin-bottom: 25px;">
-            <div id="streak-bar" style="height:100%; background: linear-gradient(90deg, var(--solid-gold), var(--gold)); width:0%; transition:1.2s;"></div>
-        </div>
-
-        <div style="display:flex; justify-content:space-between; margin-bottom:8px; align-items: flex-end;">
-            <span style="font-size:0.75rem; color:#888; letter-spacing: 0.5px;">累積念佛</span>
-            <span id="total-count" style="color:var(--gold); font-size:1.05rem; font-weight:bold; letter-spacing: 1px;">0</span>
-        </div>
-        <div style="position:relative; width:100%; padding-bottom:22px;">
-            <div class="bar-track-glass"><div id="amitabha-bar-fill" class="colorful-fill"></div></div>
-            <div class="bar-labels"><span style="left:5%">100</span><span style="left:50%">1千</span><span style="left:60%">1萬</span><span style="left:70%">10萬</span><span style="left:80%">百萬</span><span style="left:90%">千萬</span><span style="left:100%">1億</span></div>
-        </div>
+      <!-- 卒堵波五金剛塔徽章 -->
+<div style="display:flex; gap:6px; align-items:flex-end;">
+    <!-- 1. 信塔 (Faith - F) -->
+    <div class="tower-badge" id="mb-信" title="Faith">
+        <svg viewBox="0 0 24 36" class="tower-svg">
+            <path class="t-struct" d="M 3 33 L 21 33 M 5 31 L 19 31" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <path class="t-struct" d="M 4.5 31 C 4.5 20, 19.5 20, 19.5 31 Z" fill="rgba(255,255,255,0.22)" stroke="currentColor" stroke-width="1.2"/>
+            <path class="t-struct" d="M 9.5 20 H 14.5 M 12 20 V 17.5" stroke="currentColor" stroke-width="1"/>
+            <circle class="t-jewel" cx="12" cy="15.5" r="1.3" fill="currentColor"/>
+        </svg>
+        <div class="t-text">信</div>
     </div>
+
+    <!-- 2. 願塔 (Vows - V) -> 橫線與相輪下移貼緊半圓弧 -->
+    <div class="tower-badge" id="mb-願" title="Vows">
+        <svg viewBox="0 0 24 36" class="tower-svg">
+            <path class="t-struct" d="M 3 33 L 21 33 M 4.5 31 L 19.5 31" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <path class="t-struct" d="M 4 31 C 3.5 19, 20.5 19, 20 31 Z" fill="rgba(255,255,255,0.22)" stroke="currentColor" stroke-width="1.2"/>
+            <path class="t-struct" d="M 8.5 19 H 15.5 M 9.5 17.5 H 14.5 M 12 17.5 V 15.5" stroke="currentColor" stroke-width="1"/>
+            <circle class="t-jewel" cx="12" cy="13.8" r="1.3" fill="currentColor"/>
+        </svg>
+        <div class="t-text">願</div>
+    </div>
+
+    <!-- 3. 行塔 (Practice - P) -> 塔主體黃色，相輪多加一橫線拉高階梯 -->
+    <div class="tower-badge" id="mb-行" title="Practice">
+        <svg viewBox="0 0 24 36" class="tower-svg">
+            <path class="t-struct" d="M 3 33 L 21 33 M 5 31 L 19 31 M 6 29 L 18 29" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <rect class="t-struct" x="7.5" y="22" width="9" height="7" rx="1" fill="rgba(255,223,0,0.3)" stroke="currentColor" stroke-width="1.2"/>
+            <path class="t-struct" d="M 8.5 22 L 15.5 22 M 9 20 H 15 M 9.5 18 H 14.5 M 10 16 H 14 M 12 16 V 13" stroke="currentColor" stroke-width="1"/>
+            <path class="t-jewel" d="M 10.5 12 C 10.5 13.5, 13.5 13.5, 13.5 12 Z" fill="currentColor"/>
+            <circle class="t-jewel" cx="12" cy="10.5" r="1.2" fill="currentColor"/>
+        </svg>
+        <div class="t-text">行</div>
+    </div>
+
+    <!-- 4. 善塔 (Goodness - G) -> 塔主體金色 -->
+    <div class="tower-badge" id="mb-善" title="Goodness">
+        <svg viewBox="0 0 24 36" class="tower-svg">
+            <path class="t-struct" d="M 3 33 L 21 33 M 4.5 31 L 19.5 31 M 6 29 L 18 29" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <path class="t-struct" d="M 7 29 L 8 23 H 16 L 17 29 Z" fill="rgba(212,175,55,0.3)" stroke="currentColor" stroke-width="1.1"/>
+            <path class="t-struct" d="M 8.5 23 C 7.5 18, 16.5 18, 15.5 23 Z" fill="rgba(212,175,55,0.4)" stroke="currentColor" stroke-width="1.1"/>
+            <path class="t-struct" d="M 8.5 18 H 15.5 M 9 16 H 15 M 9.5 14 H 14.5 M 10 12 H 14 M 12 12 V 9.5" stroke="currentColor" stroke-width="0.9"/>
+            <circle class="t-jewel" cx="12" cy="7.8" r="1.3" fill="currentColor"/>
+        </svg>
+        <div class="t-text">善</div>
+    </div>
+
+    <!-- 5. 德塔 (Virtue - V) -> 塔主體金色 -->
+    <div class="tower-badge" id="mb-德" title="Virtue">
+        <svg viewBox="0 0 24 36" class="tower-svg">
+            <path class="t-struct" d="M 2 33 L 22 33 M 3.5 31 L 20.5 31 M 5 29.5 L 19 29.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <path class="t-struct" d="M 6.5 29.5 L 7.5 25 H 16.5 L 17.5 29.5 Z" fill="rgba(212,175,55,0.3)" stroke="currentColor" stroke-width="1"/>
+            <path class="t-struct" d="M 7.5 25 L 8.5 20.5 H 15.5 L 16.5 25 Z" fill="rgba(212,175,55,0.4)" stroke="currentColor" stroke-width="1"/>
+            <path class="t-struct" d="M 8.5 20.5 C 7.5 15.5, 16.5 15.5, 15.5 20.5 Z" fill="rgba(212,175,55,0.5)" stroke="currentColor" stroke-width="1"/>
+            <path class="t-struct" d="M 8.5 15.5 H 15.5 M 9 13.8 H 15 M 9.5 12 H 14.5 M 10 10.3 H 14 M 10.5 8.5 H 13.5 M 12 8.5 V 5.5" stroke="currentColor" stroke-width="0.9"/>
+            <path class="t-jewel" d="M 10 5.5 C 10 7, 14 7, 14 5.5 Z" fill="currentColor"/>
+            <circle class="t-jewel" cx="12" cy="3.5" r="1.4" fill="currentColor"/>
+        </svg>
+        <div class="t-text">德</div>
+    </div>
+</div>
+
+    </div>
+
+    <!-- 進度條軌道 -->
+    <div style="width:100%; height:6px; background:rgba(255,255,255,0.07); border-radius:4px; overflow:hidden; border: 0.5px solid rgba(255,255,255,0.09); margin-bottom: 25px;">
+        <div id="streak-bar" style="height:100%; background: linear-gradient(90deg, var(--solid-gold), var(--gold)); width:0%; transition:1.2s;"></div>
+    </div>
+
+    <!-- 下半部：累積念佛總數與長條圖 -->
+    <div style="display:flex; justify-content:space-between; margin-bottom:8px; align-items: flex-end;">
+        <span style="font-size:0.75rem; color:#888; letter-spacing: 0.5px;">累積念佛</span>
+        <span id="total-count" style="color:var(--gold); font-size:1.05rem; font-weight:bold; letter-spacing: 1px;">0</span>
+    </div>
+    <div style="position:relative; width:100%; padding-bottom:22px;">
+        <div class="bar-track-glass"><div id="amitabha-bar-fill" class="colorful-fill"></div></div>
+        <div class="bar-labels"><span style="left:5%">100</span><span style="left:50%">1千</span><span style="left:60%">1萬</span><span style="left:70%">10萬</span><span style="left:80%">百萬</span><span style="left:90%">千萬</span><span style="left:100%">1億</span></div>
+    </div>
+</div>
+
 
     <div style="display:flex; gap:10px; width:100%; justify-content:center; margin-top: 25px;">
     <button class="btn-transparent-small btn-sweep" onclick="exportAndShareProgress()">
@@ -1122,9 +1382,18 @@
 <div id="screen-3" class="container" style="overflow-x: hidden; width: 100%; max-width: 100vw; padding: 20px 10px;">
     
       <div class="section-header">
-        <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 2 C16 6, 20 12, 12 22 C4 12, 8 6, 12 2 Z" fill="rgba(243,229,171,0.12)" stroke="var(--gold)"/>
-            <circle cx="12" cy="15" r="2" fill="var(--gold)" stroke="none"/>
+          <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- 蓮花底座 -->
+            <path d="M4 20C7 19 9 20 12 21.5C15 20 17 19 20 20" stroke-width="1"/>
+            <path d="M5 18.5H19" stroke-width="1"/>
+            <!-- 塔身/佛龕 -->
+            <path d="M7 18.5C7 14.5 8.5 12.5 12 12.5C15.5 12.5 17 14.5 17 18.5Z" fill="rgba(243,229,171,0.1)"/>
+            <path d="M10 18.5V15.5C10 14.5 11 14 12 14C13 14 14 14.5 14 15.5V18.5" stroke-width="1"/>
+            <!-- 相輪 (十三天) -->
+            <path d="M10 12.5H14 M10.5 11H13.5 M11 9.5H13 M11.5 8H12.5" stroke-width="1"/>
+            <!-- 塔頂日月寶珠 -->
+            <path d="M10.5 6.5C10.5 6.5 12 7.5 13.5 6.5" stroke-width="1"/>
+            <circle cx="12" cy="4" r="1.2" fill="var(--gold)" stroke="none"/>
         </svg>
         釋尊本師 ． 普賢大願
     </div>
@@ -1193,10 +1462,18 @@
 
     <div class="gold-divider"></div>
 
-    <div class="section-header">
-        <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="12" r="9" stroke="var(--gold)" stroke-dasharray="3 3"/>
-            <circle cx="12" cy="12" r="3" fill="rgba(243,229,171,0.2)" stroke="var(--gold)"/>
+       <div class="section-header">
+        <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- 塔基底座 -->
+            <path d="M4 21H20 M5.5 19.5H18.5 M7 18H17" stroke-width="1"/>
+            <!-- 圓形塔瓶包含八輻法輪意象 -->
+            <circle cx="12" cy="13" r="5" fill="rgba(243,229,171,0.08)"/>
+            <circle cx="12" cy="13" r="1.5" fill="var(--gold)" stroke="none"/>
+            <path d="M12 8V18 M7 13H17 M8.46 9.46L15.54 16.54 M8.46 16.54L15.54 9.46" opacity="0.5" stroke-width="0.8"/>
+            <!-- 相輪與塔剎 -->
+            <path d="M10.5 8H13.5 M11 6.5H13 M11.5 5H12.5" stroke-width="1"/>
+            <!-- 頂部摩尼寶珠 -->
+            <circle cx="12" cy="3" r="1" fill="var(--gold)" stroke="none"/>
         </svg>
         每日定課 ． 動態行持
     </div>
@@ -1241,17 +1518,95 @@
 
 <div class="portal-btn" id="realm-88buddhas" style="flex: 1; margin: 0; padding: 15px 5px; flex-direction: column; justify-content: center; gap: 10px; text-align: center; background: linear-gradient(135deg, rgba(15,25,30,0.92), rgba(5,10,12,0.98)); border: 1px solid rgba(139,168,156,0.35);" onclick="visitRealm('88buddhas.html', '88buddhas')">
 
-            <svg class="portal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px rgba(212,175,55,0.4));">
+         <svg class="portal-icon" viewBox="0 0 200 240" style="width: 32px; height: 38px; filter: drop-shadow(0 0 8px rgba(212,175,55,0.5));">
                 <defs>
-                    <linearGradient id="gold-88" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#f3e5ab"/>
+                    <linearGradient id="changJiGuangGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="30%" stop-color="#f3e5ab"/>
                         <stop offset="100%" stop-color="#d4af37"/>
                     </linearGradient>
+                    <radialGradient id="ushnishaGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="rgba(243,229,171,0.35)"/>
+                        <stop offset="100%" stop-color="rgba(212,175,55,0)"/>
+                    </radialGradient>
+                    <radialGradient id="baihaoGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="40%" stop-color="rgba(243,229,171,0.8)"/>
+                        <stop offset="100%" stop-color="rgba(212,175,55,0)"/>
+                    </radialGradient>
                 </defs>
-                <path d="M12 22C12 22 18 16 18 10C18 6 12 4 12 4C12 4 6 6 6 10C6 16 12 22 12 22Z" fill="rgba(212,175,55,0.15)" stroke="url(#gold-88)" stroke-width="1.2"/>
-                <path d="M12 22C12 22 15 17 15 11C15 8 12 6 12 6C12 6 9 8 9 11C9 17 12 22 12 22Z" fill="rgba(212,175,55,0.3)" stroke="url(#gold-88)" stroke-width="1.2"/>
-                <circle cx="12" cy="4" r="1.5" fill="#ffffff" stroke="none" filter="drop-shadow(0 0 4px #fff)"/>
-                <path d="M12 1v1.5M12 5.5v1.5M9.5 4h1.5M13 4h1.5" stroke="#f3e5ab" stroke-width="1"/>
+
+                <!-- 底層智慧慧光暈 -->
+                <circle cx="100" cy="110" r="85" fill="url(#ushnishaGlow)"/>
+
+                <!-- 莊嚴肉髻螺發群 -->
+                <g id="fashen-ushnisha" transform="translate(-400, -25)" fill="url(#changJiGuangGold)" stroke="none">
+                    <circle cx="570" cy="200" r="6" />
+                    <circle cx="568" cy="187" r="6" />
+                    <circle cx="563" cy="174" r="6" />
+                    <circle cx="554" cy="162" r="7" />     
+                    <circle cx="543" cy="151" r="8.5" />   
+                    <circle cx="526" cy="144" r="10" />    
+                    <circle cx="430" cy="200" r="6" />
+                    <circle cx="432" cy="187" r="6" />
+                    <circle cx="437" cy="174" r="6" />
+                    <circle cx="446" cy="162" r="7" />     
+                    <circle cx="457" cy="151" r="8.5" />   
+                    <circle cx="526" cy="130" r="8" />    
+                    <circle cx="474" cy="144" r="10" />    
+                    <circle cx="474" cy="130" r="8" />    
+                    <circle cx="515" cy="118" r="8" />    
+                    <circle cx="485" cy="118" r="8" />    
+                    <circle cx="514" cy="175" r="7" />
+                    <circle cx="528" cy="179" r="8" />
+                    <circle cx="541" cy="184" r="8" />
+                    <circle cx="553" cy="189" r="8" />
+                    <circle cx="486" cy="175" r="7" />
+                    <circle cx="472" cy="179" r="8" />
+                    <circle cx="459" cy="184" r="8" />
+                    <circle cx="445" cy="189" r="8" />
+                    <circle cx="513" cy="164" r="7" />
+                    <circle cx="526" cy="168" r="6.5" />
+                    <circle cx="538" cy="174" r="6" />
+                    <circle cx="549" cy="182" r="6" />
+                    <circle cx="489" cy="164" r="7" />
+                    <circle cx="474" cy="168" r="6.5" />
+                    <circle cx="462" cy="174" r="6" />
+                    <circle cx="451" cy="182" r="6" />
+                    <circle cx="511" cy="155" r="7" />
+                    <circle cx="523" cy="155" r="6" />
+                    <circle cx="534" cy="161" r="6" />
+                    <circle cx="544" cy="169" r="6" />
+                    <circle cx="489" cy="155" r="7" />
+                    <circle cx="477" cy="155" r="6" />
+                    <circle cx="466" cy="161" r="6" />
+                    <circle cx="456" cy="169" r="6" />
+                    <circle cx="558" cy="185" r="6" /> 
+                    <circle cx="553" cy="172" r="6" /> 
+                    <circle cx="442" cy="185" r="6" /> 
+                    <circle cx="447" cy="172" r="6" /> 
+                    <circle cx="500" cy="135" r="20.5" fill="url(#changJiGuangGold)" stroke="#8B6508" stroke-width="0.5" />
+                    <circle cx="500" cy="108" r="9" fill="url(#changJiGuangGold)" stroke="#8B6508" stroke-width="0.5" />
+                    <circle cx="500" cy="155" r="8" />
+                    <circle cx="500" cy="164" r="7" />
+                    <circle cx="500" cy="175" r="7" />
+                    <circle cx="500" cy="184" r="4.1" />
+                    <circle cx="510" cy="182" r="4.3" />
+                    <circle cx="490" cy="182" r="4.3" />
+                    <circle cx="436" cy="199" r="5.8" />
+                    <circle cx="560" cy="199" r="5.8" />
+                    <circle cx="433" cy="207" r="3" />
+                    <circle cx="565" cy="207" r="3" />
+                    <circle cx="433" cy="212" r="2.7" />
+                    <circle cx="565" cy="212" r="2.7" />
+                </g>
+
+                <!-- 眉間白毫金相 (完美居中於肉髻下方) -->
+                <g id="baihao-group">
+                    <circle cx="100" cy="200" r="14" fill="url(#baihaoGlow)"/>
+                    <circle cx="100" cy="200" r="6" fill="none" stroke="var(--gold)" stroke-width="1.2" />
+                    <circle cx="100" cy="200" r="3.8" fill="#ffffff" filter="drop-shadow(0 0 4px #fff)"/>
+                </g>
             </svg>
             <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; line-height: 1.2;">
                 <span style="color: var(--gold); letter-spacing: 2px; font-size: 0.95rem; text-shadow: 0 0 5px rgba(212,175,55,0.3); font-weight: bold;">八十八佛</span>
@@ -1265,8 +1620,19 @@
     <div class="gold-divider"></div>
 
     <div class="section-header">
-        <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5">
-            <polygon points="12 2 22 8 22 16 12 22 2 16 2 8" fill="rgba(243,229,171,0.05)"/><circle cx="12" cy="12" r="2.5" fill="var(--gold)"/><path d="M2 8 L12 14 L22 8 M12 14 L12 22" stroke="rgba(212,175,55,0.5)"/></svg>
+        <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- 四級階梯塔基 -->
+            <path d="M3 21H21 M4.5 19.5H19.5 M6 18H18 M7.5 16.5H16.5" stroke-width="1"/>
+            <!-- 圓形塔瓶 (Ghabha) -->
+            <path d="M7.5 16.5C7.5 12.5 9.5 10.5 12 10.5C14.5 10.5 16.5 12.5 16.5 16.5Z" fill="rgba(243,229,171,0.12)"/>
+            <!-- 拱形佛龕 -->
+            <path d="M10.5 16.5V14C10.5 13 11.2 12.2 12 12.2C12.8 12.2 13.5 13 13.5 14V16.5" fill="rgba(243,229,171,0.2)"/>
+            <!-- 錐形相輪塔剎 -->
+            <line x1="12" y1="10.5" x2="12" y2="5" stroke-width="1.5"/>
+            <path d="M9.5 9H14.5 M10 7.5H14 M10.5 6H13.5" stroke-width="1"/>
+            <!-- 頂部寶瓶與華蓋 -->
+            <circle cx="12" cy="3" r="1.2" fill="var(--gold)" stroke="none"/>
+        </svg>
         深入經藏 ． 心觀無相
     </div>
 
@@ -1378,8 +1744,22 @@
     </div>
 
     <div class="merit-forest-wrap" style="border-top: none; margin-top: 5px; padding-top: 0;">
-        <div class="section-header">
-            <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 C12 2, 8 7, 8 11 A4 4 0 0 0 16 11 C16 7, 12 2, 12 2 Z" fill="rgba(243,229,171,0.15)"/><line x1="12" y1="16" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+    <div class="section-header">
+        <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- 多層護持底座 -->
+            <path d="M3.5 21H20.5 M5 19.5H19 M6.5 18H17.5" stroke-width="1"/>
+            <!-- 多門佛龕塔身 -->
+            <path d="M6.5 18V13.5H17.5V18" fill="rgba(243,229,171,0.08)"/>
+            <!-- 三道拱門結構 (代表多門/法門) -->
+            <path d="M8 18V15.5C8 15 8.5 14.5 9 14.5C9.5 14.5 10 15 10 15.5V18" stroke-width="1"/>
+            <path d="M11 18V15C11 14.2 11.5 13.8 12 13.8C12.5 13.8 13 14.2 13 15V18" stroke-width="1" fill="rgba(243,229,171,0.2)"/>
+            <path d="M14 18V15.5C14 15 14.5 14.5 15 14.5C15.5 14.5 16 15 16 15.5V18" stroke-width="1"/>
+            <!-- 上層塔階與相輪 -->
+            <path d="M8 13.5H16 M9.5 12H14.5 M10 10.5H14 M10.5 9H13.5 M11 7.5H13" stroke-width="1"/>
+            <!-- 塔剎頂光 -->
+            <line x1="12" y1="7.5" x2="12" y2="4.5" stroke-width="1.2"/>
+            <circle cx="12" cy="3.2" r="1.2" fill="var(--gold)" stroke="none"/>
+        </svg>
             助道法寶 ． 菩提淨室
         </div>
         
@@ -1398,22 +1778,23 @@
         <div style="font-size:0.6rem; color:#666; margin-top:8px;">(點擊汲取甘泉)</div>
     </div>
       <div id="realm-personal" onclick="visitRealm('personal.html', 'personal')" 
-         ontouchstart="this.style.transform='scale(0.96)'" 
-         ontouchend="this.style.transform='scale(1)'"
-         onmousedown="this.style.transform='scale(0.96)'" 
-         onmouseup="this.style.transform='scale(1)'"
-         onmouseleave="this.style.transform='scale(1)'"
-         style="position: relative; flex: 1; background: linear-gradient(145deg, rgba(212,175,55,0.15), rgba(10,8,5,0.5)); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.3s, background 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px 5px; text-align: center;">
+     ontouchstart="this.style.transform='scale(0.96)'" 
+     ontouchend="this.style.transform='scale(1)'"
+     onmousedown="this.style.transform='scale(0.96)'" 
+     onmouseup="this.style.transform='scale(1)'"
+     onmouseleave="this.style.transform='scale(1)'"
+     style="position: relative; flex: 1; background: linear-gradient(145deg, rgba(212,175,55,0.15), rgba(10,8,5,0.5)); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.3s, background 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px 5px; text-align: center;">
 
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linejoin="round" style="margin-bottom: 10px; filter: drop-shadow(0 0 6px rgba(212,175,55,0.4));">
-            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" fill="rgba(212,175,55,0.05)"/>
-            <path d="M12 16 C 12 16, 16 12, 16 9 C 16 7, 12 5, 12 5 C 12 5, 8 7, 8 9 C 8 12, 12 16, 12 16 Z" fill="rgba(212,175,55,0.2)"/>
-            <path d="M12 16 C 12 16, 14 13, 14 10 C 14 8, 12 7, 12 7 C 12 7, 10 8, 10 10 C 10 13, 12 16, 12 16 Z" fill="var(--gold)" stroke="none"/>
-        </svg>
-        
-        <span style="color:var(--gold); font-weight:bold; font-size: 0.95rem; letter-spacing: 2px;">菩提淨室</span>
-        <span style="color:rgba(243,229,171,0.6); font-size: 0.65rem; margin-top: 4px; letter-spacing: 1px;">專屬念佛室</span>
-    </div>
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 10px; filter: drop-shadow(0 0 6px rgba(212,175,55,0.4));">
+        <circle cx="12" cy="13" r="7.5" stroke-dasharray="0.1 2.5" stroke-width="2.2" stroke-linecap="round" fill="rgba(212,175,55,0.05)"/>
+        <circle cx="12" cy="6.2" r="1.3" fill="var(--gold)" stroke="none"/>
+        <circle cx="12" cy="4.2" r="0.9" fill="var(--gold)" stroke="none"/>
+        <circle cx="12" cy="2.8" r="0.5" fill="var(--gold)" stroke="none"/>
+    </svg>
+    
+    <span style="color:var(--gold); font-weight:bold; font-size: 0.95rem; letter-spacing: 2px;">菩提淨室</span>
+    <span style="color:rgba(243,229,171,0.6); font-size: 0.65rem; margin-top: 4px; letter-spacing: 1px;">專屬念佛室</span>
+</div>
 
     
 </div>
@@ -1421,16 +1802,33 @@
           <div class="dock-four-wrap" style="justify-content: space-evenly; padding: 15px 2px;">
     
     <div class="dock-btn-4" style="width: 19%; gap: 8px;" onclick="showScreen(6)">
-        <div id="realm-reader" class="dock-circle-4 color-lib" style="width: 46px; height: 46px;">
-            <svg class="dock-icon-4" viewBox="0 0 24 24" style="width: 22px; height: 22px;"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><line x1="9" y1="10" x2="15" y2="10" stroke="rgba(243,229,171,0.5)"/></svg>
+     <div id="realm-reader" class="dock-circle-4 color-lib" style="width: 46px; height: 46px;">
+                <svg class="dock-icon-4" viewBox="0 0 24 24" style="width: 22px; height: 22px;" fill="none" stroke="var(--gold)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5V4.5C4 3.12 5.12 2 6.5 2H20V22H6.5C5.12 22 4 20.88 4 19.5Z" fill="rgba(243,229,171,0.08)"/>
+                    <path d="M6.5 17.5H20"/>
+                    <line x1="8" y1="6.5" x2="16" y2="6.5" stroke-width="1"/>
+                    <line x1="8" y1="9.5" x2="16" y2="9.5" stroke-width="1"/>
+                    <line x1="8" y1="12.5" x2="13" y2="12.5" stroke-width="1"/>
+                </svg>
         </div>
         <div class="dock-text-4" style="font-size: 0.65rem;">經典探微</div>
     </div>
 
     <div class="dock-btn-4" style="width: 19%; gap: 8px;" onclick="visitRealm('treasure.html', 'treasure')">
-        <div class="dock-circle-4 color-treasure" id="realm-treasure" style="width: 46px; height: 46px;">
-            <svg class="dock-icon-4" viewBox="0 0 24 24" style="width: 22px; height: 22px;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        </div>
+         <div class="dock-circle-4 color-treasure" id="realm-treasure" style="width: 46px; height: 46px;">
+                <svg class="dock-icon-4" viewBox="0 0 24 24" style="width: 22px; height: 22px;" fill="none" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 22H21 M5 20H19 M6.5 18H17.5" stroke-width="1.1"/>
+                    <path d="M6.5 18V13.5H17.5V18" fill="rgba(243,229,171,0.12)"/>
+                    <path d="M10.5 18V15.2C10.5 14.5 11.2 14 12 14C12.8 14 13.5 14.5 13.5 15.2V18" fill="rgba(243,229,171,0.2)"/>
+                    <path d="M5 13.5L12 12.5L19 13.5 M7.5 10.5H16.5" stroke-width="1.2"/>
+                    <path d="M7.5 12.5V10.5H16.5V12.5"/>
+                    <path d="M6 10.5L12 9.5L18 10.5 M8.8 7.5H15.2" stroke-width="1.2"/>
+                    <path d="M8.8 9.5V7.5H15.2V9.5"/>
+                    <path d="M7 7.5L12 6.5L17 7.5"/>
+                    <line x1="12" y1="6.5" x2="12" y2="3.2" stroke-width="1.4"/>
+                    <circle cx="12" cy="1.8" r="1.3" fill="var(--gold)" stroke="none"/>
+                </svg>
+         </div>
         <div class="dock-text-4" style="font-size: 0.65rem;">琉璃寶閣</div>
     </div>
 
@@ -1469,20 +1867,30 @@
     </div>
 
     <div class="dock-btn-4" style="width: 19%; gap: 8px;" onclick="visitRealm('?screen=5', 'meditation')">
-        <div id="realm-meditation" class="dock-circle-4 color-med" style="width: 46px; height: 46px;">
-            <svg class="dock-icon-4" viewBox="0 0 24 24" style="width: 22px; height: 22px;"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+         <div id="realm-meditation" class="dock-circle-4 color-med" style="width: 46px; height: 46px;">
+                <svg class="dock-icon-4" viewBox="0 0 24 24" style="width: 22px; height: 22px;" fill="none" stroke="var(--gold)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9.5" stroke-width="1.2" fill="rgba(243,229,171,0.06)"/>
+                    <path d="M12 6.5V12L15.5 15.5" stroke-width="1.4"/>
+                    <circle cx="12" cy="12" r="1.2" fill="var(--gold)" stroke="none"/>
+                    <path d="M12 2.5V1 M12 23V21.5 M2.5 12H1 M23 12H21.5" stroke-width="1" opacity="0.6"/>
+                </svg>
         </div>
         <div class="dock-text-4" style="font-size: 0.65rem;">修戒定慧</div>
     </div>
 
     <div class="dock-btn-4" style="width: 19%; gap: 8px;" onclick="visitRealm('blessing.html', 'blessing')">
         <div class="dock-circle-4 color-lotus" id="realm-blessing" style="width: 46px; height: 46px;">
-            <svg class="dock-icon-4" viewBox="0 0 24 24" style="width: 22px; height: 22px; stroke: #f3e5ab;">
-                <path d="M12 22C12 22 17 16 17 12C17 8 12 4 12 4C12 4 7 8 7 12C7 16 12 22 12 22Z" />
-                <path d="M12 22C12 22 22 18 22 12C22 8 17 8 12 12" opacity="0.5"/>
-                <path d="M12 22C12 22 2 18 2 12C2 8 7 8 12 12" opacity="0.5"/>
-            </svg>
-        </div>
+                <svg class="dock-icon-4" viewBox="0 0 24 24" style="width: 22px; height: 22px;" fill="none" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3C10.2 6.8 9.8 11.5 12 17.5C14.2 11.5 13.8 6.8 12 3Z" fill="rgba(243,229,171,0.2)"/>
+                    <path d="M12 17.5C8.8 12.8 6.5 8.5 7.2 5.5C9.8 6.8 11.2 11.5 12 17.5Z" fill="rgba(243,229,171,0.12)"/>
+                    <path d="M12 17.5C15.2 12.8 17.5 8.5 16.8 5.5C14.2 6.8 12.8 11.5 12 17.5Z" fill="rgba(243,229,171,0.12)"/>
+                    <path d="M12 17.5C6.5 14.5 3.5 11.2 4.2 8.5C7.2 9.2 10.5 13.2 12 17.5Z"/>
+                    <path d="M12 17.5C17.5 14.5 20.5 11.2 19.8 8.5C16.8 9.2 13.5 13.2 12 17.5Z"/>
+                    <path d="M12 18.5C7.2 16.8 2.5 14.8 2 12.8C5.2 12.2 9.5 15.2 12 18.5Z"/>
+                    <path d="M12 18.5C16.8 16.8 21.5 14.8 22 12.8C18.8 12.2 14.5 15.2 12 18.5Z"/>
+                    <circle cx="12" cy="13.5" r="1.3" fill="#ffffff" stroke="none" filter="drop-shadow(0 0 3px #fff)"/>
+                </svg>
+            </div>
         <div class="dock-text-4" style="font-size: 0.65rem;">金蓮解惑</div>
     </div>
 
@@ -1565,7 +1973,7 @@
 
 
 <div id="screen-4" class="container">
-    <textarea id="dedi-box" placeholder="請輸入迴向、懺悔或發願文...&#10;&#10;願以此功德，莊嚴佛淨土。&#10;上報四重恩，下濟三途苦。&#10;若有見聞者，悉發菩提心。&#10;盡此一報身，同生極樂國。" style="width:100%; height:280px; background:#050505; border:1.8px solid var(--gold); border-radius:22px; color:#eee; padding:22px; outline:none; font-size:1.1rem; line-height:1.8; transition: opacity 0.5s;"></textarea>
+    <textarea id="dedi-box" placeholder="請輸入或默念迴向文...&#10;&#10;願以此功德，莊嚴佛淨土。&#10;上報四重恩，下濟三途苦。&#10;若有見聞者，悉發菩提心。&#10;盡此一報身，同生極樂國。" style="width:100%; height:280px; background:#050505; border:1.8px solid var(--gold); border-radius:22px; color:#eee; padding:22px; outline:none; font-size:1.1rem; line-height:1.8; transition: opacity 0.5s;"></textarea>
     <div style="color:#666; font-size:0.75rem; margin-top:12px; text-align:center; letter-spacing:1px;">安心提示：法寶無伺服器紀錄，您的願力將直達虛空法界。</div>
         <div id="dedi-btn" class="btn-lotus-dedi" style="margin-top: 25px;" onclick="startDedicationEffect()">
         <span class="dedi-text" style="letter-spacing: 1.5px; font-size: 1rem;">圓滿 ． 大迴向</span>
@@ -1939,9 +2347,38 @@
                 <span id="modal-forge-text">讀取中...</span>
             </button>
 
-            <button class="btn-main" style="width: 100%; padding: 16px; border-radius: 16px; font-size: 1rem; letter-spacing: 3px; margin: 0;" onclick="confirmDedi()">入道場</button>
-        </div>
-    </div>
+            <button class="btn-main" style="width: 100%; padding: 16px; border-radius: 16px; font-size: 1rem; letter-spacing: 3px; margin: 0; display: flex; align-items: center; justify-content: center; gap: 10px;" onclick="confirmDedi()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <defs>
+                <linearGradient id="stupa-gold" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="60%" stop-color="#f3e5ab"/>
+                    <stop offset="100%" stop-color="#d4af37"/>
+                </linearGradient>
+            </defs>
+            <!-- 金剛三層底座 -->
+            <path d="M 4 21 L 20 21 M 5 19.5 L 19 19.5 M 6 18 L 18 18" stroke-width="1.2"/>
+            <!-- 須彌座階梯 -->
+            <path d="M 7.5 18 L 7.5 15.5 L 16.5 15.5 L 16.5 18" stroke-width="1.2" fill="rgba(212,175,55,0.08)"/>
+            <path d="M 8.5 16.8 L 15.5 16.8" stroke-width="0.8" opacity="0.6"/>
+            <!-- 覆缽塔身 -->
+            <path d="M 8 15.5 C 7.5 12, 16.5 12, 16 15.5 Z" stroke-width="1.2" fill="rgba(243,229,171,0.12)"/>
+            <!-- 拱形佛龕 -->
+            <path d="M 10.5 15.5 L 10.5 13.8 C 10.5 13 13.5 13 13.5 13.8 L 13.5 15.5 Z" stroke-width="1" fill="url(#stupa-gold)" opacity="0.85"/>
+            <!-- 平頭與十三相輪 -->
+            <path d="M 9.5 12 L 14.5 12" stroke-width="1.2"/>
+            <path d="M 10 12 L 11 7 L 13 7 L 14 12" stroke-width="1" fill="none"/>
+            <path d="M 10.2 10.8 H 13.8 M 10.5 9.6 H 13.5 M 10.8 8.4 H 13.2" stroke-width="0.8"/>
+            <!-- 傘蓋與頂部日月寶珠 -->
+            <path d="M 9.5 7 H 14.5" stroke-width="1.2"/>
+            <path d="M 11 5.8 C 11 6.8 13 6.8 13 5.8 Z" fill="currentColor" stroke="none"/>
+            <circle cx="12" cy="3.5" r="1.2" fill="url(#stupa-gold)" stroke="none"/>
+        </svg>
+        <span>入道場</span>
+    </button>
+</div>
+</div>
+
 
     <script>
         // 每秒檢查一次功德箱，動態改變法幣按鈕的外觀 (注入 48 願漸變色邏輯)
@@ -1977,8 +2414,9 @@
 
                 forgeIcon.style.marginRight = "10px"; 
 
-                // 解鎖圖示：發光寶珠
-                forgeIcon.innerHTML = `<path d="M12 22C16.4183 22 20 18.4183 20 14C20 9.58172 12 2 12 2C12 2 4 9.58172 4 14C4 18.4183 7.58172 22 12 22Z" fill="rgba(212,175,55,0.15)" stroke="var(--gold)" stroke-width="1.5"/><circle cx="12" cy="14" r="2.5" fill="var(--gold)" filter="drop-shadow(0 0 3px #fff)"/>`;
+              
+forgeIcon.innerHTML = `<circle cx="12" cy="12" r="9" fill="rgba(212,175,55,0.1)" stroke="var(--gold)" stroke-width="1.2"/><circle cx="12" cy="12" r="3" fill="none" stroke="var(--gold)" stroke-width="1.2"/><path d="M12 3v6M12 15v6M3 12h6M15 12h6M5.64 5.64l4.24 4.24M14.12 14.12l4.24 4.24M5.64 18.36l4.24-4.24M14.12 9.88l4.24-4.24" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round"/><circle cx="12" cy="12" r="1.5" fill="#fff" filter="drop-shadow(0 0 3px #fff)"/>`;
+
             } else {
                 // --- 🔒 封印狀態：移植 48 願漸變色演算法 ---
                 
@@ -2477,19 +2915,26 @@ function checkNewDay() {
     
     // 🌟 升級版大聲公邏輯 🌟
     if (festivalMap[mmdd]) {
-        let banner = document.getElementById('festival-banner');
-        let msg = festivalMap[mmdd];
+    let banner = document.getElementById('festival-banner');
+    let item = festivalMap[mmdd];
+    
+    // 判斷傳入的是物件還是純字串
+    let rawText = (typeof item === 'object') ? item.text : item;
+    let url = (typeof item === 'object') ? item.url : null;
+    
+    // 組合最終顯示文字
+    let displayText = (rawText.startsWith("【公告】") || rawText.startsWith("【系統】")) 
+        ? rawText 
+        : `今日 ${rawText}，宜齋戒念佛`;
         
-        // 如果文字開頭是【公告】或【系統】，就直接顯示原句
-        if (msg.startsWith("【公告】") || msg.startsWith("【系統】")) {
-            banner.innerText = msg;
-        } else {
-            // 否則照舊，加上宜齋戒念佛
-            banner.innerText = `今日 ${msg}，宜齋戒念佛 `; 
-        }
-        
-        banner.style.display = 'block';
+    // 渲染：若有 URL 則包覆超連結標籤，否則僅顯示純文字
+    if (url) {
+        banner.innerHTML = `<a href="${url}" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">${displayText}</a>`;
+    } else {
+        banner.innerText = displayText;
     }
+    
+    banner.style.display = 'block';
 }
 
 
@@ -2590,7 +3035,7 @@ function triggerLevelUpEffect(rankName, svgHtml) {
                 navigateTo('realm.html'); 
             }
         }, 200);
-    }, 1000);
+    }, 400);
 }
 
 
@@ -2770,266 +3215,221 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
   // ══════════════════════════════════════════════
   //  左上角位階與升等圖示
   // ══════════════════════════════════════════════
-  function getLotusSVG(rankType, nianCount = 0, overrideLevel = null) {
-    // 【加固 1】確保資料尚未讀取完成時，系統不會崩潰
+ function getLotusSVG(rankType, nianCount = 0, overrideLevel = null) {
     const safeRank = rankType || ""; 
     
-    // 【加固 2】決定蓮花演化等級 (1~10)，並確保 overrideLevel 範圍合法
     let nLevel = 1;
     if (overrideLevel !== null) {
         nLevel = Math.max(1, Math.min(overrideLevel, 10)); 
     } else {
-        if (nianCount >= 100000000) nLevel = 10;      // [1億] 至心歸命
-        else if (nianCount >= 10000000) nLevel = 9;   // [1千萬] 機法深信
-        else if (nianCount >= 1000000) nLevel = 8;    // [100萬] 潛通佛智
-        else if (nianCount >= 500000) nLevel = 7;     // [50萬] 都攝六根
-        else if (nianCount >= 100000) nLevel = 6;     // [10萬] 一心專念
-        else if (nianCount >= 10000) nLevel = 5;      // [1萬] 信願具足
-        else if (nianCount >= 5000) nLevel = 4;       // [5000] 淨念相繼
-        else if (nianCount >= 500) nLevel = 3;        // [500] 一念清淨
-        else if (nianCount >= 10) nLevel = 2;         // [10] 十念圓滿
-        else nLevel = 1;                              // [基礎] 初發心
+        if (nianCount >= 100000000) nLevel = 10;
+        else if (nianCount >= 10000000) nLevel = 9;
+        else if (nianCount >= 1000000) nLevel = 8;
+        else if (nianCount >= 500000) nLevel = 7;
+        else if (nianCount >= 100000) nLevel = 6;
+        else if (nianCount >= 10000) nLevel = 5;
+        else if (nianCount >= 5000) nLevel = 4;
+        else if (nianCount >= 500) nLevel = 3;
+        else if (nianCount >= 10) nLevel = 2;
+        else nLevel = 1;
     }
 
     const cx = 50, cy = 50;
     const id = `svg-${Math.random().toString(36).substr(2, 5)}`; 
 
-    // ── 花瓣路徑生成器 (5-5 交錯十瓣比例) ──
-    function P(r0, r1, hw, bulge, shape) {
+    // 平滑貝茲花瓣生成器
+    function P(r0, r1, hw, bulge) {
         const bx = cx, by = cy - r0, tx = cx, ty = cy - r1;
-        const my = cy - (r0 + r1) / 2;
-        if (shape === 'slim') return `M${bx - hw * .7} ${by} C${bx - bulge * .75} ${my} ${tx - 1.5} ${ty + 3} ${tx} ${ty} C${tx + 1.5} ${ty + 3} ${bx + bulge * .75} ${my} ${bx + hw * .7} ${by}Z`;
-        if (shape === 'wide') return `M${bx - hw} ${by} C${bx - bulge * 1.35} ${my + 4} ${tx - bulge * .45} ${ty + 7} ${tx} ${ty} C${tx + bulge * .45} ${ty + 7} ${bx + bulge * 1.35} ${my + 4} ${bx + hw} ${by}Z`;
-        return `M${bx - hw} ${by} C${bx - bulge} ${my} ${tx - bulge * .3} ${ty + 5} ${tx} ${ty} C${tx + bulge * .3} ${ty + 5} ${bx + bulge} ${my} ${bx + hw} ${by}Z`;
+        const my = cy - (r0 + r1) * 0.5;
+        return `M ${bx - hw} ${by} C ${bx - bulge} ${my}, ${tx - 1} ${ty + 2}, ${tx} ${ty} C ${tx + 1} ${ty + 2}, ${bx + bulge} ${my}, ${bx + hw} ${by} Z`;
     }
 
-    function rotatedPetals(n, r0, r1, hw, bulge, shape, fill, op, offset = 0) {
+    function rotatedPetals(n, r0, r1, hw, bulge, fill, op, offset = 0) {
         let s = '';
+        const angleStep = 360 / n;
         for (let i = 0; i < n; i++) {
-            const a = i * (360 / n) + offset;
-            s += `<path d="${P(r0, r1, hw, bulge, shape)}" fill="${fill}" opacity="${op}" transform="rotate(${a} ${cx} ${cy})"/>`;
+            const a = i * angleStep + offset;
+            s += `<path d="${P(r0, r1, hw, bulge)}" fill="${fill}" opacity="${op}" transform="rotate(${a} ${cx} ${cy})"/>`;
         }
         return s;
     }
-        // ── 微型向量幾何引擎 (只負責算數學畫線) ──
-    function pt(n, r, deg=0) {
-        let pts=[], off = -Math.PI/2 + deg*Math.PI/180;
-        for(let k=0;k<n;k++) pts.push([r*Math.cos(2*Math.PI*k/n + off), r*Math.sin(2*Math.PI*k/n + off)]);
-        return pts;
-    }
-    function st(n, r1, r2, deg=0) {
-        let pts=[], off=-Math.PI/2+deg*Math.PI/180;
-        for(let k=0;k<2*n;k++) {
-            let r=k%2===0?r1:r2;
-            pts.push([r*Math.cos(Math.PI*k/n+off), r*Math.sin(Math.PI*k/n+off)]);
-        }
-        return pts;
-    }
-    function pStr(pts) { return pts.map(p=>p[0].toFixed(2)+','+p[1].toFixed(2)).join(' '); }
-    function K(pts, stroke, sw, op) {
-        let s='';
-        for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++) s+=`<line x1="${pts[i][0].toFixed(2)}" y1="${pts[i][1].toFixed(2)}" x2="${pts[j][0].toFixed(2)}" y2="${pts[j][1].toFixed(2)}"/>`;
-        return `<g stroke="${stroke}" stroke-width="${sw}" opacity="${op}">${s}</g>`;
-    }
-    function D(pts, r, fill, op) {
-        return `<g opacity="${op}">${pts.map(p=>`<circle cx="${p[0].toFixed(2)}" cy="${p[1].toFixed(2)}" r="${r}" fill="${fill}"/>`).join('')}</g>`;
-    }
 
-
-     // ── 共用定義 (完全保留舊有，安全追加新色彩) ──
-    const sharedDefs = `
-    <defs>
-        <filter id="glo${id}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <filter id="sof${id}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.1" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <radialGradient id="rg-unified-gold" cx="50%" cy="50%" r="60%">
-            <stop offset="0%" stop-color="#fffce0"/><stop offset="28%" stop-color="#f0c030"/><stop offset="65%" stop-color="#906010"/><stop offset="100%" stop-color="#4c3008"/>
-        </radialGradient>
-        <radialGradient id="rg-void" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#111111" stop-opacity="0.95"/><stop offset="70%" stop-color="#0a0500" stop-opacity="0.8"/><stop offset="100%" stop-color="#000000" stop-opacity="0"/>
-        </radialGradient>
-        
-        <radialGradient id="rg-mandala-base-${id}" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#2a1606"/><stop offset="60%" stop-color="#140a02"/><stop offset="100%" stop-color="#080401"/>
-        </radialGradient>
-        <radialGradient id="rg-glow-faith-${id}" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/><stop offset="25%" stop-color="#ffe6d5" stop-opacity="0.85"/><stop offset="65%" stop-color="#ff9955" stop-opacity="0.25"/><stop offset="100%" stop-color="#cc5500" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="rg-glow-abiding-${id}" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/><stop offset="25%" stop-color="#fff4cc" stop-opacity="0.85"/><stop offset="65%" stop-color="#ffcc00" stop-opacity="0.2"/><stop offset="100%" stop-color="#aa7700" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="rg-glow-practice-${id}" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/><stop offset="25%" stop-color="#e6f9ff" stop-opacity="0.85"/><stop offset="65%" stop-color="#33bbff" stop-opacity="0.2"/><stop offset="100%" stop-color="#0066aa" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="rg-glow-dedication-${id}" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/><stop offset="25%" stop-color="#ffe6fa" stop-opacity="0.85"/><stop offset="50%" stop-color="#dd66dd" stop-opacity="0.4"/><stop offset="75%" stop-color="#ffbfa3" stop-opacity="0.2"/><stop offset="100%" stop-color="#440088" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="rg-glow-bhumi-${id}" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/><stop offset="20%" stop-color="#fffaee" stop-opacity="0.9"/><stop offset="45%" stop-color="#ff99cc" stop-opacity="0.5"/><stop offset="70%" stop-color="#66ccff" stop-opacity="0.25"/><stop offset="100%" stop-color="#aa66ff" stop-opacity="0"/>
-        </radialGradient>
-    </defs>`;
-
-
-    const voidBg = `<circle cx="50" cy="50" r="42" fill="url(#rg-void)"><animate attributeName="r" values="41;43;41" dur="6s" repeatCount="indefinite"/></circle>`;
-
-            // ── 統一金剛底座圖示 (彩色幾何與呼吸光暈版) ──
-    let innerSvg = '';
-    let glowId = `rg-glow-abiding-${id}`; 
+    // 五階尊像色調微調 (信/願/行/善/德)
     const isRank = (t) => safeRank.includes(t);
+    
+    let themeColor = { top: '#fffbe6', mid: '#ffd700', bot: '#FFE153' };
 
     if (isRank('信') || isRank('Faith')) {
-        glowId = `rg-glow-faith-${id}`;
-        let o = pt(9,97,0), m = pt(9,70,20), i = pt(9,40,0);
-        innerSvg = `
-        <polygon points="${pStr(o)}" stroke="#ffcca0" stroke-width="1.2" fill="none" opacity="0.8"/>
-        <polygon points="${pStr(m)}" stroke="#ffaa66" stroke-width="0.8" fill="none" opacity="0.6"/>
-        ${K(o,'#ffb870',0.3,0.4)}
-        ${K(m,'#ff9955',0.4,0.5)}
-        <polygon points="${pStr(st(9,97,25,0))}" fill="rgba(255,150,80,0.08)" stroke="#ffe0c0" stroke-width="1.5"/>
-        <polygon points="${pStr(i)}" stroke="#ffcc99" stroke-width="1" fill="none" opacity="0.7"/>
-        ${K(i,'#ffaa66',0.5,0.6)}
-        ${D(o,2,'#ffcca0',0.8)}${D(m,1.5,'#ffb870',0.7)}
-        `;
+        themeColor = { top: '#FFF0AC', mid: '#FFBB77', bot: '#000000' };
     } else if (isRank('願') || isRank('Vow')) {
-        glowId = `rg-glow-abiding-${id}`;
-        let o = pt(10,97,0), p1 = pt(5,80,0), p2 = pt(5,80,36), i = pt(10,45,18);
-        innerSvg = `
-        <polygon points="${pStr(o)}" stroke="#ffe066" stroke-width="1.2" fill="none" opacity="0.8"/>
-        ${K(o,'#ffd633',0.3,0.4)}
-        <polygon points="${pStr(p1)}" stroke="#ffcc00" stroke-width="1" fill="rgba(255,200,0,0.05)"/>
-        <polygon points="${pStr(p2)}" stroke="#ffcc00" stroke-width="1" fill="rgba(255,200,0,0.05)"/>
-        <polygon points="${pStr(st(10,97,20,0))}" fill="none" stroke="#fff0b3" stroke-width="1.5"/>
-        ${K(i,'#ffc266',0.5,0.6)}
-        ${D(o,2,'#ffe066',0.8)}
-        `;
+        themeColor = { top: '#e6f2ff', mid: '#FF9D6F', bot: '#0b2545' };
     } else if (isRank('行') || isRank('Practice')) {
-        glowId = `rg-glow-practice-${id}`;
-        let o = pt(12,97,0), m = pt(12,65,15), i = pt(12,35,0);
-        let t1 = pt(3,97,0), t2 = pt(3,97,30), t3 = pt(3,97,60), t4 = pt(3,97,90);
-        innerSvg = `
-        <polygon points="${pStr(o)}" stroke="#e6ffff" stroke-width="1.2" fill="none" opacity="0.8"/>
-        ${K(o,'#99ffff',0.2,0.3)}
-        <polygon points="${pStr(t1)}" stroke="#66ccff" stroke-width="1" fill="rgba(100,200,255,0.05)"/>
-        <polygon points="${pStr(t2)}" stroke="#66ccff" stroke-width="1" fill="rgba(100,200,255,0.05)"/>
-        <polygon points="${pStr(t3)}" stroke="#66ccff" stroke-width="1" fill="rgba(100,200,255,0.05)"/>
-        <polygon points="${pStr(t4)}" stroke="#66ccff" stroke-width="1" fill="rgba(100,200,255,0.05)"/>
-        <polygon points="${pStr(st(12,97,25,0))}" stroke="#ccffff" stroke-width="1.5" fill="none"/>
-        ${K(m,'#33bbff',0.3,0.5)}
-        ${K(i,'#99eeff',0.5,0.6)}
-        ${D(o,2,'#e6ffff',0.8)}
-        `;
+        themeColor = { top: '#fff0f0', mid: '#FF8000', bot: '#FFAF60' };
     } else if (isRank('善') || isRank('Goodness')) {
-        glowId = `rg-glow-dedication-${id}`;
-        let o1 = pt(8,97,0), o2 = pt(8,97,22.5), i1 = pt(8,50,11.25);
-        let all = [...o1, ...o2];
-        innerSvg = `
-        <polygon points="${pStr(o1)}" stroke="#ffccff" stroke-width="1.2" fill="none" opacity="0.8"/>
-        <polygon points="${pStr(o2)}" stroke="#ffbfa3" stroke-width="1.2" fill="none" opacity="0.8"/>
-        ${K(all,'#ddaaee',0.2,0.4)}
-        <polygon points="${pStr(st(8,97,20,0))}" stroke="#ffddaa" stroke-width="1.5" fill="rgba(255,200,100,0.06)"/>
-        <polygon points="${pStr(st(8,97,20,22.5))}" stroke="#eebbff" stroke-width="1.2" fill="none"/>
-        ${K(i1,'#ee99ff',0.5,0.6)}
-        ${D(o1,2.2,'#ffccff',0.8)}
-        ${D(o2,2.2,'#ffbfa3',0.8)}
-        `;
+        themeColor = { top: '#fffbe6', mid: '#ffd700', bot: '#FFE153' };
     } else if (isRank('德') || isRank('Virtue')) {
-        glowId = `rg-glow-bhumi-${id}`;
-        let o = pt(14,97,0);
-        const colors = ['#ff7b7b', '#ffb347', '#ffea70', '#85e085', '#70b3ff', '#c299ff', '#ffb3e6'];
-        let stars = '';
-        for(let k=0; k<7; k++) {
-            let rOut = 97 - k * 7;
-            let rIn = 25 + k * 6;
-            stars += `<polygon points="${pStr(st(14, rOut, rIn, k * 12.85))}" stroke="${colors[k]}" stroke-width="1.2" fill="rgba(255,255,255,0.03)"/>`;
-        }
-        let colorfulDots = `<g opacity="0.9">`;
-        let pts = pt(14,97,0);
-        for(let k=0; k<14; k++) {
-            colorfulDots += `<circle cx="${pts[k][0].toFixed(2)}" cy="${pts[k][1].toFixed(2)}" r="2.5" fill="${colors[k%7]}"/>`;
-        }
-        colorfulDots += `</g>`;
+        themeColor = { top: '#C6A300', mid: '#EAC100', bot: '#FFDC35' };
+    }
+    const c = themeColor;
 
-        innerSvg = `
-        ${K(o,'#ffffff',0.12,0.4)}
-        ${stars}
-        <polygon points="${pStr(pt(14, 25, 0))}" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-        ${colorfulDots}
-        `;
+    // 精緻調色盤
+    const colors = {
+        lv1:  { t: "#ffffff", m: "#ffb7b2", b: "#e2858e", o: 0.95 },
+        lv2:  { t: "#ffffff", m: "#cbf0f8", b: "#f8bbd0", o: 0.9 },
+        lv3:  { t: "#e0f7fa", m: "#4dd0e1", b: "#00838f", o: 0.9 },
+        lv4:  { t: "#f3e5f5", m: "#ba68c8", b: "#7b1fa2", o: 0.9 },
+        lv5:  { t: "#e1f5fe", m: "#29b6f6", b: "#0277bd", o: 0.9 },
+        lv6:  { t: "#ffebee", m: "#e53935", b: "#b71c1c", o: 0.9 },
+        lv7_1: { t: "#ffffff", m: "#ff4081", b: "#c2185b", o: 0.60 },
+        lv7_2: { t: "#ffffff", m: "#00e5ff", b: "#00838f", o: 0.45 },
+        lv7_3: { t: "#ffffff", m: "#b388ff", b: "#6200ea", o: 0.55 },
+        lv7_4: { t: "#ffffff", m: "#00e676", b: "#008744", o: 0.40 },
+        lv7_5: { t: "#ffffff", m: "#ffd700", b: "#ff8f00", o: 0.65 },
+        lv7_6: { t: "#ffffff", m: "#ff6e40", b: "#d84315", o: 0.50 },
+        lv8:  { t: "#f3e5f5", m: "#ab47bc", b: "#fbc02d", o: 0.9 },
+        lv9:  { t: "#ffffff", m: "#fff9c4", b: "#fbc02d", o: 0.95 },
+        lv10: { t: "#ffffff", m: "#ffd700", b: "#ff6f00", o: 1.0 }
+    };
+
+    function makeGrad(gradId, col) {
+        return `
+        <radialGradient id="${gradId}" cx="50%" cy="85%" r="95%">
+            <stop offset="0%" stop-color="${col.t}" stop-opacity="${col.o}"/>
+            <stop offset="50%" stop-color="${col.m}" stop-opacity="${col.o * 0.85}"/>
+            <stop offset="100%" stop-color="${col.b}" stop-opacity="${col.o * 0.65}"/>
+        </radialGradient>`;
     }
 
-    let bgContent = '';
-    if (innerSvg) {
-        bgContent = `
-        <circle cx="${cx}" cy="${cy}" r="21.8" fill="url(#rg-mandala-base-${id})" stroke="#b08820" stroke-width="0.8"/>
-        <g transform="translate(${cx}, ${cy}) scale(0.193)">
-            ${innerSvg}
-            <circle cx="0" cy="0" r="32" fill="url(#${glowId})">
-                <animate attributeName="opacity" values="0.4; 1; 0.4" dur="4s" repeatCount="indefinite"/>
-            </circle>
-        </g>
-        <circle cx="${cx}" cy="${cy}" r="21.8" fill="none" stroke="#000000" stroke-width="0.5" opacity="0.6"/>
-        `;
-    } else {
-        // 保底：若讀不到上述位階，依然退回安全的舊版純金底盤
-        bgContent = `<circle cx="${cx}" cy="${cy}" r="21" fill="url(#rg-unified-gold)" stroke="#f0d060" stroke-width=".7"/>`;
-    }
+    const sharedDefs = `
+    <defs>
+        <filter id="glo${id}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="sof${id}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.1" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        
+        <radialGradient id="personGrad-${id}" cx="50%" cy="38%" r="75%">
+            <stop offset="0%" stop-color="${c.top}"/>
+            <stop offset="50%" stop-color="${c.mid}"/>
+            <stop offset="100%" stop-color="${c.bot}"/>
+        </radialGradient>
 
+        <linearGradient id="goldRing-${id}" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fff6d0"/>
+            <stop offset="50%" stop-color="#ffd700"/>
+            <stop offset="100%" stop-color="#a8710a"/>
+        </linearGradient>
 
-    // ── 蓮花顏料與十階演化生成 (妙依美學強化版 - 修正 6,7,8 階) ──
+        <radialGradient id="rg-void" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#111111" stop-opacity="0.95"/><stop offset="75%" stop-color="#0a0500" stop-opacity="0.85"/><stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="rg-center-base-${id}" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#3a2408"/><stop offset="60%" stop-color="#1c1004"/><stop offset="100%" stop-color="#0a0602"/>
+        </radialGradient>
+
+        ${makeGrad(`g-lv1-${id}`, colors.lv1)}
+        ${makeGrad(`g-lv2-${id}`, colors.lv2)}
+        ${makeGrad(`g-lv3-${id}`, colors.lv3)}
+        ${makeGrad(`g-lv4-${id}`, colors.lv4)}
+        ${makeGrad(`g-lv5-${id}`, colors.lv5)}
+        ${makeGrad(`g-lv6-${id}`, colors.lv6)}
+        ${makeGrad(`g-lv7_1-${id}`, colors.lv7_1)}
+        ${makeGrad(`g-lv7_2-${id}`, colors.lv7_2)}
+        ${makeGrad(`g-lv7_3-${id}`, colors.lv7_3)}
+        ${makeGrad(`g-lv7_4-${id}`, colors.lv7_4)}
+        ${makeGrad(`g-lv7_5-${id}`, colors.lv7_5)}
+        ${makeGrad(`g-lv7_6-${id}`, colors.lv7_6)}
+        ${makeGrad(`g-lv8-${id}`, colors.lv8)}
+        ${makeGrad(`g-lv9-${id}`, colors.lv9)}
+        ${makeGrad(`g-lv10-${id}`, colors.lv10)}
+    </defs>`;
+
+    const voidBg = `<circle cx="50" cy="50" r="49.5" fill="url(#rg-void)"><animate attributeName="r" values="48.5;49.5;48.5" dur="6s" repeatCount="indefinite"/></circle>`;
+
+    const bgContent = `
+    <circle cx="${cx}" cy="${cy}" r="35.3" fill="none" stroke="#ffefb0" stroke-width="0.5" opacity="0.7"/>
+    <circle cx="${cx}" cy="${cy}" r="34.5" fill="url(#rg-center-base-${id})" stroke="url(#goldRing-${id})" stroke-width="1.4"/>
+    
+    <!-- 尊像主體 -->
+    <g transform="translate(${cx - 38.5}, ${cy - 41.5}) scale(0.077)" opacity="0.97">
+        <path d="M 500 108 C 506 108, 508 114, 508 118 C 522 118, 524 145, 510 155 C 550 155, 565 170, 565 220 C 565 250, 563 275, 558 295 C 553 312, 549 324, 544 330 C 542 336, 544 352, 550 370 C 610 370, 650 400, 670 480 C 690 560, 680 660, 650 700 C 720 680, 800 700, 830 750 C 860 800, 830 840, 770 840 L 230 840 C 170 840, 140 800, 170 750 C 200 700, 280 680, 350 700 C 320 660, 310 560, 330 480 C 350 400, 390 370, 450 370 C 456 352, 458 336, 456 330 C 451 324, 447 312, 442 295 C 437 275, 435 250, 435 220 C 435 170, 450 155, 490 155 C 476 145, 478 118, 492 118 C 492 114, 494 108, 500 108 Z" 
+              fill="url(#personGrad-${id})" stroke="none" />
+        <path d="M 435 220 Q 427 205 426 220 Q 418 270 434 320 Q 428 380 454 330" fill="url(#personGrad-${id})" stroke="none" />
+        <path d="M 565 220 Q 573 205 574 220 Q 582 270 566 320 Q 572 380 546 330" fill="url(#personGrad-${id})" stroke="none" />
+    </g>
+
+    <circle cx="${cx}" cy="${cy}" r="34.5" fill="none" stroke="#000000" stroke-width="0.4" opacity="0.5"/>
+    `;
+
+    // 階層演化邏輯 (1~10階)
     let lotusContent = '';
 
-    if (nLevel === 1) { // [0] 白瓷銀
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/><stop offset="100%" stop-color="#cfd8dc" stop-opacity="0.6"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="65%" r="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/><stop offset="100%" stop-color="#eceff1" stop-opacity="0.7"/></radialGradient></defs>
-        ${rotatedPetals(8,22,46,7,11,'round',`url(#lA${id})`,.85)}${rotatedPetals(8,22,38,5.5,8,'round',`url(#lB${id})`,.65,22.5)}`;
-    } else if (nLevel === 2) { // [10] 玫瑰金
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#fff0f0" stop-opacity="0.95"/><stop offset="100%" stop-color="#e4a8a8" stop-opacity="0.65"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="65%" r="100%"><stop offset="0%" stop-color="#fff5f5" stop-opacity="0.9"/><stop offset="100%" stop-color="#f4c8c8" stop-opacity="0.75"/></radialGradient></defs>
-        ${rotatedPetals(8,22,46,7,11,'round',`url(#lA${id})`,.85)}${rotatedPetals(8,22,38,5.5,8,'round',`url(#lB${id})`,.65,22.5)}`;
-    } else if (nLevel === 3) { // [500] 琉璃粉
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#fff0f5"/><stop offset="100%" stop-color="#f48fb1" stop-opacity=".75"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="65%" r="100%"><stop offset="0%" stop-color="#ffe8f2"/><stop offset="100%" stop-color="#f8bbd0" stop-opacity=".85"/></radialGradient></defs>
-        ${rotatedPetals(8,22,46,7,11,'round',`url(#lA${id})`,.92)}${rotatedPetals(8,22,38,5.5,8,'round',`url(#lB${id})`,.7,22.5)}`;
-    } else if (nLevel === 4) { // [5000] 冰晶藍
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="72%" r="100%"><stop offset="0%" stop-color="#e0f7fa" stop-opacity="0.95"/><stop offset="100%" stop-color="#81d4fa" stop-opacity="0.7"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="58%" r="100%"><stop offset="0%" stop-color="#e1f5fe" stop-opacity="0.9"/><stop offset="100%" stop-color="#b3e5fc" stop-opacity="0.8"/></radialGradient></defs>
-        ${rotatedPetals(8,22,46,9,14,'wide',`url(#lA${id})`,.88)}${rotatedPetals(8,22,37,6,9,'wide',`url(#lB${id})`,.6,22.5)}`;
-    } else if (nLevel === 5) { // [1萬] 翡翠玉
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="78%" r="100%"><stop offset="0%" stop-color="#e0f2f1"/><stop offset="100%" stop-color="#80cbc4" stop-opacity=".8"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="62%" r="100%"><stop offset="0%" stop-color="#e0f7fa"/><stop offset="100%" stop-color="#b2dfdb" stop-opacity=".85"/></radialGradient></defs>
-        ${rotatedPetals(10,22,46,6,9,'point',`url(#lA${id})`,.9)}${rotatedPetals(10,22,36,4,6,'slim',`url(#lB${id})`,.6,18)}`;
-    } else if (nLevel === 6) { // [10萬] 月光琉璃 (✨ 優化：降低飽和度，光感更透明)
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="78%" r="100%"><stop offset="0%" stop-color="#e1f5fe"/><stop offset="100%" stop-color="#90caf9" stop-opacity=".7"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="62%" r="100%"><stop offset="0%" stop-color="#f0f4c3" stop-opacity="0.4"/><stop offset="100%" stop-color="#b2dfdb" stop-opacity=".7"/></radialGradient></defs>
-        ${rotatedPetals(10,22,47,6.5,10,'point',`url(#lA${id})`,.9)}${rotatedPetals(10,22,38,4.5,7,'slim',`url(#lB${id})`,.75,18)}`;
-    } else if (nLevel === 7) { // [50萬] 珍珠彩虹 (✨ 重大調整：雙層交錯 ‧ 拒絕陽春)
-        const cols = ['#ffcdd2','#ffe0b2','#fff9c4','#dcedc8','#b2dfdb','#b3e5fc','#c5cae9','#e1bee7','#f8bbd0','#f5f5f5'];
-        // 外層 10 片
-        let out = Array.from({length:10}, (_, i) => `<path d="${P(22,46,7.5,11,'round')}" fill="${cols[i]}" opacity=".85" transform="rotate(${i*36} ${cx} ${cy})"/>`).join('');
-        // 內層 10 片 (旋轉 18 度填補縫隙，縮短長度增加立體感)
-        let inv = Array.from({length:10}, (_, i) => `<path d="${P(22,38,5.5,8,'round')}" fill="${cols[(i+5)%10]}" opacity=".65" transform="rotate(${i*36 + 18} ${cx} ${cy})"/>`).join('');
-        lotusContent = out + inv;
-    } else if (nLevel === 8) { // [100萬] 紫霞仙金 (✨ 優化：薰衣草漸變透金色，減少沈重感)
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#fff9c4" stop-opacity="0.9"/><stop offset="100%" stop-color="#ce93d8" stop-opacity=".8"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="65%" r="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/><stop offset="100%" stop-color="#e1bee7" stop-opacity=".85"/></radialGradient></defs>
-        ${rotatedPetals(10,22,47,7,12,'wide',`url(#lA${id})`,.95)}${rotatedPetals(10,22,38,5,8,'round',`url(#lB${id})`,.75,18)}`;
-    } else if (nLevel === 9) { // [1000萬] 耀眼純金
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="73%" r="100%"><stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#ffd54f" stop-opacity=".9"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="63%" r="100%"><stop offset="0%" stop-color="#fffde7"/><stop offset="100%" stop-color="#ffe082" stop-opacity=".85"/></radialGradient></defs>
-        ${rotatedPetals(8,22,47,8.5,12,'round',`url(#lA${id})`,.95)}${rotatedPetals(8,22,44,8,11,'round',`url(#lB${id})`,.88,22.5)}`;
-    } else { // [1億] 圓滿琉璃金 (✨ 參數校對：精準對齊 8, 7.5)
-        lotusContent = `<defs><radialGradient id="lA${id}" cx="50%" cy="75%" r="100%"><stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#ffca28" stop-opacity=".9"/></radialGradient><radialGradient id="lB${id}" cx="50%" cy="65%" r="100%"><stop offset="0%" stop-color="#fffde7"/><stop offset="100%" stop-color="#ffb300" stop-opacity=".85"/></radialGradient></defs>
-        ${rotatedPetals(12,22,48,7,10,'round',`url(#lA${id})`,.98)}${rotatedPetals(12,22,42,6,8.5,'round',`url(#lB${id})`,.9,15)}${rotatedPetals(12,22,34,4.5,6.5,'round',`url(#lA${id})`,.8,7.5)}`;
+    if (nLevel === 1) { 
+        lotusContent = rotatedPetals(10, 34.5, 48.5, 6.8, 9.5, `url(#g-lv1-${id})`, .92) +
+                       rotatedPetals(10, 34.5, 42.0, 5.2, 7.5, `url(#g-lv1-${id})`, .75, 18);
+    } else if (nLevel === 2) { 
+        lotusContent = rotatedPetals(10, 34.5, 48.5, 6.0, 8.5, `url(#g-lv2-${id})`, .90) +
+                       rotatedPetals(10, 34.5, 43.0, 4.8, 6.8, `url(#g-lv2-${id})`, .78, 18) +
+                       rotatedPetals(8, 34.5, 38.5, 3.5, 5.0, `url(#g-lv2-${id})`, .65, 0);
+    } else if (nLevel === 3) { 
+        lotusContent = rotatedPetals(12, 34.5, 48.8, 5.8, 8.0, `url(#g-lv3-${id})`, .90) +
+                       rotatedPetals(12, 34.5, 43.5, 4.5, 6.2, `url(#g-lv3-${id})`, .80, 15) +
+                       rotatedPetals(10, 34.5, 39.0, 3.2, 4.6, `url(#g-lv3-${id})`, .70, 0);
+    } else if (nLevel === 4) { 
+        lotusContent = rotatedPetals(12, 34.5, 48.5, 5.0, 7.0, `url(#g-lv4-${id})`, .88) +
+                       rotatedPetals(12, 34.5, 43.0, 4.0, 5.5, `url(#g-lv4-${id})`, .78, 15) +
+                       rotatedPetals(8, 34.5, 38.5, 3.0, 4.0, `url(#g-lv4-${id})`, .7, 0);
+    } else if (nLevel === 5) { 
+        lotusContent = rotatedPetals(12, 34.5, 48.5, 5.0, 7.0, `url(#g-lv5-${id})`, .9) +
+                       rotatedPetals(12, 34.5, 43.0, 4.0, 5.5, `url(#g-lv5-${id})`, .8, 15) +
+                       rotatedPetals(10, 34.5, 38.5, 3.2, 4.2, `url(#g-lv5-${id})`, .75, 0);
+    } else if (nLevel === 6) { 
+        lotusContent = rotatedPetals(14, 34.5, 49.0, 4.5, 6.5, `url(#g-lv6-${id})`, .92) +
+                       rotatedPetals(14, 34.5, 43.5, 3.8, 5.2, `url(#g-lv6-${id})`, .82, 12.85) +
+                       rotatedPetals(10, 34.5, 39.0, 3.2, 4.2, `url(#g-lv6-${id})`, .8, 0);
+    } else if (nLevel === 7) { 
+        lotusContent = rotatedPetals(4, 34.5, 49.5, 4.8, 6.8, `url(#g-lv7_1-${id})`, .60, 0) +
+                       rotatedPetals(4, 34.5, 49.5, 4.8, 6.8, `url(#g-lv7_2-${id})`, .45, 30) +
+                       rotatedPetals(4, 34.5, 49.5, 4.8, 6.8, `url(#g-lv7_3-${id})`, .55, 60) +
+                       
+                       rotatedPetals(4, 34.5, 44.5, 3.8, 5.2, `url(#g-lv7_4-${id})`, .40, 15) +
+                       rotatedPetals(4, 34.5, 44.5, 3.8, 5.2, `url(#g-lv7_5-${id})`, .65, 45) +
+                       rotatedPetals(4, 34.5, 44.5, 3.8, 5.2, `url(#g-lv7_6-${id})`, .50, 75) +
+
+                       rotatedPetals(6, 34.5, 40.0, 3.0, 4.2, `url(#g-lv7_1-${id})`, .50, 0) +
+                       rotatedPetals(6, 34.5, 40.0, 3.0, 4.2, `url(#g-lv7_3-${id})`, .50, 30) +
+
+                       rotatedPetals(6, 34.5, 37.0, 2.4, 3.4, `url(#g-lv7_5-${id})`, .60, 15);
+    } else if (nLevel === 8) { 
+        lotusContent = rotatedPetals(16, 34.5, 49.5, 4.0, 6.0, `url(#g-lv8-${id})`, .9) +
+                       rotatedPetals(16, 34.5, 44.5, 3.5, 4.8, `url(#g-lv8-${id})`, .85, 11.25) +
+                       rotatedPetals(12, 34.5, 40.0, 3.0, 4.2, `url(#g-lv8-${id})`, .8, 0) +
+                       rotatedPetals(10, 34.5, 37.0, 2.6, 3.6, `url(#g-lv9-${id})`, .78, 18);
+    } else if (nLevel === 9) { 
+        lotusContent = rotatedPetals(16, 34.5, 49.5, 4.0, 6.0, `url(#g-lv9-${id})`, .92) +
+                       rotatedPetals(16, 34.5, 45.0, 3.5, 4.8, `url(#g-lv9-${id})`, .88, 11.25) +
+                       rotatedPetals(14, 34.5, 41.0, 3.0, 4.2, `url(#g-lv9-${id})`, .85, 0) +
+                       rotatedPetals(12, 34.5, 38.0, 2.6, 3.6, `url(#g-lv10-${id})`, .8, 15) +
+                       rotatedPetals(8, 34.5, 35.5, 2.2, 3.0, `url(#g-lv10-${id})`, .75, 0);
+    } else { 
+        lotusContent = rotatedPetals(18, 34.5, 49.5, 3.8, 5.5, `url(#g-lv10-${id})`, .95) +
+                       rotatedPetals(18, 34.5, 45.5, 3.2, 4.6, `url(#g-lv10-${id})`, .9, 10) +
+                       rotatedPetals(14, 34.5, 42.0, 2.8, 4.0, `url(#g-lv10-${id})`, .88, 0) +
+                       rotatedPetals(12, 34.5, 39.0, 2.5, 3.5, '#ffffff', .85, 15) +
+                       rotatedPetals(10, 34.5, 36.5, 2.0, 2.8, `url(#g-lv10-${id})`, .8, 0);
     }
 
-
     return `
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
-        ${sharedDefs}${voidBg}${bgContent}
-<g filter="url(#sof${id})" style="transform-origin: 50px 50px; animation: lotus-overall-breathing 4s infinite ease-in-out;">
-    ${lotusContent}
-</g>
-
-        <circle cx="50" cy="50" r="1.8" fill="#ffffff" opacity=".95" filter="url(#glo${id})"/>
-    </svg>`;
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; shape-rendering: geometricPrecision; text-rendering: geometricPrecision;">
+    ${sharedDefs}${voidBg}
+    <g filter="url(#sof${id})" style="transform-origin: 50px 50px; animation: lotus-overall-breathing 4s infinite ease-in-out; will-change: transform; backface-visibility: hidden;">
+        ${bgContent}
+        ${lotusContent}
+    </g>
+</svg>`;
 }
 
-  
-// 🌟 獨立沙盒：天數蓮花生成引擎 (中文版專用)
+// 🌟 獨立沙盒：天數蓮花生成引擎 (中文版專用 - 無量金光加強版)
 function getDaysLotusSVG(totalDays) {
     const stages = [
-        { d: 30000, name: "無量金光", c: {t:"#ffffff", m:"#ffeb3b", b:"#ff8f00", o: 1.0}, l: 5, g: 6.0 },
+        { d: 30000, name: "無量金光", c: {t:"#ffffff", m:"#ffd700", b:"#ff6f00", o: 1.0}, l: 5, g: 6.0 },
         { d: 10000, name: "摩尼幻彩", c: {t:"#ffffff", m:"#ff80ab", b:"#00e5ff", o: 0.85}, l: 5, g: 4.0 },
         { d: 1000,  name: "萬佛金剛", c: {t:"#ffffff", m:"#fff9c4", b:"#fbc02d", o: 0.9}, l: 5, g: 3.0 },
         { d: 500,   name: "大日純金", c: {t:"#fffde7", m:"#fdd835", b:"#f57f17", o: 0.9}, l: 5, g: 2.2 },
@@ -3049,38 +3449,119 @@ function getDaysLotusSVG(totalDays) {
         if (totalDays >= stages[i].d) { s = stages[i]; break; }
     }
 
+    const isHighest = (s.d === 30000);
+
+    // 核心 IDs 保持不變 (cl-grad, cl-core, cl-petal)
     let svgHtml = `
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; overflow:visible;">
         <defs>
-            <linearGradient id="cl-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="${s.c.t}" stop-opacity="0.95"/>
-                <stop offset="50%" stop-color="${s.c.m}" stop-opacity="${s.c.o}"/>
+            <!-- 主漸層 (保留 id: cl-grad) -->
+            <linearGradient id="cl-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="${s.c.t}" stop-opacity="0.98"/>
+                <stop offset="40%" stop-color="${s.c.m}" stop-opacity="${s.c.o}"/>
                 <stop offset="100%" stop-color="${s.c.b}" stop-opacity="0.95"/>
             </linearGradient>
+
+            <!-- 內層花瓣柔和漸層 -->
+            <linearGradient id="cl-grad-in" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="${isHighest ? '#fffde7' : '#ffffff'}" stop-opacity="0.99"/>
+                <stop offset="55%" stop-color="${s.c.m}" stop-opacity="${Math.min(1, s.c.o + 0.1)}"/>
+                <stop offset="100%" stop-color="${s.c.b}" stop-opacity="0.9"/>
+            </linearGradient>
+
+            <!-- 花芯漸層 (保留 id: cl-core) -->
             <radialGradient id="cl-core" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#fff"/><stop offset="40%" stop-color="${s.c.m}"/><stop offset="100%" stop-color="transparent"/>
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="35%" stop-color="${s.c.m}"/>
+                <stop offset="75%" stop-color="${s.c.b}"/>
+                <stop offset="100%" stop-color="transparent"/>
             </radialGradient>
-            <path id="cl-petal" d="M 50 50 C 39 25, 41 9, 50 2 C 59 9, 61 25, 50 50 Z" fill="url(#cl-grad)" stroke="rgba(255,255,255,0.4)" stroke-width="0.3"/>
+
+            <!-- 外圍光暈發光濾鏡 -->
+            <filter id="cl-glow" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="${isHighest ? 2.8 : 1.8}" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+
+            <!-- 標準外層花瓣 (保留 id: cl-petal) -->
+            <g id="cl-petal">
+                <path d="M 50 50 C 33 34, 36 12, 50 2 C 64 12, 67 34, 50 50 Z" fill="url(#cl-grad)" stroke="${isHighest ? 'rgba(255,248,225,0.85)' : 'rgba(255,255,255,0.6)'}" stroke-width="${isHighest ? 0.45 : 0.35}"/>
+                <!-- 花瓣中脊光影與細緻紋理 -->
+                <path d="M 50 46 Q 50 25 50 8" stroke="${isHighest ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.45)'}" stroke-width="0.3" fill="none"/>
+                <path d="M 50 35 Q 43 25 40 18" stroke="${isHighest ? 'rgba(255,235,59,0.4)' : 'rgba(255,255,255,0.2)'}" stroke-width="0.2" fill="none"/>
+                <path d="M 50 35 Q 57 25 60 18" stroke="${isHighest ? 'rgba(255,235,59,0.4)' : 'rgba(255,255,255,0.2)'}" stroke-width="0.2" fill="none"/>
+            </g>
+
+            <!-- 中層花瓣 -->
+            <g id="cl-petal-mid">
+                <path d="M 50 50 C 36 36, 39 16, 50 5 C 61 16, 64 36, 50 50 Z" fill="url(#cl-grad)" stroke="${isHighest ? 'rgba(255,248,225,0.85)' : 'rgba(255,255,255,0.7)'}" stroke-width="0.3"/>
+                <path d="M 50 45 Q 50 22 50 10" stroke="rgba(255,255,255,0.45)" stroke-width="0.25" fill="none"/>
+            </g>
+
+            <!-- 內層花瓣 -->
+            <g id="cl-petal-in">
+                <path d="M 50 50 C 40 38, 42 20, 50 9 C 58 20, 60 38, 50 50 Z" fill="url(#cl-grad-in)" stroke="${isHighest ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.8)'}" stroke-width="0.25"/>
+            </g>
         </defs>
-        <circle cx="50" cy="50" r="45" fill="rgba(5,5,5,0.6)"/>
-        <circle cx="50" cy="50" r="38" fill="none" stroke="${s.c.m}" stroke-width="0.5" stroke-dasharray="1 4" opacity="0.5">
+
+        <!-- 背景底盤與聖光氣場 -->
+        <circle cx="50" cy="50" r="46" fill="rgba(8, 6, 15, 0.65)"/>
+        <circle cx="50" cy="50" r="44" fill="${s.c.m}" opacity="${isHighest ? 0.28 : 0.12}" filter="url(#cl-glow)"/>
+        
+        <!-- 動態法輪光圈 -->
+        <circle cx="50" cy="50" r="39" fill="none" stroke="${s.c.m}" stroke-width="${isHighest ? 0.75 : 0.5}" stroke-dasharray="1.5 3.5" opacity="${isHighest ? 0.85 : 0.6}">
             <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="40s" repeatCount="indefinite"/>
         </circle>
-        <g filter="drop-shadow(0 0 4px rgba(0,0,0,0.5))">
+        <circle cx="50" cy="50" r="41" fill="none" stroke="${s.c.t}" stroke-width="${isHighest ? 0.45 : 0.3}" stroke-dasharray="0.5 6" opacity="${isHighest ? 0.65 : 0.4}">
+            <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="60s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- 蓮花花瓣主體層 -->
+        <g filter="drop-shadow(0 0 ${2 + s.g}px ${isHighest ? 'rgba(255,179,0,0.5)' : 'rgba(0,0,0,0.45)'})">
             <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="120s" repeatCount="indefinite"/>`;
 
     for (let l = s.l; l > 0; l--) {
-        const sc = 0.35 + (l * 0.12); const off = (l % 2 === 0) ? 22.5 : 0; 
-        for (let i = 0; i < 8; i++) {
-            const angle = i * 45 + off; const op = Math.min(1, 0.7 + (l * 0.05));
-            svgHtml += `<use href="#cl-petal" transform="rotate(${angle} 50 50) scale(${sc}) translate(${(1-sc)*50/sc} ${(1-sc)*50/sc})" opacity="${op}"/>`;
+        const isOuter = (l === s.l);
+        const isInner = (l <= 2);
+        
+        const petalId = isOuter ? "cl-petal" : (isInner ? "cl-petal-in" : "cl-petal-mid");
+        const petalCount = isOuter ? (s.l >= 4 ? 12 : 10) : (isInner ? 6 : 8);
+        const sc = 0.38 + (l * 0.115);
+        const angleOffset = (l * 137.5 + (l % 2 === 0 ? 15 : 0)) % 360;
+        const op = Math.min(1.0, 0.72 + ((s.l - l) * 0.07));
+
+        for (let i = 0; i < petalCount; i++) {
+            const angle = (i * (360 / petalCount) + angleOffset) % 360;
+            svgHtml += `
+            <use href="#${petalId}" 
+                 transform="translate(50, 50) rotate(${angle.toFixed(1)}) scale(${sc.toFixed(3)}) translate(-50, -50)" 
+                 opacity="${op.toFixed(2)}"/>`;
         }
     }
+
     svgHtml += `</g>
-        <circle cx="50" cy="50" r="${3 + (s.l * 0.5) * s.g}" fill="url(#cl-core)">
-            <animate attributeName="opacity" values="0.6;1;0.6" dur="3s" repeatCount="indefinite"/>
+
+        <!-- 蓮蓬花蕊點綴 -->
+        <g transform="translate(50,50)">`;
+    
+    const stamenCount = 12 + Math.floor(s.l * 2);
+    const stamenRadius = 3.2 + (s.l * 0.6);
+    for (let k = 0; k < stamenCount; k++) {
+        const sa = (k * (360 / stamenCount)) * (Math.PI / 180);
+        const sx = (Math.cos(sa) * stamenRadius).toFixed(2);
+        const sy = (Math.sin(sa) * stamenRadius).toFixed(2);
+        svgHtml += `<circle cx="${sx}" cy="${sy}" r="${isHighest ? 0.75 : 0.6}" fill="${isHighest ? '#fffde7' : s.c.t}" opacity="0.9"/>`;
+    }
+
+    svgHtml += `</g>
+
+        <!-- 核心蓮心 (保留 id: cl-core 參照) -->
+        <circle cx="50" cy="50" r="${3 + (s.l * 0.5) * (s.g * 0.25)}" fill="url(#cl-core)">
+            <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite"/>
         </circle>
+        <circle cx="50" cy="50" r="1.2" fill="#ffffff" opacity="0.95"/>
     </svg>`;
+
     return svgHtml;
 }
 
@@ -3168,6 +3649,19 @@ let lastBigSeedSVG = "";
         save(); 
         triggerLevelUpEffect(rank.l, rank.i);
     }
+
+    const badgeTargets = [
+        { id: 'mb-信', active: currentDays >= 0 },
+        { id: 'mb-願', active: currentDays >= 100 },
+        { id: 'mb-行', active: currentDays >= 1100 },
+        { id: 'mb-善', active: currentDays >= 11100 },
+        { id: 'mb-德', active: currentDays >= 111100 }
+    ];
+
+    badgeTargets.forEach(item => {
+        const el = document.getElementById(item.id);
+        if (el) el.classList.toggle('active', item.active);
+    });
 }
 
 
