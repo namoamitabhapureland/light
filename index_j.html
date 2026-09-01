@@ -2909,8 +2909,7 @@ function checkNewDay() {
     let d = new Date();
     let mmdd = String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
     
- 
-    // 🌟 升級版大聲公邏輯（含 SVG 向量箭頭） 🌟
+    // 🌟 PWA 相容版大聲公邏輯 🌟
     if (festivalMap[mmdd]) {
         let banner = document.getElementById('festival-banner');
         let item = festivalMap[mmdd];
@@ -2919,19 +2918,17 @@ function checkNewDay() {
         let url = (typeof item === 'object') ? item.url : null;
         
         let displayText;
-        
-        // 只要有 url，或是文字帶有【公告】/【系統】，就不加「宜齋戒念佛」
         if (url || rawText.startsWith("【公告】") || rawText.startsWith("【系統】")) {
             displayText = rawText;
         } else {
             displayText = `今日 ${rawText}，宜齋戒念佛 `;
         }
             
-        // 渲染畫面：若有 URL 則加上極簡 SVG 向量右箭頭
         if (url) {
-            const arrowSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 4px; display: inline-block;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`;
+            const arrowSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 4px; display: inline-block;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>`;
             
-            banner.innerHTML = `<a href="${url}" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; justify-content: center;"><span style="text-decoration: underline;">${displayText}</span>${arrowSvg}</a>`;
+            // 注意：這裡不加 target="_blank"，讓 PWA 在內部原生容器直接切換頁面
+            banner.innerHTML = `<a href="${url}" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; justify-content: center;"><span style="text-decoration: underline;">${displayText}</span>${arrowSvg}</a>`;
         } else {
             banner.innerText = displayText;
         }
