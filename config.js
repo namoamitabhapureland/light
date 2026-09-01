@@ -3,7 +3,7 @@
 const festivalMap = {
     // 範例 1：帶有超連結的公告/節日
     "07-29": { text: "【系統】恭迎普賢菩薩、文殊菩薩安座", url: "https://namoamitabhapureland.github.io/bodhicitta/48vows.html" },
-    "09-01": { text: "檢視上月資糧成果", url: "https://namoamitabhapureland.github.io/bodhicitta/lunar.html" },
+    "09-01": { text: "檢視上月資糧成果", url: "lunar.html" },
     
     // 範例 2：維持原本純文字（系統會自動相容）
     "01-05": "阿彌陀佛聖誕 (農曆 11/17)", 
