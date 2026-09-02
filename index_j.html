@@ -3053,7 +3053,8 @@ function createGoldDust(x, y) {
 }
 
 function flowerRain(level) {
-    let dustCount = level === 3 ? 60 : (level === 2 ? 30 : 10);
+    // 1. 保留原本的金色細微塵光
+    let dustCount = level === 3 ? 50 : (level === 2 ? 25 : 10);
     for(let i = 0; i < dustCount; i++) {
         setTimeout(() => {
             let dust = document.createElement('div'); 
@@ -3079,46 +3080,68 @@ function flowerRain(level) {
         }, Math.random() * 1800);
     }
 
-    let petalCount = level === 3 ? 30 : (level === 2 ? 16 : 6);
+    // 2. 觸發「金色透明框 卍字佛光」放大發亮效果
+    let swastikaCount = level === 3 ? 3 : (level === 2 ? 2 : 1);
 
-    // 從您提供的 SVG 提取出的 5 種獨立單體圖案 (黃花, 粉花, 藍花, 紫花, 綠葉)
-    const petalsTemplates = [
-        // 1. 大黃花
-        `<svg viewBox="-20 -20 40 40" width="100%" height="100%"><g fill="#FFDC33" filter="drop-shadow(0 0 4px rgba(255,220,51,0.6))"><path d="M0 -11 C-3 -13 -3 -17 0 -19 C3 -17 3 -13 0 -11 M11 0 C13 -3 17 -3 19 0 C17 3 13 3 11 0 M0 11 C-3 13 -3 17 0 19 C3 17 3 13 0 11 M-11 0 C-13 -3 -17 -3 -19 0 C-17 3 -13 3 -11 0 M8 -8 C10 -11 13 -10 12 -7 C9 -4 7 -5 8 -8 M-8 8 C-10 11 -13 10 -12 7 C-9 4 -7 5 -8 8 M8 8 C11 10 10 13 7 12 C4 9 5 7 8 8 M-8 -8 C-11 -10 -10 -13 -7 -12 C-4 -9 -5 -7 -8 -8"/><circle cx="0" cy="0" r="5.5" fill="#8B5A2B"/></g></svg>`,
-        // 2. 粉紅五瓣花
-        `<svg viewBox="-12 -12 24 24" width="100%" height="100%"><g fill="#FF99C8" filter="drop-shadow(0 0 4px rgba(255,153,200,0.6))"><circle cx="0" cy="-7" r="4"/><circle cx="7" cy="-2" r="4"/><circle cx="4" cy="6" r="4"/><circle cx="-4" cy="6" r="4"/><circle cx="-7" cy="-2" r="4"/><circle cx="0" cy="0" r="2.5" fill="#FFE5EC"/></g></svg>`,
-        // 3. 藍色五瓣花
-        `<svg viewBox="-12 -12 24 24" width="100%" height="100%"><g fill="#1E90FF" filter="drop-shadow(0 0 4px rgba(30,144,255,0.6))"><circle cx="0" cy="-6" r="3.5"/><circle cx="6" cy="-2" r="3.5"/><circle cx="4" cy="5" r="3.5"/><circle cx="-4" cy="5" r="3.5"/><circle cx="-6" cy="-2" r="3.5"/><circle cx="0" cy="0" r="2.5" fill="#FFDC33"/></g></svg>`,
-        // 4. 紫色雙瓣花
-        `<svg viewBox="-10 -10 20 20" width="100%" height="100%"><g fill="#B5179E" filter="drop-shadow(0 0 4px rgba(181,23,158,0.6))"><ellipse cx="0" cy="-2" rx="3" ry="5"/><ellipse cx="-4" cy="5" rx="2.5" ry="4"/></g></svg>`,
-        // 5. 綠色葉子
-        `<svg viewBox="-15 -15 30 30" width="100%" height="100%"><path d="M -10 -10 C -15 0, 0 15, 10 10 C 15 0, 0 -15, -10 -10 Z" fill="#7CB342" filter="drop-shadow(0 0 3px rgba(124,179,66,0.5))" opacity="0.9"/></svg>`
-    ];
-
-    for(let i = 0; i < petalCount; i++) {
+    for(let i = 0; i < swastikaCount; i++) {
         setTimeout(() => {
-            let flower = document.createElement('div'); 
-            flower.className = 'flower-petal';
-            
-            // 放大尺寸：範圍改為 32px 到 60px (原本只有 8~18px)
-            let size = level === 3 ? (Math.random() * 25 + 35) : (Math.random() * 20 + 25);
-            flower.style.width = size + 'px'; 
-            flower.style.height = size + 'px';
-            flower.style.left = Math.random() * 92 + 'vw';
-            flower.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            flower.style.zIndex = "1500"; 
-            
-            // 隨機角度讓落花更有飄逸感
-            let randomRotate = Math.floor(Math.random() * 360);
-            flower.style.transform = `rotate(${randomRotate}deg)`;
+            let swastika = document.createElement('div');
+            swastika.style.position = 'fixed';
+            swastika.style.top = '50%';
+            swastika.style.left = '50%';
+            swastika.style.width = '240px';
+            swastika.style.height = '240px';
+            swastika.style.margin = '-120px 0 0 -120px';
+            swastika.style.pointerEvents = 'none';
+            swastika.style.zIndex = '1500';
 
-            // 隨機抽一種獨立的花或葉
-            let template = petalsTemplates[Math.floor(Math.random() * petalsTemplates.length)];
-            flower.innerHTML = template;
+            // 精心調製的透明金色光澤 SVG 卍字與外框
+            swastika.innerHTML = `
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+                <defs>
+                    <!-- 金屬光澤漸層 -->
+                    <linearGradient id="swastikaGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#FFE5EC" stop-opacity="0.9"/>
+                        <stop offset="50%" stop-color="#F3E5AB" stop-opacity="0.75"/>
+                        <stop offset="100%" stop-color="#D4AF37" stop-opacity="0.85"/>
+                    </linearGradient>
+                    <!-- 發光濾鏡 -->
+                    <filter id="swastikaGlow" x="-30%" y="-30%" width="160%" height="160%">
+                        <feGaussianBlur stdDeviation="3" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                </defs>
+                <!-- 透明外圓金色環框 -->
+                <circle cx="50" cy="50" r="44" fill="rgba(212, 175, 55, 0.04)" stroke="url(#swastikaGold)" stroke-width="1.2" stroke-dasharray="3 2" />
+                <circle cx="50" cy="50" r="40" fill="none" stroke="url(#swastikaGold)" stroke-width="0.8" opacity="0.6"/>
+                
+                <!-- 標準幾何莊嚴 卍 字 -->
+                <path d="M 50 50 L 50 32 L 34 32 
+                         M 50 50 L 68 50 L 68 32 
+                         M 50 50 L 50 68 L 68 68 
+                         M 50 50 L 32 50 L 32 68" 
+                      fill="none" 
+                      stroke="url(#swastikaGold)" 
+                      stroke-width="3" 
+                      stroke-linecap="square" 
+                      stroke-linejoin="miter"
+                      filter="url(#swastikaGlow)" />
+            </svg>`;
 
-            document.body.appendChild(flower); 
-            setTimeout(() => flower.remove(), 10000);
-        }, Math.random() * 2200);
+            // 動態動畫：由中心漸變透明放大擴散
+            swastika.animate([
+                { opacity: 0, transform: 'scale(0.3) rotate(0deg)' },
+                { opacity: 0.85, transform: 'scale(1.1) rotate(15deg)', offset: 0.4 },
+                { opacity: 0, transform: 'scale(1.8) rotate(30deg)' }
+            ], {
+                duration: 3500,
+                easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+                fill: 'forwards'
+            });
+
+            document.body.appendChild(swastika);
+            setTimeout(() => swastika.remove(), 3600);
+        }, i * 600);
     }
 }
 
