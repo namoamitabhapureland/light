@@ -3079,67 +3079,46 @@ function flowerRain(level) {
         }, Math.random() * 1800);
     }
 
-    let petalCount = level === 3 ? 24 : (level === 2 ? 12 : Math.floor(Math.random() * 3) + 2);
+    let petalCount = level === 3 ? 30 : (level === 2 ? 16 : 6);
+
+    // 從您提供的 SVG 提取出的 5 種獨立單體圖案 (黃花, 粉花, 藍花, 紫花, 綠葉)
+    const petalsTemplates = [
+        // 1. 大黃花
+        `<svg viewBox="-20 -20 40 40" width="100%" height="100%"><g fill="#FFDC33" filter="drop-shadow(0 0 4px rgba(255,220,51,0.6))"><path d="M0 -11 C-3 -13 -3 -17 0 -19 C3 -17 3 -13 0 -11 M11 0 C13 -3 17 -3 19 0 C17 3 13 3 11 0 M0 11 C-3 13 -3 17 0 19 C3 17 3 13 0 11 M-11 0 C-13 -3 -17 -3 -19 0 C-17 3 -13 3 -11 0 M8 -8 C10 -11 13 -10 12 -7 C9 -4 7 -5 8 -8 M-8 8 C-10 11 -13 10 -12 7 C-9 4 -7 5 -8 8 M8 8 C11 10 10 13 7 12 C4 9 5 7 8 8 M-8 -8 C-11 -10 -10 -13 -7 -12 C-4 -9 -5 -7 -8 -8"/><circle cx="0" cy="0" r="5.5" fill="#8B5A2B"/></g></svg>`,
+        // 2. 粉紅五瓣花
+        `<svg viewBox="-12 -12 24 24" width="100%" height="100%"><g fill="#FF99C8" filter="drop-shadow(0 0 4px rgba(255,153,200,0.6))"><circle cx="0" cy="-7" r="4"/><circle cx="7" cy="-2" r="4"/><circle cx="4" cy="6" r="4"/><circle cx="-4" cy="6" r="4"/><circle cx="-7" cy="-2" r="4"/><circle cx="0" cy="0" r="2.5" fill="#FFE5EC"/></g></svg>`,
+        // 3. 藍色五瓣花
+        `<svg viewBox="-12 -12 24 24" width="100%" height="100%"><g fill="#1E90FF" filter="drop-shadow(0 0 4px rgba(30,144,255,0.6))"><circle cx="0" cy="-6" r="3.5"/><circle cx="6" cy="-2" r="3.5"/><circle cx="4" cy="5" r="3.5"/><circle cx="-4" cy="5" r="3.5"/><circle cx="-6" cy="-2" r="3.5"/><circle cx="0" cy="0" r="2.5" fill="#FFDC33"/></g></svg>`,
+        // 4. 紫色雙瓣花
+        `<svg viewBox="-10 -10 20 20" width="100%" height="100%"><g fill="#B5179E" filter="drop-shadow(0 0 4px rgba(181,23,158,0.6))"><ellipse cx="0" cy="-2" rx="3" ry="5"/><ellipse cx="-4" cy="5" rx="2.5" ry="4"/></g></svg>`,
+        // 5. 綠色葉子
+        `<svg viewBox="-15 -15 30 30" width="100%" height="100%"><path d="M -10 -10 C -15 0, 0 15, 10 10 C 15 0, 0 -15, -10 -10 Z" fill="#7CB342" filter="drop-shadow(0 0 3px rgba(124,179,66,0.5))" opacity="0.9"/></svg>`
+    ];
 
     for(let i = 0; i < petalCount; i++) {
         setTimeout(() => {
             let flower = document.createElement('div'); 
             flower.className = 'flower-petal';
-            let size = level === 3 ? (Math.random() * 24 + 18) : (Math.random() * 16 + 12);
+            
+            // 放大尺寸：範圍改為 32px 到 60px (原本只有 8~18px)
+            let size = level === 3 ? (Math.random() * 25 + 35) : (Math.random() * 20 + 25);
             flower.style.width = size + 'px'; 
             flower.style.height = size + 'px';
-            flower.style.left = Math.random() * 95 + 'vw';
-            flower.style.animationDuration = (Math.random() * 6 + 5) + 's';
+            flower.style.left = Math.random() * 92 + 'vw';
+            flower.style.animationDuration = (Math.random() * 5 + 5) + 's';
             flower.style.zIndex = "1500"; 
             
-            // 將您提供的新花群 SVG 放入飄落粒子中
-            flower.innerHTML = `<svg viewBox="0 0 100 100" width="100%" height="100%">
-                <g transform="translate(-10, -210) scale(1.2)">
-                    <path d="M 22 235 C 16 230, 15 220, 24 222 C 30 224, 28 233, 22 235 Z" fill="#6A9955" opacity="0.9"/>
-                    <path d="M 45 238 C 48 231, 56 231, 52 239 C 48 243, 43 241, 45 238 Z" fill="#88B04B" opacity="0.85"/>
-                    <g transform="translate(28, 236) rotate(-20) scale(0.85)">
-                      <path d="M0 -11 C-3 -13 -3 -17 0 -19 C3 -17 3 -13 0 -11 M11 0 C13 -3 17 -3 19 0 C17 3 13 3 11 0 M0 11 C-3 13 -3 17 0 19 C3 17 3 13 0 11 M-11 0 C-13 -3 -17 -3 -19 0 C-17 3 -13 3 -11 0 M8 -8 C10 -11 13 -10 12 -7 C9 -4 7 -5 8 -8 M-8 8 C-10 11 -13 10 -12 7 C-9 4 -7 5 -8 8 M8 8 C11 10 10 13 7 12 C4 9 5 7 8 8 M-8 -8 C-11 -10 -10 -13 -7 -12 C-4 -9 -5 -7 -8 -8" fill="#FFDC33"/>
-                      <circle cx="0" cy="0" r="5.5" fill="#8B5A2B"/>
-                    </g>
-                    <g transform="translate(42, 230) rotate(-15)" fill="#B5179E">
-                      <ellipse cx="0" cy="0" rx="3" ry="5"/><ellipse cx="-4" cy="7" rx="2.5" ry="4"/>
-                    </g>
-                    <g transform="translate(42, 242) rotate(-10) scale(0.8)" fill="#FF99C8">
-                      <circle cx="0" cy="-7" r="4"/><circle cx="7" cy="-2" r="4"/><circle cx="4" cy="6" r="4"/><circle cx="-4" cy="6" r="4"/><circle cx="-7" cy="-2" r="4"/>
-                      <circle cx="0" cy="0" r="2.5" fill="#FFE5EC"/>
-                    </g>
-                    <g transform="translate(32, 245) rotate(-15) scale(0.9)" fill="#1E90FF">
-                      <circle cx="0" cy="-6" r="3.5"/><circle cx="6" cy="-2" r="3.5"/><circle cx="4" cy="5" r="3.5"/><circle cx="-4" cy="5" r="3.5"/><circle cx="-6" cy="-2" r="3.5"/>
-                      <circle cx="0" cy="0" r="2.5" fill="#FFDC33"/>
-                    </g>
-                    <g transform="translate(15, 238) scale(0.7)">
-                      <circle cx="0" cy="0" r="8" fill="#FFDC33"/><circle cx="0" cy="0" r="3" fill="#8B5A2B"/>
-                    </g>
-                    <g transform="translate(18, 255) rotate(-40) scale(0.85)" fill="#FF99C8">
-                      <circle cx="0" cy="-7" r="4"/><circle cx="7" cy="-2" r="4"/><circle cx="4" cy="6" r="4"/><circle cx="-4" cy="6" r="4"/><circle cx="-7" cy="-2" r="4"/>
-                      <circle cx="0" cy="0" r="2.5" fill="#FFE5EC"/>
-                    </g>
-                    <g fill="#FFC6FF">
-                      <circle cx="20" cy="225" r="2.5"/><circle cx="10" cy="235" r="2.5"/><circle cx="28" cy="262" r="3"/>
-                    </g>
-                    <path d="M 52 258 C 45 262, 48 270, 56 266 C 60 262, 57 256, 52 258 Z" fill="#558B2F" opacity="0.9"/>
-                    <path d="M 68 266 C 62 272, 68 278, 74 272 C 76 268, 72 264, 68 266 Z" fill="#7CB342" opacity="0.85"/>
-                    <g transform="translate(56, 254) scale(0.8)" fill="#FF99C8">
-                      <circle cx="0" cy="-5" r="3"/><circle cx="5" cy="-1" r="3"/><circle cx="3" cy="4" r="3"/><circle cx="-3" cy="4" r="3"/><circle cx="-5" cy="-1" r="3"/>
-                      <circle cx="0" cy="0" r="2" fill="#FFE5EC"/>
-                    </g>
-                    <g transform="translate(68, 262) scale(0.75)" fill="#1E90FF">
-                      <circle cx="0" cy="-5" r="3"/><circle cx="5" cy="-1" r="3"/><circle cx="3" cy="4" r="3"/><circle cx="-3" cy="4" r="3"/><circle cx="-5" cy="-1" r="3"/>
-                      <circle cx="0" cy="0" r="1.8" fill="#FFDC33"/>
-                    </g>
-                    <circle cx="62" cy="268" r="2.5" fill="#FFC6FF"/>
-                    <circle cx="74" cy="260" r="2" fill="#FFDC33"/>
-                </g>
-            </svg>`;
+            // 隨機角度讓落花更有飄逸感
+            let randomRotate = Math.floor(Math.random() * 360);
+            flower.style.transform = `rotate(${randomRotate}deg)`;
+
+            // 隨機抽一種獨立的花或葉
+            let template = petalsTemplates[Math.floor(Math.random() * petalsTemplates.length)];
+            flower.innerHTML = template;
 
             document.body.appendChild(flower); 
-            setTimeout(() => flower.remove(), 11000);
-        }, Math.random() * 2500);
+            setTimeout(() => flower.remove(), 10000);
+        }, Math.random() * 2200);
     }
 }
 
