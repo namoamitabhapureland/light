@@ -986,6 +986,29 @@
         position: relative;
         z-index: 1;
         text-align: left;
+
+    /* 十念卍字 */
+        .swastika-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 260px;
+    height: 260px;
+    margin: -130px 0 0 -130px;
+    pointer-events: none;
+    z-index: 1500;
+}
+
+.swastika-path-3d {
+    fill: none;
+    stroke: url(#goldBody);
+    stroke-width: 4;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.65)) 
+            drop-shadow(0 0 14px rgba(212, 175, 55, 0.85));
+}
+
     }
 </style>
 
@@ -3053,26 +3076,22 @@ function createGoldDust(x, y) {
 }
 
 function flowerRain(level) {
-    // 1. 保留原本的金色細微塵光
-    let dustCount = level === 3 ? 50 : (level === 2 ? 25 : 10);
+    // 1. 金色細微塵光
+    let dustCount = level === 3 ? 40 : (level === 2 ? 20 : 10);
     for(let i = 0; i < dustCount; i++) {
         setTimeout(() => {
             let dust = document.createElement('div'); 
-            dust.style.position = 'fixed';
-            dust.style.background = 'var(--gold)';
-            dust.style.borderRadius = '50%';
-            dust.style.pointerEvents = 'none';
-            dust.style.filter = 'drop-shadow(0 0 8px var(--solid-gold))';
-            dust.style.zIndex = "1400"; 
+            dust.className = 'gold-dust';
             dust.style.left = Math.random() * 100 + 'vw'; 
             dust.style.top = '-20px'; 
             let size = Math.random() * 3 + 1.5; 
-            dust.style.width = size + 'px'; dust.style.height = size + 'px';
+            dust.style.width = size + 'px'; 
+            dust.style.height = size + 'px';
             
             dust.animate([
                 { opacity: 0, transform: `translate(0, 0) scale(0.5)` },
-                { opacity: 0.8, transform: `translate(${(Math.random() - 0.5) * 100}px, 40vh) scale(1.2)` },
-                { opacity: 0, transform: `translate(${(Math.random() - 0.5) * 200}px, 110vh) scale(0)` }
+                { opacity: 0.8, transform: `translate(${(Math.random() - 0.5) * 80}px, 40vh) scale(1.2)` },
+                { opacity: 0, transform: `translate(${(Math.random() - 0.5) * 160}px, 110vh) scale(0)` }
             ], { duration: Math.random() * 4000 + 4000, easing: 'ease-in-out', fill: 'forwards' });
 
             document.body.appendChild(dust); 
@@ -3080,70 +3099,49 @@ function flowerRain(level) {
         }, Math.random() * 1800);
     }
 
-    // 2. 觸發「金色透明框 卍字佛光」放大發亮效果
+    // 2. 判斷縮放規模：level 3 為全螢幕無限大(scale 12)，其餘為半版(scale 2.5)
+    let maxScale = level === 3 ? 12 : 2.5;
+    let durationTime = level === 3 ? 3800 : 3000;
     let swastikaCount = level === 3 ? 3 : (level === 2 ? 2 : 1);
 
     for(let i = 0; i < swastikaCount; i++) {
         setTimeout(() => {
             let swastika = document.createElement('div');
-            swastika.style.position = 'fixed';
-            swastika.style.top = '50%';
-            swastika.style.left = '50%';
-            swastika.style.width = '240px';
-            swastika.style.height = '240px';
-            swastika.style.margin = '-120px 0 0 -120px';
-            swastika.style.pointerEvents = 'none';
-            swastika.style.zIndex = '1500';
+            swastika.className = 'swastika-container';
 
-            // 精心調製的透明金色光澤 SVG 卍字與外框
             swastika.innerHTML = `
             <svg viewBox="0 0 100 100" width="100%" height="100%">
                 <defs>
-                    <!-- 金屬光澤漸層 -->
-                    <linearGradient id="swastikaGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#FFE5EC" stop-opacity="0.9"/>
-                        <stop offset="50%" stop-color="#F3E5AB" stop-opacity="0.75"/>
-                        <stop offset="100%" stop-color="#D4AF37" stop-opacity="0.85"/>
+                    <linearGradient id="goldBody" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#FFE5EC" stop-opacity="0.95"/>
+                        <stop offset="50%" stop-color="#F3E5AB" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#D4AF37" stop-opacity="0.9"/>
                     </linearGradient>
-                    <!-- 發光濾鏡 -->
-                    <filter id="swastikaGlow" x="-30%" y="-30%" width="160%" height="160%">
-                        <feGaussianBlur stdDeviation="3" result="blur" />
-                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                    </filter>
                 </defs>
-                <!-- 透明外圓金色環框 -->
-                <circle cx="50" cy="50" r="44" fill="rgba(212, 175, 55, 0.04)" stroke="url(#swastikaGold)" stroke-width="1.2" stroke-dasharray="3 2" />
-                <circle cx="50" cy="50" r="40" fill="none" stroke="url(#swastikaGold)" stroke-width="0.8" opacity="0.6"/>
-                
-                <!-- 標準幾何莊嚴 卍 字 -->
-                <path d="M 50 50 L 50 32 L 34 32 
-                         M 50 50 L 68 50 L 68 32 
-                         M 50 50 L 50 68 L 68 68 
-                         M 50 50 L 32 50 L 32 68" 
-                      fill="none" 
-                      stroke="url(#swastikaGold)" 
-                      stroke-width="3" 
-                      stroke-linecap="square" 
-                      stroke-linejoin="miter"
-                      filter="url(#swastikaGlow)" />
+                <path d="M 50 50 L 50 20 L 20 20 
+                         M 50 50 L 80 50 L 80 20 
+                         M 50 50 L 50 80 L 80 80 
+                         M 50 50 L 20 50 L 20 80" 
+                      class="swastika-path-3d" />
             </svg>`;
 
-            // 動態動畫：由中心漸變透明放大擴散
+            // 動態放大動畫
             swastika.animate([
-                { opacity: 0, transform: 'scale(0.3) rotate(0deg)' },
-                { opacity: 0.85, transform: 'scale(1.1) rotate(15deg)', offset: 0.4 },
-                { opacity: 0, transform: 'scale(1.8) rotate(30deg)' }
+                { opacity: 0, transform: 'scale(0.2)' },
+                { opacity: 0.9, transform: `scale(${maxScale * 0.3})`, offset: 0.35 },
+                { opacity: 0, transform: `scale(${maxScale})` }
             ], {
-                duration: 3500,
-                easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+                duration: durationTime,
+                easing: 'cubic-bezier(0.15, 0.85, 0.35, 1)',
                 fill: 'forwards'
             });
 
             document.body.appendChild(swastika);
-            setTimeout(() => swastika.remove(), 3600);
-        }, i * 600);
+            setTimeout(() => swastika.remove(), durationTime + 100);
+        }, i * 650);
     }
 }
+
 
 function handleNian(event) {
     if (nianCount < 10) {
