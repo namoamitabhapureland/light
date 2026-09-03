@@ -69,13 +69,18 @@
             letter-spacing: 1px; border-bottom: 1px solid rgba(212,175,55,0.3); display: none; text-shadow: 0 0 5px var(--solid-gold);
         }
 
-        .time-monitor {
-            width: 94%; max-width: 450px; margin: 15px auto; padding: 12px 15px;
-            background: var(--glass); backdrop-filter: blur(20px);
-            border: 1.5px solid var(--gold); border-radius: 12px;
-            display: grid; grid-template-columns: 1fr 1fr; align-items: center;
-            position: sticky; top: 10px; z-index: 1000;
-        }
+      .time-monitor {
+    width: 94%; max-width: 450px; margin: 15px auto; padding: 12px 15px;
+    background: var(--glass); backdrop-filter: blur(20px);
+    
+    /* 改為帶透明度的金色，例如 0.25 即為 25% 濃度的淡金框線 */
+    border: 1px solid rgba(243, 229, 171, 0.25); 
+    
+    border-radius: 12px;
+    display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+    position: sticky; top: 10px; z-index: 1000;
+}
+
         .mon-left { display: flex; align-items: center; gap: 10px; border-right: 1px solid rgba(243,229,171,0.2); overflow: hidden; }
         .mon-right { text-align: right; display: flex; flex-direction: column; padding-left: 10px; }
         #earth-time { color: #888; font-size: 0.7rem; font-family: monospace; }
