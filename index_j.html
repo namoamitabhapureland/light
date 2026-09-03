@@ -894,7 +894,18 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 25px rgba(212,175,55,0.8) !important;
 }
           /* 十念卍字 */
-        .swastika-container {
+       /* 金色微塵細光 */
+.gold-dust {
+    position: fixed;
+    background: #d4af37;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: drop-shadow(0 0 6px #ffffff);
+    z-index: 1400;
+}
+
+/* 卍字全螢幕中央定位容器 */
+.swastika-container {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -905,14 +916,15 @@
     z-index: 1500;
 }
 
+/* 加粗厚實（stroke-width: 12）且帶深淺陰影的 卍 字 */
 .swastika-path-3d {
     fill: none;
     stroke: url(#goldBody);
-    stroke-width: 4;
+    stroke-width: 12;
     stroke-linecap: square;
     stroke-linejoin: miter;
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.65)) 
-            drop-shadow(0 0 14px rgba(212, 175, 55, 0.85));
+    filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.8)) 
+            drop-shadow(0 0 15px rgba(212, 175, 55, 0.9));
 }
 
 
@@ -3076,7 +3088,7 @@ function createGoldDust(x, y) {
 
 function flowerRain(level) {
     // 1. 金色細微塵光
-    let dustCount = level === 3 ? 40 : (level === 2 ? 20 : 10);
+    let dustCount = level === 3 ? 40 : 20;
     for(let i = 0; i < dustCount; i++) {
         setTimeout(() => {
             let dust = document.createElement('div'); 
@@ -3098,10 +3110,10 @@ function flowerRain(level) {
         }, Math.random() * 1800);
     }
 
-    // 2. 判斷縮放規模：level 3 為全螢幕無限大(scale 12)，其餘為半版(scale 2.5)
+    // 2. 判斷縮放規模：level 3 為全螢幕(scale 12)， level 2/1 為半版(scale 2.5)
     let maxScale = level === 3 ? 12 : 2.5;
     let durationTime = level === 3 ? 3800 : 3000;
-    let swastikaCount = level === 3 ? 3 : (level === 2 ? 2 : 1);
+    let swastikaCount = level === 3 ? 3 : 2;
 
     for(let i = 0; i < swastikaCount; i++) {
         setTimeout(() => {
@@ -3124,10 +3136,9 @@ function flowerRain(level) {
                       class="swastika-path-3d" />
             </svg>`;
 
-            // 動態放大動畫
             swastika.animate([
                 { opacity: 0, transform: 'scale(0.2)' },
-                { opacity: 0.9, transform: `scale(${maxScale * 0.3})`, offset: 0.35 },
+                { opacity: 0.9, transform: `scale(${maxScale * 0.35})`, offset: 0.35 },
                 { opacity: 0, transform: `scale(${maxScale})` }
             ], {
                 duration: durationTime,
@@ -3141,7 +3152,6 @@ function flowerRain(level) {
     }
 }
 
-
 function handleNian(event) {
     if (nianCount < 10) {
         if (navigator.vibrate) navigator.vibrate(15);
@@ -3149,7 +3159,7 @@ function handleNian(event) {
         let isPerfect = false; let now = Date.now();
         if (nianCount === 0) { isPerfect = true; } else {
             let elapsed = now - lastClickTime;
-            if (elapsed >= 1650 && elapsed <= 2300) { isPerfect = true; perfectHits++; }
+            if (elapsed >= 1500 && elapsed <= 2300) { isPerfect = true; perfectHits++; }
         }
         lastClickTime = now;
         const orbit = document.getElementById('orbit-wrap');
