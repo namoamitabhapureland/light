@@ -419,15 +419,49 @@
             100% { transform: translateX(250%) skewX(-20deg); }
         }
 
-        .dedi-text {
-            color: var(--gold); font-size: 1.05rem; font-weight: bold; letter-spacing: 3px;
-            text-shadow: 0 0 14px rgba(243,229,171,0.55), 0 0 30px rgba(212,175,55,0.2);
-            z-index: 10; position: relative;
-        }
-        .dedi-svg-base {
-            position: absolute; bottom: -1px; left: 0; width: 100%; height: 34px; z-index: 5; pointer-events: none;
-        }
-        .dedi-svg-base svg { width: 100%; height: 100%; display: block; }
+      /* 1. 四角與邊框的黃金脈動呼吸 */
+@keyframes lotusGlow {
+    0%, 100% {
+        border-color: rgba(243, 229, 171, 0.18);
+        box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.05), 0 0 10px rgba(212, 175, 55, 0.1);
+    }
+    50% {
+        border-color: rgba(243, 229, 171, 0.45);
+        box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.25), 0 0 20px rgba(243, 229, 171, 0.3);
+    }
+}
+
+/* 2. 迴向輸入框本體（含完美的內嵌蓮花閃爍動畫） */
+#dedi-box {
+    width: 100%;
+    height: 280px;
+    background-color: #050505;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 130' width='300' height='130'><defs><style>path{animation:pPulse 4s ease-in-out infinite;}@keyframes pPulse{0%,100%{stroke-opacity:0.25;stroke-width:0.85;}50%{stroke-opacity:0.95;stroke-width:1.2;filter:drop-shadow(0 0 4px %23f3e5ab);}}</style></defs><g fill='none' stroke='%23d4af37'><path d='M 150 35 C 130 50, 115 80, 150 115 C 185 80, 170 50, 150 35 Z'/><path d='M 150 48 C 138 60, 126 82, 150 115'/><path d='M 150 48 C 162 60, 174 82, 150 115'/><path d='M 150 12 C 120 20, 110 60, 125 90 C 135 105, 142 112, 150 115 C 158 112, 165 105, 175 90 C 190 60, 180 20, 150 12 Z'/><path d='M 150 22 C 132 35, 122 70, 150 115'/><path d='M 150 22 C 168 35, 178 70, 150 115'/><path d='M 150 115 C 120 110, 80 88, 62 48 C 78 54, 110 75, 150 115'/><path d='M 150 115 C 112 102, 78 78, 65 52'/><path d='M 150 115 C 102 92, 85 68, 70 56'/><path d='M 150 115 C 180 110, 220 88, 238 48 C 222 54, 190 75, 150 115'/><path d='M 150 115 C 188 102, 222 78, 235 52'/><path d='M 150 115 C 198 92, 215 68, 230 56'/><path d='M 150 115 C 95 122, 40 102, 18 58 C 38 65, 75 90, 150 115'/><path d='M 150 115 C 80 112, 38 88, 24 64'/><path d='M 150 115 C 65 102, 44 78, 30 68'/><path d='M 150 115 C 205 122, 260 102, 282 58 C 262 65, 225 90, 150 115'/><path d='M 150 115 C 220 112, 262 88, 276 64'/><path d='M 150 115 C 235 102, 256 78, 270 68'/></g></svg>"), radial-gradient(circle at 50% 85%, rgba(212, 175, 55, 0.1) 0%, rgba(5, 5, 5, 0.98) 80%);
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: 310px, cover;
+    border: 1px solid rgba(243, 229, 171, 0.18);
+    border-radius: 22px;
+    color: #eee;
+    padding: 22px;
+    outline: none;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    transition: opacity 0.4s;
+    resize: none;
+    animation: lotusGlow 4s ease-in-out infinite;
+}
+
+/* 3. 保留您原有的按鈕與文字 CSS */
+.dedi-text {
+    color: var(--gold); font-size: 1.05rem; font-weight: bold; letter-spacing: 3px;
+    text-shadow: 0 0 14px rgba(243,229,171,0.55), 0 0 30px rgba(212,175,55,0.2);
+    z-index: 10; position: relative;
+}
+.dedi-svg-base {
+    position: absolute; bottom: -1px; left: 0; width: 100%; height: 34px; z-index: 5; pointer-events: none;
+}
+.dedi-svg-base svg { width: 100%; height: 100%; display: block; }
 
         /* 亮燈印記 (點擊進入後常駐發光) */
         .realm-visited { border-color: var(--solid-gold) !important; box-shadow: 0 0 15px rgba(212,175,55,0.4), inset 0 0 20px rgba(212,175,55,0.2) !important; }
@@ -920,31 +954,7 @@
     filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.8)) 
             drop-shadow(0 0 15px rgba(212, 175, 55, 0.9));
 }
-    /* 定義蓮花光芒呼吸閃爍動畫 */
-@keyframes lotusGlow {
-    0%, 100% {
-        /* 常態：溫和的金色微光 */
-        filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.3));
-        opacity: 0.85;
-    }
-    50% {
-        /* 亮起：強烈的金白光芒與放大的金色暈光 */
-        filter: drop-shadow(0 0 12px rgba(243, 229, 171, 0.8)) drop-shadow(0 0 25px rgba(212, 175, 55, 0.6));
-        opacity: 1;
-    }
-}
 
-/* 將動畫綁定到迴向輸入框（蓮花背景） */
-#dedi-box {
-    /* 保持原有的樣式，並加上動畫屬性 */
-    animation: lotusGlow 4s ease-in-out infinite;
-}
-
-/* 當按下一鍵迴向時（JS 觸發了 dedi-dissolve），讓光芒瞬間爆發昇華 */
-#dedi-box.dedi-dissolve {
-    transition: filter 1s ease-out, opacity 3.5s ease-out !important;
-    filter: drop-shadow(0 0 30px rgba(255, 253, 231, 1)) drop-shadow(0 0 60px rgba(212, 175, 55, 0.9)) !important;
-}
 
 
 
@@ -3678,23 +3688,23 @@ let lastBigSeedSVG = "";
     
         if (currentDays >= 111100) { 
         let lv = Math.min(10, Math.floor((currentDays - 111100) / 100000) + 1); 
-        rank = {l: ["初德位", "二德位", "三德位", "四德位", "五德位", "六德位", "七德位", "八德位", "九德位", "十德位"][lv - 1], i: getLotusSVG('德', total), c: "#ffffff"}; 
+        rank = {l: ["初德位", "二德位", "三德位", "四德位", "五德位", "六德位", "七德位", "八德位", "九德位", "十德位"][lv - 1], i: getLotusSVG('德', total), c: "#fffde7"}; 
         base = 111100 + (lv - 1) * 100000; threshold = 111100 + lv * 100000; label = "德位進度";
     } else if (currentDays >= 11100) { 
         let lv = Math.floor((currentDays - 11100) / 10000) + 1; 
-        rank = {l: ["初善位", "二善位", "三善位", "四善位", "五善位", "六善位", "七善位", "八善位", "九善位", "十善位"][lv - 1], i: getLotusSVG('善', total), c: "#f472b6"}; 
+        rank = {l: ["初善位", "二善位", "三善位", "四善位", "五善位", "六善位", "七善位", "八善位", "九善位", "十善位"][lv - 1], i: getLotusSVG('善', total), c: "#ffd700"}; 
         base = 11100 + (lv - 1) * 10000; threshold = 11100 + lv * 10000; label = "善位進度";
     } else if (currentDays >= 1100) { 
         let lv = Math.floor((currentDays - 1100) / 1000) + 1; 
-        rank = {l: ["初行位", "二行位", "三行位", "四行位", "五行位", "六行位", "七行位", "八行位", "九行位", "十行位"][lv - 1], i: getLotusSVG('行', total), c: "var(--cyan)"}; 
+        rank = {l: ["初行位", "二行位", "三行位", "四行位", "五行位", "六行位", "七行位", "八行位", "九行位", "十行位"][lv - 1], i: getLotusSVG('行', total), c: "ffca28"}; 
         base = 1100 + (lv - 1) * 1000; threshold = 1100 + lv * 1000; label = "行位進度";
     } else if (currentDays >= 100) { 
         let lv = Math.floor((currentDays - 100) / 100) + 1; 
-        rank = {l: ["初願位", "二願位", "三願位", "四願位", "五願位", "六願位", "七願位", "八願位", "九願位", "十願位"][lv - 1], i: getLotusSVG('願', total), c: "#ffffff"}; 
+        rank = {l: ["初願位", "二願位", "三願位", "四願位", "五願位", "六願位", "七願位", "八願位", "九願位", "十願位"][lv - 1], i: getLotusSVG('願', total), c: "#ffd54f"}; 
         base = 100 + (lv - 1) * 100; threshold = 100 + lv * 100; label = "願位進度";
     } else { 
         let lv = Math.min(10, Math.floor(currentDays / 10) + 1); 
-        rank = { l: ["初信位", "二信位", "三信位", "四信位", "五信位", "六信位", "七信位", "八信位", "九信位", "十信位"][lv - 1], i: getLotusSVG('信', total), c: "var(--cyan)" }; 
+        rank = { l: ["初信位", "二信位", "三信位", "四信位", "五信位", "六信位", "七信位", "八信位", "九信位", "十信位"][lv - 1], i: getLotusSVG('信', total), c: "#ffe082" }; 
         base = (lv - 1) * 10; threshold = lv * 10; label = "信位進度"; 
     }
 
