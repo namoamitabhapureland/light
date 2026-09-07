@@ -1014,6 +1014,32 @@
         z-index: 1;
         text-align: left;
     }
+    /* 大迴向定義蓮花光芒呼吸閃爍動畫 */
+@keyframes lotusGlow {
+    0%, 100% {
+        /* 常態：溫和的金色微光 */
+        filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.3));
+        opacity: 0.85;
+    }
+    50% {
+        /* 亮起：強烈的金白光芒與放大的金色暈光 */
+        filter: drop-shadow(0 0 12px rgba(243, 229, 171, 0.8)) drop-shadow(0 0 25px rgba(212, 175, 55, 0.6));
+        opacity: 1;
+    }
+}
+
+/* 將動畫綁定到迴向輸入框（蓮花背景） */
+#dedi-box {
+    /* 保持原有的樣式，並加上動畫屬性 */
+    animation: lotusGlow 4s ease-in-out infinite;
+}
+
+/* 當按下一鍵迴向時（JS 觸發了 dedi-dissolve），讓光芒瞬間爆發昇華 */
+#dedi-box.dedi-dissolve {
+    transition: filter 1s ease-out, opacity 3.5s ease-out !important;
+    filter: drop-shadow(0 0 30px rgba(255, 253, 231, 1)) drop-shadow(0 0 60px rgba(212, 175, 55, 0.9)) !important;
+}
+
 </style>
 
 <div id="firstTimeNameModal" class="modal" style="display: none; z-index: 3000;">
@@ -3481,8 +3507,8 @@ if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !=
 // 🌟 獨立沙盒：天數蓮花生成引擎 (中文版專用 - 無量金光加強版)
 function getDaysLotusSVG(totalDays) {
     const stages = [
-        { d: 111100, name: "圓滿德光", c: {t:"#fffde7", m:"#FFD306", b:"#C6A300", o: 0.6}, l: 7, g: 1.0 },
-        { d: 30000, name: "無量金光", c: {t:"#EA7500", m:"#FFD306", b:"#EA7500", o: 2.0}, l: 6, g: 7.0 },
+        { d: 111100, name: "圓滿德光", c: {t:"#fffde7", m:"#FFD306", b:"#C6A300", o: 0.6}, l: 5, g: 0.8 },
+        { d: 30000, name: "無量金光", c: {t:"#EA7500", m:"#FFD306", b:"#EA7500", o: 2.0}, l: 5, g: 7.0 },
         { d: 10000, name: "摩尼幻彩", c: {t:"#ffffff", m:"#ff80ab", b:"#00e5ff", o: 0.85}, l: 5, g: 4.0 },
         { d: 1000,  name: "萬佛金剛", c: {t:"#ffffff", m:"#fff9c4", b:"#fbc02d", o: 0.9}, l: 5, g: 3.0 },
         { d: 500,   name: "大日純金", c: {t:"#fffde7", m:"#fdd835", b:"#f57f17", o: 0.9}, l: 5, g: 2.2 },
