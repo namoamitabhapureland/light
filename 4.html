@@ -200,13 +200,13 @@
 
 .seed {
     position: absolute; 
-    width: 9px; 
-    height: 9px;
+    width: 1px; 
+    height: 1px;
     background: radial-gradient(circle, #fff 30%, rgba(255,255,255,0.2) 100%);
     border-radius: 50%;
     box-shadow: 0 0 18px #fff, 0 0 35px rgba(212,175,55,0.6);
     z-index: 10; 
-    animation: breathe 5s infinite ease-in-out;
+    animation: breathe 40s infinite ease-in-out;
 }
 
 /* ✦ 核心修改：呼吸放大時同步發光發亮 (Glow Effect) */
@@ -1992,21 +1992,55 @@ function navigateWithWarp(targetUrl) {
 }
 
 // ══════════════════════════════════════════
-//  淨土彩色銀河星空 (旋轉銀河 + 莊嚴五色粒子)
+//  淨土鑽石銀河星空 (旋轉銀河 + 耀眼十字星芒)
 // ══════════════════════════════════════════
 const cvs = document.getElementById('starCanvas');
 const ctx = cvs.getContext('2d');
 let stars = [];
 let galaxyDust = [];
 
-// 莊嚴五色：金、藍、綠、粉、白
+// 淨土極光五色：鑽石純白、香檳暖金、冰晶藍白、琉光金、琉璃冷藍
 const starColors = [
-    '255, 215, 0', // 淨光白
+    '255, 255, 255', // 鑽石純白 (主色)
+    '255, 248, 220', // 香檳暖金
+    '240, 248, 255', // 冰晶藍白
     '212, 175, 55',  // 琉光金
-    '135, 206, 250', // 琉璃藍
-    '152, 251, 152', // 翡翠綠
-    '255, 192, 203'  // 蓮花粉
+    '200, 225, 255'  // 琉璃冷藍
 ];
+
+// ── 繪製十字星芒繪圖函式 ──
+function drawCrossFlare(x, y, size, color, alpha) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.globalCompositeOperation = 'lighter';
+
+    for (let i = 0; i < 2; i++) {
+        ctx.rotate(i * Math.PI / 2);
+        
+        const len = size * 6;     // 星芒長度
+        const thick = size * 0.4; // 星芒中間寬度
+
+        const grad = ctx.createLinearGradient(-len, 0, len, 0);
+        grad.addColorStop(0, `rgba(${color}, 0)`);
+        grad.addColorStop(0.5, `rgba(${color}, ${alpha})`);
+        grad.addColorStop(1, `rgba(${color}, 0)`);
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.moveTo(-len, 0);
+        ctx.quadraticCurveTo(0, thick, len, 0);
+        ctx.quadraticCurveTo(0, -thick, -len, 0);
+        ctx.fill();
+    }
+
+    // 十字中心極亮圓心
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+    ctx.arc(0, 0, size * 0.7, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+}
 
 function initS() {
     cvs.width = window.innerWidth; 
@@ -2031,13 +2065,15 @@ function initS() {
         const dist = Math.random(); // 距離中心的比例 (0 ~ 1)
         const angle = dist * Math.PI * 4 + (Math.floor(Math.random() * arms) * (Math.PI * 2 / arms));
         const offset = (Math.random() - 0.5) * 0.5 * (1 - dist * 0.5); // 旋臂擴散
+        const isFlare = Math.random() < 0.05; // 約 5% 的亮星帶有十字星芒
 
         galaxyDust.push({
-            r: dist, // 相對半徑
+            r: dist, 
             theta: angle + offset,
-            size: Math.random() * 1.5 + 0.5,
+            size: isFlare ? Math.random() * 1.8 + 1.2 : Math.random() * 1.5 + 0.5,
             color: starColors[Math.floor(Math.random() * starColors.length)],
-            alpha: (1 - dist) * 0.6 + 0.1
+            alpha: (1 - dist) * 0.6 + 0.1,
+            hasFlare: isFlare // 註記是否渲染十字光芒
         });
     }
 }
@@ -2052,8 +2088,8 @@ function drawS() {
 
     // ── 繪製銀河中心琉光核心 ──
     const coreGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR * 0.3);
-    coreGrad.addColorStop(0, 'rgba(255, 215, 0, 0.15)'); // 中心淨光白
-    coreGrad.addColorStop(0.5, 'rgba(212, 175, 55, 0.05)'); // 琉光金
+    coreGrad.addColorStop(0, 'rgba(255, 255, 255, 0.25)'); // 中心鑽石純白
+    coreGrad.addColorStop(0.5, 'rgba(255, 248, 220, 0.08)'); // 香檳暖金
     coreGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
     ctx.fillStyle = coreGrad;
     ctx.beginPath();
@@ -2066,17 +2102,23 @@ function drawS() {
         const currentAngle = d.theta + rotSpeed;
         const currentDist = d.r * maxR;
 
-        // 計算平面旋轉，並加上傾斜角（讓銀河呈現斜側俯視的角度美感）
+        // 計算平面旋轉，並加上傾斜角
         const rawX = Math.cos(currentAngle) * currentDist;
-        const rawY = Math.sin(currentAngle) * currentDist * 0.44; // 0.45 壓扁係數形成透視
+        const rawY = Math.sin(currentAngle) * currentDist * 0.44; 
 
         const gx = cx + rawX;
         const gy = cy + rawY;
 
+        // 渲染基礎圓形粒子
         ctx.beginPath();
         ctx.fillStyle = `rgba(${d.color}, ${d.alpha * 0.8})`;
         ctx.arc(gx, gy, d.size, 0, Math.PI * 2);
         ctx.fill();
+
+        // 亮星額外繪製十字星芒
+        if (d.hasFlare) {
+            drawCrossFlare(gx, gy, d.size, d.color, d.alpha * 0.9);
+        }
     });
 
     // ── 繪製前景推進星空 ──
