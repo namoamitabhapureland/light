@@ -187,47 +187,34 @@
     align-items: center; 
     min-height: 0; 
 }
-
 #lotus-container {
     width: min(80vw, 280px); 
     height: min(80vw, 280px);
-    animation: breathe 40s infinite ease-in-out;
+    animation: breathe 35s infinite ease-in-out;
     display: flex; 
     justify-content: center; 
     align-items: center; 
     position: relative;
+    
+    /* ✦ 恆常外圍光靈：永遠保持在花瓣最外沿，不開關、不隨呼吸變淡
+       利用 SVG 濾鏡 (遮罩相減，花瓣內部完全不發光) + 恆定外圍光暈 */
+    filter: url(#lotus-edge-glow) 
+            drop-shadow(0 0 8px rgba(243, 229, 171, 0.2)) 
+            drop-shadow(0 0 20px rgba(212, 175, 55, 0.1));
 }
 
-.seed {
-    position: absolute; 
-    width: 1px; 
-    height: 1px;
-    background: radial-gradient(circle, #fff 30%, rgba(255,255,255,0.2) 100%);
-    border-radius: 50%;
-    box-shadow: 0 0 18px #fff, 0 0 35px rgba(212,175,55,0.6);
-    z-index: 10; 
-    animation: breathe 40s infinite ease-in-out;
-}
-
-/* ✦ 核心修改：呼吸放大時同步發光發亮 (Glow Effect) */
+/* ✦ 呼吸動畫：只單純負責幾何縮放，光芒完全不受影響、保持常亮 */
 @keyframes breathe { 
     0%, 100% {
-        transform: scale(0.5);
-        filter: brightness(0.9) drop-shadow(0 0 5px rgba(212,175,55,0.2));
+        transform: scale(0.45);
     } 
     50% {
         transform: scale(0.75);
-        filter: brightness(1.35) drop-shadow(0 0 25px rgba(243,229,171,0.8)) drop-shadow(0 0 50px rgba(212,175,55,0.5));
     }
 }
 
-/* ✦ 取消蓮花旋轉，節約 CPU 資源 */
-.lotus-spin { 
-    width: 100%; 
-    height: 100%; 
-    overflow: visible; 
-    transform-origin: center center; 
-}
+
+
 
     /* ✨ 專屬位階金剛印記標籤 ✨ */
     .rank-badge {
@@ -350,7 +337,7 @@
         45%  { filter: brightness(2.2) drop-shadow(0 0 16px rgba(255,220,120,1)) drop-shadow(0 0 30px rgba(255,140,20,0.9)); }
         100% { filter: brightness(1) drop-shadow(0 0 0 transparent); }
     }
-  
+
 
     .dust-particle {
         position: fixed; border-radius: 50%; pointer-events: none; z-index: 1000;
@@ -513,6 +500,29 @@
 
 <svg style="position:absolute;width:0;height:0;" xmlns="http://www.w3.org/2000/svg">
     <defs>
+      <filter id="lotus-edge-glow" x="-50%" y="-50%" width="200%" height="200%">
+    <!-- 1. 抓取蓮花外廓，向外擴張 4px -->
+    <feMorphology in="SourceAlpha" operator="dilate" radius="4" result="expanded" />
+    <!-- 2. 扣除花瓣本體，只留純外圍環狀線條 -->
+    <feComposite in="expanded" in2="SourceAlpha" operator="out" result="edgeOnly" />
+    
+    <!-- 3. 填上暖金高光顏色 -->
+    <feFlood flood-color="#ffeba0" flood-opacity="0.85" result="goldColor" />
+    <feComposite in="goldColor" in2="edgeOnly" operator="in" result="goldEdge" />
+    
+    <!-- 4. 外圍光邊羽化 -->
+    <feGaussianBlur in="goldEdge" stdDeviation="3" result="blurredGlow" />
+    
+    <!-- 5. 襯在原始花瓣 (SourceGraphic) 下方，花瓣本身毫無任何亮光 -->
+    <feMerge>
+        <feMergeNode in="blurredGlow" />
+        <feMergeNode in="SourceGraphic" />
+    </feMerge>
+</filter>
+
+
+
+        
         <linearGradient id="facet-light" x1="0%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="#fff" stop-opacity=".95"/><stop offset="100%" stop-color="#fff" stop-opacity=".1"/></linearGradient>
         <linearGradient id="facet-dark" x1="50%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#d4af37" stop-opacity=".2"/><stop offset="100%" stop-color="#b8860b" stop-opacity=".8"/></linearGradient>
         <linearGradient id="facet-cyan" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0f7fa" stop-opacity=".9"/><stop offset="100%" stop-color="#00838f" stop-opacity=".5"/></linearGradient>
@@ -530,6 +540,7 @@
             <stop offset="0%" stop-color="#fff" stop-opacity="1"/>
             <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
         </radialGradient>
+        
 
       <linearGradient id="grad-10"    x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0.95)"/><stop offset="60%" stop-color="rgba(220,235,255,0.5)"/><stop offset="100%" stop-color="rgba(255,255,255,0.15)"/></linearGradient>
         <linearGradient id="grad-50"    x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#ff8fc7" stop-opacity=".95"/><stop offset="55%" stop-color="#ffc1e3" stop-opacity=".7"/><stop offset="100%" stop-color="#fff0f6" stop-opacity=".4"/></linearGradient>
@@ -1507,8 +1518,8 @@ function buildEnergyBar(name, count) {
     
 
 
-  // ══════════════════════════════════════════
-//  蓮花渲染 (極簡節能發光版)
+ // ══════════════════════════════════════════
+//  蓮花渲染
 // ══════════════════════════════════════════
 function buildLotusSVG(p) {
     let layers = 1, fill = "url(#grad-10)", stroke = "rgba(255,255,255,0.45)";
