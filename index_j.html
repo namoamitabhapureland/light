@@ -500,6 +500,40 @@
             position: absolute; bottom: -1px; left: 0; width: 100%; height: 34px; z-index: 5; pointer-events: none;
         }
         .dedi-svg-base svg { width: 100%; height: 100%; display: block; }
+        /* dedi 大框呼吸放光動畫樣式 */
+.dedi-card-breath {
+    width: 90%; 
+    max-width: 380px; 
+    padding: 45px 30px; 
+    background: linear-gradient(145deg, #0a0a0a 0%, #000000 100%); 
+    border-radius: 28px; 
+    text-align: center; 
+    position: relative; 
+    overflow: hidden;
+    animation: dedi-breath 4s infinite ease-in-out;
+}
+
+@keyframes dedi-breath {
+    0% {
+        border: 1px solid rgba(212, 175, 55, 0.25);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 
+                    0 0 15px rgba(212, 175, 55, 0.15), 
+                    inset 0 0 15px rgba(212, 175, 55, 0.03);
+    }
+    50% {
+        border: 1px solid rgba(243, 229, 171, 0.7);
+        box-shadow: 0 20px 65px rgba(0, 0, 0, 0.95), 
+                    0 0 35px rgba(212, 175, 55, 0.45), 
+                    inset 0 0 30px rgba(212, 175, 55, 0.12);
+    }
+    100% {
+        border: 1px solid rgba(212, 175, 55, 0.25);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 
+                    0 0 15px rgba(212, 175, 55, 0.15), 
+                    inset 0 0 15px rgba(212, 175, 55, 0.03);
+    }
+}
+
 
         /* 亮燈印記 (點擊進入後常駐發光) */
         .realm-visited { border-color: var(--solid-gold) !important; box-shadow: 0 0 15px rgba(212,175,55,0.4), inset 0 0 20px rgba(212,175,55,0.2) !important; }
@@ -2651,72 +2685,32 @@
 
 
 <div id="dedi-modal" class="modal">
-    <div style="width:90%; max-width:380px; padding:45px 30px; background:linear-gradient(145deg, #0a0a0a 0%, #000000 100%); border:1px solid rgba(212,175,55,0.4); border-radius:28px; text-align:center; box-shadow: 0 20px 60px rgba(0,0,0,0.9), inset 0 0 20px rgba(212,175,55,0.05); position: relative; overflow: hidden;">
+    <!-- 套用 dedi-card-breath 實現大框暗亮暗亮的呼吸放光效果 -->
+    <div class="dedi-card-breath">
         
-        <!-- 背景 U 型金色佛珠串 (依草圖將主珠拉高至文字下方、按鈕上方) -->
-        <svg id="svg-u-full" style="position: absolute; top: 15px; left: 0; width: 100%; height: 92%; opacity: 0.18; pointer-events: none; z-index: 1;" viewBox="0 0 380 480" fill="none" stroke="var(--gold)">
+        <!-- 四句迴向文正後方的淡金色佛塔圖騰背景 (opacity: 0.12，大小剛剛好襯托文字) -->
+        <svg style="position: absolute; top: 75px; left: 50%; transform: translateX(-50%); width: 220px; height: 200px; opacity: 0.12; pointer-events: none; z-index: 1;" viewBox="0 0 100 100" fill="none" stroke="var(--gold)">
             <defs>
-                <radialGradient id="gold-bead-grad" cx="35%" cy="35%" r="65%">
+                <linearGradient id="bg-stupa-grad" x1="0%" y1="0%" x2="0%" y2="100%">
                     <stop offset="0%" stop-color="#ffffff"/>
-                    <stop offset="50%" stop-color="#fbe38e"/>
-                    <stop offset="85%" stop-color="#d4af37"/>
-                    <stop offset="100%" stop-color="#523d06"/>
-                </radialGradient>
-                <linearGradient id="tassel-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#ffe599" stop-opacity="0.9"/>
-                    <stop offset="100%" stop-color="#aa7c11" stop-opacity="0.2"/>
+                    <stop offset="60%" stop-color="#f3e5ab"/>
+                    <stop offset="100%" stop-color="#d4af37"/>
                 </linearGradient>
             </defs>
-
-            <!-- 貫穿整串佛珠的金色 U 型心線 (底部升高至 y:295) -->
-            <path d="M 46 68 C 15 150, 20 285, 190 295 C 360 285, 365 150, 334 68" stroke="var(--gold)" stroke-width="0.8" stroke-dasharray="3 3"/>
-
-            <!-- 迴向文正下方：中、大、中 三顆主珠與精緻流蘇 (置於按鈕上方空隙) -->
-            <g transform="translate(190, 295)">
-                <!-- 兩側中型主珠 -->
-                <circle cx="-20" cy="-3" r="6.5" fill="url(#gold-bead-grad)" stroke="var(--gold)" stroke-width="0.8"/>
-                <circle cx="20" cy="-3" r="6.5" fill="url(#gold-bead-grad)" stroke="var(--gold)" stroke-width="0.8"/>
-                
-                <!-- 中央大型母珠與葫蘆佛塔 -->
-                <circle cx="0" cy="0" r="10" fill="url(#gold-bead-grad)" stroke="var(--gold)" stroke-width="0.9"/>
-                <path d="M -5.5 -9.5 L 0 -17 L 5.5 -9.5 Z" fill="url(#gold-bead-grad)" stroke="var(--gold)" stroke-width="0.7"/>
-                
-                <!-- 雙股金流蘇穗 (垂掛於法幣按鈕背後空隙) -->
-                <path d="M -2.5 2 C -4 14, -10 25, -15 36 M 2.5 2 C 4 14, 10 25, 15 36" stroke="url(#tassel-grad)" stroke-width="1.2" stroke-linecap="round"/>
-                <path d="M -1 2 C -1.5 14, -5 25, -8 36 M 1 2 C 1.5 14, 5 25, 8 36" stroke="url(#tassel-grad)" stroke-width="0.8" opacity="0.6"/>
-            </g>
-
-            <!-- 左側高位 U 型子珠序列 -->
-            <circle cx="334" cy="68" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="342" cy="88" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="347" cy="108" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="350" cy="128" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="351" cy="148" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="349" cy="168" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="345" cy="188" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="338" cy="208" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="327" cy="227" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="312" cy="245" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="293" cy="261" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="269" cy="275" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="242" cy="285" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="215" cy="291" r="5.5" fill="url(#gold-bead-grad)"/>
-
-            <!-- 右側高位 U 型子珠序列 (對稱設計) -->
-            <circle cx="46" cy="68" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="38" cy="88" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="33" cy="108" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="30" cy="128" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="29" cy="148" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="31" cy="168" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="35" cy="188" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="42" cy="208" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="53" cy="227" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="68" cy="245" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="87" cy="261" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="111" cy="275" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="138" cy="285" r="5.5" fill="url(#gold-bead-grad)"/>
-            <circle cx="165" cy="291" r="5.5" fill="url(#gold-bead-grad)"/>
+            <!-- 佛塔底座與階梯 -->
+            <path d="M 10 90 L 90 90 M 15 84 L 85 84 M 20 78 L 80 78" stroke-width="1.2" stroke-linecap="round"/>
+            <!-- 塔身 -->
+            <path d="M 25 78 L 25 65 L 75 65 L 75 78" stroke-width="1.2" fill="rgba(212,175,55,0.05)"/>
+            <path d="M 28 65 C 26 48, 74 48, 72 65 Z" stroke-width="1.2" fill="rgba(243,229,171,0.08)"/>
+            <!-- 塔剎相輪 (十三天) -->
+            <path d="M 32 48 L 68 48" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M 35 48 L 42 22 L 58 22 L 65 48" stroke-width="1.2" fill="none"/>
+            <path d="M 36 42 H 64 M 38 36 H 62 M 40 30 H 60 M 42 24 H 58" stroke-width="1"/>
+            <path d="M 32 22 H 68" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- 寶珠與華蓋 -->
+            <path d="M 42 16 C 42 20, 58 20, 58 16 Z" fill="url(#bg-stupa-grad)" stroke="none"/>
+            <circle cx="50" cy="9" r="4.5" fill="url(#bg-stupa-grad)" stroke="none"/>
+            <path d="M 50 1 L 50 4.5" stroke="var(--gold)" stroke-width="1.2"/>
         </svg>
 
         <!-- 標題區域 -->
@@ -2724,8 +2718,10 @@
             <span>大迴向</span>
         </div>
         
-        <p style="line-height:2.4; color:#eee; font-size:1.15rem; margin: 25px 0 35px 0; letter-spacing: 3px; font-weight: 300; position: relative; z-index: 10;">願以此功德<br>平等施一切<br>同發菩提心<br>往生極樂國</p>
+        <!-- 四句迴向文 -->
+        <p style="line-height:2.4; color:#eee; font-size:1.15rem; margin: 28px 0 35px 0; letter-spacing: 3px; font-weight: 300; position: relative; z-index: 10;">願以此功德<br>平等施一切<br>同發菩提心<br>往生極樂國</p>
         
+        <!-- 按鈕區域 -->
         <div style="display:flex; flex-direction:column; gap: 15px; margin-top: 25px; margin-bottom: 25px; position: relative; z-index: 10;">
             
             <!-- 法幣按鈕 -->
@@ -2855,7 +2851,6 @@
         </div>
     </div>
 </div>
-
     <script>
         // 每秒檢查一次功德箱，動態改變法幣按鈕的外觀 (注入 48 願漸變色邏輯)
         setInterval(() => {
