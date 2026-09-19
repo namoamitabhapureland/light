@@ -40,27 +40,76 @@
 
 
 
-        #festival-banner {
-            width: 100%; background: linear-gradient(90deg, rgba(212,175,55,0.1), rgba(212,175,55,0.3), rgba(212,175,55,0.1));
-            color: var(--gold); text-align: center; padding: 8px 0; font-size: 0.85rem; font-weight: bold;
-            letter-spacing: 2px; border-bottom: 1px solid rgba(212,175,55,0.3); display: none; text-shadow: 0 0 5px var(--solid-gold);
-        }
-
-       .time-monitor {
-    width: 94%; max-width: 450px; margin: 15px auto; padding: 12px 15px;
-    background: var(--glass); backdrop-filter: blur(20px);
-    
-    /* 改為帶透明度的金色，例如 0.25 即為 25% 濃度的淡金框線 */
-    border: 1px solid rgba(243, 229, 171, 0.1); 
-    
-    border-radius: 12px;
-    display: grid; grid-template-columns: 1fr 1fr; align-items: center;
-    position: sticky; top: 10px; z-index: 1000;
+      #festival-banner {
+    width: 100%; 
+    background: linear-gradient(90deg, rgba(212,175,55,0.1), rgba(212,175,55,0.3), rgba(212,175,55,0.1));
+    color: var(--gold); 
+    text-align: center; 
+    padding: 8px 0; 
+    font-size: 0.85rem; 
+    font-weight: bold;
+    letter-spacing: 2px; 
+    border-bottom: 1px solid rgba(212,175,55,0.3); 
+    display: none; 
+    text-shadow: 0 0 5px var(--solid-gold);
 }
-        .mon-left { display: flex; align-items: center; gap: 10px; border-right: 1px solid rgba(243,229,171,0.1); overflow: hidden; }
-        .mon-right { text-align: right; display: flex; flex-direction: column; padding-left: 10px; }
-        #earth-time { color: #888; font-size: 0.7rem; font-family: monospace; }
-        #pure-time-display { color: var(--gold); font-size: 0.82rem; font-weight: bold; }
+
+.time-monitor {
+    width: 94%; 
+    max-width: 450px; 
+    margin: 15px auto; 
+    padding: 12px 15px;
+    background: var(--glass); 
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(243, 229, 171, 0.1); 
+    border-radius: 12px;
+    
+    /* 改用 flex 排列以支援中間自適應寬度的金剛杵元件 */
+    display: flex; 
+    justify-content: space-between;
+    align-items: center; 
+    position: sticky; 
+    top: 10px; 
+    z-index: 1000;
+}
+
+.mon-left { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    overflow: hidden; 
+    flex: 1;
+    /* 移除原有的右側單純直線邊框 */
+    border-right: none; 
+}
+
+/* 金剛杵垂直分隔線樣式 */
+.vajra-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 16px;
+    margin: 0 10px;
+    flex-shrink: 0;
+    opacity: 0.85;
+    filter: drop-shadow(0px 0px 3px rgba(212, 175, 55, 0.3));
+}
+
+.vajra-divider svg {
+    height: 100%;
+    width: 100%;
+}
+
+.mon-right { 
+    text-align: right; 
+    display: flex; 
+    flex-direction: column; 
+    flex: 1;
+}
+
+#earth-time { color: #888; font-size: 0.7rem; font-family: monospace; }
+#pure-time-display { color: var(--gold); font-size: 0.82rem; font-weight: bold; }
 
                 /* 資糧竹簡與黃金法印 */
                 .task-card { 
@@ -350,7 +399,7 @@
         .rail-card .card-title { color: var(--gold); font-size: 0.95rem; font-weight: bold; letter-spacing: 1px; margin: 0; text-shadow: 0 0 5px rgba(212,175,55,0.2); text-align: center; word-break: keep-all; }
         .rail-card .card-sub { color: rgba(139,168,156,0.8); font-size: 0.7rem; letter-spacing: 0.5px; margin: 0; text-align: center; }
 
-     /* 區塊分隔金線 */
+      /* 區塊分隔金線 */
 .gold-divider {
     width: 100%; height: 1px; margin: 20px 0;
     background: linear-gradient(90deg, transparent, rgba(212,175,55,0.4), transparent);
@@ -366,14 +415,13 @@
     position: relative;
 }
 
-/* 完整不被裁剪、兩端優雅展開的金色祥雲花紋 */
 .section-header::after {
     content: "";
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 320px; /* 將容器寬度放寬至 320px，徹底解決尾巴被切掉的問題 */
+    width: 320px;
     height: 14px;
     background-repeat: no-repeat;
     background-position: center;
@@ -500,8 +548,8 @@
             position: absolute; bottom: -1px; left: 0; width: 100%; height: 34px; z-index: 5; pointer-events: none;
         }
         .dedi-svg-base svg { width: 100%; height: 100%; display: block; }
-        /* dedi 大框呼吸放光動畫樣式 */
-.dedi-card-breath {
+
+        .dedi-card-breath {
     width: 90%; 
     max-width: 380px; 
     padding: 45px 30px; 
@@ -510,12 +558,12 @@
     text-align: center; 
     position: relative; 
     overflow: hidden;
-    animation: dedi-breath 4s infinite ease-in-out;
+    animation: dedi-breath 3s infinite ease-in-out;
 }
 
 @keyframes dedi-breath {
     0% {
-        border: 1px solid rgba(212, 175, 55, 0.25);
+        border: 1px solid rgba(212, 175, 55, 0.1);
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 
                     0 0 15px rgba(212, 175, 55, 0.15), 
                     inset 0 0 15px rgba(212, 175, 55, 0.03);
@@ -533,7 +581,6 @@
                     inset 0 0 15px rgba(212, 175, 55, 0.03);
     }
 }
-
 
         /* 亮燈印記 (點擊進入後常駐發光) */
         .realm-visited { border-color: var(--solid-gold) !important; box-shadow: 0 0 15px rgba(212,175,55,0.4), inset 0 0 20px rgba(212,175,55,0.2) !important; }
@@ -1034,36 +1081,6 @@
 
 
 
-    </style>
-</head>
-<body>
-
-<div id="page-transition-curtain"></div>
-
-
-
-<div id="festival-banner"></div>
-
-<div class="time-monitor">
-    <div class="mon-left" onclick="touchAvatar()" style="cursor:pointer;">
-        <div id="mini-seed" style="display:flex; align-items:center; justify-content:center; width:42px; height:42px;"></div>
-        <div style="display:flex; flex-direction:column; overflow:hidden;">
-            <div style="display:flex; align-items:center; gap:5px;">
-                <span id="rank-title" style="font-size: 0.65rem; color: var(--cyan);">初信位</span>
-                <span id="title-medal" style="color:var(--gold); font-size:0.6rem; font-weight:bold;"></span>
-            </div>
-            <span id="display-name" style="font-weight: bold; font-size: 0.95rem;">行者</span>
-        </div>
-    </div>
-    <div class="mon-right">
-        <div id="earth-time">娑婆：--:--:--</div>
-        <div id="pure-time-display">極樂累積：--</div>
-    </div>
-</div>
-
-<canvas id="starBg"></canvas>
-
-<style>
     @keyframes dharmaSpin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
@@ -1126,6 +1143,71 @@
         text-align: left;
     }
 </style>
+
+
+
+  
+</head>
+<body>
+<canvas id="starBg"></canvas>
+<div id="page-transition-curtain"></div>
+
+
+
+<div id="festival-banner"></div>
+
+<div class="time-monitor">
+    <div class="mon-left" onclick="touchAvatar()" style="cursor:pointer;">
+        <div id="mini-seed" style="display:flex; align-items:center; justify-content:center; width:42px; height:42px;"></div>
+        <div style="display:flex; flex-direction:column; overflow:hidden;">
+            <div style="display:flex; align-items:center; gap:5px;">
+                <span id="rank-title" style="font-size: 0.65rem; color: var(--cyan);">初信位</span>
+                <span id="title-medal" style="color:var(--gold); font-size:0.6rem; font-weight:bold;"></span>
+            </div>
+            <span id="display-name" style="font-weight: bold; font-size: 0.95rem;">行者</span>
+        </div>
+    </div>
+
+    <!-- 金剛杵分割線 (純向量 SVG) -->
+    <div class="vajra-divider">
+        <svg viewBox="0 0 24 100" preserveAspectRatio="xMidYMid meet">
+            <defs>
+                <linearGradient id="vajra-gold-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#ffd700" stop-opacity="0.3" />
+                    <stop offset="25%" stop-color="#d4af37" />
+                    <stop offset="50%" stop-color="#fff2a3" />
+                    <stop offset="75%" stop-color="#d4af37" />
+                    <stop offset="100%" stop-color="#ffd700" stop-opacity="0.3" />
+                </linearGradient>
+            </defs>
+            <!-- 上端股尖 -->
+            <path d="M 12,2 L 15,18 L 12,22 L 9,18 Z" fill="url(#vajra-gold-grad)" />
+            <path d="M 12,2 C 19,10 18,20 12,22 C 6,20 5,10 12,2 Z" fill="none" stroke="url(#vajra-gold-grad)" stroke-width="1.2" />
+            
+            <!-- 上蓮座與中結 -->
+            <circle cx="12" cy="26" r="3.5" fill="url(#vajra-gold-grad)" />
+            <path d="M 6,32 Q 12,29 18,32 Q 12,35 6,32 Z" fill="url(#vajra-gold-grad)" />
+            
+            <!-- 中央主軸 -->
+            <line x1="12" y1="35" x2="12" y2="65" stroke="url(#vajra-gold-grad)" stroke-width="2.5" stroke-linecap="round" />
+            <circle cx="12" cy="50" r="3" fill="url(#vajra-gold-grad)" />
+            
+            <!-- 下蓮座與下結 -->
+            <path d="M 6,68 Q 12,65 18,68 Q 12,71 6,68 Z" fill="url(#vajra-gold-grad)" />
+            <circle cx="12" cy="74" r="3.5" fill="url(#vajra-gold-grad)" />
+            
+            <!-- 下端股尖 -->
+            <path d="M 12,98 L 15,82 L 12,78 L 9,82 Z" fill="url(#vajra-gold-grad)" />
+            <path d="M 12,98 C 19,90 18,80 12,78 C 6,80 5,90 12,98 Z" fill="none" stroke="url(#vajra-gold-grad)" stroke-width="1.2" />
+        </svg>
+    </div>
+
+    <div class="mon-right">
+        <div id="earth-time">娑婆：--:--:--</div>
+        <div id="pure-time-display">極樂累積：--</div>
+    </div>
+</div>
+
 
 <div id="firstTimeNameModal" class="modal" style="display: none; z-index: 3000;">
     <div style="background: linear-gradient(145deg, rgba(15,15,15,0.95) 0%, rgba(5,5,5,0.98) 100%); border: 1px solid rgba(212,175,55,0.4); border-radius: 24px; padding: 35px 25px; width: 88%; max-width: 360px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 25px 60px rgba(0,0,0,0.9), inset 0 0 15px rgba(212,175,55,0.05); position: relative; overflow: hidden;">
@@ -1680,10 +1762,8 @@
 </div>
 
     </div>
- <!-- 德位與累積念佛主卡片容器 -->
-<div style="position: relative; overflow: hidden; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 20px; box-sizing: border-box;">
 
-    <!-- 上半部：進度條軌道 -->
+    <!-- 進度條軌道 -->
     <div style="width:100%; height:6px; background:rgba(255,255,255,0.07); border-radius:4px; overflow:hidden; border: 0.5px solid rgba(255,255,255,0.09); margin-bottom: 25px;">
         <div id="streak-bar" style="height:100%; background: linear-gradient(90deg, var(--solid-gold), var(--gold)); width:0%; transition:1.2s;"></div>
     </div>
@@ -1693,92 +1773,26 @@
         <span style="font-size:0.75rem; color:#888; letter-spacing: 0.5px;">累積念佛</span>
         <span id="total-count" style="color:var(--gold); font-size:1.05rem; font-weight:bold; letter-spacing: 1px;">0</span>
     </div>
-    <div style="position:relative; width:100%; padding-bottom:12px;">
+    <div style="position:relative; width:100%; padding-bottom:22px;">
         <div class="bar-track-glass"><div id="amitabha-bar-fill" class="colorful-fill"></div></div>
         <div class="bar-labels"><span style="left:5%">100</span><span style="left:50%">1千</span><span style="left:60%">1萬</span><span style="left:70%">10萬</span><span style="left:80%">百萬</span><span style="left:90%">千萬</span><span style="left:100%">1億</span></div>
     </div>
-
 </div>
 
-<!-- 卡片下方：備份、還原、說明按鈕區 -->
-<div style="display:flex; gap:10px; width:100%; justify-content:center; margin-top: 25px;">
+
+    <div style="display:flex; gap:10px; width:100%; justify-content:center; margin-top: 25px;">
     <button class="btn-transparent-small btn-sweep" onclick="exportAndShareProgress()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8v13H3V8"></path><polyline points="1 3 23 3 23 8 1 8 1 3"></polyline></svg>備份
-    </button>
-    <button class="btn-transparent-small btn-sweep" onclick="document.getElementById('import-file').click()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline></svg>還原
-    </button>
-    <button class="btn-transparent-small btn-sweep" onclick="document.getElementById('guide-modal').style.display='flex'">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path></svg>說明
-    </button>
-    <input type="file" id="import-file" style="display:none" onchange="importProgress(this)">
-</div>
-
-<!-- 最下方：文字與極淡蓮花圖騰融合區塊 -->
-<div style="text-align:center; margin-top: 30px; display:flex; flex-direction:column; align-items:center; cursor:pointer;" onclick="shareSystem()" onmouseover="document.getElementById('lotus-bg-path').style.opacity='0.35';" onmouseout="document.getElementById('lotus-bg-path').style.opacity='0.15';">
-    
-    <!-- 分享系統文字 -->
-    <span style="font-size:0.75rem; letter-spacing:2px; color: rgba(243, 229, 171, 0.85); border-bottom: 1px solid rgba(212, 175, 55, 0.4); padding-bottom: 3px; transition: color 0.3s ease;">
-        分享淨土系統 ． 永久開源免費
-    </span>
-
-    <!-- 緊銜接在文字正下方的極淡蓮花圖騰 -->
-    <div id="lotus-bg-path" style="width: 100%; max-width: 280px; height: 16px; margin-top: 6px; transition: opacity 0.3s ease; opacity: 0.15;">
-        <svg viewBox="0 0 100 20" preserveAspectRatio="none" style="width: 100%; height: 100%; display: block;" xmlns="http://www.w3.org/2000/svg">
-            <g stroke="var(--gold, #d4af37)" stroke-linecap="round" stroke-linejoin="round" fill="none">
-                <!-- 底座細線 -->
-                <line x1="0" y1="19.5" x2="100" y2="19.5" stroke-width="0.15" opacity="0.35" />
-                <ellipse cx="50" cy="20" rx="44" ry="3" stroke-width="0.15" opacity="0.25" stroke-dasharray="0.5 1" />
-
-                <!-- 1. 最外層花瓣 -->
-                <path d="M 38 20 C 22 20.5 4 18 1 14 C 12 17 28 19.5 46 20" stroke-width="0.2" opacity="0.55" />
-                <path d="M 38 20 C 23 19 10 17 3 14.5" stroke-width="0.1" opacity="0.3" />
-                <path d="M 62 20 C 78 20.5 96 18 99 14 C 88 17 72 19.5 54 20" stroke-width="0.2" opacity="0.55" />
-                <path d="M 62 20 C 77 19 90 17 97 14.5" stroke-width="0.1" opacity="0.3" />
-
-                <!-- 2. 次外層花瓣 -->
-                <path d="M 41 20 C 25 20.2 7 17 4 12 C 15 16 33 19.2 50 20" stroke-width="0.22" opacity="0.7" />
-                <path d="M 41 20 C 27 18.5 13 15.5 5.5 12.5" stroke-width="0.1" opacity="0.35" />
-                <path d="M 35 20 C 23 18 11 15 6 12.8" stroke-width="0.08" opacity="0.25" />
-                <path d="M 59 20 C 75 20.2 93 17 96 12 C 85 16 67 19.2 50 20" stroke-width="0.22" opacity="0.7" />
-                <path d="M 59 20 C 73 18.5 87 15.5 94.5 12.5" stroke-width="0.1" opacity="0.35" />
-                <path d="M 65 20 C 77 18 89 15 94 12.8" stroke-width="0.08" opacity="0.25" />
-
-                <!-- 3. 中層花瓣 -->
-                <path d="M 47 20 C 37 18.5 22 13 23.5 6 C 33.5 12 43 18 50 20" stroke-width="0.25" opacity="0.8" />
-                <path d="M 47 20 C 37 17.2 26.5 11.8 25 6.8" stroke-width="0.12" opacity="0.4" />
-                <circle cx="23.5" cy="6" r="0.4" stroke-width="0.18" opacity="0.85" />
-                <path d="M 53 20 C 63 18.5 78 13 76.5 6 C 66.5 12 57 18 50 20" stroke-width="0.25" opacity="0.8" />
-                <path d="M 53 20 C 63 17.2 73.5 11.8 75 6.8" stroke-width="0.12" opacity="0.4" />
-                <circle cx="76.5" cy="6" r="0.4" stroke-width="0.18" opacity="0.85" />
-
-                <!-- 4. 內層花瓣 -->
-                <path d="M 49.2 20 C 45 18 37.5 11 40.5 3 C 46.5 10 48.2 17 50 20" stroke-width="0.28" opacity="0.85" />
-                <path d="M 49.2 20 C 45.2 16.2 39 10.2 41 3.5" stroke-width="0.12" opacity="0.45" />
-                <circle cx="40.5" cy="3" r="0.4" stroke-width="0.18" opacity="0.85" />
-                <path d="M 50.8 20 C 55 18 62.5 11 59.5 3 C 53.5 10 51.8 17 50 20" stroke-width="0.28" opacity="0.85" />
-                <path d="M 50.8 20 C 54.8 16.2 61 10.2 59 3.5" stroke-width="0.12" opacity="0.45" />
-                <circle cx="59.5" cy="3" r="0.4" stroke-width="0.18" opacity="0.85" />
-
-                <!-- 5. 主心花瓣 -->
-                <path d="M 50 20 C 47 15.5 45.8 9 50 0.8 C 54.2 9 53 15.5 50 20" stroke-width="0.32" opacity="0.95" />
-                <line x1="50" y1="20" x2="50" y2="0.8" stroke-width="0.15" opacity="0.55" />
-                <circle cx="50" cy="0.8" r="0.55" stroke-width="0.2" opacity="0.95" />
-
-                <!-- 6. 蓮蓬花蕊 -->
-                <line x1="47.5" y1="20" x2="47" y2="19" stroke-width="0.18" opacity="0.65" />
-                <line x1="50" y1="20" x2="50" y2="18.6" stroke-width="0.18" opacity="0.75" />
-                <line x1="52.5" y1="20" x2="53" y2="19" stroke-width="0.18" opacity="0.65" />
-                <circle cx="47" cy="18.8" r="0.25" stroke-width="0.15" opacity="0.75" />
-                <circle cx="50" cy="18.4" r="0.35" stroke-width="0.18" opacity="0.95" />
-                <circle cx="53" cy="18.8" r="0.25" stroke-width="0.15" opacity="0.75" />
-            </g>
-        </svg>
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8v13H3V8"></path><polyline points="1 3 23 3 23 8 1 8 1 3"></polyline></svg>備份</button>
+        <button class="btn-transparent-small btn-sweep" onclick="document.getElementById('import-file').click()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline></svg>還原</button>
+        <button class="btn-transparent-small btn-sweep" onclick="document.getElementById('guide-modal').style.display='flex'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path></svg>說明</button>
+        <input type="file" id="import-file" style="display:none" onchange="importProgress(this)">
     </div>
+
+           <div style="text-align:center; margin-top:25px;">
+        <span style="font-size:0.75rem; letter-spacing:2px; color: rgba(243, 229, 171, 0.8); cursor:pointer; border-bottom: 1px solid rgba(212, 175, 55, 0.5); padding-bottom: 3px; transition: color 0.3s ease;" onmouseover="this.style.color='var(--gold)';" onmouseout="this.style.color='rgba(243, 229, 171, 0.8)';" onclick="shareSystem()">分享淨土系統 ． 永久開源免費</span>
+    </div>
+
 </div>
-
-
-
 
 
 
@@ -2930,6 +2944,8 @@
         </div>
     </div>
 </div>
+
+
 
     <script>
         // 每秒檢查一次功德箱，動態改變法幣按鈕的外觀 (注入 48 願漸變色邏輯)
