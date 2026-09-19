@@ -1681,7 +1681,7 @@
 
     </div>
 
-    <!-- 進度條軌道 -->
+ <!-- 進度條軌道 -->
     <div style="width:100%; height:6px; background:rgba(255,255,255,0.07); border-radius:4px; overflow:hidden; border: 0.5px solid rgba(255,255,255,0.09); margin-bottom: 25px;">
         <div id="streak-bar" style="height:100%; background: linear-gradient(90deg, var(--solid-gold), var(--gold)); width:0%; transition:1.2s;"></div>
     </div>
@@ -1691,9 +1691,63 @@
         <span style="font-size:0.75rem; color:#888; letter-spacing: 0.5px;">累積念佛</span>
         <span id="total-count" style="color:var(--gold); font-size:1.05rem; font-weight:bold; letter-spacing: 1px;">0</span>
     </div>
-    <div style="position:relative; width:100%; padding-bottom:22px;">
+    <div style="position:relative; width:100%; padding-bottom:12px;">
         <div class="bar-track-glass"><div id="amitabha-bar-fill" class="colorful-fill"></div></div>
         <div class="bar-labels"><span style="left:5%">100</span><span style="left:50%">1千</span><span style="left:60%">1萬</span><span style="left:70%">10萬</span><span style="left:80%">百萬</span><span style="left:90%">千萬</span><span style="left:100%">1億</span></div>
+    </div>
+
+    <!-- 卡片內部底部裝飾蓮花線條 -->
+    <div style="width:100%; margin-top: 15px; line-height: 0; text-align: center;">
+        <svg viewBox="0 0 100 20" preserveAspectRatio="none" style="width: 100%; height: 20px; display: block;" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="var(--gold, #d4af37)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <!-- 底座細線 -->
+                <line x1="0" y1="19.5" x2="100" y2="19.5" stroke-width="0.15" opacity="0.35" />
+                <ellipse cx="50" cy="20" rx="44" ry="3" stroke-width="0.15" opacity="0.25" stroke-dasharray="0.5 1" />
+
+                <!-- 1. 最外層花瓣（左右各2片舒展大花瓣） -->
+                <path d="M 38 20 C 22 20.5 4 18 1 14 C 12 17 28 19.5 46 20" stroke-width="0.2" opacity="0.55" />
+                <path d="M 38 20 C 23 19 10 17 3 14.5" stroke-width="0.1" opacity="0.3" />
+                <path d="M 62 20 C 78 20.5 96 18 99 14 C 88 17 72 19.5 54 20" stroke-width="0.2" opacity="0.55" />
+                <path d="M 62 20 C 77 19 90 17 97 14.5" stroke-width="0.1" opacity="0.3" />
+
+                <!-- 2. 次外層花瓣 -->
+                <path d="M 41 20 C 25 20.2 7 17 4 12 C 15 16 33 19.2 50 20" stroke-width="0.22" opacity="0.7" />
+                <path d="M 41 20 C 27 18.5 13 15.5 5.5 12.5" stroke-width="0.1" opacity="0.35" />
+                <path d="M 35 20 C 23 18 11 15 6 12.8" stroke-width="0.08" opacity="0.25" />
+                <path d="M 59 20 C 75 20.2 93 17 96 12 C 85 16 67 19.2 50 20" stroke-width="0.22" opacity="0.7" />
+                <path d="M 59 20 C 73 18.5 87 15.5 94.5 12.5" stroke-width="0.1" opacity="0.35" />
+                <path d="M 65 20 C 77 18 89 15 94 12.8" stroke-width="0.08" opacity="0.25" />
+
+                <!-- 3. 中層花瓣 -->
+                <path d="M 47 20 C 37 18.5 22 13 23.5 6 C 33.5 12 43 18 50 20" stroke-width="0.25" opacity="0.8" />
+                <path d="M 47 20 C 37 17.2 26.5 11.8 25 6.8" stroke-width="0.12" opacity="0.4" />
+                <circle cx="23.5" cy="6" r="0.4" stroke-width="0.18" opacity="0.85" />
+                <path d="M 53 20 C 63 18.5 78 13 76.5 6 C 66.5 12 57 18 50 20" stroke-width="0.25" opacity="0.8" />
+                <path d="M 53 20 C 63 17.2 73.5 11.8 75 6.8" stroke-width="0.12" opacity="0.4" />
+                <circle cx="76.5" cy="6" r="0.4" stroke-width="0.18" opacity="0.85" />
+
+                <!-- 4. 內層花瓣 -->
+                <path d="M 49.2 20 C 45 18 37.5 11 40.5 3 C 46.5 10 48.2 17 50 20" stroke-width="0.28" opacity="0.85" />
+                <path d="M 49.2 20 C 45.2 16.2 39 10.2 41 3.5" stroke-width="0.12" opacity="0.45" />
+                <circle cx="40.5" cy="3" r="0.4" stroke-width="0.18" opacity="0.85" />
+                <path d="M 50.8 20 C 55 18 62.5 11 59.5 3 C 53.5 10 51.8 17 50 20" stroke-width="0.28" opacity="0.85" />
+                <path d="M 50.8 20 C 54.8 16.2 61 10.2 59 3.5" stroke-width="0.12" opacity="0.45" />
+                <circle cx="59.5" cy="3" r="0.4" stroke-width="0.18" opacity="0.85" />
+
+                <!-- 5. 主心花瓣 -->
+                <path d="M 50 20 C 47 15.5 45.8 9 50 0.8 C 54.2 9 53 15.5 50 20" stroke-width="0.32" opacity="0.95" />
+                <line x1="50" y1="20" x2="50" y2="0.8" stroke-width="0.15" opacity="0.55" />
+                <circle cx="50" cy="0.8" r="0.55" stroke-width="0.2" opacity="0.95" />
+
+                <!-- 6. 蓮蓬花蕊 -->
+                <line x1="47.5" y1="20" x2="47" y2="19" stroke-width="0.18" opacity="0.65" />
+                <line x1="50" y1="20" x2="50" y2="18.6" stroke-width="0.18" opacity="0.75" />
+                <line x1="52.5" y1="20" x2="53" y2="19" stroke-width="0.18" opacity="0.65" />
+                <circle cx="47" cy="18.8" r="0.25" stroke-width="0.15" opacity="0.75" />
+                <circle cx="50" cy="18.4" r="0.35" stroke-width="0.18" opacity="0.95" />
+                <circle cx="53" cy="18.8" r="0.25" stroke-width="0.15" opacity="0.75" />
+            </g>
+        </svg>
     </div>
 </div>
 
@@ -1710,61 +1764,8 @@
         <span style="font-size:0.75rem; letter-spacing:2px; color: rgba(243, 229, 171, 0.8); cursor:pointer; border-bottom: 1px solid rgba(212, 175, 55, 0.5); padding-bottom: 3px; transition: color 0.3s ease;" onmouseover="this.style.color='var(--gold)';" onmouseout="this.style.color='rgba(243, 229, 171, 0.8)';" onclick="shareSystem()">分享淨土系統 ． 永久開源免費</span>
     </div>
 
-    <!-- 底部裝飾蓮花座 -->
-    <div style="width:100%; margin-top: 25px; line-height: 0; text-align: center;">
-        <svg viewBox="0 0 100 25" preserveAspectRatio="none" style="width: 100%; height: 25px; display: block;" xmlns="http://www.w3.org/2000/svg">
-            <g stroke="var(--gold, #d4af37)" stroke-linecap="round" stroke-linejoin="round" fill="none">
-                <!-- 底座細線 -->
-                <line x1="0" y1="23.5" x2="100" y2="23.5" stroke-width="0.15" opacity="0.4" />
-                <ellipse cx="50" cy="25" rx="44" ry="4" stroke-width="0.15" opacity="0.3" stroke-dasharray="0.5 1" />
-
-                <!-- 1. 最外層新增花瓣 -->
-                <path d="M 38 25 C 22 25.5 4 23 1 18 C 12 21.5 28 24.5 46 25" stroke-width="0.22" opacity="0.6" />
-                <path d="M 38 25 C 23 24 10 21.5 3 18.5" stroke-width="0.12" opacity="0.35" />
-                <path d="M 62 25 C 78 25.5 96 23 99 18 C 88 21.5 72 24.5 54 25" stroke-width="0.22" opacity="0.6" />
-                <path d="M 62 25 C 77 24 90 21.5 97 18.5" stroke-width="0.12" opacity="0.35" />
-
-                <!-- 2. 次外層花瓣 -->
-                <path d="M 41 25 C 25 25.2 7 21.5 4 15.5 C 15 20.5 33 24.2 50 25" stroke-width="0.25" opacity="0.75" />
-                <path d="M 41 25 C 27 23.5 13 20 5.5 16" stroke-width="0.12" opacity="0.4" />
-                <path d="M 35 25 C 23 23 11 19.5 6 16.5" stroke-width="0.1" opacity="0.3" />
-                <path d="M 59 25 C 75 25.2 93 21.5 96 15.5 C 85 20.5 67 24.2 50 25" stroke-width="0.25" opacity="0.75" />
-                <path d="M 59 25 C 73 23.5 87 20 94.5 16" stroke-width="0.12" opacity="0.4" />
-                <path d="M 65 25 C 77 23 89 19.5 94 16.5" stroke-width="0.1" opacity="0.3" />
-
-                <!-- 3. 中層花瓣 -->
-                <path d="M 47 25 C 37 23.2 22 16.5 23.5 7.5 C 33.5 15 43 22.5 50 25" stroke-width="0.28" opacity="0.85" />
-                <path d="M 47 25 C 37 21.8 26.5 15 25 8.5" stroke-width="0.14" opacity="0.45" />
-                <circle cx="23.5" cy="7.5" r="0.5" stroke-width="0.2" opacity="0.9" />
-                <path d="M 53 25 C 63 23.2 78 16.5 76.5 7.5 C 66.5 15 57 22.5 50 25" stroke-width="0.28" opacity="0.85" />
-                <path d="M 53 25 C 63 21.8 73.5 15 75 8.5" stroke-width="0.14" opacity="0.45" />
-                <circle cx="76.5" cy="7.5" r="0.5" stroke-width="0.2" opacity="0.9" />
-
-                <!-- 4. 內層花瓣 -->
-                <path d="M 49.2 25 C 45 22.5 37.5 14 40.5 3.8 C 46.5 12.5 48.2 21.5 50 25" stroke-width="0.3" opacity="0.9" />
-                <path d="M 49.2 25 C 45.2 20.5 39 13 41 4.5" stroke-width="0.14" opacity="0.5" />
-                <circle cx="40.5" cy="3.8" r="0.5" stroke-width="0.2" opacity="0.9" />
-                <path d="M 50.8 25 C 55 22.5 62.5 14 59.5 3.8 C 53.5 12.5 51.8 21.5 50 25" stroke-width="0.3" opacity="0.9" />
-                <path d="M 50.8 25 C 54.8 20.5 61 13 59 4.5" stroke-width="0.14" opacity="0.5" />
-                <circle cx="59.5" cy="3.8" r="0.5" stroke-width="0.2" opacity="0.9" />
-
-                <!-- 5. 主心花瓣 -->
-                <path d="M 50 25 C 47 19.5 45.8 11.5 50 1 C 54.2 11.5 53 19.5 50 25" stroke-width="0.38" opacity="1" />
-                <line x1="50" y1="25" x2="50" y2="1" stroke-width="0.18" opacity="0.6" />
-                <circle cx="50" cy="1" r="0.7" stroke-width="0.25" opacity="1" />
-
-                <!-- 6. 蓮蓬花蕊 -->
-                <line x1="47.5" y1="25" x2="47" y2="23.8" stroke-width="0.2" opacity="0.7" />
-                <line x1="50" y1="25" x2="50" y2="23.3" stroke-width="0.2" opacity="0.8" />
-                <line x1="52.5" y1="25" x2="53" y2="23.8" stroke-width="0.2" opacity="0.7" />
-                <circle cx="47" cy="23.5" r="0.3" stroke-width="0.18" opacity="0.8" />
-                <circle cx="50" cy="23" r="0.4" stroke-width="0.2" opacity="1" />
-                <circle cx="53" cy="23.5" r="0.3" stroke-width="0.18" opacity="0.8" />
-            </g>
-        </svg>
-    </div>
-
 </div>
+
 
 
 
