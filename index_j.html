@@ -83,17 +83,16 @@
     border-right: none; 
 }
 
-/* 金剛杵垂直分隔線樣式 */
 .vajra-divider {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
-    width: 16px;
-    margin: 0 10px;
+    height: 48px; /* 稍微放大高度 */
+    width: 20px;  /* 寬度配合圖案等比例放大 */
+    margin: 0 8px;
     flex-shrink: 0;
-    opacity: 0.85;
-    filter: drop-shadow(0px 0px 3px rgba(212, 175, 55, 0.3));
+    opacity: 0.9;
+    filter: drop-shadow(0px 0px 4px rgba(212, 175, 55, 0.4));
 }
 
 .vajra-divider svg {
@@ -1168,37 +1167,47 @@
         </div>
     </div>
 
-    <!-- 金剛杵分割線 (純向量 SVG) -->
+    <!-- 上下連貫且帶幾何裝飾的特大金剛杵分隔線 -->
     <div class="vajra-divider">
-        <svg viewBox="0 0 24 100" preserveAspectRatio="xMidYMid meet">
+        <svg viewBox="0 0 28 100" preserveAspectRatio="xMidYMid meet">
             <defs>
                 <linearGradient id="vajra-gold-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#ffd700" stop-opacity="0.3" />
-                    <stop offset="25%" stop-color="#d4af37" />
+                    <stop offset="0%" stop-color="#ffd700" stop-opacity="0.4" />
+                    <stop offset="20%" stop-color="#d4af37" />
                     <stop offset="50%" stop-color="#fff2a3" />
-                    <stop offset="75%" stop-color="#d4af37" />
-                    <stop offset="100%" stop-color="#ffd700" stop-opacity="0.3" />
+                    <stop offset="80%" stop-color="#d4af37" />
+                    <stop offset="100%" stop-color="#ffd700" stop-opacity="0.4" />
                 </linearGradient>
             </defs>
+
+            <!-- 貫穿全軸的中心主線（確保上下完全連貫不中斷） -->
+            <line x1="14" y1="2" x2="14" y2="98" stroke="url(#vajra-gold-grad)" stroke-width="1.5" />
+
             <!-- 上端股尖 -->
-            <path d="M 12,2 L 15,18 L 12,22 L 9,18 Z" fill="url(#vajra-gold-grad)" />
-            <path d="M 12,2 C 19,10 18,20 12,22 C 6,20 5,10 12,2 Z" fill="none" stroke="url(#vajra-gold-grad)" stroke-width="1.2" />
-            
-            <!-- 上蓮座與中結 -->
-            <circle cx="12" cy="26" r="3.5" fill="url(#vajra-gold-grad)" />
-            <path d="M 6,32 Q 12,29 18,32 Q 12,35 6,32 Z" fill="url(#vajra-gold-grad)" />
-            
-            <!-- 中央主軸 -->
-            <line x1="12" y1="35" x2="12" y2="65" stroke="url(#vajra-gold-grad)" stroke-width="2.5" stroke-linecap="round" />
-            <circle cx="12" cy="50" r="3" fill="url(#vajra-gold-grad)" />
-            
-            <!-- 下蓮座與下結 -->
-            <path d="M 6,68 Q 12,65 18,68 Q 12,71 6,68 Z" fill="url(#vajra-gold-grad)" />
-            <circle cx="12" cy="74" r="3.5" fill="url(#vajra-gold-grad)" />
-            
+            <path d="M 14,0 L 18,16 L 14,20 L 10,16 Z" fill="url(#vajra-gold-grad)" />
+            <path d="M 14,0 C 23,8 21,18 14,20 C 7,18 5,8 14,0 Z" fill="none" stroke="url(#vajra-gold-grad)" stroke-width="1.2" />
+
+            <!-- 上蓮座與花結 -->
+            <circle cx="14" cy="24" r="3.5" fill="url(#vajra-gold-grad)" />
+            <path d="M 7,29 Q 14,26 21,29 Q 14,32 7,29 Z" fill="url(#vajra-gold-grad)" />
+
+            <!-- 中央幾何飾紋區（長方形 + 內部菱形與圓形） -->
+            <g fill="none" stroke="url(#vajra-gold-grad)" stroke-width="1.2">
+                <!-- 長方形外框 -->
+                <rect x="7" y="35" width="14" height="30" rx="1" />
+                <!-- 內部菱形 -->
+                <polygon points="14,38 19,50 14,62 9,50" />
+                <!-- 中心圓形點綴 -->
+                <circle cx="14" cy="50" r="2.5" fill="url(#vajra-gold-grad)" />
+            </g>
+
+            <!-- 下蓮座與花結 -->
+            <path d="M 7,71 Q 14,68 21,71 Q 14,74 7,71 Z" fill="url(#vajra-gold-grad)" />
+            <circle cx="14" cy="76" r="3.5" fill="url(#vajra-gold-grad)" />
+
             <!-- 下端股尖 -->
-            <path d="M 12,98 L 15,82 L 12,78 L 9,82 Z" fill="url(#vajra-gold-grad)" />
-            <path d="M 12,98 C 19,90 18,80 12,78 C 6,80 5,90 12,98 Z" fill="none" stroke="url(#vajra-gold-grad)" stroke-width="1.2" />
+            <path d="M 14,100 L 18,84 L 14,80 L 10,84 Z" fill="url(#vajra-gold-grad)" />
+            <path d="M 14,100 C 23,92 21,82 14,80 C 7,82 5,92 14,100 Z" fill="none" stroke="url(#vajra-gold-grad)" stroke-width="1.2" />
         </svg>
     </div>
 
