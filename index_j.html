@@ -2653,8 +2653,8 @@
 <div id="dedi-modal" class="modal">
     <div style="width:90%; max-width:380px; padding:45px 30px; background:linear-gradient(145deg, #0a0a0a 0%, #000000 100%); border:1px solid rgba(212,175,55,0.4); border-radius:28px; text-align:center; box-shadow: 0 20px 60px rgba(0,0,0,0.9), inset 0 0 20px rgba(212,175,55,0.05); position: relative; overflow: hidden;">
         
-        <!-- 背景大 U 型金色佛珠串 (移除最上方左右顆、放大U型、底部顯化「中大小」三主珠) -->
-        <svg id="svg-u-full" style="position: absolute; top: 15px; left: 0; width: 100%; height: 92%; opacity: 0.15; pointer-events: none; z-index: 1;" viewBox="0 0 380 480" fill="none" stroke="var(--gold)">
+        <!-- 背景 U 型金色佛珠串 (依草圖將主珠拉高至文字下方、按鈕上方) -->
+        <svg id="svg-u-full" style="position: absolute; top: 15px; left: 0; width: 100%; height: 92%; opacity: 0.18; pointer-events: none; z-index: 1;" viewBox="0 0 380 480" fill="none" stroke="var(--gold)">
             <defs>
                 <radialGradient id="gold-bead-grad" cx="35%" cy="35%" r="65%">
                     <stop offset="0%" stop-color="#ffffff"/>
@@ -2668,69 +2668,65 @@
                 </linearGradient>
             </defs>
 
-            <!-- 貫穿整串佛珠的金色 U 型放大弧線心線 -->
-            <path d="M 35 70 C 5 200, 10 410, 190 425 C 370 410, 375 200, 345 70" stroke="var(--gold)" stroke-width="0.8" stroke-dasharray="3 3"/>
+            <!-- 貫穿整串佛珠的金色 U 型心線 (底部升高至 y:295) -->
+            <path d="M 46 68 C 15 150, 20 285, 190 295 C 360 285, 365 150, 334 68" stroke="var(--gold)" stroke-width="0.8" stroke-dasharray="3 3"/>
 
-            <!-- 入道場下方：中、大、中 三顆佛珠主珠與佛塔流蘇 -->
-            <g transform="translate(190, 425)">
+            <!-- 迴向文正下方：中、大、中 三顆主珠與精緻流蘇 (置於按鈕上方空隙) -->
+            <g transform="translate(190, 295)">
                 <!-- 兩側中型主珠 -->
-                <circle cx="-22" cy="-4" r="7" fill="url(#gold-bead-grad)" stroke="var(--gold)" stroke-width="0.8"/>
-                <circle cx="22" cy="-4" r="7" fill="url(#gold-bead-grad)" stroke="var(--gold)" stroke-width="0.8"/>
+                <circle cx="-20" cy="-3" r="6.5" fill="url(#gold-bead-grad)" stroke="var(--gold)" stroke-width="0.8"/>
+                <circle cx="20" cy="-3" r="6.5" fill="url(#gold-bead-grad)" stroke="var(--gold)" stroke-width="0.8"/>
                 
                 <!-- 中央大型母珠與葫蘆佛塔 -->
-                <circle cx="0" cy="0" r="10.5" fill="url(#gold-bead-grad)" stroke="var(--gold)" stroke-width="0.9"/>
-                <path d="M -6 -10 L 0 -18 L 6 -10 Z" fill="url(#gold-bead-grad)" stroke="var(--gold)" stroke-width="0.7"/>
+                <circle cx="0" cy="0" r="10" fill="url(#gold-bead-grad)" stroke="var(--gold)" stroke-width="0.9"/>
+                <path d="M -5.5 -9.5 L 0 -17 L 5.5 -9.5 Z" fill="url(#gold-bead-grad)" stroke="var(--gold)" stroke-width="0.7"/>
                 
-                <!-- 雙股金流蘇穗 -->
-                <path d="M -3 2 C -5 17, -14 32, -20 47 M 3 2 C 5 17, 14 32, 20 47" stroke="url(#tassel-grad)" stroke-width="1.2" stroke-linecap="round"/>
-                <path d="M -1 2 C -2 17, -7 32, -10 47 M 1 2 C 2 17, 7 32, 10 47" stroke="url(#tassel-grad)" stroke-width="0.8" opacity="0.6"/>
+                <!-- 雙股金流蘇穗 (垂掛於法幣按鈕背後空隙) -->
+                <path d="M -2.5 2 C -4 14, -10 25, -15 36 M 2.5 2 C 4 14, 10 25, 15 36" stroke="url(#tassel-grad)" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M -1 2 C -1.5 14, -5 25, -8 36 M 1 2 C 1.5 14, 5 25, 8 36" stroke="url(#tassel-grad)" stroke-width="0.8" opacity="0.6"/>
             </g>
 
-            <!-- 左側放大 U 型子珠序列 (已移除最上方點) -->
-            <circle cx="334" cy="70" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="343" cy="94" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="348" cy="118" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="352" cy="142" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="353" cy="166" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="352" cy="190" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="349" cy="214" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="344" cy="238" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="338" cy="262" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="330" cy="286" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="319" cy="309" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="305" cy="331" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="289" cy="353" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="270" cy="373" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="248" cy="390" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="224" cy="405" r="5.8" fill="url(#gold-bead-grad)"/>
+            <!-- 左側高位 U 型子珠序列 -->
+            <circle cx="334" cy="68" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="342" cy="88" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="347" cy="108" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="350" cy="128" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="351" cy="148" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="349" cy="168" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="345" cy="188" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="338" cy="208" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="327" cy="227" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="312" cy="245" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="293" cy="261" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="269" cy="275" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="242" cy="285" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="215" cy="291" r="5.5" fill="url(#gold-bead-grad)"/>
 
-            <!-- 右側放大 U 型子珠序列 (已移除最上方點，完全對稱) -->
-            <circle cx="46" cy="70" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="37" cy="94" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="32" cy="118" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="28" cy="142" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="27" cy="166" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="28" cy="190" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="31" cy="214" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="36" cy="238" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="42" cy="262" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="50" cy="286" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="61" cy="309" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="75" cy="331" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="91" cy="353" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="110" cy="373" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="132" cy="390" r="5.8" fill="url(#gold-bead-grad)"/>
-            <circle cx="156" cy="405" r="5.8" fill="url(#gold-bead-grad)"/>
+            <!-- 右側高位 U 型子珠序列 (對稱設計) -->
+            <circle cx="46" cy="68" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="38" cy="88" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="33" cy="108" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="30" cy="128" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="29" cy="148" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="31" cy="168" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="35" cy="188" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="42" cy="208" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="53" cy="227" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="68" cy="245" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="87" cy="261" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="111" cy="275" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="138" cy="285" r="5.5" fill="url(#gold-bead-grad)"/>
+            <circle cx="165" cy="291" r="5.5" fill="url(#gold-bead-grad)"/>
         </svg>
 
-        <!-- 標題區域：套用金色祥雲花紋底線的 section-header -->
+        <!-- 標題區域 -->
         <div class="section-header">
             <span>大迴向</span>
         </div>
         
-        <p style="line-height:2.4; color:#eee; font-size:1.15rem; margin: 30px 0; letter-spacing: 3px; font-weight: 300; position: relative; z-index: 10;">願以此功德<br>平等施一切<br>同發菩提心<br>往生極樂國</p>
+        <p style="line-height:2.4; color:#eee; font-size:1.15rem; margin: 25px 0 35px 0; letter-spacing: 3px; font-weight: 300; position: relative; z-index: 10;">願以此功德<br>平等施一切<br>同發菩提心<br>往生極樂國</p>
         
-        <div style="display:flex; flex-direction:column; gap: 15px; margin-top: 35px; margin-bottom: 25px; position: relative; z-index: 10;">
+        <div style="display:flex; flex-direction:column; gap: 15px; margin-top: 25px; margin-bottom: 25px; position: relative; z-index: 10;">
             
             <!-- 法幣按鈕 -->
             <button id="modal-forge-btn" style="width: 100%; padding: 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.2); border-radius: 16px; font-size: 0.9rem; letter-spacing: 2px; display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; transition: all 0.4s; outline: none; color: #eee;" onclick="checkModalForge()">
