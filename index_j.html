@@ -1680,7 +1680,10 @@
 </div>
 
     </div>
- <!-- 進度條軌道 -->
+ <!-- 德位與累積念佛主卡片容器 -->
+<div style="position: relative; overflow: hidden; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 20px; box-sizing: border-box;">
+
+    <!-- 上半部：進度條軌道 -->
     <div style="width:100%; height:6px; background:rgba(255,255,255,0.07); border-radius:4px; overflow:hidden; border: 0.5px solid rgba(255,255,255,0.09); margin-bottom: 25px;">
         <div id="streak-bar" style="height:100%; background: linear-gradient(90deg, var(--solid-gold), var(--gold)); width:0%; transition:1.2s;"></div>
     </div>
@@ -1695,63 +1698,85 @@
         <div class="bar-labels"><span style="left:5%">100</span><span style="left:50%">1千</span><span style="left:60%">1萬</span><span style="left:70%">10萬</span><span style="left:80%">百萬</span><span style="left:90%">千萬</span><span style="left:100%">1億</span></div>
     </div>
 
-    <!-- 緊貼卡片最底部的極淡白金線描蓮花（絕對定位、不佔據額外空間） -->
-    <div style="position: absolute; top: 19px; left: 0; width: 100%; line-height: 0; pointer-events: none; opacity: 0.15;">
-        <svg viewBox="0 0 100 18" preserveAspectRatio="none" style="width: 100%; height: 16px; display: block;" xmlns="http://www.w3.org/2000/svg">
-            <g stroke="#fffdf0" stroke-linecap="round" stroke-linejoin="round" fill="none">
-                <!-- 底座細線 -->
-                <line x1="0" y1="17.5" x2="100" y2="17.5" stroke-width="0.2" />
-                <ellipse cx="50" cy="18" rx="44" ry="2.5" stroke-width="0.15" stroke-dasharray="0.5 1" />
+</div>
 
-                <!-- 1. 最外層花瓣（左右各2片舒展大花瓣） -->
-                <path d="M 38 18 C 22 18.5 4 16.5 1 12.5 C 12 15 28 17.5 46 18" stroke-width="0.25" />
-                <path d="M 62 18 C 78 18.5 96 16.5 99 12.5 C 88 15 72 17.5 54 18" stroke-width="0.25" />
+<!-- 卡片下方：備份、還原、說明按鈕區 -->
+<div style="display:flex; gap:10px; width:100%; justify-content:center; margin-top: 25px;">
+    <button class="btn-transparent-small btn-sweep" onclick="exportAndShareProgress()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8v13H3V8"></path><polyline points="1 3 23 3 23 8 1 8 1 3"></polyline></svg>備份
+    </button>
+    <button class="btn-transparent-small btn-sweep" onclick="document.getElementById('import-file').click()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline></svg>還原
+    </button>
+    <button class="btn-transparent-small btn-sweep" onclick="document.getElementById('guide-modal').style.display='flex'">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path></svg>說明
+    </button>
+    <input type="file" id="import-file" style="display:none" onchange="importProgress(this)">
+</div>
+
+<!-- 最下方：文字與極淡蓮花圖騰融合區塊 -->
+<div style="text-align:center; margin-top: 30px; display:flex; flex-direction:column; align-items:center; cursor:pointer;" onclick="shareSystem()" onmouseover="document.getElementById('lotus-bg-path').style.opacity='0.35';" onmouseout="document.getElementById('lotus-bg-path').style.opacity='0.15';">
+    
+    <!-- 分享系統文字 -->
+    <span style="font-size:0.75rem; letter-spacing:2px; color: rgba(243, 229, 171, 0.85); border-bottom: 1px solid rgba(212, 175, 55, 0.4); padding-bottom: 3px; transition: color 0.3s ease;">
+        分享淨土系統 ． 永久開源免費
+    </span>
+
+    <!-- 緊銜接在文字正下方的極淡蓮花圖騰 -->
+    <div id="lotus-bg-path" style="width: 100%; max-width: 280px; height: 16px; margin-top: 6px; transition: opacity 0.3s ease; opacity: 0.15;">
+        <svg viewBox="0 0 100 20" preserveAspectRatio="none" style="width: 100%; height: 100%; display: block;" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="var(--gold, #d4af37)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <!-- 底座細線 -->
+                <line x1="0" y1="19.5" x2="100" y2="19.5" stroke-width="0.15" opacity="0.35" />
+                <ellipse cx="50" cy="20" rx="44" ry="3" stroke-width="0.15" opacity="0.25" stroke-dasharray="0.5 1" />
+
+                <!-- 1. 最外層花瓣 -->
+                <path d="M 38 20 C 22 20.5 4 18 1 14 C 12 17 28 19.5 46 20" stroke-width="0.2" opacity="0.55" />
+                <path d="M 38 20 C 23 19 10 17 3 14.5" stroke-width="0.1" opacity="0.3" />
+                <path d="M 62 20 C 78 20.5 96 18 99 14 C 88 17 72 19.5 54 20" stroke-width="0.2" opacity="0.55" />
+                <path d="M 62 20 C 77 19 90 17 97 14.5" stroke-width="0.1" opacity="0.3" />
 
                 <!-- 2. 次外層花瓣 -->
-                <path d="M 41 18 C 25 18.2 7 15 4 10.5 C 15 14 33 17 50 18" stroke-width="0.28" />
-                <path d="M 59 18 C 75 18.2 93 15 96 10.5 C 85 14 67 17 50 18" stroke-width="0.28" />
+                <path d="M 41 20 C 25 20.2 7 17 4 12 C 15 16 33 19.2 50 20" stroke-width="0.22" opacity="0.7" />
+                <path d="M 41 20 C 27 18.5 13 15.5 5.5 12.5" stroke-width="0.1" opacity="0.35" />
+                <path d="M 35 20 C 23 18 11 15 6 12.8" stroke-width="0.08" opacity="0.25" />
+                <path d="M 59 20 C 75 20.2 93 17 96 12 C 85 16 67 19.2 50 20" stroke-width="0.22" opacity="0.7" />
+                <path d="M 59 20 C 73 18.5 87 15.5 94.5 12.5" stroke-width="0.1" opacity="0.35" />
+                <path d="M 65 20 C 77 18 89 15 94 12.8" stroke-width="0.08" opacity="0.25" />
 
                 <!-- 3. 中層花瓣 -->
-                <path d="M 47 18 C 37 16.5 22 11.5 23.5 5 C 33.5 10.5 43 16 50 18" stroke-width="0.3" />
-                <circle cx="23.5" cy="5" r="0.4" stroke-width="0.2" />
-                <path d="M 53 18 C 63 16.5 78 11.5 76.5 5 C 66.5 10.5 57 16 50 18" stroke-width="0.3" />
-                <circle cx="76.5" cy="5" r="0.4" stroke-width="0.2" />
+                <path d="M 47 20 C 37 18.5 22 13 23.5 6 C 33.5 12 43 18 50 20" stroke-width="0.25" opacity="0.8" />
+                <path d="M 47 20 C 37 17.2 26.5 11.8 25 6.8" stroke-width="0.12" opacity="0.4" />
+                <circle cx="23.5" cy="6" r="0.4" stroke-width="0.18" opacity="0.85" />
+                <path d="M 53 20 C 63 18.5 78 13 76.5 6 C 66.5 12 57 18 50 20" stroke-width="0.25" opacity="0.8" />
+                <path d="M 53 20 C 63 17.2 73.5 11.8 75 6.8" stroke-width="0.12" opacity="0.4" />
+                <circle cx="76.5" cy="6" r="0.4" stroke-width="0.18" opacity="0.85" />
 
                 <!-- 4. 內層花瓣 -->
-                <path d="M 49.2 18 C 45 16 37.5 9.5 40.5 2.5 C 46.5 8.8 48.2 15 50 18" stroke-width="0.35" />
-                <circle cx="40.5" cy="2.5" r="0.4" stroke-width="0.2" />
-                <path d="M 50.8 18 C 55 16 62.5 9.5 59.5 2.5 C 53.5 8.8 51.8 15 50 18" stroke-width="0.35" />
-                <circle cx="59.5" cy="2.5" r="0.4" stroke-width="0.2" />
+                <path d="M 49.2 20 C 45 18 37.5 11 40.5 3 C 46.5 10 48.2 17 50 20" stroke-width="0.28" opacity="0.85" />
+                <path d="M 49.2 20 C 45.2 16.2 39 10.2 41 3.5" stroke-width="0.12" opacity="0.45" />
+                <circle cx="40.5" cy="3" r="0.4" stroke-width="0.18" opacity="0.85" />
+                <path d="M 50.8 20 C 55 18 62.5 11 59.5 3 C 53.5 10 51.8 17 50 20" stroke-width="0.28" opacity="0.85" />
+                <path d="M 50.8 20 C 54.8 16.2 61 10.2 59 3.5" stroke-width="0.12" opacity="0.45" />
+                <circle cx="59.5" cy="3" r="0.4" stroke-width="0.18" opacity="0.85" />
 
                 <!-- 5. 主心花瓣 -->
-                <path d="M 50 18 C 47 13.8 45.8 8 50 0.5 C 54.2 8 53 13.8 50 18" stroke-width="0.4" />
-                <line x1="50" y1="18" x2="50" y2="0.5" stroke-width="0.2" />
-                <circle cx="50" cy="0.5" r="0.5" stroke-width="0.25" />
+                <path d="M 50 20 C 47 15.5 45.8 9 50 0.8 C 54.2 9 53 15.5 50 20" stroke-width="0.32" opacity="0.95" />
+                <line x1="50" y1="20" x2="50" y2="0.8" stroke-width="0.15" opacity="0.55" />
+                <circle cx="50" cy="0.8" r="0.55" stroke-width="0.2" opacity="0.95" />
 
-                <!-- 6. 花蕊 -->
-                <line x1="47.5" y1="18" x2="47" y2="17" stroke-width="0.2" />
-                <line x1="50" y1="18" x2="50" y2="16.7" stroke-width="0.2" />
-                <line x1="52.5" y1="18" x2="53" y2="17" stroke-width="0.2" />
-                <circle cx="50" cy="16.5" r="0.35" stroke-width="0.2" />
+                <!-- 6. 蓮蓬花蕊 -->
+                <line x1="47.5" y1="20" x2="47" y2="19" stroke-width="0.18" opacity="0.65" />
+                <line x1="50" y1="20" x2="50" y2="18.6" stroke-width="0.18" opacity="0.75" />
+                <line x1="52.5" y1="20" x2="53" y2="19" stroke-width="0.18" opacity="0.65" />
+                <circle cx="47" cy="18.8" r="0.25" stroke-width="0.15" opacity="0.75" />
+                <circle cx="50" cy="18.4" r="0.35" stroke-width="0.18" opacity="0.95" />
+                <circle cx="53" cy="18.8" r="0.25" stroke-width="0.15" opacity="0.75" />
             </g>
         </svg>
     </div>
 </div>
 
-
-    <div style="display:flex; gap:10px; width:100%; justify-content:center; margin-top: 25px;">
-        <button class="btn-transparent-small btn-sweep" onclick="exportAndShareProgress()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8v13H3V8"></path><polyline points="1 3 23 3 23 8 1 8 1 3"></polyline></svg>備份</button>
-        <button class="btn-transparent-small btn-sweep" onclick="document.getElementById('import-file').click()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline></svg>還原</button>
-        <button class="btn-transparent-small btn-sweep" onclick="document.getElementById('guide-modal').style.display='flex'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path></svg>說明</button>
-        <input type="file" id="import-file" style="display:none" onchange="importProgress(this)">
-    </div>
-
-    <div style="text-align:center; margin-top:25px;">
-        <span style="font-size:0.75rem; letter-spacing:2px; color: rgba(243, 229, 171, 0.8); cursor:pointer; border-bottom: 1px solid rgba(212, 175, 55, 0.5); padding-bottom: 3px; transition: color 0.3s ease;" onmouseover="this.style.color='var(--gold)';" onmouseout="this.style.color='rgba(243, 229, 171, 0.8)';" onclick="shareSystem()">分享淨土系統 ． 永久開源免費</span>
-    </div>
-
-</div>
 
 
 
