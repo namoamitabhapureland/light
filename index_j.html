@@ -2688,29 +2688,39 @@
     <!-- 套用 dedi-card-breath 實現大框暗亮暗亮的呼吸放光效果 -->
     <div class="dedi-card-breath">
         
-        <!-- 四句迴向文正後方的淡金色佛塔圖騰背景 (opacity: 0.12，大小剛剛好襯托文字) -->
-        <svg style="position: absolute; top: 75px; left: 50%; transform: translateX(-50%); width: 220px; height: 200px; opacity: 0.12; pointer-events: none; z-index: 1;" viewBox="0 0 100 100" fill="none" stroke="var(--gold)">
-            <defs>
-                <linearGradient id="bg-stupa-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff"/>
-                    <stop offset="60%" stop-color="#f3e5ab"/>
-                    <stop offset="100%" stop-color="#d4af37"/>
-                </linearGradient>
-            </defs>
-            <!-- 佛塔底座與階梯 -->
-            <path d="M 10 90 L 90 90 M 15 84 L 85 84 M 20 78 L 80 78" stroke-width="1.2" stroke-linecap="round"/>
-            <!-- 塔身 -->
-            <path d="M 25 78 L 25 65 L 75 65 L 75 78" stroke-width="1.2" fill="rgba(212,175,55,0.05)"/>
-            <path d="M 28 65 C 26 48, 74 48, 72 65 Z" stroke-width="1.2" fill="rgba(243,229,171,0.08)"/>
-            <!-- 塔剎相輪 (十三天) -->
-            <path d="M 32 48 L 68 48" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M 35 48 L 42 22 L 58 22 L 65 48" stroke-width="1.2" fill="none"/>
-            <path d="M 36 42 H 64 M 38 36 H 62 M 40 30 H 60 M 42 24 H 58" stroke-width="1"/>
-            <path d="M 32 22 H 68" stroke-width="1.5" stroke-linecap="round"/>
-            <!-- 寶珠與華蓋 -->
-            <path d="M 42 16 C 42 20, 58 20, 58 16 Z" fill="url(#bg-stupa-grad)" stroke="none"/>
-            <circle cx="50" cy="9" r="4.5" fill="url(#bg-stupa-grad)" stroke="none"/>
-            <path d="M 50 1 L 50 4.5" stroke="var(--gold)" stroke-width="1.2"/>
+        <!-- 四句迴向文正後方的極淡金色大法輪背景 (opacity: 0.08) -->
+        <svg style="position: absolute; top: 70px; left: 50%; transform: translateX(-50%); width: 210px; height: 210px; opacity: 0.08; pointer-events: none; z-index: 1;" viewBox="0 0 100 100" stroke="var(--gold)">
+            <!-- 外輪與雙層邊框 -->
+            <circle cx="50" cy="50" r="46" stroke-width="1.2" fill="none" />
+            <circle cx="50" cy="50" r="41" stroke-width="0.8" fill="none" />
+            
+            <!-- 轂（輪軸區域） -->
+            <circle cx="50" cy="50" r="12" stroke-width="1" fill="none" />
+            <circle cx="50" cy="50" r="5" stroke-width="0.8" fill="none" />
+            
+            <!-- 八輻輪輻 (8 Spokes) -->
+            <g stroke-width="1" stroke-linecap="round">
+                <line x1="50" y1="9" x2="50" y2="38" />
+                <line x1="50" y1="62" x2="50" y2="91" />
+                <line x1="9" y1="50" x2="38" y2="50" />
+                <line x1="62" y1="50" x2="91" y2="50" />
+                <line x1="21" y1="21" x2="41.5" y2="41.5" />
+                <line x1="58.5" y1="58.5" x2="79" y2="79" />
+                <line x1="79" y1="21" x2="58.5" y2="41.5" />
+                <line x1="41.5" y1="58.5" x2="21" y2="79" />
+            </g>
+
+            <!-- 輪外八方莊嚴裝飾點 -->
+            <g fill="var(--gold)" stroke="none">
+                <circle cx="50" cy="4" r="1.5" />
+                <circle cx="50" cy="96" r="1.5" />
+                <circle cx="4" cy="50" r="1.5" />
+                <circle cx="96" cy="50" r="1.5" />
+                <circle cx="17.5" cy="17.5" r="1.5" />
+                <circle cx="82.5" cy="82.5" r="1.5" />
+                <circle cx="82.5" cy="17.5" r="1.5" />
+                <circle cx="17.5" cy="82.5" r="1.5" />
+            </g>
         </svg>
 
         <!-- 標題區域 -->
@@ -2851,6 +2861,7 @@
         </div>
     </div>
 </div>
+
     <script>
         // 每秒檢查一次功德箱，動態改變法幣按鈕的外觀 (注入 48 願漸變色邏輯)
         setInterval(() => {
