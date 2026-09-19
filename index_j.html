@@ -4152,23 +4152,23 @@ let lastBigSeedSVG = "";
     
         if (currentDays >= 111100) { 
         let lv = Math.min(10, Math.floor((currentDays - 111100) / 100000) + 1); 
-        rank = {l: ["初德位", "二德位", "三德位", "四德位", "五德位", "六德位", "七德位", "八德位", "九德位", "十德位"][lv - 1], i: getLotusSVG('德', total), c: "#fffde7"}; 
+        rank = {l: ["初德位", "二德位", "三德位", "四德位", "五德位", "六德位", "七德位", "八德位", "九德位", "十德位"][lv - 1], i: getLotusSVG('德', total), c: "#f3e5ab"}; 
         base = 111100 + (lv - 1) * 100000; threshold = 111100 + lv * 100000; label = "德位進度";
     } else if (currentDays >= 11100) { 
         let lv = Math.floor((currentDays - 11100) / 10000) + 1; 
-        rank = {l: ["初善位", "二善位", "三善位", "四善位", "五善位", "六善位", "七善位", "八善位", "九善位", "十善位"][lv - 1], i: getLotusSVG('善', total), c: "#ffd700"}; 
+        rank = {l: ["初善位", "二善位", "三善位", "四善位", "五善位", "六善位", "七善位", "八善位", "九善位", "十善位"][lv - 1], i: getLotusSVG('善', total), c: "#f3e5ab"}; 
         base = 11100 + (lv - 1) * 10000; threshold = 11100 + lv * 10000; label = "善位進度";
     } else if (currentDays >= 1100) { 
         let lv = Math.floor((currentDays - 1100) / 1000) + 1; 
-        rank = {l: ["初行位", "二行位", "三行位", "四行位", "五行位", "六行位", "七行位", "八行位", "九行位", "十行位"][lv - 1], i: getLotusSVG('行', total), c: "#ffca28"}; 
+        rank = {l: ["初行位", "二行位", "三行位", "四行位", "五行位", "六行位", "七行位", "八行位", "九行位", "十行位"][lv - 1], i: getLotusSVG('行', total), c: "#f3e5ab"}; 
         base = 1100 + (lv - 1) * 1000; threshold = 1100 + lv * 1000; label = "行位進度";
     } else if (currentDays >= 100) { 
         let lv = Math.floor((currentDays - 100) / 100) + 1; 
-        rank = {l: ["初願位", "二願位", "三願位", "四願位", "五願位", "六願位", "七願位", "八願位", "九願位", "十願位"][lv - 1], i: getLotusSVG('願', total), c: "#ffd54f"}; 
+        rank = {l: ["初願位", "二願位", "三願位", "四願位", "五願位", "六願位", "七願位", "八願位", "九願位", "十願位"][lv - 1], i: getLotusSVG('願', total), c: "#f3e5ab"}; 
         base = 100 + (lv - 1) * 100; threshold = 100 + lv * 100; label = "願位進度";
     } else { 
         let lv = Math.min(10, Math.floor(currentDays / 10) + 1); 
-        rank = { l: ["初信位", "二信位", "三信位", "四信位", "五信位", "六信位", "七信位", "八信位", "九信位", "十信位"][lv - 1], i: getLotusSVG('信', total), c: "#ffe082" }; 
+        rank = { l: ["初信位", "二信位", "三信位", "四信位", "五信位", "六信位", "七信位", "八信位", "九信位", "十信位"][lv - 1], i: getLotusSVG('信', total), c: "#f3e5ab" }; 
         base = (lv - 1) * 10; threshold = lv * 10; label = "信位進度"; 
     }
 
