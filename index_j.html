@@ -2504,7 +2504,7 @@
 
         /* 萬聲圓滿時的全花放光特效 */
         .lotus-radiance-glow {
-            animation: radiance-pulse 1.8s infinite ease-in-out !important;
+            animation: radiance-pulse 2s infinite ease-in-out !important;
         }
         @keyframes radiance-pulse {
             0%, 100% { 
@@ -2513,7 +2513,7 @@
             }
             50% { 
                 transform: scale(1.12); 
-                filter: drop-shadow(0 0 18px rgba(255, 215, 0, 1)) drop-shadow(0 0 35px rgba(255, 248, 220, 0.9)); 
+                filter: drop-shadow(0 0 18px rgba(255, 215, 0, 1)) drop-shadow(0 0 30px rgba(255, 248, 220, 0.9)); 
             }
         }
 
@@ -2536,7 +2536,7 @@
 
         .draw-petal-anim {
             display: block !important;
-            animation: dash-draw 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: dash-draw 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         /* [2] Internal Realm Dialog Styles (願海結界未啟彈窗) */
@@ -2657,7 +2657,7 @@
                 { fill: 'url(#grad-green)', stroke: '#72efdd' },   // 翡翠綠
                 { fill: 'url(#grad-blue)', stroke: '#4ea8de' },    // 湛藍
                 { fill: 'url(#grad-white)', stroke: '#ffffff' },   // 淨白
-                { fill: 'url(#grad-gold)', stroke: '#ffd700' }     // 璀璨金
+                { fill: 'url(#grad-gold)', stroke: '#f3e5ab' }     // 璀璨金
             ];
 
             let activePetalIds = new Set(); // 記錄目前已顯現的花瓣
@@ -2722,7 +2722,7 @@
                 if (nian >= 10000) {
                     vowIcon.classList.add('lotus-radiance-glow');
                     title.innerText = "願海門戶 · 圓滿開啟";
-                    title.style.color = "#ffffff";
+                    title.style.color = currentStyle.stroke;
                     desc.innerHTML = "萬聲功德圓滿 · 契入願海觀想";
                 } else {
                     vowIcon.classList.remove('lotus-radiance-glow');
