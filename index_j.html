@@ -2118,7 +2118,7 @@
                 <!-- 頂冠火焰 -->
                 <path d="M500,112 Q494,88 500,58 Q506,88 500,112 Z" fill="url(#vDragonGold)" opacity="0.85"/>
 
-                <!-- 龍角 (分叉鹿角式，斜率約 -1.2 與 1.2) -->
+                <!-- 龍角 (分叉鹿角式) -->
                 <path d="M492,150 C475,130 455,110 434,84 C440,96 460,122 480,146 Z" fill="url(#vDragonGold)"/>
                 <path d="M465,115 C455,107 445,104 437,108" fill="none" stroke="#fff3c4" stroke-width="2" stroke-linecap="round"/>
                 <path d="M508,150 C525,130 545,110 566,84 C560,96 540,122 520,146 Z" fill="url(#vDragonGold)"/>
@@ -2132,14 +2132,14 @@
                 <path d="M470,186 Q450,177 434,184 Q450,192 468,193 Z" fill="url(#vDragonGold)" stroke="#fff3c4" stroke-width="1"/>
                 <path d="M530,186 Q550,177 566,184 Q550,192 532,193 Z" fill="url(#vDragonGold)" stroke="#fff3c4" stroke-width="1"/>
 
-                <!-- 龍眼 -->
+                <!-- 龍眼 (修正傾斜角度，順應龍角方向向上展翅) -->
                 <g class="dragon-eyes">
-                    <g transform="rotate(-45, 472, 194)">
+                    <g transform="rotate(20, 472, 194)">
                         <ellipse cx="472" cy="194" rx="12" ry="5" fill="#ffffff" stroke="#c0530f" stroke-width="1"/>
                         <circle cx="472" cy="194" r="3" fill="#5a2c00"/>
                         <circle cx="471" cy="193" r="1" fill="#ffffff"/>
                     </g>
-                    <g transform="rotate(45, 528, 194)">
+                    <g transform="rotate(-20, 528, 194)">
                         <ellipse cx="528" cy="194" rx="12" ry="5" fill="#ffffff" stroke="#c0530f" stroke-width="1"/>
                         <circle cx="528" cy="194" r="3" fill="#5a2c00"/>
                         <circle cx="527" cy="193" r="1" fill="#ffffff"/>
@@ -2161,17 +2161,17 @@
                 <path d="M514,230 Q518,258 509,274 Q504,254 507,231 Z" fill="#ffffff" stroke="#d4af37" stroke-width="1.2" stroke-linejoin="round"/>
                 <path d="M496,233 Q498,262 500,278 Q502,262 504,233 Z" fill="#ffffff" stroke="#d4af37" stroke-width="1.2" stroke-linejoin="round"/>
 
-                <!-- 左右刺棘：方向平行於龍角，順著角度呈大中小排列 -->
+                <!-- 左右刺棘：往兩側更寬處移，且朝外上方斜指（大中小垂直排列） -->
                 <g class="dragon-top-spikes" fill="url(#vDragonGold)" stroke="#fff3c4" stroke-width="0.8">
-                    <!-- 左側 11點方向 (平行龍角斜度，大中小垂直順序) -->
-                    <polygon points="452,118 418,90 440,128" /> <!-- 大 -->
-                    <polygon points="455,138 426,114 445,146" /> <!-- 中 -->
-                    <polygon points="458,156 434,136 450,162" /> <!-- 小 -->
+                    <!-- 左側 (往左移動，尖端朝左上方 \\\ ) -->
+                    <polygon points="435,115 395,92 422,125" /> <!-- 大 -->
+                    <polygon points="438,137 403,117 427,145" /> <!-- 中 -->
+                    <polygon points="442,157 413,140 432,163" /> <!-- 小 -->
 
-                    <!-- 右側 2點方向 (平行龍角斜度，大中小垂直順序) -->
-                    <polygon points="548,118 582,90 560,128" /> <!-- 大 -->
-                    <polygon points="545,138 574,114 555,146" /> <!-- 中 -->
-                    <polygon points="542,156 566,136 550,162" /> <!-- 小 -->
+                    <!-- 右側 (往右移動，尖端朝右上方 /// ) -->
+                    <polygon points="565,115 605,92 578,125" /> <!-- 大 -->
+                    <polygon points="562,137 597,117 573,145" /> <!-- 中 -->
+                    <polygon points="558,157 587,140 568,163" /> <!-- 小 -->
                 </g> 
 
                 <!-- 龍鬚 -->
@@ -2210,9 +2210,9 @@
     <div class="card-title">唯識之旅</div><div class="card-sub">探輪迴之謎</div>
 </div>
 
-<!-- 法華秘密：雙寶塔並行 (塔身整體進一步拉長) -->
+<!-- 法華秘密：雙寶塔並行 (縱向極致拉長) -->
 <div class="rail-card" id="realm-fahua" onclick="visitRealm('fahua.html', 'fahua')">
-    <svg class="card-icon" viewBox="0 -4 40 38">
+    <svg class="card-icon" viewBox="0 -8 40 46">
         <defs>
             <linearGradient id="grad-gold-fahua" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#fff176" />
@@ -2220,10 +2220,10 @@
                 <stop offset="100%" stop-color="#b78103" />
             </linearGradient>
         </defs>
-        <!-- 調整 Y 軸縮放至 0.82，拉高塔身垂直縱深 -->
-        <g transform="translate(4, 2) scale(0.65, 0.82)">
+        <!-- Y軸縮放比例拉高至 1.05，大幅展現修長塔身 -->
+        <g transform="translate(4, -4) scale(0.65, 1.05)">
             <!-- 左塔 -->
-            <path d="M12 -8L14 3L10 3L12 -8Z" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.3" /> <!-- 超尖塔頂 -->
+            <path d="M12 -8L14 3L10 3L12 -8Z" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.3" />
             
             <rect x="7.8" y="3" width="8.4" height="2" rx="0.3" fill="#ffffff" stroke="#d4af37" stroke-width="0.5" opacity="0.95" />
             <rect x="6.8" y="5.5" width="10.4" height="2" rx="0.3" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.5" />
