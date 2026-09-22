@@ -2150,31 +2150,34 @@
                 <path d="M481,233 Q500,257 519,233" fill="none" stroke="url(#vDragonGold)" stroke-width="3" stroke-linecap="round"/>
                 
                 <!-- 尖長流線獠牙 -->
-                <path d="M487,230 Q485,244 492,252 Q495,242 493,231 Z" fill="#ffffff"/>
-                <path d="M513,230 Q515,244 508,252 Q505,242 507,231 Z" fill="#ffffff"/>
+                <path d="M486,230 Q482,258 491,274 Q496,254 493,231 Z" fill="#ffffff" stroke="#d4af37" stroke-width="1.2" stroke-linejoin="round"/>
+                <path d="M514,230 Q518,258 509,274 Q504,254 507,231 Z" fill="#ffffff" stroke="#d4af37" stroke-width="1.2" stroke-linejoin="round"/>
                 <path d="M497,233 Q498,247 500,254 Q502,247 503,233 Z" fill="#ffffff" opacity="0.95"/>
                 
                 <path d="M498,236 Q500,246 502,236" fill="none" stroke="#fda085" stroke-width="1.5" opacity="0.8"/>
 
                 <!-- 左右 11點與 2點方向：大中小垂直排列斜向刺棘 (\\\ 與 /// 方向) -->
                 <g class="dragon-top-spikes" fill="url(#vDragonGold)" stroke="#fff3c4" stroke-width="0.8">
-                    <!-- 左側 11點方向 (大、中、小，由上至下垂直排布，方向朝左上 \\\ ) -->
-                    <polygon points="450,110 415,120 442,130" /> <!-- 大 -->
-                    <polygon points="453,132 423,141 447,150" /> <!-- 中 -->
-                    <polygon points="456,152 431,160 451,167" /> <!-- 小 -->
+                   0.8">
+                    <!-- 左側 11點方向 -->
+                    <polygon points="450,110 415,120 442,130" />
+                    <polygon points="453,132 423,141 447,150" />
+                    <polygon points="456,152 431,160 451,167" />
 
-                    <!-- 右側 2點方向 (大、中、小，由上至下垂直排布，方向朝右上 /// ) -->
-                    <polygon points="550,110 585,120 558,130" /> <!-- 大 -->
-                    <polygon points="547,132 577,141 553,150" /> <!-- 中 -->
-                    <polygon points="544,152 569,160 549,167" /> <!-- 小 -->
-                </g>
+                    <!-- 右側 2點方向 -->
+                    <polygon points="550,110 585,120 558,130" />
+                    <polygon points="547,132 577,141 553,150" />
+                    <polygon points="544,152 569,160 549,167" />
+                </g> 
 
                 <!-- 龍鬚 (四條飄逸) -->
                 <g class="dragon-whiskers" fill="none" stroke="#f6d365" stroke-width="1.6" stroke-linecap="round">
-                    <path d="M478,222 C455,225 425,205 395,180"/>
+
                     <path d="M480,236 C460,246 435,251 405,256"/>
-                    <path d="M522,222 C545,225 575,205 605,180"/>
                     <path d="M520,236 C540,246 565,251 595,256"/>
+                     <path d="M478,225 Q435,260 380,185"/>
+                 <path d="M522,225 Q565,260 620,185"/>
+
                 </g>
 
                 <!-- 頸後飄鬃 -->
@@ -2206,9 +2209,9 @@
     <div class="card-title">唯識之旅</div><div class="card-sub">探輪迴之謎</div>
 </div>
 
-<!-- 法華秘密：雙寶塔並行 -->
+<!-- 法華秘密：雙寶塔並行 (一層金、一層白交替上色) -->
 <div class="rail-card" id="realm-fahua" onclick="visitRealm('fahua.html', 'fahua')">
-    <svg class="card-icon" viewBox="0 0 40 24">
+    <svg class="card-icon" viewBox="0 0 40 30">
         <defs>
             <linearGradient id="grad-gold-fahua" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#fff176" />
@@ -2216,37 +2219,40 @@
                 <stop offset="100%" stop-color="#b78103" />
             </linearGradient>
         </defs>
-        <!-- 整體平移和縮放組，使雙塔居中且精緻 -->
-        <g transform="translate(4, 3) scale(0.65)">
-            <!-- 左塔 (多層幾何結構) -->
-            <path d="M12 2L14 7L10 7L12 2Z" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.3" /> <!-- 塔尖 -->
-            <rect x="7.5" y="7" width="9" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" /> <!-- 第七層 -->
-            <rect x="6.5" y="9" width="11" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" /> <!-- 第六層 -->
-            <rect x="5.5" y="11" width="13" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" /> <!-- 第五層 -->
-            <rect x="4.5" y="13" width="15" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" /> <!-- 第四層 -->
-            <rect x="3.5" y="15" width="17" height="2.2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" /> <!-- 第三層 -->
-            <rect x="2.5" y="17.2" width="19" height="2.5" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" /> <!-- 第二層 -->
-            <rect x="1.5" y="19.7" width="21" height="3" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" /> <!-- 第一層基座 -->
+        <g transform="translate(4, 5) scale(0.65)">
+            <!-- 左塔 -->
+            <!-- 塔尖：金色漸層 -->
+            <path d="M12 -4L14 3L10 3L12 -4Z" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.3" />
             
-            <!-- 右塔 (與左塔完全對稱，平移 20) -->
+            <!-- 各層長方形：金白交替填色 -->
+            <rect x="7.8" y="3" width="8.4" height="2" rx="0.3" fill="#ffffff" stroke="#d4af37" stroke-width="0.5" opacity="0.95" /> <!-- 第七層：白 -->
+            <rect x="6.8" y="5.5" width="10.4" height="2" rx="0.3" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.5" /> <!-- 第六層：金 -->
+            <rect x="5.8" y="8" width="12.4" height="2" rx="0.3" fill="#ffffff" stroke="#d4af37" stroke-width="0.5" opacity="0.95" /> <!-- 第五層：白 -->
+            <rect x="5" y="10.5" width="14" height="2" rx="0.3" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.5" /> <!-- 第四層：金 -->
+            <rect x="3.5" y="13.5" width="17" height="2.2" rx="0.3" fill="#ffffff" stroke="#d4af37" stroke-width="0.5" opacity="0.95" /> <!-- 第三層：白 -->
+            <rect x="2.5" y="16.2" width="19" height="2.5" rx="0.3" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.5" /> <!-- 第二層：金 -->
+            <rect x="1.5" y="19.7" width="21" height="3" rx="0.3" fill="#ffffff" stroke="#d4af37" stroke-width="0.5" opacity="0.95" /> <!-- 第一層基座：白 -->
+            
+            <!-- 右塔 (完全對稱) -->
             <g transform="translate(20, 0)">
-                <path d="M12 2L14 7L10 7L12 2Z" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.3" />
-                <rect x="7.5" y="7" width="9" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" />
-                <rect x="6.5" y="9" width="11" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" />
-                <rect x="5.5" y="11" width="13" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" />
-                <rect x="4.5" y="13" width="15" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" />
-                <rect x="3.5" y="15" width="17" height="2.2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" />
-                <rect x="2.5" y="17.2" width="19" height="2.5" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" />
-                <rect x="1.5" y="19.7" width="21" height="3" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" />
+                <path d="M12 -4L14 3L10 3L12 -4Z" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.3" />
+                <rect x="7.8" y="3" width="8.4" height="2" rx="0.3" fill="#ffffff" stroke="#d4af37" stroke-width="0.5" opacity="0.95" />
+                <rect x="6.8" y="5.5" width="10.4" height="2" rx="0.3" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.5" />
+                <rect x="5.8" y="8" width="12.4" height="2" rx="0.3" fill="#ffffff" stroke="#d4af37" stroke-width="0.5" opacity="0.95" />
+                <rect x="5" y="10.5" width="14" height="2" rx="0.3" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.5" />
+                <rect x="3.5" y="13.5" width="17" height="2.2" rx="0.3" fill="#ffffff" stroke="#d4af37" stroke-width="0.5" opacity="0.95" />
+                <rect x="2.5" y="16.2" width="19" height="2.5" rx="0.3" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.5" />
+                <rect x="1.5" y="19.7" width="21" height="3" rx="0.3" fill="#ffffff" stroke="#d4af37" stroke-width="0.5" opacity="0.95" />
             </g>
             
-            <!-- 底部相連的幾何基座/地平線 -->
-            <path d="M 1.5 22.7 H 41.5" fill="none" stroke="#d4af37" stroke-width="1.0" stroke-linecap="round" opacity="0.7"/>
+            <!-- 底部地平線 -->
+            <path d="M 1.5 22.7 H 41.5" fill="none" stroke="#d4af37" stroke-width="1.0" stroke-linecap="round" opacity="0.8"/>
             <path d="M 13.5 19.7 H 29.5" fill="none" stroke="#d4af37" stroke-width="0.8" opacity="0.5"/>
         </g>
     </svg>
     <div class="card-title">法華秘密</div><div class="card-sub">雙寶塔意象</div>
 </div>
+
 
 <div class="rail-card" id="realm-dizang" onclick="visitRealm('dizang.html', 'dizang')">
     <svg class="card-icon" viewBox="0 0 24 24">
