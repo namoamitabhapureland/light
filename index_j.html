@@ -2077,53 +2077,119 @@
 
     <!-- 滾輪區域 -->
     <div class="scroll-rail" id="dharma-carousel">
-  <div class="rail-card" id="realm-huayan" onclick="visitRealm('huayan.html', 'huayan')">
-    <svg class="card-icon" viewBox="0 0 24 24">
+<div class="rail-card" id="realm-huayan" onclick="visitRealm('huayan.html', 'huayan')">
+    <svg class="card-icon" viewBox="380 40 240 300">
         <defs>
-            <!-- 華嚴金色漸層 -->
-            <linearGradient id="grad-huayan" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#fff9c4" />
-                <stop offset="50%" stop-color="#fbc02d" />
-                <stop offset="100%" stop-color="#b78103" />
+            <linearGradient id="vDragonGold" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+                <stop offset="25%" stop-color="#fff3c4" stop-opacity="0.98"/>
+                <stop offset="55%" stop-color="#f6d365" stop-opacity="0.95"/>
+                <stop offset="80%" stop-color="#fda085" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#c0530f" stop-opacity="0.3"/>
             </linearGradient>
-            <!-- 紫金龍神漸層 -->
-            <linearGradient id="vDragonGoldPurple" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#ffd54f" />
-                <stop offset="100%" stop-color="#7e22ce" />
+
+            <linearGradient id="vScaleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.75"/>
+                <stop offset="45%" stop-color="#f6d365" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#c0530f" stop-opacity="0.15"/>
             </linearGradient>
+
+            <radialGradient id="vJewelGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+                <stop offset="45%" stop-color="#f6d365" stop-opacity="0.7"/>
+                <stop offset="100%" stop-color="#f6d365" stop-opacity="0"/>
+            </radialGradient>
+
+            <filter id="vDragonGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="6" result="blur1"/>
+                <feGaussianBlur stdDeviation="15" result="blur2"/>
+                <feMerge>
+                    <feMergeNode in="blur2"/>
+                    <feMergeNode in="blur1"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
         </defs>
 
-        <!-- 精準居中的龍頭整體 -->
-        <g class="dragon-head">
-            <!-- 龍角 -->
-            <path d="M12 8C13 5 15 3.5 17.5 2" fill="none" stroke="url(#grad-huayan)" stroke-width="0.8" stroke-linecap="round"/>
-            <path d="M9.5 8.5C10 6 11 4 13 2.5" fill="none" stroke="url(#grad-huayan)" stroke-width="0.6" stroke-linecap="round"/>
-            
-            <!-- 頭部主體與上顎 -->
-            <path d="M4.5 10.5 C8.5 8 13 7.5 16.5 9 C19.5 10 21 12 20.5 14 C20 15.5 17.5 16.5 15 16 C13 17.5 10.5 18 8 17 C5.5 16.2 4 14 4.5 12 Z" 
-                  fill="url(#grad-huayan)" stroke="#ffffff" stroke-width="0.4" opacity="0.95"/>
-            <path d="M16.5 9 C19 8 21.5 8 23 9 C22 10 20 10.5 18 10 Z" 
-                  fill="url(#grad-huayan)" stroke="#ffffff" stroke-width="0.3"/>
+        <g filter="url(#vDragonGlow)">
+            <!-- 龍首 (Detailed Dragon Head) -->
+            <g class="dragon-head-top">
 
-            <!-- 眼睛發光 -->
-            <circle cx="13.8" cy="12" r="0.8" fill="#ffffff">
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
-            </circle>
+                <!-- 頂冠火焰 -->
+                <path d="M500,112 Q494,88 500,58 Q506,88 500,112 Z" fill="url(#vDragonGold)" opacity="0.85"/>
 
-            <!-- 尖長龍牙 -->
-            <g class="teeth" fill="#ffffff">
-                <path d="M16.5 14.8 L17 17.5 L17.5 14.8 Z" />
-                <path d="M17.8 14.9 L18.3 17.6 L18.8 14.9 Z" />
-                <path d="M19 14.5 L19.4 17.2 L19.8 14.5 Z" />
+                <!-- 龍角 (分叉鹿角式) -->
+                <path d="M492,150 C475,130 455,110 434,84 C440,96 460,122 480,146 Z" fill="url(#vDragonGold)"/>
+                <path d="M465,115 C455,107 445,104 437,108" fill="none" stroke="#fff3c4" stroke-width="2" stroke-linecap="round"/>
+                <path d="M508,150 C525,130 545,110 566,84 C560,96 540,122 520,146 Z" fill="url(#vDragonGold)"/>
+                <path d="M535,115 C545,107 555,104 563,108" fill="none" stroke="#fff3c4" stroke-width="2" stroke-linecap="round"/>
+
+                <!-- 額珠 -->
+                <circle cx="500" cy="172" r="16" fill="url(#vJewelGlow)"/>
+                <circle cx="500" cy="172" r="6" fill="#ffffff"/>
+
+                <!-- 火焰眉 -->
+                <path d="M470,186 Q450,177 434,184 Q450,192 468,193 Z" fill="url(#vDragonGold)" stroke="#fff3c4" stroke-width="1"/>
+                <path d="M530,186 Q550,177 566,184 Q550,192 532,193 Z" fill="url(#vDragonGold)" stroke="#fff3c4" stroke-width="1"/>
+
+                <!-- 龍眼 -->
+                <path d="M483,194 Q472,188 461,194 Q472,201 483,194 Z" fill="#ffffff"/>
+                <circle cx="472" cy="194" r="2.6" fill="#7a3b00"/>
+                <path d="M517,194 Q528,188 539,194 Q528,201 517,194 Z" fill="#ffffff"/>
+                <circle cx="528" cy="194" r="2.6" fill="#7a3b00"/>
+
+                <!-- 臉部輪廓 -->
+                <path d="M478,206 Q500,196 522,206 Q516,226 500,231 Q484,226 478,206 Z" fill="none" stroke="url(#vDragonGold)" stroke-width="2"/>
+
+                <!-- 鼻孔 -->
+                <ellipse cx="493" cy="223" rx="3" ry="2" fill="#5a2c00" opacity="0.8"/>
+                <ellipse cx="507" cy="223" rx="3" ry="2" fill="#5a2c00" opacity="0.8"/>
+
+                <!-- 張口與獠牙 -->
+                <path d="M478,229 Q500,239 522,229" fill="none" stroke="url(#vDragonGold)" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M481,233 Q500,257 519,233" fill="none" stroke="url(#vDragonGold)" stroke-width="3" stroke-linecap="round"/>
+                
+                <!-- 尖長流線獠牙 -->
+                <path d="M487,230 Q485,244 492,252 Q495,242 493,231 Z" fill="#ffffff"/>
+                <path d="M513,230 Q515,244 508,252 Q505,242 507,231 Z" fill="#ffffff"/>
+                <path d="M497,233 Q498,247 500,254 Q502,247 503,233 Z" fill="#ffffff" opacity="0.95"/>
+                
+                <path d="M498,236 Q500,246 502,236" fill="none" stroke="#fda085" stroke-width="1.5" opacity="0.8"/>
+
+                <!-- 左右 11點與 2點方向：大中小垂直排列斜向刺棘 (\\\ 與 /// 方向) -->
+                <g class="dragon-top-spikes" fill="url(#vDragonGold)" stroke="#fff3c4" stroke-width="0.8">
+                    <!-- 左側 11點方向 (大、中、小，由上至下垂直排布，方向朝左上 \\\ ) -->
+                    <polygon points="450,110 415,120 442,130" /> <!-- 大 -->
+                    <polygon points="453,132 423,141 447,150" /> <!-- 中 -->
+                    <polygon points="456,152 431,160 451,167" /> <!-- 小 -->
+
+                    <!-- 右側 2點方向 (大、中、小，由上至下垂直排布，方向朝右上 /// ) -->
+                    <polygon points="550,110 585,120 558,130" /> <!-- 大 -->
+                    <polygon points="547,132 577,141 553,150" /> <!-- 中 -->
+                    <polygon points="544,152 569,160 549,167" /> <!-- 小 -->
+                </g>
+
+                <!-- 龍鬚 (四條飄逸) -->
+                <g class="dragon-whiskers" fill="none" stroke="#f6d365" stroke-width="1.6" stroke-linecap="round">
+                    <path d="M478,222 C455,225 425,205 395,180"/>
+                    <path d="M480,236 C460,246 435,251 405,256"/>
+                    <path d="M522,222 C545,225 575,205 605,180"/>
+                    <path d="M520,236 C540,246 565,251 595,256"/>
+                </g>
+
+                <!-- 頸後飄鬃 -->
+                <g class="dragon-mane" fill="url(#vDragonGold)" opacity="0.55">
+                    <path d="M470,250 Q440,270 445,300 Q460,285 472,265 Z"/>
+                    <path d="M460,265 Q430,290 438,320 Q452,300 465,278 Z"/>
+                    <path d="M530,250 Q560,270 555,300 Q540,285 528,265 Z"/>
+                    <path d="M540,265 Q570,290 562,320 Q548,300 535,278 Z"/>
+                </g>
             </g>
-
-            <!-- 龍鬚 -->
-            <path d="M16 14.5 C18.5 15.5 20.5 17 21.5 19.5" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.8" stroke-linecap="round"/>
-            <path d="M15 16 C17 17.2 18.5 19 19.5 21" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.6" stroke-linecap="round"/>
         </g>
     </svg>
     <div class="card-title">俯瞰華藏</div><div class="card-sub">神遊大世界</div>
 </div>
+
 
 <div class="rail-card" id="realm-weishi" onclick="visitRealm('weishi.html', 'weishi')">
     <svg class="card-icon" viewBox="0 0 24 24">
@@ -2256,18 +2322,7 @@
                  C8 3.5, 9.5 2, 12 2 Z" 
               fill="url(#grad-banyan-gold)" />
 
-        <!-- 2. 上方增加的茂密樹枝分支（從樹幹向上/向兩側展開） -->
-        <!-- 主幹向上延伸的分叉 -->
-        <path d="M12 12 L12 8 M12 8 L9.5 5 M12 8 L14.5 5 M12 6.5 L12 3.5" 
-              fill="none" stroke="#78350f" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" />
-        <!-- 兩側擴展的高階次級分支 -->
-        <path d="M10.8 10 L8 7.5 M8 7.5 L6 6 M8 7.5 L7.5 9.5 M13.2 10 L16 7.5 M16 7.5 L18 6 M16 7.5 L16.5 9.5" 
-              fill="none" stroke="#78350f" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
-
-        <!-- 3. 樹冠光感線條與葉脈質感（增添幾何金屬感） -->
-        <path d="M8 6.5 C10.5 4.5, 13.5 4.5, 16 6.5 M6.5 10 C9 8.5, 12 8.5, 14 10" 
-              fill="none" stroke="#ffffff" stroke-width="0.7" stroke-linecap="round" opacity="0.7" />
-
+      
         <!-- 4. 下方樹幹與向外扎根的根系 -->
         <path d="M12 12 L10 17 L5.5 21.5 
                  M12 12 L11 17.5 L8.5 22 
