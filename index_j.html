@@ -1934,41 +1934,41 @@
         
 <div class="portal-btn" id="realm-water" style="flex: 1; margin: 0; padding: 15px 5px; flex-direction: column; justify-content: center; gap: 10px; text-align: center; background: linear-gradient(135deg, rgba(15,25,30,0.92), rgba(5,10,12,0.98)); border: 1px solid rgba(139,168,156,0.35);" onclick="visitRealm('water.html', 'water')">
 
-       <svg class="portal-icon portal-icon-water-large" viewBox="0 0 100 150" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px rgba(212,175,55,0.4)); display: block; margin: 0 auto; ">
+    <svg class="portal-icon" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px rgba(212,175,55,0.4));">
     <defs>
         <!-- 金白淨水漸層色 -->
-        <linearGradient id="gold-white-water-lg" x1="0%" y1="0%" x2="0%" y2="100%">
+        <linearGradient id="gold-white-water" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
             <stop offset="40%" stop-color="#f3e5ab" stop-opacity="0.85"/>
             <stop offset="100%" stop-color="#d4af37" stop-opacity="0.75"/>
         </linearGradient>
         
-        <!-- 瘦長型撐滿瓶身遮罩 (座標已向邊緣推) -->
-        <clipPath id="m-vase-lg">
-            <path d="M40,5 L60,5 L64,45 L80,105 L70,140 Q50,150 30,140 L20,105 L36,45 Z" />
+        <!-- 纖細瓶身遮罩 -->
+        <clipPath id="m-${idx}">
+            <path d="M44,8 L56,8 L58,35 L70,72 L60,92 Q50,97 40,92 L30,72 L42,35 Z" />
         </clipPath>
     </defs>
     
     <!-- 瓶身背景 -->
-    <path d="M40,5 L60,5 L64,45 L80,105 L70,140 Q50,150 30,140 L20,105 L36,45 Z" fill="rgba(212,175,55,0.05)" />
+    <path d="M44,8 L56,8 L58,35 L70,72 L60,92 Q50,97 40,92 L30,72 L42,35 Z" fill="rgba(212,175,55,0.05)" />
     
     <!-- 瓶內金白淨水 (受 clipPath 裁剪) -->
-    <g clip-path="url(#m-vase-lg)">
-        <!-- 液體主體 (座標更新以匹配更大瘦長瓶身) -->
-        <path d="M0,70 Q50,60 100,70 L100,160 L0,160 Z" fill="url(#gold-white-water-lg)" />
-        <!-- 液面白色波光 (放大並匹配瘦長比例) -->
-        <ellipse cx="50" cy="70" rx="30" ry="5" fill="#ffffff" opacity="0.8" />
+    <g id="w-${idx}" clip-path="url(#m-${idx})">
+        <!-- 液體主體 -->
+        <path d="M20,50 Q50,45 80,50 L80,100 L20,100 Z" fill="url(#gold-white-water)" />
+        <!-- 液面白色波光 -->
+        <ellipse cx="50" cy="50" rx="18" ry="3" fill="#ffffff" opacity="0.8" />
     </g>
     
-    <!-- 瓶身金光與外框細節 (座標匹配瘦長比例並增粗) -->
-    <ellipse cx="50" cy="110" rx="28" ry="8" fill="none" stroke="#f3e5ab" stroke-width="1.5" opacity="0.7" pointer-events="none"/>
-    <ellipse cx="50" cy="110" rx="28" ry="8" fill="rgba(243,229,171,0.15)" pointer-events="none"/>
+    <!-- 瓶身金光與外框細節 -->
+    <ellipse cx="50" cy="72" rx="16" ry="4" fill="none" stroke="#f3e5ab" stroke-width="1" opacity="0.7" pointer-events="none"/>
+    <ellipse cx="50" cy="72" rx="16" ry="4" fill="rgba(243,229,171,0.15)" pointer-events="none"/>
     
-    <!-- 金色瓶身主輪廓 (撐滿瘦長邊緣，線條增粗) -->
-    <path d="M40,5 L60,5 L64,45 L80,105 L70,140 L30,140 L20,105 L36,45 Z" fill="none" stroke="#d4af37" stroke-width="2.5" stroke-linejoin="round" pointer-events="none"/>
+    <!-- 纖細金色瓶身主輪廓 -->
+    <path d="M44,8 L56,8 L58,35 L70,72 L60,92 L40,92 L30,72 L42,35 Z" fill="none" stroke="#d4af37" stroke-width="1.8" stroke-linejoin="round" pointer-events="none"/>
     
-    <!-- 瓶底金色加強底座 (增粗) -->
-    <path d="M30,140 Q50,150 70,140" fill="none" stroke="#f3e5ab" stroke-width="5" stroke-linecap="round" pointer-events="none"/>
+    <!-- 瓶底金色加強底座 -->
+    <path d="M40,92 Q50,97 60,92" fill="none" stroke="#f3e5ab" stroke-width="2.5" stroke-linecap="round" pointer-events="none"/>
 </svg>
 
 
