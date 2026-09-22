@@ -2118,20 +2118,72 @@
 
 <div class="rail-card" id="realm-dizang" onclick="visitRealm('dizang.html', 'dizang')">
     <svg class="card-icon" viewBox="0 0 24 24">
-        <path d="M4 18c2-2 6-2 8-2s6 0 8 2" fill="none" stroke="#8b0000" stroke-width="1.5" />
-        <circle cx="12" cy="8" r="5" fill="none" stroke="#d4af37" stroke-width="1.2" />
-        <circle cx="12" cy="8" r="2" fill="#fff" />
+        <defs>
+            <linearGradient id="grad-dizang" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fff176" />
+                <stop offset="50%" stop-color="#ffd54f" />
+                <stop offset="100%" stop-color="#b78103" />
+            </linearGradient>
+            <radialGradient id="grad-pearl" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="100%" stop-color="#ffd54f" />
+            </radialGradient>
+        </defs>
+        <!-- 九環錫杖頂端幾何造型 -->
+        <path d="M12 21V10" stroke="url(#grad-dizang)" stroke-width="0.8" stroke-linecap="round" />
+        <path d="M12 10C8.5 9.5 7.5 5.5 12 2.5C16.5 5.5 15.5 9.5 12 10Z" fill="none" stroke="url(#grad-dizang)" stroke-width="1" stroke-linejoin="round" />
+        <path d="M12 3.5C10 5 9.5 8 12 9.5C14.5 8 14 5 12 3.5Z" fill="none" stroke="url(#grad-dizang)" stroke-width="0.6" />
+        <!-- 錫杖雙側環扣 -->
+        <circle cx="8" cy="7.5" r="1.2" fill="none" stroke="url(#grad-dizang)" stroke-width="0.8" />
+        <circle cx="16" cy="7.5" r="1.2" fill="none" stroke="url(#grad-dizang)" stroke-width="0.8" />
+        <circle cx="9.2" cy="5" r="0.9" fill="none" stroke="url(#grad-dizang)" stroke-width="0.6" />
+        <circle cx="14.8" cy="5" r="0.9" fill="none" stroke="url(#grad-dizang)" stroke-width="0.6" />
+        <!-- 明珠聚光 -->
+        <circle cx="12" cy="14.5" r="1.8" fill="url(#grad-pearl)" />
+        <circle cx="12" cy="14.5" r="3" fill="none" stroke="url(#grad-dizang)" stroke-width="0.5" stroke-dasharray="1 1" />
     </svg>
     <div class="card-title">地藏願海</div><div class="card-sub">頂禮地藏像</div>
 </div>
 
 <div class="rail-card" id="realm-maitreya" onclick="visitRealm('maitreya-kalpa.html', 'maitreya')">
     <svg class="card-icon" viewBox="0 0 24 24">
-        <path d="M7 15c2 3 8 3 10 0" fill="none" stroke="#f3e5ab" stroke-width="2" stroke-linecap="round" />
-        <circle cx="12" cy="12" r="9" fill="none" stroke="#d4af37" stroke-width="1" stroke-dasharray="4 2" />
+        <defs>
+            <!-- 樹冠金綠漸層 -->
+            <linearGradient id="grad-banyan-leaf" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#4ade80" />
+                <stop offset="100%" stop-color="#15803d" />
+            </linearGradient>
+            <!-- 樹幹典雅棕金漸層 -->
+            <linearGradient id="grad-banyan-trunk" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#a16207" />
+                <stop offset="100%" stop-color="#451a03" />
+            </linearGradient>
+        </defs>
+
+        <!-- 樹冠：幾何折角/層次雲朵感輪廓 -->
+        <path d="M12 2 
+                 C14.5 2, 16 3.5, 17.5 3.5 
+                 C19.5 3.5, 21 5.5, 21 7.5 
+                 C22 9.5, 20.5 12, 19.5 13.5 
+                 C18 15, 16 14.5, 15 15.5 
+                 C13.5 16.5, 10.5 16.5, 9 15.5 
+                 C8 14.5, 6 15, 4.5 13.5 
+                 C3.5 12, 2 9.5, 3 7.5 
+                 C3 5.5, 4.5 3.5, 6.5 3.5 
+                 C8 3.5, 9.5 2, 12 2 Z" 
+              fill="url(#grad-banyan-leaf)" />
+
+        <!-- 樹冠內層質感簡約細線 -->
+        <path d="M8 6.5 C10.5 4.5, 13.5 4.5, 16 6.5 M6.5 10 C9 8.5, 12 8.5, 14 10" 
+              fill="none" stroke="#bbf7d0" stroke-width="0.7" stroke-linecap="round" opacity="0.6" />
+
+        <!-- 樹幹：向外張開伸展的根系（向下展開） -->
+        <path d="M12 12 L10 17 L5.5 21.5 M12 12 L11 17.5 L8.5 22 M12 12 L12 18 L12 22 M12 12 L13 17.5 L15.5 22 M12 12 L14 17 L18.5 21.5" 
+              fill="none" stroke="url(#grad-banyan-trunk)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
     <div class="card-title">龍華彌勒</div><div class="card-sub">頂禮彌勒像</div>
 </div>
+
 
 <div class="rail-card" id="realm-zen" onclick="visitRealm('zen.html', 'zen')">
     <svg class="card-icon" viewBox="0 0 24 24">
@@ -2151,20 +2203,49 @@
 
 <div class="rail-card" id="realm-shurangama" onclick="visitRealm('shurangama.html', 'shurangama')">
     <svg class="card-icon" viewBox="0 0 24 24">
-        <path d="M12 2L15 8L22 12L15 16L12 22L9 16L2 12L9 8Z" fill="none" stroke="#4682b4" stroke-width="1.5" />
-        <circle cx="12" cy="12" r="2.5" fill="none" stroke="#b0e0e6" stroke-width="1" />
+        <defs>
+            <linearGradient id="grad-shurangama" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#818cf8" />
+                <stop offset="50%" stop-color="#c084fc" />
+                <stop offset="100%" stop-color="#e879f9" />
+            </linearGradient>
+            <radialGradient id="grad-shurangama-core" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="100%" stop-color="#a855f7" />
+            </radialGradient>
+        </defs>
+        <!-- 幾何四角星菱形 (楞嚴寶頂) -->
+        <path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" fill="none" stroke="url(#grad-shurangama)" stroke-width="1" stroke-linejoin="round" />
+        <!-- 內層輔助幾何交錯線 -->
+        <path d="M12 5 L13.5 10.5 L19 12 L13.5 13.5 L12 19 L10.5 13.5 L5 12 L10.5 10.5 Z" fill="none" stroke="url(#grad-shurangama)" stroke-width="0.5" opacity="0.7" />
+        <!-- 常住真心（中央圓形） -->
+        <circle cx="12" cy="12" r="2" fill="url(#grad-shurangama-core)" />
+        <circle cx="12" cy="12" r="3.5" fill="none" stroke="url(#grad-shurangama)" stroke-width="0.6" stroke-dasharray="1.5 1.5" />
     </svg>
     <div class="card-title">開悟楞嚴</div><div class="card-sub">常住一真心</div>
 </div>
 
 <div class="rail-card" id="realm-esoteric" onclick="visitRealm('esoteric.html', 'esoteric')">
     <svg class="card-icon" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="8" fill="none" stroke="#dc143c" stroke-width="1" />
-        <path d="M12 4v16M4 12h16" stroke="#dc143c" stroke-width="0.8" opacity="0.5" />
-        <rect x="8" y="8" width="8" height="8" transform="rotate(45 12 12)" fill="none" stroke="#ffd700" stroke-width="1.2" />
+        <defs>
+            <linearGradient id="grad-esoteric" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f43f5e" />
+                <stop offset="50%" stop-color="#fbbf24" />
+                <stop offset="100%" stop-color="#be123c" />
+            </linearGradient>
+        </defs>
+        <!-- 外層大圓（胎藏界） -->
+        <circle cx="12" cy="12" r="9.5" fill="none" stroke="url(#grad-esoteric)" stroke-width="1" />
+        <!-- 中層旋轉45度正方形（金剛界菱形） -->
+        <rect x="6" y="6" width="12" height="12" fill="none" stroke="url(#grad-esoteric)" stroke-width="1" transform="rotate(45 12 12)" />
+        <!-- 內層小圓 -->
+        <circle cx="12" cy="12" r="4.5" fill="none" stroke="url(#grad-esoteric)" stroke-width="0.7" stroke-dasharray="2 1" />
+        <!-- 最深層核心寶珠 -->
+        <circle cx="12" cy="12" r="1.8" fill="url(#grad-esoteric)" />
     </svg>
     <div class="card-title">三密相應</div><div class="card-sub">大圓滿壇城</div>
 </div>
+
 
 </div>
 
