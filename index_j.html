@@ -2113,7 +2113,7 @@
 
         <g filter="url(#vDragonGlow)">
             <!-- 龍首整體放大 (以中心 500,180 為基準放大 1.18 倍) -->
-            <g class="dragon-head-top" transform="translate(500,180) scale(1.4) translate(-500,-180)">
+            <g class="dragon-head-top" transform="translate(500,180) scale(1.25) translate(-500,-180)">
 
                 <!-- 頂冠火焰 -->
                 <path d="M500,112 Q494,88 500,58 Q506,88 500,112 Z" fill="url(#vDragonGold)" opacity="0.85"/>
@@ -2174,13 +2174,6 @@
                     <polygon points="558,157 587,140 568,163" /> <!-- 小 -->
                 </g> 
 
-                <!-- 龍鬚 -->
-                <g class="dragon-whiskers" fill="none" stroke="#f6d365" stroke-width="2" stroke-linecap="round">
-                    <path d="M478,225 Q435,260 380,185"/>
-                    <path d="M480,233 Q445,280 395,205"/>
-                    <path d="M522,225 Q565,260 620,185"/>
-                    <path d="M520,233 Q555,280 605,205"/>
-                </g>
 
                 <!-- 頸後飄鬃 -->
                 <g class="dragon-mane" fill="url(#vDragonGold)" opacity="0.55">
@@ -2210,9 +2203,9 @@
     <div class="card-title">唯識之旅</div><div class="card-sub">探輪迴之謎</div>
 </div>
 
-<!-- 法華秘密：雙寶塔並行 (縱向極致拉長) -->
+<!-- 法華秘密：雙寶塔並行 (垂直拉長且底部下移對齊) -->
 <div class="rail-card" id="realm-fahua" onclick="visitRealm('fahua.html', 'fahua')">
-    <svg class="card-icon" viewBox="0 -8 40 46">
+    <svg class="card-icon" viewBox="0 -12 40 50">
         <defs>
             <linearGradient id="grad-gold-fahua" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#fff176" />
@@ -2220,8 +2213,8 @@
                 <stop offset="100%" stop-color="#b78103" />
             </linearGradient>
         </defs>
-        <!-- Y軸縮放比例拉高至 1.05，大幅展現修長塔身 -->
-        <g transform="translate(4, -4) scale(0.65, 1.05)">
+        <!-- translate Y 改為 3.5（下移），scale Y 改為 1.15（向上拉高） -->
+        <g transform="translate(4, 3.5) scale(0.65, 1.15)">
             <!-- 左塔 -->
             <path d="M12 -8L14 3L10 3L12 -8Z" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.3" />
             
