@@ -2077,51 +2077,54 @@
 
     <!-- 滾輪區域 -->
     <div class="scroll-rail" id="dharma-carousel">
-     <div class="rail-card" id="realm-huayan" onclick="visitRealm('huayan.html', 'huayan')">
-<svg class="card-icon" viewBox="0 0 100 100">
-<defs>
-<radialGradient id="grad-huayan" cx="50%" cy="50%" r="50%">
-<stop offset="0%" stop-color="#fff9c4" />
-<stop offset="100%" stop-color="#fbc02d" />
-</radialGradient>
-</defs>
-<!-- 將龍頭 SVG 放入並調整座標與大小 -->
-<g class="dragon-head" transform="translate(-540, -180) scale(0.6)">
-<!-- 頭部主體 -->
-<path d="M555,262 
-C575,250 598,248 615,255 
-C630,261 638,272 635,282 
-C632,290 620,294 608,292
-C598,300 585,304 572,300
-C560,296 553,285 555,275 Z" 
-fill="url(#grad-huayan)" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
-<!-- 上顎/鼻吻延伸 -->
-<path d="M615,255 C628,250 640,250 648,255 C642,260 632,262 622,260 Z" 
-fill="url(#grad-huayan)" stroke="#ffffff" stroke-width="1"/>
-<!-- 龍角 -->
-<path d="M598,250 C602,235 610,222 622,214" 
-fill="none" stroke="url(#grad-huayan)" stroke-width="3" stroke-linecap="round"/>
-<path d="M585,252 C586,240 590,228 598,220" 
-fill="none" stroke="url(#grad-huayan)" stroke-width="2.5" stroke-linecap="round"/>
-<!-- 眼睛發光 -->
-<circle cx="602" cy="270" r="3.5" fill="#ffffff">
-<animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
-</circle>
-<!-- 鬍鬚 -->
-<path d="M612,282 C625,286 636,294 642,306" 
-fill="none" stroke="#ffffff" stroke-width="1" opacity="0.6" stroke-linecap="round"/>
-<path d="M608,290 C618,296 626,306 630,318" 
-fill="none" stroke="#ffffff" stroke-width="1" opacity="0.5" stroke-linecap="round"/>
-<!-- 加入尖長的牙齒 -->
-<g class="teeth" fill="#ffffff">
-<path d="M618,285 L620,295 L622,285 Z" />
-<path d="M623,286 L625,296 L627,286 Z" />
-<path d="M628,287 L630,297 L632,287 Z" />
-</g>
-</g>
-</svg>
-<div class="card-title">俯瞰華藏</div><div class="card-sub">神遊大世界</div>
+  <div class="rail-card" id="realm-huayan" onclick="visitRealm('huayan.html', 'huayan')">
+    <svg class="card-icon" viewBox="0 0 24 24">
+        <defs>
+            <!-- 華嚴金色漸層 -->
+            <linearGradient id="grad-huayan" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fff9c4" />
+                <stop offset="50%" stop-color="#fbc02d" />
+                <stop offset="100%" stop-color="#b78103" />
+            </linearGradient>
+            <!-- 紫金龍神漸層 -->
+            <linearGradient id="vDragonGoldPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffd54f" />
+                <stop offset="100%" stop-color="#7e22ce" />
+            </linearGradient>
+        </defs>
+
+        <!-- 精準居中的龍頭整體 -->
+        <g class="dragon-head">
+            <!-- 龍角 -->
+            <path d="M12 8C13 5 15 3.5 17.5 2" fill="none" stroke="url(#grad-huayan)" stroke-width="0.8" stroke-linecap="round"/>
+            <path d="M9.5 8.5C10 6 11 4 13 2.5" fill="none" stroke="url(#grad-huayan)" stroke-width="0.6" stroke-linecap="round"/>
+            
+            <!-- 頭部主體與上顎 -->
+            <path d="M4.5 10.5 C8.5 8 13 7.5 16.5 9 C19.5 10 21 12 20.5 14 C20 15.5 17.5 16.5 15 16 C13 17.5 10.5 18 8 17 C5.5 16.2 4 14 4.5 12 Z" 
+                  fill="url(#grad-huayan)" stroke="#ffffff" stroke-width="0.4" opacity="0.95"/>
+            <path d="M16.5 9 C19 8 21.5 8 23 9 C22 10 20 10.5 18 10 Z" 
+                  fill="url(#grad-huayan)" stroke="#ffffff" stroke-width="0.3"/>
+
+            <!-- 眼睛發光 -->
+            <circle cx="13.8" cy="12" r="0.8" fill="#ffffff">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+            </circle>
+
+            <!-- 尖長龍牙 -->
+            <g class="teeth" fill="#ffffff">
+                <path d="M16.5 14.8 L17 17.5 L17.5 14.8 Z" />
+                <path d="M17.8 14.9 L18.3 17.6 L18.8 14.9 Z" />
+                <path d="M19 14.5 L19.4 17.2 L19.8 14.5 Z" />
+            </g>
+
+            <!-- 龍鬚 -->
+            <path d="M16 14.5 C18.5 15.5 20.5 17 21.5 19.5" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.8" stroke-linecap="round"/>
+            <path d="M15 16 C17 17.2 18.5 19 19.5 21" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.6" stroke-linecap="round"/>
+        </g>
+    </svg>
+    <div class="card-title">俯瞰華藏</div><div class="card-sub">神遊大世界</div>
 </div>
+
 <div class="rail-card" id="realm-weishi" onclick="visitRealm('weishi.html', 'weishi')">
     <svg class="card-icon" viewBox="0 0 24 24">
         <defs>
@@ -2226,19 +2229,21 @@ fill="none" stroke="#ffffff" stroke-width="1" opacity="0.5" stroke-linecap="roun
 <div class="rail-card" id="realm-maitreya" onclick="visitRealm('maitreya-kalpa.html', 'maitreya')">
     <svg class="card-icon" viewBox="0 0 24 24">
         <defs>
-            <!-- 樹冠金綠漸層 -->
-            <linearGradient id="grad-banyan-leaf" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#4ade80" />
-                <stop offset="100%" stop-color="#15803d" />
+            <!-- 樹冠耀眼金色漸層（替換原有的綠色） -->
+            <linearGradient id="grad-banyan-gold" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#fff176" />
+                <stop offset="50%" stop-color="#ffd54f" />
+                <stop offset="100%" stop-color="#b78103" />
             </linearGradient>
-            <!-- 樹幹典雅棕金漸層 -->
+
+            <!-- 樹幹典雅深棕金漸層 -->
             <linearGradient id="grad-banyan-trunk" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#a16207" />
+                <stop offset="0%" stop-color="#d97706" />
                 <stop offset="100%" stop-color="#451a03" />
             </linearGradient>
         </defs>
 
-        <!-- 樹冠：幾何折角/層次雲朵感輪廓 -->
+        <!-- 1. 金色樹冠主體外輪廓 -->
         <path d="M12 2 
                  C14.5 2, 16 3.5, 17.5 3.5 
                  C19.5 3.5, 21 5.5, 21 7.5 
@@ -2249,16 +2254,31 @@ fill="none" stroke="#ffffff" stroke-width="1" opacity="0.5" stroke-linecap="roun
                  C3.5 12, 2 9.5, 3 7.5 
                  C3 5.5, 4.5 3.5, 6.5 3.5 
                  C8 3.5, 9.5 2, 12 2 Z" 
-              fill="url(#grad-banyan-leaf)" />
+              fill="url(#grad-banyan-gold)" />
 
-    
+        <!-- 2. 上方增加的茂密樹枝分支（從樹幹向上/向兩側展開） -->
+        <!-- 主幹向上延伸的分叉 -->
+        <path d="M12 12 L12 8 M12 8 L9.5 5 M12 8 L14.5 5 M12 6.5 L12 3.5" 
+              fill="none" stroke="#78350f" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" />
+        <!-- 兩側擴展的高階次級分支 -->
+        <path d="M10.8 10 L8 7.5 M8 7.5 L6 6 M8 7.5 L7.5 9.5 M13.2 10 L16 7.5 M16 7.5 L18 6 M16 7.5 L16.5 9.5" 
+              fill="none" stroke="#78350f" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
 
-        <!-- 樹幹：向外張開伸展的根系（向下展開） -->
-        <path d="M12 12 L10 17 L5.5 21.5 M12 12 L11 17.5 L8.5 22 M12 12 L12 18 L12 22 M12 12 L13 17.5 L15.5 22 M12 12 L14 17 L18.5 21.5" 
+        <!-- 3. 樹冠光感線條與葉脈質感（增添幾何金屬感） -->
+        <path d="M8 6.5 C10.5 4.5, 13.5 4.5, 16 6.5 M6.5 10 C9 8.5, 12 8.5, 14 10" 
+              fill="none" stroke="#ffffff" stroke-width="0.7" stroke-linecap="round" opacity="0.7" />
+
+        <!-- 4. 下方樹幹與向外扎根的根系 -->
+        <path d="M12 12 L10 17 L5.5 21.5 
+                 M12 12 L11 17.5 L8.5 22 
+                 M12 12 L12 18 L12 22 
+                 M12 12 L13 17.5 L15.5 22 
+                 M12 12 L14 17 L18.5 21.5" 
               fill="none" stroke="url(#grad-banyan-trunk)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
     <div class="card-title">龍華彌勒</div><div class="card-sub">頂禮彌勒像</div>
 </div>
+
 
 
 <div class="rail-card" id="realm-zen" onclick="visitRealm('zen.html', 'zen')">
