@@ -2077,22 +2077,51 @@
 
     <!-- 滾輪區域 -->
     <div class="scroll-rail" id="dharma-carousel">
-        <div class="rail-card" id="realm-huayan" onclick="visitRealm('huayan.html', 'huayan')">
-    <svg class="card-icon" viewBox="0 0 24 24">
-        <defs>
-            <radialGradient id="grad-huayan" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#fff9c4" />
-                <stop offset="100%" stop-color="#fbc02d" />
-            </radialGradient>
-        </defs>
-        <circle cx="12" cy="12" r="9" fill="none" stroke="url(#grad-huayan)" stroke-width="1" stroke-dasharray="2 1" />
-        <circle cx="12" cy="12" r="6" fill="none" stroke="url(#grad-huayan)" stroke-width="1.5" />
-        <path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="url(#grad-huayan)" stroke-width="1" stroke-linecap="round" />
-        <circle cx="12" cy="12" r="1.5" fill="#fff" />
-    </svg>
-    <div class="card-title">俯瞰華藏</div><div class="card-sub">神遊大世界</div>
+     <div class="rail-card" id="realm-huayan" onclick="visitRealm('huayan.html', 'huayan')">
+<svg class="card-icon" viewBox="0 0 100 100">
+<defs>
+<radialGradient id="grad-huayan" cx="50%" cy="50%" r="50%">
+<stop offset="0%" stop-color="#fff9c4" />
+<stop offset="100%" stop-color="#fbc02d" />
+</radialGradient>
+</defs>
+<!-- 將龍頭 SVG 放入並調整座標與大小 -->
+<g class="dragon-head" transform="translate(-540, -180) scale(0.6)">
+<!-- 頭部主體 -->
+<path d="M555,262 
+C575,250 598,248 615,255 
+C630,261 638,272 635,282 
+C632,290 620,294 608,292
+C598,300 585,304 572,300
+C560,296 553,285 555,275 Z" 
+fill="url(#grad-huayan)" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+<!-- 上顎/鼻吻延伸 -->
+<path d="M615,255 C628,250 640,250 648,255 C642,260 632,262 622,260 Z" 
+fill="url(#grad-huayan)" stroke="#ffffff" stroke-width="1"/>
+<!-- 龍角 -->
+<path d="M598,250 C602,235 610,222 622,214" 
+fill="none" stroke="url(#grad-huayan)" stroke-width="3" stroke-linecap="round"/>
+<path d="M585,252 C586,240 590,228 598,220" 
+fill="none" stroke="url(#grad-huayan)" stroke-width="2.5" stroke-linecap="round"/>
+<!-- 眼睛發光 -->
+<circle cx="602" cy="270" r="3.5" fill="#ffffff">
+<animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+</circle>
+<!-- 鬍鬚 -->
+<path d="M612,282 C625,286 636,294 642,306" 
+fill="none" stroke="#ffffff" stroke-width="1" opacity="0.6" stroke-linecap="round"/>
+<path d="M608,290 C618,296 626,306 630,318" 
+fill="none" stroke="#ffffff" stroke-width="1" opacity="0.5" stroke-linecap="round"/>
+<!-- 加入尖長的牙齒 -->
+<g class="teeth" fill="#ffffff">
+<path d="M618,285 L620,295 L622,285 Z" />
+<path d="M623,286 L625,296 L627,286 Z" />
+<path d="M628,287 L630,297 L632,287 Z" />
+</g>
+</g>
+</svg>
+<div class="card-title">俯瞰華藏</div><div class="card-sub">神遊大世界</div>
 </div>
-
 <div class="rail-card" id="realm-weishi" onclick="visitRealm('weishi.html', 'weishi')">
     <svg class="card-icon" viewBox="0 0 24 24">
         <defs>
@@ -2110,42 +2139,45 @@
 
 <!-- 法華秘密：雙寶塔並行 -->
 <div class="rail-card" id="realm-fahua" onclick="visitRealm('fahua.html', 'fahua')">
-    <svg class="card-icon" viewBox="0 0 24 24">
+    <svg class="card-icon" viewBox="0 0 40 24">
         <defs>
-            <linearGradient id="grad-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id="grad-gold-fahua" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#fff176" />
+                <stop offset="50%" stop-color="#ffd54f" />
                 <stop offset="100%" stop-color="#b78103" />
             </linearGradient>
-            <linearGradient id="grad-coppery" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#df9a75" />
-                <stop offset="100%" stop-color="#8b3a3a" />
-            </linearGradient>
         </defs>
-        <!-- 兩座並列的幾何寶塔（法華經「雙塔並行」意象） -->
-        <!-- 左塔 -->
-        <g transform="translate(4, 2) scale(0.6, 0.9)">
-            <path d="M12 2L14.5 7H9.5L12 2Z" fill="url(#grad-gold)" stroke="#d4af37" stroke-width="0.5" />
-            <rect x="7" y="7" width="10" height="3" rx="0.5" fill="none" stroke="#d4af37" stroke-width="1.2" />
-            <rect x="5" y="10" width="14" height="4" rx="0.5" fill="none" stroke="#d4af37" stroke-width="1.2" />
-            <rect x="3" y="14" width="18" height="6" rx="0.5" fill="none" stroke="#d4af37" stroke-width="1.2" />
-            <circle cx="12" cy="12" r="1.5" fill="none" stroke="url(#grad-coppery)" stroke-width="1.2" />
+        <!-- 整體平移和縮放組，使雙塔居中且精緻 -->
+        <g transform="translate(4, 3) scale(0.65)">
+            <!-- 左塔 (多層幾何結構) -->
+            <path d="M12 2L14 7L10 7L12 2Z" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.3" /> <!-- 塔尖 -->
+            <rect x="7.5" y="7" width="9" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" /> <!-- 第七層 -->
+            <rect x="6.5" y="9" width="11" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" /> <!-- 第六層 -->
+            <rect x="5.5" y="11" width="13" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" /> <!-- 第五層 -->
+            <rect x="4.5" y="13" width="15" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" /> <!-- 第四層 -->
+            <rect x="3.5" y="15" width="17" height="2.2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" /> <!-- 第三層 -->
+            <rect x="2.5" y="17.2" width="19" height="2.5" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" /> <!-- 第二層 -->
+            <rect x="1.5" y="19.7" width="21" height="3" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" /> <!-- 第一層基座 -->
+            
+            <!-- 右塔 (與左塔完全對稱，平移 20) -->
+            <g transform="translate(20, 0)">
+                <path d="M12 2L14 7L10 7L12 2Z" fill="url(#grad-gold-fahua)" stroke="#d4af37" stroke-width="0.3" />
+                <rect x="7.5" y="7" width="9" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" />
+                <rect x="6.5" y="9" width="11" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" />
+                <rect x="5.5" y="11" width="13" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" />
+                <rect x="4.5" y="13" width="15" height="2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" />
+                <rect x="3.5" y="15" width="17" height="2.2" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" />
+                <rect x="2.5" y="17.2" width="19" height="2.5" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" />
+                <rect x="1.5" y="19.7" width="21" height="3" rx="0.3" fill="none" stroke="#d4af37" stroke-width="0.8" />
+            </g>
+            
+            <!-- 底部相連的幾何基座/地平線 -->
+            <path d="M 1.5 22.7 H 41.5" fill="none" stroke="#d4af37" stroke-width="1.0" stroke-linecap="round" opacity="0.7"/>
+            <path d="M 13.5 19.7 H 29.5" fill="none" stroke="#d4af37" stroke-width="0.8" opacity="0.5"/>
         </g>
-        <!-- 右塔 -->
-        <g transform="translate(14, 2) scale(0.6, 0.9)">
-            <path d="M12 2L14.5 7H9.5L12 2Z" fill="url(#grad-gold)" stroke="#d4af37" stroke-width="0.5" />
-            <rect x="7" y="7" width="10" height="3" rx="0.5" fill="none" stroke="#d4af37" stroke-width="1.2" />
-            <rect x="5" y="10" width="14" height="4" rx="0.5" fill="none" stroke="#d4af37" stroke-width="1.2" />
-            <rect x="3" y="14" width="18" height="6" rx="0.5" fill="none" stroke="#d4af37" stroke-width="1.2" />
-            <circle cx="12" cy="12" r="1.5" fill="none" stroke="url(#grad-coppery)" stroke-width="1.2" />
-        </g>
-        <!-- 底部相連基座 -->
-        <path d="M4 21H20" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round" />
     </svg>
     <div class="card-title">法華秘密</div><div class="card-sub">雙寶塔意象</div>
 </div>
-
-
-
 
 <div class="rail-card" id="realm-dizang" onclick="visitRealm('dizang.html', 'dizang')">
     <svg class="card-icon" viewBox="0 0 24 24">
