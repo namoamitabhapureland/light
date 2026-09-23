@@ -1934,7 +1934,7 @@
         
 <div class="portal-btn" id="realm-water" style="flex: 1; margin: 0; padding: 15px 5px; flex-direction: column; justify-content: center; gap: 10px; text-align: center; background: linear-gradient(135deg, rgba(15,25,30,0.92), rgba(5,10,12,0.98)); border: 1px solid rgba(139,168,156,0.35);" onclick="visitRealm('water.html', 'water')">
 
- <svg class="portal-icon" viewBox="0 0 100 150" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px rgba(212,175,55,0.4)); display: block; margin: 0 auto;">
+<svg class="portal-icon" viewBox="0 0 160 150" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px rgba(212,175,55,0.4)); display: block; margin: 0 auto;">
     <defs>
         <!-- 金白淨水漸層色 -->
         <linearGradient id="gold-white-water-lg" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -1943,40 +1943,41 @@
             <stop offset="100%" stop-color="#d4af37" stop-opacity="0.75"/>
         </linearGradient>
         
-        <!-- 纖細瓶身遮罩 -->
-        <clipPath id="vase-clip-double">
-            <path d="M-6,-67 L6,-67 L9,-25 L18,35 L12,62 Q0,71 -12,62 L-18,35 L-9,-25 Z" />
+        <!-- 原大尺寸瓶身遮罩 -->
+        <clipPath id="m-vase-single">
+            <path d="M-10,-70 L10,-70 L15,-30 L35,35 L20,65 Q0,75 -20,65 L-35,35 L-15,-30 Z" />
         </clipPath>
 
-        <!-- 單一淨瓶元件 -->
-        <g id="pure-vase">
+        <!-- 完整保留原本大尺寸與線條的單瓶組件 -->
+        <g id="large-vase">
             <!-- 瓶身背景 -->
-            <path d="M-6,-67 L6,-67 L9,-25 L18,35 L12,62 Q0,71 -12,62 L-18,35 L-9,-25 Z" fill="rgba(212,175,55,0.05)" />
+            <path d="M-10,-70 L10,-70 L15,-30 L35,35 L20,65 Q0,75 -20,65 L-35,35 L-15,-30 Z" fill="rgba(212,175,55,0.05)" />
             
             <!-- 瓶內金白淨水 -->
-            <g clip-path="url(#vase-clip-double)">
-                <path d="M-25,-5 Q0,-12 25,-5 L25,75 L-25,75 Z" fill="url(#gold-white-water-lg)" />
-                <ellipse cx="0" cy="-5" rx="14" ry="3" fill="#ffffff" opacity="0.8" />
+            <g clip-path="url(#m-vase-single)">
+                <path d="M-50,-5 Q0,-15 50,-5 L50,85 L-50,85 Z" fill="url(#gold-white-water-lg)" />
+                <ellipse cx="0" cy="-5" rx="35" ry="6" fill="#ffffff" opacity="0.8" />
             </g>
             
             <!-- 瓶身金光與外框細節 -->
-            <ellipse cx="0" cy="35" rx="14" ry="4" fill="none" stroke="#f3e5ab" stroke-width="1" opacity="0.7" pointer-events="none"/>
-            <ellipse cx="0" cy="35" rx="14" ry="4" fill="rgba(243,229,171,0.15)" pointer-events="none"/>
+            <ellipse cx="0" cy="35" rx="32" ry="9" fill="none" stroke="#f3e5ab" stroke-width="1.2" opacity="0.7" pointer-events="none"/>
+            <ellipse cx="0" cy="35" rx="32" ry="9" fill="rgba(243,229,171,0.15)" pointer-events="none"/>
             
             <!-- 金色瓶身主輪廓 -->
-            <path d="M-6,-67 L6,-67 L9,-25 L18,35 L12,62 L-12,62 L-18,35 L-9,-25 Z" fill="none" stroke="#d4af37" stroke-width="1.8" stroke-linejoin="round" pointer-events="none"/>
+            <path d="M-10,-70 L10,-70 L15,-30 L35,35 L20,65 L-20,65 L-35,35 L-15,-30 Z" fill="none" stroke="#d4af37" stroke-width="2.2" stroke-linejoin="round" pointer-events="none"/>
             
             <!-- 瓶底金色加強底座 -->
-            <path d="M-12,62 Q0,71 12,62" fill="none" stroke="#f3e5ab" stroke-width="2.5" stroke-linecap="round" pointer-events="none"/>
+            <path d="M-20,65 Q0,75 20,65" fill="none" stroke="#f3e5ab" stroke-width="4" stroke-linecap="round" pointer-events="none"/>
         </g>
     </defs>
     
-    <!-- 左側淨瓶 -->
-    <use href="#pure-vase" x="28" y="73" />
+    <!-- 左側大淨瓶 -->
+    <use href="#large-vase" x="42" y="75" />
     
-    <!-- 右側淨瓶 -->
-    <use href="#pure-vase" x="72" y="73" />
+    <!-- 右側大淨瓶 -->
+    <use href="#large-vase" x="118" y="75" />
 </svg>
+
 
             <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; line-height: 1.2;">
                 <span style="color: var(--gold); letter-spacing: 2px; font-size: 0.95rem; text-shadow: 0 0 5px rgba(212,175,55,0.3); font-weight: bold;">琉璃淨水</span>
