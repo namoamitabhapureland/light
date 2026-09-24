@@ -1210,7 +1210,6 @@
     </div>
 </div>
 
-
 <div id="firstTimeNameModal" class="modal" style="display: none; z-index: 3000;">
     <div style="background: linear-gradient(145deg, rgba(15,15,15,0.95) 0%, rgba(5,5,5,0.98) 100%); border: 1px solid rgba(212,175,55,0.4); border-radius: 24px; padding: 35px 25px; width: 88%; max-width: 360px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 25px 60px rgba(0,0,0,0.9), inset 0 0 15px rgba(212,175,55,0.05); position: relative; overflow: hidden;">
         
@@ -1225,6 +1224,7 @@
             </svg>
             <div style="color: var(--gold); font-size: 1.2rem; letter-spacing: 4px; margin-bottom: 20px; font-weight: bold; text-shadow: 0 0 10px rgba(212,175,55,0.3);">安立數位道場</div>
 
+            <!-- 第一步：通用 -->
             <div class="glow-step-box step-1">
                 <div class="glow-step-content" style="font-size: 0.85rem; line-height: 1.6; color: #ddd;">
                     <span style="color: var(--cyan); font-weight: bold; font-size: 0.9rem; letter-spacing: 1px;">① 脫離通訊軟體</span><br>
@@ -1236,24 +1236,42 @@
                 </div>
             </div>
 
-            <div class="glow-step-box step-2">
-                <div class="glow-step-content" style="font-size: 0.85rem; line-height: 1.6; color: #ddd;">
-                    <span style="color: var(--cyan); font-weight: bold; font-size: 0.9rem; letter-spacing: 1px;">② 將系統APP化</span><br>
-                    點擊瀏覽器分享圖示 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" style="vertical-align: text-bottom; margin: 0 2px;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg> ，選擇<br>
-                    <span style="display:inline-flex; align-items:center; background:rgba(255,255,255,0.1); padding:4px 8px; border-radius:6px; font-size:0.8rem; color:#fff; margin-top:6px; border: 1px solid rgba(255,255,255,0.1);">
-                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" style="margin-right:6px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                        加到手機主畫面
-                    </span>
+            <!-- iOS 裝置顯示說明 (預設顯示) -->
+            <div id="instructions-ios" style="width: 100%;">
+                <div class="glow-step-box step-2">
+                    <div class="glow-step-content" style="font-size: 0.85rem; line-height: 1.6; color: #ddd;">
+                        <span style="color: var(--cyan); font-weight: bold; font-size: 0.9rem; letter-spacing: 1px;">② 將系統APP化</span><br>
+                        點擊瀏覽器分享圖示 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" style="vertical-align: text-bottom; margin: 0 2px;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg> ，選擇<br>
+                        <span style="display:inline-flex; align-items:center; background:rgba(255,255,255,0.1); padding:4px 8px; border-radius:6px; font-size:0.8rem; color:#fff; margin-top:6px; border: 1px solid rgba(255,255,255,0.1);">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" style="margin-right:6px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                            加到主畫面
+                        </span>
+                    </div>
+                </div>
+
+                <div class="glow-step-box step-3" style="margin-bottom: 20px;">
+                    <div class="glow-step-content" style="font-size: 0.85rem; line-height: 1.6; color: #ddd;">
+                        <span style="color: var(--cyan); font-weight: bold; font-size: 0.9rem; letter-spacing: 1px;">③ 重新開啟系統</span><br>
+                        請回到手機桌面，<span style="color: var(--gold); font-weight: bold;">點開剛剛新增的圖示</span>。<br>於專屬 APP 內輸入名號，方能完整使用。
+                    </div>
                 </div>
             </div>
 
-            <div class="glow-step-box step-3" style="margin-bottom: 20px;">
-                <div class="glow-step-content" style="font-size: 0.85rem; line-height: 1.6; color: #ddd;">
-                    <span style="color: var(--cyan); font-weight: bold; font-size: 0.9rem; letter-spacing: 1px;">③ 重新開啟系統</span><br>
-                    請回到手機桌面，<span style="color: var(--gold); font-weight: bold;">點開剛剛新增的圖示</span>。<br>於專屬 APP 內輸入名號，方能完整使用。
+            <!-- Android 裝置顯示說明 (預設隱藏) -->
+            <div id="instructions-android" style="width: 100%; display: none;">
+                <div class="glow-step-box step-2" style="margin-bottom: 20px;">
+                    <div class="glow-step-content" style="font-size: 0.85rem; line-height: 1.6; color: #ddd; text-align: center;">
+                        <span style="color: var(--cyan); font-weight: bold; font-size: 0.9rem; letter-spacing: 1px;">② 下載與安裝 APK</span><br>
+                        安卓行者可直接下載安裝檔，享極致順暢體驗：<br>
+                        <a href="https://github.com/namoamitabhapureland/bodhicitta/releases/latest/download/app-release.apk" download style="display:inline-flex; align-items:center; justify-content:center; background: linear-gradient(135deg, rgba(212,175,55,0.3) 0%, rgba(212,175,55,0.1) 100%); padding:8px 16px; border-radius:8px; font-size:0.9rem; color:var(--gold); margin-top:10px; border: 1px solid var(--gold); text-decoration: none; font-weight: bold; width: 80%;">
+                            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" style="margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            下載 Android APK
+                        </a>
+                    </div>
                 </div>
             </div>
 
+            <!-- 輸入名號區域 -->
             <div style="width: 100%; border-top: 1px solid rgba(212,175,55,0.15); padding-top: 15px; display: flex; flex-direction: column; align-items: center;">
                 <div style="color: rgba(243,229,171,0.7); font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 8px;">( 從桌面APP圖示開啟者 )</div>
                 <div style="color: var(--gold); font-size: 1rem; font-weight: bold; letter-spacing: 4px; margin-bottom: 15px;">祈 請 賜 名</div>
