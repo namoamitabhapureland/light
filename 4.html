@@ -47,6 +47,32 @@ body {
         body.incense-on #waterCanvas { 
             opacity: 0 !important; 
         }
+        /* 🌟 僅在 Android 機型上生效的頂禮防爆寫法 (蘋果手機完全不受影響) */
+@supports (-webkit-touch-callout: none) {
+    /* 這裡留空，代表 iOS Safari 不執行下方修正 */
+}
+
+/* 針對 Android Blink 核心進行單獨修復 */
+@supports not (-webkit-touch-callout: none) {
+    #buddha-scene,
+    .buddha-breathe,
+    .buddha-swastika,
+    .bodhisattva-group {
+        -webkit-backface-visibility: hidden !important;
+        backface-visibility: hidden !important;
+        transform-style: preserve-3d !important;
+        will-change: transform, opacity;
+    }
+
+    #buddha-scene.bowing .buddha-breathe {
+        animation-play-state: paused !important;
+    }
+
+    #buddha-scene.bowing {
+        transform: translate3d(0, 8%, 0) scale(1.22) !important;
+    }
+}
+
 
 
         /* ================= 頂部導航與資訊列 (徹底修復擠壓跑版問題) ================= */
@@ -491,7 +517,7 @@ body {
 /* 2. 頂禮時化現：精準歸位、放大至 0.45、顯現琉璃光 */
 #buddha-scene.bowing #bodhisattva-left {
     opacity: 0.55;
-    transform: translate(500px, 320px) scale(-0.5 0.5);
+    transform: translate(500px, 320px) scale(-0.5, 0.5);
 }
 #buddha-scene.bowing #bodhisattva-right {
     opacity: 0.55;
