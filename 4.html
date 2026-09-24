@@ -2373,22 +2373,32 @@ document.getElementById('milestone-name-display').innerText = currentName;
     } 
     renderStars();
 
+      // 完全保留你的邏輯與演算法，僅修正漸層起點與 HSL 亮度
     const wCvs = document.getElementById('waterCanvas'), wCtx = wCvs.getContext('2d'); 
     let ww, wh, wTime=0; 
     function resW() { ww=wCvs.width=window.innerWidth; wh=wCvs.height=window.innerHeight; } 
     window.addEventListener('resize', resW); resW(); 
-    const waterThemes = [ { h: 126, s: 12, l: 22 }, { h: 244, s: 121, l: 22 }, { h: 48, s: 85, l: 61 } ]; 
     
+    // 提升亮度 (l) 與不透明度，確保不被黑底吃掉
+    const waterThemes = [ 
+        { h: 48, s: 100, l: 80 }, 
+        { h: 43, s: 95,  l: 68 }, 
+        { h: 38, s: 90,  l: 58 } 
+    ]; 
+ 
     function drawW() { 
         wCtx.clearRect(0,0,ww,wh); wTime += 0.002; 
         for (let i = 0; i < 3; i++) { 
             wCtx.beginPath(); let shift = i * 1; 
-            let grad = wCtx.createLinearGradient(0, wh*0.5, 0, wh); 
+
+            // 關鍵修正：將漸層起點從 wh*0.5 調整為 wh*0.9 (符合你山脊的實際高度)
+            let grad = wCtx.createLinearGradient(0, wh * 0.9, 0, wh); 
             let t = waterThemes[i]; 
-            grad.addColorStop(0, `hsla(${t.h}, ${t.s}%, ${t.l}%, 0.1)`); 
-            grad.addColorStop(0.5, `hsla(${t.h}, ${t.s}%, ${t.l}%, 0.3)`); 
-            grad.addColorStop(1, `hsla(${t.h}, ${t.s}%, ${t.l}%, 0.6)`); 
+            grad.addColorStop(0, `hsla(${t.h}, ${t.s}%, ${t.l}%, 0.4)`); 
+            grad.addColorStop(0.5, `hsla(${t.h}, ${t.s}%, ${t.l}%, 0.7)`); 
+            grad.addColorStop(1, `hsla(${t.h}, ${t.s}%, ${t.l}%, 0.95)`); 
             wCtx.fillStyle = grad; 
+
             for (let x = 0; x <= ww; x += 5) { 
                 let y = Math.sin(x * 5 + wTime + shift) * 16 + Math.sin(x * 166- wTime * 19) * 2 + (wh * 0.99) + Math.cos(wTime + i) * 30; 
                 if (x === 0) wCtx.moveTo(x, y); else wCtx.lineTo(x, y); 
