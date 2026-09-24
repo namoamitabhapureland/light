@@ -2530,318 +2530,347 @@ document.getElementById('milestone-name-display').innerText = currentName;
         window.speechSynthesis.speak(msg);
     }
 
-    // ✨ 專屬法語浮現函數 (防重疊)
-    function showBlessing(text) {
-        const el = document.getElementById('blessing-text');
-        if(!el) return;
-        el.innerText = text;
-        el.style.animation = 'none'; // 拔除舊動畫
-        void el.offsetWidth; // 強制重繪
-        el.style.animation = 'float-blessing 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards'; // 賦予新動畫
-    }
-
-        function toggleAction(action) {
-        const btn = document.getElementById(`btn-${action}`);
-        if(!btn) return;
-
-        if (action === 'bow') {
-            if (btn.classList.contains('active')) return; 
-            btn.classList.add('active');
-            
-            // 🌟 新增：在 body 掛上頂禮狀態，通知水波紋隱形
-            document.body.classList.add('bowing-active');
-            
-            document.getElementById('buddha-scene').classList.add('bowing');
-           // warpSpeed = 15; starScale = 2;
-            triggerGoldenBurst();
-            
-            speakWords("無量光護佑安康");
-            showBlessing("無量光 ‧ 護佑安康");
-            
-            setTimeout(() => { 
-                // warpSpeed = 0.5; starScale = 1; 
-                document.getElementById('buddha-scene').classList.remove('bowing');
-                btn.classList.remove('active'); 
-                
-                // 🌟 新增：頂禮 3 秒結束後，移除狀態，讓水波紋溫和浮現
-                document.body.classList.remove('bowing-active');
-            }, 5500);
-        } 
-    }
-
-
-    let incenseTimer, smokeTimer, ashTimer;
-    let incenseProgress = 0;
-
-       function toggleIncense() {
-        const btn = document.getElementById('btn-incense');
-        const isActive = document.body.classList.contains('incense-on');
-        const scene = document.getElementById('buddha-scene'); // ✨ 獲取場景節點
-        
-        if (!isActive) {
-            document.body.classList.add('incense-on');
-            if(scene) scene.classList.add('incense-active'); // ✨ 燒香時讓場景進入化現狀態
-            btn.classList.add('active');
-            
-            speakWords("無量壽，願生極楽");
-            showBlessing("無量壽 ‧ 願生極樂");
-            
-            incenseProgress = 0;
-            createDualSmoke();
-            createAshDrop();
-            
-            let startTime = Date.now();
-            
-            function burn() {
-                let elapsed = (Date.now() - startTime) / 1000;
-                incenseProgress = Math.min(elapsed / 60, 1); 
-                
-                let cyCenter = 875 + (135 * incenseProgress);
-                document.getElementById('stick-center').setAttribute('y1', cyCenter);
-                document.getElementById('glow-center').setAttribute('cy', cyCenter);
-                
-                let cxLeft = 475 + (5 * incenseProgress);
-                let cyLeft = 890 + (120 * incenseProgress);
-                document.getElementById('stick-left').setAttribute('x1', cxLeft);
-                document.getElementById('stick-left').setAttribute('y1', cyLeft);
-                document.getElementById('glow-left').setAttribute('cx', cxLeft);
-                document.getElementById('glow-left').setAttribute('cy', cyLeft);
-                
-                let cxRight = 525 - (5 * incenseProgress);
-                let cyRight = 890 + (120 * incenseProgress);
-                document.getElementById('stick-right').setAttribute('x1', cxRight);
-                document.getElementById('stick-right').setAttribute('y1', cyRight);
-                document.getElementById('glow-right').setAttribute('cx', cxRight);
-                document.getElementById('glow-right').setAttribute('cy', cyRight);
-                
-                // 🕯️ 蠟燭隨時間融化下降 
-                let meltAmount = 50 * incenseProgress;
-
-                ['left', 'right'].forEach(side => {
-                    document.getElementById(`candle-body-${side}`).setAttribute('y', 970 + meltAmount);
-                    document.getElementById(`candle-body-${side}`).setAttribute('height', 60 - meltAmount);
-                    document.getElementById(`candle-wick-${side}`).setAttribute('y1', 965 + meltAmount);
-                    document.getElementById(`candle-wick-${side}`).setAttribute('y2', 975 + meltAmount);
-                    
-                    document.getElementById(`flame-move-${side}`).style.transform = `translateY(${meltAmount}px)`;
-                });
-                
-                if (incenseProgress < 1 && document.body.classList.contains('incense-on')) {
-                    incenseTimer = requestAnimationFrame(burn);
-                } else if (incenseProgress >= 1 && document.body.classList.contains('incense-on')) {
-                    finishIncenseRitual();
-                }
-            }
-            incenseTimer = requestAnimationFrame(burn);
-        } else {
-            resetIncense();
-        }
-    }
-
-    function resetIncense() {
-        cancelAnimationFrame(incenseTimer);
-        clearTimeout(smokeTimer);
-        clearTimeout(ashTimer);
-        document.body.classList.remove('incense-on');
-        
-        // ✨ 取消燒香時，同步移除場景的化現狀態
-        const scene = document.getElementById('buddha-scene');
-        if(scene) scene.classList.remove('incense-active');
-        
-        const btn = document.getElementById('btn-incense');
-        btn.classList.remove('active');
-        setTimeout(restoreIncensePosition, 1500);
-    }
-
-    function finishIncenseRitual() {
-        cancelAnimationFrame(incenseTimer);
-        clearTimeout(smokeTimer);
-        clearTimeout(ashTimer);
-        
-        // ✨ 儀式完成、香火燃盡時，也移除化現類別
-        const scene = document.getElementById('buddha-scene');
-        if(scene) scene.classList.remove('incense-active');
-
-        document.getElementById('stick-left').setAttribute('y1', '1020');
-        document.getElementById('stick-center').setAttribute('y1', '1020');
-        document.getElementById('stick-right').setAttribute('y1', '1020');
-        document.getElementById('glow-left').setAttribute('r', '0');
-        document.getElementById('glow-center').setAttribute('r', '0');
-        document.getElementById('glow-right').setAttribute('r', '0');
+  // ✨ 專屬法語浮現函數 (防重疊 + Android 強制繪圖卡頓優化)
+function showBlessing(text) {
+    const el = document.getElementById('blessing-text');
+    if(!el) return;
+    el.innerText = text;
+    el.style.animation = 'none'; 
     
-        const beamGroup = document.getElementById('orb-layer');
-        if(!beamGroup) return;
-        beamGroup.style.opacity = '1';
+    // 🌟 將強制重繪放入 requestAnimationFrame，避免卡死 GPU Compositor
+    requestAnimationFrame(() => {
+        el.style.animation = 'float-blessing 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards';
+    });
+}
 
-        const targetX = 500, targetY = 460;
-        const curves = [
-            { x: 475, y: 1010, cpX: 300, cpY: 600, id: 'left' },  
-            { x: 500, y: 1010, cpX: 500, cpY: 650, id: 'center' }, 
-            { x: 525, y: 1010, cpX: 700, cpY: 600, id: 'right' }  
-        ];
+function toggleAction(action) {
+    const btn = document.getElementById(`btn-${action}`);
+    if(!btn) return;
 
-        function getQBezier(t, p0, p1, p2) { return (1-t)*(1-t)*p0 + 2*(1-t)*t*p1 + t*t*p2; }
-
-        let animStart = Date.now();
-        const duration = 1200; 
-
-        function animateBeams() {
-            let elapsed = Date.now() - animStart;
-            let progress = Math.min(elapsed / duration, 1); 
-            
-            curves.forEach((p) => {
-                let headT = progress;
-                let tailT = Math.max(0, progress - 0.2); 
-                
-                let headX = getQBezier(headT, p.x, p.cpX, targetX);
-                let headY = getQBezier(headT, p.y, p.cpY, targetY);
-                let tailX = getQBezier(tailT, p.x, p.cpX, targetX);
-                let tailY = getQBezier(tailT, p.y, p.cpY, targetY);
-                
-                let d = `M ${tailX} ${tailY}`;
-                for(let t = tailT; t <= headT; t += 0.05) {
-                    d += ` L ${getQBezier(t, p.x, p.cpX, targetX)} ${getQBezier(t, p.y, p.cpY, targetY)}`;
-                }
-                d += ` L ${headX} ${headY}`;
-                
-                let glowEl = document.getElementById(`beam-${p.id}-glow`);
-                let coreEl = document.getElementById(`beam-${p.id}-core`);
-                
-                if (glowEl && coreEl) {
-                    glowEl.setAttribute('d', d);
-                    coreEl.setAttribute('d', d);
-                    
-                    glowEl.setAttribute('stroke-width', 15 * (1 - progress * 0.4));
-                    coreEl.setAttribute('stroke-width', 6 * (1 - progress * 0.4));
-                    
-                    let opacityGlow = (1 - Math.pow(progress, 3)) * 0.3; 
-                    let opacityCore = (1 - Math.pow(progress, 2.5)) * 0.9; 
-                    
-                    glowEl.style.opacity = opacityGlow;
-                    coreEl.style.opacity = opacityCore;
-                }
-            });
-
-            if (progress < 1) {
-                requestAnimationFrame(animateBeams);
-            } else {
-                beamGroup.style.opacity = '0';
-                curves.forEach((p) => {
-                    document.getElementById(`beam-${p.id}-glow`).setAttribute('d', '');
-                    document.getElementById(`beam-${p.id}-core`).setAttribute('d', '');
-                });
-
-                document.body.classList.remove('incense-on');
-                const btn = document.getElementById('btn-incense');
-                btn.classList.remove('active');
-                
-                setTimeout(restoreIncensePosition, 1500);
-            }
-        }
-        animateBeams();
-    }
-
-
-    function restoreIncensePosition() {
-        if(!document.body.classList.contains('incense-on')) {
-            document.getElementById('stick-center').setAttribute('y1', '875');
-            document.getElementById('glow-center').setAttribute('cy', '875');
-            document.getElementById('glow-center').setAttribute('r', '4');
-            document.getElementById('stick-left').setAttribute('x1', '475');
-            document.getElementById('stick-left').setAttribute('y1', '890');
-            document.getElementById('glow-left').setAttribute('cx', '475');
-            document.getElementById('glow-left').setAttribute('cy', '890');
-            document.getElementById('glow-left').setAttribute('r', '4');
-            document.getElementById('stick-right').setAttribute('x1', '525');
-            document.getElementById('stick-right').setAttribute('y1', '890');
-            document.getElementById('glow-right').setAttribute('cx', '525');
-            document.getElementById('glow-right').setAttribute('cy', '890');
-            document.getElementById('glow-right').setAttribute('r', '4');
-            ['left', 'right'].forEach(side => {
-    document.getElementById(`candle-body-${side}`).setAttribute('y', '970');
-    document.getElementById(`candle-body-${side}`).setAttribute('height', '60');
-    document.getElementById(`candle-wick-${side}`).setAttribute('y1', '965');
-    document.getElementById(`candle-wick-${side}`).setAttribute('y2', '975');
-    
-    // ✨ 修改這裡為 flame-move
-    document.getElementById(`flame-move-${side}`).style.transform = `translateY(0px)`;
-});
-
-
-        }
-    }
-    function createDualSmoke() {
-        if (!document.body.classList.contains('incense-on') || incenseProgress >= 1) return;
-        const container = document.getElementById('smoke-container');
+    if (action === 'bow') {
+        if (btn.classList.contains('active')) return; 
+        btn.classList.add('active');
         
-        const glows = [
-            document.getElementById('glow-left'),
-            document.getElementById('glow-center'),
-            document.getElementById('glow-right')
-        ];
-
-        glows.forEach(glow => {
-            if (Math.random() > 0.4) return; 
-            const rect = glow.getBoundingClientRect(); 
-            
-            const puff = document.createElement('div');
-            puff.className = 'smoke-fine';
-            puff.style.setProperty('--drift', `${(Math.random() - 0.5) * 40}px`);
-            puff.style.left = `${rect.left + rect.width / 2 - 4}px`; 
-            puff.style.top = `${rect.top - 60}px`; 
-            container.appendChild(puff);
-            setTimeout(() => { if(puff.parentNode) puff.remove() }, 4000);
+        // 🌟 1. 頂禮時掛上狀態
+        document.body.classList.add('bowing-active');
+        const scene = document.getElementById('buddha-scene');
+        
+        // 🌟 2. 採用 requestAnimationFrame 延遲 1 幀觸發放大，防止 JS 與 CSS 重繪擠在一起導致閃爍
+        requestAnimationFrame(() => {
+            if(scene) scene.classList.add('bowing');
         });
 
-        if (Math.random() > 0.6) {
-            const centerRect = glows[1].getBoundingClientRect();
-            const fog = document.createElement('div');
-            fog.className = 'smoke-diffused';
-            fog.style.setProperty('--drift', `${(Math.random() - 0.5) * 150}px`);
-            fog.style.left = `${centerRect.left + (Math.random() - 0.5) * 30 - 15}px`;
-            fog.style.top = `${centerRect.top - 40}px`;
-            container.appendChild(fog);
-            setTimeout(() => { if(fog.parentNode) fog.remove() }, 7000);
+        triggerGoldenBurst();
+        speakWords("無量光護佑安康");
+        showBlessing("無量光 ‧ 護佑安康");
+        
+        setTimeout(() => { 
+            if(scene) scene.classList.remove('bowing');
+            btn.classList.remove('active'); 
+            document.body.classList.remove('bowing-active');
+        }, 5500);
+    } 
+}
+
+let incenseTimer, smokeTimer, ashTimer;
+let incenseProgress = 0;
+
+function toggleIncense() {
+    const btn = document.getElementById('btn-incense');
+    const isActive = document.body.classList.contains('incense-on');
+    const scene = document.getElementById('buddha-scene');
+    
+    if (!isActive) {
+        document.body.classList.add('incense-on');
+        if(scene) scene.classList.add('incense-active');
+        btn.classList.add('active');
+        
+        speakWords("無量壽，願生極楽");
+        showBlessing("無量壽 ‧ 願生極樂");
+        
+        incenseProgress = 0;
+        createDualSmoke();
+        createAshDrop();
+        
+        let startTime = Date.now();
+        
+        function burn() {
+            let elapsed = (Date.now() - startTime) / 1000;
+            incenseProgress = Math.min(elapsed / 60, 1); 
+            
+            let cyCenter = 875 + (135 * incenseProgress);
+            document.getElementById('stick-center').setAttribute('y1', cyCenter);
+            document.getElementById('glow-center').setAttribute('cy', cyCenter);
+            
+            let cxLeft = 475 + (5 * incenseProgress);
+            let cyLeft = 890 + (120 * incenseProgress);
+            document.getElementById('stick-left').setAttribute('x1', cxLeft);
+            document.getElementById('stick-left').setAttribute('y1', cyLeft);
+            document.getElementById('glow-left').setAttribute('cx', cxLeft);
+            document.getElementById('glow-left').setAttribute('cy', cyLeft);
+            
+            let cxRight = 525 - (5 * incenseProgress);
+            let cyRight = 890 + (120 * incenseProgress);
+            document.getElementById('stick-right').setAttribute('x1', cxRight);
+            document.getElementById('stick-right').setAttribute('y1', cyRight);
+            document.getElementById('glow-right').setAttribute('cx', cxRight);
+            document.getElementById('glow-right').setAttribute('cy', cyRight);
+            
+            let meltAmount = 50 * incenseProgress;
+
+            ['left', 'right'].forEach(side => {
+                const cBody = document.getElementById(`candle-body-${side}`);
+                const cWick = document.getElementById(`candle-wick-${side}`);
+                const fMove = document.getElementById(`flame-move-${side}`);
+
+                if(cBody) {
+                    cBody.setAttribute('y', 970 + meltAmount);
+                    cBody.setAttribute('height', 60 - meltAmount);
+                }
+                if(cWick) {
+                    cWick.setAttribute('y1', 965 + meltAmount);
+                    cWick.setAttribute('y2', 975 + meltAmount);
+                }
+                if(fMove) {
+                    fMove.style.transform = `translateY(${meltAmount}px)`;
+                }
+            });
+            
+            if (incenseProgress < 1 && document.body.classList.contains('incense-on')) {
+                incenseTimer = requestAnimationFrame(burn);
+            } else if (incenseProgress >= 1 && document.body.classList.contains('incense-on')) {
+                finishIncenseRitual();
+            }
         }
+        incenseTimer = requestAnimationFrame(burn);
+    } else {
+        resetIncense();
+    }
+}
+
+function resetIncense() {
+    cancelAnimationFrame(incenseTimer);
+    clearTimeout(smokeTimer);
+    clearTimeout(ashTimer);
+    document.body.classList.remove('incense-on');
+    
+    const scene = document.getElementById('buddha-scene');
+    if(scene) scene.classList.remove('incense-active');
+    
+    const btn = document.getElementById('btn-incense');
+    if(btn) btn.classList.remove('active');
+    setTimeout(restoreIncensePosition, 1500);
+}
+
+function finishIncenseRitual() {
+    cancelAnimationFrame(incenseTimer);
+    clearTimeout(smokeTimer);
+    clearTimeout(ashTimer);
+    
+    const scene = document.getElementById('buddha-scene');
+    if(scene) scene.classList.remove('incense-active');
+
+    document.getElementById('stick-left').setAttribute('y1', '1020');
+    document.getElementById('stick-center').setAttribute('y1', '1020');
+    document.getElementById('stick-right').setAttribute('y1', '1020');
+    document.getElementById('glow-left').setAttribute('r', '0');
+    document.getElementById('glow-center').setAttribute('r', '0');
+    document.getElementById('glow-right').setAttribute('r', '0');
+
+    const beamGroup = document.getElementById('orb-layer');
+    if(!beamGroup) return;
+    beamGroup.style.opacity = '1';
+
+    const targetX = 500, targetY = 460;
+    const curves = [
+        { x: 475, y: 1010, cpX: 300, cpY: 600, id: 'left' },  
+        { x: 500, y: 1010, cpX: 500, cpY: 650, id: 'center' }, 
+        { x: 525, y: 1010, cpX: 700, cpY: 600, id: 'right' }  
+    ];
+
+    function getQBezier(t, p0, p1, p2) { return (1-t)*(1-t)*p0 + 2*(1-t)*t*p1 + t*t*p2; }
+
+    let animStart = Date.now();
+    const duration = 1200; 
+
+    function animateBeams() {
+        let elapsed = Date.now() - animStart;
+        let progress = Math.min(elapsed / duration, 1); 
         
-        smokeTimer = setTimeout(createDualSmoke, 300 + Math.random() * 200);
+        curves.forEach((p) => {
+            let headT = progress;
+            let tailT = Math.max(0, progress - 0.2); 
+            
+            let headX = getQBezier(headT, p.x, p.cpX, targetX);
+            let headY = getQBezier(headT, p.y, p.cpY, targetY);
+            let tailX = getQBezier(tailT, p.x, p.cpX, targetX);
+            let tailY = getQBezier(tailT, p.y, p.cpY, targetY);
+            
+            let d = `M ${tailX} ${tailY}`;
+            for(let t = tailT; t <= headT; t += 0.05) {
+                d += ` L ${getQBezier(t, p.x, p.cpX, targetX)} ${getQBezier(t, p.y, p.cpY, targetY)}`;
+            }
+            d += ` L ${headX} ${headY}`;
+            
+            let glowEl = document.getElementById(`beam-${p.id}-glow`);
+            let coreEl = document.getElementById(`beam-${p.id}-core`);
+            
+            if (glowEl && coreEl) {
+                glowEl.setAttribute('d', d);
+                coreEl.setAttribute('d', d);
+                
+                glowEl.setAttribute('stroke-width', 15 * (1 - progress * 0.4));
+                coreEl.setAttribute('stroke-width', 6 * (1 - progress * 0.4));
+                
+                let opacityGlow = (1 - Math.pow(progress, 3)) * 0.3; 
+                let opacityCore = (1 - Math.pow(progress, 2.5)) * 0.9; 
+                
+                glowEl.style.opacity = opacityGlow;
+                coreEl.style.opacity = opacityCore;
+            }
+        });
+
+        if (progress < 1) {
+            requestAnimationFrame(animateBeams);
+        } else {
+            beamGroup.style.opacity = '0';
+            curves.forEach((p) => {
+                let g = document.getElementById(`beam-${p.id}-glow`);
+                let c = document.getElementById(`beam-${p.id}-core`);
+                if(g) g.setAttribute('d', '');
+                if(c) c.setAttribute('d', '');
+            });
+
+            document.body.classList.remove('incense-on');
+            const btn = document.getElementById('btn-incense');
+            if(btn) btn.classList.remove('active');
+            
+            setTimeout(restoreIncensePosition, 1500);
+        }
+    }
+    animateBeams();
+}
+
+function restoreIncensePosition() {
+    if(!document.body.classList.contains('incense-on')) {
+        const sc = document.getElementById('stick-center');
+        const gc = document.getElementById('glow-center');
+        if(sc) sc.setAttribute('y1', '875');
+        if(gc) { gc.setAttribute('cy', '875'); gc.setAttribute('r', '4'); }
+
+        const sl = document.getElementById('stick-left');
+        const gl = document.getElementById('glow-left');
+        if(sl) { sl.setAttribute('x1', '475'); sl.setAttribute('y1', '890'); }
+        if(gl) { gl.setAttribute('cx', '475'); gl.setAttribute('cy', '890'); gl.setAttribute('r', '4'); }
+
+        const sr = document.getElementById('stick-right');
+        const gr = document.getElementById('glow-right');
+        if(sr) { sr.setAttribute('x1', '525'); sr.setAttribute('y1', '890'); }
+        if(gr) { gr.setAttribute('cx', '525'); gr.setAttribute('cy', '890'); gr.setAttribute('r', '4'); }
+
+        ['left', 'right'].forEach(side => {
+            const cb = document.getElementById(`candle-body-${side}`);
+            const cw = document.getElementById(`candle-wick-${side}`);
+            const fm = document.getElementById(`flame-move-${side}`);
+            if(cb) { cb.setAttribute('y', '970'); cb.setAttribute('height', '60'); }
+            if(cw) { cw.setAttribute('y1', '965'); cw.setAttribute('y2', '975'); }
+            if(fm) { fm.style.transform = `translateY(0px)`; }
+        });
+    }
+}
+
+function createDualSmoke() {
+    if (!document.body.classList.contains('incense-on') || incenseProgress >= 1) return;
+    
+    // 🌟 頂禮時暫停產生香煙，防止 DOM 節點過度累積鎖死 Android GPU
+    if (document.body.classList.contains('bowing-active')) {
+        smokeTimer = setTimeout(createDualSmoke, 1000);
+        return;
     }
 
-    function createAshDrop() {
-        if (!document.body.classList.contains('incense-on') || incenseProgress >= 1) return;
-        
-        const layer = document.getElementById('ash-layer');
-        const glows = ['glow-left', 'glow-center', 'glow-right'];
-        const activeGlow = document.getElementById(glows[Math.floor(Math.random() * glows.length)]);
-        
-        const cx = parseFloat(activeGlow.getAttribute('cx'));
-        const cy = parseFloat(activeGlow.getAttribute('cy'));
-        
-        const ash = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        ash.setAttribute('cx', cx);
-        ash.setAttribute('cy', cy);
-        ash.setAttribute('r', '1.5');
-        ash.setAttribute('fill', '#e0e0e0');
-        ash.style.transition = 'all 1.5s cubic-bezier(0.5, 0, 1, 1)';
-        layer.appendChild(ash);
-        
-        setTimeout(() => {
-            ash.setAttribute('cy', cy + 30 + Math.random() * 20); 
-            ash.setAttribute('cx', cx + (Math.random() - 0.5) * 10); 
-            ash.style.opacity = '0';
-        }, 50);
+    const container = document.getElementById('smoke-container');
+    if (!container) return;
 
-        setTimeout(() => { if(ash.parentNode) ash.remove() }, 1600);
+    const glows = [
+        document.getElementById('glow-left'),
+        document.getElementById('glow-center'),
+        document.getElementById('glow-right')
+    ];
+
+    glows.forEach(glow => {
+        if (!glow || Math.random() > 0.4) return; 
+        const rect = glow.getBoundingClientRect(); 
         
-        ashTimer = setTimeout(createAshDrop, 500 + Math.random() * 1000);
+        const puff = document.createElement('div');
+        puff.className = 'smoke-fine';
+        puff.style.setProperty('--drift', `${(Math.random() - 0.5) * 40}px`);
+        puff.style.left = `${rect.left + rect.width / 2 - 4}px`; 
+        puff.style.top = `${rect.top - 60}px`; 
+        container.appendChild(puff);
+        setTimeout(() => { if(puff.parentNode) puff.remove() }, 4000);
+    });
+
+    if (Math.random() > 0.6 && glows[1]) {
+        const centerRect = glows[1].getBoundingClientRect();
+        const fog = document.createElement('div');
+        fog.className = 'smoke-diffused';
+        fog.style.setProperty('--drift', `${(Math.random() - 0.5) * 150}px`);
+        fog.style.left = `${centerRect.left + (Math.random() - 0.5) * 30 - 15}px`;
+        fog.style.top = `${centerRect.top - 40}px`;
+        container.appendChild(fog);
+        setTimeout(() => { if(fog.parentNode) fog.remove() }, 7000);
+    }
+    
+    smokeTimer = setTimeout(createDualSmoke, 400 + Math.random() * 300); // 稍微放寬間隔，減輕 GPU 壓力
+}
+
+function createAshDrop() {
+    if (!document.body.classList.contains('incense-on') || incenseProgress >= 1) return;
+    
+    // 🌟 頂禮時暫停落灰粒子，釋放渲染資源
+    if (document.body.classList.contains('bowing-active')) {
+        ashTimer = setTimeout(createAshDrop, 1000);
+        return;
     }
 
-    function returnToMainHall() {
-        window.location.href = 'index.html?screen=3';
-    }
+    const layer = document.getElementById('ash-layer');
+    if(!layer) return;
 
-    // 初始化啟動
+    const glows = ['glow-left', 'glow-center', 'glow-right'];
+    const activeGlow = document.getElementById(glows[Math.floor(Math.random() * glows.length)]);
+    if(!activeGlow) return;
+
+    const cx = parseFloat(activeGlow.getAttribute('cx'));
+    const cy = parseFloat(activeGlow.getAttribute('cy'));
+    
+    const ash = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    ash.setAttribute('cx', cx);
+    ash.setAttribute('cy', cy);
+    ash.setAttribute('r', '1.5');
+    ash.setAttribute('fill', '#e0e0e0');
+    ash.style.transition = 'all 1.5s cubic-bezier(0.5, 0, 1, 1)';
+    layer.appendChild(ash);
+    
+    setTimeout(() => {
+        ash.setAttribute('cy', cy + 30 + Math.random() * 20); 
+        ash.setAttribute('cx', cx + (Math.random() - 0.5) * 10); 
+        ash.style.opacity = '0';
+    }, 50);
+
+    setTimeout(() => { if(ash.parentNode) ash.remove() }, 1600);
+    
+    ashTimer = setTimeout(createAshDrop, 600 + Math.random() * 1000);
+}
+
+function returnToMainHall() {
+    window.location.href = 'index.html?screen=3';
+}
+
+// 初始化啟動
+if (typeof handleStreak === 'function') {
     handleStreak();
+}
+
 
 </script>
 
