@@ -534,6 +534,48 @@ body {
     opacity: 0.65;
     transform: translate(500px, 280px) scale(0.55);
 }
+/* ================= 萬用 Android 頂禮防爆與 3D GPU 渲染硬體加速 ================= */
+
+/* 1. 萬用鎖定：強制所有參與頂禮動畫的層級開啟獨立 GPU 3D 渲染圖層 */
+#buddha-scene,
+#buddha-scene *,
+.buddha-breathe,
+.buddha-swastika,
+.bodhisattva-group,
+.halo-pulse,
+.aura-pulse,
+#burst-container {
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-transform-style: preserve-3d !important;
+    transform-style: preserve-3d !important;
+    will-change: transform, opacity;
+}
+
+/* 2. 萬用防撞：當觸發頂禮 bowing 時，強制暫停所有內部無限循環的呼吸/浮動動畫 */
+/* 防止「外層在放大下沉」與「內層在上下浮動/呼吸」雙重 transform 計算衝突 */
+#buddha-scene.bowing .buddha-breathe,
+#buddha-scene.bowing .halo-pulse,
+#buddha-scene.bowing .aura-pulse,
+#buddha-scene.bowing .candle-flicker {
+    animation-play-state: paused !important;
+}
+
+/* 3. 萬用修正：限制頂禮最大放大比例，解決部分安卓機型 Viewport 溢出位移 */
+#buddha-scene.bowing {
+    /* 使用 translate3d 代替 translate，強制讓渲染引擎走 GPU 3D 管道 */
+    transform: translate3d(0, 8%, 0) scale(1.22) !important;
+}
+
+/* 4. 萬用相容：修正所有頁面左側脅侍菩薩 scale 逗號缺失問題 */
+#buddha-scene.bowing #bodhisattva-left,
+#buddha-scene.incense-active #bodhisattva-left {
+    transform: translate(500px, 280px) scale(-0.55, 0.55) !important;
+}
+#buddha-scene.bowing #bodhisattva-right,
+#buddha-scene.incense-active #bodhisattva-right {
+    transform: translate(500px, 280px) scale(0.55, 0.55) !important;
+}
 
 
 
