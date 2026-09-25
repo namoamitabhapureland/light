@@ -507,8 +507,7 @@ body {
 #buddha-scene.incense-active #bodhisattva-right {
     opacity: 0.65;
     transform: translate(500px, 280px) scale(0.55);
-}
-        /* ==================== Android 專屬：完全無放大（Zero Scale）輕量頂禮 ==================== */
+}/* ==================== Android 專屬：單獨放大兩尊脅侍菩薩（莊嚴呈現） ==================== */
 /* 1. 眼睛對調 */
 #buddha-scene.bowing-android .buddha-eye-open { display: block !important; }
 #buddha-scene.bowing-android .buddha-eye-closed { display: none !important; }
@@ -517,21 +516,22 @@ body {
 #buddha-scene.bowing-android .buddha-hands-closed { display: none !important; }
 #buddha-scene.bowing-android .buddha-hands-open { display: block !important; }
 
-/* 3. 卍字發亮（純透明度提升，不放大） */
+/* 3. 卍字發亮 */
 #buddha-scene.bowing-android .buddha-swastika {
     opacity: 1.4 !important;
 }
 
-/* 4. 觀音與大勢至兩尊脅侍菩薩化現降臨（保持原本 scale，僅移動位置與浮現） */
+/* 4. 觀音與大勢至菩薩化現：單獨提升比例至 1.0，展現與阿彌陀佛相襯的莊嚴氣勢 */
 #buddha-scene.bowing-android #bodhisattva-left {
-    opacity: 0.55;
-    transform: translate(500px, 320px) scale(-0.25, 0.25);
+    opacity: 0.85;
+    /* 將比例從原本小型的 scale(-0.5, 0.5) 放大到 scale(-1, 1)，並微調平移位置 */
+    transform: translate(500px, 360px) scale(-1, 1);
 }
 #buddha-scene.bowing-android #bodhisattva-right {
-    opacity: 0.55;
-    transform: translate(500px, 320px) scale(0.25);
+    opacity: 0.85;
+    /* 將比例從原本小型的 scale(0.5) 放大到 scale(1)，並微調平移位置 */
+    transform: translate(500px, 360px) scale(1);
 }
-
 
 
 
