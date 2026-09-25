@@ -339,7 +339,6 @@
 
 
 <script>
-
     const canvas = document.getElementById('realmCanvas');
     const ctx = canvas.getContext('2d');
     let width, height;
@@ -350,7 +349,7 @@
     // 粒子系統與蓮花陣列
     let jieyinParticles = [];
     let yuanhaiParticles = [];
-    let lotusMatrix = []; // 儲存 48 朵金蓮
+    let lotusMatrix = []; // 儲存金蓮矩陣
     
     let angleX = 0.6, angleY = 0;
     let isDragging = false;
@@ -371,7 +370,7 @@
     }
     window.addEventListener('resize', resize); resize();
 
-      // 1. 初始化資料庫與行者資訊
+    // 1. 初始化資料庫與行者資訊
     let db; 
     try { 
         db = JSON.parse(localStorage.getItem('PX_V15.0')) || {}; 
@@ -440,7 +439,6 @@
         }
     }
 
-
     function project3D(x, y, z) {
         let cosX = Math.cos(angleX), sinX = Math.sin(angleX), cosY = Math.cos(angleY), sinY = Math.sin(angleY);
         let y1 = y*cosX - z*sinX, z1 = y*sinX + z*cosX;
@@ -450,7 +448,7 @@
         return { x: (width/2) + x2*scale, y: (height/2) - y1*scale - 50, scale: scale, z: z2 };
     }
 
-        // ✨ 繪製純金蓮花與心蕊名號 ✨
+    // ✨ 繪製純金蓮花與心蕊名號 ✨
     function drawGiantLotus(proj, beat, blend, rotation, scaleMult, lotusData) {
         if(!proj) return;
         ctx.save();
@@ -635,15 +633,13 @@
         });
         ctx.shadowBlur = 0; ctx.globalCompositeOperation = 'source-over';
 
-        // ✨ 繪製 48 朵金蓮矩陣 ✨
-        // 為了 3D 正確遮擋，將蓮花也做深度排序
+        // ✨ 繪製金蓮矩陣 ✨
         let projectedLotuses = [];
         lotusMatrix.forEach(lotus => {
             lotus.theta += lotus.orbitSpeed; // 公轉
-            // 讓蓮花隨著海浪軌道起伏
             let waveOffset = Math.sin(lotus.r * 0.05 - time * 2) * 40;
             let lx = Math.cos(lotus.theta) * lotus.r;
-            let lz = Math.sin(lotus.theta) * lotus.r + waveOffset + 10; // 稍微浮於水面
+            let lz = Math.sin(lotus.theta) * lotus.r + waveOffset + 10;
             
             let proj = project3D(lx, 0, lz);
             if(proj) projectedLotuses.push({ proj: proj, lotus: lotus });
@@ -651,13 +647,12 @@
 
         projectedLotuses.sort((a,b) => b.proj.z - a.proj.z);
 
-               projectedLotuses.forEach(item => {
+        projectedLotuses.forEach(item => {
             let beat = Math.sin(time * 2 + item.lotus.phase); 
             let rotation = time * item.lotus.rotateSpeed;     
-            // 將原本傳參改成帶入 item.lotus 物件
             drawGiantLotus(item.proj, beat, waveColorBlend, rotation, item.lotus.scale, item.lotus);
         });
-
+    } // 修正：精確關閉 renderYuanhai() 函數
 
     function animate() {
         ctx.fillStyle = 'rgba(2, 2, 5, 0.5)';
@@ -670,53 +665,49 @@
         requestAnimationFrame(animate);
     }
 
-function toggleRealm(type) {
-    if(currentRealm === type) return;
-    currentRealm = type;
-    
-    let title = document.getElementById('s-title'); 
-    let desc = document.getElementById('s-desc');
-    let hintContainer = document.getElementById('hold-hint');
-    let theoryBtn = document.getElementById('theory-btn');
-    let vowsBtn = document.getElementById('vows-btn'); // 這裡抓取玉簡按鈕
+    function toggleRealm(type) {
+        if(currentRealm === type) return;
+        currentRealm = type;
+        
+        let title = document.getElementById('s-title'); 
+        let desc = document.getElementById('s-desc');
+        let hintContainer = document.getElementById('hold-hint');
+        let theoryBtn = document.getElementById('theory-btn');
+        let vowsBtn = document.getElementById('vows-btn');
 
-    if (type === 0) {
-        title.innerText = "彌陀願力接引"; 
-        desc.innerHTML = "「萬念歸一，光芒四射。」<br>長按螢幕凝聚金光，願生極樂。";
-        title.style.color = 'var(--gold)';
-        hintContainer.style.display = 'block';
-        theoryBtn.style.display = 'none';
-        vowsBtn.style.display = 'none'; // 接引階段隱藏
-        angleX = 0.2; angleY = 0; 
-        charge = 0; gravityForce = 0;
-    } else {
-        title.innerText = "探彌陀無量願海"; 
-        desc.innerHTML = "「清淨海浪，大願金蓮。」<br>360度滑動螢幕，點亮無量大願海。";
-        title.style.color = 'var(--cyan)';
-        hintContainer.style.display = 'none';
+        if (type === 0) {
+            title.innerText = "彌陀願力接引"; 
+            desc.innerHTML = "「萬念歸一，光芒四射。」<br>長按螢幕凝聚金光，願生極樂。";
+            title.style.color = 'var(--gold)';
+            hintContainer.style.display = 'block';
+            theoryBtn.style.display = 'none';
+            vowsBtn.style.display = 'none';
+            angleX = 0.2; angleY = 0; 
+            charge = 0; gravityForce = 0;
+        } else {
+            title.innerText = "探彌陀無量願海"; 
+            desc.innerHTML = "「清淨海浪，大願金蓮。」<br>360度滑動螢幕，點亮無量大願海。";
+            title.style.color = 'var(--cyan)';
+            hintContainer.style.display = 'none';
 
-        theoryBtn.style.display = 'flex';
-        vowsBtn.style.display = 'flex'; // 願海階段顯示
-        angleX = 0.6; angleY = 0; 
+            theoryBtn.style.display = 'flex';
+            vowsBtn.style.display = 'flex';
+            angleX = 0.6; angleY = 0; 
+        }
     }
-}
-
-
 
     function openTheoryDrawer() { document.getElementById('theory-drawer').classList.add('open'); }
     function closeTheoryDrawer() { document.getElementById('theory-drawer').classList.remove('open'); }
-        function openVowsDrawer() { document.getElementById('vows-drawer').classList.add('open'); }
+    function openVowsDrawer() { document.getElementById('vows-drawer').classList.add('open'); }
     function closeVowsDrawer() { document.getElementById('vows-drawer').classList.remove('open'); }
     
     document.getElementById('vows-drawer').addEventListener('pointerdown', (e) => e.stopPropagation());
-
-
     document.getElementById('theory-drawer').addEventListener('pointerdown', (e) => e.stopPropagation());
     document.getElementById('ui-layer').addEventListener('pointerdown', (e) => e.stopPropagation());
 
     // --- 互動偵測 ---
     function onDown(e) { 
-        if(e.target.closest('#ui-layer') || e.target.closest('#theory-drawer')) return; 
+        if(e.target.closest('#ui-layer') || e.target.closest('#theory-drawer') || e.target.closest('#vows-drawer')) return; 
         isDragging = true; 
         lastMouseX = e.touches?e.touches[0].clientX:e.clientX; 
         lastMouseY = e.touches?e.touches[0].clientY:e.clientY; 
@@ -738,13 +729,12 @@ function toggleRealm(type) {
         if(!isDragging) return;
         isDragging = false; 
         
-        // 彌陀接引：蓄力超過 90 (約五秒) 放手，觸發爆光與過場
+        // 彌陀接引：蓄力超過 90 放手，觸發爆光與過場
         if(currentRealm === 0 && charge > 90 && !transitioning) {
             flashIntensity = 1; 
             document.getElementById('lengyan-flash').style.opacity = flashIntensity;
             transitioning = true;
             
-            // 引力自然衰退混亂，等待 3.5 秒後跳轉蓮海
             setTimeout(() => {
                 if(currentRealm === 0) toggleRealm(1);
                 transitioning = false;
@@ -757,8 +747,7 @@ function toggleRealm(type) {
     canvas.addEventListener('mousedown', onDown); window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp);
     canvas.addEventListener('touchstart', onDown, {passive: true}); canvas.addEventListener('touchmove', onMove, {passive: true}); window.addEventListener('touchend', onUp);
 
-    
-        // ================= ✨ 經文玉簡 TTS 語音系統 ✨ =================
+    // ================= ✨ 經文玉簡 TTS 語音系統 ✨ =================
     let isPlayingVows = false;
     let vowsUtterance = null;
 
@@ -770,7 +759,6 @@ function toggleRealm(type) {
             window.speechSynthesis.cancel(); isPlayingVows = false; btnText.innerText = "恭聆願文";
             btnIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
         } else {
-            // 中斷可能正在播放的探究文章語音
             if (isPlayingTheory) toggleTheoryAudio();
             
             let contentNodes = document.querySelectorAll('#vows-content-box .vow-num, #vows-content-box .vow-text');
@@ -803,7 +791,6 @@ function toggleRealm(type) {
     closeVowsDrawer = function() { if (isPlayingVows) toggleVowsAudio(); originalCloseVowsDrawer(); }
 
     // ================= ✨ TTS 語音導航系統 ✨ =================
-
     let isPlayingTheory = false;
     let theoryUtterance = null;
     window.sysUtterances = []; 
@@ -849,7 +836,11 @@ function toggleRealm(type) {
     const originalCloseTheoryDrawer = closeTheoryDrawer;
     closeTheoryDrawer = function() { if (isPlayingTheory) toggleTheoryAudio(); originalCloseTheoryDrawer(); }
 
-    initEngines(); toggleRealm(0); animate();
+    // 初始化啟動
+    initEngines(); 
+    toggleRealm(0); 
+    animate();
 </script>
+
 </body>
 </html>
