@@ -508,6 +508,30 @@ body {
     opacity: 0.65;
     transform: translate(500px, 280px) scale(0.55);
 }
+        /* ==================== Android 專屬：完全無放大（Zero Scale）輕量頂禮 ==================== */
+/* 1. 眼睛對調 */
+#buddha-scene.bowing-android .buddha-eye-open { display: block !important; }
+#buddha-scene.bowing-android .buddha-eye-closed { display: none !important; }
+
+/* 2. 手印切換（合十 -> 接引印） */
+#buddha-scene.bowing-android .buddha-hands-closed { display: none !important; }
+#buddha-scene.bowing-android .buddha-hands-open { display: block !important; }
+
+/* 3. 卍字發亮（純透明度提升，不放大） */
+#buddha-scene.bowing-android .buddha-swastika {
+    opacity: 1.4 !important;
+}
+
+/* 4. 觀音與大勢至兩尊脅侍菩薩化現降臨（保持原本 scale，僅移動位置與浮現） */
+#buddha-scene.bowing-android #bodhisattva-left {
+    opacity: 0.55;
+    transform: translate(500px, 320px) scale(-0.25, 0.25);
+}
+#buddha-scene.bowing-android #bodhisattva-right {
+    opacity: 0.55;
+    transform: translate(500px, 320px) scale(0.25);
+}
+
 
 
 
@@ -2462,7 +2486,7 @@ document.getElementById('milestone-name-display').innerText = currentName;
         el.style.animation = 'float-blessing 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards'; // 賦予新動畫
     }
 
-    function toggleAction(action) {
+function toggleAction(action) {
     const btn = document.getElementById(`btn-${action}`);
     if(!btn) return;
 
@@ -2474,10 +2498,10 @@ document.getElementById('milestone-name-display').innerText = currentName;
         btn.classList.add('active');
         
         if (isAndroid) {
-            // ─── Android 專屬：不放大移位、不放萬丈金光，極致安定 ───
-            // 菩薩們與阿彌陀佛尊像保持原本安定的位置呈顯，不觸發容易塌陷的 Viewport 縮放
+            // ─── Android 專屬：無任何畫面放大與金光粒子，僅純粹位置移動與菩薩浮現 ───
+            document.getElementById('buddha-scene').classList.add('bowing-android');
         } else {
-            // ─── 蘋果 (iOS)：100% 原汁原味，位移 + 放大 + 萬丈金光 ───
+            // ─── 蘋果 (iOS)：100% 原汁原味，位移 + 畫面放大 + 萬丈金光 + 菩薩化現 ───
             document.body.classList.add('bowing-active');
             document.getElementById('buddha-scene').classList.add('bowing');
             triggerGoldenBurst();
@@ -2487,7 +2511,9 @@ document.getElementById('milestone-name-display').innerText = currentName;
         showBlessing("無量光 ‧ 護佑安康");
         
         setTimeout(() => { 
-            if (!isAndroid) {
+            if (isAndroid) {
+                document.getElementById('buddha-scene').classList.remove('bowing-android');
+            } else {
                 document.getElementById('buddha-scene').classList.remove('bowing');
                 document.body.classList.remove('bowing-active');
             }
