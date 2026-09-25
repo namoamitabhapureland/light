@@ -353,13 +353,17 @@
     
     let angleX = 0.6, angleY = 0;
     let isDragging = false;
+    let hasInteracted = false; // 是否已開始滑動
+    let fadeOutFactor = 1.0;   // 背景蓮花淡出因子 (1 -> 0)
+    let buddhaOpacity = 0.0;   // 聖像顯化透明度 (0 -> 1)
+
     let lastMouseX = 0, lastMouseY = 0;
     
     // 物理狀態變數
     let charge = 0;         // 蓄力值 (0-100)
     let gravityForce = 0;   // 接引的引力
     let flashIntensity = 0; // 爆光強度
-    let waveColorBlend = 0; // 願海顏色過渡 (0=青灰, 1=純金)
+    let waveColorBlend = 0; // 願海顏色過渡
     let transitioning = false;
 
     const FOV = 400; 
@@ -370,36 +374,34 @@
     }
     window.addEventListener('resize', resize); resize();
 
-    // 1. 初始化資料庫與行者資訊
-    let db; 
-    try { 
-        db = JSON.parse(localStorage.getItem('PX_V15.0')) || {}; 
-    } catch(e) { 
-        db = {}; 
-    }
-    
-    const milestones = db.milestones || {};
-    const currentTotal = db.totalNian || 0;
-    const userName = db.name || ""; // 行者名字
-    const deck = document.getElementById('deck-container');
-    let autoActiveIdx = -1;
+    // 1. 解析 URL 網址參數或 localStorage
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlName = urlParams.get('name');
+    const urlCount = urlParams.get('count');
 
-    // 判斷是否滿足萬聲功德（或已有名號），決定開啟 48 朵或 47 朵
-    const hasQualifiedLotus = (currentTotal >= 10000 || userName !== "");
+    let db; 
+    try { db = JSON.parse(localStorage.getItem('PX_V15.0')) || {}; } catch(e) { db = {}; }
+    
+    const currentTotal = urlCount ? parseInt(urlCount) : (db.totalNian || 0);
+    const userName = urlName || db.name || db.userName || ""; 
+
+    // 建立 尊像 Path2D 資源
+    const personPath1 = new Path2D("M 500 108 C 506 108, 508 114, 508 118 C 522 118, 524 145, 510 155 C 550 155, 565 170, 565 220 C 565 250, 563 275, 558 295 C 553 312, 549 324, 544 330 C 542 336, 544 352, 550 370 C 610 370, 650 400, 670 480 C 690 560, 680 660, 650 700 C 720 680, 800 700, 830 750 C 860 800, 830 840, 770 840 L 230 840 C 170 840, 140 800, 170 750 C 200 700, 280 680, 350 700 C 320 660, 310 560, 330 480 C 350 400, 390 370, 450 370 C 456 352, 458 336, 456 330 C 451 324, 447 312, 442 295 C 437 275, 435 250, 435 220 C 435 170, 450 155, 490 155 C 476 145, 478 118, 492 118 C 492 114, 494 108, 500 108 Z");
+    const personPath2 = new Path2D("M 435 220 Q 427 205 426 220 Q 418 270 434 320 Q 428 380 454 330");
+    const personPath3 = new Path2D("M 565 220 Q 573 205 574 220 Q 582 270 566 320 Q 572 380 546 330");
 
     function initEngines() {
-        // 1. 彌陀願力接引：金色光塵
+        // 1. 金色光塵
         jieyinParticles = [];
-        for(let i=0; i<1500; i++) {
+        for(let i=0; i<1200; i++) {
             jieyinParticles.push({
                 x: (Math.random() - 0.5) * 1200, y: (Math.random() - 0.5) * 1200, z: (Math.random() - 0.5) * 1200,
                 vx: (Math.random() - 0.5) * 2, vy: (Math.random() - 0.5) * 2, vz: (Math.random() - 0.5) * 2,
-                c: Math.random() > 0.5 ? '#f3e5ab' : '#d4af37', 
-                s: Math.random() * 2 + 1
+                c: Math.random() > 0.5 ? '#f3e5ab' : '#d4af37', s: Math.random() * 2 + 1
             });
         }
 
-        // 2. 探彌陀願海：海浪波紋
+        // 2. 波紋粒子
         yuanhaiParticles = [];
         for(let r = 20; r <= 800; r += 15) {
             let count = Math.floor(r * 0.4);
@@ -412,27 +414,20 @@
             }
         }
 
-        // 3. 建立蓮花矩陣（動態判斷 47 或 48 朵，維護最低限度渲染效力）
+        // 3. 蓮花陣列（第 0 朵為主蓮花）
         lotusMatrix = [];
-        let totalLotusCount = hasQualifiedLotus ? 48 : 47;
+        lotusMatrix.push({
+            r: 0, theta: 0, orbitSpeed: 0, rotateSpeed: 0.1, scale: 1.2, phase: 0,
+            isUserLotus: true, name: userName
+        });
 
-        // 若滿足萬聲功德，第 1 朵為中央專屬「本名心蓮」
-        if (hasQualifiedLotus) {
+        for(let i = 1; i < 48; i++) {
             lotusMatrix.push({
-                r: 0, theta: 0, orbitSpeed: 0, rotateSpeed: 0.15, scale: 1.1, phase: 0,
-                isUserLotus: true, name: userName
-            });
-        }
-
-        // 填補其餘伴生金蓮
-        let startIndex = hasQualifiedLotus ? 1 : 0;
-        for(let i = startIndex; i < totalLotusCount; i++) {
-            lotusMatrix.push({
-                r: 60 + Math.random() * 350,               
+                r: 80 + Math.random() * 320,               
                 theta: Math.random() * Math.PI * 2,        
-                orbitSpeed: (Math.random() - 0.5) * 0.015, 
-                rotateSpeed: (Math.random() - 0.5) * 0.8,  
-                scale: 0.15 + Math.random() * 0.35,        
+                orbitSpeed: (Math.random() - 0.5) * 0.012, 
+                rotateSpeed: (Math.random() - 0.5) * 0.6,  
+                scale: 0.2 + Math.random() * 0.3,        
                 phase: Math.random() * Math.PI * 2,        
                 isUserLotus: false, name: ""
             });
@@ -445,20 +440,24 @@
         let x2 = x*cosY - z1*sinY, z2 = x*sinY + z1*cosY;
         if(z2 < -FOV+10) return null;
         let scale = FOV / (FOV + z2); 
-        return { x: (width/2) + x2*scale, y: (height/2) - y1*scale - 50, scale: scale, z: z2 };
+        return { x: (width/2) + x2*scale, y: (height/2) - y1*scale - 30, scale: scale, z: z2 };
     }
 
-    // ✨ 繪製純金蓮花與心蕊名號 ✨
-    function drawGiantLotus(proj, beat, blend, rotation, scaleMult, lotusData) {
-        if(!proj) return;
+    // ✨ 繪製蓮花與漸顯聖像 SVG ✨
+    function drawGiantLotus(proj, beat, blend, rotation, scaleMult, lotusData, globalAlphaOverride) {
+        if(!proj || globalAlphaOverride <= 0.01) return;
+        ctx.save();
+        ctx.globalAlpha = globalAlphaOverride;
+        
+        // --- 1. 繪製蓮花主體 ---
         ctx.save();
         ctx.translate(proj.x, proj.y);
         
-        let s = proj.scale * (3.5 * scaleMult + beat * 0.15 * scaleMult + blend * 0.5 * scaleMult); 
+        let s = proj.scale * (1.1 * scaleMult + beat * 0.05 * scaleMult); 
         ctx.scale(s, s);
         ctx.rotate(rotation); 
         
-        ctx.shadowBlur = (15 + blend * 20) * scaleMult; 
+        ctx.shadowBlur = 10 * scaleMult; 
         ctx.shadowColor = '#d4af37';
         
         let petalCount = 12; 
@@ -471,55 +470,57 @@
             
             let grad = ctx.createLinearGradient(0, 0, 0, -60);
             grad.addColorStop(0, '#d4af37');
-            let tipR = Math.floor(243 + (255 - 243) * blend);
-            let tipG = Math.floor(229 + (255 - 229) * blend);
-            let tipB = Math.floor(171 + (255 - 171) * blend);
-            grad.addColorStop(1, `rgba(${tipR}, ${tipG}, ${tipB}, 1)`); 
-            
+            grad.addColorStop(1, 'rgba(255, 248, 231, 0.9)'); 
             ctx.fillStyle = grad;
             ctx.fill();
             
             ctx.lineWidth = 0.5;
-            ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+            ctx.strokeStyle = 'rgba(255,255,255,0.3)';
             ctx.stroke();
-        }
-        
-        for(let i=0; i<petalCount; i++) {
-            ctx.rotate(((Math.PI * 2) / petalCount) + 0.1);
-            ctx.beginPath();
-            ctx.moveTo(0, 0);
-            ctx.quadraticCurveTo(8, -15, 0, -35);
-            ctx.quadraticCurveTo(-8, -15, 0, 0);
-            ctx.fillStyle = '#ffffff';
-            ctx.globalAlpha = 0.6 + blend * 0.4;
-            ctx.fill();
         }
         
         // 花心蓮台
         ctx.beginPath();
         ctx.arc(0, 0, 6, 0, Math.PI*2);
         ctx.fillStyle = '#ffffff';
-        ctx.globalAlpha = 1;
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 8;
         ctx.fill();
-        
-        // ✨ 專屬本名心蓮：微光名號顯化 ✨
-        if (lotusData && lotusData.isUserLotus && lotusData.name) {
-            ctx.rotate(-rotation); // 旋轉歸正，讓文字保持水平
-            ctx.font = "bold 11px 'PingFang TC', 'Microsoft JhengHei', serif";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillStyle = "rgba(243, 229, 171, 0.95)";
-            ctx.shadowBlur = 8;
-            ctx.shadowColor = "#f3e5ab";
-            ctx.fillText(lotusData.name, 0, 22);
+        ctx.restore(); 
+
+        // --- 2. 顯化尊像 SVG (獨一主蓮花專屬) ---
+        if (lotusData && lotusData.isUserLotus && buddhaOpacity > 0.01) {
+            ctx.save();
+            ctx.translate(proj.x, proj.y);
             
-            if (currentTotal >= 10000) {
-                ctx.font = "8px 'PingFang TC', 'Microsoft JhengHei', serif";
-                ctx.fillStyle = "rgba(139, 168, 156, 0.85)";
-                ctx.shadowBlur = 4;
-                ctx.shadowColor = "#8ba89c";
-                ctx.fillText("萬念感應", 0, 33);
+            // 套用您的 transform: translate(-38.5, -41.5) scale(0.077)
+            ctx.translate(-38.5, -41.5);
+            ctx.scale(0.077 * proj.scale * 1.2, 0.077 * proj.scale * 1.2);
+            
+            let personGrad = ctx.createLinearGradient(500, 108, 500, 840);
+            personGrad.addColorStop(0, `rgba(255, 255, 255, ${0.97 * buddhaOpacity})`);
+            personGrad.addColorStop(0.5, `rgba(243, 229, 171, ${0.90 * buddhaOpacity})`);
+            personGrad.addColorStop(1, `rgba(212, 175, 55, ${0.80 * buddhaOpacity})`);
+            
+            ctx.fillStyle = personGrad;
+            ctx.shadowBlur = 20 * buddhaOpacity;
+            ctx.shadowColor = "#f3e5ab";
+
+            ctx.fill(personPath1);
+            ctx.fill(personPath2);
+            ctx.fill(personPath3);
+            ctx.restore();
+
+            // 端莊顯示名號
+            if (lotusData.name && buddhaOpacity > 0.3) {
+                ctx.save();
+                ctx.translate(proj.x, proj.y + 40);
+                ctx.font = "600 15px 'PingFang TC', 'Noto Serif CJK TC', serif";
+                ctx.textAlign = "center";
+                ctx.fillStyle = `rgba(255, 248, 231, ${buddhaOpacity})`;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = "#d4af37";
+                ctx.fillText(lotusData.name, 0, 0);
+                ctx.restore();
             }
         }
         
@@ -529,19 +530,14 @@
     // --- 彌陀願力接引 ---
     function renderJieyin() {
         if(isDragging && !transitioning) {
-            charge += 0.35; 
-            if(charge > 100) charge = 100;
+            charge += 0.35; if(charge > 100) charge = 100;
             gravityForce = charge / 100; 
         } else if (!transitioning) {
-            charge = 0; 
-            gravityForce *= 0.90; 
+            charge = 0; gravityForce *= 0.90; 
         }
 
         flashIntensity *= 0.92;
-        if(flashIntensity > 0.01) {
-            document.getElementById('lengyan-flash').style.opacity = flashIntensity;
-        }
-
+        if(flashIntensity > 0.01) document.getElementById('lengyan-flash').style.opacity = flashIntensity;
         if(!isDragging) angleY += 0.002;
 
         let projected = [];
@@ -555,7 +551,6 @@
                 p.vx *= 0.9; p.vy *= 0.9; p.vz *= 0.9;
             } else {
                 p.vx += (Math.random()-0.5)*0.5; p.vy += (Math.random()-0.5)*0.5; p.vz += (Math.random()-0.5)*0.5;
-                if(p.vx > 3) p.vx = 3; if(p.vy > 3) p.vy = 3; if(p.vz > 3) p.vz = 3;
             }
 
             if(p.x > 600) p.x = -600; if(p.x < -600) p.x = 600;
@@ -572,33 +567,27 @@
 
         projected.sort((a,b) => b.z - a.z);
 
-        let coreProj = project3D(0,0,0);
-        if(coreProj) {
-            ctx.globalCompositeOperation = 'screen';
-            let coreR = (5 + 45 * gravityForce) * coreProj.scale * (1 + Math.sin(time*10)*0.1);
-            let grad = ctx.createRadialGradient(coreProj.x, coreProj.y, 0, coreProj.x, coreProj.y, coreR * 3);
-            grad.addColorStop(0, `rgba(255, 255, 255, ${Math.max(0.5, gravityForce)})`);
-            grad.addColorStop(0.3, `rgba(243, 229, 171, ${Math.max(0.4, gravityForce * 0.8)})`);
-            grad.addColorStop(1, 'rgba(212, 175, 55, 0)');
-            ctx.beginPath(); ctx.arc(coreProj.x, coreProj.y, coreR * 3, 0, Math.PI*2);
-            ctx.fillStyle = grad; ctx.fill();
-        }
-
         ctx.globalCompositeOperation = 'screen';
         projected.forEach(p => {
-            let fSize = p.s * p.sc * (1 + (p.isBright ? gravityForce : 0)); 
-            if(fSize < 0.2) return;
+            let fSize = p.s * p.sc; if(fSize < 0.2) return;
             ctx.beginPath(); ctx.arc(p.x, p.y, fSize, 0, Math.PI*2); ctx.fillStyle = p.c;
-            if(p.isBright && gravityForce > 0.5) { ctx.shadowBlur = 15 * p.sc; ctx.shadowColor = '#ffffff'; } 
-            else { ctx.shadowBlur = 0; }
             ctx.fill();
         });
-        ctx.shadowBlur = 0; ctx.globalCompositeOperation = 'source-over';
+        ctx.globalCompositeOperation = 'source-over';
     }
 
     // --- 探彌陀48願海 ---
     function renderYuanhai() {
         waveColorBlend += ((isDragging ? 1 : 0) - waveColorBlend) * 0.05;
+
+        // 計算滑動後的消失與顯化動畫
+        if (hasInteracted) {
+            fadeOutFactor += (0 - fadeOutFactor) * 0.08;  // 其他蓮花快速消失
+            buddhaOpacity += (1 - buddhaOpacity) * 0.03;   // 尊像緩緩出現
+        } else {
+            fadeOutFactor = 1.0;
+            buddhaOpacity = 0.0;
+        }
 
         if(!isDragging) {
             angleY += 0.001; 
@@ -610,14 +599,10 @@
             let waveZ = Math.sin(p.dist * 0.05 - time * 2) * 40;
             let proj = project3D(p.baseX, p.baseY, waveZ);
             if(proj) {
-                let r = Math.floor(139 + (243 - 139) * waveColorBlend);
-                let g = Math.floor(168 + (229 - 168) * waveColorBlend);
-                let b = Math.floor(156 + (171 - 156) * waveColorBlend);
-                let a = 0.3 + waveColorBlend * 0.5; 
-
+                let a = (0.3 + waveColorBlend * 0.5) * (hasInteracted ? fadeOutFactor : 1);
                 projected.push({ 
                     x: proj.x, y: proj.y, z: proj.z, sc: proj.scale, 
-                    c: `rgba(${r},${g},${b},${a})`, s: p.s * (1 + waveColorBlend * 0.5)
+                    c: `rgba(212,175,55,${a})`, s: p.s
                 });
             }
         });
@@ -628,15 +613,14 @@
         projected.forEach(p => {
             let fSize = p.s * p.sc; if(fSize < 0.2) return;
             ctx.beginPath(); ctx.arc(p.x, p.y, fSize, 0, Math.PI*2); ctx.fillStyle = p.c;
-            if(waveColorBlend > 0.5) { ctx.shadowBlur = 5 * p.sc; ctx.shadowColor = '#d4af37'; } else { ctx.shadowBlur = 0; }
             ctx.fill();
         });
-        ctx.shadowBlur = 0; ctx.globalCompositeOperation = 'source-over';
+        ctx.globalCompositeOperation = 'source-over';
 
-        // ✨ 繪製金蓮矩陣 ✨
+        // ✨ 蓮花矩陣渲染 ✨
         let projectedLotuses = [];
         lotusMatrix.forEach(lotus => {
-            lotus.theta += lotus.orbitSpeed; // 公轉
+            lotus.theta += lotus.orbitSpeed; 
             let waveOffset = Math.sin(lotus.r * 0.05 - time * 2) * 40;
             let lx = Math.cos(lotus.theta) * lotus.r;
             let lz = Math.sin(lotus.theta) * lotus.r + waveOffset + 10;
@@ -650,9 +634,12 @@
         projectedLotuses.forEach(item => {
             let beat = Math.sin(time * 2 + item.lotus.phase); 
             let rotation = time * item.lotus.rotateSpeed;     
-            drawGiantLotus(item.proj, beat, waveColorBlend, rotation, item.lotus.scale, item.lotus);
+            // 若為背景蓮花，套用 fadeOutFactor（滑動後消失）
+            let alpha = item.lotus.isUserLotus ? 1.0 : fadeOutFactor;
+            
+            drawGiantLotus(item.proj, beat, waveColorBlend, rotation, item.lotus.scale, item.lotus, alpha);
         });
-    } // 修正：精確關閉 renderYuanhai() 函數
+    }
 
     function animate() {
         ctx.fillStyle = 'rgba(2, 2, 5, 0.5)';
@@ -684,6 +671,7 @@
             vowsBtn.style.display = 'none';
             angleX = 0.2; angleY = 0; 
             charge = 0; gravityForce = 0;
+            hasInteracted = false;
         } else {
             title.innerText = "探彌陀無量願海"; 
             desc.innerHTML = "「清淨海浪，大願金蓮。」<br>360度滑動螢幕，點亮無量大願海。";
@@ -705,10 +693,11 @@
     document.getElementById('theory-drawer').addEventListener('pointerdown', (e) => e.stopPropagation());
     document.getElementById('ui-layer').addEventListener('pointerdown', (e) => e.stopPropagation());
 
-    // --- 互動偵測 ---
+    // --- 互動觸發 ---
     function onDown(e) { 
         if(e.target.closest('#ui-layer') || e.target.closest('#theory-drawer') || e.target.closest('#vows-drawer')) return; 
         isDragging = true; 
+        if (currentRealm === 1) hasInteracted = true; // 觸發滑動，繁花散去，尊像顯化
         lastMouseX = e.touches?e.touches[0].clientX:e.clientX; 
         lastMouseY = e.touches?e.touches[0].clientY:e.clientY; 
     }
@@ -729,7 +718,6 @@
         if(!isDragging) return;
         isDragging = false; 
         
-        // 彌陀接引：蓄力超過 90 放手，觸發爆光與過場
         if(currentRealm === 0 && charge > 90 && !transitioning) {
             flashIntensity = 1; 
             document.getElementById('lengyan-flash').style.opacity = flashIntensity;
